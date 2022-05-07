@@ -1,9 +1,15 @@
 <template>
-  <p>{{ message }}</p>
+  <button @click="increment">
+    {{ counter }}
+  </button>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const message = ref('Hello world!');
+const counter = ref(0);
+
+function increment() {
+  counter.value++;
+}
 </script>
