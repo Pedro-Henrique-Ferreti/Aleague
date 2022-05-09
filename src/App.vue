@@ -1,17 +1,26 @@
 <template>
-  <button @click="increment">
-    {{ counter }}
-  </button>
+  <component :is="currentLayout">
+    <router-view />
+  </component>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import HomeLayout from '@/layouts/HomeLayout.vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
 
-const counter = ref(0);
+const route = useRoute();
 
-function increment() {
-  counter.value++;
-}
+const currentLayout = computed(() => {
+  switch (route.meta.layout) {
+    case 'auth':
+      return AuthLayout;
+    case 'home':
+    default:
+      return HomeLayout;
+  }
+});
 </script>
 
 <style lang="scss">
