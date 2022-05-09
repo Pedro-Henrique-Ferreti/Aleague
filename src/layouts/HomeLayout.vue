@@ -2,3 +2,5 @@
   <h1>Home layout</h1>
   <slot />
 </template>
+
+<script setup></script>
