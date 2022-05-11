@@ -1,6 +1,8 @@
 <template>
-  <h1>Home layout</h1>
+  <TheHomeHeader />
   <slot />
 </template>
 
-<script setup></script>
+<script setup>
+import TheHomeHeader from '@/components/TheHomeHeader.vue';
+</script>
