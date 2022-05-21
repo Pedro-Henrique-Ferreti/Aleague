@@ -1,0 +1,42 @@
+:root {
+/* 
+* Adds color variables to CSS root
+*/
+  --color--white: #{$color--white};
+  --color--black: #{$color--black};
+  --color--gray-1: #{$color--gray-1};
+  --color--light-gray-1: #{$color--light-gray-1};
+  --color--light-gray-2: #{$color--light-gray-2};
+  --color--light-gray-3: #{$color--light-gray-3};
+
+  --color--primary: #{$color--primary};
+  --color--primary-lighten-1: #{$color--primary-lighten-1};
+  --color--primary-lighten-2: #{$color--primary-lighten-2};
+  --color--primary-lighten-3: #{$color--primary-lighten-3};
+  --color--primary-lighten-4: #{$color--primary-lighten-4};
+
+  --color--secondary: #{$color--secondary};
+  --color--secondary-lighten-1: #{$color--secondary-lighten-1};
+  --color--secondary-lighten-2: #{$color--secondary-lighten-2};
+  --color--secondary-lighten-3: #{$color--secondary-lighten-3};
+
+  --color--tertiary: #{$color--tertiary};
+  --color--tertiary-lighten-1: #{$color--tertiary-lighten-1};
+  --color--tertiary-lighten-2: #{$color--tertiary-lighten-2};
+  --color--tertiary-lighten-3: #{$color--tertiary-lighten-3};
+  --color--tertiary-lighten-4: #{$color--tertiary-lighten-4};
+  --color--tertiary-lighten-5: #{$color--tertiary-lighten-5};
+  --color--tertiary-lighten-6: #{$color--tertiary-lighten-6};
+
+  --color--success-darken-2: #{$color--success-darken-2};
+  --color--success: #{$color--success};
+  --color--success-lighten-4: #{$color--success-lighten-4};
+
+  --color--danger: #{$color--danger};
+  --color--danger-lighten-2: #{$color--danger-lighten-2};
+  --color--danger-lighten-4: #{$color--danger-lighten-4};
+
+  --color--text-darken: #{$color--text-darken};
+  --color--text: #{$color--text};
+  --color--text-lighten: #{$color--text-lighten};
+}
