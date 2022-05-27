@@ -1,6 +1,9 @@
 <template>
   <header class="home-header container-md">
     <AppLogo />
+    <BaseButton
+      size="small"
+    >Menu</BaseButton>
   </header>
 </template>
 
