@@ -1,8 +1,10 @@
 <template>
   <component class="button"
     :is="componentTag"
-    :disabled="disabled"
     :class="buttonClasses"
+    :disabled="componentTag === 'button' ? disabled : null"
+    :target="componentTag === 'a' ? '_blank' : null"
+    :rel="componentTag === 'a' ? 'noopener' : null"
   >
     <slot />
   </component>
@@ -13,6 +15,7 @@ const validColors = {
   primary: 'primary',
   secondary: 'secondary',
   tertiary: 'tertiary',
+  gray: 'gray',
 };
 
 const validSizes = {
@@ -46,9 +49,21 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  outline: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const componentTag = computed(() => {
+  /**
+   * Returns a button tag to prevent disabled elements
+   * from being activated by tab + enter commands.
+   */  
+  if (props.disabled) {
+    return 'button';
+  }
+
   switch (props.type) {
     case 'link':
       return 'router-link';
@@ -63,8 +78,11 @@ const buttonClasses = computed(() => ({
   'button--primary': props.color === validColors.primary,
   'button--secondary': props.color === validColors.secondary,
   'button--tertiary': props.color === validColors.tertiary,
+  'button--gray': props.color === validColors.gray,
   'button--small': props.size === validSizes.small,
   'button--large': props.size === validSizes.large,
+  'button--outline': props.outline,
+  'button--disabled': props.disabled,
 }));
 </script>
 
@@ -72,22 +90,41 @@ const buttonClasses = computed(() => ({
 .button {
   --color: #{$color--text-darken};
   --background-color: transparent;
+  --min-width: 7.5rem;
   --height: 2.75rem;
+  --border-radius: 0.5rem;
 
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: var(--min-width);
   height: var(--height);
+  padding: 0 1rem;
   color: var(--color);
   background-color: var(--background-color);
-  &--primary {
+  border-radius: var(--border-radius);
+  @include focus-ring;
+
+  &.button--disabled {
+    pointer-events: none;
+  }
+  &.button--primary {
     --background-color: #{$color--primary};
-    &:disabled {
+    &.button--disabled {
       --color: #{$color--text};
       --background-color: #{$color--primary-lighten-2};
     }
   }
-  &--small {
-    --height: 2rem;
+  &.button--secondary {
+    --background-color: #{$color--secondary};
+    --color: #{$color--white};
   }
-  &--large {
+  &.button--small {
+    --min-width: 6.25rem;
+    --height: 2rem;
+    --border-radius: 0.375rem;
+  }
+  &.button--large {
     --height: 3rem;
   }
 }
