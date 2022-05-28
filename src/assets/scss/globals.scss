@@ -3,4 +3,6 @@
 './variables/colors',
 './variables/font-weight';
 
-@import './mixins/breakpoints';
+@import
+'./mixins/breakpoints',
+'./mixins/focus-ring.scss';
