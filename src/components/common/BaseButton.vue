@@ -16,6 +16,8 @@ const validColors = {
   secondary: 'secondary',
   tertiary: 'tertiary',
   gray: 'gray',
+  danger: 'danger',
+  outline: 'outline',
 };
 
 const validSizes = {
@@ -49,10 +51,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  outline: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const componentTag = computed(() => {
@@ -79,9 +77,10 @@ const buttonClasses = computed(() => ({
   'button--secondary': props.color === validColors.secondary,
   'button--tertiary': props.color === validColors.tertiary,
   'button--gray': props.color === validColors.gray,
+  'button--danger': props.color === validColors.danger,
   'button--small': props.size === validSizes.small,
   'button--large': props.size === validSizes.large,
-  'button--outline': props.outline,
+  'button--outline': props.color === validColors.outline,
   'button--disabled': props.disabled,
 }));
 </script>
@@ -93,6 +92,9 @@ const buttonClasses = computed(() => ({
   --min-width: 7.5rem;
   --height: 2.75rem;
   --border-radius: 0.5rem;
+  --hover-background-color: transparent;
+  --disabled-color:#{$color--text-darken};
+  --disabled-background-color: transparent;
 
   display: inline-flex;
   justify-content: center;
@@ -103,21 +105,56 @@ const buttonClasses = computed(() => ({
   color: var(--color);
   background-color: var(--background-color);
   border-radius: var(--border-radius);
+  transition: background-color $transition--fastest ease;
   @include focus-ring;
+  &:hover,
+  &:active {
+    background-color: var(--hover-background-color);
+  }
 
   &.button--disabled {
     pointer-events: none;
+    color: var(--disabled-color);
+    background-color: var(--disabled-background-color);
   }
   &.button--primary {
     --background-color: #{$color--primary};
-    &.button--disabled {
-      --color: #{$color--text};
-      --background-color: #{$color--primary-lighten-2};
-    }
+    --hover-background-color: #{$color--primary-lighten-1};
+    --disabled-color: #{$color--text};
+    --disabled-background-color: #{$color--primary-lighten-2};
   }
   &.button--secondary {
     --background-color: #{$color--secondary};
     --color: #{$color--white};
+    --hover-background-color: #{$color--secondary-lighten-1};
+    --disabled-color: #{$color--white};
+    --disabled-background-color: #{$color--secondary-lighten-2};
+  }
+  &.button--tertiary {
+    --background-color: #{$color--tertiary};
+    --color: #{$color--white};
+    --hover-background-color: #{$color--tertiary-lighten-1};
+    --disabled-color: #{$color--white};
+    --disabled-background-color: #{$color--tertiary-lighten-2};
+  }
+  &.button--gray {
+    --background-color: #{$color--light-gray-2};
+    --hover-background-color: #{$color--light-gray-1};
+    --disabled-color: #{$color--text};
+    --disabled-background-color: #{$color--light-gray-2};
+  }
+  &.button--danger {
+    --background-color: #{$color--danger};
+    --color: #{$color--white};
+    --hover-background-color: #{$color--danger-lighten-1};
+    --disabled-color: #{$color--white};
+    --disabled-background-color: #{$color--danger-lighten-1};
+  }
+  &.button--outline {
+    border: 1px solid $color--light-gray-1;
+    --color: #{$color--text};
+    --hover-background-color: #{$color--light-gray-2};
+    --disabled-color: #{$color--text};
   }
   &.button--small {
     --min-width: 6.25rem;
