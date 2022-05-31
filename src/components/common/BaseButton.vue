@@ -6,6 +6,10 @@
     :target="componentTag === 'a' ? '_blank' : null"
     :rel="componentTag === 'a' ? 'noopener' : null"
   >
+    <BaseIcon class="button__icon button__icon-left"
+      v-if="iconLeft"
+      :icon="iconLeft"
+    />
     <slot />
   </component>
 </template>
@@ -50,6 +54,10 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  iconLeft: {
+    type: String,
+    default: '',
   },
 });
 
@@ -97,6 +105,7 @@ const buttonClasses = computed(() => ({
   --disabled-background-color: transparent;
 
   display: inline-flex;
+  gap: 0.5rem;
   justify-content: center;
   align-items: center;
   min-width: var(--min-width);
@@ -163,6 +172,10 @@ const buttonClasses = computed(() => ({
   }
   &.button--large {
     --height: 3rem;
+  }
+
+  &__icon {
+    width: 0.75rem;
   }
 }
 </style>
