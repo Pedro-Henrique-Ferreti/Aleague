@@ -21,6 +21,7 @@
     outline: initial;
     position: initial;
     &:after {
+      display: none;
       position: unset;
       top: unset;
       left: unset;
