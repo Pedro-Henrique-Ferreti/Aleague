@@ -7,10 +7,28 @@
 
 <script setup>
 import { computed } from 'vue';
+import Close from '@/components/icons/IconClose.vue';
+import Menu from '@/components/icons/IconMenu.vue';
 import Save from '@/components/icons/IconSave.vue';
 
+const props = defineProps({
+  icon: {
+    type: String,
+    required: true,
+  },
+});
+
 const icon = computed(() => {
-  return Save;
+  switch (props.icon.toLowerCase()) {
+    case 'close':
+      return Close;
+    case 'menu':
+      return Menu;
+    case 'save':
+      return Save;
+    default:
+      return '';
+  }
 });
 </script>
 
