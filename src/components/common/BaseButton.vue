@@ -14,6 +14,13 @@
       />
     </div>
     <slot />
+    <div class="button__icon-wrapper"
+      v-if="iconRight"
+    >
+      <BaseIcon class="button__icon button__icon-right"
+        :icon="iconRight"
+      />
+    </div>
   </component>
 </template>
 
@@ -59,6 +66,10 @@ const props = defineProps({
     default: false,
   },
   iconLeft: {
+    type: String,
+    default: '',
+  },
+  iconRight: {
     type: String,
     default: '',
   },
