@@ -9,7 +9,7 @@
     <div class="button__icon-wrapper"
       v-if="iconLeft"
     >
-      <BaseIcon class="button__icon button__icon-left"
+      <BaseIcon class="button__icon"
         :icon="iconLeft"
       />
     </div>
@@ -17,7 +17,7 @@
     <div class="button__icon-wrapper"
       v-if="iconRight"
     >
-      <BaseIcon class="button__icon button__icon-right"
+      <BaseIcon class="button__icon"
         :icon="iconRight"
       />
     </div>
