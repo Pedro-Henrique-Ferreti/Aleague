@@ -6,10 +6,13 @@
     :target="componentTag === 'a' ? '_blank' : null"
     :rel="componentTag === 'a' ? 'noopener' : null"
   >
-    <BaseIcon class="button__icon button__icon-left"
+    <div class="button__icon-wrapper"
       v-if="iconLeft"
-      :icon="iconLeft"
-    />
+    >
+      <BaseIcon class="button__icon button__icon-left"
+        :icon="iconLeft"
+      />
+    </div>
     <slot />
   </component>
 </template>
@@ -59,6 +62,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  iconRounded: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const componentTag = computed(() => {
@@ -90,6 +97,7 @@ const buttonClasses = computed(() => ({
   'button--large': props.size === validSizes.large,
   'button--outline': props.color === validColors.outline,
   'button--disabled': props.disabled,
+  'button--icon-rounded': props.iconRounded,
 }));
 </script>
 
@@ -100,12 +108,15 @@ const buttonClasses = computed(() => ({
   --min-width: 7.5rem;
   --height: 2.75rem;
   --border-radius: 0.5rem;
+  --gap: 0.875rem;
+  --icon-width: 1rem;
+  --icon-background-color: transparent;
   --hover-background-color: transparent;
   --disabled-color:#{$color--text-darken};
   --disabled-background-color: transparent;
 
   display: inline-flex;
-  gap: 0.5rem;
+  gap: var(--gap);
   justify-content: center;
   align-items: center;
   min-width: var(--min-width);
@@ -128,6 +139,7 @@ const buttonClasses = computed(() => ({
   }
   &.button--primary {
     --background-color: #{$color--primary};
+    --icon-background-color: #{$color--primary-lighten-1};
     --hover-background-color: #{$color--primary-lighten-1};
     --disabled-color: #{$color--text};
     --disabled-background-color: #{$color--primary-lighten-2};
@@ -135,6 +147,7 @@ const buttonClasses = computed(() => ({
   &.button--secondary {
     --background-color: #{$color--secondary};
     --color: #{$color--white};
+    --icon-background-color: #{$color--secondary-lighten-1};
     --hover-background-color: #{$color--secondary-lighten-1};
     --disabled-color: #{$color--white};
     --disabled-background-color: #{$color--secondary-lighten-2};
@@ -173,9 +186,25 @@ const buttonClasses = computed(() => ({
   &.button--large {
     --height: 3rem;
   }
-
-  &__icon {
-    width: 0.75rem;
+  &.button--icon-rounded {
+    --gap: 0.5rem;
+    --icon-width: 0.75rem;
+    .button__icon-wrapper {
+      justify-content: center;
+      align-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background-color: var(--icon-background-color);
+    }
+  }
+  
+  &__icon-wrapper {
+    display: flex;
+  }
+  .button__icon {
+    width: var(--icon-width);
+    fill: var(--color);
   }
 }
 </style>
