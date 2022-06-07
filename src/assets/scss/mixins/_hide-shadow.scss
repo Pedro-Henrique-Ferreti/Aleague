@@ -1,0 +1,25 @@
+@mixin hide-shadow($top: false, $right: false, $bottom: false, $left: false) {
+
+  @if $top {
+    --shadow-top: 0;
+  }
+
+  @if $right {
+    --shadow-right: 0;
+  }
+
+  @if $bottom {
+    --shadow-bottom: 0;
+  }
+
+  @if $left {
+    --shadow-left: 0;
+  }
+
+  clip-path: inset(
+    var(--shadow-top, -100%)
+    var(--shadow-right, -100%)
+    var(--shadow-bottom, -100%)
+    var(--shadow-left, -100%)
+  );
+}
