@@ -13,6 +13,7 @@
       </BaseButton>
     </div>
     <BaseButton
+      class="home-header__toggle-menu-button"
       color="gray"
       size="small"
       :icon-left="menuIsOpen ? 'close' : 'menu'"
@@ -39,6 +40,7 @@ const menuIsOpen = ref(false);
   &__menu {
     display: none;
     flex-direction: column;
+    align-items: center;
     padding-top: 0.5rem;
     padding-bottom: 1.5rem;
     background-color: $color--white;
@@ -47,18 +49,47 @@ const menuIsOpen = ref(false);
     left: 0;
     right: 0;
     z-index: 1;
-    box-shadow: $box-shadow--layer-2;
-    @include hide-shadow($top: true);
     &--open {
       display: flex;
     }
+    @include for-large-tablet-portrait-down {
+      box-shadow: $box-shadow--layer-2;
+      @include hide-shadow($top: true);
+    }
+    @include for-large-tablet-portrait-up {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: unset;
+      gap: 1.5rem;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      position: unset;
+    }    
   }
   &__menu-divider {
     margin-bottom: 1.5rem;
     background-color: $color--light-gray-1;
+    @include for-large-tablet-portrait-up {
+      display: none;
+    }
   }
-  &__menu-button:not(:last-child) {
-    margin-bottom: 1rem;
+  &__menu-button {
+    @include for-large-tablet-portrait-down {
+      width: 100%;
+      max-width: 25rem;
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+    @include for-large-tablet-portrait-up {
+      width: 150px;
+    }
+  }
+  .home-header__toggle-menu-button {
+    @include for-large-tablet-portrait-up {
+      display: none;
+    }
   }
 }
 </style>
