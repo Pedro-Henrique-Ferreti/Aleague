@@ -47,6 +47,8 @@ const menuIsOpen = ref(false);
     left: 0;
     right: 0;
     z-index: 1;
+    box-shadow: 0 8px 40px 4px #4A54721A;
+    clip-path: inset(0 0 -100% 0);
     &--open {
       display: flex;
     }
