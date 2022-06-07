@@ -1,4 +1,5 @@
 @import
+'./variables/box-shadow',
 './variables/breakpoints',
 './variables/colors',
 './variables/font-weight',
@@ -6,4 +7,5 @@
 
 @import
 './mixins/breakpoints',
-'./mixins/focus-ring.scss';
+'./mixins/focus-ring.scss',
+'./mixins/hide-shadow';
