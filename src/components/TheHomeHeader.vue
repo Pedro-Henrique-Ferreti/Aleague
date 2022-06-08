@@ -1,7 +1,7 @@
 <template>
-  <header class="home-header container-md">
+  <header class="home-header container-medium">
     <AppLogo />
-    <div class="home-header__menu container-sm"
+    <div class="home-header__menu container-small"
       :class="[menuIsOpen ? 'home-header__menu--open' : '']"
     >
       <hr class="home-header__menu-divider" />
@@ -83,7 +83,7 @@ const menuIsOpen = ref(false);
       }
     }
     @include for-large-tablet-portrait-up {
-      width: 150px;
+      width: 9.5rem;
     }
   }
   .home-header__toggle-menu-button {
