@@ -1,7 +1,7 @@
 <template>
   <header class="home-header container-medium">
     <AppLogo />
-    <div class="home-header__menu container-small"
+    <div class="home-header__menu container"
       :class="[menuIsOpen ? 'home-header__menu--open' : '']"
     >
       <hr class="home-header__menu-divider" />

@@ -6,6 +6,9 @@
   margin-right: auto;
 }
 
+.container {
+  @extend %container;
+}
 .container-small {
   @extend %container;
   max-width: calc(var(--container-padding) * 2 + 56.25rem);
