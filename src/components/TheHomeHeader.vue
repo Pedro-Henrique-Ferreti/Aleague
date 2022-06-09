@@ -1,26 +1,32 @@
 <template>
-  <header class="home-header container-medium">
-    <AppLogo />
-    <div class="home-header__menu container"
-      :class="[menuIsOpen ? 'home-header__menu--open' : '']"
-    >
-      <hr class="home-header__menu-divider" />
-      <BaseButton class="home-header__menu-button">Cadastre-se</BaseButton>
-      <BaseButton class="home-header__menu-button"
-        color="gray"
+  <header class="home-header"
+    :class="[headerIsPinned ? 'home-header--pinned' : '']"
+  >
+    <div class="home-header__content container-medium">
+      <AppLogo />
+      <nav class="home-header__menu container"
+        :class="[menuIsOpen ? 'home-header__menu--open' : '']"
       >
-        Fazer Login
+        <hr class="home-header__menu-divider">
+        <BaseButton class="home-header__menu-button">
+          Cadastre-se
+        </BaseButton>
+        <BaseButton class="home-header__menu-button"
+          color="gray"
+        >
+          Fazer Login
+        </BaseButton>
+      </nav>
+      <BaseButton
+        class="home-header__toggle-menu-button"
+        color="gray"
+        size="small"
+        :icon-left="menuIsOpen ? 'close' : 'menu'"
+        @click="menuIsOpen = !menuIsOpen"
+      >
+        Menu
       </BaseButton>
     </div>
-    <BaseButton
-      class="home-header__toggle-menu-button"
-      color="gray"
-      size="small"
-      :icon-left="menuIsOpen ? 'close' : 'menu'"
-      @click="menuIsOpen = !menuIsOpen"
-    >
-      Menu
-    </BaseButton>
   </header>
 </template>
 
@@ -29,21 +35,36 @@ import { ref } from 'vue';
 import AppLogo from '@/components/AppLogo.vue';
 
 const menuIsOpen = ref(false);
+const headerIsPinned = ref(false);
+
+document.addEventListener('scroll', () => {
+  headerIsPinned.value = window.scrollY > 60;
+});
 </script>
 
 <style lang="scss" scoped>
 .home-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  &--pinned {
+    background-color: $color--white;
+    position: fixed;
+    animation: header-slide-down 0.5s ease-in-out;
+  }
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+  }
   &__menu {
     display: none;
     flex-direction: column;
     align-items: center;
     padding-top: 0.5rem;
     padding-bottom: 1.5rem;
-    background-color: $color--white;
     position: absolute;
     top: 5rem;
     left: 0;
@@ -53,6 +74,7 @@ const menuIsOpen = ref(false);
       display: flex;
     }
     @include for-large-tablet-portrait-down {
+      background-color: $color--white;
       box-shadow: $box-shadow--layer-2;
       @include hide-shadow($top: true);
     }
@@ -65,7 +87,7 @@ const menuIsOpen = ref(false);
       margin: 0;
       padding: 0;
       position: unset;
-    }    
+    }
   }
   &__menu-divider {
     margin-bottom: 1.5rem;
@@ -90,6 +112,17 @@ const menuIsOpen = ref(false);
     @include for-large-tablet-portrait-up {
       display: none;
     }
+  }
+}
+
+@keyframes header-slide-down {
+  from {
+    opacity: 0;
+    top: -100px;
+  }
+  to {
+    opacity: 1;
+    top: 0;
   }
 }
 </style>
