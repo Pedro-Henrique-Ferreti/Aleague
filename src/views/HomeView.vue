@@ -1,3 +1,9 @@
 <template>
-  <h2>Home page</h2>
+  <main class="home">
+    <SectionHero />
+  </main>
 </template>
+
+<script setup>
+import SectionHero from '@/components/HomeSectionHero.vue';
+</script>
