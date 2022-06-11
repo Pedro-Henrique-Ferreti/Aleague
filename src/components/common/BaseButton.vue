@@ -83,7 +83,7 @@ const componentTag = computed(() => {
   /**
    * Returns a button tag to prevent disabled elements
    * from being activated by tab + enter commands.
-   */  
+   */
   if (props.disabled) {
     return 'button';
   }
@@ -209,7 +209,7 @@ const buttonClasses = computed(() => ({
       background-color: var(--icon-background-color);
     }
   }
-  
+
   &__icon-wrapper {
     display: flex;
   }
