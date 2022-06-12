@@ -16,9 +16,17 @@
 							<br />
 							<span class="hero__title-callout">campeonatos de futebol</span>
 						</h1>
-						<p>
+						<p class="hero__description">
 							Com o Alegue, você pode criar campeonatos de futebol de maneira fácil e rápida. Escolha entre diversos formatos e opções de regras para ter uma experiência completa.
 						</p>
+						<BaseButton
+							large
+							color="tertiary"
+							icon-right="arrowFoward"
+							icon-rounded
+						>
+							Começar agora
+						</BaseButton>
 					</div>
 					<img class="hero__illustration"
 						src="/images/soccer-kick.svg"
@@ -34,9 +42,17 @@
 							<br />
 							<span class="hero__title-callout">equipes</span>
 						</h1>
-						<p>
+						<p class="hero__description">
 							Escolha nomes, cores e diversas opções de escudos para a sua nova equipe. Se preferir, você pode utilizar o pacote de equipes para cadastrar os clubes das ligas mais famosas do mundo.
 						</p>
+						<BaseButton
+							large
+							color="secondary"
+							icon-right="arrowFoward"
+							icon-rounded
+						>
+							Começar agora
+						</BaseButton>
 					</div>
 					<img class="hero__illustration"
 						src="/images/team-board.svg"
@@ -52,9 +68,16 @@
 							<br />
 							<span class="hero__title-callout">estatísticas e resultados</span>
 						</h1>
-						<p>
+						<p class="hero__description">
 							O Aleague apresenta estatísticas detalhadas sobre cada equipe e cada campeonato que você criar. Mergulhe em uma profunda análise dos resultados das suas equipes.
 						</p>
+						<BaseButton
+							large
+							icon-right="arrowFoward"
+							icon-rounded
+						>
+							Começar agora
+						</BaseButton>
 					</div>
 					<img class="hero__illustration"
 						src="/images/spreadsheet.svg"
@@ -73,6 +96,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
 import 'swiper/css/autoplay';
+import BaseButton from './common/BaseButton.vue';
 
 const modules = ref([Autoplay, Pagination]);
 const paginationOptions = ref({
@@ -163,6 +187,12 @@ const autoplayOptions = ref({
 		color: var(--slide-theme-color);
 		font-size: inherit;
 		font-weight: inherit;
+	}
+	&__description {
+		margin-bottom: 1.5rem;
+		@include for-desktop-up {
+			margin-bottom: 2rem;
+		}
 	}
 	&__illustration {
 		width: 18.75rem;

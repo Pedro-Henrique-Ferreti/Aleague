@@ -48,6 +48,7 @@ document.addEventListener('scroll', () => {
   top: 0;
   right: 0;
   left: 0;
+  z-index: 2;
   &--pinned {
     background-color: $color--white;
     position: fixed;

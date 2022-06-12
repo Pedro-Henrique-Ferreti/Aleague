@@ -10,6 +10,7 @@ import { computed } from 'vue';
 import Close from '@/components/icons/IconClose.vue';
 import Menu from '@/components/icons/IconMenu.vue';
 import Save from '@/components/icons/IconSave.vue';
+import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
 
 const props = defineProps({
   icon: {
@@ -26,6 +27,8 @@ const icon = computed(() => {
       return Menu;
     case 'save':
       return Save;
+    case 'arrowfoward':
+      return ArrowFoward;
     default:
       return '';
   }
