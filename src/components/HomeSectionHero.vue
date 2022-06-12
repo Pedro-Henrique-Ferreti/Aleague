@@ -8,9 +8,60 @@
       :space-between="50"
 			:autoplay="autoplayOptions"
     >
-      <SwiperSlide>Lorem ipsum dolor sit amet.</SwiperSlide>
-      <SwiperSlide>Lorem ipsum dolor sit amet.</SwiperSlide>
-      <SwiperSlide>Lorem ipsum dolor sit amet.</SwiperSlide>
+      <SwiperSlide>
+				<div class="hero__slide">
+					<div class="hero__slide-details">
+						<h1 class="hero__title">
+							Crie e gerencie
+							<br />
+							<span class="hero__title-callout">campeonatos de futebol</span>
+						</h1>
+						<p>
+							Com o Alegue, você pode criar campeonatos de futebol de maneira fácil e rápida. Escolha entre diversos formatos e opções de regras para ter uma experiência completa.
+						</p>
+					</div>
+					<img class="hero__illustration"
+						src="/images/soccer-kick.svg"
+						alt="Soccer players"
+					/>
+				</div>
+			</SwiperSlide>
+      <SwiperSlide>
+				<div class="hero__slide hero__slide--theme-tertiary">
+					<div class="hero__slide-details">
+						<h1 class="hero__title">
+							Faça suas próprias
+							<br />
+							<span class="hero__title-callout">equipes</span>
+						</h1>
+						<p>
+							Escolha nomes, cores e diversas opções de escudos para a sua nova equipe. Se preferir, você pode utilizar o pacote de equipes para cadastrar os clubes das ligas mais famosas do mundo.
+						</p>
+					</div>
+					<img class="hero__illustration"
+						src="/images/team-board.svg"
+						alt="Team board"
+					/>
+				</div>
+			</SwiperSlide>
+      <SwiperSlide>
+				<div class="hero__slide hero__slide--theme-secondary">
+					<div class="hero__slide-details">
+						<h1 class="hero__title">
+							Análise detalhada de
+							<br />
+							<span class="hero__title-callout">estatísticas e resultados</span>
+						</h1>
+						<p>
+							O Aleague apresenta estatísticas detalhadas sobre cada equipe e cada campeonato que você criar. Mergulhe em uma profunda análise dos resultados das suas equipes.
+						</p>
+					</div>
+					<img class="hero__illustration"
+						src="/images/spreadsheet.svg"
+						alt="Spreadsheet"
+					/>
+				</div>
+			</SwiperSlide>
     </Swiper>
   </section>
 </template>
@@ -61,9 +112,14 @@ const autoplayOptions = ref({
 
 <style lang="scss" scoped>
 .hero {
-	padding-top: 8rem;
-	padding-bottom: 4.5rem;
+	--slide-theme-color: #{$color--primary};
+
+	padding-top: 6rem;
 	position: relative;
+	@include for-tablet-landscape-up {
+		padding-top: 8rem;
+		padding-bottom: 4.5rem;
+	}
 	&::after {
 		content: '';
 		display: block;
@@ -75,8 +131,44 @@ const autoplayOptions = ref({
 		right: 0;
 		z-index: -1;
 		clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%);
-		@include for-large-tablet-landscape-down {
+		@include for-tablet-landscape-down {
 			display: none;
+		}
+	}
+	&__slide {
+		display: grid;
+		gap: 2rem;
+		place-items: center;
+		@include for-tablet-landscape-up {
+			grid-template-columns: 1fr auto;
+			gap: 4rem;
+		}
+		&--theme-secondary {
+			--slide-theme-color: #{$color--secondary};
+		}
+		&--theme-tertiary {
+			--slide-theme-color: #{$color--tertiary};
+		}
+	}
+	&__title {
+		margin-bottom: 1rem;
+		color: $color--text-darken;
+		font-size: 1.875rem;
+		font-weight: $font-weight--semibold;
+		@include for-desktop-up {
+			font-size: 3rem;
+		}
+	}
+	&__title-callout {
+		color: var(--slide-theme-color);
+		font-size: inherit;
+		font-weight: inherit;
+	}
+	&__illustration {
+		width: 18.75rem;
+		height: auto;
+		@include for-desktop-up {
+			width: 25rem;
 		}
 	}
 }
