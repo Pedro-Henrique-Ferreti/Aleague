@@ -1,8 +1,11 @@
 <template>
   <section class="hero">
-    <Swiper
+    <Swiper class="container-small"
+			:modules="modules"
+			:pagination="true"
       :slides-per-view="1"
       :space-between="50"
+			:autoplay="{ delay: 7500 }"
     >
       <SwiperSlide>Lorem ipsum dolor sit amet.</SwiperSlide>
       <SwiperSlide>Lorem ipsum dolor sit amet.</SwiperSlide>
@@ -12,9 +15,14 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
+import 'swiper/css/autoplay';
+
+const modules = ref([Autoplay, Pagination]);
 </script>
 
 <style lang="scss" scoped>
