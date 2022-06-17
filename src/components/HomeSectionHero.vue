@@ -1,90 +1,90 @@
 <template>
   <section class="hero">
     <Swiper id="hero-swiper"
-			class="container"
-			:modules="modules"
-			:pagination="paginationOptions"
+      class="container"
+      :modules="modules"
+      :pagination="paginationOptions"
       :slides-per-view="1"
       :space-between="50"
-			:autoplay="autoplayOptions"
+      :autoplay="autoplayOptions"
     >
       <SwiperSlide>
-				<div class="hero__slide">
-					<div class="hero__slide-details">
-						<h1 class="hero__title">
-							Crie e gerencie
-							<br />
-							<span class="hero__title-callout">campeonatos de futebol</span>
-						</h1>
-						<p class="hero__description">
-							Com o Alegue, você pode criar campeonatos de futebol de maneira fácil e rápida. Escolha entre diversos formatos e opções de regras para ter uma experiência completa.
-						</p>
-						<BaseButton
-							large
-							color="tertiary"
-							icon-right="arrowFoward"
-							icon-rounded
-						>
-							Começar agora
-						</BaseButton>
-					</div>
-					<img class="hero__illustration"
-						src="/images/soccer-kick.svg"
-						alt="Soccer players"
-					/>
-				</div>
-			</SwiperSlide>
+        <div class="hero__slide">
+          <div class="hero__slide-details">
+            <h1 class="hero__title">
+              Crie e gerencie
+              <br>
+              <span class="hero__title-callout">campeonatos de futebol</span>
+            </h1>
+            <p class="hero__description">
+              Com o Alegue, você pode criar campeonatos de futebol de maneira fácil e rápida. Escolha entre diversos formatos e opções de regras para ter uma experiência completa.
+            </p>
+            <BaseButton
+              color="tertiary"
+              size="large"
+              icon-right="arrowFoward"
+              icon-rounded
+            >
+              Começar agora
+            </BaseButton>
+          </div>
+          <img class="hero__illustration"
+            src="/images/soccer-kick.svg"
+            alt="Soccer players"
+          >
+        </div>
+      </SwiperSlide>
       <SwiperSlide>
-				<div class="hero__slide hero__slide--theme-tertiary">
-					<div class="hero__slide-details">
-						<h1 class="hero__title">
-							Faça suas próprias
-							<br />
-							<span class="hero__title-callout">equipes</span>
-						</h1>
-						<p class="hero__description">
-							Escolha nomes, cores e diversas opções de escudos para a sua nova equipe. Se preferir, você pode utilizar o pacote de equipes para cadastrar os clubes das ligas mais famosas do mundo.
-						</p>
-						<BaseButton
-							large
-							color="secondary"
-							icon-right="arrowFoward"
-							icon-rounded
-						>
-							Começar agora
-						</BaseButton>
-					</div>
-					<img class="hero__illustration"
-						src="/images/team-board.svg"
-						alt="Team board"
-					/>
-				</div>
-			</SwiperSlide>
+        <div class="hero__slide hero__slide--theme-tertiary">
+          <div class="hero__slide-details">
+            <h1 class="hero__title">
+              Faça suas próprias
+              <br>
+              <span class="hero__title-callout">equipes</span>
+            </h1>
+            <p class="hero__description">
+              Escolha nomes, cores e diversas opções de escudos para a sua nova equipe. Se preferir, você pode utilizar o pacote de equipes para cadastrar os clubes das ligas mais famosas do mundo.
+            </p>
+            <BaseButton
+              size="large"
+              color="secondary"
+              icon-right="arrowFoward"
+              icon-rounded
+            >
+              Começar agora
+            </BaseButton>
+          </div>
+          <img class="hero__illustration"
+            src="/images/team-board.svg"
+            alt="Team board"
+          >
+        </div>
+      </SwiperSlide>
       <SwiperSlide>
-				<div class="hero__slide hero__slide--theme-secondary">
-					<div class="hero__slide-details">
-						<h1 class="hero__title">
-							Análise detalhada de
-							<br />
-							<span class="hero__title-callout">estatísticas e resultados</span>
-						</h1>
-						<p class="hero__description">
-							O Aleague apresenta estatísticas detalhadas sobre cada equipe e cada campeonato que você criar. Mergulhe em uma profunda análise dos resultados das suas equipes.
-						</p>
-						<BaseButton
-							large
-							icon-right="arrowFoward"
-							icon-rounded
-						>
-							Começar agora
-						</BaseButton>
-					</div>
-					<img class="hero__illustration"
-						src="/images/spreadsheet.svg"
-						alt="Spreadsheet"
-					/>
-				</div>
-			</SwiperSlide>
+        <div class="hero__slide hero__slide--theme-secondary">
+          <div class="hero__slide-details">
+            <h1 class="hero__title">
+              Análise detalhada de
+              <br>
+              <span class="hero__title-callout">estatísticas e resultados</span>
+            </h1>
+            <p class="hero__description">
+              O Aleague apresenta estatísticas detalhadas sobre cada equipe e cada campeonato que você criar. Mergulhe em uma profunda análise dos resultados das suas equipes.
+            </p>
+            <BaseButton
+              size="large"
+              icon-right="arrowFoward"
+              icon-rounded
+            >
+              Começar agora
+            </BaseButton>
+          </div>
+          <img class="hero__illustration"
+            src="/images/spreadsheet.svg"
+            alt="Spreadsheet"
+          >
+        </div>
+      </SwiperSlide>
     </Swiper>
   </section>
 </template>
