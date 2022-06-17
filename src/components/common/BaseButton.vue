@@ -166,6 +166,7 @@ const buttonClasses = computed(() => ({
   &.button--tertiary {
     --background-color: #{$color--tertiary};
     --color: #{$color--white};
+    --icon-background-color: #{$color--tertiary-lighten-1};
     --hover-background-color: #{$color--tertiary-lighten-1};
     --disabled-color: #{$color--white};
     --disabled-background-color: #{$color--tertiary-lighten-2};
