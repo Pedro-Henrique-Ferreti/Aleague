@@ -7,7 +7,7 @@
       <nav class="home-header__menu container"
         :class="[menuIsOpen ? 'home-header__menu--open' : '']"
       >
-        <hr class="home-header__menu-divider">
+        <hr class="home-header__menu-divider" />
         <BaseButton class="home-header__menu-button">
           Cadastre-se
         </BaseButton>

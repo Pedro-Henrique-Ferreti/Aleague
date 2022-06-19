@@ -11,7 +11,7 @@
   font-size: 1.5rem;
   font-weight: $font-weight--semibold;
   @include for-large-tablet-landscape-up {
-    font-size: 2rem;      
+    font-size: 2rem;
   }
   &::after {
     content: '';

@@ -13,7 +13,7 @@
           <div class="hero__slide-details">
             <h1 class="hero__title">
               Crie e gerencie
-              <br>
+              <br />
               <span class="hero__title-callout">campeonatos de futebol</span>
             </h1>
             <p class="hero__description">
@@ -31,7 +31,7 @@
           <img class="hero__illustration"
             src="/images/soccer-kick.svg"
             alt="Soccer players"
-          >
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -39,7 +39,7 @@
           <div class="hero__slide-details">
             <h1 class="hero__title">
               Faça suas próprias
-              <br>
+              <br />
               <span class="hero__title-callout">equipes</span>
             </h1>
             <p class="hero__description">
@@ -57,7 +57,7 @@
           <img class="hero__illustration"
             src="/images/team-board.svg"
             alt="Team board"
-          >
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
@@ -65,7 +65,7 @@
           <div class="hero__slide-details">
             <h1 class="hero__title">
               Análise detalhada de
-              <br>
+              <br />
               <span class="hero__title-callout">estatísticas e resultados</span>
             </h1>
             <p class="hero__description">
@@ -82,7 +82,7 @@
           <img class="hero__illustration"
             src="/images/spreadsheet.svg"
             alt="Spreadsheet"
-          >
+          />
         </div>
       </SwiperSlide>
     </Swiper>

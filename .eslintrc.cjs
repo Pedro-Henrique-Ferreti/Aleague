@@ -14,6 +14,13 @@ module.exports = {
     "vue/html-indent": [1, 2, {
       "alignAttributesVertically": false,
     }],
+    "vue/html-self-closing": [1, {
+      "html": {
+        "void": "always",
+        "normal": "always",
+        "component": "always",
+      },
+    }],
   },
   "env": {
     "vue/setup-compiler-macros": true,
