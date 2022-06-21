@@ -21,6 +21,7 @@
         </BaseButton>
         <BaseButton
           class="sign-in__button"
+          icon-rounded
           color="gray"
           icon-right="ArrowFoward"
         >
