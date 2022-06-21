@@ -37,6 +37,7 @@
   }
   &__link {
     color: $color--text-darken;
+    @include focus-ring;
     &:hover {
       text-decoration: underline;
     }
