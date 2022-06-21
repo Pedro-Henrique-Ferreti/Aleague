@@ -13,6 +13,8 @@
         </BaseButton>
         <BaseButton class="home-header__menu-button"
           color="gray"
+          type="link"
+          :to="{ name: 'login' }"
         >
           Fazer Login
         </BaseButton>
