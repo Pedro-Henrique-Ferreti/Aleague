@@ -1,4 +1,81 @@
 <template>
-  <h1>Auth layout</h1>
-  <slot />
+  <div class="auth-layout">
+    <div class="auth-layout__panel">
+      <router-link class="auth-layout__logo-wrapper container"
+        aria-label="Go to the Home page"
+        :to="{ name: 'home' }"
+      >
+        <AppLogo class="auth-layout__logo" />
+      </router-link>
+      <div class="auth-layout__card container">
+        <h1>Acesse sua conta</h1>
+      </div>
+    </div>
+    <div class="auth-layout__banner"
+      role="img"
+      aria-label="Soccer stadium"
+    />
+  </div>
 </template>
+
+<script setup>
+import AppLogo from '@/components/AppLogo.vue';
+</script>
+
+<style lang="scss" scoped>
+.auth-layout {
+  width: 100%;
+  min-height: 100vh;
+  background-color: $color--light-gray-3;
+  @include for-large-tablet-landscape-up {
+   display: flex;
+    .container {
+      max-width: 24rem;
+    }
+  }
+  &__banner {
+    display: none;
+    @include for-large-tablet-landscape-up {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url('/images/soccer-stadium1920_1080.png');
+    }
+  }
+  &__panel {
+    width: 100%;
+    max-width: 23.5rem;
+    margin: auto;
+    @include for-large-tablet-landscape-up {
+      max-width: 35%;
+      min-height: 100vh;
+      padding-top: 19.5vh;
+      margin: unset;
+      background-color: $color--white;
+    }
+  }
+  &__logo-wrapper {
+    display: block;
+  }
+  &__logo {
+    margin: 1.5rem 0;
+    height: 2rem;
+    @include for-large-tablet-landscape-up {
+      margin-top: 0;
+    }
+  }
+  &__card {
+    @include for-large-tablet-landscape-down {
+      padding-bottom: 2.5rem;
+      padding-top: 1.5rem;
+      min-height: calc(100vh - 160px);
+      background-color: $color--white;
+      box-shadow: $box-shadow--layer-2;
+      border-radius: 0.5rem 2.5rem 0.5rem 2.5rem;
+    }
+  }
+}
+</style>
