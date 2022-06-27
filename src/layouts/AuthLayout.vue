@@ -1,14 +1,16 @@
 <template>
   <div class="auth-layout">
     <div class="auth-layout__panel">
-      <router-link class="auth-layout__logo-wrapper container"
-        aria-label="Go to the Home page"
-        :to="{ name: 'home' }"
-      >
-        <AppLogo class="auth-layout__logo" />
-      </router-link>
+      <div class="auth-layout__logo-wrapper container">
+        <router-link
+          aria-label="Go to the Home page"
+          :to="{ name: 'home' }"
+        >
+          <AppLogo class="auth-layout__logo" />
+        </router-link>
+      </div>
       <div class="auth-layout__card container">
-        <h1>Acesse sua conta</h1>
+        <slot />
       </div>
     </div>
     <div class="auth-layout__banner"
@@ -58,14 +60,15 @@ import AppLogo from '@/components/AppLogo.vue';
     }
   }
   &__logo-wrapper {
-    display: block;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    @include for-large-tablet-landscape-up {
+      padding-top: 0;
+      padding-bottom: 2.5rem;
+    }
   }
   &__logo {
-    margin: 1.5rem 0;
     height: 2rem;
-    @include for-large-tablet-landscape-up {
-      margin-top: 0;
-    }
   }
   &__card {
     @include for-large-tablet-landscape-down {
