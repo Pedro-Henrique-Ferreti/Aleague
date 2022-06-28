@@ -1,7 +1,7 @@
 <template>
   <input
     class="base-input"
-    :value="modelValue"
+    :value="modelValue" 
     @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>
@@ -28,6 +28,12 @@ defineProps({
   border-radius: 0.5rem;
   outline: none;
   transition: border-color $transition--fast ease-in-out;
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: $color--text-darken;
+    box-shadow: 0 0 0 30px $color--white inset !important;
+  }
   &:hover {
     --border-color: #{$color--text-lighten};
   }
