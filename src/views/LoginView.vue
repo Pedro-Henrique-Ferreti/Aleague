@@ -1,6 +1,10 @@
 <template>
   <AuthHeading>Acesse sua conta</AuthHeading>
   <AuthForm>
+    <BaseInput
+      id="login--input-email"
+      label="Email"
+    />
     <template v-slot:footer>
       <BaseButton>
         Fazer login
