@@ -76,3 +76,8 @@ code, kbd, pre, samp {
 [aria-disabled="true"] {
   cursor: default;
 }
+
+::selection {
+  color: $color--white;
+  background-color: $color--tertiary;
+}
