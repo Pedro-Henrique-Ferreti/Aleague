@@ -10,7 +10,10 @@ module.exports = {
     "semi": ["error", "always"],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
     "comma-dangle": ["error", "always-multiline"],
-    "vue/first-attribute-linebreak": 0,
+    "vue/first-attribute-linebreak": [1, {
+      "singleline": "beside",
+      "multiline": "below",
+    }],
     "vue/html-indent": [1, 2, {
       "alignAttributesVertically": false,
     }],

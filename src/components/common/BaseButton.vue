@@ -1,23 +1,28 @@
 <template>
-  <component class="button"
+  <component
+    class="button"
     :is="componentTag"
     :class="buttonClasses"
     :disabled="componentTag === 'button' ? disabled : null"
     :target="componentTag === 'a' ? '_blank' : null"
     :rel="componentTag === 'a' ? 'noopener' : null"
   >
-    <div class="button__icon-wrapper"
+    <div
+      class="button__icon-wrapper"
       v-if="iconLeft"
     >
-      <BaseIcon class="button__icon"
+      <BaseIcon
+        class="button__icon"
         :icon="iconLeft"
       />
     </div>
     <slot />
-    <div class="button__icon-wrapper"
+    <div
+      class="button__icon-wrapper"
       v-if="iconRight"
     >
-      <BaseIcon class="button__icon"
+      <BaseIcon
+        class="button__icon"
         :icon="iconRight"
       />
     </div>

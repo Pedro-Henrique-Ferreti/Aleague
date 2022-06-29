@@ -19,7 +19,7 @@
       />
       <BaseIcon
         class="text-field__icon"
-        icon="save"
+        icon="errorCircle"
       />
     </div>
     <small class="text-field__message">

@@ -1,17 +1,20 @@
 <template>
-  <header class="home-header"
+  <header
+    class="home-header"
     :class="[headerIsPinned ? 'home-header--pinned' : '']"
   >
     <div class="home-header__content container-medium">
       <AppLogo />
-      <nav class="home-header__menu container"
+      <nav
+        class="home-header__menu container"
         :class="[menuIsOpen ? 'home-header__menu--open' : '']"
       >
         <hr class="home-header__menu-divider" />
         <BaseButton class="home-header__menu-button">
           Cadastre-se
         </BaseButton>
-        <BaseButton class="home-header__menu-button"
+        <BaseButton
+          class="home-header__menu-button"
           color="gray"
           type="link"
           :to="{ name: 'login' }"

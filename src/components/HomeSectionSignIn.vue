@@ -1,7 +1,8 @@
 <template>
   <section class="sign-in container">
     <div class="sign-in__image-wrapper">
-      <img class="sign-in__image"
+      <img
+        class="sign-in__image"
         src="/images/airplane.svg"
         alt="Airplane"
       />

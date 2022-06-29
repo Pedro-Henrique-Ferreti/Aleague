@@ -4,7 +4,8 @@
     <div class="features__cards">
       <div class="features__card">
         <div class="features__card-badge">
-          <img class="features__card-icon"
+          <img
+            class="features__card-icon"
             src="/images/medal.svg"
             alt="Medal"
           />
@@ -18,7 +19,8 @@
       </div>
       <div class="features__card">
         <div class="features__card-badge">
-          <img class="features__card-icon"
+          <img
+            class="features__card-icon"
             src="/images/analysis-chart.svg"
             alt="Chart"
           />
@@ -32,7 +34,8 @@
       </div>
       <div class="features__card">
         <div class="features__card-badge">
-          <img class="features__card-icon"
+          <img
+            class="features__card-icon"
             src="/images/check-certification.svg"
             alt="Certification"
           />
@@ -46,7 +49,8 @@
       </div>
       <div class="features__card">
         <div class="features__card-badge">
-          <img class="features__card-icon"
+          <img
+            class="features__card-icon"
             src="/images/football.svg"
             alt="Football"
           />

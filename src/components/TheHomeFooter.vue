@@ -4,12 +4,14 @@
       © Aleague {{ new Date().getFullYear() }}.
     </span>
     Desenvolvido por
-    <a class="home-footer__link"
+    <a
+      class="home-footer__link"
       target="_blank"
       rel="noopener"
       href="https://www.linkedin.com/in/pedro-henrique-ferreti-de-souza-7921aa174/"
     >Pedro Ferreti</a> e
-    <a class="home-footer__link"
+    <a
+      class="home-footer__link"
       target="_blank"
       rel="noopener"
       href="https://www.linkedin.com/in/guilherme-ferreti-de-souza/"

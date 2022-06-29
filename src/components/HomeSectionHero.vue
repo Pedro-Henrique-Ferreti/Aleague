@@ -1,6 +1,7 @@
 <template>
   <section class="hero">
-    <Swiper id="hero-swiper"
+    <Swiper
+      id="hero-swiper"
       class="container"
       :modules="modules"
       :pagination="paginationOptions"
@@ -28,7 +29,8 @@
               Começar agora
             </BaseButton>
           </div>
-          <img class="hero__illustration"
+          <img
+            class="hero__illustration"
             src="/images/soccer-kick.svg"
             alt="Soccer players"
           />
@@ -54,7 +56,8 @@
               Começar agora
             </BaseButton>
           </div>
-          <img class="hero__illustration"
+          <img
+            class="hero__illustration"
             src="/images/team-board.svg"
             alt="Team board"
           />
@@ -79,7 +82,8 @@
               Começar agora
             </BaseButton>
           </div>
-          <img class="hero__illustration"
+          <img
+            class="hero__illustration"
             src="/images/spreadsheet.svg"
             alt="Spreadsheet"
           />

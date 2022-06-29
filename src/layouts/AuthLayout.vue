@@ -14,7 +14,8 @@
         <slot />
       </div>
     </div>
-    <div class="auth-layout__banner"
+    <div
+      class="auth-layout__banner"
       role="img"
       aria-label="Soccer stadium"
     />
@@ -55,7 +56,7 @@ import AppLogo from '@/components/AppLogo.vue';
     @include for-large-tablet-landscape-up {
       max-width: 35%;
       min-height: 100vh;
-      padding-top: 19.5vh;
+      padding-top: 10vh;
       margin: unset;
       background-color: $color--white;
     }
