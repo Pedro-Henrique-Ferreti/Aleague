@@ -1,6 +1,5 @@
 <template>
   <component
-    class="icon"
     :is="icon"
   />
 </template>
@@ -11,6 +10,7 @@ import Close from '@/components/icons/IconClose.vue';
 import Menu from '@/components/icons/IconMenu.vue';
 import Save from '@/components/icons/IconSave.vue';
 import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
+import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
 
 const props = defineProps({
   icon: {
@@ -29,6 +29,8 @@ const icon = computed(() => {
       return Save;
     case 'arrowfoward':
       return ArrowFoward;
+    case 'errorcircle':
+      return ErrorCircle;
     default:
       return '';
   }
