@@ -3,6 +3,7 @@
     <div class="auth-layout__panel">
       <div class="auth-layout__logo-wrapper container">
         <router-link
+          class="focus-ring"
           aria-label="Go to the Home page"
           :to="{ name: 'home' }"
         >
