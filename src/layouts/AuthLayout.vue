@@ -42,7 +42,6 @@ import AppLogo from '@/components/AppLogo.vue';
     @include for-large-tablet-landscape-up {
       display: block;
       width: 100%;
-      height: 100vh;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -66,7 +65,7 @@ import AppLogo from '@/components/AppLogo.vue';
     padding-bottom: 1.5rem;
     @include for-large-tablet-landscape-up {
       padding-top: 0;
-      padding-bottom: 2.5rem;
+      padding-bottom: 2rem;
     }
   }
   &__logo {
