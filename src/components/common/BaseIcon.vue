@@ -34,9 +34,3 @@ const icon = computed(() => {
   }
 });
 </script>
-
-<style lang="scss" scoped>
-.icon {
-  fill: currentColor;
-}
-</style>
