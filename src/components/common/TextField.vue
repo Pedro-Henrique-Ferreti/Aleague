@@ -18,8 +18,12 @@
         v-model="inputValue"
       />
       <BaseIcon
-        class="text-field__icon"
-        icon="errorCircle"
+        class="text-field__icon text-field__icon--valid"
+        icon="check"
+      />
+      <BaseIcon
+        class="text-field__icon text-field__icon--invalid"
+        icon="error-circle"
       />
     </div>
     <small class="text-field__message">
@@ -57,7 +61,8 @@ const props = defineProps({
 });
 
 const textFieldClasses = computed(() => ({
-  'text-field--error': true,
+  'text-field--valid': true,
+  'text-field--invalid': false,
 }));
 
 const inputValue = computed({
@@ -72,12 +77,15 @@ const inputValue = computed({
 
 <style lang="scss" scoped>
 .text-field {
-  --color: #{$color--text};
   --message-display: none;
-
-  &--error {
+  --icon-valid-display: none;
+  --icon-invalid-display: none;
+  &--valid {
+    --icon-valid-display: block;
+  }
+  &--invalid {
     --message-display: block;
-    --color: #{$color--danger};
+    --icon-invalid-display: block;
   }
   &__label {
     display: block;
@@ -93,14 +101,21 @@ const inputValue = computed({
   &__icon {
     width: 1rem;
     height: 1rem;
-    fill: var(--color);
     position: absolute;
     right: 0.75rem;
+    &--valid {
+      display: var(--icon-valid-display);
+      fill: $color--success-darken-2;
+    }
+    &--invalid {
+      display: var(--icon-invalid-display);
+      fill: $color--danger;
+    }
   }
   &__message {
     display: var(--message-display);
     margin-top: 0.5rem;
-    color: var(--color);
+    color: $color--danger;
     font-size: 0.8125rem;
     font-weight: $font-weight--semibold;
   }
