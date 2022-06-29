@@ -3,4 +3,6 @@
 './base/reset',
 './base/root';
 
-@import './utilities/container';
+@import
+'./utilities/container',
+'./utilities/focus-ring';
