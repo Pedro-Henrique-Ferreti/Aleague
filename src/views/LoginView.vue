@@ -12,7 +12,6 @@
       label="Senha"
       v-model="email"
     />
-    <pre>{{ email }}</pre>
     <template #footer>
       <BaseButton>
         Fazer login
@@ -22,6 +21,15 @@
       </BaseButton>
     </template>
   </AuthForm>
+  <span class="register">
+    Não tem uma conta?
+    <router-link
+      class="register__link"
+      :to="{ name: 'register' }"
+    >
+      Cadastre-se
+    </router-link>
+  </span>
 </template>
 
 <script setup>
@@ -32,3 +40,20 @@ import AuthForm from '@/components/AuthForm.vue';
 
 const email = ref('');
 </script>
+
+<style lang="scss" scoped>
+.register {
+  display: block;
+  width: 100%;
+  margin-top: 5rem;
+  color: $color--text-darken;
+  text-align: center;
+  &__link {
+    color: $color--secondary;
+    @include focus-ring;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+</style>
