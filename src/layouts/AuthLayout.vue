@@ -45,7 +45,7 @@ import AppLogo from '@/components/AppLogo.vue';
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      background-image: url('/images/soccer-stadium1920_1080.png');
+      background-image: url('/images/soccer-stadium1920_1080.webp');
     }
   }
   &__panel {
