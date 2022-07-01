@@ -87,6 +87,12 @@ const inputValue = computed({
     --message-display: block;
     --icon-invalid-display: block;
   }
+  &--valid,
+  &--invalid {
+    .text-field__input {
+      padding-right: 2.25rem;
+    }
+  }
   &__label {
     display: block;
     margin-bottom: 0.5rem;
