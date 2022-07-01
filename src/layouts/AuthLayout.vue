@@ -56,8 +56,12 @@ import AppLogo from '@/components/AppLogo.vue';
       max-width: 35%;
       min-height: 100vh;
       padding-top: 10vh;
+      padding-bottom: 3rem;
       margin: unset;
       background-color: $color--white;
+      @media (min-height: 900px) {
+        padding-top: 16vh;
+      }
     }
   }
   &__logo-wrapper {
