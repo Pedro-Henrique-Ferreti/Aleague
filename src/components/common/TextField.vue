@@ -12,10 +12,11 @@
     <div class="text-field__input-wrapper">
       <BaseInput
         class="text-field__input"
+        v-model="inputValue"
         :type="type"
         :id="id"
         :aria-label="label ? null : ariaLabel"
-        v-model="inputValue"
+        @change="handleChange"
       />
       <BaseIcon
         class="text-field__icon text-field__icon--valid"
@@ -26,9 +27,7 @@
         icon="error-circle"
       />
     </div>
-    <small class="text-field__message">
-      Por favor, digite seu email
-    </small>
+    <small class="text-field__message">{{ errorMessage }}</small>
   </div>
 </template>
 
@@ -41,6 +40,10 @@ const props = defineProps({
   modelValue: {
     type: [String, Number],
     default: '',
+  },
+  modelModifiers: {
+    type: Object,
+    default: () => ({}),
   },
   id: {
     type: String,
@@ -58,11 +61,19 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  dirty: {
+    type: Boolean,
+    default: false,
+  },
+  errorMessage: {
+    type: String,
+    default: '',
+  },
 });
 
 const textFieldClasses = computed(() => ({
-  'text-field--valid': true,
-  'text-field--invalid': false,
+  'text-field--valid': props.dirty && !props.errorMessage,
+  'text-field--invalid': props.dirty && props.errorMessage,
 }));
 
 const inputValue = computed({
@@ -70,9 +81,17 @@ const inputValue = computed({
     return props.modelValue;
   },
   set(value) {
-    emit('update:modelValue', value);
+    if (!props.modelModifiers.lazy) {
+      emit('update:modelValue', value);
+    }
   },
 });
+
+function handleChange(event) {
+  if (props.modelModifiers.lazy) {
+    emit('update:modelValue', event.target.value);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
