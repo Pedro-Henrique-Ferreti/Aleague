@@ -8,6 +8,7 @@ import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
 import Check from '@/components/icons/IconCheck.vue';
 import Close from '@/components/icons/IconClose.vue';
 import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
+import Loading from '@/components/icons/IconLoading.vue';
 import Menu from '@/components/icons/IconMenu.vue';
 import Save from '@/components/icons/IconSave.vue';
 
@@ -28,6 +29,8 @@ const icon = computed(() => {
       return Close;
     case 'errorcircle':
       return ErrorCircle;
+    case 'loading':
+      return Loading;
     case 'menu':
       return Menu;
     case 'save':
