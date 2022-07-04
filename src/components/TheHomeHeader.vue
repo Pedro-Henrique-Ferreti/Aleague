@@ -56,6 +56,7 @@ document.addEventListener('scroll', () => {
   z-index: 2;
   &--pinned {
     background-color: $color--white;
+    box-shadow: $box-shadow--layer-1;
     position: fixed;
     animation: header-slide-down 0.5s ease-in-out;
   }
