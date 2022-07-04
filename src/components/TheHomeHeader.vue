@@ -58,7 +58,7 @@ document.addEventListener('scroll', () => {
     background-color: $color--white;
     box-shadow: $box-shadow--layer-1;
     position: fixed;
-    animation: header-slide-down 0.5s ease-in-out;
+    animation: header-slide-down $transition--slowest ease-in-out;
   }
   &__content {
     display: flex;
