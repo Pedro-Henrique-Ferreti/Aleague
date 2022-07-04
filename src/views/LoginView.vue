@@ -4,16 +4,20 @@
     <TextField
       id="login--field-email"
       label="Email"
-      v-model="email"
+      :dirty="v$.email.$dirty"
+      :error-message="v$.email.$errors[0]?.$message"
+      v-model.lazy="email"
     />
     <TextField
       id="login--field-password"
       type="password"
       label="Senha"
-      v-model="email"
+      :dirty="v$.password.$dirty"
+      :error-message="v$.password.$errors[0]?.$message"
+      v-model.lazy="password"
     />
     <template #footer>
-      <BaseButton>
+      <BaseButton @click="submitForm">
         Fazer login
       </BaseButton>
       <BaseButton color="gray">
@@ -33,12 +37,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import useVuelidate from '@vuelidate/core';
+import { required, email as emailValidator, helpers } from '@vuelidate/validators';
+
 import TextField from '@/components/common/TextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 
 const email = ref('');
+const password = ref('');
+
+const rules = computed(() => ({
+  email: {
+    required: helpers.withMessage('Por favor, preencha este campo.', required),
+    email: helpers.withMessage('O endereço de emal informado é inválido.', emailValidator),
+  },
+  password: {
+    required: helpers.withMessage('Por favor, preencha este campo.', required),
+  },
+}));
+
+const v$ = useVuelidate(rules, { email, password }, { $autoDirty: true });
+
+async function submitForm() {
+  const formIsValid = await v$.value.$validate();
+
+  if (!formIsValid) {
+    return;
+  }
+
+  console.log('valid');
+}
 </script>
 
 <style lang="scss" scoped>
