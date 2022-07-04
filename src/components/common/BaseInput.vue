@@ -2,12 +2,13 @@
   <input
     class="base-input"
     :value="modelValue"
+    @change="$emit('change', $event)"
     @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>
 
 <script setup>
-defineEmits(['update:modelValue']);
+defineEmits(['change', 'update:modelValue']);
 defineProps({
   modelValue: {
     type: [String, Number],
