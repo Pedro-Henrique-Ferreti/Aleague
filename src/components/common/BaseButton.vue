@@ -6,6 +6,7 @@
     :disabled="componentTag === 'button' ? disabled : null"
     :target="componentTag === 'a' ? '_blank' : null"
     :rel="componentTag === 'a' ? 'noopener' : null"
+    @click="$emit('click')"
   >
     <div
       class="button__icon-wrapper"
@@ -50,6 +51,8 @@ export default {};
 
 <script setup>
 import { computed } from 'vue';
+
+defineEmits(['click']);
 
 const props = defineProps({
   type: {
