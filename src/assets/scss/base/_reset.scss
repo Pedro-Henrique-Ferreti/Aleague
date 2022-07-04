@@ -19,8 +19,20 @@ html {
   @include for-large-desktop-up {
     font-size: 18px;
   }
+  &::-webkit-scrollbar {
+    width: 9px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $color--light-gray-2;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color--text-lighten;
+    border-radius: 3px;
+    &:hover {
+      background-color: darken($color--text-lighten, 15);
+    }
+  }
 }
-
 
 body, #app {
   width: 100%;
