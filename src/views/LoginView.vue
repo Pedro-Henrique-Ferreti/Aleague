@@ -17,7 +17,10 @@
       v-model.lazy="password"
     />
     <template #footer>
-      <BaseButton @click="submitForm">
+      <BaseButton
+        :is-loading="isLoading"
+        @click="submitForm"
+      >
         Fazer login
       </BaseButton>
       <BaseButton color="gray">
@@ -47,6 +50,7 @@ import AuthForm from '@/components/AuthForm.vue';
 
 const email = ref('');
 const password = ref('');
+const isLoading = ref(false);
 
 const rules = computed(() => ({
   email: {
@@ -66,8 +70,6 @@ async function submitForm() {
   if (!formIsValid) {
     return;
   }
-
-  console.log('valid');
 }
 </script>
 

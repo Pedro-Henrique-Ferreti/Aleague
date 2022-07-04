@@ -3,30 +3,37 @@
     class="button"
     :is="componentTag"
     :class="buttonClasses"
-    :disabled="componentTag === 'button' ? disabled : null"
+    :disabled="componentTag === 'button' ? buttonIsDisabled : null"
     :target="componentTag === 'a' ? '_blank' : null"
     :rel="componentTag === 'a' ? 'noopener' : null"
     @click="$emit('click')"
   >
-    <div
-      class="button__icon-wrapper"
-      v-if="iconLeft"
-    >
-      <BaseIcon
-        class="button__icon"
-        :icon="iconLeft"
-      />
-    </div>
-    <slot />
-    <div
-      class="button__icon-wrapper"
-      v-if="iconRight"
-    >
-      <BaseIcon
-        class="button__icon"
-        :icon="iconRight"
-      />
-    </div>
+    <BaseIcon
+      v-show="isLoading"
+      class="button__loading-icon"
+      icon="loading"
+    />
+    <template v-if="!isLoading">
+      <div
+        class="button__icon-wrapper"
+        v-if="iconLeft"
+      >
+        <BaseIcon
+          class="button__icon"
+          :icon="iconLeft"
+        />
+      </div>
+      <slot />
+      <div
+        class="button__icon-wrapper"
+        v-if="iconRight"
+      >
+        <BaseIcon
+          class="button__icon"
+          :icon="iconRight"
+        />
+      </div>
+    </template>
   </component>
 </template>
 
@@ -85,14 +92,20 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+const buttonIsDisabled = computed(() => props.isLoading || props.disabled);
 
 const componentTag = computed(() => {
   /**
    * Returns a button tag to prevent disabled elements
    * from being activated by tab + enter commands.
    */
-  if (props.disabled) {
+  if (buttonIsDisabled.value) {
     return 'button';
   }
 
@@ -115,7 +128,7 @@ const buttonClasses = computed(() => ({
   'button--small': props.size === validSizes.small,
   'button--large': props.size === validSizes.large,
   'button--outline': props.color === validColors.outline,
-  'button--disabled': props.disabled,
+  'button--disabled': buttonIsDisabled.value,
   'button--icon-rounded': props.iconRounded,
 }));
 </script>
@@ -129,6 +142,7 @@ const buttonClasses = computed(() => ({
   --border-radius: 0.5rem;
   --gap: 0.875rem;
   --icon-width: 1rem;
+  --loading-icon-color: #{$color--white};
   --icon-background-color: transparent;
   --hover-background-color: transparent;
   --disabled-color:#{$color--text-darken};
@@ -159,6 +173,7 @@ const buttonClasses = computed(() => ({
   &.button--primary {
     --background-color: #{$color--primary};
     --icon-background-color: #{$color--primary-lighten-1};
+    --loading-icon-color: #{$color--text-darken};
     --hover-background-color: #{$color--primary-lighten-1};
     --disabled-color: #{$color--text};
     --disabled-background-color: #{$color--primary-lighten-2};
@@ -181,6 +196,7 @@ const buttonClasses = computed(() => ({
   }
   &.button--gray {
     --background-color: #{$color--light-gray-2};
+    --loading-icon-color: #{$color--text-darken};
     --hover-background-color: #{$color--light-gray-1};
     --disabled-color: #{$color--text};
     --disabled-background-color: #{$color--light-gray-2};
@@ -219,6 +235,11 @@ const buttonClasses = computed(() => ({
     }
   }
 
+  &__loading-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    stroke: var(--loading-icon-color);
+  }
   &__icon-wrapper {
     display: flex;
   }
