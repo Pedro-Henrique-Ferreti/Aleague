@@ -43,10 +43,13 @@
 import { ref, computed } from 'vue';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValidator, helpers } from '@vuelidate/validators';
+import { useAuthStore } from '@/stores/authStore';
 
 import TextField from '@/components/common/TextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
+
+const authStore = useAuthStore();
 
 const email = ref('');
 const password = ref('');
@@ -69,6 +72,19 @@ async function submitForm() {
 
   if (!formIsValid) {
     return;
+  }
+
+  isLoading.value = true;
+
+  try {
+    await authStore.login({
+      email: email.value,
+      password: password.value,
+    });
+  } catch (error) {
+    console.log(error.message);
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>
