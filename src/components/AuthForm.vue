@@ -3,6 +3,9 @@
     class="auth-form"
     @submit.prevent="$emit('submit')"
   >
+    <p v-if="errorMessage">
+      {{ errorMessage }}
+    </p>
     <div class="auth-form__fields">
       <slot />
     </div>
@@ -14,6 +17,12 @@
 
 <script setup>
 defineEmits(['submit']);
+defineProps({
+  errorMessage: {
+    type: String,
+    default: '',
+  },
+});
 </script>
 
 <style lang="scss" scoped>
