@@ -3,6 +3,7 @@
   <AuthForm>
     <TextField
       id="login--field-email"
+      type="email"
       label="Email"
       :dirty="v$.email.$dirty"
       :error-message="v$.email.$errors[0]?.$message"
