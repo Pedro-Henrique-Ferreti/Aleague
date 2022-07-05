@@ -24,7 +24,10 @@
       >
         Fazer login
       </BaseButton>
-      <BaseButton color="gray">
+      <BaseButton
+        color="gray"
+        :to="{ name: 'password-recovery'}"
+      >
         Recuperar senha
       </BaseButton>
     </template>
