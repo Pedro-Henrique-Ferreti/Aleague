@@ -40,7 +40,7 @@ const props = defineProps({
 function handleClick(event) {
   /**
    * Prevents <a> and <router-link> elements from being activated
-   * with Tab + Enter keys when button is disabled 
+   * with Tab + Enter keys when button is disabled
    */
   if (props.disabled) {
     event.preventDefault();
