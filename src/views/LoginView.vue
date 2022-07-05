@@ -1,6 +1,6 @@
 <template>
   <AuthHeading>Acesse sua conta</AuthHeading>
-  <AuthForm>
+  <AuthForm :error-message="errorMessage">
     <TextField
       id="login--field-email"
       type="email"
@@ -58,6 +58,7 @@ const authStore = useAuthStore();
 const email = ref('');
 const password = ref('');
 const isLoading = ref(false);
+const errorMessage = ref('');
 
 const rules = computed(() => ({
   email: {
@@ -72,6 +73,8 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, { email, password }, { $autoDirty: true });
 
 async function submitForm() {
+  errorMessage.value = '';
+
   const formIsValid = await v$.value.$validate();
 
   if (!formIsValid) {
@@ -86,7 +89,7 @@ async function submitForm() {
       password: password.value,
     });
   } catch (error) {
-    console.log(error.message);
+    errorMessage.value = error.message;
   } finally {
     isLoading.value = false;
   }
