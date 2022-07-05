@@ -1,11 +1,9 @@
 <template>
-  <component
+  <DefaultButton
     class="button"
-    :is="componentTag"
     :class="buttonClasses"
-    :disabled="componentTag === 'button' ? buttonIsDisabled : null"
-    :target="componentTag === 'a' ? '_blank' : null"
-    :rel="componentTag === 'a' ? 'noopener' : null"
+    :disabled="buttonIsDisabled"
+    :to="to"
     @click="$emit('click')"
   >
     <BaseIcon
@@ -34,7 +32,7 @@
         />
       </div>
     </template>
-  </component>
+  </DefaultButton>
 </template>
 
 <script>
@@ -58,13 +56,14 @@ export default {};
 
 <script setup>
 import { computed } from 'vue';
+import DefaultButton from '@/components/common/DefaultButton.vue';
 
 defineEmits(['click']);
 
 const props = defineProps({
-  type: {
-    type: String,
-    default: 'button',
+  to: {
+    type: [String, Object],
+    default: '',
   },
   color: {
     type: String,
@@ -99,25 +98,6 @@ const props = defineProps({
 });
 
 const buttonIsDisabled = computed(() => props.isLoading || props.disabled);
-
-const componentTag = computed(() => {
-  /**
-   * Returns a button tag to prevent disabled elements
-   * from being activated by tab + enter commands.
-   */
-  if (buttonIsDisabled.value) {
-    return 'button';
-  }
-
-  switch (props.type) {
-    case 'link':
-      return 'router-link';
-    case 'externalLink':
-      return 'a';
-    default:
-      return 'button';
-  }
-});
 
 const buttonClasses = computed(() => ({
   'button--primary': props.color === validColors.primary,
@@ -159,6 +139,7 @@ const buttonClasses = computed(() => ({
   background-color: var(--background-color);
   border-radius: var(--border-radius);
   transition: background-color $transition--fastest ease;
+  cursor: pointer;
   @include focus-ring;
   &:hover,
   &:active {
