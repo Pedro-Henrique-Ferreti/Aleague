@@ -9,7 +9,7 @@
   <a
     v-else-if="typeof to === 'string' && to.startsWith('http')"
     target="_blank"
-    rel="nooopener"
+    rel="noopener"
     :href="to"
     @click="handleClick"
   >
