@@ -10,13 +10,15 @@
         :class="[menuIsOpen ? 'home-header__menu--open' : '']"
       >
         <hr class="home-header__menu-divider" />
-        <BaseButton class="home-header__menu-button">
+        <BaseButton
+          class="home-header__menu-button"
+          :to="{ name: 'register' }"
+        >
           Cadastre-se
         </BaseButton>
         <BaseButton
           class="home-header__menu-button"
           color="gray"
-          type="link"
           :to="{ name: 'login' }"
         >
           Fazer Login

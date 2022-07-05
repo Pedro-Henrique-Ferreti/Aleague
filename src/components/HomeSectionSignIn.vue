@@ -17,6 +17,7 @@
           class="sign-in__button"
           icon-rounded
           icon-right="ArrowFoward"
+          :to="{ name: 'register' }"
         >
           Iniciar o Aleague
         </BaseButton>
@@ -25,6 +26,7 @@
           icon-rounded
           color="gray"
           icon-right="ArrowFoward"
+          :to="{ name: 'login' }"
         >
           Acessar conta
         </BaseButton>

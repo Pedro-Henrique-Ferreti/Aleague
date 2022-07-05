@@ -25,6 +25,7 @@
               size="large"
               icon-right="arrowFoward"
               icon-rounded
+              :to="{ name: 'register' }"
             >
               Começar agora
             </BaseButton>
@@ -52,6 +53,7 @@
               color="secondary"
               icon-right="arrowFoward"
               icon-rounded
+              :to="{ name: 'register' }"
             >
               Começar agora
             </BaseButton>
@@ -78,6 +80,7 @@
               size="large"
               icon-right="arrowFoward"
               icon-rounded
+              :to="{ name: 'register' }"
             >
               Começar agora
             </BaseButton>
