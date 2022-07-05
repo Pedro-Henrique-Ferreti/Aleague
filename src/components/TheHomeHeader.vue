@@ -12,16 +12,16 @@
         <hr class="home-header__menu-divider" />
         <BaseButton
           class="home-header__menu-button"
-          :to="{ name: 'register' }"
-        >
-          Cadastre-se
-        </BaseButton>
-        <BaseButton
-          class="home-header__menu-button"
           color="gray"
           :to="{ name: 'login' }"
         >
           Fazer Login
+        </BaseButton>
+        <BaseButton
+          class="home-header__menu-button"
+          :to="{ name: 'register' }"
+        >
+          Cadastre-se
         </BaseButton>
       </nav>
       <BaseButton
@@ -89,7 +89,7 @@ document.addEventListener('scroll', () => {
     }
     @include for-large-tablet-portrait-up {
       display: flex;
-      flex-direction: row-reverse;
+      flex-direction: row;
       align-items: unset;
       gap: 1.5rem;
       width: auto;
