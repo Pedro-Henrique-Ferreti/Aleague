@@ -22,7 +22,7 @@
       <BaseButton>Criar conta</BaseButton>
     </template>
   </AuthForm>
-  <span class="login">
+  <span class="login text-darken">
     Já possui uma conta?
     <router-link
       class="login__link"
@@ -44,7 +44,6 @@ import AuthForm from '@/components/AuthForm.vue';
   display: block;
   width: 100%;
   margin-top: 5rem;
-  color: $color--text-darken;
   text-align: center;
   &__link {
     color: $color--secondary;

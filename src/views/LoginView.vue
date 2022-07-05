@@ -32,7 +32,7 @@
       </BaseButton>
     </template>
   </AuthForm>
-  <span class="register">
+  <span class="register text-darken">
     Não tem uma conta?
     <router-link
       class="register__link"
@@ -98,7 +98,6 @@ async function submitForm() {
   display: block;
   width: 100%;
   margin-top: 5rem;
-  color: $color--text-darken;
   text-align: center;
   &__link {
     color: $color--secondary;
