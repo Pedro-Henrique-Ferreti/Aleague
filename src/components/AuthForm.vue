@@ -3,9 +3,12 @@
     class="auth-form"
     @submit.prevent="$emit('submit')"
   >
-    <p v-if="errorMessage">
-      {{ errorMessage }}
-    </p>
+    <BaseAlert
+      v-show="errorMessage"
+      class="auth-form__alert"
+      type="error"
+      :message="errorMessage"
+    />
     <div class="auth-form__fields">
       <slot />
     </div>
@@ -27,6 +30,9 @@ defineProps({
 
 <style lang="scss" scoped>
 .auth-form {
+  &__alert {
+    margin-bottom: 1.5rem;
+  }
   &__fields {
     display: flex;
     flex-direction: column;
