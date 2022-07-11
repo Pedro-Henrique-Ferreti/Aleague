@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue';
+import VerifyEmailView from '@/views/VerifyEmailView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,12 @@ const router = createRouter({
       path: '/recuperar-senha',
       name: 'password-recovery',
       component: PasswordRecoveryView,
+      meta: { layout: 'auth' },
+    },
+    {
+      path: '/verificar-email',
+      name: 'verify-email',
+      component: VerifyEmailView,
       meta: { layout: 'auth' },
     },
   ],
