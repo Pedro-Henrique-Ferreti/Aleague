@@ -15,7 +15,7 @@
       class="alert__close-button"
       type="button"
       aria-label="Close alert"
-      @click="$emit('click')"
+      @click="$emit('close')"
     >
       <BaseIcon
         class="alert__close-button-icon"

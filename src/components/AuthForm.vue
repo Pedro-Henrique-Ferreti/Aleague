@@ -8,6 +8,7 @@
       class="auth-form__alert"
       type="error"
       :message="errorMessage"
+      @close="$emit('close-alert')"
     />
     <div class="auth-form__fields">
       <slot />
@@ -19,7 +20,7 @@
 </template>
 
 <script setup>
-defineEmits(['submit']);
+defineEmits(['submit', 'close-alert']);
 defineProps({
   errorMessage: {
     type: String,

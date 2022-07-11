@@ -1,6 +1,9 @@
 <template>
   <AuthHeading>Acesse sua conta</AuthHeading>
-  <AuthForm :error-message="errorMessage">
+  <AuthForm
+    :error-message="errorMessage"
+    @close-alert="errorMessage = ''"
+  >
     <TextField
       id="login--field-email"
       type="email"
