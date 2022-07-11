@@ -3,7 +3,22 @@ import axios from '@/helpers/axios';
 
 export const useAuthStore = defineStore('auth', {
   state: () => {
-    return {};
+    return {
+      accessToken: null,
+      user: {
+        avatar: '',
+        createdAt: null,
+        email: '',
+        emailVerifiedAt: null,
+        id: null,
+        lastLoginAt: null,
+        updatedAt: null,
+        username: '',
+      },
+    };
+  },
+  getters: {
+    userIsAuthenticated: (state) => Boolean(state.accessToken && state.user.id), 
   },
   actions: {
     async login({ email, password }) {
@@ -12,7 +27,8 @@ export const useAuthStore = defineStore('auth', {
         password,
       });
 
-      console.log(data);
+      this.accessToken = data.accessToken;
+      this.user = data.user;
     },
   },
 });
