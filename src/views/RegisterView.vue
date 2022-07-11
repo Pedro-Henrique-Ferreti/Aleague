@@ -1,25 +1,44 @@
 <template>
   <AuthHeading>Crie sua conta</AuthHeading>
-  <AuthForm>
+  <AuthForm @submit="submitForm">
     <TextField
+      v-model.lazy="username"
       id="register--field-name"
       label="Nome de usuário"
+      :dirty="v$.username.$dirty"
+      :error-message="v$.username.$errors[0]?.$message"
     />
     <TextField
+      v-model.lazy="email"
       id="register--field-email"
       type="email"
       label="Email"
+      :dirty="v$.email.$dirty"
+      :error-message="v$.email.$errors[0]?.$message"
     />
     <TextField
+      v-model.lazy="password"
       id="register--field-password"
+      type="password"
       label="Senha"
+      :dirty="v$.password.$dirty"
+      :error-message="v$.password.$errors[0]?.$message"
     />
     <TextField
+      v-model.lazy="passwordConfirmation"
       id="register--field-confirm-password"
+      type="password"
       label="Repita a senha"
+      :dirty="v$.passwordConfirmation.$dirty"
+      :error-message="v$.passwordConfirmation.$errors[0]?.$message"
     />
     <template #footer>
-      <BaseButton>Criar conta</BaseButton>
+      <BaseButton
+        type="submit"
+        :is-loading="isLoading"
+      >
+        Criar conta
+      </BaseButton>
     </template>
   </AuthForm>
   <span class="login text-darken">
@@ -34,9 +53,57 @@
 </template>
 
 <script setup>
+import { computed, ref } from 'vue';
+import useVuelidate from '@vuelidate/core';
+import { required, email as emailValidator, helpers, sameAs, minLength } from '@vuelidate/validators';
+
 import TextField from '@/components/common/TextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
+
+const requiredValidator = helpers.withMessage('Por favor, preencha este campo.', required);
+const passwordMinLenghtValidator = helpers.withMessage('A senha deve ter ao menos 8 caracteres.', minLength(8));
+
+const username = ref('');
+const email = ref('');
+const password = ref('');
+const passwordConfirmation = ref('');
+const isLoading = ref(false);
+
+const rules = computed(() => ({
+  username: {
+    required: requiredValidator,
+    minLength: helpers.withMessage('O nome de usuário deve ter ao menos 6 caracteres.', minLength(6)),
+  },
+  email: {
+    required: requiredValidator,
+    email: helpers.withMessage('O endereço de email informado é inválido.', emailValidator),
+  },
+  password: {
+    required: requiredValidator,
+    minLength: passwordMinLenghtValidator,
+  },
+  passwordConfirmation: {
+    required: requiredValidator,
+    minLength: passwordMinLenghtValidator,
+    sameAsRef: helpers.withMessage('As senhas informadas não são iguais.', sameAs(password)),
+  },
+}));
+
+const v$ = useVuelidate(rules, {
+  username,
+  email,
+  password,
+  passwordConfirmation,
+}, { $autoDirty: true });
+
+async function submitForm() {
+  const formIsValid = await v$.value.$validate();
+
+  if (!formIsValid) {
+    return;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
