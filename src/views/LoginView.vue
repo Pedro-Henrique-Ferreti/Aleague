@@ -3,6 +3,7 @@
   <AuthForm
     :error-message="errorMessage"
     @close-alert="errorMessage = ''"
+    @submit="submitForm"
   >
     <TextField
       id="login--field-email"
@@ -22,8 +23,8 @@
     />
     <template #footer>
       <BaseButton
+        type="submit"
         :is-loading="isLoading"
-        @click="submitForm"
       >
         Fazer login
       </BaseButton>
@@ -68,7 +69,7 @@ const errorMessage = ref('');
 const rules = computed(() => ({
   email: {
     required: helpers.withMessage('Por favor, preencha este campo.', required),
-    email: helpers.withMessage('O endereço de emal informado é inválido.', emailValidator),
+    email: helpers.withMessage('O endereço de email informado é inválido.', emailValidator),
   },
   password: {
     required: helpers.withMessage('Por favor, preencha este campo.', required),
