@@ -1,6 +1,10 @@
 <template>
   <AuthHeading>Crie sua conta</AuthHeading>
-  <AuthForm @submit="submitForm">
+  <AuthForm
+    :error-message="errorMessage"
+    @close-alert="errorMessage = ''"
+    @submit="submitForm"
+  >
     <TextField
       v-model.lazy="username"
       id="register--field-name"
@@ -54,13 +58,18 @@
 
 <script setup>
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
-import { required, email as emailValidator } from '@/helpers/i18nValidators';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
+import { required, email as emailValidator } from '@/helpers/i18nValidators';
+import { useAuthStore } from '@/stores/authStore';
 
 import TextField from '@/components/common/TextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
+
+const router = useRouter();
+const authStore = useAuthStore();
 
 const minLenghtValidator = helpers.withMessage('A senha deve ter ao menos 8 caracteres.', minLength(8));
 
@@ -69,6 +78,7 @@ const email = ref('');
 const password = ref('');
 const passwordConfirmation = ref('');
 const isLoading = ref(false);
+const errorMessage = ref('');
 
 const rules = computed(() => ({
   username: {
@@ -102,6 +112,23 @@ async function submitForm() {
 
   if (!formIsValid) {
     return;
+  }
+
+  isLoading.value = true;
+
+  try {
+    await authStore.register({
+      username: username.value,
+      email: email.value,
+      password: password.value,
+      passwordConfirmation: passwordConfirmation.value,
+    });
+
+    router.push({ name: 'verify-email' });
+  } catch (error) {
+    errorMessage.value = error.message;
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>
