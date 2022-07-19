@@ -108,6 +108,8 @@ const v$ = useVuelidate(rules, {
 }, { $autoDirty: true });
 
 async function submitForm() {
+  errorMessage.value = '';
+
   const formIsValid = await v$.value.$validate();
 
   if (!formIsValid) {
