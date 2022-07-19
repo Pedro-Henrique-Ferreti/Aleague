@@ -1,5 +1,5 @@
 <template>
-  <AuthHeading>Verifique seu email</AuthHeading>  
+  <AuthHeading>Verifique seu email</AuthHeading>
 </template>
 
 <script setup>

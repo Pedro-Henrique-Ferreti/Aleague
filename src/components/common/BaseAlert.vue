@@ -90,7 +90,7 @@ const alertClasses = computed(() => ({
     margin-right: 1.5rem;
     * {
       color: $color--text-darken;
-    } 
+    }
   }
   &__close-button {
     display: flex;

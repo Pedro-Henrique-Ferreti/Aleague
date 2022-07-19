@@ -97,7 +97,7 @@ async function submitForm() {
       router.push({ name: 'verify-email' });
       return;
     }
-    
+
     router.push({ name: 'home' });
   } catch (error) {
     errorMessage.value = error.message;
