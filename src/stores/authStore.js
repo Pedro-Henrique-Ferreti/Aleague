@@ -41,5 +41,10 @@ export const useAuthStore = defineStore('auth', {
       this.accessToken = data.accessToken;
       this.user = data.user;
     },
+    sendEmailVerificationCode() {
+      return axios.post('/auth/verify-email/resend', {
+        email: this.user.email,
+      });
+    },
   },
 });
