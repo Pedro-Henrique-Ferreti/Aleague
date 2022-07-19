@@ -11,7 +11,7 @@ function handleError(error) {
     throw new Error('Ocorreu um erro na comunicação com o servidor. Por favor, tente novamente.');
   }
 
-  throw new Error(data.message);
+  throw new Error(Object.values(data.errors)[0][0]);
 }
 
 const axiosInstance = axios.create({
