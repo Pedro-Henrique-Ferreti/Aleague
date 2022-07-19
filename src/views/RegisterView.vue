@@ -126,7 +126,12 @@ async function submitForm() {
       passwordConfirmation: passwordConfirmation.value,
     });
 
-    router.push({ name: 'verify-email' });
+    router.push({
+      name: 'verify-email',
+      query: {
+        from: 'register',
+      },
+    });
   } catch (error) {
     errorMessage.value = error.message;
   } finally {
