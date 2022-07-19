@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 import HomeView from '@/views/HomeView.vue';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
@@ -19,6 +20,13 @@ const router = createRouter({
       name: 'login',
       component: LoginView,
       meta: { layout: 'auth' },
+      beforeEnter: () => {
+        const authStore = useAuthStore();
+
+        if (authStore.userIsAuthenticated) {
+          return { name: 'home' };
+        }
+      },
     },
     {
       path: '/cadastre-se',
