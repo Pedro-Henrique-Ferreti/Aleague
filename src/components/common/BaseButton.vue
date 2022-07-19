@@ -138,7 +138,9 @@ const buttonClasses = computed(() => ({
   color: var(--color);
   background-color: var(--background-color);
   border-radius: var(--border-radius);
-  transition: background-color $transition--fastest ease;
+  transition:
+    background-color $transition--fastest ease,
+    color $transition--fastest ease-in-out;
   cursor: pointer;
   @include focus-ring;
   &:hover,
@@ -179,7 +181,7 @@ const buttonClasses = computed(() => ({
     --background-color: #{$color--light-gray-2};
     --loading-icon-color: #{$color--text-darken};
     --hover-background-color: #{$color--light-gray-1};
-    --disabled-color: #{$color--text};
+    --disabled-color: #{$color--text-lighten};
     --disabled-background-color: #{$color--light-gray-2};
   }
   &.button--danger {
