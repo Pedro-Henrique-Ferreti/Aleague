@@ -51,7 +51,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
-import { required, email as emailValidator, helpers } from '@vuelidate/validators';
+import { required, email as emailValidator } from '@/helpers/i18nValidators';
 import { useAuthStore } from '@/stores/authStore';
 
 import TextField from '@/components/common/TextField.vue';
@@ -68,12 +68,10 @@ const errorMessage = ref('');
 
 const rules = computed(() => ({
   email: {
-    required: helpers.withMessage('Por favor, preencha este campo.', required),
-    email: helpers.withMessage('O endereço de email informado é inválido.', emailValidator),
+    required,
+    email: emailValidator,
   },
-  password: {
-    required: helpers.withMessage('Por favor, preencha este campo.', required),
-  },
+  password: { required },
 }));
 
 const v$ = useVuelidate(rules, { email, password }, { $autoDirty: true });

@@ -55,14 +55,14 @@
 <script setup>
 import { computed, ref } from 'vue';
 import useVuelidate from '@vuelidate/core';
-import { required, email as emailValidator, helpers, sameAs, minLength } from '@vuelidate/validators';
+import { required, email as emailValidator } from '@/helpers/i18nValidators';
+import { helpers, sameAs, minLength } from '@vuelidate/validators';
 
 import TextField from '@/components/common/TextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 
-const requiredValidator = helpers.withMessage('Por favor, preencha este campo.', required);
-const passwordMinLenghtValidator = helpers.withMessage('A senha deve ter ao menos 8 caracteres.', minLength(8));
+const minLenghtValidator = helpers.withMessage('A senha deve ter ao menos 8 caracteres.', minLength(8));
 
 const username = ref('');
 const email = ref('');
@@ -72,20 +72,20 @@ const isLoading = ref(false);
 
 const rules = computed(() => ({
   username: {
-    required: requiredValidator,
+    required,
     minLength: helpers.withMessage('O nome de usuário deve ter ao menos 6 caracteres.', minLength(6)),
   },
   email: {
-    required: requiredValidator,
-    email: helpers.withMessage('O endereço de email informado é inválido.', emailValidator),
+    required,
+    email: emailValidator,
   },
   password: {
-    required: requiredValidator,
-    minLength: passwordMinLenghtValidator,
+    required,
+    minLength: minLenghtValidator,
   },
   passwordConfirmation: {
-    required: requiredValidator,
-    minLength: passwordMinLenghtValidator,
+    required,
+    minLength: minLenghtValidator,
     sameAsRef: helpers.withMessage('As senhas informadas não são iguais.', sameAs(password)),
   },
 }));
