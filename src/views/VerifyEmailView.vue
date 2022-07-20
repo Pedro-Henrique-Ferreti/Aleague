@@ -21,26 +21,37 @@
     </p>
     <EnterCode
       :is-loading="isSendingCode"
+      @update-code="verificationCode = $event"
       @resend-code="resendCode"
     />
     <template #footer>
-      <BaseButton>Continuar</BaseButton>
+      <BaseButton
+        :is-loading="isLoading"
+        :disabled="verificationCode.length < 6"
+        @click="verifyEmailAddress"
+      >
+        Continuar
+      </BaseButton>
     </template>
   </AuthForm>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 import EnterCode from '@/components/EnterCode.vue';
 
+const router = useRouter();
 const authStore = useAuthStore();
 
-const isSendingCode = ref(false);
 const errorMessage = ref('');
+const verificationCode = ref('');
+const isLoading = ref(false);
+const isSendingCode = ref(false);
 
 async function resendCode() {
   isSendingCode.value = true;
@@ -51,6 +62,20 @@ async function resendCode() {
     errorMessage.value = 'Falha ao enviar o código de verificação. Por favor, tente novamente.';
   } finally {
     isSendingCode.value = false;
+  }
+}
+
+async function verifyEmailAddress() {
+  isLoading.value = true;
+
+  try {
+    await authStore.verifyEmailAddress(verificationCode.value);
+
+    router.push({ name: 'home' });
+  } catch (error) {
+    errorMessage.value = error.message;
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>

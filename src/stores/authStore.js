@@ -46,5 +46,11 @@ export const useAuthStore = defineStore('auth', {
         email: this.user.email,
       });
     },
+    verifyEmailAddress(code) {
+      return axios.post('/auth/verify-email', {
+        email: this.user.email,
+        code,
+      });
+    },
   },
 });
