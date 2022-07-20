@@ -29,9 +29,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 
-const emit = defineEmits(['resend-code']);
+const emit = defineEmits(['resend-code', 'update-code']);
 const props = defineProps({
   resendTimeout: {
     type: Number,
@@ -92,6 +92,10 @@ setResendCodeInterval();
 // Digit fields
 const digit = ref([]);
 const digitRefs = ref([]);
+
+watch(digit.value, (newDigit) => {
+  emit('update-code', newDigit.join(''));
+});
 
 onMounted(() => {
   digitRefs.value[0].focus();
