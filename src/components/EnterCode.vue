@@ -11,7 +11,8 @@
         :key="n"
         :id="`digit-${n}`"
         :aria-label="`Digito ${n}`"
-        @input="focusNextField(n)"
+        @keydown.delete.prevent="handleDeleteKeypress(n - 1)"
+        @input="moveCursor(n)"
       />
     </div>
     <BaseButton
@@ -96,8 +97,19 @@ onMounted(() => {
   digitRefs.value[0].focus();
 });
 
-function focusNextField(index) {
+function moveCursor(index) {
   digitRefs.value[index]?.focus();
+}
+
+function handleDeleteKeypress(index) {
+  if (digit.value[index]) {
+    digit.value[index] = '';
+    return;
+  }
+
+  digit.value[index - 1] = '';
+
+  moveCursor(index - 1);
 }
 </script>
 
