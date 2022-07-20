@@ -6,7 +6,7 @@
         v-model="digit[n - 1]"
         class="enter-code__field"
         ref="digitRefs"
-        type="text"
+        type="tel"
         maxlength="1"
         :key="n"
         :id="`digit-${n}`"
