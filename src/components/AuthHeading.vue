@@ -2,9 +2,22 @@
   <h1 class="auth-heading">
     <slot />
   </h1>
+  <span
+    v-if="subtitle"
+    class="auth-heading__subtitle"
+  >
+    {{ subtitle }}
+  </span>
 </template>
 
-<script setup></script>
+<script setup>
+defineProps({
+  subtitle: {
+    type: String,
+    default: '',
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .auth-heading {
@@ -12,5 +25,10 @@
   color: $color--text-darken;
   font-size: 1.875rem;
   font-weight: $font-weight--semibold;
+  &__subtitle {
+    display: flex;
+    margin-top: -1rem;
+    margin-bottom: 1.5rem;
+  }
 }
 </style>

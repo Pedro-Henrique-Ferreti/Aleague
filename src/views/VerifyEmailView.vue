@@ -1,8 +1,7 @@
 <template>
-  <AuthHeading>Verifique seu email</AuthHeading>
-  <span class="email-address">
-    {{ authStore.user.email }}
-  </span>
+  <AuthHeading :subtitle="authStore.user.email">
+    Verifique seu email
+  </AuthHeading>
   <AuthForm
     :error-message="errorMessage"
     @close-alert="errorMessage = ''"
@@ -79,11 +78,3 @@ async function verifyEmailAddress() {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.email-address {
-  display: flex;
-  margin-top: -1rem;
-  margin-bottom: 1.5rem;
-}
-</style>
