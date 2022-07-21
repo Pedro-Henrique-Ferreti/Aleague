@@ -11,6 +11,10 @@ function handleError(error) {
     throw new Error('Ocorreu um erro na comunicação com o servidor. Por favor, tente novamente.');
   }
 
+  if (status === 400) {
+    throw new Error(data.message);
+  }
+
   throw new Error(Object.values(data.errors)[0][0]);
 }
 
