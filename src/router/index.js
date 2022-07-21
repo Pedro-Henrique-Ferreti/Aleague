@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import authRoutes from './auth';
 import HomeView from '@/views/HomeView.vue';
-import LoginView from '@/views/LoginView.vue';
-import RegisterView from '@/views/RegisterView.vue';
-import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue';
-import VerifyEmailView from '@/views/VerifyEmailView.vue';
+
+const userIsAuthenticated = () => {
+  const authStore = useAuthStore();
+
+  return authStore.userIsAuthenticated;
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,38 +18,14 @@ const router = createRouter({
       component: HomeView,
       meta: { layout: 'home' },
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-      meta: { layout: 'auth' },
-      beforeEnter: () => {
-        const authStore = useAuthStore();
-
-        if (authStore.userIsAuthenticated) {
-          return { name: 'home' };
-        }
-      },
-    },
-    {
-      path: '/cadastre-se',
-      name: 'register',
-      component: RegisterView,
-      meta: { layout: 'auth' },
-    },
-    {
-      path: '/recuperar-senha',
-      name: 'password-recovery',
-      component: PasswordRecoveryView,
-      meta: { layout: 'auth' },
-    },
-    {
-      path: '/verificar-email',
-      name: 'verify-email',
-      component: VerifyEmailView,
-      meta: { layout: 'auth' },
-    },
+    ...authRoutes,
   ],
+});
+
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth && !userIsAuthenticated()) {
+    return { name: 'login' };
+  }
 });
 
 export default router;
