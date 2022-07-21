@@ -10,9 +10,9 @@
           <AppLogo class="auth-layout__logo" />
         </router-link>
       </div>
-      <div class="auth-layout__card container">
+      <main class="auth-layout__card container">
         <slot />
-      </div>
+      </main>
     </div>
     <div
       class="auth-layout__banner"
