@@ -3,6 +3,7 @@ import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue';
 import VerifyEmailView from '@/views/VerifyEmailView.vue';
+import ResetPasswordView from '@/views/ResetPasswordView.vue';
 
 const notAuthenticatedGuard = () => {
   const authStore = useAuthStore();
@@ -46,6 +47,14 @@ export default [
       if ( !['login', 'register'].includes(from.name)) {
         return { name: 'home' };
       }
+    },
+  },
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    component: ResetPasswordView,
+    meta: {
+      layout: 'auth',
     },
   },
 ];
