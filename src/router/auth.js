@@ -21,21 +21,21 @@ export default [
     beforeEnter: notAuthenticatedGuard,
   },
   {
-    path: '/cadastre-se',
+    path: '/register',
     name: 'register',
     component: RegisterView,
     meta: { layout: 'auth' },
     beforeEnter: notAuthenticatedGuard,
   },
   {
-    path: '/recuperar-senha',
+    path: '/password-recovery',
     name: 'password-recovery',
     component: PasswordRecoveryView,
     meta: { layout: 'auth' },
     beforeEnter: notAuthenticatedGuard,
   },
   {
-    path: '/verificar-email',
+    path: '/verify-email',
     name: 'verify-email',
     component: VerifyEmailView,
     meta: {
