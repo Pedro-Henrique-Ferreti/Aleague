@@ -7,6 +7,8 @@
   </p>
   <AuthForm
     class="reset-password-form"
+    :error-message="errorMessage"
+    @close-alert="errorMessage = ''"
     @submit="submitForm"
   >
     <TextField
@@ -28,6 +30,7 @@
     <template #footer>
       <BaseButton
         type="submit"
+        :is-loading="isLoading"
       >
         Redefinir senha
       </BaseButton>
@@ -37,12 +40,19 @@
 
 <script setup>
 import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { required } from '@/helpers/i18nValidators';
+import { useAuthStore } from '@/stores/authStore';
 import TextField from './common/TextField.vue';
 import AuthForm from './AuthForm.vue';
 import AuthHeading from './AuthHeading.vue';
+
+const emit = defineEmits(['password-reset']);
+
+const route = useRoute();
+const authStore = useAuthStore();
 
 const minLenghtValidator = helpers.withMessage(
   'Sua nova senha deve ter ao menos 8 caracteres.',
@@ -51,6 +61,8 @@ const minLenghtValidator = helpers.withMessage(
 
 const password = ref('');
 const passwordConfirmation = ref('');
+const isLoading = ref(false);
+const errorMessage = ref('');
 
 const rules = computed(() => ({
   password: {
@@ -70,10 +82,29 @@ const v$ = useVuelidate(rules, {
 }, { $autoDirty: true });
 
 async function submitForm() {
+  errorMessage.value = '';
+
   const formIsValid = await v$.value.$validate();
 
   if (!formIsValid) {
     return;
+  }
+
+  isLoading.value = true;
+
+  try {
+    await authStore.resetPassword({
+      email: route.query.email,
+      token: route.query.token,
+      password: password.value,
+      passwordConfirmation: passwordConfirmation.value,
+    });
+
+    emit('password-reset');
+  } catch (error) {
+    errorMessage.value = error.message;
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>
