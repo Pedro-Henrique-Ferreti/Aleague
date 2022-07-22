@@ -17,6 +17,13 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: { layout: 'home' },
+      beforeEnter: () => {
+        const { userIsAuthenticated, user } = useAuthStore();
+
+        if (userIsAuthenticated && !user.emailVerifiedAt) {
+          return { name: 'verify-email' };
+        }
+      },
     },
     ...authRoutes,
   ],
