@@ -10,12 +10,12 @@
   <p class="text-darken">
     Sua senha foi redefinida com sucesso!
   </p>
-  <BaseButton
+  <AppButton
     class="reset-success__button"
     :to="{ name: 'login' }"
   >
     Acessar minha conta
-  </BaseButton>
+  </AppButton>
 </template>
 
 <script setup>

@@ -24,13 +24,13 @@
       @resend-code="resendCode"
     />
     <template #footer>
-      <BaseButton
+      <AppButton
         :is-loading="isLoading"
         :disabled="verificationCode.length < 6"
         @click="verifyEmailAddress"
       >
         Continuar
-      </BaseButton>
+      </AppButton>
     </template>
   </AuthForm>
 </template>

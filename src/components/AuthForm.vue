@@ -3,7 +3,7 @@
     class="auth-form"
     @submit.prevent="$emit('submit')"
   >
-    <BaseAlert
+    <AppAlert
       v-show="errorMessage"
       class="auth-form__alert"
       type="error"

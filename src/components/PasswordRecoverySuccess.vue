@@ -10,13 +10,13 @@
   <p class="text-darken">
     Verifique em sua caixa de entrada por um link para recuperar sua senha.
   </p>
-  <BaseButton
+  <AppButton
     class="recovery-success__button"
     color="gray"
     :to="{ name: 'login' }"
   >
     Voltar ao login
-  </BaseButton>
+  </AppButton>
 </template>
 
 <script setup>

@@ -20,7 +20,7 @@
             <p class="hero__description">
               Com o Alegue, você pode criar campeonatos de futebol de maneira fácil e rápida. Escolha entre diversos formatos e opções de regras para ter uma experiência completa.
             </p>
-            <BaseButton
+            <AppButton
               color="tertiary"
               size="large"
               icon-right="arrowFoward"
@@ -28,7 +28,7 @@
               :to="{ name: 'register' }"
             >
               Começar agora
-            </BaseButton>
+            </AppButton>
           </div>
           <img
             class="hero__illustration"
@@ -48,7 +48,7 @@
             <p class="hero__description">
               Escolha nomes, cores e diversas opções de escudos para a sua nova equipe. Se preferir, você pode utilizar o pacote de equipes para cadastrar os clubes das ligas mais famosas do mundo.
             </p>
-            <BaseButton
+            <AppButton
               size="large"
               color="secondary"
               icon-right="arrowFoward"
@@ -56,7 +56,7 @@
               :to="{ name: 'register' }"
             >
               Começar agora
-            </BaseButton>
+            </AppButton>
           </div>
           <img
             class="hero__illustration"
@@ -76,14 +76,14 @@
             <p class="hero__description">
               O Aleague apresenta estatísticas detalhadas sobre cada equipe e cada campeonato que você criar. Mergulhe em uma profunda análise dos resultados das suas equipes.
             </p>
-            <BaseButton
+            <AppButton
               size="large"
               icon-right="arrowFoward"
               icon-rounded
               :to="{ name: 'register' }"
             >
               Começar agora
-            </BaseButton>
+            </AppButton>
           </div>
           <img
             class="hero__illustration"
@@ -103,7 +103,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
 import 'swiper/css/autoplay';
-import BaseButton from './common/BaseButton.vue';
+import AppButton from './common/AppButton.vue';
 
 const modules = ref([Autoplay, Pagination]);
 const paginationOptions = ref({

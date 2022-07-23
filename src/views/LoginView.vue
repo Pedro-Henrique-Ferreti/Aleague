@@ -22,18 +22,18 @@
       v-model.lazy="password"
     />
     <template #footer>
-      <BaseButton
+      <AppButton
         type="submit"
         :is-loading="isLoading"
       >
         Fazer login
-      </BaseButton>
-      <BaseButton
+      </AppButton>
+      <AppButton
         color="gray"
         :to="{ name: 'password-recovery'}"
       >
         Recuperar senha
-      </BaseButton>
+      </AppButton>
     </template>
   </AuthForm>
   <span class="register text-darken">

@@ -13,15 +13,15 @@
         Cadastre-se no Alegue para criar os seu campeonatos de futubol. Se já possuir uma conta, faça login.
       </p>
       <div class="sign-in__buttons">
-        <BaseButton
+        <AppButton
           class="sign-in__button"
           icon-rounded
           icon-right="ArrowFoward"
           :to="{ name: 'register' }"
         >
           Iniciar o Aleague
-        </BaseButton>
-        <BaseButton
+        </AppButton>
+        <AppButton
           class="sign-in__button"
           icon-rounded
           color="gray"
@@ -29,7 +29,7 @@
           :to="{ name: 'login' }"
         >
           Acessar conta
-        </BaseButton>
+        </AppButton>
       </div>
     </div>
   </section>

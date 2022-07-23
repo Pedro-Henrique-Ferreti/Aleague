@@ -28,12 +28,12 @@
       :error-message="v$.passwordConfirmation.$errors[0]?.$message"
     />
     <template #footer>
-      <BaseButton
+      <AppButton
         type="submit"
         :is-loading="isLoading"
       >
         Redefinir senha
-      </BaseButton>
+      </AppButton>
     </template>
   </AuthForm>
 </template>

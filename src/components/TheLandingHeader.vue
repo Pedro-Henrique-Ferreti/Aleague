@@ -10,21 +10,21 @@
         :class="[menuIsOpen ? 'landing-header__menu--open' : '']"
       >
         <hr class="landing-header__menu-divider" />
-        <BaseButton
+        <AppButton
           class="landing-header__menu-button"
           color="gray"
           :to="{ name: 'login' }"
         >
           Fazer Login
-        </BaseButton>
-        <BaseButton
+        </AppButton>
+        <AppButton
           class="landing-header__menu-button"
           :to="{ name: 'register' }"
         >
           Cadastre-se
-        </BaseButton>
+        </AppButton>
       </nav>
-      <BaseButton
+      <AppButton
         class="landing-header__toggle-menu-button"
         color="gray"
         size="small"
@@ -32,7 +32,7 @@
         @click="menuIsOpen = !menuIsOpen"
       >
         Menu
-      </BaseButton>
+      </AppButton>
     </div>
   </header>
 </template>

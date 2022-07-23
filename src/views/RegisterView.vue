@@ -37,12 +37,12 @@
       :error-message="v$.passwordConfirmation.$errors[0]?.$message"
     />
     <template #footer>
-      <BaseButton
+      <AppButton
         type="submit"
         :is-loading="isLoading"
       >
         Criar conta
-      </BaseButton>
+      </AppButton>
     </template>
   </AuthForm>
   <span class="login text-darken">

@@ -15,7 +15,7 @@
         @input="moveCursor(n)"
       />
     </div>
-    <BaseButton
+    <AppButton
       class="enter-code__resend-code"
       color="gray"
       type="button"
@@ -24,7 +24,7 @@
       @click="resendCode"
     >
       {{ resendCodeButtonText }}
-    </BaseButton>
+    </AppButton>
   </div>
 </template>
 

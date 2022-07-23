@@ -18,18 +18,18 @@
       :error-message="v$.email.$errors[0]?.$message"
     />
     <template #footer>
-      <BaseButton
+      <AppButton
         type="submit"
         :is-loading="isLoading"
       >
         Recuperar senha
-      </BaseButton>
-      <BaseButton
+      </AppButton>
+      <AppButton
         color="gray"
         :to="{ name: 'login' }"
       >
         Voltar
-      </BaseButton>
+      </AppButton>
     </template>
   </AuthForm>
 </template>
