@@ -1,6 +1,6 @@
 <template>
   <span v-if="isLoading">Carregando...</span>
-  <span v-else-if="showLinkExpiredMessage">Link expirado</span>
+  <ResetPasswordExpiredLink v-else-if="showLinkExpiredMessage" />
   <ResetPasswordSuccess v-else-if="showSuccessMessage" />
   <ResetPasswordForm
     v-else
@@ -14,6 +14,7 @@ import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import ResetPasswordForm from '@/components/ResetPasswordForm.vue';
 import ResetPasswordSuccess from '@/components/ResetPasswordSuccess.vue';
+import ResetPasswordExpiredLink from '@/components/ResetPasswordExpiredLink.vue';
 
 const route = useRoute();
 const authStore = useAuthStore();
@@ -31,7 +32,7 @@ async function validateEmailAndToken() {
     }
 
     const { isValid } = await authStore.validatePasswordResetToken({ email, token });
-    
+
     if (!isValid) {
       throw new Error();
     }
