@@ -5,7 +5,7 @@
         <router-link
           class="focus-ring"
           aria-label="Go to the Home page"
-          :to="{ name: 'home' }"
+          :to="{ name: 'landing' }"
         >
           <AppLogo class="auth-layout__logo" />
         </router-link>
