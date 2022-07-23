@@ -53,12 +53,12 @@ export const useAuthStore = defineStore('auth', {
       });
     },
     sendPasswordRecoveryEmail(email) {
-      return axios.post('/auth/forgot-password', {
+      return axios.post('/auth/password/forgot', {
         email,
       });
     },
     resetPassword({ email, token, password, passwordConfirmation }) {
-      return axios.post('/auth/reset-password', {
+      return axios.post('/auth/password/reset', {
         email,
         token,
         password,
