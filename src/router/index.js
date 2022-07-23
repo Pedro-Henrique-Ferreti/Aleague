@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import authRoutes from './auth';
-import HomeView from '@/views/HomeView.vue';
+import LandingView from '@/views/LandingView.vue';
 
 const userIsAuthenticated = () => {
   const authStore = useAuthStore();
@@ -15,8 +15,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
-      meta: { layout: 'home' },
+      component: LandingView,
+      meta: { layout: 'landing' },
       beforeEnter: () => {
         const { userIsAuthenticated, user } = useAuthStore();
 

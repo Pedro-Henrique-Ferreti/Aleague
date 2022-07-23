@@ -7,8 +7,9 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import HomeLayout from '@/layouts/HomeLayout.vue';
+import LandingLayout from '@/layouts/LandingLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const route = useRoute();
 
@@ -16,9 +17,10 @@ const currentLayout = computed(() => {
   switch (route.meta.layout) {
     case 'auth':
       return AuthLayout;
-    case 'home':
+    case 'landing':
+      return LandingLayout;
     default:
-      return HomeLayout;
+      return DefaultLayout;
   }
 });
 </script>

@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import SectionTitle from '@/components/HomeSectionTitle.vue';
+import SectionTitle from './LandingSectionTitle.vue';
 </script>
 
 <style lang="scss" scoped>

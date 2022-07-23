@@ -1,31 +1,31 @@
 <template>
   <header
-    class="home-header"
-    :class="[headerIsPinned ? 'home-header--pinned' : '']"
+    class="landing-header"
+    :class="[headerIsPinned ? 'landing-header--pinned' : '']"
   >
-    <div class="home-header__content container-medium">
+    <div class="landing-header__content container-medium">
       <AppLogo />
       <nav
-        class="home-header__menu container"
-        :class="[menuIsOpen ? 'home-header__menu--open' : '']"
+        class="landing-header__menu container"
+        :class="[menuIsOpen ? 'landing-header__menu--open' : '']"
       >
-        <hr class="home-header__menu-divider" />
+        <hr class="landing-header__menu-divider" />
         <BaseButton
-          class="home-header__menu-button"
+          class="landing-header__menu-button"
           color="gray"
           :to="{ name: 'login' }"
         >
           Fazer Login
         </BaseButton>
         <BaseButton
-          class="home-header__menu-button"
+          class="landing-header__menu-button"
           :to="{ name: 'register' }"
         >
           Cadastre-se
         </BaseButton>
       </nav>
       <BaseButton
-        class="home-header__toggle-menu-button"
+        class="landing-header__toggle-menu-button"
         color="gray"
         size="small"
         :icon-left="menuIsOpen ? 'close' : 'menu'"
@@ -39,7 +39,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import AppLogo from '@/components/AppLogo.vue';
+import AppLogo from './AppLogo.vue';
 
 const menuIsOpen = ref(false);
 const headerIsPinned = ref(false);
@@ -50,7 +50,7 @@ document.addEventListener('scroll', () => {
 </script>
 
 <style lang="scss" scoped>
-.home-header {
+.landing-header {
   position: absolute;
   top: 0;
   right: 0;
@@ -117,7 +117,7 @@ document.addEventListener('scroll', () => {
       width: 9.5rem;
     }
   }
-  .home-header__toggle-menu-button {
+  .landing-header__toggle-menu-button {
     @include for-large-tablet-portrait-up {
       display: none;
     }
