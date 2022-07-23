@@ -5,14 +5,14 @@
     @close-alert="errorMessage = ''"
     @submit="submitForm"
   >
-    <TextField
+    <AppTextField
       v-model.lazy="username"
       id="register--field-name"
       label="Nome de usuário"
       :dirty="v$.username.$dirty"
       :error-message="v$.username.$errors[0]?.$message"
     />
-    <TextField
+    <AppTextField
       v-model.lazy="email"
       id="register--field-email"
       type="email"
@@ -20,7 +20,7 @@
       :dirty="v$.email.$dirty"
       :error-message="v$.email.$errors[0]?.$message"
     />
-    <TextField
+    <AppTextField
       v-model.lazy="password"
       id="register--field-password"
       type="password"
@@ -28,7 +28,7 @@
       :dirty="v$.password.$dirty"
       :error-message="v$.password.$errors[0]?.$message"
     />
-    <TextField
+    <AppTextField
       v-model.lazy="passwordConfirmation"
       id="register--field-confirm-password"
       type="password"
@@ -64,7 +64,7 @@ import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { required, email as emailValidator } from '@/helpers/i18nValidators';
 import { useAuthStore } from '@/stores/authStore';
 
-import TextField from '@/components/common/TextField.vue';
+import AppTextField from '@/components/common/AppTextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 

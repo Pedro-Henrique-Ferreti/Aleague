@@ -11,7 +11,7 @@
     @close-alert="errorMessage = ''"
     @submit="submitForm"
   >
-    <TextField
+    <AppTextField
       v-model.lazy="password"
       id="reset-password--field-new-password"
       type="password"
@@ -19,7 +19,7 @@
       :dirty="v$.password.$dirty"
       :error-message="v$.password.$errors[0]?.$message"
     />
-    <TextField
+    <AppTextField
       v-model.lazy="passwordConfirmation"
       id="reset-password--field-password-confirmation"
       type="password"
@@ -45,7 +45,7 @@ import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { required } from '@/helpers/i18nValidators';
 import { useAuthStore } from '@/stores/authStore';
-import TextField from './common/TextField.vue';
+import AppTextField from './common/AppTextField.vue';
 import AuthForm from './AuthForm.vue';
 import AuthHeading from './AuthHeading.vue';
 

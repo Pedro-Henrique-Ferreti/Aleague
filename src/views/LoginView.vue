@@ -5,7 +5,7 @@
     @close-alert="errorMessage = ''"
     @submit="submitForm"
   >
-    <TextField
+    <AppTextField
       id="login--field-email"
       type="email"
       label="Email"
@@ -13,7 +13,7 @@
       :error-message="v$.email.$errors[0]?.$message"
       v-model.lazy="email"
     />
-    <TextField
+    <AppTextField
       id="login--field-password"
       type="password"
       label="Senha"
@@ -54,7 +54,7 @@ import useVuelidate from '@vuelidate/core';
 import { required, email as emailValidator } from '@/helpers/i18nValidators';
 import { useAuthStore } from '@/stores/authStore';
 
-import TextField from '@/components/common/TextField.vue';
+import AppTextField from '@/components/common/AppTextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 

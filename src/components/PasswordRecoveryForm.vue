@@ -9,7 +9,7 @@
     @close-alert="errorMessage = ''"
     @submit="submitForm"
   >
-    <TextField
+    <AppTextField
       v-model.lazy="email"
       id="password-recovery--field-email"
       type="email"
@@ -39,7 +39,7 @@ import { ref, computed } from 'vue';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValidator } from '@/helpers/i18nValidators';
 import { useAuthStore } from '@/stores/authStore';
-import TextField from './common/TextField.vue';
+import AppTextField from './common/AppTextField.vue';
 import AuthHeading from './AuthHeading.vue';
 import AuthForm from './AuthForm.vue';
 
