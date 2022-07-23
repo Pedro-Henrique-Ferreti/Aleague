@@ -1,5 +1,5 @@
 <template>
-  <DefaultButton
+  <BaseButton
     class="button"
     :class="buttonClasses"
     :disabled="buttonIsDisabled"
@@ -32,7 +32,7 @@
         />
       </div>
     </template>
-  </DefaultButton>
+  </BaseButton>
 </template>
 
 <script>
@@ -56,7 +56,7 @@ export default {};
 
 <script setup>
 import { computed } from 'vue';
-import DefaultButton from '@/components/common/DefaultButton.vue';
+import BaseButton from '@/components/common/BaseButton.vue';
 
 defineEmits(['click']);
 
