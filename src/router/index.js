@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/authStore';
 import authRoutes from './auth';
 import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
+import NotFoundView from '@/views/NotFoundView.vue';
 
 const userIsAuthenticated = () => {
   const authStore = useAuthStore();
@@ -40,6 +41,12 @@ const router = createRouter({
           return { name: 'landing' };
         }
       },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView,
+      meta: { layout: 'notFound' },
     },
   ],
 });
