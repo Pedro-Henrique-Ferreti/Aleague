@@ -1,5 +1,7 @@
 <template>
-  <ResetPasswordSuccess v-if="showSuccessMessage" />
+  <span v-if="isLoading">Carregando...</span>
+  <span v-else-if="showLinkExpiredMessage">Link expirado</span>
+  <ResetPasswordSuccess v-else-if="showSuccessMessage" />
   <ResetPasswordForm
     v-else
     @password-reset="showSuccessMessage = true"
@@ -7,9 +9,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
 import ResetPasswordForm from '@/components/ResetPasswordForm.vue';
 import ResetPasswordSuccess from '@/components/ResetPasswordSuccess.vue';
 
+const route = useRoute();
+const authStore = useAuthStore();
+
 const showSuccessMessage = ref(false);
+const showLinkExpiredMessage = ref(false);
+const isLoading = ref(true);
+
+async function validateEmailAndToken() {
+  try {
+    const { email, token } = route.query;
+
+    if (!email || !token) {
+      throw new Error();
+    }
+
+    const { isValid } = await authStore.validatePasswordResetToken({ email, token });
+    
+    if (!isValid) {
+      throw new Error();
+    }
+  } catch(error) {
+    showLinkExpiredMessage.value = true;
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+onMounted(validateEmailAndToken);
 </script>

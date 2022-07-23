@@ -65,5 +65,13 @@ export const useAuthStore = defineStore('auth', {
         passwordConfirmation,
       });
     },
+    async validatePasswordResetToken({ email, token }) {
+      const { data } = await axios.post('/auth/password/validate-token', {
+        email,
+        token,
+      });
+
+      return data;
+    },
   },
 });
