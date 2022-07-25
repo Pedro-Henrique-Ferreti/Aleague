@@ -1,5 +1,8 @@
 <template>
-  <span v-if="isLoading">Carregando...</span>
+  <LoadingIndicator
+    v-if="isLoading"
+    class="reset-password__loading"
+  />
   <ResetPasswordExpiredLink v-else-if="showLinkExpiredMessage" />
   <ResetPasswordSuccess v-else-if="showSuccessMessage" />
   <ResetPasswordForm
@@ -12,6 +15,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ResetPasswordForm from '@/components/ResetPasswordForm.vue';
 import ResetPasswordSuccess from '@/components/ResetPasswordSuccess.vue';
 import ResetPasswordExpiredLink from '@/components/ResetPasswordExpiredLink.vue';
@@ -45,3 +49,9 @@ async function validateEmailAndToken() {
 
 onMounted(validateEmailAndToken);
 </script>
+
+<style lang="scss" scoped>
+.reset-password__loading {
+  min-height: 20rem;
+}
+</style>
