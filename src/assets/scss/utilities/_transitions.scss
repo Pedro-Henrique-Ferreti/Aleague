@@ -1,0 +1,18 @@
+/* Fade through
+  Emphasizes entering elements
+*/
+.fade-through-enter-from {
+  opacity: 0.4;
+  transform: scale(0.92);
+}
+.fade-through-leave-to {
+  opacity: 0.4;
+}
+.fade-through-enter-active {
+  transition:
+    opacity $transition--fast ease-out,
+    transform $transition--fast ease-out;
+}
+.fade-through-leave-active {
+  transition: opacity $transition--fastest ease;
+}
