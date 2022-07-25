@@ -70,7 +70,8 @@ const alertClasses = computed(() => ({
     --icon-color: #{$color--danger};
   }
 
-  display: flex;
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
   align-items: center;
   min-height: 3.5rem;
   padding: 0.75rem 0;
@@ -83,22 +84,22 @@ const alertClasses = computed(() => ({
   &__icon {
     width: 1.5rem;
     height: 1.5rem;
-    margin-right: 1rem;
     fill: var(--icon-color);
   }
   &__content {
-    margin-right: 1.5rem;
+    margin-right: 2rem;
     * {
       color: $color--text-darken;
     }
   }
   &__close-button {
+    @include focus-ring;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 2rem;
     height: 2rem;
-    position: absolute;
+    position: absolute !important;
     right: 0.5rem;
   }
   &__close-button-icon {
