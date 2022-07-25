@@ -1,41 +1,43 @@
 <template>
-  <AuthHeading :subtitle="$route.query.email">
-    Redefina sua senha
-  </AuthHeading>
-  <p class="text-darken">
-    Por favor, digite a sua nova senha.
-  </p>
-  <AuthForm
-    class="reset-password-form"
-    :error-message="errorMessage"
-    @close-alert="errorMessage = ''"
-    @submit="submitForm"
-  >
-    <AppTextField
-      v-model.lazy="password"
-      id="reset-password--field-new-password"
-      type="password"
-      label="Nova senha"
-      :dirty="v$.password.$dirty"
-      :error-message="v$.password.$errors[0]?.$message"
-    />
-    <AppTextField
-      v-model.lazy="passwordConfirmation"
-      id="reset-password--field-password-confirmation"
-      type="password"
-      label="Repita a nova senha"
-      :dirty="v$.passwordConfirmation.$dirty"
-      :error-message="v$.passwordConfirmation.$errors[0]?.$message"
-    />
-    <template #footer>
-      <AppButton
-        type="submit"
-        :is-loading="isLoading"
-      >
-        Redefinir senha
-      </AppButton>
-    </template>
-  </AuthForm>
+  <div>
+    <AuthHeading :subtitle="$route.query.email">
+      Redefina sua senha
+    </AuthHeading>
+    <p class="text-darken">
+      Por favor, digite a sua nova senha.
+    </p>
+    <AuthForm
+      class="reset-password-form"
+      :error-message="errorMessage"
+      @close-alert="errorMessage = ''"
+      @submit="submitForm"
+    >
+      <AppTextField
+        v-model.lazy="password"
+        id="reset-password--field-new-password"
+        type="password"
+        label="Nova senha"
+        :dirty="v$.password.$dirty"
+        :error-message="v$.password.$errors[0]?.$message"
+      />
+      <AppTextField
+        v-model.lazy="passwordConfirmation"
+        id="reset-password--field-password-confirmation"
+        type="password"
+        label="Repita a nova senha"
+        :dirty="v$.passwordConfirmation.$dirty"
+        :error-message="v$.passwordConfirmation.$errors[0]?.$message"
+      />
+      <template #footer>
+        <AppButton
+          type="submit"
+          :is-loading="isLoading"
+        >
+          Redefinir senha
+        </AppButton>
+      </template>
+    </AuthForm>
+  </div>
 </template>
 
 <script setup>

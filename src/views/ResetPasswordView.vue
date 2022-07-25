@@ -1,14 +1,16 @@
 <template>
-  <LoadingIndicator
-    v-if="isLoading"
-    class="reset-password__loading"
-  />
-  <ResetPasswordExpiredLink v-else-if="showLinkExpiredMessage" />
-  <ResetPasswordSuccess v-else-if="showSuccessMessage" />
-  <ResetPasswordForm
-    v-else
-    @password-reset="showSuccessMessage = true"
-  />
+  <transition name="fade-through" mode="out-in">
+    <LoadingIndicator
+      v-if="isLoading"
+      class="reset-password__loading"
+    />
+    <ResetPasswordExpiredLink v-else-if="showLinkExpiredMessage" />
+    <ResetPasswordSuccess v-else-if="showSuccessMessage" />
+    <ResetPasswordForm
+      v-else
+      @password-reset="showSuccessMessage = true"
+    />
+  </transition>
 </template>
 
 <script setup>

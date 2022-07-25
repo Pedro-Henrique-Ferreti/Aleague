@@ -1,25 +1,27 @@
 <template>
-  <AuthHeading>Link expirado</AuthHeading>
-  <div class="expired-link__image-wrapper">
-    <img
-      class="expired-link__image"
-      src="/images/exclamation-mark.svg"
-      alt="Woman looking at a big exclamation mark"
-    />
-  </div>
-  <p class="text-darken">
-    Ops! Parece que o seu link para recuperar a senha expirou. Por favor, solicite um novo link.
-  </p>
-  <div class="expired-link__buttons">
-    <AppButton :to="{ name: 'password-recovery' }">
-      Solicitar novo link
-    </AppButton>
-    <AppButton
-      color="gray"
-      :to="{ name: 'login' }"
-    >
-      Voltar ao login
-    </AppButton>
+  <div class="expired-link">
+    <AuthHeading>Link expirado</AuthHeading>
+    <div class="expired-link__image-wrapper">
+      <img
+        class="expired-link__image"
+        src="/images/exclamation-mark.svg"
+        alt="Woman looking at a big exclamation mark"
+      />
+    </div>
+    <p class="text-darken">
+      Ops! Parece que o seu link para recuperar a senha expirou. Por favor, solicite um novo link.
+    </p>
+    <div class="expired-link__buttons">
+      <AppButton :to="{ name: 'password-recovery' }">
+        Solicitar novo link
+      </AppButton>
+      <AppButton
+        color="gray"
+        :to="{ name: 'login' }"
+      >
+        Voltar ao login
+      </AppButton>
+    </div>
   </div>
 </template>
 

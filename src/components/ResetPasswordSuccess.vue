@@ -1,21 +1,23 @@
 <template>
-  <AuthHeading>Redefina sua senha</AuthHeading>
-  <div class="reset-success__image-wrapper">
-    <img
-      class="reset-success__image"
-      src="/images/smartphone-verified.svg"
-      alt="Girl next to smartphone with check sign"
-    />
+  <div class="reset-success">
+    <AuthHeading>Redefina sua senha</AuthHeading>
+    <div class="reset-success__image-wrapper">
+      <img
+        class="reset-success__image"
+        src="/images/smartphone-verified.svg"
+        alt="Girl next to smartphone with check sign"
+      />
+    </div>
+    <p class="text-darken">
+      Sua senha foi redefinida com sucesso!
+    </p>
+    <AppButton
+      class="reset-success__button"
+      :to="{ name: 'login' }"
+    >
+      Acessar minha conta
+    </AppButton>
   </div>
-  <p class="text-darken">
-    Sua senha foi redefinida com sucesso!
-  </p>
-  <AppButton
-    class="reset-success__button"
-    :to="{ name: 'login' }"
-  >
-    Acessar minha conta
-  </AppButton>
 </template>
 
 <script setup>
