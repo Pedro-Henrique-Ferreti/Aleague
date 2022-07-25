@@ -1,5 +1,8 @@
 <template>
-  <transition name="fade-through" mode="out-in">
+  <transition
+    name="fade-through"
+    mode="out-in"
+  >
     <PasswordRecoverySuccess v-if="showSuccessMessage" />
     <PasswordRecoveryForm
       v-else

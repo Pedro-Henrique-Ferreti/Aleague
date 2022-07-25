@@ -1,5 +1,8 @@
 <template>
-  <transition name="fade-through" mode="out-in">
+  <transition
+    name="fade-through"
+    mode="out-in"
+  >
     <LoadingIndicator
       v-if="isLoading"
       class="reset-password__loading"
