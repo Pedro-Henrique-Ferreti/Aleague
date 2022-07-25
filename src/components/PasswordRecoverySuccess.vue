@@ -1,22 +1,24 @@
 <template>
-  <AuthHeading>E-mail enviado</AuthHeading>
-  <div class="recovery-success__image-wrapper">
-    <img
-      class="recovery-success__image"
-      src="/images/mail-sent.svg"
-      alt="Email sent successfully"
-    />
+  <div class="recovery-success">
+    <AuthHeading>E-mail enviado</AuthHeading>
+    <div class="recovery-success__image-wrapper">
+      <img
+        class="recovery-success__image"
+        src="/images/mail-sent.svg"
+        alt="Email sent successfully"
+      />
+    </div>
+    <p class="text-darken">
+      Verifique em sua caixa de entrada por um link para recuperar sua senha.
+    </p>
+    <AppButton
+      class="recovery-success__button"
+      color="gray"
+      :to="{ name: 'login' }"
+    >
+      Voltar ao login
+    </AppButton>
   </div>
-  <p class="text-darken">
-    Verifique em sua caixa de entrada por um link para recuperar sua senha.
-  </p>
-  <AppButton
-    class="recovery-success__button"
-    color="gray"
-    :to="{ name: 'login' }"
-  >
-    Voltar ao login
-  </AppButton>
 </template>
 
 <script setup>

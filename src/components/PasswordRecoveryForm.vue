@@ -1,37 +1,39 @@
 <template>
-  <AuthHeading>Recupere sua senha</AuthHeading>
-  <p class="text-darken">
-    Para recuperar sua senha, digite o endereço de email que você utiliza para acessar sua conta.
-  </p>
-  <AuthForm
-    class="password-recovery__form"
-    :error-message="errorMessage"
-    @close-alert="errorMessage = ''"
-    @submit="submitForm"
-  >
-    <AppTextField
-      v-model.lazy="email"
-      id="password-recovery--field-email"
-      type="email"
-      label="Email"
-      :dirty="v$.email.$dirty"
-      :error-message="v$.email.$errors[0]?.$message"
-    />
-    <template #footer>
-      <AppButton
-        type="submit"
-        :is-loading="isLoading"
-      >
-        Recuperar senha
-      </AppButton>
-      <AppButton
-        color="gray"
-        :to="{ name: 'login' }"
-      >
-        Voltar
-      </AppButton>
-    </template>
-  </AuthForm>
+  <div>
+    <AuthHeading>Recupere sua senha</AuthHeading>
+    <p class="text-darken">
+      Para recuperar sua senha, digite o endereço de email que você utiliza para acessar sua conta.
+    </p>
+    <AuthForm
+      class="password-recovery__form"
+      :error-message="errorMessage"
+      @close-alert="errorMessage = ''"
+      @submit="submitForm"
+    >
+      <AppTextField
+        v-model.lazy="email"
+        id="password-recovery--field-email"
+        type="email"
+        label="Email"
+        :dirty="v$.email.$dirty"
+        :error-message="v$.email.$errors[0]?.$message"
+      />
+      <template #footer>
+        <AppButton
+          type="submit"
+          :is-loading="isLoading"
+        >
+          Recuperar senha
+        </AppButton>
+        <AppButton
+          color="gray"
+          :to="{ name: 'login' }"
+        >
+          Voltar
+        </AppButton>
+      </template>
+    </AuthForm>
+  </div>
 </template>
 
 <script setup>

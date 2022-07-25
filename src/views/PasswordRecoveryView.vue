@@ -1,9 +1,11 @@
 <template>
-  <PasswordRecoverySuccess v-if="showSuccessMessage" />
-  <PasswordRecoveryForm
-    v-else
-    @email-sent="showSuccessMessage = true"
-  />
+  <transition name="fade-through" mode="out-in">
+    <PasswordRecoverySuccess v-if="showSuccessMessage" />
+    <PasswordRecoveryForm
+      v-else
+      @email-sent="showSuccessMessage = true"
+    />
+  </transition>
 </template>
 
 <script setup>
