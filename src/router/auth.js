@@ -45,7 +45,7 @@ export default [
     },
     beforeEnter: (_, from) => {
       if ( !['login', 'register'].includes(from.name)) {
-        return { name: 'landing' };
+        return { name: 'home' };
       }
     },
   },
