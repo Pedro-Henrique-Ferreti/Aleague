@@ -1,10 +1,10 @@
 <template>
   <TheLandingHeader />
   <slot />
-  <TheHomeFooter />
+  <TheFooter />
 </template>
 
 <script setup>
 import TheLandingHeader from '@/components/TheLandingHeader.vue';
-import TheHomeFooter from '@/components/TheHomeFooter.vue';
+import TheFooter from '@/components/TheFooter.vue';
 </script>

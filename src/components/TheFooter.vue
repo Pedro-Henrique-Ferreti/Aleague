@@ -1,17 +1,17 @@
 <template>
-  <footer class="home-footer container">
-    <span class="home-footer__copyright">
+  <footer class="footer container">
+    <span class="footer__copyright">
       © Aleague {{ new Date().getFullYear() }}.
     </span>
     Desenvolvido por
     <a
-      class="home-footer__link"
+      class="footer__link"
       target="_blank"
       rel="noopener"
       href="https://www.linkedin.com/in/pedro-henrique-ferreti-de-souza-7921aa174/"
     >Pedro Ferreti</a> e
     <a
-      class="home-footer__link"
+      class="footer__link"
       target="_blank"
       rel="noopener"
       href="https://www.linkedin.com/in/guilherme-ferreti-de-souza/"
@@ -22,7 +22,7 @@
 <script setup></script>
 
 <style lang="scss" scoped>
-.home-footer {
+.footer {
   margin-top: 4rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
