@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import Cookies from 'js-cookie';
 import axios from '@/helpers/axios';
 
 export const useAuthStore = defineStore('auth', {
@@ -27,8 +28,9 @@ export const useAuthStore = defineStore('auth', {
         password,
       });
 
-      this.accessToken = data.accessToken;
       this.user = data.user;
+
+      this.setAccessToken(data.accessToken);
     },
     async register({ username, email, password, passwordConfirmation }) {
       const { data } = await axios.post('/auth/register', {
@@ -38,8 +40,9 @@ export const useAuthStore = defineStore('auth', {
         passwordConfirmation,
       });
 
-      this.accessToken = data.accessToken;
       this.user = data.user;
+
+      this.setAccessToken(data.accessToken);
     },
     sendEmailVerificationCode() {
       return axios.post('/auth/verify-email/resend', {
@@ -72,6 +75,18 @@ export const useAuthStore = defineStore('auth', {
       });
 
       return data;
+    },
+    setAccessToken(accessToken) {
+      if (!accessToken) {
+        this.accessToken = '';
+        Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN_COOKIE);
+
+        return;
+      }
+
+      this.accessToken = accessToken;
+
+      Cookies.set(import.meta.env.VITE_ACCESS_TOKEN_COOKIE, accessToken);
     },
   },
 });

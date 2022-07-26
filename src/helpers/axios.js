@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function handleSuccess(response) {
   return response;
@@ -24,6 +25,16 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
     'Locale': 'pt_BR',
   },
+});
+
+axiosInstance.interceptors.request.use(function (config) {
+  const accessToken = Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE);
+
+  if (accessToken) {
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+
+  return config;
 });
 
 axiosInstance.interceptors.response.use(handleSuccess, handleError);
