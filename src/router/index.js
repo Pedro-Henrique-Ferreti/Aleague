@@ -4,6 +4,7 @@ import authRoutes from './auth';
 import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
+import Cookies from 'js-cookie';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,7 +49,19 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  const { userIsAuthenticated } = useAuthStore();
+  const authStore = useAuthStore();
+  const { reloadUser } = authStore;
+  let { userIsAuthenticated } = authStore;
+
+  const accessToken = Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE);
+
+  if (accessToken && !userIsAuthenticated) {
+    await reloadUser();
+
+    const { userIsAuthenticated: newAuthenticated } = useAuthStore();
+
+    userIsAuthenticated = newAuthenticated;
+  }
 
   if (to.meta.requiresAuth && !userIsAuthenticated) {
     return { name: 'login' };
