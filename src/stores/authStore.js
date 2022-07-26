@@ -5,6 +5,7 @@ import axios from '@/helpers/axios';
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
+      showSplashScreen: false,
       accessToken: null,
       user: {
         avatar: '',
@@ -76,6 +77,11 @@ export const useAuthStore = defineStore('auth', {
 
       return data;
     },
+    async getAuthenticatedUser() {
+      const { data: user } = await axios.get('/auth/me');
+
+      this.user = user;
+    },
     setAccessToken(accessToken) {
       if (!accessToken) {
         this.accessToken = '';
@@ -87,6 +93,18 @@ export const useAuthStore = defineStore('auth', {
       this.accessToken = accessToken;
 
       Cookies.set(import.meta.env.VITE_ACCESS_TOKEN_COOKIE, accessToken);
+    },
+    async reloadUser() {
+      this.showSplashScreen = true;
+
+      try {
+        await this.getAuthenticatedUser();
+        this.setAccessToken(Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE));
+      } catch (error) {
+        this.setAccessToken();
+      } finally {
+        this.showSplashScreen = false;
+      }
     },
   },
 });
