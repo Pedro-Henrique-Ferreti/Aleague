@@ -5,7 +5,7 @@ import axios from '@/helpers/axios';
 export const useAuthStore = defineStore('auth', {
   state: () => {
     return {
-      showSplashScreen: false,
+      showSplashScreen: Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE) || false,
       accessToken: null,
       user: {
         avatar: '',
