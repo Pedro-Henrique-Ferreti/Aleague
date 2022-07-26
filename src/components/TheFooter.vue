@@ -23,7 +23,7 @@
 
 <style lang="scss" scoped>
 .footer {
-  margin-top: 4rem;
+  min-height: 4.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
   background-color: $color--light-gray-2;
