@@ -5,12 +5,6 @@ import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 
-const userIsAuthenticated = () => {
-  const authStore = useAuthStore();
-
-  return authStore.userIsAuthenticated;
-};
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -37,7 +31,9 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       beforeEnter: () => {
-        if (!userIsAuthenticated()) {
+        const { userIsAuthenticated } = useAuthStore();
+
+        if (!userIsAuthenticated) {
           return { name: 'landing' };
         }
       },
@@ -51,8 +47,10 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to) => {
-  if (to.meta.requiresAuth && !userIsAuthenticated()) {
+router.beforeEach(async (to) => {
+  const { userIsAuthenticated } = useAuthStore();
+
+  if (to.meta.requiresAuth && !userIsAuthenticated) {
     return { name: 'login' };
   }
 });

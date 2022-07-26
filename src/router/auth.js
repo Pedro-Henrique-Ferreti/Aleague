@@ -6,9 +6,9 @@ import VerifyEmailView from '@/views/VerifyEmailView.vue';
 import ResetPasswordView from '@/views/ResetPasswordView.vue';
 
 const notAuthenticatedGuard = () => {
-  const authStore = useAuthStore();
+  const { userIsAuthenticated } = useAuthStore();
 
-  if (authStore.userIsAuthenticated) {
+  if (userIsAuthenticated) {
     return { name: 'home' };
   }
 };
