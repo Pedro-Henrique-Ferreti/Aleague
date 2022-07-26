@@ -6,17 +6,17 @@ function handleSuccess(response) {
 }
 
 function handleError(error) {
-  const { status, data } = error.response;
+  const { data } = error.response;
 
-  if (status >= 500) {
-    throw new Error('Ocorreu um erro na comunicação com o servidor. Por favor, tente novamente.');
+  if (data.errors) {
+    throw new Error(Object.values(data.errors)[0][0]);
   }
 
-  if (status === 400) {
+  if (data.message) {
     throw new Error(data.message);
   }
 
-  throw new Error(Object.values(data.errors)[0][0]);
+  throw new Error('Ocorreu um erro na comunicação com o servidor. Por favor, tente novamente.');
 }
 
 const axiosInstance = axios.create({
