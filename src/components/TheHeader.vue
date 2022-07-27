@@ -7,12 +7,14 @@
       >
         <AppLogo />
       </router-link>
+      <TheHeaderNav />
     </div>
   </header>
 </template>
 
 <script setup>
 import AppLogo from './AppLogo.vue';
+import TheHeaderNav from './TheHeaderNav.vue';
 </script>
 
 <style lang="scss" scoped>
