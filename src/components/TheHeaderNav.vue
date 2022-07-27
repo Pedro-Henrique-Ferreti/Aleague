@@ -4,6 +4,7 @@
       <TheHeaderNavItem
         icon-mobile="home"
         icon-desktop="home-outline"
+        aria-label="Go to Home page"
         :path="{ name: 'home' }"
       >
         Início
@@ -11,6 +12,7 @@
       <TheHeaderNavItem
         icon-mobile="team-shield"
         icon-desktop="team-shield-outline"
+        aria-label="Go to My teams page"
         path="/"
       >
         Minhas equipes
@@ -18,6 +20,7 @@
       <TheHeaderNavItem
         icon-mobile="trophy"
         icon-desktop="trophy-outline"
+        aria-label="Go to My championships page"
         path="/"
       >
         Meus campeonatos
@@ -25,6 +28,7 @@
       <TheHeaderNavItem
         icon-mobile="plus"
         icon-desktop="plus"
+        aria-label="Go to Create championship page"
         path="/"
       >
         Criar campeonato

@@ -3,6 +3,7 @@
     <router-link
       class="header-nav-item__link"
       :to="path"
+      :aria-label="ariaLabel"
     >
       <BaseIcon
         class="header-nav-item__icon header-nav-item__icon--mobile"
@@ -30,6 +31,10 @@ defineProps({
     required: true,
   },
   iconDesktop: {
+    type: String,
+    required: true,
+  },
+  ariaLabel: {
     type: String,
     required: true,
   },
