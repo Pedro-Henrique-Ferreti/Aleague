@@ -1,5 +1,8 @@
 <template>
-  <transition name="fade" mode="out-in">
+  <transition
+    name="fade"
+    mode="out-in"
+  >
     <SplashScreen v-if="showSplashScreen" />
     <div v-else>
       <component :is="currentLayout">
