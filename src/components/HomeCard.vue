@@ -158,5 +158,9 @@ const cardClasses = computed(() => ({
       height: 2rem;
     }
   }
+  @include for-large-desktop-up {
+    max-width: 20rem;
+    min-height: 21rem;
+  }
 }
 </style>
