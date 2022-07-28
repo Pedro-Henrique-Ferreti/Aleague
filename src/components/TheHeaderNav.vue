@@ -56,7 +56,10 @@ import TheHeaderNavItem from './TheHeaderNavItem.vue';
     height: 100%;
     align-items: center;
     justify-content: space-between;
-    @include for-desktop-down {
+  }
+  @include for-desktop-down {
+    background-color: $color--white;
+    .header-nav__list {
       max-width: 560px;
       margin: auto;
     }
