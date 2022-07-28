@@ -25,7 +25,7 @@ import AppLogo from './AppLogo.vue';
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: $z-index--splash-screen;
   .splash-screen__logo {
     width: 15rem;
     height: auto;

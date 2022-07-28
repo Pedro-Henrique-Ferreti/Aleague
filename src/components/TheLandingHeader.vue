@@ -55,7 +55,7 @@ document.addEventListener('scroll', () => {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 2;
+  z-index: $z-index--landing-header;
   &--pinned {
     background-color: $color--white;
     box-shadow: $box-shadow--layer-1;
@@ -78,7 +78,7 @@ document.addEventListener('scroll', () => {
     top: 5rem;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: $z-index--landing-header-menu;
     &--open {
       display: flex;
     }

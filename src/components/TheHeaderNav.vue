@@ -50,6 +50,7 @@ import TheHeaderNavItem from './TheHeaderNavItem.vue';
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: $z-index--header-nav;
   &__list {
     display: flex;
     height: 100%;
