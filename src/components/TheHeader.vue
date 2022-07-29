@@ -5,7 +5,7 @@
         class="header__logo-wrapper"
         :to="{ name: 'home'}"
       >
-        <AppLogo />
+        <AppLogo animate-on-hover />
       </router-link>
       <TheHeaderNav />
     </div>

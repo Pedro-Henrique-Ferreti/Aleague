@@ -1,7 +1,7 @@
 <template>
   <svg
     class="logo"
-    :class="{ animated: animated }"
+    :class="logoClasses"
     viewBox="0 0 375 128"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -53,19 +53,31 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue';
+
+const props = defineProps({
   animated: {
     type: Boolean,
     default: false,
   },
+  animateOnHover: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+const logoClasses = computed(() => ({
+  'logo-animated': props.animated,
+  'logo--animate-on-hover': props.animateOnHover,
+}));
 </script>
 
 <style lang="scss" scoped>
 .logo {
   width: auto;
   height: 2.5rem;
-  &.animated {
+  &--animated,
+  &--animate-on-hover:hover {
     .star {
       animation: twinkle 0.8s infinite ease-in;
       &--left {
