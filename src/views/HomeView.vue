@@ -44,7 +44,7 @@ import HomeCard from '@/components/HomeCard.vue';
 const authStore = useAuthStore();
 
 const greetingMessage = computed(() => {
-  const curentHour = new Date().getTime();
+  const curentHour = new Date().getHours();
   let greeting = 'Boa noite';
 
   if (curentHour < 13) {
