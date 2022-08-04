@@ -5,10 +5,12 @@
 <script setup>
 import { computed } from 'vue';
 import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
+import Bell from '@/components/icons/IconBell.vue';
 import Check from '@/components/icons/IconCheck.vue';
 import Chevron from '@/components/icons/IconChevron.vue';
 import Close from '@/components/icons/IconClose.vue';
 import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
+import Gear from '@/components/icons/IconGear.vue';
 import Home from '@/components/icons/IconHome.vue';
 import HomeOutline from '@/components/icons/IconHomeOutline.vue';
 import Loading from '@/components/icons/IconLoading.vue';
@@ -31,6 +33,8 @@ const icon = computed(() => {
   switch (props.icon.toLowerCase().replaceAll('-', '')) {
     case 'arrowfoward':
       return ArrowFoward;
+    case 'bell':
+      return Bell;
     case 'check':
       return Check;
     case 'chevron':
@@ -39,6 +43,8 @@ const icon = computed(() => {
       return Close;
     case 'errorcircle':
       return ErrorCircle;
+    case 'gear':
+      return Gear;
     case 'home':
       return Home;
     case 'homeoutline':
