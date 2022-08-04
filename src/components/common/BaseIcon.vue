@@ -6,6 +6,7 @@
 import { computed } from 'vue';
 import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
 import Check from '@/components/icons/IconCheck.vue';
+import Chevron from '@/components/icons/IconChevron.vue';
 import Close from '@/components/icons/IconClose.vue';
 import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
 import Home from '@/components/icons/IconHome.vue';
@@ -32,6 +33,8 @@ const icon = computed(() => {
       return ArrowFoward;
     case 'check':
       return Check;
+    case 'chevron':
+      return Chevron;
     case 'close':
       return Close;
     case 'errorcircle':
