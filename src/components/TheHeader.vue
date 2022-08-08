@@ -8,6 +8,7 @@
         <AppLogo animate-on-hover />
       </router-link>
       <TheHeaderNav />
+      <TheHeaderControls />
     </div>
   </header>
 </template>
@@ -15,6 +16,7 @@
 <script setup>
 import AppLogo from './AppLogo.vue';
 import TheHeaderNav from './TheHeaderNav.vue';
+import TheHeaderControls from './TheHeaderControls.vue';
 </script>
 
 <style lang="scss" scoped>
