@@ -67,7 +67,7 @@ const props = defineProps({
 });
 
 const logoClasses = computed(() => ({
-  'logo-animated': props.animated,
+  'logo--animated': props.animated,
   'logo--animate-on-hover': props.animateOnHover,
 }));
 </script>
