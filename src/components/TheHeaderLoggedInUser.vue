@@ -18,15 +18,26 @@
       </div>
       <BaseIcon
         class="header-user__icon-arrow"
+        :class="{ 'header-user__icon-arrow--rotate': showMenu }"
         icon="chevron"
       />
     </button>
+    <transition
+      name="scroll-y"
+      mode="out-in"
+    >
+      <TheHeaderLoggedInUserMenu
+        v-show="showMenu"
+        class="header-user__menu"
+      />
+    </transition>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/authStore.js';
+import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 
 const { user } = useAuthStore();
 
@@ -59,9 +70,19 @@ const showMenu = ref(false);
     width: 0.75rem;
     height: 0.75rem;
     transform: rotate(90deg);
+    transition: transform $transition--fastest ease-out;
+    &--rotate {
+      transform: rotate(-90deg);
+    }
     @include for-large-tablet-portrait-down {
       display: none;
     }
+  }
+  &__menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: $z-index--header-user-info-menu;
   }
 }
 </style>
