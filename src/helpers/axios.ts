@@ -1,15 +1,15 @@
-import axios from 'axios';
+import axios, { type AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
 
-function handleSuccess(response) {
+function handleSuccess(response: AxiosResponse) {
   return response;
 }
 
-function handleError(error) {
-  const { data } = error.response;
+function handleError(error: AxiosError) {
+  const { data } = error.response as AxiosResponse;
 
   if (data.errors) {
-    throw new Error(Object.values(data.errors)[0][0]);
+    throw new Error(Object.values<string[]>(data.errors)[0][0]);
   }
 
   if (data.message) {
@@ -27,10 +27,10 @@ const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(function (config) {
+axiosInstance.interceptors.request.use(function (config: AxiosRequestConfig) {
   const accessToken = Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE);
 
-  if (accessToken) {
+  if (accessToken && config.headers) {
     config.headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
