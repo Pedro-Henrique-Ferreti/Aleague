@@ -1,21 +1,21 @@
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
+import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/authStore';
 import axios from '@/helpers/axios';
 
 export const useAuthStore = defineStore('auth', {
-  state: () => {
+  state: (): AuthStoreState => {
     return {
-      showSplashScreen: Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE) || false,
+      showSplashScreen: Boolean(Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE)),
       accessToken: null,
       user: {
-        avatar: '',
-        createdAt: null,
-        email: '',
-        emailVerifiedAt: null,
         id: null,
-        lastLoginAt: null,
+        username: null,
+        email: null,
+        emailVerifiedAt: null,
+        avatar: null,
+        createdAt: null,
         updatedAt: null,
-        username: '',
       },
     };
   },
@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth', {
     userIsAuthenticated: (state) => Boolean(state.accessToken && state.user.id),
   },
   actions: {
-    async login({ email, password }) {
+    async login({ email, password }: LoginProps) {
       const { data } = await axios.post('/auth/login', {
         email,
         password,
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth', {
 
       this.setAccessToken(data.accessToken);
     },
-    async register({ username, email, password, passwordConfirmation }) {
+    async register({ username, email, password, passwordConfirmation }: RegisterProps) {
       const { data } = await axios.post('/auth/register', {
         username,
         email,
@@ -47,21 +47,21 @@ export const useAuthStore = defineStore('auth', {
     },
     sendEmailVerificationCode() {
       return axios.post('/auth/verify-email/resend', {
-        email: this.user.email,
+        email: this.user?.email,
       });
     },
-    verifyEmailAddress(code) {
+    verifyEmailAddress(code: string) {
       return axios.post('/auth/verify-email', {
-        email: this.user.email,
+        email: this.user?.email,
         code,
       });
     },
-    sendPasswordRecoveryEmail(email) {
+    sendPasswordRecoveryEmail(email: string) {
       return axios.post('/auth/password/forgot', {
         email,
       });
     },
-    resetPassword({ email, token, password, passwordConfirmation }) {
+    resetPassword({ email, token, password, passwordConfirmation }: ResetPasswordProps) {
       return axios.post('/auth/password/reset', {
         email,
         token,
@@ -69,7 +69,7 @@ export const useAuthStore = defineStore('auth', {
         passwordConfirmation,
       });
     },
-    async validatePasswordResetToken({ email, token }) {
+    async validatePasswordResetToken({ email, token }: ValidatePasswordResetTokenProps) {
       const { data } = await axios.post('/auth/password/validate-token', {
         email,
         token,
@@ -82,7 +82,7 @@ export const useAuthStore = defineStore('auth', {
 
       this.user = user;
     },
-    setAccessToken(accessToken) {
+    setAccessToken(accessToken?: string) {
       if (!accessToken) {
         this.accessToken = '';
         Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN_COOKIE);
