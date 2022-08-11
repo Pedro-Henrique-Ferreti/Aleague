@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AuthHeading :subtitle="$route.query.email">
+    <AuthHeading :subtitle="($route.query.email as string)">
       Redefina sua senha
     </AuthHeading>
     <p class="text-darken">
@@ -18,7 +18,7 @@
         type="password"
         label="Nova senha"
         :dirty="v$.password.$dirty"
-        :error-message="v$.password.$errors[0]?.$message"
+        :error-message="(v$.password.$errors[0]?.$message as string)"
       />
       <AppTextField
         v-model.lazy="passwordConfirmation"
@@ -26,7 +26,7 @@
         type="password"
         label="Repita a nova senha"
         :dirty="v$.passwordConfirmation.$dirty"
-        :error-message="v$.passwordConfirmation.$errors[0]?.$message"
+        :error-message="(v$.passwordConfirmation.$errors[0]?.$message as string)"
       />
       <template #footer>
         <AppButton
@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
@@ -96,14 +96,14 @@ async function submitForm() {
 
   try {
     await authStore.resetPassword({
-      email: route.query.email,
-      token: route.query.token,
+      email: route.query.email as string,
+      token: route.query.token as string,
       password: password.value,
       passwordConfirmation: passwordConfirmation.value,
     });
 
     emit('password-reset');
-  } catch (error) {
+  } catch (error: Error) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import LoadingIndicator from './LoadingIndicator.vue';
 import AppLogo from './AppLogo.vue';
 </script>

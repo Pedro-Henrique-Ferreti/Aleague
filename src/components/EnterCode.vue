@@ -28,7 +28,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue';
 
 const emit = defineEmits(['resend-code', 'update-code']);
@@ -45,9 +45,9 @@ const props = defineProps({
 
 // Resend code
 const remainingSecondsForResend = ref(props.resendTimeout);
-const intervalId = ref(null);
+const intervalId = ref<number | null>(null);
 
-const zeroFill = (number) => number < 10 ? `0${number}` : String(number);
+const zeroFill = (number: number) => number < 10 ? `0${number}` : String(number);
 
 const resendCodeButtonText = computed(() => {
   if (remainingSecondsForResend.value === 0) {
@@ -61,7 +61,9 @@ const resendCodeButtonText = computed(() => {
 });
 
 function clearResendCodeInterval() {
-  clearInterval(intervalId.value);
+  if (intervalId.value) {
+    clearInterval(intervalId.value);
+  }
 
   intervalId.value = null;
 }
@@ -90,7 +92,7 @@ function resendCode() {
 setResendCodeInterval();
 
 // Digit fields
-const digit = ref([]);
+const digit = ref<string []>([]);
 const digitRefs = ref([]);
 
 watch(digit.value, (newDigit) => {
@@ -98,14 +100,14 @@ watch(digit.value, (newDigit) => {
 });
 
 onMounted(() => {
-  digitRefs.value[0].focus();
+  (digitRefs.value[0] as HTMLInputElement).focus();
 });
 
-function moveCursor(index) {
-  digitRefs.value[index]?.focus();
+function moveCursor(index: number) {
+  (digitRefs.value[index] as HTMLInputElement)?.focus();
 }
 
-function handleDeleteKeypress(index) {
+function handleDeleteKeypress(index: number) {
   if (digit.value[index]) {
     digit.value[index] = '';
     return;

@@ -37,7 +37,7 @@
   </header>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import AppLogo from './AppLogo.vue';
 

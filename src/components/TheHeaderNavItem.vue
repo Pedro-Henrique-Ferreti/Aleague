@@ -20,7 +20,7 @@
   </li>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 defineProps({
   path: {
     type: [String, Object],

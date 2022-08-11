@@ -19,7 +19,7 @@
   </footer>
 </template>
 
-<script setup></script>
+<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .footer {

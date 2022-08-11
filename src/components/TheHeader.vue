@@ -13,7 +13,7 @@
   </header>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import AppLogo from './AppLogo.vue';
 import TheHeaderNav from './TheHeaderNav.vue';
 import TheHeaderControls from './TheHeaderControls.vue';

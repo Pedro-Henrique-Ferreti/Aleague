@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import TheHeaderLoggedInUser from './TheHeaderLoggedInUser.vue';
 import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
 </script>

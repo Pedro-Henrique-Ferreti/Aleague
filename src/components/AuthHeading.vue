@@ -10,7 +10,7 @@
   </span>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 defineProps({
   subtitle: {
     type: String,

@@ -34,9 +34,9 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
-import { useAuthStore } from '@/stores/authStore.js';
+import { useAuthStore } from '@/stores/authStore';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 
 const { user } = useAuthStore();

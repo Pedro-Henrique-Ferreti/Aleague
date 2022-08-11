@@ -19,7 +19,7 @@
   </form>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 defineEmits(['submit', 'close-alert']);
 defineProps({
   errorMessage: {

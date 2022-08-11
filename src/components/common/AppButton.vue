@@ -35,7 +35,7 @@
   </BaseButton>
 </template>
 
-<script>
+<script lang="ts">
 const validColors = {
   primary: 'primary',
   secondary: 'secondary',

@@ -31,7 +31,7 @@
   </router-link>
 </template>
 
-<script>
+<script lang="ts">
 const validThemes = {
   primary: 'primary',
   secondary: 'secondary',
@@ -39,14 +39,14 @@ const validThemes = {
 };
 </script>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 const props = defineProps({
   theme: {
     type: String,
     default: validThemes.primary,
-    validator: (theme) => Object.values(validThemes).includes(theme),
+    validator: (theme: string) => Object.values(validThemes).includes(theme),
   },
   icon: {
     type: String,

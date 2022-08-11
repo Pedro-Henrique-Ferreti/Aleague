@@ -16,7 +16,7 @@
         type="email"
         label="Email"
         :dirty="v$.email.$dirty"
-        :error-message="v$.email.$errors[0]?.$message"
+        :error-message="(v$.email.$errors[0]?.$message as string)"
       />
       <template #footer>
         <AppButton
@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from 'vue';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValidator } from '@/helpers/i18nValidators';
@@ -77,7 +77,7 @@ async function submitForm() {
     await authStore.sendPasswordRecoveryEmail(email.value);
 
     emit('email-sent');
-  } catch (error) {
+  } catch (error: ErrorCallback) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

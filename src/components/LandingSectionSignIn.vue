@@ -35,7 +35,7 @@
   </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import SectionTitle from './LandingSectionTitle.vue';
 </script>
 

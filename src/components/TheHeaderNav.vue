@@ -37,7 +37,7 @@
   </nav>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import TheHeaderNavItem from './TheHeaderNavItem.vue';
 </script>
 
