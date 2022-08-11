@@ -11,7 +11,7 @@
   </transition>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import PasswordRecoveryForm from '@/components/PasswordRecoveryForm.vue';
 import PasswordRecoverySuccess from '@/components/PasswordRecoverySuccess.vue';

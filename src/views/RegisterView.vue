@@ -10,7 +10,7 @@
       id="register--field-name"
       label="Nome de usuário"
       :dirty="v$.username.$dirty"
-      :error-message="v$.username.$errors[0]?.$message"
+      :error-message="(v$.username.$errors[0]?.$message as string)"
     />
     <AppTextField
       v-model.lazy="email"
@@ -18,7 +18,7 @@
       type="email"
       label="Email"
       :dirty="v$.email.$dirty"
-      :error-message="v$.email.$errors[0]?.$message"
+      :error-message="(v$.email.$errors[0]?.$message as string)"
     />
     <AppTextField
       v-model.lazy="password"
@@ -26,7 +26,7 @@
       type="password"
       label="Senha"
       :dirty="v$.password.$dirty"
-      :error-message="v$.password.$errors[0]?.$message"
+      :error-message="(v$.password.$errors[0]?.$message as string)"
     />
     <AppTextField
       v-model.lazy="passwordConfirmation"
@@ -34,7 +34,7 @@
       type="password"
       label="Repita a senha"
       :dirty="v$.passwordConfirmation.$dirty"
-      :error-message="v$.passwordConfirmation.$errors[0]?.$message"
+      :error-message="(v$.passwordConfirmation.$errors[0]?.$message as string)"
     />
     <template #footer>
       <AppButton
@@ -56,7 +56,7 @@
   </span>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
@@ -132,7 +132,7 @@ async function submitForm() {
         from: 'register',
       },
     });
-  } catch (error) {
+  } catch (error: Error) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

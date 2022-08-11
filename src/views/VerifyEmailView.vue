@@ -1,5 +1,5 @@
 <template>
-  <AuthHeading :subtitle="authStore.user.email">
+  <AuthHeading :subtitle="(authStore.user.email as string)">
     Verifique seu email
   </AuthHeading>
   <AuthForm
@@ -35,7 +35,7 @@
   </AuthForm>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
@@ -71,7 +71,7 @@ async function verifyEmailAddress() {
     await authStore.verifyEmailAddress(verificationCode.value);
 
     router.push({ name: 'home' });
-  } catch (error) {
+  } catch (error: Error) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

@@ -16,7 +16,7 @@
   </transition>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
@@ -34,7 +34,7 @@ const isLoading = ref(true);
 
 async function validateEmailAndToken() {
   try {
-    const { email, token } = route.query;
+    const { email, token } = route.query as { email: string, token: string };
 
     if (!email || !token) {
       throw new Error();

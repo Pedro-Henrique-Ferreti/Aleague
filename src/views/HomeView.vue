@@ -35,7 +35,7 @@
   </main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
 import AppTitle from '@/components/AppTitle.vue';

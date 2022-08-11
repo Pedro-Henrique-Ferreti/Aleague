@@ -10,7 +10,7 @@
       type="email"
       label="Email"
       :dirty="v$.email.$dirty"
-      :error-message="v$.email.$errors[0]?.$message"
+      :error-message="(v$.email.$errors[0]?.$message as string)"
       v-model.lazy="email"
     />
     <AppTextField
@@ -18,7 +18,7 @@
       type="password"
       label="Senha"
       :dirty="v$.password.$dirty"
-      :error-message="v$.password.$errors[0]?.$message"
+      :error-message="(v$.password.$errors[0]?.$message as string)"
       v-model.lazy="password"
     />
     <template #footer>
@@ -47,7 +47,7 @@
   </span>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
@@ -99,7 +99,7 @@ async function submitForm() {
     }
 
     router.push({ name: 'home' });
-  } catch (error) {
+  } catch (error: Error) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

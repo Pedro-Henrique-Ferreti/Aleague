@@ -6,7 +6,7 @@
   </main>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import SectionHero from '@/components/LandingSectionHero.vue';
 import SectionFeatures from '@/components/LandingSectionFeatures.vue';
 import SectionSignIn from '@/components/LandingSectionSignIn.vue';
