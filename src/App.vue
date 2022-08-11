@@ -12,8 +12,8 @@
   </transition>
 </template>
 
-<script setup>
-import { ref, computed, watch } from 'vue';
+<script setup lang="ts">
+import { ref, computed, watch, type Component } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import LandingLayout from '@/layouts/LandingLayout.vue';
@@ -25,7 +25,7 @@ import SplashScreen from '@/components/SplashScreen.vue';
 const route = useRoute();
 const authStore = useAuthStore();
 
-const currentLayout = computed(() => {
+const currentLayout = computed<Component>(() => {
   switch (route.meta.layout) {
     case 'auth':
       return AuthLayout;
@@ -38,10 +38,10 @@ const currentLayout = computed(() => {
   }
 });
 
-const showSplashScreen = ref(authStore.showSplashScreen);
+const showSplashScreen = ref<boolean>(authStore.showSplashScreen);
 
-watch(() => authStore.showSplashScreen, (isShowingSplashScreen) => {
-  if (isShowingSplashScreen) {
+watch(() => authStore.showSplashScreen, (show: boolean) => {
+  if (show) {
     showSplashScreen.value = true;
     return;
   }
