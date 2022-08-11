@@ -56,9 +56,8 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
-import router from '@/router';
 
-const route = useRouter();
+const router = useRouter();
 const { user, logout } = useAuthStore();
 
 function logoutUser() {
