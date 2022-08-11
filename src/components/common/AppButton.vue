@@ -54,7 +54,7 @@ const validSizes = {
 export default {};
 </script>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 
@@ -68,12 +68,12 @@ const props = defineProps({
   color: {
     type: String,
     default: validColors.primary,
-    validator:(color) => Object.values(validColors).includes(color),
+    validator:(color: string) => Object.values(validColors).includes(color),
   },
   size: {
     type: String,
     default: validSizes.medium,
-    validator:(size) => Object.values(validSizes).includes(size),
+    validator:(size: string) => Object.values(validSizes).includes(size),
   },
   disabled: {
     type: Boolean,

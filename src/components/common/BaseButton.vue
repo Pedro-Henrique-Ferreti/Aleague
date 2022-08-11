@@ -24,7 +24,7 @@
   </router-link>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 const emit = defineEmits(['click']);
 const props = defineProps({
   to: {
@@ -37,7 +37,7 @@ const props = defineProps({
   },
 });
 
-function handleClick(event) {
+function handleClick(event: Event) {
   /**
    * Prevents <a> and <router-link> elements from being activated
    * with Tab + Enter keys when button is disabled

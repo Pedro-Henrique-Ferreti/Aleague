@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 const emit = defineEmits(['update:modelValue']);
@@ -87,9 +87,9 @@ const inputValue = computed({
   },
 });
 
-function handleChange(event) {
+function handleChange(event: Event) {
   if (props.modelModifiers.lazy) {
-    emit('update:modelValue', event.target.value);
+    emit('update:modelValue', (event.target as HTMLInputElement).value);
   }
 }
 </script>

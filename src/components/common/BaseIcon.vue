@@ -2,7 +2,7 @@
   <component :is="icon" />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
 import Bell from '@/components/icons/IconBell.vue';

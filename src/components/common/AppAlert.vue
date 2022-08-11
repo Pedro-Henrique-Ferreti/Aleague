@@ -32,7 +32,7 @@ const validTypes = {
 };
 </script>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 defineEmits(['close']);
@@ -44,7 +44,7 @@ const props = defineProps({
   type: {
     type: String,
     default: validTypes.success,
-    validator:(type) => Object.values(validTypes).includes(type),
+    validator:(type: string) => Object.values(validTypes).includes(type),
   },
 });
 
