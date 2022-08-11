@@ -46,6 +46,7 @@
       color="gray"
       size="small"
       icon-left="logout"
+      @click="logoutUser"
     >
       Sair
     </AppButton>
@@ -53,9 +54,18 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import router from '@/router';
 
-const { user } = useAuthStore();
+const route = useRouter();
+const { user, logout } = useAuthStore();
+
+function logoutUser() {
+  logout();
+
+  router.push({ name: 'landing' });
+}
 </script>
 
 <style lang="scss" scoped>

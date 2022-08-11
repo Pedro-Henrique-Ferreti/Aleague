@@ -33,6 +33,9 @@ export const useAuthStore = defineStore('auth', {
 
       this.setAccessToken(data.accessToken);
     },
+    logout() {
+      this.setAccessToken();
+    },
     async register({ username, email, password, passwordConfirmation }: RegisterProps) {
       const { data } = await axios.post('/auth/register', {
         username,
