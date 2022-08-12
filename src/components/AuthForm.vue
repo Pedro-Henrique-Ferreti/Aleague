@@ -20,6 +20,8 @@
 </template>
 
 <script lang="ts" setup>
+import AppAlert from './AppAlert.vue';
+
 defineEmits(['submit', 'close-alert']);
 defineProps({
   errorMessage: {
