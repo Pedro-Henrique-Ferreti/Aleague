@@ -136,7 +136,7 @@ function logoutUser() {
     height: 1rem;
     margin-top: 0.125rem;
   }
-  &__logout-button {
+  .header-user-menu__logout-button {
     display: flex;
     margin: 0 auto;
   }
