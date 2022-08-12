@@ -1,41 +1,45 @@
 <template>
   <div class="header-user">
-    <button
-      class="header-user__button"
-      type="button"
-      aria-label="Toggle user info"
-      @click="showMenu = !showMenu"
-    >
-      <div class="header-user__button-content">
-        <span class="header-user__name">
-          {{ user.username }}
-        </span>
-        <img
-          class="header-user__avatar"
-          src="/images/avatar/purple-shirt-man.png"
-          alt="User profile picture"
+    <OnClickOutside @trigger="showMenu = false">
+      <button
+        class="header-user__button"
+        type="button"
+        aria-label="Toggle user info"
+        @click="showMenu = !showMenu"
+      >
+        <div class="header-user__button-content">
+          <span class="header-user__name">
+            {{ user.username }}
+          </span>
+          <img
+            class="header-user__avatar"
+            src="/images/avatar/purple-shirt-man.png"
+            alt="User profile picture"
+          />
+        </div>
+        <BaseIcon
+          class="header-user__icon-arrow"
+          :class="{ 'header-user__icon-arrow--rotate': showMenu }"
+          icon="chevron"
         />
-      </div>
-      <BaseIcon
-        class="header-user__icon-arrow"
-        :class="{ 'header-user__icon-arrow--rotate': showMenu }"
-        icon="chevron"
-      />
-    </button>
-    <transition
-      name="scroll-y"
-      mode="out-in"
-    >
-      <TheHeaderLoggedInUserMenu
-        v-show="showMenu"
-        class="header-user__menu"
-      />
-    </transition>
+      </button>
+      <transition
+        name="scroll-y"
+        mode="out-in"
+      >
+        <TheHeaderLoggedInUserMenu
+          v-show="showMenu"
+          class="header-user__menu"
+          @close="showMenu = !showMenu"
+        />
+      </transition>
+    </OnClickOutside>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { OnClickOutside } from '@vueuse/components';
 import { useAuthStore } from '@/stores/authStore';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 
