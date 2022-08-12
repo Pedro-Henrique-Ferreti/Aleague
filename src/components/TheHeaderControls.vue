@@ -21,11 +21,13 @@ import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
   width: 100%;
   &__buttons {
     display: flex;
+    flex-direction: row-reverse;
     gap: 0.5rem;
   }
   @include for-large-tablet-portrait-up {
     justify-content: flex-end;
     .header-controls__buttons {
+      flex-direction: row;
       &:after {
         content: '';
         display: inline-block;
