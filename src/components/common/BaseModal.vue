@@ -8,7 +8,7 @@
         {{ title }}
       </span>
       <button
-        v-if="!isSmall"
+        v-if="!isSimple"
         class="modal__close-button"
         type="button"
         aria-label="Close modal"
@@ -19,11 +19,16 @@
         />
       </button>
     </header>
-    <slot />
+    <div
+      class="modal__body"
+      :class="bodyClasses"
+    >
+      <slot />
+    </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue';
 
 const props = defineProps({
@@ -31,27 +36,27 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  isSmall: {
+  isSimple: {
     type: Boolean,
     default: false,
+  },
+  bodyClasses: {
+    type: String,
+    default: '',
   },
 });
 
 const modalClasses = computed(() => ({
-  'modal--small': props.isSmall,
+  'modal--simple': props.isSimple,
 }));
 </script>
 
 <style lang="scss" scoped>
 .modal {
-  position: absolute;
-  top: 3rem;
-  right: 4rem;
-  z-index: 50;
   --padding-x: 1.5rem;
   --header-font-size: 1.5rem;
   --close-button-size: 2rem;
-  &--small {
+  &--simple {
     --padding-x: 1rem;
     --header-font-size: 1.25rem;
     .modal__header {
@@ -59,6 +64,8 @@ const modalClasses = computed(() => ({
     }
   }
 
+  display: flex;
+  flex-direction: column;
   min-width: 18rem;
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
@@ -69,7 +76,6 @@ const modalClasses = computed(() => ({
     width: 100%;
     padding: 0.75rem var(--padding-x);
     padding-right: calc(var(--padding-x) + var(--close-button-size) + 0.5rem);
-    margin-bottom: 1.5rem;
     background-color: $color--light-gray-2;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -95,6 +101,10 @@ const modalClasses = computed(() => ({
   &__close-button-icon {
     width: 1rem;
     height: 1rem;
+  }
+  &__body {
+    flex: 1;
+    padding: var(--padding-x);
   }
 }
 </style>
