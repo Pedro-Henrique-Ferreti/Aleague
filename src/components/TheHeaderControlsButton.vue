@@ -1,5 +1,9 @@
 <template>
-  <button class="header-button">
+  <button
+    class="header-button"
+    :class="buttonClasses"
+    @click="$emit('click')"
+  >
     <BaseIcon
       class="header-button__icon"
       :icon="icon"
@@ -8,13 +12,24 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+import { computed } from 'vue';
+
+defineEmits(['click']);
+
+const props = defineProps({
   icon: {
     type: String,
     required: true,
   },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
 });
 
+const buttonClasses = computed(() => ({
+  'header-button--active': props.isActive,
+}));
 </script>
 
 <style lang="scss" scoped>
@@ -29,7 +44,8 @@ defineProps({
   border-radius: 0.25rem;
   transition: background-color $transition--fastest ease-in-out;
   @include focus-ring;
-  &:hover {
+  &:hover,
+  &--active {
     background-color: $color--light-gray-2;
   }
   &__icon {
