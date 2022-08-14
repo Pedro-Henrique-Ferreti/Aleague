@@ -1,7 +1,16 @@
 <template>
   <div class="header-controls">
     <div class="header-controls__buttons">
-      <TheHeaderControlsButton icon="bell" />
+      <OnClickOutside @trigger="showNotificationsModal = false">
+        <div class="header-controls__notifications-wrapper">
+          <TheHeaderControlsButton
+            icon="bell"
+            :is-active="showNotificationsModal"
+            @click="showNotificationsModal = !showNotificationsModal"
+          />
+          <TheHeaderNotificationsModal :show="showNotificationsModal" />
+        </div>
+      </OnClickOutside>
       <TheHeaderControlsButton icon="gear" />
     </div>
     <TheHeaderLoggedInUser />
@@ -9,8 +18,13 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { OnClickOutside } from '@vueuse/components';
 import TheHeaderLoggedInUser from './TheHeaderLoggedInUser.vue';
 import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
+import TheHeaderNotificationsModal from './TheHeaderNotificationsModal.vue';
+
+const showNotificationsModal = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -19,6 +33,9 @@ import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  &__notifications-wrapper {
+    position: relative;
+  }
   &__buttons {
     display: flex;
     flex-direction: row-reverse;
