@@ -4,11 +4,12 @@ module.exports = {
   "extends": [
     "plugin:vue/vue3-strongly-recommended",
     "eslint:recommended",
-    "@vue/eslint-config-typescript/recommended"
+    "@vue/eslint-config-typescript/recommended",
   ],
   "rules": {
     "no-trailing-spaces": 1,
-    "semi": ["error", "always"],
+    "semi": "off",
+    "@typescript-eslint/semi": ["error", "always"],
     "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
     "comma-dangle": ["error", "always-multiline"],
     "vue/first-attribute-linebreak": [1, {
