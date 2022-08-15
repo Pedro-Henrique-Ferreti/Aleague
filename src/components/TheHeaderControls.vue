@@ -11,7 +11,10 @@
           <TheHeaderNotificationsModal :show="showNotificationsModal" />
         </div>
       </OnClickOutside>
-      <TheHeaderControlsButton icon="gear" />
+      <TheHeaderControlsButton
+        icon="gear"
+        @click="openUserSettingsModal"
+      />
     </div>
     <TheHeaderLoggedInUser />
   </div>
@@ -20,9 +23,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
+import { useUserStore } from '@/stores/userStore';
 import TheHeaderLoggedInUser from './TheHeaderLoggedInUser.vue';
 import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
 import TheHeaderNotificationsModal from './TheHeaderNotificationsModal.vue';
+
+const { openUserSettingsModal } = useUserStore();
 
 const showNotificationsModal = ref(false);
 </script>

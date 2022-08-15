@@ -1,5 +1,6 @@
 <template>
   <TheHeader />
+  <UserSettings />
   <div class="default-layout">
     <slot />
   </div>
@@ -9,6 +10,7 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue';
 import TheFooter from '@/components/TheFooter.vue';
+import UserSettings from '../components/UserSettings.vue';
 </script>
 
 <style lang="scss" scoped>
