@@ -40,6 +40,10 @@ body, #app {
   overflow-x: hidden;
 }
 
+body.hide-overflow-y {
+  overflow-y: hidden;
+}
+
 button {
   border: 0;
   cursor: pointer;

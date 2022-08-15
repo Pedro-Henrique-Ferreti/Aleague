@@ -36,7 +36,7 @@ const validSizes = {
 </script>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import BaseModal from './common/BaseModal.vue';
 
 defineEmits(['close']);
@@ -60,6 +60,14 @@ const modalClasses = computed(() => ({
   'app-modal--medium': props.size === validSizes.medium,
   'app-modal--large': props.size === validSizes.large,
 }));
+
+watch(() => props.show, (show) => {
+  if (show) {
+    document.body.classList.add('hide-overflow-y');
+  } else {
+    document.body.classList.remove('hide-overflow-y');
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -75,6 +83,9 @@ const modalClasses = computed(() => ({
   left: 0;
   right: 0;
   z-index: $z-index--modal-overlay;
+  @include for-tablet-portrait-down {
+    padding: 0;
+  }
 }
 .app-modal {
   max-height: calc(100vh - (max(11.7vh, 4rem) * 2));
@@ -86,6 +97,12 @@ const modalClasses = computed(() => ({
   }
   :deep(.modal__body) {
     overflow: auto;
+  }
+  @include for-tablet-portrait-down {
+    height: 100vh;
+    max-height: unset;
+    border: 0;
+    border-radius: 0;
   }
 }
 </style>
