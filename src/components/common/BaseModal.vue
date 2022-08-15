@@ -12,6 +12,7 @@
         class="modal__close-button"
         type="button"
         aria-label="Close modal"
+        @click="$emit('close')"
       >
         <BaseIcon
           class="modal__close-button-icon"
@@ -30,6 +31,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+
+defineEmits(['close']);
 
 const props = defineProps({
   title: {
