@@ -44,7 +44,7 @@ defineProps({
     width: 25rem;
     min-height: 17rem;
   }
-  ::v-deep .header-notifications__content {
+  :deep(.header-notifications__content) {
     display: flex;
     flex-direction: column;
     justify-content: center;
