@@ -40,3 +40,32 @@
     transition: $transition--fastest ease-in;
   }
 }
+
+.modal {
+  &__fade {
+    &-enter-from {
+      opacity: 0.4;
+      transform: scale(0.8);
+    }
+    &-leave-to {
+      opacity: 0.4;
+    }
+  }
+  &__overlay-fade {
+    &-enter-from {
+      opacity: 0.4;
+    }
+    &-leave-to {
+      opacity: 0.4;
+    }
+  }
+  &__fade,
+  &__overlay-fade {
+    &-enter-active {
+      transition: $transition--fastest ease-out;
+    }
+    &-leave-active {
+      transition: $transition--fastest ease-in;
+    }
+  }
+}

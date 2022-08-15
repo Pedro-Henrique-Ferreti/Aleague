@@ -1,21 +1,28 @@
 <template>
   <Teleport to="body">
     <transition
-      name="fade"
+      name="modal__overlay-fade"
       mode="out-in"
     >
       <div
         v-show="show"
         class="overlay"
+        @click.self="$emit('close')"
       >
-        <BaseModal
-          class="app-modal"
-          :class="modalClasses"
-          :title="title"
-          @close="$emit('close', $event)"
+        <transition
+          name="modal__fade"
+          mode="out-in"
         >
-          <slot />
-        </BaseModal>
+          <BaseModal
+            v-show="show"
+            class="app-modal"
+            :class="modalClasses"
+            :title="title"
+            @close="$emit('close', $event)"
+          >
+            <slot />
+          </BaseModal>
+        </transition>
       </div>
     </transition>
   </Teleport>
