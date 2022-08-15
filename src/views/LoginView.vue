@@ -61,8 +61,8 @@ import AuthForm from '@/components/AuthForm.vue';
 const router = useRouter();
 const authStore = useAuthStore();
 
-const email = ref('');
-const password = ref('');
+const email = ref('john.doe@gmail.com');
+const password = ref('safe_password');
 const isLoading = ref(false);
 const errorMessage = ref('');
 
