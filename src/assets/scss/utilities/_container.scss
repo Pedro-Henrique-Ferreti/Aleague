@@ -1,6 +1,6 @@
 %container {
   --container-base-size: 1;
-  --container-padding: 1rem;
+  --container-padding: #{$spacing--screen-vertical-padding};
 
   width: 100%;
   padding: 0 var(--container-padding);
