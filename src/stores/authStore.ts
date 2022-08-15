@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
-import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/authStore';
+import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/AuthStore';
 import axios from '@/helpers/axios';
 
 export const useAuthStore = defineStore('auth', {
