@@ -17,7 +17,7 @@ export interface AuthStoreState {
 export interface LoginProps {
   email: string,
   password: string,
-};
+}
 
 export interface RegisterProps {
   username: string,
