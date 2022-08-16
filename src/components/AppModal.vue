@@ -125,6 +125,7 @@ watch(() => props.show, (show) => {
   max-height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
   position: relative;
   :deep(.app-modal__content-wrapper) {
+    @include scrollbar;
     overflow: auto;
   }
   &__tab-panel {
