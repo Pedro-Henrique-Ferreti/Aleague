@@ -11,11 +11,31 @@
         <BaseModal
           v-show="show"
           class="app-modal"
+          content-wrapper-classes="app-modal__content-wrapper"
           :class="modalClasses"
           :title="title"
           @close="$emit('close', $event)"
         >
           <slot />
+          <div
+            v-if="modalHasFooter"
+            ref="modalFooter"
+            class="app-modal__footer"
+          >
+            <slot name="footer">
+              <div class="app-modal__footer-buttons">
+                <AppButton
+                  color="gray"
+                  @click="$emit('cancel-action')"
+                >
+                  Cancelar
+                </AppButton>
+                <AppButton @click="$emit('save-action')">
+                  Salvar
+                </AppButton>
+              </div>
+            </slot>
+          </div>
         </BaseModal>
       </transition>
     </ModalOverlay>
@@ -30,16 +50,22 @@ const validSizes = {
 </script>
 
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
+import { computed, watch, useSlots } from 'vue';
 import BaseModal from './common/BaseModal.vue';
 import ModalOverlay from './ModalOverlay.vue';
 
-defineEmits(['close']);
+defineEmits(['close', 'cancel-action', 'save-action']);
+
+const slots = useSlots();
 
 const props = defineProps({
   show: {
     type: Boolean,
     required: true,
+  },
+  renderFooter: {
+    type: Boolean,
+    default: false,
   },
   title: {
     type: String,
@@ -51,9 +77,12 @@ const props = defineProps({
   },
 });
 
+const modalHasFooter = computed(() => props.renderFooter || slots.footer);
+
 const modalClasses = computed(() => ({
   'app-modal--medium': props.size === validSizes.medium,
   'app-modal--large': props.size === validSizes.large,
+  'app-modal--has-footer': modalHasFooter.value,
 }));
 
 watch(() => props.show, (show) => {
@@ -67,21 +96,50 @@ watch(() => props.show, (show) => {
 
 <style lang="scss" scoped>
 .app-modal {
-  max-height: calc(100vh - (max(11.7vh, 4rem) * 2));
   &--medium {
     max-width: 45rem; // 720px
   }
   &--large {
     max-width: 62rem; // 992px
   }
-  :deep(.modal__body) {
+  &--has-footer {
+    height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
+    :deep(.app-modal__content-wrapper) {
+      margin-bottom: 6.75rem;
+    }
+  }
+  width: 100%;
+  max-height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
+  position: relative;
+  :deep(.app-modal__content-wrapper) {
     overflow: auto;
   }
+  &__footer {
+    display: flex;
+    padding: var(--content-spacing);
+    padding-top: 1.5rem;
+    background-color: $color--white;
+    border-top: 1px solid $color--light-gray-1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  &__footer-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 8rem);
+    gap: 1.5rem;
+    width: 100%;
+  }
   @include for-tablet-portrait-down {
+    --content-spacing: #{$spacing--screen-vertical-padding};
     height: 100vh;
     max-height: unset;
     border: 0;
     border-radius: 0;
+    .app-modal__footer-buttons {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }
 </style>
