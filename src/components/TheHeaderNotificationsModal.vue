@@ -11,7 +11,7 @@
         is-simple
         class="header-notifications__modal"
         title="Notificações"
-        body-classes="header-notifications__content"
+        content-wrapper-classes="header-notifications__content"
       >
         <img
           class="header-notifications__image"

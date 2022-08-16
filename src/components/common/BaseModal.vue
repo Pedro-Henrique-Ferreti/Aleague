@@ -21,8 +21,8 @@
       </button>
     </header>
     <div
-      class="modal__body"
-      :class="bodyClasses"
+      class="modal__content-wrapper"
+      :class="contentWrapperClasses"
     >
       <slot />
     </div>
@@ -43,7 +43,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  bodyClasses: {
+  contentWrapperClasses: {
     type: String,
     default: '',
   },
@@ -105,7 +105,7 @@ const modalClasses = computed(() => ({
     width: 1rem;
     height: 1rem;
   }
-  &__body {
+  &__content-wrapper {
     flex: 1;
     padding: var(--padding-x);
   }
