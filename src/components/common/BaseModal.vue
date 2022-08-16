@@ -90,6 +90,7 @@ const modalClasses = computed(() => ({
     font-weight: $font-weight--semibold;
   }
   &__close-button {
+    @include focus-ring($apply-position: false);
     display: flex;
     justify-content: center;
     align-items: center;

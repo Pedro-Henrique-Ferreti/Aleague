@@ -1,5 +1,8 @@
 <template>
-  <router-link :to="path">
+  <router-link
+    class="home-card__wrapper"
+    :to="path"
+  >
     <section
       class="home-card"
       :class="cardClasses"
@@ -100,6 +103,9 @@ const cardClasses = computed(() => ({
   &:hover {
     transform: scale(1.005);
     box-shadow: $box-shadow--layer-2;
+  }
+  &__wrapper {
+    @include focus-ring;
   }
   &__content {
     display: grid;

@@ -51,13 +51,14 @@ defineProps({
   height: 100%;
   position: relative;
   &__link {
+    @include focus-ring($apply-position: false);
     display: flex;
     align-items: center;
     &.router-link-active {
       --color: #{$color--secondary};
       --indicator-display: block;
     }
-    &::after {
+    &::before {
       content: '';
       display: var(--indicator-display);
       height: 4px;
