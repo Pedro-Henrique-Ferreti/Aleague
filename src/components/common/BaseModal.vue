@@ -56,14 +56,14 @@ const modalClasses = computed(() => ({
 
 <style lang="scss" scoped>
 .modal {
-  --padding-x: 1.5rem;
+  --content-spacing: 1.5rem;
   --header-font-size: 1.5rem;
   --close-button-size: 2rem;
   &--simple {
-    --padding-x: 1rem;
+    --content-spacing: 1rem;
     --header-font-size: 1.25rem;
     .modal__header {
-      padding: 0.5rem var(--padding-x);
+      padding: 0.5rem var(--content-spacing);
     }
   }
 
@@ -77,8 +77,8 @@ const modalClasses = computed(() => ({
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 0.75rem var(--padding-x);
-    padding-right: calc(var(--padding-x) + var(--close-button-size) + 0.5rem);
+    padding: 0.75rem var(--content-spacing);
+    padding-right: calc(var(--content-spacing) + var(--close-button-size) + 0.5rem);
     background-color: $color--light-gray-2;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -99,7 +99,7 @@ const modalClasses = computed(() => ({
     border: 1px solid $color--light-gray-1;
     border-radius: 0.25rem;
     position: absolute;
-    right: var(--padding-x);
+    right: var(--content-spacing);
   }
   &__close-button-icon {
     width: 1rem;
@@ -107,7 +107,8 @@ const modalClasses = computed(() => ({
   }
   &__content-wrapper {
     flex: 1;
-    padding: var(--padding-x);
+    margin: 1.5rem 0;
+    padding: 0 var(--content-spacing);
   }
 }
 </style>
