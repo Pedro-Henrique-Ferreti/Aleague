@@ -16,6 +16,12 @@
           :title="title"
           @close="$emit('close', $event)"
         >
+          <div
+            v-if="modalHasTabPanel"
+            class="app-modal__tab-panel"
+          >
+            <slot name="tabPanel" />
+          </div>
           <slot />
           <div
             v-if="modalHasFooter"
@@ -78,11 +84,13 @@ const props = defineProps({
 });
 
 const modalHasFooter = computed(() => props.renderFooter || slots.footer);
+const modalHasTabPanel = computed(() => slots.tabPanel);
 
 const modalClasses = computed(() => ({
   'app-modal--medium': props.size === validSizes.medium,
   'app-modal--large': props.size === validSizes.large,
   'app-modal--has-footer': modalHasFooter.value,
+  'app-modal--has-tab-panel': modalHasTabPanel.value,
 }));
 
 watch(() => props.show, (show) => {
@@ -102,6 +110,11 @@ watch(() => props.show, (show) => {
   &--large {
     max-width: 62rem; // 992px
   }
+  &--has-tab-panel {
+    :deep(.app-modal__content-wrapper) {
+      margin-top: 6.75rem;
+    }
+  }
   &--has-footer {
     height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
     :deep(.app-modal__content-wrapper) {
@@ -113,6 +126,13 @@ watch(() => props.show, (show) => {
   position: relative;
   :deep(.app-modal__content-wrapper) {
     overflow: auto;
+  }
+  &__tab-panel {
+    padding: 0 var(--content-spacing);
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    right: 0;
   }
   &__footer {
     display: flex;
@@ -137,6 +157,11 @@ watch(() => props.show, (show) => {
     max-height: unset;
     border: 0;
     border-radius: 0;
+    &--has-tab-panel {
+    :deep(.app-modal__content-wrapper) {
+      margin-top: 5.75rem;
+    }
+  }
     .app-modal__footer-buttons {
       grid-template-columns: repeat(2, 1fr);
     }
