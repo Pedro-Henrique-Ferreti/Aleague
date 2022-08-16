@@ -1,10 +1,12 @@
 /*
 * Focus ring mixin for keyboard navigation
 */
-@mixin focus-ring {
+@mixin focus-ring($apply-position: true) {
   &:focus {
     outline: none;
-    position: relative;
+    @if $apply-position {
+      position: relative;
+    }
     &::after {
       content: '';
       position: absolute;
@@ -19,7 +21,9 @@
   }
   &:focus:not(:focus-visible) {
     outline: initial;
-    position: initial;
+    @if $apply-position {
+      position: initial;
+    }
     &:after {
       display: none;
       position: unset;
