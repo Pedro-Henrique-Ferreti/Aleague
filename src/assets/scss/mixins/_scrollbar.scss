@@ -1,15 +1,19 @@
-@mixin scrollbar {
+@mixin scrollbar(
+  $background: $color--light-gray-2,
+  $color: $color--text-lighten,
+  $width: 9px,
+) {
   &::-webkit-scrollbar {
-    width: 9px;
+    width: $width;
   }
   &::-webkit-scrollbar-track {
-    background-color: $color--light-gray-2;
+    background-color: $background;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: $color--text-lighten;
+    background-color: $color;
     border-radius: 3px;
     &:hover {
-      background-color: darken($color--text-lighten, 15);
+      background-color: darken($color, 15);
     }
   }
 }
