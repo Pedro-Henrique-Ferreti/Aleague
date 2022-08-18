@@ -4,22 +4,23 @@
     <div class="user-profile-picture__content">
       <img
         class="user-profile-picture__current-avatar"
-        src="/images/avatar/purple-shirt-man.png"
         alt="User profile picture"
+        :src="selectedAvatar"
       />
       <div class="user-profile-picture__avatar-panel">
         <button
-          v-for="n in 40"
-          :key="n"
+          v-for="(picture, index) in PROFILE_PICTURES"
           class="user-profile-picture__avatar-button"
           type="button"
-          :class="{ 'user-profile-picture__avatar-button--selected': true }"
-          aria-label="Avatar option 1: White man wearing a blue shirt"
+          :key="picture.path"
+          :class="{ 'user-profile-picture__avatar-button--selected': selectedAvatar === picture.path }"
+          :aria-label="`Avatar option ${index}: ${picture.description}`"
+          @click="selectedAvatar = picture.path"
         >
           <img
             class="user-profile-picture__avatar-button-image"
-            src="/images/avatar/purple-shirt-man.png"
-            alt="White man wearing a blue shirt"
+            :src="picture.path"
+            :alt="picture.description"
           />
         </button>
       </div>
@@ -28,7 +29,11 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { PROFILE_PICTURES } from '@/data';
 import UserSettingsHeader from './UserSettingsHeader.vue';
+
+const selectedAvatar = ref('/images/avatar/purple-shirt-man.png');
 </script>
 
 <style lang="scss" scoped>
@@ -56,6 +61,7 @@ import UserSettingsHeader from './UserSettingsHeader.vue';
     overflow-y: auto;
   }
   &__avatar-button {
+    @include focus-ring;
     display: flex;
     justify-content: center;
     align-items: center;
