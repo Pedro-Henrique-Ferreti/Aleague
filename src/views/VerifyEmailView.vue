@@ -1,5 +1,5 @@
 <template>
-  <AuthHeading :subtitle="(authStore.user.email as string)">
+  <AuthHeading :subtitle="(userStore.user.email as string)">
     Verifique seu email
   </AuthHeading>
   <AuthForm
@@ -39,6 +39,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
@@ -46,6 +47,7 @@ import EnterCode from '@/components/EnterCode.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
+const userStore = useUserStore();
 
 const errorMessage = ref('');
 const verificationCode = ref('');

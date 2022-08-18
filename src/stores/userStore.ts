@@ -5,6 +5,15 @@ export const useUserStore = defineStore('user', {
   state: (): UserStoreState => {
     return {
       showUserSettingsModal: false,
+      user: {
+        id: null,
+        username: null,
+        email: null,
+        emailVerifiedAt: null,
+        avatar: null,
+        createdAt: null,
+        updatedAt: null,
+      },
     };
   },
   actions: {

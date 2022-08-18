@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 import authRoutes from './auth';
 import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
@@ -16,7 +17,8 @@ const router = createRouter({
       component: LandingView,
       meta: { layout: 'landing' },
       beforeEnter: () => {
-        const { userIsAuthenticated, user } = useAuthStore();
+        const { userIsAuthenticated } = useAuthStore();
+        const { user } = useUserStore();
 
         if (userIsAuthenticated && !user.emailVerifiedAt) {
           return { name: 'verify-email' };

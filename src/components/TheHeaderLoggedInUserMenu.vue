@@ -20,7 +20,7 @@
         </span>
       </button>
       <span class="header-user-menu__name">
-        {{ user.username }}
+        {{ userStore.user.username }}
       </span>
     </div>
     <div class="header-user-menu__info">
@@ -30,7 +30,7 @@
           icon="envelope-check"
         />
         <span class="header-user-menu__info-text">
-          {{ user.email }}
+          {{ userStore.user.email }}
         </span>
       </div>
       <div class="header-user-menu__info-item">
@@ -56,9 +56,11 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 
 const router = useRouter();
-const { user, logout } = useAuthStore();
+const userStore = useUserStore();
+const { logout } = useAuthStore();
 
 function logoutUser() {
   logout();

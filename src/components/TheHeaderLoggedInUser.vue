@@ -9,7 +9,7 @@
       >
         <div class="header-user__button-content">
           <span class="header-user__name">
-            {{ user.username }}
+            {{ userStore.user.username }}
           </span>
           <img
             class="header-user__avatar"
@@ -40,10 +40,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
-import { useAuthStore } from '@/stores/authStore';
+import { useUserStore } from '@/stores/userStore';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 
-const { user } = useAuthStore();
+const userStore = useUserStore();
 
 const showMenu = ref(false);
 </script>

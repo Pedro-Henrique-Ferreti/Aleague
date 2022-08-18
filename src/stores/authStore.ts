@@ -2,34 +2,32 @@ import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/AuthStore';
 import axios from '@/helpers/axios';
+import { useUserStore } from './userStore';
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthStoreState => {
     return {
       showSplashScreen: Boolean(Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE)),
       accessToken: null,
-      user: {
-        id: null,
-        username: null,
-        email: null,
-        emailVerifiedAt: null,
-        avatar: null,
-        createdAt: null,
-        updatedAt: null,
-      },
     };
   },
   getters: {
-    userIsAuthenticated: (state) => Boolean(state.accessToken && state.user.id),
+    userIsAuthenticated(state) {
+      const userStore = useUserStore();
+
+      return Boolean(state.accessToken && userStore.user.id);
+    },
   },
   actions: {
     async login({ email, password }: LoginProps) {
+      const userStore = useUserStore();
+
       const { data } = await axios.post('/auth/login', {
         email,
         password,
       });
 
-      this.user = data.user;
+      userStore.user = data.user;
 
       this.setAccessToken(data.accessToken);
     },
@@ -37,6 +35,8 @@ export const useAuthStore = defineStore('auth', {
       this.setAccessToken();
     },
     async register({ username, email, password, passwordConfirmation }: RegisterProps) {
+      const userStore = useUserStore();
+
       const { data } = await axios.post('/auth/register', {
         username,
         email,
@@ -44,18 +44,22 @@ export const useAuthStore = defineStore('auth', {
         passwordConfirmation,
       });
 
-      this.user = data.user;
+      userStore.user = data.user;
 
       this.setAccessToken(data.accessToken);
     },
     sendEmailVerificationCode() {
+      const { user } = useUserStore();
+
       return axios.post('/auth/verify-email/resend', {
-        email: this.user?.email,
+        email: user?.email,
       });
     },
     verifyEmailAddress(code: string) {
+      const { user } = useUserStore();
+
       return axios.post('/auth/verify-email', {
-        email: this.user?.email,
+        email: user?.email,
         code,
       });
     },
@@ -81,13 +85,16 @@ export const useAuthStore = defineStore('auth', {
       return data;
     },
     async getAuthenticatedUser() {
+      const userStore = useUserStore();
+
       const { data: user } = await axios.get('/auth/me');
 
-      this.user = user;
+      userStore.user = user;
     },
     setAccessToken(accessToken?: string) {
       if (!accessToken) {
         this.accessToken = '';
+
         Cookies.remove(import.meta.env.VITE_ACCESS_TOKEN_COOKIE);
 
         return;
