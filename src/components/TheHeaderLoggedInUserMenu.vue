@@ -6,6 +6,7 @@
         type="button"
         title="Edit user avatar"
         aria-label="Edit user avatar"
+        @click="handleEditUserAvatarClick"
       >
         <img
           class="header-user-menu__avatar-image"
@@ -58,6 +59,8 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 
+const emit = defineEmits(['close']);
+
 const router = useRouter();
 const userStore = useUserStore();
 const { logout } = useAuthStore();
@@ -66,6 +69,12 @@ function logoutUser() {
   logout();
 
   router.push({ name: 'landing' });
+}
+
+function handleEditUserAvatarClick() {
+  userStore.openUserSettingsModal();
+
+  emit('close');
 }
 </script>
 
@@ -96,7 +105,7 @@ function logoutUser() {
     border: 1px solid $color--primary;
     border-radius: 50%;
     position: relative;
-    @include focus-ring;
+    @include focus-ring($apply-position: false);
   }
   &__edit-avatar-button-icon-wrapper {
     display: flex;
