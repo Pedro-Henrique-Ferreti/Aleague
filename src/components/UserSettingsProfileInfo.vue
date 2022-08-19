@@ -11,33 +11,23 @@
       <AppTextField
         id="user-profile-info--field-username"
         label="Nome de usuário"
-        v-model="username"
+        v-model="profile.username"
       />
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import UserSettingsHeader from './UserSettingsHeader.vue';
 import AppTextField from './AppTextField.vue';
+import { storeToRefs } from 'pinia';
 
 const { user } = useUserStore();
-const { profile } = useUserSettingsStore();
+const userSettingsStore = useUserSettingsStore();
 
-const username = computed({
-  get() {
-    if (profile.username) {
-      return profile.username;
-    }
-    return user?.username || '';
-  },
-  set(username) {
-    profile.username = username;
-  },
-});
+const { profile } = storeToRefs(userSettingsStore);
 </script>
 
 <style lang="scss" scoped>

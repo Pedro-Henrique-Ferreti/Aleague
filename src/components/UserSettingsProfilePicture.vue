@@ -5,7 +5,7 @@
       <img
         class="user-profile-picture__current-avatar"
         alt="User profile picture"
-        :src="selectedAvatar"
+        :src="profile.selectedAvatar"
       />
       <div class="user-profile-picture__avatar-panel">
         <button
@@ -13,9 +13,9 @@
           class="user-profile-picture__avatar-button"
           type="button"
           :key="picture.path"
-          :class="{ 'user-profile-picture__avatar-button--selected': selectedAvatar === picture.path }"
+          :class="{ 'user-profile-picture__avatar-button--selected': profile.selectedAvatar === picture.path }"
           :aria-label="`Avatar option ${index}: ${picture.description}`"
-          @click="selectedAvatar = picture.path"
+          @click="profile.selectedAvatar = picture.path"
         >
           <img
             class="user-profile-picture__avatar-button-image"
@@ -29,26 +29,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useUserStore } from '@/stores/userStore';
+import { storeToRefs } from 'pinia';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import { PROFILE_PICTURES } from '@/data';
 import UserSettingsHeader from './UserSettingsHeader.vue';
 
-const { user } = useUserStore();
-const { profile } = useUserSettingsStore();
+const userSettingsStore = useUserSettingsStore();
 
-const selectedAvatar = computed({
-  get() {
-    if (profile.selectedAvatar) {
-      return profile.selectedAvatar;
-    }
-    return user?.avatar || '';
-  },
-  set(avatar) {
-    profile.selectedAvatar = avatar;
-  },
-});
+const { profile } = storeToRefs(userSettingsStore);
 </script>
 
 <style lang="scss" scoped>

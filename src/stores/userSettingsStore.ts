@@ -8,8 +8,8 @@ export const useUserSettingsStore = defineStore('userSettings', {
     return {
       showModal: false,
       profile: {
-        selectedAvatar: null,
-        username: null,
+        selectedAvatar: undefined,
+        username: undefined,
       },
     };
   },
@@ -26,18 +26,25 @@ export const useUserSettingsStore = defineStore('userSettings', {
   },
   actions: {
     openModal() {
+      this.setProfileInfo();
+
       this.showModal = true;
     },
-    resetProfileInfo() {
-      this.profile.selectedAvatar = null;
-      this.profile.username = null;
+    closeModal() {
+      this.showModal = false;
+    },
+    setProfileInfo() {
+      const { user } = useUserStore();
+
+      this.profile.selectedAvatar = user?.avatar;
+      this.profile.username = user?.username;
     },
     async saveProfileInfo() {
       const { updateUserInfo } = useUserStore();
 
       await updateUserInfo({
-        username: this.profile.username as string,
-        avatar: this.profile.selectedAvatar as string,
+        username: this.profile.username,
+        avatar: this.profile.selectedAvatar,
       });
 
       const { getAuthenticatedUser } = useAuthStore();

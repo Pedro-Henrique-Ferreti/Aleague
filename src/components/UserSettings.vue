@@ -5,10 +5,10 @@
     size="large"
     :show="userSettingsStore.showModal"
     :is-loading="isLoading"
-    :disable-save-button="disableSaveButton"
-    @close="handleCloseModal"
-    @cancel-action="handleCloseModal"
-    @save-action="handleSave"
+    :disable-save-button="!profileHasUnsavedChanges"
+    @close="closeModal"
+    @cancel-action="closeModal"
+    @save-action="handleSaveSettings"
   >
     <template #tabPanel>
       <div class="user-settings__tab-panel">
@@ -36,8 +36,9 @@ import UserSettingsProfile from './UserSettingsProfile.vue';
 import UserSettingsChangePassword from './UserSettingsChangePassword.vue';
 
 const userSettingsStore = useUserSettingsStore();
+
+const { closeModal, setProfileInfo } = userSettingsStore;
 const { profileHasUnsavedChanges } = storeToRefs(userSettingsStore);
-const { resetProfileInfo, saveProfileInfo } = userSettingsStore;
 
 // Tabs
 const userSettingsTabs = {
@@ -53,39 +54,38 @@ const userSettingsTabs = {
   },
 };
 const activeTabId = ref(userSettingsTabs.profile.id);
+
 const activeTab = computed(
   () => Object.values(userSettingsTabs).find(({ id }) => id === activeTabId.value),
 );
 
-watch(() => activeTabId.value, (_, previousActiveTabId) => {
-  if (previousActiveTabId === userSettingsTabs.profile.id) {
-    resetProfileInfo();
-  }
-});
+watch(() => activeTabId.value, resetTab);
 
-function handleCloseModal() {
-  userSettingsStore.showModal = false;
-  resetProfileInfo();
+function resetTab(_: number, lastActiveTabId: number) {
+  if (lastActiveTabId === userSettingsTabs.profile.id) {
+    setProfileInfo();
+  }
 }
 
-const disableSaveButton = computed<boolean>(() => {
-  return !profileHasUnsavedChanges.value;
-});
-
-// Save data
+// Save settings
 const isLoading = ref(false);
 
-async function handleSave() {
+async function handleSaveSettings() {
   if (profileHasUnsavedChanges.value) {
-    isLoading.value = true;
-    try {
-      await saveProfileInfo();
-      console.log('Saved successfully');
-    } catch (error: Error) {
-      console.log(error.message);
-    } finally {
-      isLoading.value = false;
-    }
+    saveProfileInfo();
+  }
+}
+
+async function saveProfileInfo() {
+  isLoading.value = true;
+  try {
+    await userSettingsStore.saveProfileInfo();
+
+    console.log('Saved successfully');
+  } catch (error: Error) {
+    console.log(error.message);
+  } finally {
+    isLoading.value = false;
   }
 }
 </script>

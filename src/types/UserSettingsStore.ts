@@ -1,7 +1,7 @@
 export interface State {
   showModal: boolean;
   profile: {
-    selectedAvatar: string | null;
-    username: string | null;
+    selectedAvatar: string | undefined;
+    username: string | undefined;
   };
-};
+}
