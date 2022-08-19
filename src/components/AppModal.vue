@@ -36,7 +36,11 @@
                 >
                   Cancelar
                 </AppButton>
-                <AppButton @click="$emit('save-action')">
+                <AppButton
+                  :is-loading="isLoading"
+                  :disabled="disableSaveButton"
+                  @click="$emit('save-action')"
+                >
                   Salvar
                 </AppButton>
               </div>
@@ -80,6 +84,14 @@ const props = defineProps({
   size: {
     type: String,
     default: validSizes.medium,
+  },
+  isLoading: {
+    type: Boolean,
+    default: false,
+  },
+  disableSaveButton: {
+    type: Boolean,
+    default: false,
   },
 });
 
