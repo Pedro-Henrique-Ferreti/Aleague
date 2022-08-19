@@ -29,14 +29,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
+import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import { PROFILE_PICTURES } from '@/data';
 import UserSettingsHeader from './UserSettingsHeader.vue';
 
-const userStore = useUserStore();
+const { user } = useUserStore();
+const { profile } = useUserSettingsStore();
 
-const selectedAvatar = ref(userStore.user?.avatar || '');
+const selectedAvatar = computed({
+  get() {
+    if (profile.selectedAvatar) {
+      return profile.selectedAvatar;
+    }
+    return user?.avatar || '';
+  },
+  set(avatar) {
+    profile.selectedAvatar = avatar;
+  },
+});
 </script>
 
 <style lang="scss" scoped>

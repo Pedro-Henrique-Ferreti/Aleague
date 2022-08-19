@@ -6,7 +6,7 @@
         readonly
         id="user-profile-info--field-email"
         label="Email"
-        :model-value="userStore.user?.email"
+        :model-value="user?.email"
       />
       <AppTextField
         id="user-profile-info--field-username"
@@ -18,14 +18,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
+import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import UserSettingsHeader from './UserSettingsHeader.vue';
 import AppTextField from './AppTextField.vue';
 
-const userStore = useUserStore();
+const { user } = useUserStore();
+const { profile } = useUserSettingsStore();
 
-const username = ref(userStore.user?.username || '');
+const username = computed({
+  get() {
+    if (profile.username) {
+      return profile.username;
+    }
+    return user?.username || '';
+  },
+  set(username) {
+    profile.username = username;
+  },
+});
 </script>
 
 <style lang="scss" scoped>
