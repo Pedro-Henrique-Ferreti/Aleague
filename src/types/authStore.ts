@@ -1,28 +1,28 @@
-export interface AuthStoreState {
+export interface State {
   showSplashScreen: boolean,
   accessToken: string | null,
 }
 
-export interface LoginProps {
+export interface LoginParams {
   email: string,
   password: string,
 }
 
-export interface RegisterProps {
+export interface RegisterParams {
   username: string,
   email: string,
   password: string,
   passwordConfirmation: string,
 }
 
-export interface ResetPasswordProps {
+export interface ResetPasswordParams {
   email: string,
   token: string,
   password: string,
   passwordConfirmation: string,
 }
 
-export interface ValidatePasswordResetTokenProps {
+export interface ValidatePasswordResetTokenParams {
   email: string,
   token: string,
 }

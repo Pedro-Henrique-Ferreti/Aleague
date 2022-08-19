@@ -1,11 +1,11 @@
-import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/AuthStore';
+import type { State, LoginParams, RegisterParams, ResetPasswordParams, ValidatePasswordResetTokenParams } from '@/types/AuthStore';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import axios from '@/helpers/axios';
 import { useUserStore } from './userStore';
 
 export const useAuthStore = defineStore('auth', {
-  state: (): AuthStoreState => {
+  state: (): State => {
     return {
       showSplashScreen: Boolean(Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE)),
       accessToken: null,
@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', {
     },
   },
   actions: {
-    async login({ email, password }: LoginProps) {
+    async login({ email, password }: LoginParams) {
       const userStore = useUserStore();
 
       const { data } = await axios.post('/auth/login', {
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', {
     logout() {
       this.setAccessToken();
     },
-    async register({ username, email, password, passwordConfirmation }: RegisterProps) {
+    async register({ username, email, password, passwordConfirmation }: RegisterParams) {
       const userStore = useUserStore();
 
       const { data } = await axios.post('/auth/register', {
@@ -68,7 +68,7 @@ export const useAuthStore = defineStore('auth', {
         email,
       });
     },
-    resetPassword({ email, token, password, passwordConfirmation }: ResetPasswordProps) {
+    resetPassword({ email, token, password, passwordConfirmation }: ResetPasswordParams) {
       return axios.post('/auth/password/reset', {
         email,
         token,
@@ -76,7 +76,7 @@ export const useAuthStore = defineStore('auth', {
         passwordConfirmation,
       });
     },
-    async validatePasswordResetToken({ email, token }: ValidatePasswordResetTokenProps) {
+    async validatePasswordResetToken({ email, token }: ValidatePasswordResetTokenParams) {
       const { data } = await axios.post('/auth/password/validate-token', {
         email,
         token,

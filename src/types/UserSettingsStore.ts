@@ -1,4 +1,4 @@
-export type UserSettingsStoreState = {
+export interface State {
   showModal: boolean;
   profile: {
     selectedAvatar: string | null;

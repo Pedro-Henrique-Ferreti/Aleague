@@ -1,10 +1,10 @@
 import type User from './User';
 
-export interface UserStoreState {
+export interface State {
   user: User | undefined,
 }
 
-export interface updateUserInfoProps {
+export interface UpdateUserInfoParams {
   username?: string;
   avatar?: string;
 }
