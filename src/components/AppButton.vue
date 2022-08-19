@@ -42,6 +42,7 @@ const validColors = {
   tertiary: 'tertiary',
   gray: 'gray',
   danger: 'danger',
+  dangerGray: 'danger-gray',
   outline: 'outline',
 };
 
@@ -105,9 +106,10 @@ const buttonClasses = computed(() => ({
   'button--tertiary': props.color === validColors.tertiary,
   'button--gray': props.color === validColors.gray,
   'button--danger': props.color === validColors.danger,
+  'button--danger-gray': props.color === validColors.dangerGray,
+  'button--outline': props.color === validColors.outline,
   'button--small': props.size === validSizes.small,
   'button--large': props.size === validSizes.large,
-  'button--outline': props.color === validColors.outline,
   'button--disabled': buttonIsDisabled.value,
   'button--icon-rounded': props.iconRounded,
 }));
@@ -190,6 +192,13 @@ const buttonClasses = computed(() => ({
     --hover-background-color: #{$color--danger-lighten-1};
     --disabled-color: #{$color--white};
     --disabled-background-color: #{$color--danger-lighten-1};
+  }
+  &.button--danger-gray {
+    --background-color: #{$color--light-gray-2};
+    --color: #{$color--danger};
+    --hover-background-color: #{$color--light-gray-1};
+    --disabled-color: #{$color--danger};
+    --disabled-background-color: #{$color--light-gray-2};
   }
   &.button--outline {
     border: 1px solid $color--light-gray-1;
