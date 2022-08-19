@@ -13,8 +13,8 @@
           </span>
           <img
             class="header-user__avatar"
-            src="/images/avatar/purple-shirt-man.png"
             alt="User profile picture"
+            :src="userStore.user.avatar || ''"
           />
         </div>
         <BaseIcon

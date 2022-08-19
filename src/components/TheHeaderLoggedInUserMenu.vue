@@ -10,8 +10,8 @@
       >
         <img
           class="header-user-menu__avatar-image"
-          src="/images/avatar/purple-shirt-man.png"
           alt="User profile picture"
+          :src="userStore.user.avatar || ''"
         />
         <span class="header-user-menu__edit-avatar-button-icon-wrapper">
           <BaseIcon

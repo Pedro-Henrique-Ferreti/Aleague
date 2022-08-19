@@ -30,10 +30,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/userStore';
 import { PROFILE_PICTURES } from '@/data';
 import UserSettingsHeader from './UserSettingsHeader.vue';
 
-const selectedAvatar = ref('/images/avatar/purple-shirt-man.png');
+const userStore = useUserStore();
+
+const selectedAvatar = ref(userStore.user.avatar || '');
 </script>
 
 <style lang="scss" scoped>
