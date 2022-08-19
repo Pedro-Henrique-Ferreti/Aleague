@@ -11,10 +11,11 @@
     />
     <div class="text-field__input-wrapper">
       <BaseInput
-        class="text-field__input"
         v-model="inputValue"
+        class="text-field__input"
         :type="type"
         :id="id"
+        :readonly="readonly"
         :aria-label="label ? null : ariaLabel"
         @change="handleChange"
       />
@@ -62,6 +63,10 @@ const props = defineProps({
     default: '',
   },
   dirty: {
+    type: Boolean,
+    default: false,
+  },
+  readonly: {
     type: Boolean,
     default: false,
   },

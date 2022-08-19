@@ -1,6 +1,7 @@
 <template>
   <input
     class="base-input"
+    :readonly="readonly"
     :value="modelValue"
     @change="$emit('change', $event)"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
@@ -14,6 +15,10 @@ defineProps({
     type: [String, Number],
     default: '',
   },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
@@ -22,27 +27,34 @@ defineProps({
   --border-color: #{$color--gray-1};
 
   width: 100%;
-  min-height: 2.75rem;
-  padding: 0 1rem;
+  padding: 0;
   color: $color--text-darken;
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
   outline: none;
-  transition: border-color $transition--fast ease-in-out;
+  border: 0;
   &:-webkit-autofill,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     -webkit-text-fill-color: $color--text-darken;
     box-shadow: 0 0 0 30px $color--white inset !important;
   }
-  &:hover {
-    --border-color: #{$color--text-lighten};
-  }
-  &:focus {
-    --border-color: #{$color--primary};
-  }
   &::placeholder {
     color: $color--text-lighten;
+  }
+  &:not([readonly]) {
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    transition: border-color $transition--fast ease-in-out;
+    &:hover {
+    --border-color: #{$color--text-lighten};
+    }
+    &:focus {
+      --border-color: #{$color--primary};
+    }
+  }
+  &[readonly] {
+    cursor: default;
   }
   &[type="password"] {
     font-family: Verdana, sans-serif;
