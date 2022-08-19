@@ -4,7 +4,6 @@ import type { UserStoreState } from '@/types/UserStore';
 export const useUserStore = defineStore('user', {
   state: (): UserStoreState => {
     return {
-      showUserSettingsModal: false,
       user: {
         id: null,
         username: null,
@@ -15,10 +14,5 @@ export const useUserStore = defineStore('user', {
         updatedAt: null,
       },
     };
-  },
-  actions: {
-    openUserSettingsModal() {
-      this.showUserSettingsModal = true;
-    },
   },
 });

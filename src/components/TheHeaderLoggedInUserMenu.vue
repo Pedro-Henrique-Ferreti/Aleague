@@ -58,11 +58,13 @@
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
+import { useUserSettingsStore } from '@/stores/userSettingsStore';
 
 const emit = defineEmits(['close']);
 
 const router = useRouter();
 const userStore = useUserStore();
+const { openModal: openUserSettingsModal } = useUserSettingsStore();
 const { logout } = useAuthStore();
 
 function logoutUser() {
@@ -72,7 +74,7 @@ function logoutUser() {
 }
 
 function handleEditUserAvatarClick() {
-  userStore.openUserSettingsModal();
+  openUserSettingsModal();
 
   emit('close');
 }

@@ -23,12 +23,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
-import { useUserStore } from '@/stores/userStore';
+import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import TheHeaderLoggedInUser from './TheHeaderLoggedInUser.vue';
 import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
 import TheHeaderNotificationsModal from './TheHeaderNotificationsModal.vue';
 
-const { openUserSettingsModal } = useUserStore();
+const { openModal: openUserSettingsModal } = useUserSettingsStore();
 
 const showNotificationsModal = ref(false);
 </script>

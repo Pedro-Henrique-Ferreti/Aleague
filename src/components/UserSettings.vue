@@ -3,8 +3,8 @@
     render-footer
     title="Configurações"
     size="large"
-    :show="userStore.showUserSettingsModal"
-    @close="userStore.showUserSettingsModal = false"
+    :show="userSettingsStore.showModal"
+    @close="userSettingsStore.showModal = false"
   >
     <template #tabPanel>
       <div class="user-settings__tab-panel">
@@ -24,13 +24,13 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { useUserStore } from '@/stores/userStore';
+import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import AppModal from './AppModal.vue';
 import UserSettingsTabButton from './UserSettingsTabButton.vue';
 import UserSettingsProfile from './UserSettingsProfile.vue';
 import UserSettingsChangePassword from './UserSettingsChangePassword.vue';
 
-const userStore = useUserStore();
+const userSettingsStore = useUserSettingsStore();
 
 const userSettingsTabs = {
   profile: {
