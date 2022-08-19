@@ -1,6 +1,6 @@
+import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/AuthStore';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
-import type { AuthStoreState, LoginProps, RegisterProps, ResetPasswordProps, ValidatePasswordResetTokenProps } from '@/types/AuthStore';
 import axios from '@/helpers/axios';
 import { useUserStore } from './userStore';
 
@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', {
     userIsAuthenticated(state) {
       const userStore = useUserStore();
 
-      return Boolean(state.accessToken && userStore.user.id);
+      return !!(state.accessToken && userStore.user);
     },
   },
   actions: {

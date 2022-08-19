@@ -53,7 +53,7 @@ const greetingMessage = computed(() => {
     greeting = 'Boa tarde';
   }
 
-  return `${greeting}, ${userStore.user.username}`;
+  return `${greeting}, ${userStore.user?.username}`;
 });
 </script>
 

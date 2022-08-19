@@ -11,7 +11,7 @@
         <img
           class="header-user-menu__avatar-image"
           alt="User profile picture"
-          :src="userStore.user.avatar || ''"
+          :src="userStore.user?.avatar"
         />
         <span class="header-user-menu__edit-avatar-button-icon-wrapper">
           <BaseIcon
@@ -21,7 +21,7 @@
         </span>
       </button>
       <span class="header-user-menu__name">
-        {{ userStore.user.username }}
+        {{ userStore.user?.username }}
       </span>
     </div>
     <div class="header-user-menu__info">
@@ -31,7 +31,7 @@
           icon="envelope-check"
         />
         <span class="header-user-menu__info-text">
-          {{ userStore.user.email }}
+          {{ userStore.user?.email }}
         </span>
       </div>
       <div class="header-user-menu__info-item">

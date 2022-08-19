@@ -1,8 +1,8 @@
-import type { UserSettingsState } from '@/types/UserSettings';
+import type { UserSettingsStoreState } from '@/types/UserSettingsStore';
 import { defineStore } from 'pinia';
 
 export const useUserSettingsStore = defineStore('userSettings', {
-  state: (): UserSettingsState  => {
+  state: (): UserSettingsStoreState  => {
     return {
       showModal: false,
     };

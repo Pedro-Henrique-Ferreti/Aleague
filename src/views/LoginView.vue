@@ -95,7 +95,7 @@ async function submitForm() {
       password: password.value,
     });
 
-    if (!userStore.user.emailVerifiedAt) {
+    if (!userStore.user?.emailVerifiedAt) {
       router.push({ name: 'verify-email' });
       return;
     }

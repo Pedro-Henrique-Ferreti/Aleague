@@ -6,7 +6,7 @@
         readonly
         id="user-profile-info--field-email"
         label="Email"
-        :model-value="userStore.user.email || ''"
+        :model-value="userStore.user?.email"
       />
       <AppTextField
         id="user-profile-info--field-username"
@@ -25,7 +25,7 @@ import AppTextField from './AppTextField.vue';
 
 const userStore = useUserStore();
 
-const username = ref(userStore.user.username || '');
+const username = ref(userStore.user?.username || '');
 </script>
 
 <style lang="scss" scoped>

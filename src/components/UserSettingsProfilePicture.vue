@@ -36,7 +36,7 @@ import UserSettingsHeader from './UserSettingsHeader.vue';
 
 const userStore = useUserStore();
 
-const selectedAvatar = ref(userStore.user.avatar || '');
+const selectedAvatar = ref(userStore.user?.avatar || '');
 </script>
 
 <style lang="scss" scoped>

@@ -9,12 +9,12 @@
       >
         <div class="header-user__button-content">
           <span class="header-user__name">
-            {{ userStore.user.username }}
+            {{ userStore.user?.username }}
           </span>
           <img
             class="header-user__avatar"
             alt="User profile picture"
-            :src="userStore.user.avatar || ''"
+            :src="userStore.user?.avatar"
           />
         </div>
         <BaseIcon

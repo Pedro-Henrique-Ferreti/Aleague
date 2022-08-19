@@ -1,5 +1,5 @@
 <template>
-  <AuthHeading :subtitle="(userStore.user.email as string)">
+  <AuthHeading :subtitle="userStore.user?.email">
     Verifique seu email
   </AuthHeading>
   <AuthForm
