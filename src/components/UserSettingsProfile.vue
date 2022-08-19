@@ -4,11 +4,13 @@
       Atualize sua foto de perfil e informações pessoais.
     </p>
     <UserSettingsProfilePicture />
+    <UserSettingsProfileInfo />
   </section>
 </template>
 
 <script lang="ts" setup>
 import UserSettingsProfilePicture from './UserSettingsProfilePicture.vue';
+import UserSettingsProfileInfo from './UserSettingsProfileInfo.vue';
 </script>
 
 <style lang="scss" scoped>
