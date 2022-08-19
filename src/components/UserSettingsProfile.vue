@@ -5,12 +5,14 @@
     </p>
     <UserSettingsProfilePicture />
     <UserSettingsProfileInfo />
+    <UserSettingsProfileDangerZone />
   </section>
 </template>
 
 <script lang="ts" setup>
 import UserSettingsProfilePicture from './UserSettingsProfilePicture.vue';
 import UserSettingsProfileInfo from './UserSettingsProfileInfo.vue';
+import UserSettingsProfileDangerZone from './UserSettingsProfileDangerZone.vue';
 </script>
 
 <style lang="scss" scoped>
