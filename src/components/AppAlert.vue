@@ -78,7 +78,7 @@ const alertClasses = computed(() => ({
   padding-left: 0.625rem;
   padding-right: 1rem;
   background-color: var(--background-color);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   border-left: 0.375rem solid var(--border-color);
   position: relative;
   &__icon {
@@ -90,6 +90,7 @@ const alertClasses = computed(() => ({
     margin-right: 2rem;
     * {
       color: $color--text-darken;
+      font-weight: $font-weight--medium;
     }
   }
   &__close-button {
@@ -99,13 +100,18 @@ const alertClasses = computed(() => ({
     align-items: center;
     width: 2rem;
     height: 2rem;
+    border-radius: 0.25rem;
     position: absolute !important;
     right: 0.5rem;
+    transition: background-color $transition--fastest ease-in-out;
+    &:hover {
+      background-color: #{$color--white}BF;
+    }
   }
   &__close-button-icon {
-    width: 1rem;
-    height: 1rem;
-    fill: var(--icon-color);
+    width: 0.625rem;
+    height: 0.625rem;
+    fill: $color--text;
   }
 }
 </style>
