@@ -6,11 +6,11 @@
         mode="out-in"
       >
         <AppAlert
-          v-if="!!snackbar"
+          v-if="activeSnackbar"
           class="snackbar"
-          :type="snackbar.type"
-          :message="snackbar.message"
-          @click="notificationStore.closeSnackbarNotification(snackbar.id)"
+          :type="activeSnackbar.type"
+          :message="activeSnackbar.message"
+          @click="notificationStore.closeSnackbarNotification"
         />
       </Transition>
     </div>
@@ -18,13 +18,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useNotificationStore } from '@/stores/notificationStore';
 import AppAlert from './AppAlert.vue';
 
 const notificationStore = useNotificationStore();
-
-const snackbar = computed(() => notificationStore.snackbarQueue[0]);
+const { activeSnackbar } = storeToRefs(notificationStore);
 </script>
 
 <style lang="scss" scoped>

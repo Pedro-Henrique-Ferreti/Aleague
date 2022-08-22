@@ -6,29 +6,38 @@ import { defineStore } from 'pinia';
 export const useNotificationStore = defineStore('notification', {
   state: (): State => {
     return {
+      activeSnackbar: null,
       snackbarQueue: [],
     };
   },
   actions: {
     openSnackbarNotification({ message, type, duration }: Snackbar) {
-      const id = new Date().getTime();
       const snackbarDuration = (duration && duration >= MIN_SNACKBAR_DURATION)
         ? duration
         : MIN_SNACKBAR_DURATION;
 
       this.snackbarQueue.push({
-        id,
         message,
         type: type || 'success',
         duration: snackbarDuration,
       });
 
-      setTimeout(() => {
-        this.closeSnackbarNotification(id);
-      }, snackbarDuration);
+      this.updateSnackbarQueue();
     },
-    closeSnackbarNotification(snackbarId: number) {
-      this.snackbarQueue = this.snackbarQueue.filter(({ id }) => id !== snackbarId);
+    closeSnackbarNotification() {
+      this.activeSnackbar = null;
+
+      if (this.snackbarQueue.length > 0) {
+        // Awaits snackbar animation to finish
+        setTimeout(this.updateSnackbarQueue, 400);
+      }
+    },
+    updateSnackbarQueue() {
+      if (!this.activeSnackbar && this.snackbarQueue.length > 0) {
+        this.activeSnackbar = this.snackbarQueue.shift() as Snackbar;
+        
+        setTimeout(this.closeSnackbarNotification, this.activeSnackbar.duration);
+      }
     },
   },
 });
