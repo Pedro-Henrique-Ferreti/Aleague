@@ -1,6 +1,7 @@
 <template>
   <TheHeader />
   <UserSettings />
+  <AppSnackbar />
   <div class="default-layout">
     <slot />
   </div>
@@ -10,7 +11,8 @@
 <script setup>
 import TheHeader from '@/components/TheHeader.vue';
 import TheFooter from '@/components/TheFooter.vue';
-import UserSettings from '../components/UserSettings.vue';
+import UserSettings from '@/components/UserSettings.vue';
+import AppSnackbar from '@/components/AppSnackbar.vue';
 </script>
 
 <style lang="scss" scoped>

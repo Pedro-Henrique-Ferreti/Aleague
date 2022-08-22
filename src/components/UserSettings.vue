@@ -30,12 +30,14 @@
 import { ref, computed, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
+import { useNotificationStore } from '@/stores/notificationStore';
 import AppModal from './AppModal.vue';
 import UserSettingsTabButton from './UserSettingsTabButton.vue';
 import UserSettingsProfile from './UserSettingsProfile.vue';
 import UserSettingsChangePassword from './UserSettingsChangePassword.vue';
 
 const userSettingsStore = useUserSettingsStore();
+const { openSnackbarNotification } = useNotificationStore();
 
 const { closeModal, setProfileInfo } = userSettingsStore;
 const { profileHasUnsavedChanges } = storeToRefs(userSettingsStore);
@@ -81,9 +83,13 @@ async function saveProfileInfo() {
   try {
     await userSettingsStore.saveProfileInfo();
 
-    console.log('Saved successfully');
+    openSnackbarNotification({
+      message: 'As alterações foram salvas com sucesso.',
+    });
   } catch (error: Error) {
-    console.log(error.message);
+    openSnackbarNotification({
+      message: 'Falha ao salvar as alterações. Por favor, tente novamente.',
+    });
   } finally {
     isLoading.value = false;
   }
