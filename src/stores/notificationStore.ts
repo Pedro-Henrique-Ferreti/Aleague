@@ -35,7 +35,7 @@ export const useNotificationStore = defineStore('notification', {
     updateSnackbarQueue() {
       if (!this.activeSnackbar && this.snackbarQueue.length > 0) {
         this.activeSnackbar = this.snackbarQueue.shift() as Snackbar;
-        
+
         setTimeout(this.closeSnackbarNotification, this.activeSnackbar.duration);
       }
     },
