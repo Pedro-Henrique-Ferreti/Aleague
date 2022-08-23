@@ -1,3 +1,4 @@
+import type { NavigationGuard, RouteRecordRaw } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
@@ -43,8 +44,8 @@ export default [
       layout: 'auth',
       requiresAuth: true,
     },
-    beforeEnter: (_, from) => {
-      if ( !['login', 'register'].includes(from.name)) {
+    beforeEnter: (_to: NavigationGuard, from: NavigationGuard) => {
+      if (!['login', 'register'].includes(from.name)) {
         return { name: 'home' };
       }
     },
@@ -57,4 +58,4 @@ export default [
       layout: 'auth',
     },
   },
-];
+] as RouteRecordRaw[];

@@ -20,7 +20,7 @@ const router = createRouter({
         const { userIsAuthenticated } = useAuthStore();
         const { user } = useUserStore();
 
-        if (userIsAuthenticated && !user.emailVerifiedAt) {
+        if (userIsAuthenticated && !user?.emailVerifiedAt) {
           return { name: 'verify-email' };
         }
 
