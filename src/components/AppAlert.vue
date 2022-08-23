@@ -6,7 +6,7 @@
   >
     <BaseIcon
       class="alert__icon"
-      icon="error-circle"
+      :icon="alertIcon"
     />
     <div class="alert__content">
       <p>{{ message }}</p>
@@ -52,6 +52,15 @@ const alertClasses = computed(() => ({
   'alert--success': props.type === validTypes.success,
   'alert--error': props.type === validTypes.error,
 }));
+
+const alertIcon = computed(() => {
+  switch (props.type) {
+    case validTypes.success:
+      return 'check-circle';
+    default:
+      return 'error-circle';
+  }
+});
 </script>
 
 <style lang="scss" scoped>
