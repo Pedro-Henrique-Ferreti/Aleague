@@ -9,7 +9,7 @@
         description="Crie e gerencie suas equipes."
         icon="team-shield"
         aria-label="Ir para Minhas equipes"
-        :path="{ name: 'home' }"
+        :path="{ name: 'teams' }"
       />
       <HomeCard
         title="Meus campeonatos"

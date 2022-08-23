@@ -13,7 +13,7 @@
         icon-mobile="team-shield"
         icon-desktop="team-shield-outline"
         aria-label="Go to My teams page"
-        path="/"
+        :path="{ name: 'teams' }"
       >
         Minhas equipes
       </TheHeaderNavItem>
