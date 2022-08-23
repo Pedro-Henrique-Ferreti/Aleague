@@ -16,7 +16,7 @@
         description="Visualize seus campeonatos e insira resultados para as partidas."
         icon="trophy"
         aria-label="Ir para Meus campeonatos"
-        :path="{ name: 'home' }"
+        :path="{ name: 'leagues' }"
       />
       <HomeCard
         theme="secondary"

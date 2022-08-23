@@ -21,7 +21,7 @@
         icon-mobile="trophy"
         icon-desktop="trophy-outline"
         aria-label="Go to My championships page"
-        path="/"
+        :path="{ name: 'leagues' }"
       >
         Meus campeonatos
       </TheHeaderNavItem>
