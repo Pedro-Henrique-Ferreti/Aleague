@@ -11,6 +11,7 @@
         <img
           class="header-user-menu__avatar-image"
           alt="User profile picture"
+          draggable="false"
           :src="userStore.user?.avatar"
         />
         <span class="header-user-menu__edit-avatar-button-icon-wrapper">

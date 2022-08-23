@@ -6,6 +6,7 @@
         class="reset-success__image"
         src="/images/smartphone-verified.svg"
         alt="Girl next to smartphone with check sign"
+        draggable="false"
       />
     </div>
     <p class="text-darken">

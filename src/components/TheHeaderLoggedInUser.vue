@@ -14,6 +14,7 @@
           <img
             class="header-user__avatar"
             alt="User profile picture"
+            draggable="false"
             :src="userStore.user?.avatar"
           />
         </div>

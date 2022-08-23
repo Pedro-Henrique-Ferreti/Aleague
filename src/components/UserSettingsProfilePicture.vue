@@ -5,6 +5,7 @@
       <img
         class="user-profile-picture__current-avatar"
         alt="User profile picture"
+        draggable="false"
         :src="profile.selectedAvatar"
       />
       <div class="user-profile-picture__avatar-panel">
@@ -19,6 +20,7 @@
         >
           <img
             class="user-profile-picture__avatar-button-image"
+            draggable="false"
             :src="picture.path"
             :alt="picture.description"
           />

@@ -8,6 +8,7 @@
             class="features__card-icon"
             src="/images/medal.svg"
             alt="Medal"
+            draggable="false"
           />
         </div>
         <h3 class="features__card-title">
@@ -23,6 +24,7 @@
             class="features__card-icon"
             src="/images/analysis-chart.svg"
             alt="Chart"
+            draggable="false"
           />
         </div>
         <h3 class="features__card-title">
@@ -38,6 +40,7 @@
             class="features__card-icon"
             src="/images/check-certification.svg"
             alt="Certification"
+            draggable="false"
           />
         </div>
         <h3 class="features__card-title">
@@ -53,6 +56,7 @@
             class="features__card-icon"
             src="/images/football.svg"
             alt="Football"
+            draggable="false"
           />
         </div>
         <h3 class="features__card-title">

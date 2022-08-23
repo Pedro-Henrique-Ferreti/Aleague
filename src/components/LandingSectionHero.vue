@@ -34,6 +34,7 @@
             class="hero__illustration"
             src="/images/soccer-kick.svg"
             alt="Soccer players"
+            draggable="false"
           />
         </div>
       </SwiperSlide>
@@ -62,6 +63,7 @@
             class="hero__illustration"
             src="/images/team-board.svg"
             alt="Team board"
+            draggable="false"
           />
         </div>
       </SwiperSlide>
@@ -89,6 +91,7 @@
             class="hero__illustration"
             src="/images/spreadsheet.svg"
             alt="Spreadsheet"
+            draggable="false"
           />
         </div>
       </SwiperSlide>

@@ -6,6 +6,7 @@
         class="recovery-success__image"
         src="/images/mail-sent.svg"
         alt="Email sent successfully"
+        draggable="false"
       />
     </div>
     <p class="text-darken">

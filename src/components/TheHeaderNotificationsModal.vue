@@ -17,6 +17,7 @@
           class="header-notifications__image"
           src="/images/user-email.svg"
           alt="Man holding a smartphone while surrounded by e-mails"
+          draggable="false"
         />
         <span>Nenhuma notificação nova</span>
       </BaseModal>

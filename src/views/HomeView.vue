@@ -31,6 +31,7 @@
       class="home__image"
       src="/images/receptionist-working.svg"
       alt="Receptionist working with a laptop on a desk"
+      draggable="false"
     />
   </main>
 </template>

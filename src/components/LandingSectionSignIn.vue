@@ -5,6 +5,7 @@
         class="sign-in__image"
         src="/images/airplane.svg"
         alt="Airplane"
+        draggable="false"
       />
     </div>
     <div class="sign-in__content">

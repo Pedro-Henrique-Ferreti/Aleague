@@ -6,6 +6,7 @@
         class="expired-link__image"
         src="/images/exclamation-mark.svg"
         alt="Woman looking at a big exclamation mark"
+        draggable="false"
       />
     </div>
     <p class="text-darken">
