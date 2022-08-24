@@ -1,7 +1,7 @@
 <template>
   <form
     class="auth-form"
-    @submit.prevent="$emit('submit')"
+    @submit.prevent="handleSubmit"
   >
     <AppAlert
       v-show="errorMessage"
@@ -22,13 +22,18 @@
 <script lang="ts" setup>
 import AppAlert from './AppAlert.vue';
 
-defineEmits(['submit', 'close-alert']);
+const emit = defineEmits(['submit', 'close-alert']);
 defineProps({
   errorMessage: {
     type: String,
     default: '',
   },
 });
+
+function handleSubmit() {
+  (document.activeElement as HTMLElement)?.blur();
+  emit('submit');
+}
 </script>
 
 <style lang="scss" scoped>
