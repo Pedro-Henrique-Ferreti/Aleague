@@ -22,6 +22,7 @@ import Menu from '@/components/icons/IconMenu.vue';
 import Pencil from '@/components/icons/IconPencil.vue';
 import Plus from '@/components/icons/IconPlus.vue';
 import Save from '@/components/icons/IconSave.vue';
+import Search from '@/components/icons/IconSearch.vue';
 import TeamShield from '@/components/icons/IconTeamShield.vue';
 import TeamShieldOutline from '@/components/icons/IconTeamShieldOutline.vue';
 import Trophy from '@/components/icons/IconTrophy.vue';
@@ -70,6 +71,8 @@ const icon = computed(() => {
       return Pencil;
     case 'save':
       return Save;
+    case 'search':
+      return Search;
     case 'plus':
       return Plus;
     case 'teamshield':
