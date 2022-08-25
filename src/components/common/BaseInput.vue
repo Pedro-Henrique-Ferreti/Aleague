@@ -24,6 +24,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .base-input {
+  --min-height: 2.75rem;
   --border-color: #{$color--gray-1};
 
   width: 100%;
@@ -41,7 +42,7 @@ defineProps({
     color: $color--text-lighten;
   }
   &:not([readonly]) {
-    min-height: 2.75rem;
+    min-height: var(--min-height);
     padding: 0 1rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
