@@ -23,7 +23,9 @@ import TheHeaderControls from './TheHeaderControls.vue';
 .header {
   height: 4.5rem;
   background-color: $color--white;
-  border-bottom: 1px solid $color--light-gray-1;
+  @include for-large-tablet-portrait-up {
+    border-bottom: 1px solid $color--light-gray-1;
+  }
   &__container {
     display: flex;
     align-items: center;
