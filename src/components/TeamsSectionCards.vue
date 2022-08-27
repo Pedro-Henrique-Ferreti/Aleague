@@ -1,16 +1,26 @@
 <template>
   <div class="teams-card-grid">
     <TeamsCard
-      v-for="n in 10"
-      :key="n"
-      name="Paulicéia"
-      :is-favorite="n % 3 === 0"
+      v-for="team in teams"
+      :key="team.id"
+      :name="team.name"
+      :is-favorite="team.isFavorite"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useTeamsStore } from '@/stores/teamsStore';
 import TeamsCard from './TeamsCard.vue';
+
+const teamsStore = useTeamsStore();
+const { teams } = storeToRefs(teamsStore);
+
+onMounted(() => {
+  teamsStore.getTeams();
+});
 </script>
 
 <style lang="scss" scoped>
