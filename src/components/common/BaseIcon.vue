@@ -6,6 +6,7 @@
 import { computed } from 'vue';
 import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
 import Bell from '@/components/icons/IconBell.vue';
+import Bookmark from '@/components/icons/IconBookmark.vue';
 import Check from '@/components/icons/IconCheck.vue';
 import CheckCircle from '@/components/icons/IconCheckCircle.vue';
 import Chevron from '@/components/icons/IconChevron.vue';
@@ -41,6 +42,8 @@ const icon = computed(() => {
       return ArrowFoward;
     case 'bell':
       return Bell;
+    case 'bookmark':
+      return Bookmark;
     case 'check':
       return Check;
     case 'checkcircle':
