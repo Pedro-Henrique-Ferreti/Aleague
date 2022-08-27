@@ -1,3 +1,5 @@
+import type User from './User';
+
 export interface State {
   showSplashScreen: boolean,
   accessToken: string | null,
@@ -8,11 +10,21 @@ export interface LoginParams {
   password: string,
 }
 
+export interface LoginResponse {
+  user: User;
+  accessToken: string;
+}
+
 export interface RegisterParams {
   username: string,
   email: string,
   password: string,
   passwordConfirmation: string,
+}
+
+export interface RegisterResponse {
+  user: User;
+  accessToken: string;
 }
 
 export interface ResetPasswordParams {
@@ -25,4 +37,8 @@ export interface ResetPasswordParams {
 export interface ValidatePasswordResetTokenParams {
   email: string,
   token: string,
+}
+
+export interface ValidatePasswordResetTokenResponse {
+  isValid: boolean;
 }

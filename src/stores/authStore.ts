@@ -1,8 +1,10 @@
-import type { State, LoginParams, RegisterParams, ResetPasswordParams, ValidatePasswordResetTokenParams } from '@/types/AuthStore';
+import type { State, LoginParams, RegisterParams, ResetPasswordParams, ValidatePasswordResetTokenParams, LoginResponse, RegisterResponse, ValidatePasswordResetTokenResponse } from '@/types/AuthStore';
+import type { AxiosResponse } from 'axios';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import axios from '@/helpers/axios';
 import { useUserStore } from './userStore';
+import type User from '@/types/User';
 
 export const useAuthStore = defineStore('auth', {
   state: (): State => {
@@ -22,7 +24,7 @@ export const useAuthStore = defineStore('auth', {
     async login({ email, password }: LoginParams) {
       const userStore = useUserStore();
 
-      const { data } = await axios.post('/auth/login', {
+      const { data }: AxiosResponse<LoginResponse> = await axios.post('/auth/login', {
         email,
         password,
       });
@@ -37,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
     async register({ username, email, password, passwordConfirmation }: RegisterParams) {
       const userStore = useUserStore();
 
-      const { data } = await axios.post('/auth/register', {
+      const { data }: AxiosResponse<RegisterResponse> = await axios.post('/auth/register', {
         username,
         email,
         password,
@@ -77,7 +79,7 @@ export const useAuthStore = defineStore('auth', {
       });
     },
     async validatePasswordResetToken({ email, token }: ValidatePasswordResetTokenParams) {
-      const { data } = await axios.post('/auth/password/validate-token', {
+      const { data }: AxiosResponse<ValidatePasswordResetTokenResponse> = await axios.post('/auth/password/validate-token', {
         email,
         token,
       });
@@ -87,7 +89,7 @@ export const useAuthStore = defineStore('auth', {
     async getAuthenticatedUser() {
       const userStore = useUserStore();
 
-      const { data: user } = await axios.get('/auth/me');
+      const { data: user }: AxiosResponse<User> = await axios.get('/auth/me');
 
       userStore.user = user;
     },
