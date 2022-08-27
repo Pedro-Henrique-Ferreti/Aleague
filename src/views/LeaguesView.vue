@@ -1,10 +1,14 @@
 <template>
   <main class="leagues container-medium">
-    <AppTitle>Meus campeonatos</AppTitle>
-    <p>Você pode ver todos os seus campeonatos aqui. Escolha um campeonato para editar.</p>
+    <PageHeader>
+      <template #title>
+        Meus campeonatos
+      </template>
+      <p>Você pode ver todos os seus campeonatos aqui. Escolha um campeonato para editar.</p>
+    </PageHeader>
   </main>
 </template>
 
 <script lang="ts" setup>
-import AppTitle from '@/components/AppTitle.vue';
+import PageHeader from '@/components/PageHeader.vue';
 </script>

@@ -1,10 +1,14 @@
 <template>
   <main class="leagues container-medium">
-    <AppTitle>Criar campeonato</AppTitle>
-    <p>Bem-vindo a criação de campeonatos! Para começar, escolha nome e formato para o seu campeonato.</p>
+    <PageHeader>
+      <template #title>
+        Criar campeonato
+      </template>
+      <p>Bem-vindo a criação de campeonatos! Para começar, escolha nome e formato para o seu campeonato.</p>
+    </PageHeader>
   </main>
 </template>
 
 <script lang="ts" setup>
-import AppTitle from '@/components/AppTitle.vue';
+import PageHeader from '@/components/PageHeader.vue';
 </script>

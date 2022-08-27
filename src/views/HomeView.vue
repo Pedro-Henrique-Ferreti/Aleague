@@ -1,7 +1,11 @@
 <template>
   <main class="home container-small">
-    <AppTitle>{{ greetingMessage }}</AppTitle>
-    <p>Bem-vindo ao Aleague! Você pode escolher uma das opções abaixo.</p>
+    <PageHeader>
+      <template #title>
+        {{ greetingMessage }}
+      </template>
+      <p>Bem-vindo ao Aleague! Você pode escolher uma das opções abaixo.</p>
+    </PageHeader>
     <div class="home__cards">
       <HomeCard
         theme="tertiary"
@@ -39,7 +43,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
-import AppTitle from '@/components/AppTitle.vue';
+import PageHeader from '@/components/PageHeader.vue';
 import HomeCard from '@/components/HomeCard.vue';
 
 const userStore = useUserStore();
@@ -65,7 +69,6 @@ const greetingMessage = computed(() => {
   &__cards {
     display: grid;
     gap: 1rem;
-    margin-top: 2rem;
     @include for-large-tablet-landscape-up {
       grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
