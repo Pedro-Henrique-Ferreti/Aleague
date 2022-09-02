@@ -7,12 +7,12 @@
       <p>Veja todas as suas equipes. Escolha uma equipe para ver mais informações.</p>
     </PageHeader>
     <TeamsSearchBar />
-    <TeamsSectionCards />
+    <TeamsCardsSection />
   </main>
 </template>
 
 <script lang="ts" setup>
 import PageHeader from '@/components/PageHeader.vue';
 import TeamsSearchBar from '@/components/TeamsSearchBar.vue';
-import TeamsSectionCards from '@/components/TeamsSectionCards.vue';
+import TeamsCardsSection from '@/components/TeamsCardsSection.vue';
 </script>
