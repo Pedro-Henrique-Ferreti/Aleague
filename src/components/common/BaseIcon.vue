@@ -20,6 +20,7 @@ import HomeOutline from '@/components/icons/IconHomeOutline.vue';
 import Loading from '@/components/icons/IconLoading.vue';
 import Logout from '@/components/icons/IconLogout.vue';
 import Menu from '@/components/icons/IconMenu.vue';
+import Package from '@/components/icons/IconPackage.vue';
 import Pencil from '@/components/icons/IconPencil.vue';
 import Plus from '@/components/icons/IconPlus.vue';
 import Save from '@/components/icons/IconSave.vue';
@@ -70,6 +71,8 @@ const icon = computed(() => {
       return Logout;
     case 'menu':
       return Menu;
+    case 'package':
+      return Package;
     case 'pencil':
       return Pencil;
     case 'save':

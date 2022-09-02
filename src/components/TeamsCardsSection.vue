@@ -1,4 +1,24 @@
 <template>
+  <TabPanel
+    :tabs="Object.values(filterTabs)"
+    :active-tab-id="activeTabId"
+    @set-active-tab="activeTabId = $event"
+  >
+    <template #controls>
+      <AppButton
+        color="outline"
+        icon-left="package"
+      >
+        Pacotes
+      </AppButton>
+      <AppButton
+        icon-left="plus"
+        icon-rounded
+      >
+        Nova equipe
+      </AppButton>
+    </template>
+  </TabPanel>
   <transition
     name="fade"
     mode="out-in"
@@ -33,10 +53,24 @@ import { useNotificationStore } from '@/stores/notificationStore';
 import TeamsCard from './TeamsCard.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import NoContent from './NoContent.vue';
+import TabPanel from './TabPanel.vue';
 
 const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
 const { teams } = storeToRefs(teamsStore);
+
+const filterTabs = {
+  all: {
+    id: 1,
+    name: 'Todos',
+  },
+  favorites: {
+    id: 2,
+    name: 'Favoritos',
+  },
+};
+
+const activeTabId = ref(filterTabs.all.id);
 
 const isLoading = ref(true);
 
@@ -62,6 +96,7 @@ onMounted(getTeams);
 .teams-card-grid {
   display: grid;
   gap: 1rem;
+  margin-top: 2rem;
   @include for-tablet-portrait-up {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem 1rem;
