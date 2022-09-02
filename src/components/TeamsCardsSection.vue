@@ -1,5 +1,6 @@
 <template>
   <TabPanel
+    class="teams-tab-panel"
     :tabs="Object.values(filterTabs)"
     :active-tab-id="activeTabId"
     @set-active-tab="activeTabId = $event"
@@ -24,19 +25,14 @@
     mode="out-in"
   >
     <LoadingIndicator v-if="isLoading" />
-    <NoContent
-      v-else-if="teams.length < 1"
-      title="Não há equipes cadastradas"
-      action-button-text="Acessar pacotes de equipe"
-    >
-      <p>Você ainda não criou nenhuma equipe. Você pode fazer isso através dos pacotes de equipe.</p>
-    </NoContent>
+    <NoTeamsFound v-else-if="teams.length === 0" />
+    <SearchNotFound v-else-if="filteredTeams.length === 0" />
     <div
       v-else
       class="teams-card-grid"
     >
       <TeamsCard
-        v-for="team in teams"
+        v-for="team in filteredTeams"
         :key="team.id"
         :name="team.name"
         :is-favorite="team.isFavorite"
@@ -46,14 +42,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import TeamsCard from './TeamsCard.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
-import NoContent from './NoContent.vue';
 import TabPanel from './TabPanel.vue';
+import TeamsCard from './TeamsCard.vue';
+import NoTeamsFound from './TeamsSectionNoTeamsFound.vue';
+import SearchNotFound from './TeamsSectionSearchNotFound.vue';
 
 const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
@@ -71,8 +68,17 @@ const filterTabs = {
 };
 
 const activeTabId = ref(filterTabs.all.id);
-
 const isLoading = ref(true);
+
+const filteredTeams = computed(() => {
+  if (activeTabId.value === filterTabs.favorites.id) {
+    return teams.value.filter(({ isFavorite }) => isFavorite);
+  }
+
+  return teams.value;
+});
+
+onMounted(getTeams);
 
 async function getTeams() {
   isLoading.value = true;
@@ -88,15 +94,15 @@ async function getTeams() {
     isLoading.value = false;
   }
 }
-
-onMounted(getTeams);
 </script>
 
 <style lang="scss" scoped>
+.teams-tab-panel {
+  margin-bottom: 2rem;
+}
 .teams-card-grid {
   display: grid;
   gap: 1rem;
-  margin-top: 2rem;
   @include for-tablet-portrait-up {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem 1rem;
