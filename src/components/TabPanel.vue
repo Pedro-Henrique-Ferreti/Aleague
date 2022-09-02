@@ -35,12 +35,14 @@ defineProps<{
 .tab-panel {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid $color--light-gray-1;
   &__controls-slot {
     display: flex;
     gap: 1.5rem;
+    padding-bottom: 0.5rem;
     @include for-large-tablet-portrait-down {
       display: none;
     }
