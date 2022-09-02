@@ -7,6 +7,7 @@ export const useTeamsStore = defineStore('teams', {
   state: () : State => {
     return {
       teams: [],
+      searchBarValue: '',
     };
   },
   actions: {

@@ -1,5 +1,6 @@
 export interface State {
   teams: TeamsStoreTeam[];
+  searchBarValue: string;
 }
 
 export interface TeamsStoreTeam {

@@ -54,7 +54,7 @@ import SearchNotFound from './TeamsSectionSearchNotFound.vue';
 
 const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
-const { teams } = storeToRefs(teamsStore);
+const { teams, searchBarValue } = storeToRefs(teamsStore);
 
 const filterTabs = {
   all: {
@@ -71,11 +71,17 @@ const activeTabId = ref(filterTabs.all.id);
 const isLoading = ref(true);
 
 const filteredTeams = computed(() => {
-  if (activeTabId.value === filterTabs.favorites.id) {
-    return teams.value.filter(({ isFavorite }) => isFavorite);
+  let filteredTeams = teams.value;
+
+  if (searchBarValue.value) {
+    filteredTeams = filteredTeams.filter(({ name }) => name.includes(searchBarValue.value));
   }
 
-  return teams.value;
+  if (activeTabId.value === filterTabs.favorites.id) {
+    return filteredTeams.filter(({ isFavorite }) => isFavorite);
+  }
+
+  return filteredTeams;
 });
 
 onMounted(getTeams);
