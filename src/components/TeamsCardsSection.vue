@@ -10,7 +10,7 @@
         color="outline"
         icon-left="package"
         @click="showTeamPackModal = true"
-        >
+      >
         Pacotes
       </AppButton>
       <AppButton
