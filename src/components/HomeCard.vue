@@ -35,21 +35,20 @@
 </template>
 
 <script lang="ts">
-const validThemes = {
-  primary: 'primary',
-  secondary: 'secondary',
-  tertiary: 'tertiary',
-};
+enum Themes {
+  primary = 'primary',
+  secondary = 'secondary',
+  tertiary = 'tertiary',
+}
 </script>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 
 const props = defineProps({
   theme: {
-    type: String,
-    default: validThemes.primary,
-    validator: (theme: string) => Object.values(validThemes).includes(theme),
+    type: String as PropType<keyof typeof Themes>,
+    default: Themes.primary,
   },
   icon: {
     type: String,
@@ -70,9 +69,9 @@ const props = defineProps({
 });
 
 const cardClasses = computed(() => ({
-  'home-card--primary': props.theme === validThemes.primary,
-  'home-card--secondary': props.theme === validThemes.secondary,
-  'home-card--tertiary': props.theme === validThemes.tertiary,
+  'home-card--primary': props.theme === Themes.primary,
+  'home-card--secondary': props.theme === Themes.secondary,
+  'home-card--tertiary': props.theme === Themes.tertiary,
 }));
 </script>
 

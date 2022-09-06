@@ -36,27 +36,25 @@
 </template>
 
 <script lang="ts">
-const validColors = {
-  primary: 'primary',
-  secondary: 'secondary',
-  tertiary: 'tertiary',
-  gray: 'gray',
-  danger: 'danger',
-  dangerGray: 'danger-gray',
-  outline: 'outline',
-};
+enum Colors {
+  primary = 'primary',
+  secondary = 'secondary',
+  tertiary = 'tertiary',
+  gray = 'gray',
+  danger = 'danger',
+  dangerGray = 'dangerGray',
+  outline = 'outline',
+}
 
-const validSizes = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
-};
-
-export default {};
+enum Sizes {
+  small = 'small',
+  medium = 'medium',
+  large = 'large',
+}
 </script>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 import BaseButton from '@/components/common/BaseButton.vue';
 
 defineEmits(['click']);
@@ -67,14 +65,12 @@ const props = defineProps({
     default: '',
   },
   color: {
-    type: String,
-    default: validColors.primary,
-    validator:(color: string) => Object.values(validColors).includes(color),
+    type: String as PropType<keyof typeof Colors>,
+    default: Colors.primary,
   },
   size: {
-    type: String,
-    default: validSizes.medium,
-    validator:(size: string) => Object.values(validSizes).includes(size),
+    type: String as PropType<keyof typeof Sizes>,
+    default: Sizes.medium,
   },
   disabled: {
     type: Boolean,
@@ -101,15 +97,15 @@ const props = defineProps({
 const buttonIsDisabled = computed(() => props.isLoading || props.disabled);
 
 const buttonClasses = computed(() => ({
-  'button--primary': props.color === validColors.primary,
-  'button--secondary': props.color === validColors.secondary,
-  'button--tertiary': props.color === validColors.tertiary,
-  'button--gray': props.color === validColors.gray,
-  'button--danger': props.color === validColors.danger,
-  'button--danger-gray': props.color === validColors.dangerGray,
-  'button--outline': props.color === validColors.outline,
-  'button--small': props.size === validSizes.small,
-  'button--large': props.size === validSizes.large,
+  'button--primary': props.color === Colors.primary,
+  'button--secondary': props.color === Colors.secondary,
+  'button--tertiary': props.color === Colors.tertiary,
+  'button--gray': props.color === Colors.gray,
+  'button--danger': props.color === Colors.danger,
+  'button--danger-gray': props.color === Colors.dangerGray,
+  'button--outline': props.color === Colors.outline,
+  'button--small': props.size === Sizes.small,
+  'button--large': props.size === Sizes.large,
   'button--disabled': buttonIsDisabled.value,
   'button--icon-rounded': props.iconRounded,
 }));

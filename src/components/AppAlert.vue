@@ -26,14 +26,14 @@
 </template>
 
 <script lang="ts">
-const validTypes = {
-  success: 'success',
-  error: 'error',
-};
+enum Types {
+  success = 'success',
+  error = 'error',
+}
 </script>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, type PropType } from 'vue';
 
 defineEmits(['close']);
 const props = defineProps({
@@ -42,20 +42,19 @@ const props = defineProps({
     default: '',
   },
   type: {
-    type: String,
-    default: validTypes.success,
-    validator:(type: string) => Object.values(validTypes).includes(type),
+    type: String as PropType<keyof typeof Types>,
+    default: Types.success,
   },
 });
 
 const alertClasses = computed(() => ({
-  'alert--success': props.type === validTypes.success,
-  'alert--error': props.type === validTypes.error,
+  'alert--success': props.type === Types.success,
+  'alert--error': props.type === Types.error,
 }));
 
 const alertIcon = computed(() => {
   switch (props.type) {
-    case validTypes.success:
+    case Types.success:
       return 'check-circle';
     default:
       return 'error-circle';
