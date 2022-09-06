@@ -9,7 +9,8 @@
       <AppButton
         color="outline"
         icon-left="package"
-      >
+        @click="showTeamPackModal = true"
+        >
         Pacotes
       </AppButton>
       <AppButton
@@ -39,6 +40,10 @@
       />
     </div>
   </transition>
+  <TeamPackModal
+    :show="showTeamPackModal"
+    @close="showTeamPackModal = false"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -51,6 +56,7 @@ import TabPanel from './TabPanel.vue';
 import TeamsCard from './TeamsCard.vue';
 import NoTeamsFound from './TeamsSectionNoTeamsFound.vue';
 import SearchNotFound from './TeamsSectionSearchNotFound.vue';
+import TeamPackModal from './TeamPackModal.vue';
 
 const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
@@ -69,6 +75,7 @@ const filterTabs = {
 
 const activeTabId = ref(filterTabs.all.id);
 const isLoading = ref(true);
+const showTeamPackModal = ref(false);
 
 const filteredTeams = computed(() => {
   let filteredTeams = teams.value;
