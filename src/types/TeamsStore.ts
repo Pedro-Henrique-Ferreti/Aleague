@@ -1,5 +1,8 @@
+import type { TeamPackListItem } from './TeamPack';
+
 export interface State {
   teams: TeamsStoreTeam[];
+  teamPacks: TeamPackListItem[];
   searchBarValue: string;
 }
 
