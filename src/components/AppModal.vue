@@ -53,13 +53,14 @@
 </template>
 
 <script lang="ts">
-const validSizes = {
-  medium: 'medium',
-  large: 'large',
-};
+enum Sizes {
+  medium = 'medium',
+  large = 'large',
+}
 </script>
 
 <script lang="ts" setup>
+import type { PropType } from 'vue';
 import { computed, watch, useSlots } from 'vue';
 import BaseModal from './common/BaseModal.vue';
 import ModalOverlay from './ModalOverlay.vue';
@@ -82,8 +83,8 @@ const props = defineProps({
     required: true,
   },
   size: {
-    type: String,
-    default: validSizes.medium,
+    type: String as PropType<keyof typeof Sizes>,
+    default: Sizes.medium,
   },
   isLoading: {
     type: Boolean,
@@ -99,8 +100,8 @@ const modalHasFooter = computed(() => props.renderFooter || slots.footer);
 const modalHasTabPanel = computed(() => slots.tabPanel);
 
 const modalClasses = computed(() => ({
-  'app-modal--medium': props.size === validSizes.medium,
-  'app-modal--large': props.size === validSizes.large,
+  'app-modal--medium': props.size === Sizes.medium,
+  'app-modal--large': props.size === Sizes.large,
   'app-modal--has-footer': modalHasFooter.value,
   'app-modal--has-tab-panel': modalHasTabPanel.value,
 }));
