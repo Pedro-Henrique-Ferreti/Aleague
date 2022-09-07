@@ -21,10 +21,7 @@
       </AppButton>
     </template>
   </TabPanel>
-  <transition
-    name="fade"
-    mode="out-in"
-  >
+  <AppTransition name="fade">
     <LoadingIndicator v-if="isLoading" />
     <NoTeamsFound v-else-if="teams.length === 0" />
     <SearchNotFound v-else-if="filteredTeams.length === 0" />
@@ -39,7 +36,7 @@
         :is-favorite="team.isFavorite"
       />
     </div>
-  </transition>
+  </AppTransition>
   <TeamPackModal
     :show="showTeamPackModal"
     @close="showTeamPackModal = false"
@@ -51,6 +48,8 @@ import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
+
+import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TabPanel from './TabPanel.vue';
 import TeamsCard from './TeamsCard.vue';

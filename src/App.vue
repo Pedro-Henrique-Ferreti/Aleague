@@ -1,15 +1,12 @@
 <template>
-  <transition
-    name="fade"
-    mode="out-in"
-  >
+  <AppTransition name="fade">
     <SplashScreen v-if="showSplashScreen" />
     <div v-else>
       <component :is="currentLayout">
         <router-view />
       </component>
     </div>
-  </transition>
+  </AppTransition>
 </template>
 
 <script setup lang="ts">
@@ -20,6 +17,7 @@ import LandingLayout from '@/layouts/LandingLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import NotFoundLayout from '@/layouts/NotFoundLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import AppTransition from '@/components/AppTransition.vue';
 import SplashScreen from '@/components/SplashScreen.vue';
 
 const route = useRoute();

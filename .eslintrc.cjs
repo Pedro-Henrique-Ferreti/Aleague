@@ -11,7 +11,7 @@ module.exports = {
     'quotes': [1, 'single'],
     'semi': 'off',
     '@typescript-eslint/semi': ['error', 'always'],
-    "@typescript-eslint/no-explicit-any": "off",
+    '@typescript-eslint/no-explicit-any': 'off',
     'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 0 }],
     'comma-dangle': ['error', 'always-multiline'],
     'vue/first-attribute-linebreak': [1, {

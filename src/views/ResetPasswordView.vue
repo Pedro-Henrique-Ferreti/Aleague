@@ -1,5 +1,5 @@
 <template>
-  <transition
+  <AppTransition
     name="fade-through"
     mode="out-in"
   >
@@ -13,13 +13,15 @@
       v-else
       @password-reset="showSuccessMessage = true"
     />
-  </transition>
+  </AppTransition>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+
+import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ResetPasswordForm from '@/components/ResetPasswordForm.vue';
 import ResetPasswordSuccess from '@/components/ResetPasswordSuccess.vue';

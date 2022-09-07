@@ -1,5 +1,5 @@
 <template>
-  <transition
+  <AppTransition
     name="scroll-y"
     mode="out-in"
   >
@@ -22,11 +22,13 @@
         <span>Nenhuma notificação nova</span>
       </BaseModal>
     </div>
-  </transition>
+  </AppTransition>
 </template>
 
 <script lang="ts" setup>
 import BaseModal from './common/BaseModal.vue';
+import AppTransition from './AppTransition.vue';
+
 defineProps({
   show: {
     type: Boolean,

@@ -4,10 +4,7 @@
       :show="show"
       @click="$emit('close', $event)"
     >
-      <transition
-        name="modal__fade"
-        mode="out-in"
-      >
+      <AppTransition name="modal__fade">
         <BaseModal
           v-show="show"
           class="app-modal"
@@ -47,7 +44,7 @@
             </slot>
           </div>
         </BaseModal>
-      </transition>
+      </AppTransition>
     </ModalOverlay>
   </Teleport>
 </template>
@@ -63,6 +60,7 @@ enum Sizes {
 import type { PropType } from 'vue';
 import { computed, watch, useSlots } from 'vue';
 import BaseModal from './common/BaseModal.vue';
+import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
 
 defineEmits(['close', 'cancel-action', 'save-action']);

@@ -24,16 +24,13 @@
           icon="chevron"
         />
       </button>
-      <transition
-        name="scroll-y"
-        mode="out-in"
-      >
+      <AppTransition name="scroll-y">
         <TheHeaderLoggedInUserMenu
           v-show="showMenu"
           class="header-user__menu"
           @close="showMenu = !showMenu"
         />
-      </transition>
+      </AppTransition>
     </OnClickOutside>
   </div>
 </template>
@@ -42,6 +39,7 @@
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
 import { useUserStore } from '@/stores/userStore';
+import AppTransition from './AppTransition.vue';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 
 const userStore = useUserStore();

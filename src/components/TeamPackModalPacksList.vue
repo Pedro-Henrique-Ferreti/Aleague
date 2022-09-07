@@ -2,7 +2,7 @@
   <p class="packs-list__description">
     Pacotes de equipe contém equipes famosas de várias ligas ao redor do mundo. Escolha um dos pacotes abaixo para visualizar a lista de equipes que serão criadas ao aplicar o pacote.
   </p>
-  <Transition name="fade">
+  <AppTransition name="fade">
     <LoadingIndicator v-if="showLoadingIndicator" />
     <div
       v-else
@@ -15,11 +15,12 @@
         {{ pack.name }}
       </div>
     </div>
-  </Transition>
+  </AppTransition>
 </template>
 
 <script lang="ts" setup>
 import { useTeamsStore } from '@/stores/teamsStore';
+import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 
 defineProps({

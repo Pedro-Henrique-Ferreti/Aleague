@@ -1,10 +1,7 @@
 <template>
   <teleport to="body">
     <div class="snackbar-container container">
-      <Transition
-        name="modal__fade"
-        mode="out-in"
-      >
+      <AppTransition name="modal__fade">
         <AppAlert
           v-if="activeSnackbar"
           class="snackbar"
@@ -12,7 +9,7 @@
           :message="activeSnackbar.message"
           @click="notificationStore.closeSnackbarNotification"
         />
-      </Transition>
+      </AppTransition>
     </div>
   </teleport>
 </template>
@@ -21,6 +18,7 @@
 import { storeToRefs } from 'pinia';
 import { useNotificationStore } from '@/stores/notificationStore';
 import AppAlert from './AppAlert.vue';
+import AppTransition from './AppTransition.vue';
 
 const notificationStore = useNotificationStore();
 const { activeSnackbar } = storeToRefs(notificationStore);

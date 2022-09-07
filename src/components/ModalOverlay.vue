@@ -1,8 +1,5 @@
 <template>
-  <transition
-    name="modal__overlay-fade"
-    mode="out-in"
-  >
+  <AppTransition name="modal__overlay-fade">
     <div
       v-show="show"
       class="overlay"
@@ -10,10 +7,11 @@
     >
       <slot />
     </div>
-  </transition>
+  </AppTransition>
 </template>
 
 <script setup>
+import AppTransition from './AppTransition.vue';
 defineEmits(['click']);
 
 defineProps({
