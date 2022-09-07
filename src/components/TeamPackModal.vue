@@ -5,21 +5,51 @@
     :show="show"
     @close="$emit('close')"
   >
-    <div class="team-packs">
-      <PacksList :show-loading-indicator="isLoading" />
+    <div class="team-pack-modal">
+      <AppTransition name="fade">
+        <LoadingIndicator
+          v-if="isLoadingTeamPackDetails"
+          class="team-pack-modal__loading-indicator"
+        />
+        <PackDetails
+          v-else-if="selectedTeamPack"
+          :name="selectedTeamPack.name"
+          :teams="selectedTeamPack.teams"
+        />
+        <PacksList
+          v-else
+          :show-loading-indicator="isLoadingTeamPacks"
+          @get-team-pack-details="getTeamPackDetails"
+        />
+      </AppTransition>
     </div>
+    <template #footer>
+      <div class="team-pack-modal__footer">
+        <AppButton
+          color="gray"
+          @click="selectedTeamPack = null"
+        >
+          Voltar
+        </AppButton>
+        <AppButton>Aplicar pacote</AppButton>
+      </div>
+    </template>
   </AppModal>
 </template>
 
 <script lang="ts" setup>
+import type { TeamPack } from '@/types/TeamPack';
 import { ref, watch } from 'vue';
 import { useTeamsStore } from '@/stores/teamsStore';
-import AppModal from './AppModal.vue';
-import PacksList from './TeamPackModalPacksList.vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 
-defineEmits(['close']);
+import AppModal from './AppModal.vue';
+import AppTransition from './AppTransition.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
+import PacksList from './TeamPackModalPacksList.vue';
+import PackDetails from './TeamPackModalPackDetails.vue';
 
+defineEmits(['close']);
 const props = defineProps({
   show: {
     type: Boolean,
@@ -27,19 +57,21 @@ const props = defineProps({
   },
 });
 
-const { getTeamPacks } = useTeamsStore();
+const { getTeamPacks, getTeamPackById } = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
+
+const isLoadingTeamPacks = ref(true);
 
 watch(() => props.show, () => {
   if (props.show) {
     loadTeamPacks();
+  } else {
+    selectedTeamPack.value = null;
   }
 });
 
-const isLoading = ref(true);
-
 async function loadTeamPacks() {
-  isLoading.value = true;
+  isLoadingTeamPacks.value = true;
 
   try {
     await getTeamPacks();
@@ -49,13 +81,41 @@ async function loadTeamPacks() {
       message: 'Falha ao carregar os pacotes de equipe.',
     });
   } finally {
-    isLoading.value = false;
+    isLoadingTeamPacks.value = false;
+  }
+}
+
+const isLoadingTeamPackDetails = ref(false);
+const selectedTeamPack = ref<TeamPack | null>(null);
+
+async function getTeamPackDetails(hashId: string) {
+  isLoadingTeamPackDetails.value = true;
+
+  try {
+    selectedTeamPack.value = await getTeamPackById(hashId);
+  } catch (error) {
+    openSnackbarNotification({
+      type: 'error',
+      message: 'Falha ao carregar os detalhes do pacotes de equipe.',
+    });
+  } finally {
+    isLoadingTeamPackDetails.value = false;
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.team-packs {
+.team-pack-modal {
   min-height: 20rem;
+  &__loading-indicator {
+    min-height: inherit;
+  }
+  &__footer {
+    display: grid;
+    grid-template-columns: repeat(2, 11rem);
+    justify-content: flex-end;
+    gap: 1.5rem;
+    width: 100%;
+  }
 }
 </style>

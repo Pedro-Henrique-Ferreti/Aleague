@@ -14,7 +14,7 @@
     <img
       class="team-pack-card__image"
       alt="Team pack icon"
-      :src="icon"
+      src="/images/brazil-flag.png"
     />
     <span class="team-pack-card__name">
       {{ name }}
@@ -76,6 +76,10 @@ const countLabel = computed(() => {
   border: 1px solid $color--light-gray-1;
   border-radius: 0.5rem;
   position: relative;
+  transition: background-color $transition--fastest ease-in;
+  &:hover {
+    background: $color--light-gray-2;
+  }
   &--applied {
     background-color: $color--success-lighten-4;
     border-color: $color--success-darken-2;
@@ -88,8 +92,8 @@ const countLabel = computed(() => {
   }
   &__image {
     width: 4rem;
-    height: 4rem;
-    margin: 0.5rem 0;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
   }
   &__name {
     color: $color--text-darken;

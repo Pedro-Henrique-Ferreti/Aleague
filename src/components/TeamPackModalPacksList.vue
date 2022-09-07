@@ -1,23 +1,26 @@
 <template>
-  <p class="packs-list__description">
-    Pacotes de equipe contém equipes famosas de várias ligas ao redor do mundo. Escolha um dos pacotes abaixo para visualizar a lista de equipes que serão criadas ao aplicar o pacote.
-  </p>
-  <AppTransition name="fade">
-    <LoadingIndicator v-if="showLoadingIndicator" />
-    <div
-      v-else
-      class="packs-list__grid"
-    >
-      <TeamPackCard
-        v-for="teamPack in teamsStore.teamPacks"
-        :key="teamPack.id"
-        :name="teamPack.name"
-        :icon="teamPack.icon"
-        :applied="teamPack.applied"
-        :teams-count="teamPack.teamsCount"
-      />
-    </div>
-  </AppTransition>
+  <div class="team-packs-list">
+    <p class="team-packs-list__description">
+      Pacotes de equipe contém equipes famosas de várias ligas ao redor do mundo. Escolha um dos pacotes abaixo para visualizar a lista de equipes que serão criadas ao aplicar o pacote.
+    </p>
+    <AppTransition name="fade">
+      <LoadingIndicator v-if="showLoadingIndicator" />
+      <div
+        v-else
+        class="team-packs-list__grid"
+      >
+        <TeamPackCard
+          v-for="teamPack in teamsStore.teamPacks"
+          :key="teamPack.id"
+          :name="teamPack.name"
+          :icon="teamPack.icon"
+          :applied="teamPack.applied"
+          :teams-count="teamPack.teamsCount"
+          @click="$emit('get-team-pack-details', teamPack.hashid)"
+        />
+      </div>
+    </AppTransition>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -26,6 +29,7 @@ import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TeamPackCard from './TeamPackCard.vue';
 
+defineEmits(['get-team-pack-details']);
 defineProps({
   showLoadingIndicator: {
     type: Boolean,
@@ -37,7 +41,7 @@ const teamsStore = useTeamsStore();
 </script>
 
 <style lang="scss" scoped>
-.packs-list {
+.team-packs-list {
   &__description {
     margin-bottom: 2rem;
   }
