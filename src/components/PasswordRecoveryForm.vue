@@ -77,7 +77,7 @@ async function submitForm() {
     await authStore.sendPasswordRecoveryEmail(email.value);
 
     emit('email-sent');
-  } catch (error: ErrorCallback) {
+  } catch (error: any) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

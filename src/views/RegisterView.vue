@@ -132,7 +132,7 @@ async function submitForm() {
         from: 'register',
       },
     });
-  } catch (error: Error) {
+  } catch (error: any) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

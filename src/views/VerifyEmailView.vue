@@ -73,7 +73,7 @@ async function verifyEmailAddress() {
     await authStore.verifyEmailAddress(verificationCode.value);
 
     router.push({ name: 'home' });
-  } catch (error: Error) {
+  } catch (error: any) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

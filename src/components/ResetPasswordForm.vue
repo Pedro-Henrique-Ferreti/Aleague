@@ -103,7 +103,7 @@ async function submitForm() {
     });
 
     emit('password-reset');
-  } catch (error: Error) {
+  } catch (error: any) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

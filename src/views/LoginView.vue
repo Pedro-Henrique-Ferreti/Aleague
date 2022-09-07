@@ -101,7 +101,7 @@ async function submitForm() {
     }
 
     router.push({ name: 'home' });
-  } catch (error: Error) {
+  } catch (error: any) {
     errorMessage.value = error.message;
   } finally {
     isLoading.value = false;

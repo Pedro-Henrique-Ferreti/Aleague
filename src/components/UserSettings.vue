@@ -86,7 +86,7 @@ async function saveProfileInfo() {
     openSnackbarNotification({
       message: 'As alterações foram salvas com sucesso.',
     });
-  } catch (error: Error) {
+  } catch (error: any) {
     openSnackbarNotification({
       message: 'Falha ao salvar as alterações. Por favor, tente novamente.',
     });
