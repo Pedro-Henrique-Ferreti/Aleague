@@ -60,15 +60,16 @@ const props = defineProps({
 const { getTeamPacks, getTeamPackById } = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
 
-const isLoadingTeamPacks = ref(true);
+watch(() => props.show, onMounted);
 
-watch(() => props.show, () => {
+function onMounted() {
   if (props.show) {
     loadTeamPacks();
-  } else {
     selectedTeamPack.value = null;
   }
-});
+}
+
+const isLoadingTeamPacks = ref(false);
 
 async function loadTeamPacks() {
   isLoadingTeamPacks.value = true;
