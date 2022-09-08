@@ -1,6 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import type { State, TeamListItem } from '@/types/TeamsStore';
 import type { TeamPack, TeamPackListItem } from '@/types/TeamPack';
+import type { Team } from '@/types/Team';
 import axios from '@/helpers/axios';
 import { defineStore } from 'pinia';
 
@@ -27,9 +28,7 @@ export const useTeamsStore = defineStore('teams', {
       this.teamPacks = teamPacks;
     },
     async getTeamPackById(hashId: string): Promise<TeamPack> {
-      const { data: teamPack }: AxiosResponse<TeamPack> = await axios.get(`/team-packs/${hashId}`);
-
-      return teamPack;
+      return axios.get(`/team-packs/${hashId}`);
     },
     applyTeamPack(hashId: string) {
       return axios.post(`/team-packs/${hashId}/apply`);
