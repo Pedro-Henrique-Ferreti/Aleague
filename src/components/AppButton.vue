@@ -67,10 +67,16 @@ const props = defineProps({
   color: {
     type: String as PropType<keyof typeof Colors>,
     default: Colors.primary,
+    validator: (color: string) => {
+      return (Object.values(Colors) as string[]).includes(color);
+    },
   },
   size: {
     type: String as PropType<keyof typeof Sizes>,
     default: Sizes.medium,
+    validator: (size: string) => {
+      return (Object.values(Sizes) as string[]).includes(size);
+    },
   },
   disabled: {
     type: Boolean,
