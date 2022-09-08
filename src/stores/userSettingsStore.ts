@@ -1,7 +1,14 @@
-import type { State } from '@/types/UserSettingsStore';
 import { defineStore } from 'pinia';
 import { useAuthStore } from './authStore';
 import { useUserStore } from './userStore';
+
+interface State {
+  showModal: boolean;
+  profile: {
+    selectedAvatar: string | undefined;
+    username: string | undefined;
+  };
+}
 
 export const useUserSettingsStore = defineStore('userSettings', {
   state: (): State  => {
