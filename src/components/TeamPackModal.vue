@@ -1,28 +1,28 @@
 <template>
   <AppModal
+    max-height
     title="Pacotes de equipe"
     size="large"
     :show="show"
+    :render-footer="!!selectedTeamPack"
     @close="$emit('close')"
   >
-    <div class="team-pack-modal">
-      <AppTransition name="fade">
-        <LoadingIndicator
-          v-if="isLoadingTeamPackDetails"
-          class="team-pack-modal__loading-indicator"
-        />
-        <PackDetails
-          v-else-if="selectedTeamPack"
-          :name="selectedTeamPack.name"
-          :teams="selectedTeamPack.teams"
-        />
-        <PacksList
-          v-else
-          :show-loading-indicator="isLoadingTeamPacks"
-          @get-team-pack-details="getTeamPackDetails"
-        />
-      </AppTransition>
-    </div>
+    <AppTransition name="fade">
+      <LoadingIndicator
+        v-if="isLoadingTeamPackDetails"
+        class="team-pack-modal__loading-indicator"
+      />
+      <PackDetails
+        v-else-if="selectedTeamPack"
+        :name="selectedTeamPack.name"
+        :teams="selectedTeamPack.teams"
+      />
+      <PacksList
+        v-else
+        :show-loading-indicator="isLoadingTeamPacks"
+        @get-team-pack-details="getTeamPackDetails"
+      />
+    </AppTransition>
     <template #footer>
       <div class="team-pack-modal__footer">
         <AppButton
@@ -106,16 +106,19 @@ async function getTeamPackDetails(hashId: string) {
 
 <style lang="scss" scoped>
 .team-pack-modal {
-  min-height: 20rem;
   &__loading-indicator {
-    min-height: inherit;
+   flex: 1;
   }
   &__footer {
     display: grid;
-    grid-template-columns: repeat(2, 11rem);
+    grid-template-columns: repeat(2, 1fr);
     justify-content: flex-end;
-    gap: 1.5rem;
+    gap: 1rem;
     width: 100%;
+    @include for-tablet-portrait-up {
+      grid-template-columns: repeat(2, 11rem);
+      gap: 1.5rem;
+    }
   }
 }
 </style>
