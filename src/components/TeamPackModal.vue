@@ -31,7 +31,12 @@
         >
           Voltar
         </AppButton>
-        <AppButton>Aplicar pacote</AppButton>
+        <AppButton
+          :is-loading="isApplyingTeamPack"
+          @click="handleApplyTeamPack"
+        >
+          Aplicar pacote
+        </AppButton>
       </div>
     </template>
   </AppModal>
@@ -49,7 +54,7 @@ import LoadingIndicator from './LoadingIndicator.vue';
 import PacksList from './TeamPackModalPacksList.vue';
 import PackDetails from './TeamPackModalPackDetails.vue';
 
-defineEmits(['close']);
+const emit = defineEmits(['close']);
 const props = defineProps({
   show: {
     type: Boolean,
@@ -57,9 +62,10 @@ const props = defineProps({
   },
 });
 
-const { getTeamPacks, getTeamPackById } = useTeamsStore();
+const { getTeamPacks, getTeamPackById, applyTeamPack, getTeams } = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
 
+// Mounted lifecycle hook
 watch(() => props.show, onMounted);
 
 function onMounted() {
@@ -69,6 +75,7 @@ function onMounted() {
   }
 }
 
+// Load team packs
 const isLoadingTeamPacks = ref(false);
 
 async function loadTeamPacks() {
@@ -86,6 +93,7 @@ async function loadTeamPacks() {
   }
 }
 
+// Team pack details
 const isLoadingTeamPackDetails = ref(false);
 const selectedTeamPack = ref<TeamPack | null>(null);
 
@@ -101,6 +109,34 @@ async function getTeamPackDetails(hashId: string) {
     });
   } finally {
     isLoadingTeamPackDetails.value = false;
+  }
+}
+
+// Apply team pack
+const isApplyingTeamPack = ref(false);
+
+async function handleApplyTeamPack() {
+  if (!selectedTeamPack.value) return;
+
+  isApplyingTeamPack.value = true;
+
+  try {
+    await applyTeamPack(selectedTeamPack.value.hashid);
+
+    openSnackbarNotification({
+      message: 'Pacote applicado com sucesso!',
+    });
+
+    getTeams();
+
+    emit('close');
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isApplyingTeamPack.value = false;
   }
 }
 </script>

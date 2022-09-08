@@ -28,5 +28,8 @@ export const useTeamsStore = defineStore('teams', {
 
       return teamPack;
     },
+    applyTeamPack(hashId: string) {
+      return axios.post(`/team-packs/${hashId}/apply`);
+    },
   },
 });
