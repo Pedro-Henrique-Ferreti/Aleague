@@ -18,6 +18,9 @@ export const useTeamsStore = defineStore('teams', {
 
       this.teams = teams;
     },
+    getTeamById(hashId: string): Promise<Team> {
+      return axios.get(`/teams/${hashId}`);
+    },
     async getTeamPacks() {
       const { data: teamPacks }: AxiosResponse<TeamPackListItem[]> = await axios.get('/team-packs');
 
