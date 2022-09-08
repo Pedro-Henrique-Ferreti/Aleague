@@ -2,6 +2,7 @@
   <button
     class="team-card"
     type="button"
+    @click="$emit('click')"
   >
     <BaseIcon
       v-if="isFavorite"
@@ -15,6 +16,7 @@
 </template>
 
 <script lang="ts" setup>
+defineEmits(['click']);
 defineProps({
   name: {
     type: String,

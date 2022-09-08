@@ -34,6 +34,7 @@
         :key="team.id"
         :name="team.name"
         :is-favorite="team.isFavorite"
+        @click="selectedTeam = team"
       />
     </div>
   </AppTransition>
@@ -41,9 +42,16 @@
     :show="showTeamPackModal"
     @close="showTeamPackModal = false"
   />
+  <TeamDetailsModal
+    :show="!!selectedTeam"
+    :team-name="selectedTeam?.name"
+    :team-id="selectedTeam?.hashid"
+    @close="selectedTeam = null"
+  />
 </template>
 
 <script lang="ts" setup>
+import type { TeamListItem } from '@/types/TeamsStore';
 import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTeamsStore } from '@/stores/teamsStore';
@@ -55,6 +63,7 @@ import TabPanel from './TabPanel.vue';
 import TeamsCard from './TeamsCard.vue';
 import NoTeamsFound from './TeamsSectionNoTeamsFound.vue';
 import SearchNotFound from './TeamsSectionSearchNotFound.vue';
+import TeamDetailsModal from './TeamDetailsModal.vue';
 import TeamPackModal from './TeamPackModal.vue';
 
 const teamsStore = useTeamsStore();
@@ -90,6 +99,7 @@ const filteredTeams = computed(() => {
   return filteredTeams;
 });
 
+// Get teams
 onMounted(getTeams);
 
 async function getTeams() {
@@ -106,6 +116,9 @@ async function getTeams() {
     isLoading.value = false;
   }
 }
+
+// Show team details
+const selectedTeam = ref<TeamListItem | null>(null);
 </script>
 
 <style lang="scss" scoped>
