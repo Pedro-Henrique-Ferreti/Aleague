@@ -92,6 +92,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  maxHeight: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const modalHasTabPanel = computed(() => slots.tabPanel);
@@ -100,6 +104,7 @@ const modalClasses = computed(() => ({
   'app-modal--medium': props.size === Sizes.medium,
   'app-modal--large': props.size === Sizes.large,
   'app-modal--has-footer': props.renderFooter,
+  'app-modal--max-height': props.maxHeight || props.renderFooter,
   'app-modal--has-tab-panel': modalHasTabPanel.value,
 }));
 
@@ -126,10 +131,12 @@ watch(() => props.show, (show) => {
     }
   }
   &--has-footer {
-    height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
     :deep(.app-modal__content-wrapper) {
       margin-bottom: 6.75rem;
     }
+  }
+  &--max-height {
+    height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
   }
   width: 100%;
   max-height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
