@@ -1,12 +1,12 @@
 import type { TeamPackListItem } from './TeamPack';
 
 export interface State {
-  teams: TeamsStoreTeam[];
+  teams: TeamListItem[];
   teamPacks: TeamPackListItem[];
   searchBarValue: string;
 }
 
-export interface TeamsStoreTeam {
+export interface TeamListItem {
   id: number;
   hashid: string;
   name: string;
