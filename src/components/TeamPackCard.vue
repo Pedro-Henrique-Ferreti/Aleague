@@ -100,7 +100,8 @@ const countLabel = computed(() => {
     font-weight: $font-weight--semibold;
   }
   &__count {
-    margin-top: 0.5rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
     font-size: 0.875rem;
   }
 }
