@@ -143,6 +143,9 @@ watch(() => props.show, (show) => {
   position: relative;
   :deep(.app-modal__content-wrapper) {
     @include scrollbar;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     overflow: auto;
   }
   &__tab-panel {
