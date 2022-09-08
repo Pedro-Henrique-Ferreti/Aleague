@@ -29,14 +29,14 @@
               <div class="app-modal__footer-buttons">
                 <AppButton
                   color="gray"
-                  @click="$emit('cancel-action')"
+                  @click="$emit('cancel')"
                 >
                   Cancelar
                 </AppButton>
                 <AppButton
                   :is-loading="isLoading"
                   :disabled="disableSaveButton"
-                  @click="$emit('save-action')"
+                  @click="$emit('save')"
                 >
                   Salvar
                 </AppButton>
@@ -63,7 +63,7 @@ import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
 
-defineEmits(['close', 'cancel-action', 'save-action']);
+defineEmits(['close', 'cancel', 'save']);
 
 const slots = useSlots();
 

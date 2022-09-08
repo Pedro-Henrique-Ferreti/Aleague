@@ -7,8 +7,8 @@
     :is-loading="isLoading"
     :disable-save-button="!profileHasUnsavedChanges"
     @close="closeModal"
-    @cancel-action="closeModal"
-    @save-action="handleSaveSettings"
+    @cancel="closeModal"
+    @save="handleSaveSettings"
   >
     <template #tabPanel>
       <div class="user-settings__tab-panel">
