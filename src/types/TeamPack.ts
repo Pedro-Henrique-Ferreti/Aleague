@@ -1,4 +1,6 @@
 export interface TeamPack {
+  id: string;
+  hashid: string;
   name: string;
   description: string;
   icon: string;
