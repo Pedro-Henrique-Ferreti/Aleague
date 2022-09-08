@@ -77,7 +77,7 @@ const countLabel = computed(() => {
   border-radius: 0.5rem;
   position: relative;
   transition: background-color $transition--fastest ease-in;
-  &:hover {
+  &:hover:not(.team-pack-card--applied) {
     background: $color--light-gray-2;
   }
   &--applied {
