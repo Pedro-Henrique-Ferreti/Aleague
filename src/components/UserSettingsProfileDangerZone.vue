@@ -1,7 +1,7 @@
 <template>
   <section class="user-danger-zone">
     <UserSettingsHeader>Zona de perigo</UserSettingsHeader>
-    <AppButton color="danger-gray">
+    <AppButton color="dangerGray">
       Excluir minha conta
     </AppButton>
   </section>
