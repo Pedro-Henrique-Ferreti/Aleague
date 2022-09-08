@@ -21,7 +21,7 @@
           </div>
           <slot />
           <div
-            v-if="modalHasFooter"
+            v-if="renderFooter"
             ref="modalFooter"
             class="app-modal__footer"
           >
@@ -94,13 +94,12 @@ const props = defineProps({
   },
 });
 
-const modalHasFooter = computed(() => props.renderFooter || slots.footer);
 const modalHasTabPanel = computed(() => slots.tabPanel);
 
 const modalClasses = computed(() => ({
   'app-modal--medium': props.size === Sizes.medium,
   'app-modal--large': props.size === Sizes.large,
-  'app-modal--has-footer': modalHasFooter.value,
+  'app-modal--has-footer': props.renderFooter,
   'app-modal--has-tab-panel': modalHasTabPanel.value,
 }));
 
