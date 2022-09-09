@@ -20,16 +20,12 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
-
-type TabPanelItem = {
-  id: number;
-  name: string;
-};
+import type { TabPanelTab } from '@/types/TabPanel';
 
 defineEmits(['set-active-tab']);
 defineProps({
   tabs: {
-    type: Array as PropType<TabPanelItem[]>,
+    type: Array as PropType<TabPanelTab[]>,
     required: true,
   },
   activeTabId: {

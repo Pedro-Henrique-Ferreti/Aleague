@@ -1,4 +1,6 @@
-export const LEAGUES_PAGE_TABS = {
+import type { TabPanel } from '@/types/TabPanel';
+
+export const LEAGUES_PAGE_TABS: TabPanel = {
   all: {
     id: 1,
     name: 'Todos',
