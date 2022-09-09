@@ -1,7 +1,7 @@
 <template>
   <TabPanel
     class="teams-tab-panel"
-    :tabs="Object.values(filterTabs)"
+    :tabs="Object.values(TEAMS_PAGE_TABS)"
     :active-tab-id="activeTabId"
     @set-active-tab="activeTabId = $event"
   >
@@ -56,6 +56,7 @@ import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
+import { TEAMS_PAGE_TABS } from '@/constants';
 
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
@@ -70,18 +71,7 @@ const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
 const { teams, searchBarValue } = storeToRefs(teamsStore);
 
-const filterTabs = {
-  all: {
-    id: 1,
-    name: 'Todos',
-  },
-  favorites: {
-    id: 2,
-    name: 'Favoritos',
-  },
-};
-
-const activeTabId = ref(filterTabs.all.id);
+const activeTabId = ref(TEAMS_PAGE_TABS.all.id);
 const isLoading = ref(true);
 const showTeamPackModal = ref(false);
 
@@ -92,7 +82,7 @@ const filteredTeams = computed(() => {
     filteredTeams = filteredTeams.filter(({ name }) => name.includes(searchBarValue.value));
   }
 
-  if (activeTabId.value === filterTabs.favorites.id) {
+  if (activeTabId.value === TEAMS_PAGE_TABS.favorites.id) {
     return filteredTeams.filter(({ isFavorite }) => isFavorite);
   }
 

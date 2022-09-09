@@ -1,7 +1,7 @@
 <template>
   <TabPanel
     class="leagues-tab-panel"
-    :tabs="Object.values(filterTabs)"
+    :tabs="Object.values(LEAGUES_PAGE_TABS)"
     :active-tab-id="activeTabId"
     @set-active-tab="activeTabId = $event"
   >
@@ -19,28 +19,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { LEAGUES_PAGE_TABS } from '@/constants';
+
 import TabPanel from './TabPanel.vue';
 
-const filterTabs = {
-  all: {
-    id: 1,
-    name: 'Todos',
-  },
-  cup: {
-    id: 2,
-    name: 'Copa',
-  },
-  playOffs: {
-    id: 3,
-    name: 'Eliminatórias',
-  },
-  leagues: {
-    id: 4,
-    name: 'Pontos corridos',
-  },
-};
-
-const activeTabId = ref(filterTabs.all.id);
+const activeTabId = ref(LEAGUES_PAGE_TABS.all.id);
 </script>
 
 <style lang="scss" scoped>
