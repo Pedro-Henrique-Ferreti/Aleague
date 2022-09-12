@@ -17,19 +17,33 @@
   </TabPanel>
   <AppTransition name="fade">
     <LoadingIndicator v-if="isLoading" />
+    <LeaguesListNoData v-else-if="leagues.length === 0" />
+    <LeaguesListNoResults v-else-if="displayedLeagues.length === 0" />
+    <div
+      v-else
+      class="leagues-list"
+    >
+      <pre>{{ displayedLeagues }}</pre>
+    </div>
   </AppTransition>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useLeaguesStore } from '@/stores/leaguesStore';
+import { useNotificationStore } from '@/stores/notificationStore';
 import { LEAGUES_PAGE_TABS } from '@/constants';
 
 import AppTransition from './AppTransition.vue';
-import TabPanel from './TabPanel.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
+import LeaguesListNoData from './LeaguesListNoData.vue';
+import LeaguesListNoResults from './LeaguesListNoResults.vue';
+import TabPanel from './TabPanel.vue';
 
+const { openSnackbarNotification } = useNotificationStore();
 const leaguesStore = useLeaguesStore();
+const { leagues, searchBarValue } = storeToRefs(leaguesStore);
 
 const activeTabId = ref(LEAGUES_PAGE_TABS.all.id);
 
@@ -43,12 +57,32 @@ async function getLeagues() {
 
   try {
     await leaguesStore.getLeagues();
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
   } finally {
     isLoading.value = false;
   }
 }
+
+// Displayed leagues
+const displayedLeagues = computed(() => {
+  let displayedLeagues = leagues.value;
+
+  if (searchBarValue.value) {
+    displayedLeagues = leagues.value.filter(({ name }) => name.includes(searchBarValue.value));
+  }
+
+  if (activeTabId.value === LEAGUES_PAGE_TABS.cup.id ||
+    activeTabId.value === LEAGUES_PAGE_TABS.playOffs.id
+  ) {
+    return [];
+  }
+
+  return displayedLeagues;
+});
 </script>
 
 <style lang="scss" scoped>
