@@ -7,6 +7,8 @@ import { computed } from 'vue';
 import ArrowFoward from '@/components/icons/IconArrowFoward.vue';
 import Bell from '@/components/icons/IconBell.vue';
 import Bookmark from '@/components/icons/IconBookmark.vue';
+import CalendarCheck from '@/components/icons/IconCalendarCheck.vue';
+import CalendarEdit from '@/components/icons/IconCalendarEdit.vue';
 import Check from '@/components/icons/IconCheck.vue';
 import CheckCircle from '@/components/icons/IconCheckCircle.vue';
 import Chevron from '@/components/icons/IconChevron.vue';
@@ -14,6 +16,7 @@ import Clock from '@/components/icons/IconClock.vue';
 import Close from '@/components/icons/IconClose.vue';
 import EnvelopeCheck from '@/components/icons/IconEnvelopeCheck.vue';
 import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
+import Football from '@/components/icons/IconFootball.vue';
 import Gear from '@/components/icons/IconGear.vue';
 import Home from '@/components/icons/IconHome.vue';
 import HomeOutline from '@/components/icons/IconHomeOutline.vue';
@@ -22,6 +25,7 @@ import Logout from '@/components/icons/IconLogout.vue';
 import Menu from '@/components/icons/IconMenu.vue';
 import Package from '@/components/icons/IconPackage.vue';
 import Pencil from '@/components/icons/IconPencil.vue';
+import People from '@/components/icons/IconPeople.vue';
 import Plus from '@/components/icons/IconPlus.vue';
 import Save from '@/components/icons/IconSave.vue';
 import Search from '@/components/icons/IconSearch.vue';
@@ -45,6 +49,10 @@ const icon = computed(() => {
       return Bell;
     case 'bookmark':
       return Bookmark;
+    case 'calendarcheck':
+      return CalendarCheck;
+    case 'calendaredit':
+      return CalendarEdit;
     case 'check':
       return Check;
     case 'checkcircle':
@@ -59,6 +67,8 @@ const icon = computed(() => {
       return EnvelopeCheck;
     case 'errorcircle':
       return ErrorCircle;
+    case 'football':
+      return Football;
     case 'gear':
       return Gear;
     case 'home':
@@ -75,6 +85,8 @@ const icon = computed(() => {
       return Package;
     case 'pencil':
       return Pencil;
+    case 'people':
+      return People;
     case 'save':
       return Save;
     case 'search':
