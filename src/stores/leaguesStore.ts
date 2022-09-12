@@ -4,12 +4,14 @@ import axios from '@/helpers/axios';
 
 interface State {
   leagues: LeagueListItem[];
+  searchBarValue: string;
 }
 
 export const useLeaguesStore = defineStore('leagues', {
   state: (): State => {
     return {
       leagues: [],
+      searchBarValue: '',
     };
   },
   actions: {
