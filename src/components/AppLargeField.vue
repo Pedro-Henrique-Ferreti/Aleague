@@ -7,6 +7,7 @@
     <BaseInput
       v-model="value"
       class="large-field__input"
+      :type="type"
       :placeholder="placeholder"
     />
   </div>
@@ -21,6 +22,10 @@ const props = defineProps({
   modelValue: {
     type: [String, Number],
     default: '',
+  },
+  type: {
+    type: String,
+    default: 'text',
   },
   placeholder: {
     type: String,

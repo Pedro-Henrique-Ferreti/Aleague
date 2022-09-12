@@ -1,6 +1,7 @@
 <template>
   <AppLargeField
     class="leagues-search-bar"
+    type="search"
     placeholder="Pesquise por um campeonato aqui"
     v-model.trim="searchBarValue"
   />

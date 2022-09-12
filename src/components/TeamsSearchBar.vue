@@ -1,6 +1,7 @@
 <template>
   <AppLargeField
     class="teams-search-bar"
+    type="search"
     placeholder="Pesquise por uma equipe aqui"
     v-model.trim="searchBarValue"
   />
