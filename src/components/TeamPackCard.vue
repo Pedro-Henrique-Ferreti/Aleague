@@ -14,7 +14,7 @@
     <img
       class="team-pack-card__image"
       alt="Team pack icon"
-      src="/images/brazil-flag.png"
+      src="/images/flags/brazilian-flag.png"
     />
     <span class="team-pack-card__name">
       {{ name }}
