@@ -1,10 +1,19 @@
-import type { State, LoginParams, RegisterParams, ResetPasswordParams, ValidatePasswordResetTokenParams, LoginResponse, RegisterResponse, ValidatePasswordResetTokenResponse } from '@/types/AuthStore';
 import type { AxiosResponse } from 'axios';
+import type {
+  State,
+  LoginParams,
+  RegisterParams,
+  ResetPasswordParams,
+  ValidatePasswordResetTokenParams,
+  LoginResponse,
+  RegisterResponse,
+  ValidatePasswordResetTokenResponse,
+} from '@/types/AuthStore';
+import type User from '@/types/User';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import axios from '@/helpers/axios';
 import { useUserStore } from './userStore';
-import type User from '@/types/User';
 
 export const useAuthStore = defineStore('auth', {
   state: (): State => {

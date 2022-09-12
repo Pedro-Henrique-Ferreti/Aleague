@@ -1,7 +1,11 @@
-import type { State } from '@/types/NotificationStore';
 import type { Snackbar } from '@/types/Snackbar';
 import { MIN_SNACKBAR_DURATION } from '@/constants';
 import { defineStore } from 'pinia';
+
+interface State {
+  activeSnackbar: Snackbar | null;
+  snackbarQueue: Snackbar[];
+}
 
 export const useNotificationStore = defineStore('notification', {
   state: (): State => {

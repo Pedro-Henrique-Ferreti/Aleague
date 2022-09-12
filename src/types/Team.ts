@@ -5,3 +5,10 @@ export interface Team {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface TeamListItem {
+  id: number;
+  hashid: string;
+  name: string;
+  isFavorite: boolean;
+}

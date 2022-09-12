@@ -1,9 +1,14 @@
 import type { AxiosResponse } from 'axios';
-import type { State, TeamListItem } from '@/types/TeamsStore';
+import type { Team, TeamListItem } from '@/types/Team';
 import type { TeamPack, TeamPackListItem } from '@/types/TeamPack';
-import type { Team } from '@/types/Team';
 import axios from '@/helpers/axios';
 import { defineStore } from 'pinia';
+
+interface State {
+  teams: TeamListItem[];
+  teamPacks: TeamPackListItem[];
+  searchBarValue: string;
+}
 
 export const useTeamsStore = defineStore('teams', {
   state: () : State => {
