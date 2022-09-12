@@ -23,11 +23,11 @@
   </TabPanel>
   <AppTransition name="fade">
     <LoadingIndicator v-if="isLoading" />
-    <NoTeamsFound v-else-if="teams.length === 0" />
-    <SearchNotFound v-else-if="filteredTeams.length === 0" />
+    <TeamsListNoData v-else-if="teams.length === 0" />
+    <TeamsListNoResults v-else-if="filteredTeams.length === 0" />
     <div
       v-else
-      class="teams-card-grid"
+      class="teams-list"
     >
       <TeamsCard
         v-for="team in filteredTeams"
@@ -62,8 +62,8 @@ import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TabPanel from './TabPanel.vue';
 import TeamsCard from './TeamsCard.vue';
-import NoTeamsFound from './TeamsSectionNoTeamsFound.vue';
-import SearchNotFound from './TeamsSectionSearchNotFound.vue';
+import TeamsListNoData from './TeamsListNoData.vue';
+import TeamsListNoResults from './TeamsListNoResults.vue';
 import TeamDetailsModal from './TeamDetailsModal.vue';
 import TeamPackModal from './TeamPackModal.vue';
 
@@ -115,7 +115,7 @@ const selectedTeam = ref<TeamListItem | null>(null);
 .teams-tab-panel {
   margin-bottom: 2rem;
 }
-.teams-card-grid {
+.teams-list {
   display: grid;
   gap: 1rem;
   @include for-tablet-portrait-up {

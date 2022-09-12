@@ -6,11 +6,11 @@
       </template>
       <p>Você pode ver todos os seus campeonatos aqui. Escolha um campeonato para editar.</p>
     </PageHeader>
-    <LeaguesCardsSection />
+    <LeaguesList />
   </main>
 </template>
 
 <script lang="ts" setup>
 import PageHeader from '@/components/PageHeader.vue';
-import LeaguesCardsSection from '@/components/LeaguesCardsSection.vue';
+import LeaguesList from '@/components/LeaguesList.vue';
 </script>
