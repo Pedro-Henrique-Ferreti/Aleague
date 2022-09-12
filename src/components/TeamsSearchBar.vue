@@ -2,17 +2,16 @@
   <AppLargeField
     class="teams-search-bar"
     placeholder="Pesquise por uma equipe aqui"
-    v-model="searchBarValue"
+    v-model.trim="searchBarValue"
   />
 </template>
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useTeamsStore } from '@/stores/teamsStore';
-import AppLargeField from '@/components/AppLargeField.vue';
+import AppLargeField from './AppLargeField.vue';
 
-const teamsStore = useTeamsStore();
-const { searchBarValue } = storeToRefs(teamsStore);
+const { searchBarValue } = storeToRefs(useTeamsStore());
 </script>
 
 <style lang="scss" scoped>
