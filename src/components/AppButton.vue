@@ -55,13 +55,14 @@ enum Sizes {
 
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue';
-import BaseButton from '@/components/common/BaseButton.vue';
+import type { RouteLocationRaw } from 'vue-router';
+import BaseButton from './common/BaseButton.vue';
 
 defineEmits(['click']);
 
 const props = defineProps({
   to: {
-    type: [String, Object],
+    type: [String, Object] as PropType<RouteLocationRaw>,
     default: '',
   },
   color: {
