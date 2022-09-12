@@ -17,6 +17,7 @@
         <AppButton
           class="no-content__action-button"
           color="primary"
+          :to="actionButtonPath"
           @click="$emit('action-button-click')"
         >
           {{ actionButtonText }}
@@ -27,6 +28,9 @@
 </template>
 
 <script lang="ts" setup>
+import type { PropType } from 'vue';
+import type { RouteLocationRaw } from 'vue-router';
+
 defineEmits(['action-button-click']);
 defineProps({
   title: {
@@ -35,6 +39,10 @@ defineProps({
   },
   actionButtonText: {
     type: String,
+    default: '',
+  },
+  actionButtonPath: {
+    type: [String, Object] as PropType<RouteLocationRaw>,
     default: '',
   },
 });
