@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TeamListItem } from '@/types/TeamsStore';
+import type { TeamListItem } from '@/types/Team';
 import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useToggle } from '@vueuse/core';
