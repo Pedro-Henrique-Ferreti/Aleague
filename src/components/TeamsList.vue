@@ -9,7 +9,7 @@
       <AppButton
         color="outline"
         icon-left="package"
-        @click="showTeamPackModal = true"
+        @click="toggleShowTeamPackModal"
       >
         Pacotes
       </AppButton>
@@ -23,8 +23,14 @@
   </TabPanel>
   <AppTransition name="fade">
     <LoadingIndicator v-if="isLoading" />
-    <TeamsListNoData v-else-if="teams.length === 0" />
-    <TeamsListNoResults v-else-if="filteredTeams.length === 0" />
+    <TeamsListNoData
+      v-else-if="teams.length === 0"
+      @action-button-click="toggleShowTeamPackModal"
+    />
+    <TeamsListNoResults
+      v-else-if="filteredTeams.length === 0"
+      @action-button-click="toggleShowTeamPackModal"
+    />
     <div
       v-else
       class="teams-list"
@@ -40,7 +46,7 @@
   </AppTransition>
   <TeamPackModal
     :show="showTeamPackModal"
-    @close="showTeamPackModal = false"
+    @close="toggleShowTeamPackModal"
   />
   <TeamDetailsModal
     :show="!!selectedTeam"
@@ -54,6 +60,7 @@
 import type { TeamListItem } from '@/types/TeamsStore';
 import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { useToggle } from '@vueuse/core';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { TEAMS_PAGE_TABS } from '@/constants';
@@ -72,8 +79,9 @@ const { openSnackbarNotification } = useNotificationStore();
 const { teams, searchBarValue } = storeToRefs(teamsStore);
 
 const activeTabId = ref(TEAMS_PAGE_TABS.all.id);
-const isLoading = ref(true);
 const showTeamPackModal = ref(false);
+
+const toggleShowTeamPackModal = useToggle(showTeamPackModal);
 
 const filteredTeams = computed(() => {
   let filteredTeams = teams.value;
@@ -90,6 +98,8 @@ const filteredTeams = computed(() => {
 });
 
 // Get teams
+const isLoading = ref(true);
+
 onMounted(getTeams);
 
 async function getTeams() {
