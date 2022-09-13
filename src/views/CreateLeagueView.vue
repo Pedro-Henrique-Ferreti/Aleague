@@ -1,14 +1,11 @@
 <template>
   <main class="leagues container-medium">
-    <PageHeader>
-      <template #title>
-        Criar campeonato
-      </template>
-      <p>Bem-vindo a criação de campeonatos! Para começar, escolha nome e formato para o seu campeonato.</p>
-    </PageHeader>
+    <router-view>
+      <CreateLeagueFormat />
+    </router-view>
   </main>
 </template>
 
 <script lang="ts" setup>
-import PageHeader from '@/components/PageHeader.vue';
+import CreateLeagueFormat from '@/components/CreateLeagueFormat.vue';
 </script>
