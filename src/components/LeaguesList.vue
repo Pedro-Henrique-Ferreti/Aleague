@@ -23,7 +23,14 @@
       v-else
       class="leagues-list"
     >
-      <pre>{{ displayedLeagues }}</pre>
+      <LeagueCard
+        v-for="league in displayedLeagues"
+        :key="league.id"
+        :title="league.name"
+        :teams-count="league.numberOfTeams"
+        :created-at="league.createdAt"
+        :updated-at="league.updatedAt"
+      />
     </div>
   </AppTransition>
 </template>
@@ -37,6 +44,7 @@ import { LEAGUES_PAGE_TABS } from '@/constants';
 
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
+import LeagueCard from './LeagueCard.vue';
 import LeaguesListNoData from './LeaguesListNoData.vue';
 import LeaguesListNoResults from './LeaguesListNoResults.vue';
 import TabPanel from './TabPanel.vue';
@@ -88,5 +96,16 @@ const displayedLeagues = computed(() => {
 <style lang="scss" scoped>
 .leagues-tab-panel {
   margin-bottom: 2rem;
+}
+.leagues-list {
+  display: grid;
+  gap: 1rem;
+  @include for-tablet-portrait-up {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1rem;
+  }
+  @include for-desktop-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>
