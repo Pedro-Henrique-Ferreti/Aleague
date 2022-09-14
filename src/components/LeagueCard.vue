@@ -28,13 +28,23 @@
             <LeagueCardDataItem icon="calendar-check">
               Criado em {{ formattedCreatedAt }}
             </LeagueCardDataItem>
-            <LeagueCardDataItem icon="calendar-edit">
+            <LeagueCardDataItem
+              v-if="stepsCompleted.third"
+              icon="calendar-edit"
+            >
               Última alteração em {{ formattedUpdatedAt }}
             </LeagueCardDataItem>
           </ul>
         </div>
       </div>
-      <div class="league-card__league-progress">
+      <LeagueCardStepper
+        v-if="!stepsCompleted.third"
+        :steps="leagueSteps"
+      />
+      <div
+        v-else
+        class="league-card__league-progress"
+      >
         <span class="league-card__league-progress-title">
           Andamento do campeonato
         </span>
@@ -52,6 +62,7 @@ import { ptBR } from 'date-fns/locale';
 
 import AppProgressBar from './AppProgressBar.vue';
 import LeagueCardDataItem from './LeagueCardDataItem.vue';
+import LeagueCardStepper from './LeagueCardStepper.vue';
 
 const props = defineProps({
   title: {
@@ -107,6 +118,13 @@ const formattedUpdatedAt = computed(
   () => format(new Date(props.updatedAt), pattern, { locale: ptBR }),
 );
 
+// League steps
+const leagueSteps = computed(() => ([
+  { name: 'Passo 1', complete: props.stepsCompleted.first },
+  { name: 'Passo 2', complete: props.stepsCompleted.second },
+  { name: 'Passo 3', complete: props.stepsCompleted.third },
+]));
+
 // League progress
 const progressBarValue = ref(0);
 
@@ -127,6 +145,9 @@ function setProgressBarValue() {
 
 <style lang="scss" scoped>
 .league-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 1rem;
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
