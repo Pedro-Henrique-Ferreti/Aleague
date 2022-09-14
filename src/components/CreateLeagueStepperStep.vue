@@ -9,7 +9,10 @@
         class="create-league-step__check-icon"
         icon="check-circle"
       />
-      <span v-else class="create-league-step__number">
+      <span
+        v-else
+        class="create-league-step__number"
+      >
         {{ step }}
       </span>
       <span class="create-league-step__label">
@@ -38,7 +41,7 @@ const props = defineProps({
 });
 
 const stepperClasses = computed(() => ({
-  'create-league-step--active': props.isActive, 
+  'create-league-step--active': props.isActive,
   'create-league-step--completed': props.isComplete,
 }));
 </script>
