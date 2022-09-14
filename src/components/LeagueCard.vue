@@ -2,6 +2,7 @@
   <router-link
     class="league-card__link"
     :to="{ name: 'create-league' }"
+    :title="title"
   >
     <div class="league-card">
       <div class="league-card__details">
@@ -33,14 +34,23 @@
           </ul>
         </div>
       </div>
+      <div class="league-card__league-progress">
+        <span class="league-card__league-progress-title">
+          Andamento do campeonato
+        </span>
+        <AppProgressBar :value="progressBarValue" />
+      </div>
     </div>
   </router-link>
 </template>
 
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue';
+import type { LeagueListItemSteps } from '@/types/League';
+import { computed, ref, watch, type PropType } from 'vue';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+
+import AppProgressBar from './AppProgressBar.vue';
 import LeagueCardDataItem from './LeagueCardDataItem.vue';
 
 const props = defineProps({
@@ -51,6 +61,18 @@ const props = defineProps({
   teamsCount: {
     type: Number as PropType<number | null>,
     default: 0,
+  },
+  gamesCount: {
+    type: Number,
+    default: 0,
+  },
+  completedGamesCount: {
+    type: Number,
+    default: 0,
+  },
+  stepsCompleted: {
+    type: Object as PropType<LeagueListItemSteps>,
+    required: true,
   },
   createdAt: {
     type: String,
@@ -63,7 +85,7 @@ const props = defineProps({
 });
 
 const teamsCountLabel = computed(() => {
-  if (props.teamsCount === 0) {
+  if (!props.teamsCount) {
     return 'Nenhum participante';
   }
 
@@ -84,6 +106,23 @@ const formattedCreatedAt = computed(
 const formattedUpdatedAt = computed(
   () => format(new Date(props.updatedAt), pattern, { locale: ptBR }),
 );
+
+// League progress
+const progressBarValue = ref(0);
+
+const leagueProgress = computed(() => {
+  const progress = (props.completedGamesCount / props.gamesCount) * 100;
+
+  return isNaN(progress) ? 0 : progress;
+});
+
+setTimeout(setProgressBarValue);
+
+watch(() => leagueProgress.value, setProgressBarValue);
+
+function setProgressBarValue() {
+  progressBarValue.value = leagueProgress.value;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -123,6 +162,12 @@ const formattedUpdatedAt = computed(
   &__list {
     display: grid;
     gap: 0.25rem;
+  }
+  &__league-progress {
+    margin-top: 1rem;
+  }
+  &__league-progress-title {
+    color: $color--text-darken;
   }
 }
 </style>

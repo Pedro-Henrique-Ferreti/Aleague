@@ -28,6 +28,9 @@
         :key="league.id"
         :title="league.name"
         :teams-count="league.numberOfTeams"
+        :games-count="league.gamesCount"
+        :completed-games-count="league.completedGamesCount"
+        :steps-completed="league.stepsCompleted"
         :created-at="league.createdAt"
         :updated-at="league.updatedAt"
       />
@@ -56,7 +59,7 @@ const { leagues, searchBarValue } = storeToRefs(leaguesStore);
 const activeTabId = ref(LEAGUES_PAGE_TABS.all.id);
 
 // Get leagues
-const isLoading = ref(false);
+const isLoading = ref(true);
 
 onMounted(() => getLeagues());
 
