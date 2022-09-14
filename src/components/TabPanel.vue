@@ -62,6 +62,7 @@ defineProps({
     font-size: 1.125rem;
     font-weight: $font-weight--semibold;
     position: relative;
+    white-space: nowrap;
     &--active {
       color: $color--secondary;
       &::before {
