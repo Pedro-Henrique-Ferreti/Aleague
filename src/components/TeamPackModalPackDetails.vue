@@ -2,7 +2,7 @@
   <div class="team-pack-details">
     <header class="team-pack-details__header">
       <img
-        src="/images/brazil-flag.png"
+        src="/images/flags/brazilian-flag.png"
         alt="Team pack icon"
         class="team-pack-details__icon"
       />
