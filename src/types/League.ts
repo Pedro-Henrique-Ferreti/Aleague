@@ -3,9 +3,17 @@ export interface LeagueListItem {
   hashid: string;
   name: string;
   hasGames: boolean;
-  numberOfCompletedGames: number;
+  gamesCount: number;
+  completedGamesCount: number;
   numberOfGameweeks: number | null;
   numberOfTeams: number | null;
+  stepsCompleted: LeagueListItemSteps;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface LeagueListItemSteps {
+  first: boolean;
+  second: boolean;
+  third: boolean;
 }
