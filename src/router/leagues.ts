@@ -8,12 +8,16 @@ import CreateLeagueParticipants from '@/components/CreateLeagueParticipants.vue'
 export default [
   {
     path: '/create-league',
-    name: 'create-league',
     component: CreateLeagueView,
     meta: {
       requiresAuth: true,
     },
     children: [
+      {
+        path: '',
+        name: 'create-league',
+        component: CreateLeagueFormat,
+      },
       {
         path: ':id',
         component: CreateLeagueFormat,
