@@ -26,6 +26,7 @@
       <LeagueCard
         v-for="league in displayedLeagues"
         :key="league.id"
+        :hash-id="league.hashid"
         :title="league.name"
         :teams-count="league.numberOfTeams"
         :games-count="league.gamesCount"

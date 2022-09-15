@@ -1,7 +1,7 @@
 <template>
   <router-link
     class="league-card__link"
-    :to="{ name: 'create-league' }"
+    :to="cardPath"
     :title="title"
   >
     <div class="league-card">
@@ -65,6 +65,10 @@ import LeagueCardDataItem from './LeagueCardDataItem.vue';
 import LeagueCardStepper from './LeagueCardStepper.vue';
 
 const props = defineProps({
+  hashId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -141,6 +145,28 @@ watch(() => leagueProgress.value, setProgressBarValue);
 function setProgressBarValue() {
   progressBarValue.value = leagueProgress.value;
 }
+
+// Card path
+const cardPath = computed(() => {
+  if (props.stepsCompleted.third) {
+    return {
+      name: 'leagues',
+      params: { id: props.hashId },
+    };
+  }
+
+  if (props.stepsCompleted.second) {
+    return {
+      name: 'create-league-participants',
+      params: { id: props.hashId },
+    };
+  }
+
+  return {
+    name: 'create-league-rules',
+    params: { id: props.hashId },
+  };
+});
 </script>
 
 <style lang="scss" scoped>
