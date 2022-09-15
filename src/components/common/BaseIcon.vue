@@ -33,6 +33,7 @@ import TeamShield from '@/components/icons/IconTeamShield.vue';
 import TeamShieldOutline from '@/components/icons/IconTeamShieldOutline.vue';
 import Trophy from '@/components/icons/IconTrophy.vue';
 import TrophyOutline from '@/components/icons/IconTrophyOutline.vue';
+import WarningCircle from '@/components/icons/IconWarningCircle.vue';
 
 const props = defineProps({
   icon: {
@@ -101,6 +102,8 @@ const icon = computed(() => {
       return Trophy;
     case 'trophyoutline':
       return TrophyOutline;
+    case 'warningcircle':
+      return WarningCircle;
     default:
       return '';
   }

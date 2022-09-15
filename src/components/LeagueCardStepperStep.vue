@@ -6,7 +6,7 @@
     <div class="stepper-step__icon-wrapper">
       <BaseIcon
         class="stepper-step__icon"
-        icon="check-circle"
+        :icon="complete ? 'check-circle' : 'warning-circle'"
       />
     </div>
     <span class="stepper-step__label">
