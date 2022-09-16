@@ -20,6 +20,7 @@ import Football from '@/components/icons/IconFootball.vue';
 import Gear from '@/components/icons/IconGear.vue';
 import Home from '@/components/icons/IconHome.vue';
 import HomeOutline from '@/components/icons/IconHomeOutline.vue';
+import Info from '@/components/icons/IconInfo.vue';
 import Loading from '@/components/icons/IconLoading.vue';
 import Logout from '@/components/icons/IconLogout.vue';
 import Menu from '@/components/icons/IconMenu.vue';
@@ -76,6 +77,8 @@ const icon = computed(() => {
       return Home;
     case 'homeoutline':
       return HomeOutline;
+    case 'info':
+      return Info;
     case 'loading':
       return Loading;
     case 'logout':
