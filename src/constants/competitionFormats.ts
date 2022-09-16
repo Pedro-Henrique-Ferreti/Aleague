@@ -3,18 +3,18 @@ export const COMPETITION_FORMATS = {
     name: 'Pontos corridos',
     value: 'league',
     image: '/images/leagues/league-format-icon.svg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    description: 'Cada um dos competidores enfrenta todos os demais. Ao final, aquele que obtiver mais pontos é o campeão. Pode ser disputado em turno único ou em dois turnos (turno e returno).',
   },
   cup: {
     name: 'Copa',
     value: 'cup',
     image: '/images/leagues/cup-format-icon.svg',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.',
+    description: 'Dividido em duas fases. Na primeira fase, as equipes são dividias em grupos, onde podem se enfrentar em um turno ou dois turnos. Um determinado número de equipes é promovido para a próxima fase, que é disputada em formato eliminatório.',
   },
   playOff: {
     name: 'Eliminatórias',
     value: 'play-off',
     image: '/images/leagues/play-off-format-icon.svg',
-    description: 'Lorem ipsum dolordunt ut labore et dolore magna aliqua. Ut enim ad minim veniam aliquip ex ea commodo consequat.',
+    description: 'Cada equipe competidora disputa um certo número de partidas, até ser promovida à próxima fase. A equipe perdedora de cada disputa é eliminada da competição.',
   },
 };
