@@ -7,7 +7,7 @@
   </PageHeader>
   <CreateLeagueStepper :current-step="1" />
   <CreateLeagueLayout>
-    <CreateLeagueForm>
+    <CreateLeagueForm @submit="createLeague">
       <AppLargeField
         v-model.trim="league.name"
         placeholder="Digite o nome do campeonato"
@@ -29,10 +29,10 @@
           />
         </div>
         <p class="league-format-form__format-description">
-          {{ formatDescription }}
+          {{ selectedFormat?.description || '' }}
         </p>
         <AppWarning
-          v-if="leagueFormatIsUnavailable"
+          v-if="selectedFormat && !selectedFormat.isAvailable"
           class="league-format-form__warning"
           message="Esse formato de campeonato não está disponível no momento."
         />
@@ -44,7 +44,10 @@
         >
           Voltar
         </AppButton>
-        <AppButton :disabled="leagueFormatIsUnavailable">
+        <AppButton
+          :is-loading="isSavingLeague"
+          :disabled="!formIsValid"
+        >
           Próximo passo
         </AppButton>
       </template>
@@ -54,6 +57,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { useNotificationStore } from '@/stores/notificationStore';
 import { COMPETITION_FORMATS } from '@/constants';
 
 import AppLargeField from './AppLargeField.vue';
@@ -64,21 +68,42 @@ import CreateLeagueForm from './CreateLeagueForm.vue';
 import CreateLeagueLayout from './CreateLeagueLayout.vue';
 import CreateLeagueFormatCard from './CreateLeagueFormatCard.vue';
 
+const { openSnackbarNotification } = useNotificationStore();
+
 const league = ref({
   name: '',
   format: '',
 });
 
-const formatDescription = computed(() => {
-  return Object.values(COMPETITION_FORMATS).find(
-    ({ value }) => value === league.value.format,
-  )?.description || '';
+const selectedFormat = computed(() => {
+  return Object.values(COMPETITION_FORMATS).find(({ value }) => value === league.value.format);
 });
 
-const leagueFormatIsUnavailable = computed(() => {
-  const { cup, playOff } = COMPETITION_FORMATS;
-  return [cup.value, playOff.value].includes(league.value.format);
+const formIsValid = computed(() => {
+  return league.value.name && selectedFormat.value?.isAvailable;
 });
+
+// Create league
+const isSavingLeague = ref(false);
+
+async function createLeague() {
+  if (!formIsValid.value) return;
+
+  isSavingLeague.value = true;
+
+  try {
+    await new Promise((res) => {
+      setTimeout(res, 2000);
+    });
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isSavingLeague.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
