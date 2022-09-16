@@ -31,12 +31,22 @@
         <p class="league-format-form__format-description">
           {{ formatDescription }}
         </p>
+        <AppWarning
+          v-if="leagueFormatIsUnavailable"
+          class="league-format-form__warning"
+          message="Esse formato de campeonato não está disponível no momento."
+        />
       </div>
       <template #footer>
-        <AppButton color="gray">
+        <AppButton
+          color="gray"
+          :to="{ name: 'leagues' }"
+        >
           Voltar
         </AppButton>
-        <AppButton>Próximo passo</AppButton>
+        <AppButton :disabled="leagueFormatIsUnavailable">
+          Próximo passo
+        </AppButton>
       </template>
     </CreateLeagueForm>
   </CreateLeagueLayout>
@@ -45,7 +55,9 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { COMPETITION_FORMATS } from '@/constants';
+
 import AppLargeField from './AppLargeField.vue';
+import AppWarning from './AppWarning.vue';
 import PageHeader from './PageHeader.vue';
 import CreateLeagueStepper from './CreateLeagueStepper.vue';
 import CreateLeagueForm from './CreateLeagueForm.vue';
@@ -89,6 +101,9 @@ const leagueFormatIsUnavailable = computed(() => {
     }
   }
   &__format-description {
+    margin-top: 1.5rem;
+  }
+  &__warning {
     margin-top: 1.5rem;
   }
   @include for-tablet-landscape-up {
