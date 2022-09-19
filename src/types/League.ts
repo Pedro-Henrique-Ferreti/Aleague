@@ -1,19 +1,22 @@
-export interface LeagueListItem {
+export interface League {
   id: number;
   hashid: string;
   name: string;
-  hasGames: boolean;
-  gamesCount: number;
-  completedGamesCount: number;
-  numberOfGameweeks: number | null;
-  numberOfTeams: number | null;
-  stepsCompleted: LeagueListItemSteps;
   createdAt: string;
   updatedAt: string;
+  numberOfGameweeks: number | null;
+  numberOfTeams: number | null;
 }
 
-export interface LeagueListItemSteps {
+export interface LeagueSteps {
   first: boolean;
   second: boolean;
   third: boolean;
+}
+
+export interface LeagueListItem extends League {
+  hasGames: boolean;
+  gamesCount: number;
+  completedGamesCount: number;
+  stepsCompleted: LeagueSteps;
 }
