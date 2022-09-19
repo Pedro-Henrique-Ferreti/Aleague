@@ -10,6 +10,9 @@
     <CreateLeagueForm>
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingLeague" />
+        <div v-else>
+          <CreateLeagueFormHeader :league-name="leagueName" />
+        </div>
       </AppTransition>
       <template #footer>
         <AppButton
@@ -36,6 +39,7 @@ import LoadingIndicator from './LoadingIndicator.vue';
 import CreateLeagueLayout from './CreateLeagueLayout.vue';
 import CreateLeagueForm from './CreateLeagueForm.vue';
 import CreateLeagueStepper from './CreateLeagueStepper.vue';
+import CreateLeagueFormHeader from './CreateLeagueFormHeader.vue';
 
 const route = useRoute();
 const leaguesStore = useLeaguesStore();
