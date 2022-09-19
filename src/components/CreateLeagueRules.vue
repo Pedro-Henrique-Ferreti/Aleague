@@ -5,6 +5,7 @@
     </template>
     <p>Agora você deve escolher as regras para o seu campeonato <b>pontos corridos</b>.</p>
   </PageHeader>
+  <CreateLeagueStepper :current-step="2" />
   <CreateLeagueLayout>
     <CreateLeagueForm>
       <AppTransition name="fade">
@@ -31,9 +32,10 @@ import { useNotificationStore } from '@/stores/notificationStore';
 
 import AppTransition from './AppTransition.vue';
 import PageHeader from './PageHeader.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
 import CreateLeagueLayout from './CreateLeagueLayout.vue';
 import CreateLeagueForm from './CreateLeagueForm.vue';
-import LoadingIndicator from './LoadingIndicator.vue';
+import CreateLeagueStepper from './CreateLeagueStepper.vue';
 
 const route = useRoute();
 const leaguesStore = useLeaguesStore();
@@ -57,7 +59,7 @@ async function getLeague() {
     openSnackbarNotification({
       type: 'error',
       message: error.message,
-    });    
+    });
   } finally {
     isLoadingLeague.value = false;
   }
