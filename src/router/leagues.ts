@@ -1,9 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router';
 import LeaguesView from '@/views/LeaguesView.vue';
 import CreateLeagueView from '@/views/CreateLeagueView.vue';
-import CreateLeagueFormat from '@/components/CreateLeagueFormat.vue';
-import CreateLeagueRules from '@/components/CreateLeagueRules.vue';
-import CreateLeagueParticipants from '@/components/CreateLeagueParticipants.vue';
+import CreateLeagueFormatView from '@/views/CreateLeagueFormatView.vue';
+import CreateLeagueRulesView from '@/views/CreateLeagueRulesView.vue';
+import CreateLeagueParticipantsView from '@/views/CreateLeagueParticipantsView.vue';
 
 export default [
   {
@@ -16,22 +16,22 @@ export default [
       {
         path: '',
         name: 'create-league',
-        component: CreateLeagueFormat,
+        component: CreateLeagueFormatView,
       },
       {
         path: ':id',
         name: 'create-league-format',
-        component: CreateLeagueFormat,
+        component: CreateLeagueFormatView,
       },
       {
         path: ':id/rules',
         name: 'create-league-rules',
-        component: CreateLeagueRules,
+        component: CreateLeagueRulesView,
       },
       {
         path: ':id/participants',
         name: 'create-league-participants',
-        component: CreateLeagueParticipants,
+        component: CreateLeagueParticipantsView,
       },
     ],
   },

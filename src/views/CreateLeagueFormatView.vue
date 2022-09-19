@@ -62,13 +62,13 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { COMPETITION_FORMATS } from '@/constants';
 
-import AppLargeField from './AppLargeField.vue';
-import AppWarning from './AppWarning.vue';
-import PageHeader from './PageHeader.vue';
-import CreateLeagueStepper from './CreateLeagueStepper.vue';
-import CreateLeagueForm from './CreateLeagueForm.vue';
-import CreateLeagueLayout from './CreateLeagueLayout.vue';
-import CreateLeagueFormatCard from './CreateLeagueFormatCard.vue';
+import AppLargeField from '@/components/AppLargeField.vue';
+import AppWarning from '@/components/AppWarning.vue';
+import PageHeader from '@/components/PageHeader.vue';
+import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
+import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
+import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
+import CreateLeagueFormatCard from '@/components/CreateLeagueFormatCard.vue';
 
 const router = useRouter();
 const { createLeague } = useLeaguesStore();

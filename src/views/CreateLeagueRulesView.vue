@@ -33,13 +33,13 @@ import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 
-import AppTransition from './AppTransition.vue';
-import PageHeader from './PageHeader.vue';
-import LoadingIndicator from './LoadingIndicator.vue';
-import CreateLeagueLayout from './CreateLeagueLayout.vue';
-import CreateLeagueForm from './CreateLeagueForm.vue';
-import CreateLeagueStepper from './CreateLeagueStepper.vue';
-import CreateLeagueFormHeader from './CreateLeagueFormHeader.vue';
+import AppTransition from '@/components/AppTransition.vue';
+import PageHeader from '@/components/PageHeader.vue';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
+import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
+import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
+import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
 
 const route = useRoute();
 const leaguesStore = useLeaguesStore();
