@@ -1,10 +1,10 @@
 <template>
-  <div class="enter-code">
-    <div class="enter-code__fields">
+  <div class="code-field">
+    <div class="code-field__fields">
       <input
         v-for="n in 6"
         v-model="digit[n - 1]"
-        class="enter-code__field"
+        class="code-field__field"
         ref="digitRefs"
         type="tel"
         maxlength="1"
@@ -16,7 +16,7 @@
       />
     </div>
     <AppButton
-      class="enter-code__resend-code"
+      class="code-field__resend-code"
       color="gray"
       type="button"
       :disabled="remainingSecondsForResend > 0"
@@ -120,7 +120,7 @@ function handleDeleteKeypress(index: number) {
 </script>
 
 <style lang="scss" scoped>
-.enter-code {
+.code-field {
   display: flex;
   flex-direction: column;
   align-items: center;

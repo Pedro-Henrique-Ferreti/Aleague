@@ -18,7 +18,7 @@
     >
       Bem-vindo de volta! Antes de começar, digite o código de seis dígitos recebido no e-mail informado.
     </p>
-    <EnterCode
+    <AppCodeField
       :is-loading="isSendingCode"
       @update-code="verificationCode = $event"
       @resend-code="resendCode"
@@ -43,7 +43,7 @@ import { useUserStore } from '@/stores/userStore';
 
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
-import EnterCode from '@/components/EnterCode.vue';
+import AppCodeField from '@/components/AppCodeField.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
