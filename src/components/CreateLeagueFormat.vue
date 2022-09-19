@@ -7,7 +7,7 @@
   </PageHeader>
   <CreateLeagueStepper :current-step="1" />
   <CreateLeagueLayout>
-    <CreateLeagueForm @submit="createLeague">
+    <CreateLeagueForm @submit="submitForm">
       <AppLargeField
         v-model.trim="league.name"
         placeholder="Digite o nome do campeonato"
@@ -57,6 +57,8 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { COMPETITION_FORMATS } from '@/constants';
 
@@ -68,6 +70,8 @@ import CreateLeagueForm from './CreateLeagueForm.vue';
 import CreateLeagueLayout from './CreateLeagueLayout.vue';
 import CreateLeagueFormatCard from './CreateLeagueFormatCard.vue';
 
+const router = useRouter();
+const { createLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const league = ref({
@@ -86,14 +90,17 @@ const formIsValid = computed(() => {
 // Create league
 const isSavingLeague = ref(false);
 
-async function createLeague() {
+async function submitForm() {
   if (!formIsValid.value) return;
 
   isSavingLeague.value = true;
 
   try {
-    await new Promise((res) => {
-      setTimeout(res, 2000);
+    const hashId = await createLeague({ name: league.value.name });
+
+    router.push({
+      name: 'create-league-rules',
+      params: { id: hashId },
     });
   } catch (error: any) {
     openSnackbarNotification({

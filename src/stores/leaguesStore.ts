@@ -1,7 +1,7 @@
-import type { LeagueListItem } from '@/types/League';
+import type { League, LeagueListItem } from '@/types/League';
+import type { AxiosResponse } from 'axios';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
-import type { AxiosResponse } from 'axios';
 
 interface State {
   leagues: LeagueListItem[];
@@ -20,6 +20,11 @@ export const useLeaguesStore = defineStore('leagues', {
       const { data: leagues }: AxiosResponse<LeagueListItem[]> = await axios.get('/leagues');
 
       this.leagues = leagues;
+    },
+    async createLeague({ name }: { name: string }) {
+      const { data: { hashid } }: AxiosResponse<League> = await axios.post('/leagues', { name });
+
+      return hashid;
     },
   },
 });
