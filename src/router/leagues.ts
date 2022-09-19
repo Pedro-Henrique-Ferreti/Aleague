@@ -20,6 +20,7 @@ export default [
       },
       {
         path: ':id',
+        name: 'create-league-format',
         component: CreateLeagueFormat,
       },
       {
