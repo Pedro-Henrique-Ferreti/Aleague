@@ -14,6 +14,14 @@ export interface LeagueSteps {
   third: boolean;
 }
 
+export interface Standing {
+
+}
+
+export interface LeagueWithStandings extends League {
+  standings: Standing[] | null,
+}
+
 export interface LeagueListItem extends League {
   hasGames: boolean;
   gamesCount: number;
