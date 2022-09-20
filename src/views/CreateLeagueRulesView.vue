@@ -127,6 +127,12 @@ async function submitForm() {
   isSavingLeague.value = true;
 
   try {
+    await leaguesStore.updateLeagueRules({
+      hashId: league.value.id,
+      numberOfTeams: league.value.numberOfTeams,
+      awayGames: league.value.awayGames,
+    });
+
     router.push({
       name: 'create-league-participants',
       params: { id: league.value.id },

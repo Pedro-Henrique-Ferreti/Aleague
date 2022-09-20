@@ -1,5 +1,6 @@
-import type { League, LeagueListItem, LeagueWithStandings } from '@/types/League';
 import type { AxiosResponse } from 'axios';
+import type { League, LeagueListItem, LeagueWithStandings } from '@/types/League';
+import type { UpdateLeagueRulesParams } from '@/types/LeaguesStore';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
 
@@ -33,6 +34,12 @@ export const useLeaguesStore = defineStore('leagues', {
     },
     updateLeague({ hashId , name }: { hashId: string, name: string }) {
       return axios.patch<League>(`/leagues/${hashId}`, { name });
+    },
+    updateLeagueRules({ hashId, numberOfTeams, awayGames }: UpdateLeagueRulesParams) {
+      return axios.patch<League>(`/leagues/${hashId}/rules`, {
+        numberOfTeams,
+        awayGames,
+      });
     },
   },
 });
