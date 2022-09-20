@@ -17,11 +17,13 @@ export default [
         path: '',
         name: 'create-league',
         component: CreateLeagueFormatView,
+        props: true,
       },
       {
         path: ':id',
         name: 'create-league-format',
         component: CreateLeagueFormatView,
+        props: true,
       },
       {
         path: ':id/rules',

@@ -61,8 +61,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { COMPETITION_FORMATS } from '@/constants';
@@ -74,28 +74,44 @@ import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
 import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
 import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
 import CreateLeagueFormatCard from '@/components/CreateLeagueFormatCard.vue';
-import AppTransition from '../components/AppTransition.vue';
-import LoadingIndicator from '../components/LoadingIndicator.vue';
+import AppTransition from '@/components/AppTransition.vue';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: '',
+  },
+});
 
 const router = useRouter();
-const route = useRoute();
 const leaguesStore = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
+// Clear league data
+watch(() => props.id, () => {
+  league.value = {
+    id: '',
+    name: '',
+    format: '',
+  };
+});
+
 // League data
 const league = ref({
+  id: props.id,
   name: '',
   format: '',
 });
-const isLoadingLeague = ref(!!route.params.id);
+const isLoadingLeague = ref(!!league.value.id);
 
 getLeague();
 
 async function getLeague() {
-  if (!route.params.id) return;
+  if (!league.value.id) return;
 
   try {
-    const { name } = await leaguesStore.getLeague(route.params.id as string);
+    const { name } = await leaguesStore.getLeague(league.value.id);
 
     league.value.name = name;
     league.value.format = COMPETITION_FORMATS.league.value;
@@ -117,7 +133,7 @@ const formIsValid = computed(() => {
   return league.value.name && selectedFormat.value?.isAvailable;
 });
 
-// Create league
+// Submit form
 const isSavingLeague = ref(false);
 
 async function submitForm() {
@@ -126,11 +142,18 @@ async function submitForm() {
   isSavingLeague.value = true;
 
   try {
-    const hashId = await leaguesStore.createLeague({ name: league.value.name });
+    if (league.value.id) {
+      await leaguesStore.updateLeague({
+        hashId: league.value.id,
+        name: league.value.name,
+      });
+    } else {
+      league.value.id = await leaguesStore.createLeague({ name: league.value.name });
+    } 
 
     router.push({
       name: 'create-league-rules',
-      params: { id: hashId },
+      params: { id: league.value.id },
     });
   } catch (error: any) {
     openSnackbarNotification({

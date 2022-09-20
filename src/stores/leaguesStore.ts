@@ -31,5 +31,8 @@ export const useLeaguesStore = defineStore('leagues', {
 
       return hashid;
     },
+    updateLeague({ hashId , name }: { hashId: string, name: string }) {
+      return axios.patch<League>(`/leagues/${hashId}`, { name });
+    },
   },
 });
