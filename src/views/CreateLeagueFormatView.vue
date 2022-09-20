@@ -149,7 +149,7 @@ async function submitForm() {
       });
     } else {
       league.value.id = await leaguesStore.createLeague({ name: league.value.name });
-    } 
+    }
 
     router.push({
       name: 'create-league-rules',
