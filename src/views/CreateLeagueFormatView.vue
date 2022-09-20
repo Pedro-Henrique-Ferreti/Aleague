@@ -8,35 +8,40 @@
   <CreateLeagueStepper :current-step="1" />
   <CreateLeagueLayout>
     <CreateLeagueForm @submit="submitForm">
-      <AppLargeField
-        v-model.trim="league.name"
-        placeholder="Digite o nome do campeonato"
-        icon="football"
-      />
-      <div class="league-format-form">
-        <h2 class="league-format-form__title">
-          Escolha o formato
-        </h2>
-        <div class="league-format-form__format-grid">
-          <CreateLeagueFormatCard
-            v-for="(competition, index) in Object.values(COMPETITION_FORMATS)"
-            v-model="league.format"
-            :key="index"
-            :value="competition.value"
-            :image="competition.image"
-            :label="competition.name"
-            :id="`league-format--${competition.value}`"
+      <AppTransition name="fade">
+        <LoadingIndicator v-if="isLoadingLeague" />
+        <div v-else>
+          <AppLargeField
+            v-model.trim="league.name"
+            placeholder="Digite o nome do campeonato"
+            icon="football"
           />
+          <div class="league-format-form">
+            <h2 class="league-format-form__title">
+              Escolha o formato
+            </h2>
+            <div class="league-format-form__format-grid">
+              <CreateLeagueFormatCard
+                v-for="(competition, index) in Object.values(COMPETITION_FORMATS)"
+                v-model="league.format"
+                :key="index"
+                :value="competition.value"
+                :image="competition.image"
+                :label="competition.name"
+                :id="`league-format--${competition.value}`"
+              />
+            </div>
+            <p class="league-format-form__format-description">
+              {{ selectedFormat?.description || '' }}
+            </p>
+            <AppWarning
+              v-if="selectedFormat && !selectedFormat.isAvailable"
+              class="league-format-form__warning"
+              message="Esse formato de campeonato não está disponível no momento."
+            />
+          </div>
         </div>
-        <p class="league-format-form__format-description">
-          {{ selectedFormat?.description || '' }}
-        </p>
-        <AppWarning
-          v-if="selectedFormat && !selectedFormat.isAvailable"
-          class="league-format-form__warning"
-          message="Esse formato de campeonato não está disponível no momento."
-        />
-      </div>
+      </AppTransition>
       <template #footer>
         <AppButton
           color="gray"
@@ -57,7 +62,7 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { COMPETITION_FORMATS } from '@/constants';
@@ -69,15 +74,40 @@ import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
 import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
 import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
 import CreateLeagueFormatCard from '@/components/CreateLeagueFormatCard.vue';
+import AppTransition from '../components/AppTransition.vue';
+import LoadingIndicator from '../components/LoadingIndicator.vue';
 
 const router = useRouter();
-const { createLeague } = useLeaguesStore();
+const route = useRoute();
+const leaguesStore = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
+// League data
 const league = ref({
   name: '',
   format: '',
 });
+const isLoadingLeague = ref(!!route.params.id);
+
+getLeague();
+
+async function getLeague() {
+  if (!route.params.id) return;
+
+  try {
+    const { name } = await leaguesStore.getLeague(route.params.id as string);
+
+    league.value.name = name;
+    league.value.format = COMPETITION_FORMATS.league.value;
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isLoadingLeague.value = false;
+  }
+}
 
 const selectedFormat = computed(() => {
   return Object.values(COMPETITION_FORMATS).find(({ value }) => value === league.value.format);
@@ -96,7 +126,7 @@ async function submitForm() {
   isSavingLeague.value = true;
 
   try {
-    const hashId = await createLeague({ name: league.value.name });
+    const hashId = await leaguesStore.createLeague({ name: league.value.name });
 
     router.push({
       name: 'create-league-rules',
