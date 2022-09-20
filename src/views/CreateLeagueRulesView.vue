@@ -22,14 +22,22 @@
               </label>
               <AppCounterField
                 v-model="league.teamsCount"
-                labelledBy="rules-form-participants"
+                labelled-by="rules-form-participants"
                 :min="1"
               />
             </div>
             <div class="league-rules-form__row">
-              <span class="league-rules-form__label">
+              <label
+                id="rules-form-away-games"
+                class="league-rules-form__label"
+              >
                 Campeonato em 2 turnos
-              </span>
+              </label>
+              <AppSwitch
+                v-model="league.awayGames"
+                show-labels
+                labelledBy="rules-form-away-games"
+              />
             </div>
           </div>
         </div>
@@ -55,6 +63,7 @@ import { useNotificationStore } from '@/stores/notificationStore';
 
 import AppCounterField from '@/components/AppCounterField.vue';
 import AppTransition from '@/components/AppTransition.vue';
+import AppSwitch from '@/components/AppSwitch.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
@@ -72,6 +81,7 @@ const isLoadingLeague = ref(true);
 const league = ref({
   name: '',
   teamsCount: 1,
+  awayGames: false,
 });
 
 getLeague();
