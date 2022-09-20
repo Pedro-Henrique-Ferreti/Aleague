@@ -84,7 +84,9 @@ const displayedLeagues = computed(() => {
   let displayedLeagues = leagues.value;
 
   if (searchBarValue.value) {
-    displayedLeagues = leagues.value.filter(({ name }) => name.includes(searchBarValue.value));
+    displayedLeagues = leagues.value.filter(
+      ({ name }) => name.toLowerCase().includes(searchBarValue.value.toLowerCase()),
+    );
   }
 
   if (activeTabId.value === LEAGUES_PAGE_TABS.cup.id ||

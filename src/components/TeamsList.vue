@@ -87,7 +87,9 @@ const filteredTeams = computed(() => {
   let filteredTeams = teams.value;
 
   if (searchBarValue.value) {
-    filteredTeams = filteredTeams.filter(({ name }) => name.includes(searchBarValue.value));
+    filteredTeams = filteredTeams.filter(
+      ({ name }) => name.toLowerCase().includes(searchBarValue.value.toLowerCase()),
+    );
   }
 
   if (activeTabId.value === TEAMS_PAGE_TABS.favorites.id) {
