@@ -11,12 +11,20 @@
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingLeague" />
         <div v-else>
-          <CreateLeagueFormHeader :league-name="leagueName" />
+          <CreateLeagueFormHeader :league-name="league.name" />
           <div class="league-rules-form">
             <div class="league-rules-form__row">
-              <span class="league-rules-form__label">
+              <label
+                class="league-rules-form__label"
+                id="rules-form-participants"
+              >
                 Quantidade de participantes
-              </span>
+              </label>
+              <AppCounterField
+                v-model="league.teamsCount"
+                labelledBy="rules-form-participants"
+                :min="1"
+              />
             </div>
             <div class="league-rules-form__row">
               <span class="league-rules-form__label">
@@ -45,6 +53,7 @@ import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 
+import AppCounterField from '@/components/AppCounterField.vue';
 import AppTransition from '@/components/AppTransition.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
@@ -60,7 +69,10 @@ const { openSnackbarNotification } = useNotificationStore();
 const isLoadingLeague = ref(true);
 
 // League data
-const leagueName = ref('');
+const league = ref({
+  name: '',
+  teamsCount: 1,
+});
 
 getLeague();
 
@@ -70,7 +82,7 @@ async function getLeague() {
   try {
     const { name } = await leaguesStore.getLeague(route.params.id as string);
 
-    leagueName.value = name;
+    league.value.name = name;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

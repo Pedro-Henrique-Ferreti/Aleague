@@ -24,6 +24,7 @@ import Info from '@/components/icons/IconInfo.vue';
 import Loading from '@/components/icons/IconLoading.vue';
 import Logout from '@/components/icons/IconLogout.vue';
 import Menu from '@/components/icons/IconMenu.vue';
+import Minus from '@/components/icons/IconMinus.vue';
 import Package from '@/components/icons/IconPackage.vue';
 import Pencil from '@/components/icons/IconPencil.vue';
 import People from '@/components/icons/IconPeople.vue';
@@ -85,6 +86,8 @@ const icon = computed(() => {
       return Logout;
     case 'menu':
       return Menu;
+    case 'minus':
+      return Minus;
     case 'package':
       return Package;
     case 'pencil':
