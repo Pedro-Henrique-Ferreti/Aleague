@@ -7,7 +7,7 @@
   </PageHeader>
   <CreateLeagueStepper :current-step="2" />
   <CreateLeagueLayout>
-    <CreateLeagueForm>
+    <CreateLeagueForm @submit="submitForm">
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingLeague" />
         <div v-else>
@@ -21,7 +21,7 @@
                 Quantidade de participantes
               </label>
               <AppCounterField
-                v-model="league.teamsCount"
+                v-model="league.numberOfTeams"
                 labelled-by="rules-form-participants"
                 :min="1"
               />
@@ -36,7 +36,7 @@
               <AppSwitch
                 v-model="league.awayGames"
                 show-labels
-                labelledBy="rules-form-away-games"
+                labelled-by="rules-form-away-games"
               />
             </div>
           </div>
@@ -49,15 +49,20 @@
         >
           Voltar
         </AppButton>
-        <AppButton>Próximo passo</AppButton>
+        <AppButton
+          :is-loading="isSavingLeague"
+          :disabled="!formIsValid"
+        >
+          Próximo passo
+        </AppButton>
       </template>
     </CreateLeagueForm>
   </CreateLeagueLayout>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 
@@ -71,6 +76,7 @@ import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
 import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
 import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
 
+const router = useRouter();
 const route = useRoute();
 const leaguesStore = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
@@ -79,8 +85,9 @@ const isLoadingLeague = ref(true);
 
 // League data
 const league = ref({
+  id: route.params.id as string,
   name: '',
-  teamsCount: 1,
+  numberOfTeams: 1,
   awayGames: false,
 });
 
@@ -90,9 +97,13 @@ async function getLeague() {
   isLoadingLeague.value = true;
 
   try {
-    const { name } = await leaguesStore.getLeague(route.params.id as string);
+    const { name, numberOfTeams, numberOfGameweeks } = await leaguesStore.getLeague(league.value.id);
 
     league.value.name = name;
+    league.value.numberOfTeams = numberOfTeams || 0;
+    league.value.awayGames = (numberOfTeams && numberOfGameweeks)
+      ? numberOfGameweeks === (numberOfTeams - 1) * 2
+      : false;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -100,6 +111,33 @@ async function getLeague() {
     });
   } finally {
     isLoadingLeague.value = false;
+  }
+}
+
+// Submit form
+const formIsValid = computed(() => {
+  return league.value.numberOfTeams > 1;
+});
+
+const isSavingLeague = ref(false);
+
+async function submitForm() {
+  if (!formIsValid.value) return;
+
+  isSavingLeague.value = true;
+
+  try {
+    router.push({
+      name: 'create-league-participants',
+      params: { id: league.value.id },
+    });
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isSavingLeague.value = false;
   }
 }
 </script>
