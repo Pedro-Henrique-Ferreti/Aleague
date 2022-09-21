@@ -1,3 +1,7 @@
 .no-scroll {
   overflow-y: hidden;
 }
+
+.focus-ring {
+  @include focus-ring;
+}
