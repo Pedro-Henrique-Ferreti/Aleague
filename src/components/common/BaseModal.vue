@@ -4,7 +4,10 @@
     :class="modalClasses"
   >
     <header class="modal__header">
-      <span class="modal__header-title">
+      <span
+        class="modal__header-title"
+        :id="titleId || undefined"
+      >
         {{ title }}
       </span>
       <button
@@ -38,6 +41,10 @@ const props = defineProps({
   title: {
     type: String,
     required: true,
+  },
+  titleId: {
+    type: String,
+    default: '',
   },
   isSimple: {
     type: Boolean,
