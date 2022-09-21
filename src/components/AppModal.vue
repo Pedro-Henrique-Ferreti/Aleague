@@ -13,6 +13,8 @@
           aria-modal="true"
           :class="modalClasses"
           :title="title"
+          :aria-labelledby="modalLabelledById"
+          :title-id="modalLabelledById"
           @close="$emit('close')"
         >
           <div
@@ -78,6 +80,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  id: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -110,6 +116,9 @@ const modalClasses = computed(() => ({
   'app-modal--has-tab-panel': modalHasTabPanel.value,
 }));
 
+const modalLabelledById = computed(() => `${props.id}-title`);
+
+// Handle modal open and close events 
 watch(() => props.show, (show) => {
   (show) ? handleOpenModal() : handleCloseModal();
 });

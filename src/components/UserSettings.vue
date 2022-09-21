@@ -1,6 +1,7 @@
 <template>
   <AppModal
     render-footer
+    id="user-settings-modal"
     title="Configurações"
     size="large"
     :show="userSettingsStore.showModal"

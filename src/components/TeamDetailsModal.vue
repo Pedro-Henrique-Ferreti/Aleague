@@ -1,5 +1,6 @@
 <template>
   <AppModal
+    id="team-details-modal"
     :title="modalTitle"
     :show="show"
     @close="$emit('close')"

@@ -1,6 +1,7 @@
 <template>
   <AppModal
     use-max-height
+    id="team-pack-modal"
     title="Pacotes de equipe"
     size="large"
     :show="show"
