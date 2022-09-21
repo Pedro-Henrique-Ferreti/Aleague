@@ -4,14 +4,16 @@
     type="button"
     @click="$emit('click')"
   >
-    <BaseIcon
-      v-if="isFavorite"
-      class="team-card__icon-favorite"
-      icon="bookmark"
-    />
-    <span class="team-card__name">
-      {{ name }}
-    </span>
+    <div class="team-card__content">
+      <BaseIcon
+        v-if="isFavorite"
+        class="team-card__icon-favorite"
+        icon="bookmark"
+      />
+      <span class="team-card__name">
+        {{ name }}
+      </span>
+    </div>
   </button>
 </template>
 
@@ -31,22 +33,25 @@ defineProps({
 
 <style lang="scss" scoped>
 .team-card {
-  @include focus-ring($apply-position: false);
-  display: flex;
-  align-items: center;
-  width: 100%;
+  @include focus-ring;
   min-height: 3.5rem;
-  padding: 0.5rem 1rem;
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
   border-radius: 0.5rem;
   box-shadow: $box-shadow--layer-1;
   text-align: left;
-  position: relative;
-  overflow: hidden;
   transition: background-color $transition--fastest ease-in;
   &:hover {
     background-color: $color--light-gray-2;
+  }
+  &__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 1rem;
+    position: relative;
+    overflow: hidden;
   }
   &__name {
     font-size: 1.125rem;
