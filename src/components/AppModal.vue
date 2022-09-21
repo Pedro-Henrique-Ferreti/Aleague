@@ -2,7 +2,7 @@
   <Teleport to="body">
     <ModalOverlay
       :show="show"
-      @click="$emit('close', $event)"
+      @click="$emit('close')"
     >
       <AppTransition name="modal__fade">
         <BaseModal
@@ -11,7 +11,7 @@
           content-wrapper-classes="app-modal__content-wrapper"
           :class="modalClasses"
           :title="title"
-          @close="$emit('close', $event)"
+          @close="$emit('close')"
         >
           <div
             v-if="modalHasTabPanel"
@@ -63,7 +63,7 @@ import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
 
-defineEmits(['close', 'cancel', 'save']);
+const emit = defineEmits(['close', 'cancel', 'save']);
 
 const slots = useSlots();
 
@@ -109,12 +109,26 @@ const modalClasses = computed(() => ({
 }));
 
 watch(() => props.show, (show) => {
-  if (show) {
-    document.body.classList.add('hide-overflow-y');
-  } else {
-    document.body.classList.remove('hide-overflow-y');
-  }
+  (show) ? handleOpenModal() : handleCloseModal();
 });
+
+function handleOpenModal() {
+  document.body.classList.add('hide-overflow-y');
+  document.body.addEventListener('keyup', handleKeyupEvent);
+  document.querySelector('#app')?.setAttribute('inert', '');
+}
+
+function handleCloseModal() {
+  document.body.classList.remove('hide-overflow-y');
+  document.body.removeEventListener('keyup', handleKeyupEvent);
+  document.querySelector('#app')?.removeAttribute('inert');
+}
+
+function handleKeyupEvent(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    emit('close');
+  }
+}
 </script>
 
 <style lang="scss" scoped>
