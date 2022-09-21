@@ -113,13 +113,13 @@ watch(() => props.show, (show) => {
 });
 
 function handleOpenModal() {
-  document.body.classList.add('hide-overflow-y');
+  document.body.classList.add('no-scroll');
   document.body.addEventListener('keyup', handleKeyupEvent);
   document.querySelector('#app')?.setAttribute('inert', '');
 }
 
 function handleCloseModal() {
-  document.body.classList.remove('hide-overflow-y');
+  document.body.classList.remove('no-scroll');
   document.body.removeEventListener('keyup', handleKeyupEvent);
   document.querySelector('#app')?.removeAttribute('inert');
 }
