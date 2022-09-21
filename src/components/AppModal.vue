@@ -94,7 +94,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  maxHeight: {
+  useMaxHeight: {
     type: Boolean,
     default: false,
   },
@@ -106,7 +106,7 @@ const modalClasses = computed(() => ({
   'app-modal--medium': props.size === Sizes.medium,
   'app-modal--large': props.size === Sizes.large,
   'app-modal--has-footer': props.renderFooter,
-  'app-modal--max-height': props.maxHeight || props.renderFooter,
+  'app-modal--use-max-height': props.useMaxHeight || props.renderFooter,
   'app-modal--has-tab-panel': modalHasTabPanel.value,
 }));
 
@@ -151,7 +151,7 @@ function handleKeyupEvent(event: KeyboardEvent) {
       margin-bottom: 6.75rem;
     }
   }
-  &--max-height {
+  &--use-max-height {
     height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
   }
   width: 100%;
