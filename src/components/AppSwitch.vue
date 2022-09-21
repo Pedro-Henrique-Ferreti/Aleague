@@ -6,6 +6,7 @@
     <span
       v-if="showLabels"
       class="switch__label"
+      aria-hidden="true"
     >
       Não
     </span>
@@ -23,6 +24,7 @@
     <span
       v-if="showLabels"
       class="switch__label"
+      aria-hidden="true"
     >
       Sim
     </span>
