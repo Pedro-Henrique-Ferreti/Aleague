@@ -9,6 +9,8 @@
           v-show="show"
           class="app-modal"
           content-wrapper-classes="app-modal__content-wrapper"
+          role="dialog"
+          aria-modal="true"
           :class="modalClasses"
           :title="title"
           @close="$emit('close')"
