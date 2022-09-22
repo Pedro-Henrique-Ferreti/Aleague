@@ -97,7 +97,11 @@ onMounted(async () => {
 
 // Search field
 const teamName = ref('');
-const autocompleteOptions = computed(() => teamsStore.teams.map(({ name }) => name ));
+const autocompleteOptions = computed(() => {
+  return teamsStore.teams
+    .map(({ name }) => name )
+    .filter((team) => !participants.value.includes(team));
+});
 
 // Participants
 const participants = ref<(string | null)[]>([]);
