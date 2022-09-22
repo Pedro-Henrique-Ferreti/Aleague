@@ -9,6 +9,8 @@
       class="large-field__input"
       :type="type"
       :placeholder="placeholder"
+      @focus="$attrs.onFocus"
+      @blur="$attrs.onBlur"
     />
   </div>
 </template>
