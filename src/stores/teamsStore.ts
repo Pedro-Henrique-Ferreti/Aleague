@@ -24,16 +24,20 @@ export const useTeamsStore = defineStore('teams', {
 
       this.teams = teams;
     },
-    getTeamById(hashId: string): Promise<Team> {
-      return axios.get(`/teams/${hashId}`);
+    async getTeamById(hashId: string) {
+      const { data: team }: AxiosResponse<Team> = await axios.get(`/teams/${hashId}`);
+
+      return team;
     },
     async getTeamPacks() {
       const { data: teamPacks }: AxiosResponse<TeamPackListItem[]> = await axios.get('/team-packs');
 
       this.teamPacks = teamPacks;
     },
-    async getTeamPackById(hashId: string): Promise<TeamPack> {
-      return axios.get(`/team-packs/${hashId}`);
+    async getTeamPackById(hashId: string) {
+      const { data: teamPack }: AxiosResponse<TeamPack> = await axios.get(`/team-packs/${hashId}`);
+
+      return teamPack;
     },
     applyTeamPack(hashId: string) {
       return axios.post(`/team-packs/${hashId}/apply`);
