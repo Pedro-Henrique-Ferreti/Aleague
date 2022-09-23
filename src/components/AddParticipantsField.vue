@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import { computed, ref, type PropType } from 'vue';
-import { useMediaQuery } from '@vueuse/core';
+import { useMediaQuery } from '@/utils';
 import AppLargeField from './AppLargeField.vue';
 import AppTransition from './AppTransition.vue';
 
@@ -63,7 +63,7 @@ const inputValue = computed({
 });
 const inputIsFocused = ref(false);
 
-const showSmallButton = useMediaQuery('(min-width: 600px)');
+const { tabletPortraitUp: showSmallButton } = useMediaQuery();
 
 // Autocomplete list
 const showAutocompleteList = computed(() => {
