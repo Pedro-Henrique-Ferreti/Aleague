@@ -39,7 +39,9 @@
       >
         Voltar
       </AppButton>
-      <AppButton>Finalizar</AppButton>
+      <AppButton :disabled="participants.length !== league.numberOfTeams">
+        Finalizar
+      </AppButton>
     </template>
   </CreateLeagueForm>
 </template>
