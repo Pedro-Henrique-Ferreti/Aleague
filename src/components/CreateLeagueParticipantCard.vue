@@ -6,7 +6,7 @@
     <template v-if="cardIsEmpty">
       <div class="participant-card__empty-icon-wrapper">
         <BaseIcon
-          class="participant-card__empty-icon"  
+          class="participant-card__empty-icon"
           icon="team-shield"
         />
       </div>

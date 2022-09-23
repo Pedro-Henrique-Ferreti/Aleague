@@ -118,7 +118,7 @@ const modalClasses = computed(() => ({
 
 const modalLabelledById = computed(() => `${props.id}-title`);
 
-// Handle modal open and close events 
+// Handle modal open and close events
 watch(() => props.show, (show) => {
   (show) ? handleOpenModal() : handleCloseModal();
 });
