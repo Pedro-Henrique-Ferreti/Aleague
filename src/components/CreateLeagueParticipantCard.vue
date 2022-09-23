@@ -68,7 +68,7 @@ const cardIsEmpty = computed(() => !props.name);
   display: flex;
   align-items: center;
   min-height: 3.5rem;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   &__name {
     font-size: 1.125rem;
