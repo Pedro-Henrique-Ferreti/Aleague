@@ -28,3 +28,9 @@ export interface LeagueListItem extends League {
   completedGamesCount: number;
   stepsCompleted: LeagueSteps;
 }
+
+export interface LeagueParticipant {
+  id: number,
+  name: string;
+  created: boolean;
+}

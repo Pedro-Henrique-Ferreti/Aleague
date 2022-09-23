@@ -15,11 +15,10 @@
           :teams-count="league.numberOfTeams"
         />
         <AddParticipantsField
-          v-model="teamName"
           class="participants-search-field"
           placeholder="Digite o nome da equipe"
-          :autocomplete-options="autocompleteOptions"
-          :disable-add-button="disableAddParticipantsButton"
+          :participants="participants"
+          :disable-add-team="participants.length >= league.numberOfTeams"
           @add-team="addTeamToParticipantsList"
         />
         <div class="participants-grid">
@@ -27,8 +26,8 @@
             v-for="n in league.numberOfTeams"
             :key="n"
             :index="n"
-            :name="participants[n - 1] || ''"
-            @remove="removeTeamFromParticipantsList(participants[n - 1] || '')"
+            :name="participants[n - 1]?.name || ''"
+            @remove="removeTeamFromParticipantsList(participants[n - 1]?.id || -1)"
           />
         </div>
       </div>
@@ -48,7 +47,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import type { LeagueParticipant } from '@/types/League';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
@@ -98,34 +98,15 @@ onMounted(async () => {
   }
 });
 
-// Search field
-const teamName = ref('');
-
-const autocompleteOptions = computed(() => {
-  return teamsStore.teams
-    .map(({ name }) => name )
-    .filter((team) => !participants.value.includes(team));
-});
-
-const disableAddParticipantsButton = computed(() => {
-  const teamIsAdded = participants.value.filter(
-    (participant) => participant.toLowerCase() === teamName.value.toLowerCase(),
-  ).length > 0;
-
-  return teamName.value === '' || teamIsAdded;
-});
-
 // Participants
-const participants = ref<(string)[]>([]);
+const participants = ref<LeagueParticipant[]>([]);
 
-function addTeamToParticipantsList() {
-  participants.value.push(teamName.value);
-
-  teamName.value = '';
+function addTeamToParticipantsList(team: LeagueParticipant) {
+  participants.value.push(team);
 }
 
-function removeTeamFromParticipantsList(teamName: string) {
-  const teamIndex = participants.value.indexOf(teamName);
+function removeTeamFromParticipantsList(id: number) {
+  const teamIndex = participants.value.findIndex((item) => item.id === id);
 
   if (teamIndex > -1) {
     participants.value.splice(teamIndex, 1);

@@ -5,14 +5,14 @@
   >
     <AppLargeField
       v-bind="$attrs"
-      v-model.trim="inputValue"
+      v-model.trim="teamName"
       @focus="inputIsFocused = true"
       @blur="handleBlur"
     />
     <AppButton
       class="add-participants-field__button"
       type="text"
-      :disabled="disableAddButton"
+      :disabled="disableAddTeam"
       :size="showSmallButton ? 'small' : null"
       @click="addTeam"
     >
@@ -24,12 +24,12 @@
         class="add-participants-field__autocomplete-list"
       >
         <div
-          v-for="option in autocompleteList.slice(0, 8)"
+          v-for="team in autocompleteValues.slice(0, 8)"
           class="add-participants-field__autocomplete-list-item"
-          :key="option"
-          @click="selectOption(option)"
+          :key="team.id"
+          @click="selectTeam(team)"
         >
-          {{ option }}
+          {{ team.name }}
         </div>
       </div>
     </AppTransition>
@@ -37,65 +37,95 @@
 </template>
 
 <script lang="ts" setup>
+import type { TeamListItem } from '@/types/Team';
+import type { LeagueParticipant } from '@/types/League';
 import { computed, ref, type PropType } from 'vue';
 import { useMediaQuery } from '@/utils';
+import { useTeamsStore } from '@/stores/teamsStore';
 import AppLargeField from './AppLargeField.vue';
 import AppTransition from './AppTransition.vue';
 
-const emit = defineEmits(['update:modelValue', 'add-team']);
+const teamsStore = useTeamsStore();
+
+const emit = defineEmits(['add-team']);
 const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
-  autocompleteOptions: {
-    type: Array as PropType<string[]>,
+  participants: {
+    type: Array as PropType<LeagueParticipant[]>,
     default: () => ([]),
   },
-  disableAddButton: {
+  disableAddTeam: {
     type: Boolean,
     default: false,
   },
 });
 
-const inputValue = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit('update:modelValue', value);
-  },
+const normalizeName = (name: string) => {
+  return name.toLowerCase().split(' ').map((s) => s.trim()).join('');
+};
+
+const participantNames = computed(() => {
+  return props.participants.map(({ name }) => normalizeName(name));
 });
-const inputIsFocused = ref(false);
 
 const { tabletPortraitUp: showSmallButton } = useMediaQuery();
 
-// Autocomplete list
-const showAutocompleteList = computed(() => {
-  return props.autocompleteOptions.length > 0
-    && inputIsFocused.value
-    && inputValue.value.length > 0
-    && autocompleteList.value.length > 0;
+// Input state
+const teamName = ref('');
+
+const disableAddTeam = computed(() => {
+  return participantNames.value.includes(normalizeName(teamName.value))
+    || teamName.value === ''
+    || props.disableAddTeam;
 });
 
-const autocompleteList = computed(() => props.autocompleteOptions.filter(
-  (option) => option.toLowerCase().includes(inputValue.value.toLowerCase()),
-));
+function selectTeam(team: TeamListItem) {
+  teamName.value = team.name;
+
+  addTeam();
+}
+
+function addTeam() {
+  const team = teamsStore.teams.find(
+    ({ name }) => normalizeName(name) === normalizeName(teamName.value),
+  );
+
+  if (team) {
+    emit('add-team', {
+      id: team.id,
+      name: team.name,
+      created: true,
+    });
+  } else {
+    emit('add-team', {
+      id: new Date().getTime(),
+      name: teamName.value,
+      created: false,
+    });
+  }
+
+  teamName.value = '';
+}
+
+// Input focus and blur
+const inputIsFocused = ref(false);
 
 function handleBlur() {
   setTimeout(() => inputIsFocused.value = false, 300);
 }
 
-function selectOption(option: string) {
-  inputValue.value = option;
-  addTeam();
-}
+// Autocomplete list
+const showAutocompleteList = computed(() => {
+  return inputIsFocused.value
+    && teamName.value.length > 0
+    && autocompleteValues.value.length > 0;
+});
 
-function addTeam() {
-  if (props.disableAddButton) return;
+const autocompleteValues = computed(() => teamsStore.teams.filter(({ name }) => {
+  const nameNormalized = normalizeName(name);
 
-  emit('add-team');
-}
+  return nameNormalized.includes(normalizeName(teamName.value))
+    && !participantNames.value.includes(nameNormalized);
+}));
 </script>
 
 <style lang="scss" scoped>
