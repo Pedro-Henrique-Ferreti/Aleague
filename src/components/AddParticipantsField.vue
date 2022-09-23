@@ -11,7 +11,8 @@
     />
     <AppButton
       class="add-participants-field__button"
-      :disabled="inputValue === ''"
+      type="text"
+      :disabled="disableAddButton"
       :size="showSmallButton ? 'small' : null"
       @click="addTeam"
     >
@@ -51,6 +52,10 @@ const props = defineProps({
     type: Array as PropType<string[]>,
     default: () => ([]),
   },
+  disableAddButton: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const inputValue = computed({
@@ -87,6 +92,8 @@ function selectOption(option: string) {
 }
 
 function addTeam() {
+  if (props.disableAddButton) return;
+
   emit('add-team');
 }
 </script>

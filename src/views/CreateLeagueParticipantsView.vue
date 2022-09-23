@@ -19,6 +19,7 @@
           class="participants-search-field"
           placeholder="Digite o nome da equipe"
           :autocomplete-options="autocompleteOptions"
+          :disable-add-button="disableAddParticipantsButton"
           @add-team="addTeamToParticipantsList"
         />
         <div class="participants-grid">
@@ -27,7 +28,7 @@
             :key="n"
             :index="n"
             :name="participants[n - 1] || ''"
-            @remove="removeTeamFromParticipantList(participants[n - 1] || '')"
+            @remove="removeTeamFromParticipantsList(participants[n - 1] || '')"
           />
         </div>
       </div>
@@ -99,14 +100,23 @@ onMounted(async () => {
 
 // Search field
 const teamName = ref('');
+
 const autocompleteOptions = computed(() => {
   return teamsStore.teams
     .map(({ name }) => name )
     .filter((team) => !participants.value.includes(team));
 });
 
+const disableAddParticipantsButton = computed(() => {
+  const teamIsAdded = participants.value.filter(
+    (participant) => participant.toLowerCase() === teamName.value.toLowerCase(),
+  ).length > 0;
+
+  return teamName.value === '' || teamIsAdded;
+});
+
 // Participants
-const participants = ref<(string | null)[]>([]);
+const participants = ref<(string)[]>([]);
 
 function addTeamToParticipantsList() {
   participants.value.push(teamName.value);
@@ -114,7 +124,7 @@ function addTeamToParticipantsList() {
   teamName.value = '';
 }
 
-function removeTeamFromParticipantList(teamName: string) {
+function removeTeamFromParticipantsList(teamName: string) {
   const teamIndex = participants.value.indexOf(teamName);
 
   if (teamIndex > -1) {
