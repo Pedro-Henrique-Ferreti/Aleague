@@ -8,10 +8,13 @@
       v-model.trim="teamName"
       @focus="inputIsFocused = true"
       @blur="handleBlur"
+      @keyup.up="moveHighlightedAutocompleteOption(-1)"
+      @keyup.down="moveHighlightedAutocompleteOption(1)"
+      @keyup.enter="handleEnterKeypress"
     />
     <AppButton
       class="add-participants-field__button"
-      type="text"
+      type="button"
       :disabled="disableAddTeam"
       :size="showSmallButton ? 'small' : null"
       @click="addTeam"
@@ -24,8 +27,9 @@
         class="add-participants-field__autocomplete-list"
       >
         <div
-          v-for="team in autocompleteValues.slice(0, 8)"
+          v-for="(team, index) in autocompleteValues"
           class="add-participants-field__autocomplete-list-item"
+          :class="{ 'highlighted': highlightedAutocompleteOption === index }"
           :key="team.id"
           @click="selectTeam(team)"
         >
@@ -39,7 +43,7 @@
 <script lang="ts" setup>
 import type { TeamListItem } from '@/types/Team';
 import type { LeagueParticipant } from '@/types/League';
-import { computed, ref, type PropType } from 'vue';
+import { computed, ref, watch, type PropType } from 'vue';
 import { useMediaQuery } from '@/utils';
 import { useTeamsStore } from '@/stores/teamsStore';
 import AppLargeField from './AppLargeField.vue';
@@ -78,6 +82,17 @@ const disableAddTeam = computed(() => {
     || props.disableAddTeam;
 });
 
+// Select and add a team
+function handleEnterKeypress() {
+  const team = autocompleteValues.value[highlightedAutocompleteOption.value];
+
+  if (team) {
+    selectTeam(team);
+  } else {
+    addTeam();
+  }
+}
+
 function selectTeam(team: TeamListItem) {
   teamName.value = team.name;
 
@@ -85,6 +100,8 @@ function selectTeam(team: TeamListItem) {
 }
 
 function addTeam() {
+  if (teamName.value === '') return;
+ 
   const team = teamsStore.teams.find(
     ({ name }) => normalizeName(name) === normalizeName(teamName.value),
   );
@@ -125,7 +142,28 @@ const autocompleteValues = computed(() => teamsStore.teams.filter(({ name }) => 
 
   return nameNormalized.includes(normalizeName(teamName.value))
     && !participantNames.value.includes(nameNormalized);
-}));
+}).slice(0, 8));
+
+// Highligh autocomplete options
+const highlightedAutocompleteOption = ref(-1);
+
+function moveHighlightedAutocompleteOption(step: number) {
+  if (!showAutocompleteList.value) return;
+  
+  let newIndex = highlightedAutocompleteOption.value + step;
+
+  if (newIndex < 0) {
+    newIndex = autocompleteValues.value.length - 1;
+  } else if (newIndex >= autocompleteValues.value.length) {
+    newIndex = 0;
+  }
+
+  highlightedAutocompleteOption.value = newIndex;
+}
+
+watch(() => showAutocompleteList.value, () => {
+  highlightedAutocompleteOption.value = -1;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -168,7 +206,8 @@ const autocompleteValues = computed(() => teamsStore.teams.filter(({ name }) => 
     padding: 0 1rem;
     transition: all $transition--fastest ease-in;
     cursor: pointer;
-    &:hover {
+    &:hover,
+    &.highlighted {
       background-color: $color--light-gray-2;
       color: $color--text-darken;
     }
