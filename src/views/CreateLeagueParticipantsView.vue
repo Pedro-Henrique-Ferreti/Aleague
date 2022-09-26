@@ -6,7 +6,7 @@
     <p>Escolha as equiper que participarão do campeonato. Você pode revisar as configurações antes de finalizar.</p>
   </PageHeader>
   <CreateLeagueStepper :current-step="3" />
-  <CreateLeagueForm>
+  <CreateLeagueForm @submit="submitForm">
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else>
@@ -39,7 +39,10 @@
       >
         Voltar
       </AppButton>
-      <AppButton :disabled="participants.length !== league.numberOfTeams">
+      <AppButton
+        :is-loading="isSavingLeague"
+        :disabled="participants.length !== league.numberOfTeams"
+      >
         Finalizar
       </AppButton>
     </template>
@@ -49,7 +52,7 @@
 <script lang="ts" setup>
 import type { LeagueParticipant } from '@/types/League';
 import { onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
@@ -63,6 +66,7 @@ import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
 import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
 import ParticipantCard from '@/components/CreateLeagueParticipantCard.vue';
 
+const router = useRouter();
 const route = useRoute();
 const teamsStore = useTeamsStore();
 const leaguesStore = useLeaguesStore();
@@ -110,6 +114,30 @@ function removeTeamFromParticipantsList(id: number) {
 
   if (teamIndex > -1) {
     participants.value.splice(teamIndex, 1);
+  }
+}
+
+// Submit form
+const isSavingLeague = ref(false);
+
+async function submitForm() {
+  isSavingLeague.value = true;
+
+  try {
+    await leaguesStore.saveLeagueParticipants(league.value.id, participants.value);
+
+    openSnackbarNotification({
+      message: 'Liga criada com sucesso!',
+    });
+
+    router.push({ name: 'leagues' });
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isSavingLeague.value = false;
   }
 }
 </script>

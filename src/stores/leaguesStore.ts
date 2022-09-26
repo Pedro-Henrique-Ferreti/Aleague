@@ -1,8 +1,9 @@
 import type { AxiosResponse } from 'axios';
-import type { League, LeagueListItem, LeagueWithStandings } from '@/types/League';
+import type { League, LeagueListItem, LeagueParticipant, LeagueWithStandings } from '@/types/League';
 import type { UpdateLeagueRulesParams } from '@/types/LeaguesStore';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
+import { useTeamsStore } from './teamsStore';
 
 interface State {
   leagues: LeagueListItem[];
@@ -40,6 +41,33 @@ export const useLeaguesStore = defineStore('leagues', {
         numberOfTeams,
         awayGames,
       });
+    },
+    addLeagueTeams(id: string, teams: number[]) {
+      return axios.post(`/leagues/${id}/teams`, { teams });
+    },
+    async saveLeagueParticipants(leagueId: string, participants: LeagueParticipant[]) {
+      const teamsStore = useTeamsStore();
+
+      const teamsNotCreated = participants.filter(({ created }) => !created);
+
+      if (teamsNotCreated.length > 0) {
+        await teamsStore.createManyTeams(teamsNotCreated.map(({ name }) => ({ name })));
+        await teamsStore.getTeams();
+      }
+
+      const teamIds: number[] = [];
+
+      participants.forEach((participant) => {
+        const id = (participant.created)
+          ? participant.id
+          : teamsStore.teams.find(({ name }) => name === participant.name)?.id;
+
+        if (id) {
+          teamIds.push(id);
+        }
+      });
+
+      return this.addLeagueTeams(leagueId, teamIds);
     },
   },
 });
