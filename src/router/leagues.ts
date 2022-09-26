@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import LeaguesView from '@/views/LeaguesView.vue';
+import LeagueView from '@/views/LeagueView.vue';
 import CreateLeagueView from '@/views/CreateLeagueView.vue';
 import CreateLeagueFormatView from '@/views/CreateLeagueFormatView.vue';
 import CreateLeagueRulesView from '@/views/CreateLeagueRulesView.vue';
@@ -41,6 +42,14 @@ export default [
     path: '/leagues',
     name: 'leagues',
     component: LeaguesView,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/leagues/:id',
+    name: 'view-league',
+    component: LeagueView,
     meta: {
       requiresAuth: true,
     },

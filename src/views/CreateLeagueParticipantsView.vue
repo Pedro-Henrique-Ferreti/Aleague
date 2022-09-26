@@ -130,7 +130,10 @@ async function submitForm() {
       message: 'Liga criada com sucesso!',
     });
 
-    router.push({ name: 'leagues' });
+    router.push({
+      name: 'view-league',
+      params: { id: league.value.id },
+    });
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

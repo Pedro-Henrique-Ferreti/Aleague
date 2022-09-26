@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { LeagueListItemSteps } from '@/types/League';
+import type { LeagueSteps } from '@/types/League';
 import { computed, ref, watch, type PropType } from 'vue';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -86,7 +86,7 @@ const props = defineProps({
     default: 0,
   },
   stepsCompleted: {
-    type: Object as PropType<LeagueListItemSteps>,
+    type: Object as PropType<LeagueSteps>,
     required: true,
   },
   createdAt: {
@@ -150,7 +150,7 @@ function setProgressBarValue() {
 const cardPath = computed(() => {
   if (props.stepsCompleted.third) {
     return {
-      name: 'leagues',
+      name: 'view-league',
       params: { id: props.hashId },
     };
   }
