@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import type { Team, TeamListItem } from '@/types/Team';
+import type { Team, TeamListItem, TeamToBeCreated } from '@/types/Team';
 import type { TeamPack, TeamPackListItem } from '@/types/TeamPack';
 import axios from '@/helpers/axios';
 import { defineStore } from 'pinia';
@@ -41,6 +41,9 @@ export const useTeamsStore = defineStore('teams', {
     },
     applyTeamPack(hashId: string) {
       return axios.post(`/team-packs/${hashId}/apply`);
+    },
+    createManyTeams(teams: TeamToBeCreated[]) {
+      return axios.post('/teams/createMany', { teams });
     },
   },
 });

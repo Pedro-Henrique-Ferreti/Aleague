@@ -12,3 +12,7 @@ export interface TeamListItem {
   name: string;
   isFavorite: boolean;
 }
+
+export interface TeamToBeCreated {
+  name: string;
+}

@@ -101,7 +101,7 @@ function selectTeam(team: TeamListItem) {
 
 function addTeam() {
   if (teamName.value === '') return;
- 
+
   const team = teamsStore.teams.find(
     ({ name }) => normalizeName(name) === normalizeName(teamName.value),
   );
@@ -149,7 +149,7 @@ const highlightedAutocompleteOption = ref(-1);
 
 function moveHighlightedAutocompleteOption(step: number) {
   if (!showAutocompleteList.value) return;
-  
+
   let newIndex = highlightedAutocompleteOption.value + step;
 
   if (newIndex < 0) {
