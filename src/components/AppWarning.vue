@@ -57,7 +57,7 @@ defineProps({
   &__body {
     flex: 1;
     margin-left: 1rem;
-    * {
+    :deep(*) {
       color: $color--text-darken;
     }
   }
