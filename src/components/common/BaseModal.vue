@@ -3,7 +3,10 @@
     class="modal"
     :class="modalClasses"
   >
-    <header class="modal__header">
+    <header
+      v-if="title"
+      class="modal__header"
+    >
       <span
         class="modal__header-title"
         :id="titleId || undefined"
@@ -40,7 +43,7 @@ defineEmits(['close']);
 const props = defineProps({
   title: {
     type: String,
-    required: true,
+    default: '',
   },
   titleId: {
     type: String,
