@@ -1,4 +1,10 @@
 <template>
+  <ConfirmationModal
+    :show="showConfirmationModal"
+    :participants="participantsNotCreated"
+    @close="toggleConfirmationModal"
+    @confirm="saveLeague"
+  />
   <PageHeader>
     <template #title>
       Criar campeonato
@@ -6,7 +12,7 @@
     <p>Escolha as equiper que participarão do campeonato. Você pode revisar as configurações antes de finalizar.</p>
   </PageHeader>
   <CreateLeagueStepper :current-step="3" />
-  <CreateLeagueForm @submit="submitForm">
+  <CreateLeagueForm @submit="toggleConfirmationModal">
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else>
@@ -51,7 +57,7 @@
 
 <script lang="ts" setup>
 import type { LeagueParticipant } from '@/types/League';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
@@ -65,6 +71,7 @@ import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
 import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
 import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
 import ParticipantCard from '@/components/CreateLeagueParticipantCard.vue';
+import ConfirmationModal from '@/components/CreateLeagueConfirmationModal.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -105,6 +112,10 @@ onMounted(async () => {
 // Participants
 const participants = ref<LeagueParticipant[]>([]);
 
+const participantsNotCreated = computed(() => {
+  return participants.value.filter(({ created }) => !created);
+});
+
 function addTeamToParticipantsList(team: LeagueParticipant) {
   participants.value.push(team);
 }
@@ -117,10 +128,19 @@ function removeTeamFromParticipantsList(id: number) {
   }
 }
 
-// Submit form
+// Confirmation modal
+const showConfirmationModal = ref(false);
+
+function toggleConfirmationModal() {
+  showConfirmationModal.value = !showConfirmationModal.value;
+}
+
+// Save league participants
 const isSavingLeague = ref(false);
 
-async function submitForm() {
+async function saveLeague() {
+  toggleConfirmationModal();
+
   isSavingLeague.value = true;
 
   try {
