@@ -55,6 +55,7 @@
 
 <script lang="ts">
 enum Sizes {
+  small = 'small',
   medium = 'medium',
   large = 'large',
 }
@@ -109,6 +110,7 @@ const props = defineProps({
 const modalHasTabPanel = computed(() => slots.tabPanel);
 
 const modalClasses = computed(() => ({
+  'app-modal--small': props.size === Sizes.small,
   'app-modal--medium': props.size === Sizes.medium,
   'app-modal--large': props.size === Sizes.large,
   'app-modal--has-footer': props.renderFooter,
@@ -144,6 +146,9 @@ function handleKeyupEvent(event: KeyboardEvent) {
 
 <style lang="scss" scoped>
 .app-modal {
+  &--small {
+    max-width: 37.5rem; // 600px
+  }
   &--medium {
     max-width: 45rem; // 720px
   }
