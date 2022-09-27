@@ -1,3 +1,5 @@
+import type { Game } from './Game';
+
 export interface League {
   id: number;
   hashid: string;
@@ -15,7 +17,18 @@ export interface LeagueSteps {
 }
 
 export interface Standing {
-
+  gamesDrawn: number;
+  gamesLost: number;
+  gamesPlayed: number;
+  gamesWon: number;
+  goalDifference: number;
+  goalsAgainst: number;
+  goalsFor: number;
+  points: number;
+  recentGames: Game[];
+  teamHashid: string;
+  teamId: number;
+  teamName: string;
 }
 
 export interface LeagueWithStandings extends League {
