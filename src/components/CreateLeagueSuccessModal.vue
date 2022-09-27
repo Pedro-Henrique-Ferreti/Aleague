@@ -1,35 +1,42 @@
 <template>
   <Teleport to="body">
     <ModalOverlay :show="show">
-    <AppTransition name="modal__fade">
-      <BaseModal
-        v-show="show"
-        class="success-modal"
-        content-wrapper-classes="success-modal__content-wrapper"
-      >
-        <img src="/images/awards.svg" alt="Trophy and medals" class="success-modal__image"/>
-        <span class="success-modal__title">
-          Muito bem, John Doe!
-        </span>
-        <p class="success-modal__message">
-          Seu campeonato foi criado com sucesso.
-        </p>
-        <AppButton
-          class="success-modal__button"
-          :to="{ name: 'view-league', params: { id: leagueId }}"
+      <AppTransition name="modal__fade">
+        <BaseModal
+          v-show="show"
+          class="success-modal"
+          content-wrapper-classes="success-modal__content-wrapper"
         >
-          Visualizar o campeonato
-        </AppButton>
-      </BaseModal>
-    </AppTransition>
+          <img
+            src="/images/awards.svg"
+            alt="Trophy and medals"
+            class="success-modal__image"
+          />
+          <span class="success-modal__title">
+            Muito bem, {{ userStore.user?.username }}
+          </span>
+          <p class="success-modal__message">
+            Seu campeonato foi criado com sucesso.
+          </p>
+          <AppButton
+            class="success-modal__button"
+            :to="{ name: 'view-league', params: { id: leagueId }}"
+          >
+            Visualizar o campeonato
+          </AppButton>
+        </BaseModal>
+      </AppTransition>
     </ModalOverlay>
   </Teleport>
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from '@/stores/userStore'; 
 import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
+
+const userStore = useUserStore();
 
 defineProps({
   show: {

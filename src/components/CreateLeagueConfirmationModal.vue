@@ -7,7 +7,7 @@
     @close="$emit('close')"
   >
     <p class="text-center">
-      Você tem certeza que deseja criar <b>"Campeonato Brasileiro Série A"</b>? As regras e os participantes não poderão ser alterados após a criação.
+      Você tem certeza que deseja criar <b>"{{ leagueName }}"</b>? As regras e os participantes não poderão ser alterados após a criação.
     </p>
     <AppWarning
       v-if="participants.length > 0"
@@ -48,6 +48,10 @@ defineEmits(['close', 'confirm']);
 defineProps({
   show: {
     type: Boolean,
+    required: true,
+  },
+  leagueName: {
+    type: String,
     required: true,
   },
   participants: {

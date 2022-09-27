@@ -1,6 +1,7 @@
 <template>
   <ConfirmationModal
     :show="showConfirmationModal"
+    :league-name="league.name"
     :participants="participantsNotCreated"
     @close="toggleConfirmationModal"
     @confirm="saveLeague"
