@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/stores/userStore'; 
+import { useUserStore } from '@/stores/userStore';
 import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
