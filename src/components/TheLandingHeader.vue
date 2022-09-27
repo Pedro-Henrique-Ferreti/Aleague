@@ -5,8 +5,21 @@
   >
     <div class="landing-header__content container-medium">
       <AppLogo />
+      <AppButton
+        class="landing-header__toggle-menu-button"
+        type="button"
+        color="gray"
+        size="small"
+        aria-controls="landing-header-nav"
+        :icon-left="menuIsOpen ? 'close' : 'menu'"
+        :aria-expanded="menuIsOpen"
+        @click="menuIsOpen = !menuIsOpen"
+      >
+        <span>Menu</span>
+      </AppButton>
       <nav
         class="landing-header__menu container"
+        id="landing-header-nav"
         :class="[menuIsOpen ? 'landing-header__menu--open' : '']"
       >
         <hr class="landing-header__menu-divider" />
@@ -24,15 +37,6 @@
           Cadastre-se
         </AppButton>
       </nav>
-      <AppButton
-        class="landing-header__toggle-menu-button"
-        color="gray"
-        size="small"
-        :icon-left="menuIsOpen ? 'close' : 'menu'"
-        @click="menuIsOpen = !menuIsOpen"
-      >
-        Menu
-      </AppButton>
     </div>
   </header>
 </template>
