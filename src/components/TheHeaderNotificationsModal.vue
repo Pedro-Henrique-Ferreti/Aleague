@@ -8,7 +8,7 @@
       class="header-notifications"
     >
       <BaseModal
-        is-simple
+        hide-close-button
         class="header-notifications__modal"
         title="Notificações"
         content-wrapper-classes="header-notifications__content"

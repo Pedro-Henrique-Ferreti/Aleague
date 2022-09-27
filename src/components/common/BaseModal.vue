@@ -14,7 +14,7 @@
         {{ title }}
       </span>
       <button
-        v-if="!isSimple"
+        v-if="!hideCloseButton"
         class="modal__close-button"
         type="button"
         aria-label="Close modal"
@@ -49,7 +49,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  isSimple: {
+  hideCloseButton: {
     type: Boolean,
     default: false,
   },
@@ -60,7 +60,7 @@ const props = defineProps({
 });
 
 const modalClasses = computed(() => ({
-  'modal--simple': props.isSimple,
+  'modal--no-close-button': props.hideCloseButton,
 }));
 </script>
 
@@ -69,7 +69,7 @@ const modalClasses = computed(() => ({
   --content-spacing: 1.5rem;
   --header-font-size: 1.5rem;
   --close-button-size: 2rem;
-  &--simple {
+  &--no-close-button {
     --content-spacing: 1rem;
     --header-font-size: 1.25rem;
     .modal__header {
