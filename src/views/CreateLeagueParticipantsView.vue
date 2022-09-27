@@ -5,6 +5,10 @@
     @close="toggleConfirmationModal"
     @confirm="saveLeague"
   />
+  <SuccessModal
+    :show="showSuccessModal"
+    :league-id="league.id"
+  />
   <PageHeader>
     <template #title>
       Criar campeonato
@@ -58,7 +62,7 @@
 <script lang="ts" setup>
 import type { LeagueParticipant } from '@/types/League';
 import { computed, onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
@@ -72,8 +76,8 @@ import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
 import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
 import ParticipantCard from '@/components/CreateLeagueParticipantCard.vue';
 import ConfirmationModal from '@/components/CreateLeagueConfirmationModal.vue';
+import SuccessModal from '@/components/CreateLeagueSuccessModal.vue';
 
-const router = useRouter();
 const route = useRoute();
 const teamsStore = useTeamsStore();
 const { getLeagueById, saveLeagueParticipants } = useLeaguesStore();
@@ -135,6 +139,13 @@ function toggleConfirmationModal() {
   showConfirmationModal.value = !showConfirmationModal.value;
 }
 
+// Success modal
+const showSuccessModal = ref(false);
+
+function toggleSuccessModal() {
+  showSuccessModal.value = !showSuccessModal.value;
+}
+
 // Save league participants
 const isSavingLeague = ref(false);
 
@@ -146,14 +157,7 @@ async function saveLeague() {
   try {
     await saveLeagueParticipants(league.value.id, participants.value);
 
-    openSnackbarNotification({
-      message: 'Liga criada com sucesso!',
-    });
-
-    router.push({
-      name: 'view-league',
-      params: { id: league.value.id },
-    });
+    toggleSuccessModal();
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
