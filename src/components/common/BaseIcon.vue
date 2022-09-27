@@ -31,6 +31,7 @@ import People from '@/components/icons/IconPeople.vue';
 import Plus from '@/components/icons/IconPlus.vue';
 import Save from '@/components/icons/IconSave.vue';
 import Search from '@/components/icons/IconSearch.vue';
+import TeamAdd from '@/components/icons/IconTeamAdd.vue';
 import TeamShield from '@/components/icons/IconTeamShield.vue';
 import TeamShieldOutline from '@/components/icons/IconTeamShieldOutline.vue';
 import Trophy from '@/components/icons/IconTrophy.vue';
@@ -100,6 +101,8 @@ const icon = computed(() => {
       return Search;
     case 'plus':
       return Plus;
+    case 'teamadd':
+      return TeamAdd;
     case 'teamshield':
       return TeamShield;
     case 'teamshieldoutline':

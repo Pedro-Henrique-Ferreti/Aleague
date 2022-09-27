@@ -4,6 +4,7 @@
     :class="{ 'add-participants-field--list-open': showAutocompleteList }"
   >
     <AppLargeField
+      icon="team-add"
       v-bind="$attrs"
       v-model.trim="teamName"
       @focus="inputIsFocused = true"
