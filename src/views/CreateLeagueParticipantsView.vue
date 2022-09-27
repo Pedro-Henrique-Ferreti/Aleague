@@ -69,7 +69,7 @@ import ParticipantCard from '@/components/CreateLeagueParticipantCard.vue';
 const router = useRouter();
 const route = useRoute();
 const teamsStore = useTeamsStore();
-const leaguesStore = useLeaguesStore();
+const { getLeagueById, saveLeagueParticipants } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
@@ -86,7 +86,7 @@ onMounted(async () => {
 
   try {
     const [{ name, numberOfTeams }] = await Promise.all([
-      leaguesStore.getLeague(league.value.id),
+      getLeagueById(league.value.id),
       teamsStore.getTeams(),
     ]);
 
@@ -124,7 +124,7 @@ async function submitForm() {
   isSavingLeague.value = true;
 
   try {
-    await leaguesStore.saveLeagueParticipants(league.value.id, participants.value);
+    await saveLeagueParticipants(league.value.id, participants.value);
 
     openSnackbarNotification({
       message: 'Liga criada com sucesso!',

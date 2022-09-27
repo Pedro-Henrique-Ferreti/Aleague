@@ -85,7 +85,7 @@ const props = defineProps({
 });
 
 const router = useRouter();
-const leaguesStore = useLeaguesStore();
+const { getLeagueById, updateLeague, createLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Clear league data
@@ -111,7 +111,7 @@ async function getLeague() {
   if (!league.value.id) return;
 
   try {
-    const { name } = await leaguesStore.getLeague(league.value.id);
+    const { name } = await getLeagueById(league.value.id);
 
     league.value.name = name;
     league.value.format = COMPETITION_FORMATS.league.value;
@@ -143,12 +143,12 @@ async function submitForm() {
 
   try {
     if (league.value.id) {
-      await leaguesStore.updateLeague({
+      await updateLeague({
         hashId: league.value.id,
         name: league.value.name,
       });
     } else {
-      league.value.id = await leaguesStore.createLeague({ name: league.value.name });
+      league.value.id = await createLeague({ name: league.value.name });
     }
 
     router.push({

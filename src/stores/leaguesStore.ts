@@ -23,7 +23,7 @@ export const useLeaguesStore = defineStore('leagues', {
 
       this.leagues = leagues;
     },
-    async getLeague(hashId: string) {
+    async getLeagueById(hashId: string) {
       const { data: league }: AxiosResponse<LeagueWithStandings> = await axios.get(`/leagues/${hashId}`);
 
       return league;

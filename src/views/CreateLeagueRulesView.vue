@@ -78,7 +78,7 @@ import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
 
 const router = useRouter();
 const route = useRoute();
-const leaguesStore = useLeaguesStore();
+const { getLeagueById, updateLeagueRules } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const isLoadingLeague = ref(true);
@@ -97,7 +97,7 @@ async function getLeague() {
   isLoadingLeague.value = true;
 
   try {
-    const { name, numberOfTeams, numberOfGameweeks } = await leaguesStore.getLeague(league.value.id);
+    const { name, numberOfTeams, numberOfGameweeks } = await getLeagueById(league.value.id);
 
     league.value.name = name;
     league.value.numberOfTeams = numberOfTeams || 0;
@@ -127,7 +127,7 @@ async function submitForm() {
   isSavingLeague.value = true;
 
   try {
-    await leaguesStore.updateLeagueRules({
+    await updateLeagueRules({
       hashId: league.value.id,
       numberOfTeams: league.value.numberOfTeams,
       awayGames: league.value.awayGames,

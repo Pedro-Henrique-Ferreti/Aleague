@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="container-medium">
     league {{ $route.params.id }}
   </div>
 </template>
