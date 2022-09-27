@@ -2,7 +2,9 @@
   <div class="container-medium">
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoadingLeague" />
-      <pre v-else>{{ league }}</pre>
+      <div v-else-if="league">
+        <LeagueHeader :league-name="league.name" />
+      </div>
     </AppTransition>
   </div>
 </template>
@@ -16,6 +18,7 @@ import { useNotificationStore } from '@/stores/notificationStore';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import LeagueHeader from '../components/LeagueHeader.vue';
 
 const route = useRoute();
 const { getLeagueById } = useLeaguesStore();
@@ -42,7 +45,3 @@ async function getLeague() {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
