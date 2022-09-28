@@ -4,6 +4,7 @@
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else-if="league">
         <LeagueHeader :league-name="league.name" />
+        <LeagueDetails :league="league" />
       </div>
     </AppTransition>
   </div>
@@ -18,7 +19,8 @@ import { useNotificationStore } from '@/stores/notificationStore';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
-import LeagueHeader from '../components/LeagueHeader.vue';
+import LeagueHeader from '@/components/LeagueHeader.vue';
+import LeagueDetails from '@/components/LeagueDetails.vue';
 
 const route = useRoute();
 const { getLeagueById } = useLeaguesStore();

@@ -1,0 +1,93 @@
+<template>
+  <section>
+    <SectionHeader heading="h3">
+      Informações do campeonato
+    </SectionHeader>
+    <ul class="league-info-list">
+      <li class="league-info-list__item">
+        <BaseIcon
+          class="league-info-list__item-icon"
+          icon="football"
+        />
+        <span class="league-info-list__item-text">Pontos corridos</span>
+      </li>
+      <li class="league-info-list__item">
+        <BaseIcon
+          class="league-info-list__item-icon"
+          icon="people"
+        />
+        <span class="league-info-list__item-text">
+          {{ teamsCount }} participantes
+        </span>
+      </li>
+      <li class="league-info-list__item">
+        <BaseIcon
+          class="league-info-list__item-icon"
+          icon="calendar-check"
+        />
+        <span class="league-info-list__item-text">
+          Criado em {{ getFullDate(createdAt) }}
+        </span>
+      </li>
+      <li class="league-info-list__item">
+        <BaseIcon
+          class="league-info-list__item-icon"
+          icon="calendar-edit"
+        />
+        <span class="league-info-list__item-text">
+          Última alteração em {{ getFullDate(updatedAt) }}
+        </span>
+      </li>
+    </ul>
+    <span>Andamento do campeonato</span>
+    <AppProgressBar :value="58" />
+  </section>
+</template>
+
+<script lang="ts" setup>
+import type { PropType } from 'vue';
+import { getFullDate } from '@/utils';
+import SectionHeader from './SectionHeader.vue';
+import AppProgressBar from './AppProgressBar.vue';
+
+defineProps({
+  teamsCount: {
+    type: Number as PropType<number | null>,
+    default: 0,
+  },
+  createdAt: {
+    type: String,
+    default: '',
+  },
+  updatedAt: {
+    type: String,
+    default: '',
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.league-info-list {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+  &__item-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+  }
+  &__item-text {
+    flex: 1;
+  }
+  @include for-tablet-landscape-up {
+    grid-template-columns: 1fr 1fr;
+    .league-info-list__item:nth-child(n + 3) {
+      grid-column: 1 / 3;
+    }
+  }
+}
+</style>
