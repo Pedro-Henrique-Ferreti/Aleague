@@ -20,7 +20,8 @@ defineProps({
 
 <style lang="scss" scoped>
 .section-header {
-  margin-bottom: 1.5rem;
+  --spacing: 1rem;
+  margin-bottom: var(--spacing);
   &__title {
     display: flex;
     align-items: flex-end;

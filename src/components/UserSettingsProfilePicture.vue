@@ -1,6 +1,8 @@
 <template>
   <section class="user-profile-picture">
-    <SectionHeader>Foto de perfil</SectionHeader>
+    <SectionHeader style="--spacing: 1.5rem">
+      Foto de perfil
+    </SectionHeader>
     <div class="user-profile-picture__content">
       <img
         class="user-profile-picture__current-avatar"

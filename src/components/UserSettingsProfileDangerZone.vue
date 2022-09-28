@@ -1,6 +1,8 @@
 <template>
   <section class="user-danger-zone">
-    <SectionHeader>Zona de perigo</SectionHeader>
+    <SectionHeader style="--spacing: 1.5rem">
+      Zona de perigo
+    </SectionHeader>
     <AppButton color="dangerGray">
       Excluir minha conta
     </AppButton>

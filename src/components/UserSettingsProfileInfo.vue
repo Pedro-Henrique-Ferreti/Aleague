@@ -1,6 +1,8 @@
 <template>
   <section class="user-profile-info">
-    <SectionHeader>Informações pessoais</SectionHeader>
+    <SectionHeader style="--spacing: 1.5rem">
+      Informações pessoais
+    </SectionHeader>
     <div class="user-profile-info__form">
       <AppTextField
         readonly
