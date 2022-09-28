@@ -26,13 +26,13 @@
               {{ teamsCountLabel }}
             </LeagueCardDataItem>
             <LeagueCardDataItem icon="calendar-check">
-              Criado em {{ formattedCreatedAt }}
+              Criado em {{ getFullDate(createdAt) }}
             </LeagueCardDataItem>
             <LeagueCardDataItem
               v-if="stepsCompleted.third"
               icon="calendar-edit"
             >
-              Última alteração em {{ formattedUpdatedAt }}
+              Última alteração em {{ getFullDate(updatedAt) }}
             </LeagueCardDataItem>
           </ul>
         </div>
@@ -57,8 +57,7 @@
 <script lang="ts" setup>
 import type { LeagueSteps } from '@/types/League';
 import { computed, ref, watch, type PropType } from 'vue';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { getFullDate } from '@/utils';
 
 import AppProgressBar from './AppProgressBar.vue';
 import LeagueCardDataItem from './LeagueCardDataItem.vue';
@@ -110,17 +109,6 @@ const teamsCountLabel = computed(() => {
 
   return `${props.teamsCount} participantes`;
 });
-
-// Format dates
-const pattern = 'dd \'de\' LLLL \'de\' yyyy';
-
-const formattedCreatedAt = computed(
-  () => format(new Date(props.createdAt), pattern, { locale: ptBR }),
-);
-
-const formattedUpdatedAt = computed(
-  () => format(new Date(props.updatedAt), pattern, { locale: ptBR }),
-);
 
 // League steps
 const leagueSteps = computed(() => ([
