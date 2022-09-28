@@ -40,7 +40,7 @@
       </li>
     </ul>
     <span>Andamento do campeonato</span>
-    <AppProgressBar :value="58" />
+    <AppProgressBar :value="progress" />
   </section>
 </template>
 
@@ -53,6 +53,10 @@ import AppProgressBar from './AppProgressBar.vue';
 defineProps({
   teamsCount: {
     type: Number as PropType<number | null>,
+    default: 0,
+  },
+  progress: {
+    type: Number,
     default: 0,
   },
   createdAt: {

@@ -7,6 +7,7 @@
     <LeagueDetailsInfo
       class="league-details__section"
       :teams-count="league.numberOfTeams"
+      :progress="league.progress"
       :created-at="league.createdAt"
       :updated-at="league.updatedAt"
     />

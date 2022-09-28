@@ -76,11 +76,7 @@ const props = defineProps({
     type: Number as PropType<number | null>,
     default: 0,
   },
-  gamesCount: {
-    type: Number,
-    default: 0,
-  },
-  completedGamesCount: {
+  progress: {
     type: Number,
     default: 0,
   },
@@ -120,18 +116,12 @@ const leagueSteps = computed(() => ([
 // League progress
 const progressBarValue = ref(0);
 
-const leagueProgress = computed(() => {
-  const progress = (props.completedGamesCount / props.gamesCount) * 100;
-
-  return isNaN(progress) ? 0 : progress;
-});
-
 setTimeout(setProgressBarValue);
 
-watch(() => leagueProgress.value, setProgressBarValue);
+watch(() => props.progress, setProgressBarValue);
 
 function setProgressBarValue() {
-  progressBarValue.value = leagueProgress.value;
+  progressBarValue.value = props.progress;
 }
 
 // Card path

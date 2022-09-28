@@ -1,21 +1,5 @@
 import type { Game } from './Game';
 
-export interface League {
-  id: number;
-  hashid: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  numberOfGameweeks: number | null;
-  numberOfTeams: number | null;
-}
-
-export interface LeagueSteps {
-  first: boolean;
-  second: boolean;
-  third: boolean;
-}
-
 export interface Standing {
   gamesDrawn: number;
   gamesLost: number;
@@ -30,20 +14,33 @@ export interface Standing {
   teamId: number;
   teamName: string;
 }
-
-export interface LeagueWithStandings extends League {
-  standings: Standing[] | null,
-}
-
-export interface LeagueListItem extends League {
-  hasGames: boolean;
-  gamesCount: number;
-  completedGamesCount: number;
-  stepsCompleted: LeagueSteps;
+export interface LeagueSteps {
+  first: boolean;
+  second: boolean;
+  third: boolean;
 }
 
 export interface LeagueParticipant {
   id: number,
   name: string;
   created: boolean;
+}
+
+export interface League {
+  id: number;
+  hashid: string;
+  name: string;
+  numberOfTeams: number | null;
+  progress: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface LeagueWithStandings extends League {
+  numberOfGameweeks: number;
+  standings: Standing[] | null,
+}
+
+export interface LeagueListItem extends League {
+  stepsCompleted: LeagueSteps;
 }
