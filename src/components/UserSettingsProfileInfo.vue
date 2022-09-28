@@ -1,6 +1,6 @@
 <template>
   <section class="user-profile-info">
-    <UserSettingsHeader>Informações pessoais</UserSettingsHeader>
+    <SectionHeader>Informações pessoais</SectionHeader>
     <div class="user-profile-info__form">
       <AppTextField
         readonly
@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/userStore';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
-import UserSettingsHeader from './UserSettingsHeader.vue';
 import AppTextField from './AppTextField.vue';
-import { storeToRefs } from 'pinia';
+import SectionHeader from './SectionHeader.vue';
 
 const { user } = useUserStore();
 const userSettingsStore = useUserSettingsStore();

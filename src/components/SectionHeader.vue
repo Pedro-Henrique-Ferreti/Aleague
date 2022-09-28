@@ -1,15 +1,25 @@
 <template>
-  <header class="user-settings-header">
-    <h2 class="user-settings-header__title">
+  <header class="section-header">
+    <component
+      class="section-header__title"
+      :is="heading"
+    >
       <slot />
-    </h2>
+    </component>
   </header>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps({
+  heading: {
+    type: String,
+    default: 'h2',
+  },
+});
+</script>
 
 <style lang="scss" scoped>
-.user-settings-header {
+.section-header {
   margin-bottom: 1.5rem;
   &__title {
     display: flex;

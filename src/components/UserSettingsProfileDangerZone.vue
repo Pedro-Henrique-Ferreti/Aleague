@@ -1,6 +1,6 @@
 <template>
   <section class="user-danger-zone">
-    <UserSettingsHeader>Zona de perigo</UserSettingsHeader>
+    <SectionHeader>Zona de perigo</SectionHeader>
     <AppButton color="dangerGray">
       Excluir minha conta
     </AppButton>
@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import UserSettingsHeader from './UserSettingsHeader.vue';
+import SectionHeader from './SectionHeader.vue';
 </script>
 
 <style lang="scss" scoped>

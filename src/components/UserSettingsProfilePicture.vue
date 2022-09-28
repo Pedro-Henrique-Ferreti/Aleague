@@ -1,6 +1,6 @@
 <template>
   <section class="user-profile-picture">
-    <UserSettingsHeader>Foto de perfil</UserSettingsHeader>
+    <SectionHeader>Foto de perfil</SectionHeader>
     <div class="user-profile-picture__content">
       <img
         class="user-profile-picture__current-avatar"
@@ -34,7 +34,7 @@
 import { storeToRefs } from 'pinia';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import { PROFILE_PICTURES } from '@/data';
-import UserSettingsHeader from './UserSettingsHeader.vue';
+import SectionHeader from './SectionHeader.vue';
 
 const userSettingsStore = useUserSettingsStore();
 
