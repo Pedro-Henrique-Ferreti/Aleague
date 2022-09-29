@@ -40,11 +40,13 @@
 import type { LeagueWithStandings } from '@/types/League';
 import { computed, inject, ref, type Ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import BaseInput from './common/BaseInput.vue';
 import AppModal from './AppModal.vue';
 
 const router = useRouter();
+const leaguesStore = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const emit = defineEmits(['close']);
@@ -74,7 +76,14 @@ async function deleteLeague() {
   isDeletingLeague.value = true;
 
   try {
+    await leaguesStore.deleteLeague(league?.value.hashid || '');
+
     closeModal();
+
+    openSnackbarNotification({
+      message: 'Campeonato excluído com sucesso.',
+    });
+
     router.push({ name: 'leagues' });
   } catch (error: any) {
     openSnackbarNotification({

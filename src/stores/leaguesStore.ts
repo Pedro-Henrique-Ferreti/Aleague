@@ -42,6 +42,9 @@ export const useLeaguesStore = defineStore('leagues', {
         awayGames,
       });
     },
+    deleteLeague(hashId: string) {
+      return axios.delete(`/leagues/${hashId}`);
+    },
     addLeagueTeams(id: string, teams: number[]) {
       return axios.post(`/leagues/${id}/teams`, { teams });
     },
