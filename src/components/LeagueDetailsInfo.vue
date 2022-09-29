@@ -45,14 +45,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { LeagueWithStandings } from '@/types/League';
-import { inject, type Ref } from 'vue';
+import { inject } from 'vue';
 import { getFullDate } from '@/utils';
-import SectionHeader from './SectionHeader.vue';
+import { INJECTION_KEYS } from '@/constants';
 import AppProgressBar from './AppProgressBar.vue';
+import SectionHeader from './SectionHeader.vue';
 
 // Injected values
-const league = inject<Ref<LeagueWithStandings>>('league');
+const league = inject(INJECTION_KEYS.league);
 </script>
 
 <style lang="scss" scoped>

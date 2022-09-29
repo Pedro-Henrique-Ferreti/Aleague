@@ -16,6 +16,7 @@ import { provide, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
+import { INJECTION_KEYS } from '@/constants';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
@@ -29,7 +30,8 @@ const { openSnackbarNotification } = useNotificationStore();
 // League data
 const league = ref<LeagueWithStandings | null>(null);
 
-provide('league', league);
+provide(INJECTION_KEYS.league, league);
+provide(INJECTION_KEYS.reloadLeague, getLeague);
 
 const isLoadingLeague = ref(true);
 

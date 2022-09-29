@@ -37,11 +37,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { LeagueWithStandings } from '@/types/League';
-import { computed, inject, ref, type Ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
+import { INJECTION_KEYS } from '@/constants';
+
 import BaseInput from './common/BaseInput.vue';
 import AppModal from './AppModal.vue';
 
@@ -62,7 +63,7 @@ function closeModal() {
 }
 
 // Injected values
-const league = inject<Ref<LeagueWithStandings>>('league');
+const league = inject(INJECTION_KEYS.league);
 
 // Delete league
 const isDeletingLeague = ref(false);
