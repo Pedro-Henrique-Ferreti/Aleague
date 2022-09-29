@@ -17,7 +17,7 @@
           icon="people"
         />
         <span class="league-info-list__item-text">
-          {{ teamsCount }} participantes
+          {{ league?.numberOfTeams }} participantes
         </span>
       </li>
       <li class="league-info-list__item">
@@ -26,7 +26,7 @@
           icon="calendar-check"
         />
         <span class="league-info-list__item-text">
-          Criado em {{ getFullDate(createdAt) }}
+          Criado em {{ getFullDate(league?.createdAt || '') }}
         </span>
       </li>
       <li class="league-info-list__item">
@@ -35,39 +35,24 @@
           icon="calendar-edit"
         />
         <span class="league-info-list__item-text">
-          Última alteração em {{ getFullDate(updatedAt) }}
+          Última alteração em {{ getFullDate(league?.updatedAt || '') }}
         </span>
       </li>
     </ul>
     <span>Andamento do campeonato</span>
-    <AppProgressBar :value="progress" />
+    <AppProgressBar :value="league?.progress || 0" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue';
+import type { LeagueWithStandings } from '@/types/League';
+import { inject, type Ref } from 'vue';
 import { getFullDate } from '@/utils';
 import SectionHeader from './SectionHeader.vue';
 import AppProgressBar from './AppProgressBar.vue';
 
-defineProps({
-  teamsCount: {
-    type: Number as PropType<number | null>,
-    default: 0,
-  },
-  progress: {
-    type: Number,
-    default: 0,
-  },
-  createdAt: {
-    type: String,
-    default: '',
-  },
-  updatedAt: {
-    type: String,
-    default: '',
-  },
-});
+// Injected values
+const league = inject<Ref<LeagueWithStandings>>('league');
 </script>
 
 <style lang="scss" scoped>

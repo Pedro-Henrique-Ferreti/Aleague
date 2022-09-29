@@ -4,7 +4,7 @@
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else-if="league">
         <LeagueHeader :league-name="league.name" />
-        <LeagueDetails :league="league" />
+        <LeagueDetails />
       </div>
     </AppTransition>
   </div>
@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import type { LeagueWithStandings } from '@/types/League';
-import { ref } from 'vue';
+import { provide, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
@@ -28,6 +28,9 @@ const { openSnackbarNotification } = useNotificationStore();
 
 // League data
 const league = ref<LeagueWithStandings | null>(null);
+
+provide('league', league);
+
 const isLoadingLeague = ref(true);
 
 getLeague();

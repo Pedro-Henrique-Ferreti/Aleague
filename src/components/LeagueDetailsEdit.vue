@@ -12,7 +12,7 @@
         label="Nome do campeonato"
         v-model.lazy="leagueName"
       />
-      <AppButton :disabled="leagueName === props.leagueName">
+      <AppButton :disabled="leagueName === league?.name">
         Renomear
       </AppButton>
     </form>
@@ -20,18 +20,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import type { LeagueWithStandings } from '@/types/League';
+import { inject, type Ref, ref } from 'vue';
 import SectionHeader from './SectionHeader.vue';
 import AppTextField from './AppTextField.vue';
 
-const props = defineProps({
-  leagueName: {
-    type: String,
-    required: true,
-  },
-});
+// Injected values
+const league = inject<Ref<LeagueWithStandings>>('league');
 
-const leagueName = ref(props.leagueName);
+const leagueName = ref(league?.value.name || '');
 </script>
 
 <style lang="scss" scoped>
