@@ -5,14 +5,17 @@
     </SectionHeader>
     <form
       class="league-details-form"
-      @submit.prevent
+      @submit.prevent="submitForm"
     >
       <AppTextField
         id="league--field-name"
         label="Nome do campeonato"
-        v-model.lazy="leagueName"
+        v-model.trim="leagueName"
       />
-      <AppButton :disabled="leagueName === league?.name">
+      <AppButton
+        :disabled="submitButtonIsDisabled"
+        :is-loading="isLoading"
+      >
         Renomear
       </AppButton>
     </form>
@@ -20,15 +23,53 @@
 </template>
 
 <script lang="ts" setup>
-import type { LeagueWithStandings } from '@/types/League';
-import { inject, type Ref, ref } from 'vue';
-import SectionHeader from './SectionHeader.vue';
+import { inject, ref, computed } from 'vue';
+import { useLeaguesStore } from '@/stores/leaguesStore';
+import { useNotificationStore } from '@/stores/notificationStore';
+import { INJECTION_KEYS } from '@/constants';
+
 import AppTextField from './AppTextField.vue';
+import SectionHeader from './SectionHeader.vue';
+
+const { updateLeague } = useLeaguesStore();
+const { openSnackbarNotification } = useNotificationStore();
 
 // Injected values
-const league = inject<Ref<LeagueWithStandings>>('league');
+const league = inject(INJECTION_KEYS.league);
+const reloadLeague = inject(INJECTION_KEYS.reloadLeague) as () => void;
 
 const leagueName = ref(league?.value.name || '');
+
+// Submit form
+const submitButtonIsDisabled = computed(() => {
+  return leagueName.value === '' || leagueName.value === league?.value.name;
+});
+
+const isLoading = ref(false);
+
+async function submitForm() {
+  isLoading.value = true;
+
+  try {
+    await updateLeague({
+      hashId: league?.value.hashid || '',
+      name: leagueName.value,
+    });
+
+    openSnackbarNotification({
+      message: 'Campeonato renomeado com sucesso!',
+    });
+
+    reloadLeague();
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
