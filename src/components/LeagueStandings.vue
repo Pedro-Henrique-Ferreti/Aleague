@@ -81,7 +81,7 @@
             </td>
             <td>{{ standing.goalDifference }}</td>
             <td class="hide-tablet-landscape">
-              {{ Math.ceil((standing.points / (standing.gamesPlayed * 3)) * 100) }}%
+              {{ getPercentage(standing.points, standing.gamesPlayed) }}%
             </td>
             <td class="recent-games hide-mobile">
               <LeagueStandingsRecentGame
@@ -142,6 +142,12 @@ function getPositionClass(position: number) {
   if (length === 20 && position >= 17) {
     return 'relegation';
   }
+}
+
+function getPercentage(points: number, gamesPlayed: number) {
+  if (gamesPlayed === 0) return 0;
+
+  return Math.floor((points / (gamesPlayed * 3)) * 100);
 }
 </script>
 
