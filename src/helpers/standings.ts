@@ -1,0 +1,25 @@
+import type { Standing } from '@/types/League';
+
+export const sortStandings = (a: Standing, b: Standing) => {
+  if (b.points - a.points !== 0) {
+    return b.points - a.points;
+  }
+
+  if (b.gamesWon - a.gamesWon !== 0) {
+    return b.gamesWon - a.gamesWon;
+  }
+
+  if (b.goalDifference - a.goalDifference !== 0) {
+    return b.goalDifference - a.goalDifference;
+  }
+
+  if (b.goalsFor - a.goalsFor !== 0) {
+    return b.goalsFor - a.goalsFor;
+  }
+
+  if (a.goalsAgainst - b.goalsAgainst !== 0) {
+    return a.goalsAgainst - b.goalsAgainst;
+  }
+
+  return 0;
+};
