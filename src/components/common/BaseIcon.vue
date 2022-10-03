@@ -12,6 +12,7 @@ import CalendarEdit from '@/components/icons/IconCalendarEdit.vue';
 import Check from '@/components/icons/IconCheck.vue';
 import CheckCircle from '@/components/icons/IconCheckCircle.vue';
 import Chevron from '@/components/icons/IconChevron.vue';
+import Circlex from '@/components/icons/IconCirclex.vue';
 import Clock from '@/components/icons/IconClock.vue';
 import Close from '@/components/icons/IconClose.vue';
 import EnvelopeCheck from '@/components/icons/IconEnvelopeCheck.vue';
@@ -25,6 +26,7 @@ import Loading from '@/components/icons/IconLoading.vue';
 import Logout from '@/components/icons/IconLogout.vue';
 import Menu from '@/components/icons/IconMenu.vue';
 import Minus from '@/components/icons/IconMinus.vue';
+import MinusCircle from '@/components/icons/IconMinusCircle.vue';
 import Package from '@/components/icons/IconPackage.vue';
 import Pencil from '@/components/icons/IconPencil.vue';
 import People from '@/components/icons/IconPeople.vue';
@@ -63,6 +65,8 @@ const icon = computed(() => {
       return CheckCircle;
     case 'chevron':
       return Chevron;
+    case 'circlex':
+      return Circlex;
     case 'clock':
       return Clock;
     case 'close':
@@ -89,6 +93,8 @@ const icon = computed(() => {
       return Menu;
     case 'minus':
       return Minus;
+    case 'minuscircle':
+      return MinusCircle;
     case 'package':
       return Package;
     case 'pencil':
