@@ -5,6 +5,7 @@
     tabindex="0"
     :class="{ 'expanded': expanded }"
     @click="$emit('click')"
+    @keypress.enter="$emit('click')"
   >
     <BaseIcon
       class="league-standings-button-expand__icon"
