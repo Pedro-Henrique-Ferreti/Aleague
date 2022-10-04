@@ -173,6 +173,7 @@ function getPercentage(points: number, gamesPlayed: number) {
   --team-width: 25%;
 
   width: 100%;
+  border-collapse: initial;
   .table-head {
     background-color: $color--light-gray-2;
   }
@@ -182,18 +183,33 @@ function getPercentage(points: number, gamesPlayed: number) {
     font-weight: $font-weight--semibold;
     &:first-child {
       padding-left: var(--padding);
+      border-radius: 0.5rem 0 0 0.5rem;
     }
     &:last-child {
       padding-right: var(--padding);
+      border-radius: 0 0.5rem 0.5rem 0;
     }
   }
   .th-full {
     display: none;
   }
-  .table-body::before {
-    content: '';
-    display: block;
-    height: 0.5rem;
+  .table-body {
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      height: 0.5rem;
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 1px;
+      background-color: $color--light-gray-1;
+      position: absolute;
+      top: -0.4rem;
+      bottom: 0;
+      right: 0;
+    }
   }
   .table-row td {
     height: var(--row-height);
