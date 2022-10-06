@@ -12,5 +12,7 @@ export interface Game {
   homeTeamScore: number;
   gameweek: number;
   hour: string;
-  weekday: string;
+  weekday: '1' | '2' | '3' | '4' | '5' | '6' | '7';
 }
+
+export type Gameweek = Game[];
