@@ -15,6 +15,7 @@ import Chevron from '@/components/icons/IconChevron.vue';
 import Circlex from '@/components/icons/IconCirclex.vue';
 import Clock from '@/components/icons/IconClock.vue';
 import Close from '@/components/icons/IconClose.vue';
+import DoubleChevron from '@/components/icons/IconDoubleChevron.vue';
 import EnvelopeCheck from '@/components/icons/IconEnvelopeCheck.vue';
 import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
 import Football from '@/components/icons/IconFootball.vue';
@@ -71,6 +72,8 @@ const icon = computed(() => {
       return Clock;
     case 'close':
       return Close;
+    case 'doublechevron':
+      return DoubleChevron;
     case 'envelopecheck':
       return EnvelopeCheck;
     case 'errorcircle':
