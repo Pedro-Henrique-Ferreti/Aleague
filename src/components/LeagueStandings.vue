@@ -84,12 +84,14 @@
               {{ getPercentage(standing.points, standing.gamesPlayed) }}%
             </td>
             <td class="recent-games hide-mobile">
-              <LeagueStandingsRecentGame
-                v-for="game in standing.recentGames"
-                :key="game.id"
-                :game="game"
-                :team-id="standing.teamId"
-              />
+              <div class="recent-games__content">
+                <LeagueStandingsRecentGame
+                  v-for="game in standing.recentGames"
+                  :key="game.id"
+                  :game="game"
+                  :team-id="standing.teamId"
+                />
+              </div>
             </td>
           </tr>
           <tr v-show="expandedRowId === standing.teamId">
@@ -240,6 +242,10 @@ function getPercentage(points: number, gamesPlayed: number) {
   }
   .recent-games {
     width: 8.5rem;
+    &__content {
+      display: inline-flex;
+      gap: 0.25rem;
+    }
   }
   @include for-tablet-portrait-up {
     min-width: 12rem;

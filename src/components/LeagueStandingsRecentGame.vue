@@ -1,19 +1,34 @@
 <template>
-  <div
-    class="recent-game"
-    :title="icon.title"
-  >
-    <BaseIcon
-      class="recent-game__icon"
-      :class="[status]"
-      :icon="icon.name"
-    />
-  </div>
+  <AppTooltip>
+    <template #tooltip-content>
+      <MatchAbridged
+        :league-name="`${league?.name} - Rodada ${game.gameweek}`"
+        :match-hour="game.hour"
+        :home-team="game.homeTeam.name"
+        :home-team-score="game.homeTeamScore"
+        :away-team="game.awayTeam.name"
+        :away-team-score="game.awayTeamScore"
+      />
+    </template>
+    <div
+      class="recent-game"
+      :title="icon.title"
+    >
+      <BaseIcon
+        class="recent-game__icon"
+        :class="[status]"
+        :icon="icon.name"
+      />
+    </div>
+  </AppTooltip>
 </template>
 
 <script lang="ts" setup>
 import type { Game } from '@/types/Game';
-import { computed, type PropType } from 'vue';
+import { computed, inject, type PropType } from 'vue';
+import { INJECTION_KEYS } from '@/constants';
+import AppTooltip from './AppTooltip.vue';
+import MatchAbridged from './MatchAbridged.vue';
 
 const props = defineProps({
   game: {
@@ -25,6 +40,9 @@ const props = defineProps({
     required: true,
   },
 });
+
+// Injected values
+const league = inject(INJECTION_KEYS.league);
 
 const status = computed<'win' | 'draw' | 'lose'>(() => {
   const { homeTeamScore, awayTeamScore, homeTeam, awayTeam } = props.game;
@@ -66,9 +84,6 @@ const icon = computed(() => {
   display: inline-flex;
   align-items: center;
   height: 100%;
-  &:not(:last-child) {
-    margin-right: 0.25rem;
-  }
   &__icon {
     width: 1rem;
     height: 1rem;
