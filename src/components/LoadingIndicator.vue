@@ -11,11 +11,12 @@
 
 <style lang="scss" scoped>
 .loading-indicator {
+  --size: 4.5rem;
   display: grid;
   place-items: center;
   &__icon {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: var(--size);
+    height: var(--size);
     stroke: $color--primary;
   }
 }
