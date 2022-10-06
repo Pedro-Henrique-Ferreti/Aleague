@@ -1,6 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import type { League, LeagueListItem, LeagueParticipant, LeagueWithStandings } from '@/types/League';
 import type { UpdateLeagueRulesParams } from '@/types/LeaguesStore';
+import type { Gameweek } from '@/types/Game';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
 import { useTeamsStore } from './teamsStore';
@@ -71,6 +72,13 @@ export const useLeaguesStore = defineStore('leagues', {
       });
 
       return this.addLeagueTeams(leagueId, teamIds);
+    },
+    async getGameweek({ leagueId, gameweekNumber }: { leagueId: string, gameweekNumber: number }) {
+      const {
+        data: games,
+      }: AxiosResponse<Gameweek> = await axios.get(`/leagues/${leagueId}/gameweeks/${gameweekNumber}`);
+
+      return games;
     },
   },
 });
