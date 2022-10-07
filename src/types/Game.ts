@@ -15,4 +15,7 @@ export interface Game {
   weekday: '1' | '2' | '3' | '4' | '5' | '6' | '7';
 }
 
-export type Gameweek = Game[];
+export interface Gameweek {
+  gameweek: number;
+  games: Game[];
+}

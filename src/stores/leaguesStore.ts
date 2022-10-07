@@ -73,12 +73,12 @@ export const useLeaguesStore = defineStore('leagues', {
 
       return this.addLeagueTeams(leagueId, teamIds);
     },
-    async getGameweek({ leagueId, gameweekNumber }: { leagueId: string, gameweekNumber: number }) {
+    async getLeagueGameweeks(leagueId: string) {
       const {
-        data: games,
-      }: AxiosResponse<Gameweek> = await axios.get(`/leagues/${leagueId}/gameweeks/${gameweekNumber}`);
+        data: gameweekList,
+      }: AxiosResponse<Gameweek[]> = await axios.get(`/leagues/${leagueId}/gameweeks`);
 
-      return games;
+      return gameweekList;
     },
   },
 });

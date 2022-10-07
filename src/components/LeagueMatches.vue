@@ -13,19 +13,25 @@
           <TableButton
             aria-label="First gameweek"
             icon="double-chevron"
+            @click="currentGameweekIndex = 0"
           />
           <TableButton
             aria-label="Previous gameweek"
             rotate="left"
+            @click="updateGameweekIndex(-1)"
           />
           <span class="league-matches__table-gameweek">
-            Rodada {{ currentGameweek }}
+            Rodada {{ currentGameweekIndex + 1 }}
           </span>
-          <TableButton aria-label="Next gameweek" />
+          <TableButton
+            aria-label="Next gameweek"
+            @click="updateGameweekIndex(1)"
+          />
           <TableButton
             aria-label="Last gameweek"
             icon="double-chevron"
             rotate="right"
+            @click="currentGameweekIndex = league?.numberOfGameweeks as number - 1"
           />
         </div>
         <div class="league-matches__table-body">
@@ -33,6 +39,23 @@
             v-if="isLoadingGameweek"
             class="league-matches__loading-indicator"
           />
+          <template v-else>
+            <template
+              v-for="(game, index) in gameweeks[currentGameweekIndex].games"
+              :key="game.id"
+            >
+              <div
+                v-if="shouldShowGameDate(game, index)"
+                class="league-matches__game-date"
+              >
+                <span class="text-darken">{{ getWeekday(game.weekday) }}</span>
+                <span class="text-darken">{{ game.hour }}</span>
+              </div>
+              <div>
+                {{ game.homeTeam.name }} x {{ game.awayTeam.name }}
+              </div>
+            </template>
+          </template>
         </div>
       </div>
     </div>
@@ -40,7 +63,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Gameweek } from '@/types/Game';
+import type { Game, Gameweek } from '@/types/Game';
 import { inject, ref } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
@@ -57,19 +80,16 @@ const league = inject(INJECTION_KEYS.league);
 
 // Gameweek
 const isLoadingGameweek = ref(false);
-const currentGameweek = ref(1);
-const gameweek = ref<Gameweek>([]);
+const currentGameweekIndex = ref(1);
+const gameweeks = ref<Gameweek[]>([]);
 
-getGameweek();
+getGameweeks();
 
-async function getGameweek() {
+async function getGameweeks() {
   isLoadingGameweek.value = true;
 
   try {
-    gameweek.value = await leaguesStore.getGameweek({
-      leagueId: league?.value.hashid || '',
-      gameweekNumber: currentGameweek.value,
-    });
+    gameweeks.value = await leaguesStore.getLeagueGameweeks(league?.value.hashid || '');
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -77,6 +97,45 @@ async function getGameweek() {
     });
   } finally {
     isLoadingGameweek.value = false;
+  }
+}
+
+function updateGameweekIndex(value: number) {
+  const newIndex = currentGameweekIndex.value + value;
+
+  if (league && newIndex > -1 && newIndex < league.value.numberOfGameweeks) {
+    currentGameweekIndex.value = newIndex;
+  }
+}
+
+function shouldShowGameDate(game: Game, index: number) {
+  const previousGame = gameweeks.value[currentGameweekIndex.value].games[index - 1];
+
+  return (
+    !previousGame
+    || previousGame.weekday !== game.weekday
+    || previousGame.hour !== game.hour
+  );
+}
+
+function getWeekday(weekday: string) {
+  switch (weekday) {
+    case '1':
+      return 'Seg';
+    case '2':
+      return 'Ter';
+    case '3':
+      return 'Qua';
+    case '4':
+      return 'Qui';
+    case '5':
+      return 'Sex';
+    case '6':
+      return 'Sáb';
+    case '7':
+      return 'Dom';
+    default:
+      return '';
   }
 }
 </script>
@@ -120,6 +179,25 @@ async function getGameweek() {
   &__loading-indicator {
     --size: 3rem;
     height: 10rem;
+  }
+  &__game-date {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: $font-weight--semibold;
+    &::after {
+      content: '';
+      display: block;
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      width: 100%;
+      height: 1px;
+      background-color: $color--light-gray-1;
+      transform: translateY(-0.25rem);
+    }
   }
 }
 </style>
