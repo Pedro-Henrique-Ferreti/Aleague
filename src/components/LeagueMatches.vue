@@ -164,6 +164,8 @@ async function saveGames() {
       await reloadLeague({ showLoader: false });
     }
 
+    staticGameweeks = JSON.parse(JSON.stringify(gameweeks.value));
+
     openSnackbarNotification({
       message: 'Alterações salvas com sucesso!',
     });
