@@ -3,8 +3,9 @@
     <span>{{ homeTeam }}</span>
     <div class="league-game__input-wrapper">
       <input
+        v-model="homeTeamScore"
         class="league-game__score-input"
-        type="tel"
+        type="number"
         :aria-label="`Gols ${homeTeam}`"
       />
       <BaseIcon
@@ -12,8 +13,9 @@
         icon="close"
       />
       <input
+        v-model="awayTeamScore"
         class="league-game__score-input"
-        type="tel"
+        type="number"
         :aria-label="`Gols ${awayTeam}`"
       />
     </div>
@@ -22,7 +24,10 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+import { computed } from 'vue';
+
+const emit = defineEmits(['update:homeTeamScore', 'update:awayTeamScore']);
+const props = defineProps({
   homeTeam: {
     type: String,
     required: true,
@@ -30,6 +35,30 @@ defineProps({
   awayTeam: {
     type: String,
     required: true,
+  },
+  homeTeamScore: {
+    type: [Number, String],
+  },
+  awayTeamScore: {
+    type: [Number, String],
+  },
+});
+
+const homeTeamScore = computed({
+  get() {
+    return props.homeTeamScore;
+  },
+  set(value) {
+    emit('update:homeTeamScore', value);
+  },
+});
+
+const awayTeamScore = computed({
+  get() {
+    return props.awayTeamScore;
+  },
+  set(value) {
+    emit('update:awayTeamScore', value);
   },
 });
 </script>
