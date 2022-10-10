@@ -87,10 +87,10 @@
             <td class="hide-tablet-landscape">
               {{ getPercentage(standing.points, standing.gamesPlayed) }}%
             </td>
-            <td class="recent-games hide-mobile text-right">
+            <td class="recent-games hide-mobile text-left">
               <div class="recent-games__content">
                 <LeagueStandingsRecentGame
-                  v-for="game in standing.recentGames"
+                  v-for="game in [...standing.recentGames].reverse()"
                   :key="game.id"
                   :game="game"
                   :team-id="standing.teamId"
