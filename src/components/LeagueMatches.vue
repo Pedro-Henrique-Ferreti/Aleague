@@ -48,8 +48,8 @@
             >
               <GameDate
                 v-if="shouldShowGameDate(game, index)"
-                :weekday="game.weekday"  
-                :hour="game.hour"  
+                :weekday="game.weekday"
+                :hour="game.hour"
               />
               <LeagueMatchesGame
                 v-model:home-team-score="game.homeTeamScore"
