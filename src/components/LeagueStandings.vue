@@ -48,7 +48,7 @@
         </tr>
       </thead>
       <TransitionGroup
-        name="standings"
+        :name="transitionName"
         tag="tbody"
         class="table-body"
       >
@@ -112,7 +112,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, ref } from 'vue';
+import { computed, inject, ref, watch } from 'vue';
 import { INJECTION_KEYS } from '@/constants';
 import { sortStandings } from '@/helpers/standings';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
@@ -129,10 +129,19 @@ const leagueStandings = computed(() => {
   return [...league.value.standings].sort(sortStandings);
 });
 
+// Transition
+const transitionName = ref<'standings' | ''>('standings');
+
+watch(() => leagueStandings.value, () => {
+  transitionName.value = 'standings';
+}, { deep: true });
+
 // League table
 const expandedRowId = ref(0);
 
 function setExpandedRow(rowId: number) {
+  transitionName.value = '';
+
   (expandedRowId.value === rowId)
     ? expandedRowId.value = 0
     : expandedRowId.value = rowId;
