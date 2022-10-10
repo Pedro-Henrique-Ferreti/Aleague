@@ -40,20 +40,22 @@ defineProps({
   grid-template-columns: 1fr auto 1fr;
   gap: 0.5rem;
   align-items: center;
+  font-size: 0.95rem;
   &:not(:last-child) {
     margin-bottom: 1rem;
   }
   &__input-wrapper {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.375rem;
     align-items: center;
   }
   &__score-input {
-    width: 2rem;
-    height: 2rem;
+    width: 1.875rem;
+    height: 1.875rem;
     background-color: $color--white;
     border: 1px solid $color--light-gray-1;
     border-radius: 0.25rem;
+    font-size: 1rem;
     text-align: center;
     outline: none;
     transition: border-color $transition--fastest ease;

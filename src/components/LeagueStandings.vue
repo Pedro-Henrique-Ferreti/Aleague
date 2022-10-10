@@ -168,7 +168,7 @@ function getPercentage(points: number, gamesPlayed: number) {
   }
 }
 .league-standings-table {
-  --padding: 1rem;
+  --padding: 0.875rem;
   --row-height: 2.5rem;
   --cell-spacing: 0.25rem;
   --position-width: 2rem;
@@ -220,6 +220,9 @@ function getPercentage(points: number, gamesPlayed: number) {
     &:last-child {
       padding-right: var(--padding);
     }
+    &:not(.team, .position) {
+      font-size: 0.9rem;
+    }
   }
   .position {
     width: var(--position-width);
@@ -254,10 +257,8 @@ function getPercentage(points: number, gamesPlayed: number) {
     font-size: 0.875rem;
   }
   @include for-large-tablet-portrait-up {
-    --spacing: 1rem;
-    --row-height: 3.5rem;
-    --cell-spacing: 0.5rem;
-    --position-width: 2.75rem;
+    --row-height: 2.75rem;
+    --cell-spacing: 0.375rem;
     --team-width: 30%;
     .th-abbreviation {
       display: none;

@@ -136,9 +136,11 @@ function shouldShowGameDate(game: Game, index: number) {
   }
   &__table {
     --spacing: 1rem;
-    width: 20rem;
     border-radius: 0.25rem;
     border: 1px solid $color--light-gray-1;
+    @include for-tablet-portrait-up {
+      width: 25rem;
+    }
   }
   &__table-header {
     display: flex;
