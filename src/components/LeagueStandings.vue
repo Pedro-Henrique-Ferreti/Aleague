@@ -47,7 +47,11 @@
           </th>
         </tr>
       </thead>
-      <tbody class="table-body">
+      <TransitionGroup
+        name="standings"
+        tag="tbody"
+        class="table-body"
+      >
         <template
           v-for="(standing, index) in leagueStandings"
           :key="standing.teamId"
@@ -102,7 +106,7 @@
             </td>
           </tr>
         </template>
-      </tbody>
+      </TransitionGroup>
     </table>
   </div>
 </template>

@@ -69,3 +69,19 @@
     }
   }
 }
+
+.standings {
+  &-move,
+  &-enter-active,
+  &-leave-active {
+    transition: all 0.5s ease;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  &-leave-active {
+    position: absolute;
+  }
+}
