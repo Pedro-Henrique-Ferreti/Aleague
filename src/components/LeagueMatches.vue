@@ -5,6 +5,8 @@
         icon-rounded
         class="league-matches__save-button"
         icon-left="save"
+        :is-loading="isSavingGames"
+        @click="saveGames"
       >
         Salvar
       </AppButton>
@@ -50,6 +52,8 @@
                 :hour="game.hour"  
               />
               <LeagueMatchesGame
+                v-model:home-team-score="game.homeTeamScore"
+                v-model:away-team-score="game.awayTeamScore"
                 :home-team="game.homeTeam.name"
                 :away-team="game.awayTeam.name"
               />
@@ -78,11 +82,13 @@ const leaguesStore = useLeaguesStore();
 
 // Injected values
 const league = inject(INJECTION_KEYS.league);
+const reloadLeague = inject(INJECTION_KEYS.reloadLeague);
 
 // Gameweek
 const isLoadingGameweek = ref(false);
-const currentGameweekIndex = ref(1);
+const currentGameweekIndex = ref(0);
 const gameweeks = ref<Gameweek[]>([]);
+let staticGameweeks: Gameweek[] = [];
 
 getGameweeks();
 
@@ -90,7 +96,10 @@ async function getGameweeks() {
   isLoadingGameweek.value = true;
 
   try {
-    gameweeks.value = await leaguesStore.getLeagueGameweeks(league?.value.hashid || '');
+    const gameweeksValues = await leaguesStore.getLeagueGameweeks(league?.value.hashid || '');
+
+    gameweeks.value = JSON.parse(JSON.stringify(gameweeksValues));
+    staticGameweeks = JSON.parse(JSON.stringify(gameweeksValues));
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -117,6 +126,55 @@ function shouldShowGameDate(game: Game, index: number) {
     || previousGame.weekday !== game.weekday
     || previousGame.hour !== game.hour
   );
+}
+
+// Save games
+const isSavingGames = ref(false);
+
+async function saveGames() {
+  isSavingGames.value = true;
+
+  try {
+    const updatedGames: Record<string, unknown>[] = [];
+
+    gameweeks.value.forEach((gameweek, gameweekIndex) => {
+      gameweek.games.forEach((game, gameIndex) => {
+        const {
+          homeTeamScore, awayTeamScore,
+        } = staticGameweeks[gameweekIndex].games[gameIndex];
+
+        if (game.homeTeamScore !== homeTeamScore || game.awayTeamScore !== awayTeamScore) {
+          updatedGames.push({
+            id: game.id,
+            homeTeamScore: game.homeTeamScore,
+            awayTeamScore: game.awayTeamScore,
+          });
+        }
+      });
+    });
+
+    if (updatedGames.length < 1) return;
+
+    await leaguesStore.saveLeagueGames({
+      leagueId: league?.value.hashid || '',
+      games: updatedGames as any,
+    });
+
+    if (reloadLeague) {
+      await reloadLeague({ showLoader: false });
+    }
+
+    openSnackbarNotification({
+      message: 'Alterações salvas com sucesso!',
+    });
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isSavingGames.value = false;
+  }
 }
 </script>
 

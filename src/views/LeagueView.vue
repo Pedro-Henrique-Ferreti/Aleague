@@ -56,8 +56,11 @@ const isLoadingLeague = ref(true);
 
 getLeague();
 
-async function getLeague() {
-  isLoadingLeague.value = true;
+async function getLeague({ showLoader }: { showLoader?: boolean } = { showLoader: true }) {
+
+  if (showLoader) {
+    isLoadingLeague.value = true;
+  }
 
   try {
     league.value = await getLeagueById(route.params.id as string);
