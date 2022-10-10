@@ -1,0 +1,69 @@
+<template>
+  <div class="league-game">
+    <span>{{ homeTeam }}</span>
+    <div class="league-game__input-wrapper">
+      <input
+        class="league-game__score-input"
+        type="tel"
+        :aria-label="`Gols ${homeTeam}`"
+      />
+      <BaseIcon
+        class="league-game__icon-versus"
+        icon="close"
+      />
+      <input
+        class="league-game__score-input"
+        type="tel"
+        :aria-label="`Gols ${awayTeam}`"
+      />
+    </div>
+    <span class="text-right">{{ awayTeam }}</span>
+  </div>
+</template>
+
+<script lang="ts" setup>
+defineProps({
+  homeTeam: {
+    type: String,
+    required: true,
+  },
+  awayTeam: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.league-game {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  &__input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  &__score-input {
+    width: 2rem;
+    height: 2rem;
+    background-color: $color--white;
+    border: 1px solid $color--light-gray-1;
+    border-radius: 0.25rem;
+    text-align: center;
+    outline: none;
+    transition: border-color $transition--fastest ease;
+    &:focus {
+      border-color: $color--primary;
+    }
+  }
+  &__icon-versus {
+    width: 0.625rem;
+    fill: $color--text-lighten;
+  }
+}
+</style>

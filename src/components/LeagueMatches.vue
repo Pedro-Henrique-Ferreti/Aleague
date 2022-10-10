@@ -44,16 +44,15 @@
               v-for="(game, index) in gameweeks[currentGameweekIndex].games"
               :key="game.id"
             >
-              <div
+              <GameDate
                 v-if="shouldShowGameDate(game, index)"
-                class="league-matches__game-date"
-              >
-                <span class="text-darken">{{ getWeekday(game.weekday) }}</span>
-                <span class="text-darken">{{ game.hour }}</span>
-              </div>
-              <div>
-                {{ game.homeTeam.name }} x {{ game.awayTeam.name }}
-              </div>
+                :weekday="game.weekday"  
+                :hour="game.hour"  
+              />
+              <LeagueMatchesGame
+                :home-team="game.homeTeam.name"
+                :away-team="game.awayTeam.name"
+              />
             </template>
           </template>
         </div>
@@ -71,6 +70,8 @@ import { INJECTION_KEYS } from '@/constants';
 
 import LoadingIndicator from './LoadingIndicator.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
+import GameDate from './LeagueMatchesGameDate.vue';
+import LeagueMatchesGame from './LeagueMatchesGame.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 const leaguesStore = useLeaguesStore();
@@ -117,27 +118,6 @@ function shouldShowGameDate(game: Game, index: number) {
     || previousGame.hour !== game.hour
   );
 }
-
-function getWeekday(weekday: string) {
-  switch (weekday) {
-    case '1':
-      return 'Seg';
-    case '2':
-      return 'Ter';
-    case '3':
-      return 'Qua';
-    case '4':
-      return 'Qui';
-    case '5':
-      return 'Sex';
-    case '6':
-      return 'Sáb';
-    case '7':
-      return 'Dom';
-    default:
-      return '';
-  }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -179,25 +159,6 @@ function getWeekday(weekday: string) {
   &__loading-indicator {
     --size: 3rem;
     height: 10rem;
-  }
-  &__game-date {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1.5rem;
-    align-items: flex-end;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: $font-weight--semibold;
-    &::after {
-      content: '';
-      display: block;
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-      width: 100%;
-      height: 1px;
-      background-color: $color--light-gray-1;
-      transform: translateY(-0.25rem);
-    }
   }
 }
 </style>
