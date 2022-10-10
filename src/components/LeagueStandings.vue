@@ -87,7 +87,7 @@
             <td class="hide-tablet-landscape">
               {{ getPercentage(standing.points, standing.gamesPlayed) }}%
             </td>
-            <td class="recent-games hide-mobile">
+            <td class="recent-games hide-mobile text-right">
               <div class="recent-games__content">
                 <LeagueStandingsRecentGame
                   v-for="game in standing.recentGames"
