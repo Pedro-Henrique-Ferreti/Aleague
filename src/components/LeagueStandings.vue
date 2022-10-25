@@ -113,13 +113,13 @@
 
 <script lang="ts" setup>
 import { computed, inject, ref, watch } from 'vue';
-import { INJECTION_KEYS } from '@/constants';
+import { injectionKeys } from '@/constants/injectionKeys';
 import { sortStandings } from '@/helpers/standings';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
 import LeagueStandingsButtonExpand from './LeagueStandingsButtonExpand.vue';
 
 // Injected values
-const league = inject(INJECTION_KEYS.league);
+const league = inject(injectionKeys.LEAGUE);
 
 // League standings
 const leagueStandings = computed(() => {

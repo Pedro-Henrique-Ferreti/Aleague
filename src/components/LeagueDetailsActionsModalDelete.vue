@@ -41,7 +41,7 @@ import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { INJECTION_KEYS } from '@/constants';
+import { injectionKeys } from '@/constants/injectionKeys';
 
 import BaseInput from './common/BaseInput.vue';
 import AppModal from './AppModal.vue';
@@ -63,7 +63,7 @@ function closeModal() {
 }
 
 // Injected values
-const league = inject(INJECTION_KEYS.league);
+const league = inject(injectionKeys.LEAGUE);
 
 // Delete league
 const isDeletingLeague = ref(false);

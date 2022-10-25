@@ -1,7 +1,7 @@
 <template>
   <TabPanel
     class="teams-tab-panel"
-    :tabs="Object.values(TEAMS_PAGE_TABS)"
+    :tabs="Object.values(teamsPageTabs)"
     :active-tab-id="activeTabId"
     @set-active-tab="activeTabId = $event"
   >
@@ -63,7 +63,7 @@ import { storeToRefs } from 'pinia';
 import { useToggle } from '@vueuse/core';
 import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { TEAMS_PAGE_TABS } from '@/constants';
+import { teamsPageTabs } from '@/constants/tabPanelTabs';
 
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
@@ -78,7 +78,7 @@ const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
 const { teams, searchBarValue } = storeToRefs(teamsStore);
 
-const activeTabId = ref(TEAMS_PAGE_TABS.all.id);
+const activeTabId = ref(teamsPageTabs.ALL.id);
 const showTeamPackModal = ref(false);
 
 const toggleShowTeamPackModal = useToggle(showTeamPackModal);
@@ -92,7 +92,7 @@ const filteredTeams = computed(() => {
     );
   }
 
-  if (activeTabId.value === TEAMS_PAGE_TABS.favorites.id) {
+  if (activeTabId.value === teamsPageTabs.FAVORITES.id) {
     return filteredTeams.filter(({ isFavorite }) => isFavorite);
   }
 

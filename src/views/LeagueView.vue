@@ -8,16 +8,16 @@
         <div class="league-panel">
           <TabPanel
             class="league-panel__tab-panel"
-            :tabs="Object.values(LEAGUE_PANEL_TABS)"
+            :tabs="Object.values(leaguePanelTabs)"
             :active-tab-id="activeTabId"
             @set-active-tab="activeTabId = $event"
           />
           <LeagueStandings
-            v-show="activeTabId === LEAGUE_PANEL_TABS.standings.id"
+            v-show="activeTabId === leaguePanelTabs.STANDINGS.id"
             class="league-panel__item"
           />
           <LeagueMatches
-            v-show="activeTabId === LEAGUE_PANEL_TABS.matches.id"
+            v-show="activeTabId === leaguePanelTabs.MATCHES.id"
             class="league-panel__item"
           />
         </div>
@@ -32,7 +32,8 @@ import { provide, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { INJECTION_KEYS, LEAGUE_PANEL_TABS } from '@/constants';
+import { injectionKeys } from '@/constants/injectionKeys';
+import { leaguePanelTabs } from '@/constants/tabPanelTabs';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
@@ -49,8 +50,8 @@ const { openSnackbarNotification } = useNotificationStore();
 // League data
 const league = ref<LeagueWithStandings | null>(null);
 
-provide(INJECTION_KEYS.league, league);
-provide(INJECTION_KEYS.reloadLeague, getLeague);
+provide(injectionKeys.LEAGUE, league);
+provide(injectionKeys.RELOAD_LEAGUE, getLeague);
 
 const isLoadingLeague = ref(true);
 
@@ -75,7 +76,7 @@ async function getLeague({ showLoader }: { showLoader?: boolean } = { showLoader
 }
 
 // League panel
-const activeTabId = ref(LEAGUE_PANEL_TABS.standings.id);
+const activeTabId = ref(leaguePanelTabs.STANDINGS.id);
 </script>
 
 <style lang="scss" scoped>

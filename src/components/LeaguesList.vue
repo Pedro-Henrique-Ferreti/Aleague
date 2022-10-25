@@ -1,7 +1,7 @@
 <template>
   <TabPanel
     class="leagues-tab-panel"
-    :tabs="Object.values(LEAGUES_PAGE_TABS)"
+    :tabs="Object.values(leaguePageTabs)"
     :active-tab-id="activeTabId"
     @set-active-tab="activeTabId = $event"
   >
@@ -43,7 +43,7 @@ import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { LEAGUES_PAGE_TABS } from '@/constants';
+import { leaguePageTabs } from '@/constants/tabPanelTabs';
 
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
@@ -56,7 +56,7 @@ const { openSnackbarNotification } = useNotificationStore();
 const leaguesStore = useLeaguesStore();
 const { leagues, searchBarValue } = storeToRefs(leaguesStore);
 
-const activeTabId = ref(LEAGUES_PAGE_TABS.all.id);
+const activeTabId = ref(leaguePageTabs.ALL.id);
 
 // Get leagues
 const isLoading = ref(true);
@@ -88,8 +88,8 @@ const displayedLeagues = computed(() => {
     );
   }
 
-  if (activeTabId.value === LEAGUES_PAGE_TABS.cup.id ||
-    activeTabId.value === LEAGUES_PAGE_TABS.playOffs.id
+  if (activeTabId.value === leaguePageTabs.CUP.id ||
+    activeTabId.value === leaguePageTabs.PLAY_OFFS.id
   ) {
     return [];
   }

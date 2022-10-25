@@ -1,4 +1,4 @@
-import { BREAKPOINTS } from '@/constants';
+import { breakpoints } from '@/constants/breakpoints';
 import { useMediaQuery as mediaQueryObserver } from '@vueuse/core';
 
 export function useMediaQuery() {
@@ -9,31 +9,31 @@ export function useMediaQuery() {
 
   return {
     // Large smartphone
-    largeSmartphoneDown: getMediaQuery(BREAKPOINTS.largeSmartphone).max,
-    largeSmartphoneUp: getMediaQuery(BREAKPOINTS.largeSmartphone).min,
+    largeSmartphoneDown: getMediaQuery(breakpoints.LARGE_SMARTPHONE).max,
+    largeSmartphoneUp: getMediaQuery(breakpoints.LARGE_SMARTPHONE).min,
 
     // Tablet portrait
-    tabletPortraitDown: getMediaQuery(BREAKPOINTS.tabletPortrait).max,
-    tabletPortraitUp: getMediaQuery(BREAKPOINTS.tabletPortrait).min,
+    tabletPortraitDown: getMediaQuery(breakpoints.TABLET_PORTRAIT).max,
+    tabletPortraitUp: getMediaQuery(breakpoints.TABLET_PORTRAIT).min,
 
     // Large tablet portrait
-    largeTabletPortraitDown: getMediaQuery(BREAKPOINTS.largeTabletPortrait).max,
-    largeTabletPortraitUp: getMediaQuery(BREAKPOINTS.largeTabletPortrait).min,
+    largeTabletPortraitDown: getMediaQuery(breakpoints.LARGE_TABLET_PORTRAIT).max,
+    largeTabletPortraitUp: getMediaQuery(breakpoints.LARGE_TABLET_PORTRAIT).min,
 
     // Tablet landscape
-    tabletLandscapeDown: getMediaQuery(BREAKPOINTS.tabletLandscape).max,
-    tabletLandscapeUp: getMediaQuery(BREAKPOINTS.tabletLandscape).min,
+    tabletLandscapeDown: getMediaQuery(breakpoints.TABLET_LANDSCAPE).max,
+    tabletLandscapeUp: getMediaQuery(breakpoints.TABLET_LANDSCAPE).min,
 
     // Large tablet landscape
-    largeTabletLandscapeDown: getMediaQuery(BREAKPOINTS.largeTabletLandscape).max,
-    largeTabletLandscapeUp: getMediaQuery(BREAKPOINTS.largeTabletLandscape).min,
+    largeTabletLandscapeDown: getMediaQuery(breakpoints.LARGE_TABLET_LANDSCAPE).max,
+    largeTabletLandscapeUp: getMediaQuery(breakpoints.LARGE_TABLET_LANDSCAPE).min,
 
     // Desktop
-    desktopDown: getMediaQuery(BREAKPOINTS.desktop).max,
-    desktopUp: getMediaQuery(BREAKPOINTS.desktop).min,
+    desktopDown: getMediaQuery(breakpoints.DESKTOP).max,
+    desktopUp: getMediaQuery(breakpoints.DESKTOP).min,
 
     // Large desktop
-    largeDesktopDown: getMediaQuery(BREAKPOINTS.largeDesktop).max,
-    largeDesktopUp: getMediaQuery(BREAKPOINTS.largeDesktop).min,
+    largeDesktopDown: getMediaQuery(breakpoints.LARGE_DESKTOP).max,
+    largeDesktopUp: getMediaQuery(breakpoints.LARGE_DESKTOP).min,
   };
 }

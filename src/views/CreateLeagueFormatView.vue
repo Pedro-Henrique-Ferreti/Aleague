@@ -22,7 +22,7 @@
             </h2>
             <div class="league-format-form__format-grid">
               <CreateLeagueFormatCard
-                v-for="(competition, index) in Object.values(COMPETITION_FORMATS)"
+                v-for="(competition, index) in Object.values(competitionFormats)"
                 v-model="league.format"
                 :key="index"
                 :value="competition.value"
@@ -65,7 +65,7 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { COMPETITION_FORMATS } from '@/constants';
+import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppLargeField from '@/components/AppLargeField.vue';
 import AppWarning from '@/components/AppWarning.vue';
@@ -114,7 +114,7 @@ async function getLeague() {
     const { name } = await getLeagueById(league.value.id);
 
     league.value.name = name;
-    league.value.format = COMPETITION_FORMATS.league.value;
+    league.value.format = competitionFormats.LEAGUE.value;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -126,7 +126,7 @@ async function getLeague() {
 }
 
 const selectedFormat = computed(() => {
-  return Object.values(COMPETITION_FORMATS).find(({ value }) => value === league.value.format);
+  return Object.values(competitionFormats).find(({ value }) => value === league.value.format);
 });
 
 const formIsValid = computed(() => {

@@ -70,7 +70,7 @@ import type { Game, Gameweek } from '@/types/Game';
 import { inject, ref } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
-import { INJECTION_KEYS } from '@/constants';
+import { injectionKeys } from '@/constants/injectionKeys';
 
 import LoadingIndicator from './LoadingIndicator.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
@@ -81,8 +81,8 @@ const { openSnackbarNotification } = useNotificationStore();
 const leaguesStore = useLeaguesStore();
 
 // Injected values
-const league = inject(INJECTION_KEYS.league);
-const reloadLeague = inject(INJECTION_KEYS.reloadLeague);
+const league = inject(injectionKeys.LEAGUE);
+const reloadLeague = inject(injectionKeys.RELOAD_LEAGUE);
 
 // Gameweek
 const isLoadingGameweek = ref(false);

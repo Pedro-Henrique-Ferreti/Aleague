@@ -1,9 +1,9 @@
-export const BREAKPOINTS = {
-  largeSmartphone: '375px',
-  tabletPortrait: '600px',
-  largeTabletPortrait: '768px',
-  tabletLandscape: '900px',
-  largeTabletLandscape: '992px',
-  desktop: '1200px',
-  largeDesktop: '1800px',
+export const breakpoints = {
+  LARGE_SMARTPHONE: '375px',
+  TABLET_PORTRAIT: '600px',
+  LARGE_TABLET_PORTRAIT: '768px',
+  TABLET_LANDSCAPE: '900px',
+  LARGE_TABLET_LANDSCAPE: '992px',
+  DESKTOP: '1200px',
+  LARGE_DESKTOP: '1800px',
 };

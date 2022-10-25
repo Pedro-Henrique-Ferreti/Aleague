@@ -1,1 +1,1 @@
-export const MIN_SNACKBAR_DURATION = 4000;
+export const MIN_DURATION = 4000;

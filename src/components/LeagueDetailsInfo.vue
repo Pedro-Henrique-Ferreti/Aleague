@@ -47,12 +47,12 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { getFullDate } from '@/utils';
-import { INJECTION_KEYS } from '@/constants';
+import { injectionKeys } from '@/constants/injectionKeys';
 import AppProgressBar from './AppProgressBar.vue';
 import SectionHeader from './SectionHeader.vue';
 
 // Injected values
-const league = inject(INJECTION_KEYS.league);
+const league = inject(injectionKeys.LEAGUE);
 </script>
 
 <style lang="scss" scoped>

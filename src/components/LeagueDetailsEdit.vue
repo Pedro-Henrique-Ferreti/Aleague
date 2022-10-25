@@ -26,7 +26,7 @@
 import { inject, ref, computed } from 'vue';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { INJECTION_KEYS } from '@/constants';
+import { injectionKeys } from '@/constants/injectionKeys';
 
 import AppTextField from './AppTextField.vue';
 import SectionHeader from './SectionHeader.vue';
@@ -35,8 +35,8 @@ const { updateLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Injected values
-const league = inject(INJECTION_KEYS.league);
-const reloadLeague = inject(INJECTION_KEYS.reloadLeague) as () => void;
+const league = inject(injectionKeys.LEAGUE);
+const reloadLeague = inject(injectionKeys.RELOAD_LEAGUE) as () => void;
 
 const leagueName = ref(league?.value.name || '');
 

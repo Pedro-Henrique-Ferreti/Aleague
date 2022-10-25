@@ -1,7 +1,7 @@
 import type { LeagueWithStandings } from '@/types/League';
 import type { InjectionKey, Ref } from 'vue';
 
-export const INJECTION_KEYS = {
-  league: Symbol() as InjectionKey<Ref<LeagueWithStandings>>,
-  reloadLeague: Symbol() as InjectionKey<({ showLoader }: { showLoader?: boolean }) => Promise<void>>,
+export const injectionKeys = {
+  LEAGUE: Symbol() as InjectionKey<Ref<LeagueWithStandings>>,
+  RELOAD_LEAGUE: Symbol() as InjectionKey<({ showLoader }: { showLoader?: boolean }) => Promise<void>>,
 };

@@ -1,41 +1,41 @@
 import type { TabPanel } from '@/types/TabPanel';
 
-export const TEAMS_PAGE_TABS: TabPanel = {
-  all: {
+export const teamsPageTabs: TabPanel = {
+  ALL: {
     id: 1,
     name: 'Todos',
   },
-  favorites: {
+  FAVORITES: {
     id: 2,
     name: 'Favoritos',
   },
 };
 
-export const LEAGUES_PAGE_TABS: TabPanel = {
-  all: {
+export const leaguePageTabs: TabPanel = {
+  ALL: {
     id: 1,
     name: 'Todos',
   },
-  cup: {
+  CUP: {
     id: 2,
     name: 'Copa',
   },
-  playOffs: {
+  PLAY_OFFS: {
     id: 3,
     name: 'Eliminatórias',
   },
-  leagues: {
+  LEAGUES: {
     id: 4,
     name: 'Pontos corridos',
   },
 };
 
-export const LEAGUE_PANEL_TABS: TabPanel = {
-  standings: {
+export const leaguePanelTabs: TabPanel = {
+  STANDINGS: {
     id: 1,
     name: 'Tabela',
   },
-  matches: {
+  MATCHES: {
     id: 2,
     name: 'Partidas',
   },
