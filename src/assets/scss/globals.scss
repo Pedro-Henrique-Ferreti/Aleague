@@ -12,3 +12,6 @@
 './mixins/focus-ring.scss',
 './mixins/hide-shadow',
 './mixins/scrollbar';
+
+@import
+'./functions/get-hexadecimal-transparency';
