@@ -13,7 +13,7 @@
             class="success-modal__image"
           />
           <span class="success-modal__title">
-            Muito bem, {{ userStore.user?.username }}
+            Muito bem, {{ userStore.user?.username }}!
           </span>
           <p class="success-modal__message">
             Seu campeonato foi criado com sucesso.
