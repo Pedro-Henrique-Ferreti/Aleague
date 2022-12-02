@@ -87,9 +87,10 @@ const awayTeamScore = computed({
     font-size: 1rem;
     text-align: center;
     outline: none;
-    transition: border-color $transition--fastest ease;
+    transition: all $transition--fastest ease;
     &:focus {
       border-color: $color--primary;
+      box-shadow: 0 0 0 0.2rem get-hexadecimal-transparency($color--primary, 25);
     }
   }
   &__icon-versus {

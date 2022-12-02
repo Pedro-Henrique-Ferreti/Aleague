@@ -46,12 +46,13 @@ defineProps({
     padding: 0 1rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    transition: border-color $transition--fast ease-in-out;
+    transition: all $transition--fastest ease-in-out;
     &:hover {
     --border-color: #{$color--text-lighten};
     }
     &:focus {
       --border-color: #{$color--primary};
+      box-shadow: 0 0 0 0.2rem get-hexadecimal-transparency($color--primary, 25);
     }
   }
   &[readonly] {
