@@ -11,7 +11,7 @@
 
 <style lang="scss" scoped>
 .loading-indicator {
-  --size: 4.5rem;
+  --size: 4rem;
   display: grid;
   place-items: center;
   &__icon {

@@ -1,26 +1,50 @@
 <template>
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 100 100"
-    preserveAspectRatio="xMidYMid"
+    class="ring"
+    viewBox="25 25 50 50"
+    stroke-width="4"
   >
     <circle
+      class="ring__circle"
       cx="50"
       cy="50"
-      fill="none"
-      stroke-width="6"
-      r="35"
-      stroke-dasharray="164.93361431346415 56.97787143782138"
-    >
-      <animateTransform
-        attributeName="transform"
-        type="rotate"
-        repeatCount="indefinite"
-        dur="0.8s"
-        values="0 50 50;360 50 50"
-        keyTimes="0;1"
-      />
-    </circle>
+      r="20"
+    />
   </svg>
 </template>
+
+<style lang="scss" scoped>
+.ring {
+  --animation-speed: 2s;
+
+  vertical-align: middle;
+  transform-origin: center;
+  animation: rotate var(--animation-speed) linear infinite;
+  &__circle {
+    fill: none;
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: stretch calc(var(--animation-speed) * 0.75) ease-in-out infinite;
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes stretch {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 90, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dashoffset: -124px;
+    }
+  }
+}
+</style>
