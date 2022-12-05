@@ -6,6 +6,7 @@ import leaguesRoutes from './leagues';
 import teamsRoutes from './teams';
 import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
+import DeleteAccountView from '@/views/DeleteAccountView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
 import Cookies from 'js-cookie';
 
@@ -44,6 +45,11 @@ const router = createRouter({
           return { name: 'landing' };
         }
       },
+    },
+    {
+      path: '/delete-account',
+      name: 'delete-account',
+      component: DeleteAccountView,
     },
     {
       path: '/:pathMatch(.*)*',

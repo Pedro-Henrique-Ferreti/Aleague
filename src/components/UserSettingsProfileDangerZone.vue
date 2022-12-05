@@ -3,7 +3,10 @@
     <SectionHeader style="--spacing: 1.5rem">
       Zona de perigo
     </SectionHeader>
-    <AppButton color="dangerGray">
+    <AppButton
+      color="dangerGray"
+      :to="{ name: 'delete-account' }"
+    >
       Excluir minha conta
     </AppButton>
   </section>
