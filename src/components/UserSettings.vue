@@ -29,6 +29,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
@@ -37,6 +38,7 @@ import UserSettingsTabButton from './UserSettingsTabButton.vue';
 import UserSettingsProfile from './UserSettingsProfile.vue';
 import UserSettingsChangePassword from './UserSettingsChangePassword.vue';
 
+const route = useRoute();
 const userSettingsStore = useUserSettingsStore();
 const { openSnackbarNotification } = useNotificationStore();
 
@@ -69,6 +71,9 @@ function resetTab(_: number, lastActiveTabId: number) {
     setProfileInfo();
   }
 }
+
+// Watch route changes
+watch(() => route.path, closeModal);
 
 // Save settings
 const isLoading = ref(false);
