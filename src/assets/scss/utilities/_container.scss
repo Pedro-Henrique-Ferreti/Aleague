@@ -1,11 +1,13 @@
 %container {
   --container-base-size: 1;
+  --container-content-size: 0;
   --container-padding: #{$spacing--screen-vertical-padding};
 
   width: 100%;
   padding: 0 var(--container-padding);
   margin-left: auto;
   margin-right: auto;
+  max-width: calc((var(--container-padding) * 2 + var(--container-content-size)) * var(--container-base-size));
   @include for-large-desktop-up {
     --container-base-size: 1.15;
   }
@@ -13,22 +15,25 @@
 
 .container {
   @extend %container;
+  max-width: none;
 }
 
-// 900px
+.container-extra-small {
+  @extend %container;
+  --container-content-size: 37.5rem; // 600px
+}
+
 .container-small {
   @extend %container;
-  max-width: calc((var(--container-padding) * 2 + 56.25rem) * var(--container-base-size));
+  --container-content-size: 56.25rem; // 900px
 }
 
-// 1200px
 .container-medium {
   @extend %container;
-  max-width: calc(((var(--container-padding) * 2) + 75rem) * var(--container-base-size));
+  --container-content-size: 75rem; // 1200px
 }
 
-// 1440px
 .container-large {
   @extend %container;
-  max-width: calc(((var(--container-padding) * 2) + 90rem) * var(--container-base-size));
+  --container-content-size: 90rem; // 1440px
 }
