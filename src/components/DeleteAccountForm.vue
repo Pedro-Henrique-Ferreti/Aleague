@@ -79,10 +79,16 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
+import { useNotificationStore } from '@/stores/notificationStore';
 import { DELETE_ACCOUNT_REASONS } from '@/constants/deleteAccountReasons';
+
 import AppTransition from './AppTransition.vue';
 import AppSelect from './AppSelect.vue';
 import AppTextarea from './AppTextarea.vue';
+
+const authStore = useAuthStore();
+const { openSnackbarNotification } = useNotificationStore();
 
 // Form steps
 const steps = {
@@ -113,10 +119,18 @@ const isSendingCode = ref(false);
 async function sendVerificationCode() {
   isSendingCode.value = true;
 
-  setTimeout(() => {
-    isSendingCode.value = false;
+  try {
+    await authStore.sendDeleteAccountVerificationCode();
+
     activeStep.value = steps.VERIFICATION_CODE;
-  }, 1000);
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isSendingCode.value = false;
+  }
 }
 
 // Delete account

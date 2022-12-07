@@ -127,5 +127,8 @@ export const useAuthStore = defineStore('auth', {
         this.showSplashScreen = false;
       }
     },
+    sendDeleteAccountVerificationCode() {
+      return axios.post('/auth/delete-account/send-verification-code');
+    },
   },
 });
