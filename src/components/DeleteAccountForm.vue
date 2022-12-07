@@ -8,7 +8,7 @@
         v-if="activeStep === steps.DELETE_ACCOUNT_REASON"
         class="delete-account-form__step"
       >
-        <p class="delete-account-form__step-description">
+        <p>
           Antes de continuar, você poderia por favor nos informar por qual motivo deseja excluir sua conta?
         </p>
         <AppSelect
@@ -29,7 +29,7 @@
         v-if="activeStep === steps.ADDITIONAL_COMMENTARY"
         class="delete-account-form__step"
       >
-        <p class="delete-account-form__step-description">
+        <p>
           Você gostaria de enviar um comentário adicional para a equipe do Aleague? Esta etapa é opcional.
         </p>
         <AppTextarea
@@ -133,13 +133,11 @@ async function deleteUserAccount() {
 
 <style lang="scss" scoped>
 .delete-account-form {
-  margin-top: 2.5rem;
-  &__step-description {
-    margin-bottom: 2rem;
-  }
+  margin-top: 2rem;
   &__input {
     max-width: 31.25rem;
     margin: 0 auto;
+    margin-top: 1.5rem;
   }
   &__footer {
     display: grid;
