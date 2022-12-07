@@ -4,9 +4,9 @@
     :class="textFieldClasses"
   >
     <label
-      class="text-field__label"
       v-if="label"
       v-text="label"
+      class="app-label"
       :for="id"
     />
     <div class="text-field__input-wrapper">
@@ -116,12 +116,6 @@ function handleChange(event: Event) {
     .text-field__input {
       padding-right: 2.25rem;
     }
-  }
-  &__label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: $font-weight--semibold;
   }
   &__input-wrapper {
     display: flex;

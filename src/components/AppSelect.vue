@@ -1,9 +1,9 @@
 <template>
   <div class="app-select">
     <label
-      class="app-select__label"
       v-if="label"
       v-text="label"
+      class="app-label"
       :for="id"
     />
     <select
@@ -58,12 +58,6 @@ const inputValue = computed({
 
 <style lang="scss" scoped>
 .app-select {
-  &__label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: $font-weight--semibold;
-  }
   &__input {
     width: 100%;
     min-height: 2.75rem;
