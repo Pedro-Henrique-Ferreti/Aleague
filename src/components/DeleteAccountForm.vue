@@ -38,7 +38,7 @@
           id="delete-account-commentary"
           type="textarea"
           aria-label="Comentário adicional"
-          :maxlength="500"
+          :maxlength="COMMENTARY_MAX_LENGTH"
         />
         {{ deleteAccount.commentary }}
       </div>
@@ -81,7 +81,7 @@
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/authStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { DELETE_ACCOUNT_REASONS } from '@/constants/deleteAccountReasons';
+import { DELETE_ACCOUNT_REASONS, COMMENTARY_MAX_LENGTH } from '@/constants/deleteAccount';
 
 import AppTransition from './AppTransition.vue';
 import AppSelect from './AppSelect.vue';

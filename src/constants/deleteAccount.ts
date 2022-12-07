@@ -17,3 +17,5 @@ export const DELETE_ACCOUNT_REASONS: DeleteAccountReason[] = [
     text: 'Quero apagar os registros da minha conta',
   },
 ];
+
+export const COMMENTARY_MAX_LENGTH = 500;
