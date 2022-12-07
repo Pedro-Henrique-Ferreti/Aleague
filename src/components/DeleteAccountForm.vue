@@ -46,9 +46,15 @@
         v-if="activeStep === steps.VERIFICATION_CODE"
         class="delete-account-form__step"
       >
-        <p class="delete-account-form__step-description">
+        <p>
           Para excluir a conta, por favor informe o código de seis dígitos recebido em seu email.
         </p>
+        <AppCodeField
+          class="delete-account-form__input"
+          :is-loading="isSendingCode"
+          @update-code="deleteAccount.verificationCode = $event"
+          @resend-code="sendVerificationCode"
+        />
       </div>
     </AppTransition>
     <div class="delete-account-form__footer">
@@ -60,6 +66,7 @@
       </AppButton>
       <AppButton
         v-show="activeStep !== steps.VERIFICATION_CODE"
+        type="button"
         :is-loading="isSendingCode"
         @click="handleContinueButtonClick"
       >
@@ -70,6 +77,7 @@
         color="danger"
         type="submit"
         :is-loading="isDeletingAccount"
+        :disabled="deleteAccount.verificationCode.length < 6"
       >
         Confirmar e excluir minha conta
       </AppButton>
@@ -86,6 +94,7 @@ import { DELETE_ACCOUNT_REASONS, COMMENTARY_MAX_LENGTH } from '@/constants/delet
 import AppTransition from './AppTransition.vue';
 import AppSelect from './AppSelect.vue';
 import AppTextarea from './AppTextarea.vue';
+import AppCodeField from './AppCodeField.vue';
 
 const authStore = useAuthStore();
 const { openSnackbarNotification } = useNotificationStore();
@@ -101,6 +110,7 @@ const activeStep = ref(steps.DELETE_ACCOUNT_REASON);
 const deleteAccount = ref({
   reason: DELETE_ACCOUNT_REASONS[0].id,
   commentary: '',
+  verificationCode: '',
 });
 
 // Continue button click
@@ -139,9 +149,22 @@ const isDeletingAccount = ref(false);
 async function deleteUserAccount() {
   isDeletingAccount.value = true;
 
-  setTimeout(() => {
+  try {
+    const { reason, commentary, verificationCode } = deleteAccount.value;
+
+    await authStore.deleteUserAccount({
+      verificationCode,
+      reason: DELETE_ACCOUNT_REASONS.find(({ id }) => id === reason)?.text || '',
+      commentary,
+    });
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
     isDeletingAccount.value = false;
-  }, 1000);
+  }
 }
 </script>
 

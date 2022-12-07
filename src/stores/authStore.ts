@@ -8,6 +8,7 @@ import type {
   LoginResponse,
   RegisterResponse,
   ValidatePasswordResetTokenResponse,
+  DeleteUserAccountParams,
 } from '@/types/AuthStore';
 import type User from '@/types/User';
 import { defineStore } from 'pinia';
@@ -129,6 +130,13 @@ export const useAuthStore = defineStore('auth', {
     },
     sendDeleteAccountVerificationCode() {
       return axios.post('/auth/delete-account/send-verification-code');
+    },
+    deleteUserAccount({ verificationCode, reason, commentary }: DeleteUserAccountParams) {
+      return axios.post('/auth/delete-acount', {
+        reason,
+        code: verificationCode,
+        comment: commentary,
+      });
     },
   },
 });

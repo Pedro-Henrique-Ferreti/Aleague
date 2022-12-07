@@ -42,3 +42,9 @@ export interface ValidatePasswordResetTokenParams {
 export interface ValidatePasswordResetTokenResponse {
   isValid: boolean;
 }
+
+export interface DeleteUserAccountParams {
+  verificationCode: string;
+  reason: string;
+  commentary: string;
+}
