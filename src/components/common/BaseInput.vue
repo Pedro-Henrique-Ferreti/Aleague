@@ -1,6 +1,14 @@
 <template>
+  <textarea
+    v-if="type === 'textarea'"
+    class="base-input base-input--textarea"
+    @change="$emit('change', $event)"
+    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+  />
   <input
+    v-else
     class="base-input"
+    :type="type"
     :readonly="readonly"
     :value="modelValue"
     @change="$emit('change', $event)"
@@ -18,6 +26,10 @@ defineProps({
   readonly: {
     type: Boolean,
     default: false,
+  },
+  type: {
+    type: String,
+    default: 'text',
   },
 });
 </script>
@@ -46,7 +58,9 @@ defineProps({
     padding: 0 1rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    transition: all $transition--fastest ease-in-out;
+    transition: 
+      border-color $transition--fastest ease-in-out,
+      box-shadow $transition--fastest ease-in-out;
     &:hover {
     --border-color: #{$color--text-lighten};
     }
@@ -61,6 +75,10 @@ defineProps({
   &[type="password"] {
     font-family: Verdana, sans-serif;
     letter-spacing: 0.125em;
+  }
+  &.base-input--textarea {
+    --min-height: 7rem;
+    padding: 0.5rem 1rem;
   }
 }
 </style>

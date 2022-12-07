@@ -13,6 +13,7 @@
         </p>
         <AppSelect
           v-model="deleteAccount.reason"
+          class="delete-account-form__input"
           id="delete-account-reason"
           aria-label="Motivo para excluir a conta"
         >
@@ -31,6 +32,15 @@
         <p class="delete-account-form__step-description">
           Você gostaria de enviar um comentário adicional para a equipe do Aleague? Esta etapa é opcional.
         </p>
+        <AppTextarea
+          v-model="deleteAccount.commentary"
+          class="delete-account-form__input"
+          id="delete-account-commentary"
+          type="textarea"
+          aria-label="Comentário adicional"
+          :maxlength="500"
+        />
+        {{ deleteAccount.commentary }}
       </div>
       <div
         v-if="activeStep === steps.VERIFICATION_CODE"
@@ -72,6 +82,7 @@ import { ref } from 'vue';
 import { DELETE_ACCOUNT_REASONS } from '@/constants/deleteAccountReasons';
 import AppTransition from './AppTransition.vue';
 import AppSelect from './AppSelect.vue';
+import AppTextarea from './AppTextarea.vue';
 
 // Form steps
 const steps = {
@@ -125,6 +136,10 @@ async function deleteUserAccount() {
   margin-top: 2.5rem;
   &__step-description {
     margin-bottom: 2rem;
+  }
+  &__input {
+    max-width: 31.25rem;
+    margin: 0 auto;
   }
   &__footer {
     display: grid;
