@@ -87,6 +87,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { DELETE_ACCOUNT_REASONS, COMMENTARY_MAX_LENGTH } from '@/constants/deleteAccount';
@@ -96,6 +97,7 @@ import AppSelect from './AppSelect.vue';
 import AppTextarea from './AppTextarea.vue';
 import AppCodeField from './AppCodeField.vue';
 
+const router = useRouter();
 const authStore = useAuthStore();
 const { openSnackbarNotification } = useNotificationStore();
 
@@ -157,6 +159,10 @@ async function deleteUserAccount() {
       reason: DELETE_ACCOUNT_REASONS.find(({ id }) => id === reason)?.text || '',
       commentary,
     });
+
+    await authStore.logout();
+
+    router.push({ name: 'goodbye' });
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

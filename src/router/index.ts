@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import Cookies from 'js-cookie';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import authRoutes from './auth';
@@ -7,8 +8,8 @@ import teamsRoutes from './teams';
 import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
 import DeleteAccountView from '@/views/DeleteAccountView.vue';
+import GoodbyeView from '@/views/GoodbyeView.vue';
 import NotFoundView from '@/views/NotFoundView.vue';
-import Cookies from 'js-cookie';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,18 @@ const router = createRouter({
       path: '/delete-account',
       name: 'delete-account',
       component: DeleteAccountView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/goodbye',
+      name: 'goodbye',
+      component: GoodbyeView,
+      meta: { layout: 'notFound' },
+      beforeEnter: (_, from) => {
+        if (from.name !== 'delete-account') {
+          return { name: 'landing' };
+        }
+      },
     },
     {
       path: '/:pathMatch(.*)*',
