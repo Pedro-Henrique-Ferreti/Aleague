@@ -132,7 +132,7 @@ export const useAuthStore = defineStore('auth', {
       return axios.post('/auth/delete-account/send-verification-code');
     },
     deleteUserAccount({ verificationCode, reason, commentary }: DeleteUserAccountParams) {
-      return axios.post('/auth/delete-acount', {
+      return axios.post('/auth/delete-account', {
         reason,
         code: verificationCode,
         comment: commentary,

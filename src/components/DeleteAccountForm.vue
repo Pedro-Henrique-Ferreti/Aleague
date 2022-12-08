@@ -40,7 +40,6 @@
           aria-label="Comentário adicional"
           :maxlength="COMMENTARY_MAX_LENGTH"
         />
-        {{ deleteAccount.commentary }}
       </div>
       <div
         v-if="activeStep === steps.VERIFICATION_CODE"
