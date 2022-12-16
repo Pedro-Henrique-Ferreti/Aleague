@@ -18,6 +18,6 @@ export const competitionFormats = {
     value: 'play-off',
     image: '/images/leagues/play-off-format-icon.svg',
     description: 'Cada equipe competidora disputa um certo número de partidas, até ser promovida à próxima fase. A equipe perdedora de cada disputa é eliminada da competição.',
-    isAvailable: false,
+    isAvailable: true,
   },
 };

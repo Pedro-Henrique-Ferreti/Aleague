@@ -2,7 +2,9 @@ import type { RouteRecordRaw } from 'vue-router';
 import LeaguesView from '@/views/LeaguesView.vue';
 import LeagueView from '@/views/LeagueView.vue';
 import CreateLeagueView from '@/views/CreateLeagueView.vue';
+import CreateLeagueLeagueFormatView from '@/views/CreateLeagueLeagueFormatView.vue';
 import CreateLeagueFormatView from '@/views/CreateLeagueFormatView.vue';
+import CreatePlayoffFormatView from '@/views/CreatePlayoffFormatView.vue';
 import CreateLeagueRulesView from '@/views/CreateLeagueRulesView.vue';
 import CreateLeagueParticipantsView from '@/views/CreateLeagueParticipantsView.vue';
 
@@ -21,18 +23,29 @@ export default [
         props: true,
       },
       {
-        path: ':id',
+        path: 'league/:id',
         name: 'create-league-format',
-        component: CreateLeagueFormatView,
+        component: CreateLeagueLeagueFormatView,
         props: true,
       },
       {
-        path: ':id/rules',
+        path: 'playoff/:id',
+        name: 'create-playoff-format',
+        component: CreatePlayoffFormatView,
+        props: true,
+      },
+      {
+        path: 'league/:id/rules',
         name: 'create-league-rules',
         component: CreateLeagueRulesView,
       },
       {
-        path: ':id/participants',
+        path: 'playoff/:id/rules',
+        name: 'create-playoff-rules',
+        component: CreateLeagueRulesView,
+      },
+      {
+        path: 'league/:id/participants',
         name: 'create-league-participants',
         component: CreateLeagueParticipantsView,
       },
