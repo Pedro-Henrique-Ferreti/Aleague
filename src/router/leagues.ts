@@ -39,11 +39,13 @@ export default [
         path: 'league/:id/rules',
         name: 'create-league-rules',
         component: CreateLeagueRulesView,
+        props: true,
       },
       {
         path: 'playoff/:id/rules',
         name: 'create-playoff-rules',
         component: CreatePlayoffRulesView,
+        props: true,
       },
       {
         path: 'league/:id/participants',

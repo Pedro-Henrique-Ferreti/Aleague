@@ -1,14 +1,14 @@
 <template>
   <header class="league-form-header">
     <img
-      src="/images/leagues/league-format-icon.svg"
-      alt="League icon"
       class="league-form-header__icon"
+      alt="League icon"
+      :src="leagueIcon"
     />
     <div class="league-form-header__column">
       <span class="league-form-header__title">{{ leagueName }}</span>
       <div class="league-form-header__details">
-        <span class="league-form-header__detail">Pontos corridos</span>
+        <span class="league-form-header__detail">{{ leagueFormat }}</span>
         <span
           v-if="teamsCount > 0"
           v-text="`${teamsCount} participantes`"
@@ -24,6 +24,14 @@ defineProps({
   leagueName: {
     type: String,
     required: true,
+  },
+  leagueIcon: {
+    type: String,
+    default: '',
+  },
+  leagueFormat: {
+    type: String,
+    default: '',
   },
   teamsCount: {
     type: Number,
