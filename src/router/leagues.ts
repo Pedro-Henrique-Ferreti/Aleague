@@ -2,10 +2,11 @@ import type { RouteRecordRaw } from 'vue-router';
 import LeaguesView from '@/views/LeaguesView.vue';
 import LeagueView from '@/views/LeagueView.vue';
 import CreateLeagueView from '@/views/CreateLeagueView.vue';
-import CreateLeagueLeagueFormatView from '@/views/CreateLeagueLeagueFormatView.vue';
 import CreateLeagueFormatView from '@/views/CreateLeagueFormatView.vue';
+import CreateLeagueLeagueFormatView from '@/views/CreateLeagueLeagueFormatView.vue';
 import CreatePlayoffFormatView from '@/views/CreatePlayoffFormatView.vue';
 import CreateLeagueRulesView from '@/views/CreateLeagueRulesView.vue';
+import CreatePlayoffRulesView from '@/views/CreatePlayoffRulesView.vue';
 import CreateLeagueParticipantsView from '@/views/CreateLeagueParticipantsView.vue';
 
 export default [
@@ -42,7 +43,7 @@ export default [
       {
         path: 'playoff/:id/rules',
         name: 'create-playoff-rules',
-        component: CreateLeagueRulesView,
+        component: CreatePlayoffRulesView,
       },
       {
         path: 'league/:id/participants',
