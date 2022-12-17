@@ -6,10 +6,15 @@ import type {
   LeagueWithStandings,
 } from '@/types/League';
 import type { Playoff } from '@/types/Playoff';
-import type { SaveLeagueGamesParams, UpdateLeagueRulesParams } from '@/types/LeaguesStore';
+import type {
+  SaveLeagueGamesParams,
+  UpdateLeagueRulesParams,
+  UpdatePlayoffRulesParams,
+} from '@/types/LeaguesStore';
 import type { Gameweek } from '@/types/Game';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
+import { PARTICIPANTS_BY_ROUND } from '@/constants/playoffs';
 import { useTeamsStore } from './teamsStore';
 
 interface State {
@@ -103,6 +108,14 @@ export const useLeaguesStore = defineStore('leagues', {
     },
     updatePlayoff({ hashId , name }: { hashId: string, name: string }) {
       return axios.patch<Playoff>(`/playoffs/${hashId}`, { name });
+    },
+    updatePlayoffRules({ hashId, numberOfRounds, numberOfLegs }: UpdatePlayoffRulesParams) {
+      return axios.patch<Playoff>(`/playoffs/${hashId}/rules`, {
+        numberOfLegs,
+        numberOfTeams: PARTICIPANTS_BY_ROUND.find(
+          ({ numberOfRounds: n }) => n === numberOfRounds,
+        )?.numberOfParticipants,
+      });
     },
   },
 });
