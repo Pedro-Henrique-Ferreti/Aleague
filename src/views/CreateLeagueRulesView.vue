@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import {  useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
@@ -119,27 +119,3 @@ async function saveLeague() {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.league-rules-form {
-  margin-top: 3rem;
-  &__row {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    &:not(:last-of-type) {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid $color--light-gray-1;
-    }
-    @include for-tablet-portrait-up {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-  &__label {
-    color: $color--text-darken;
-  }
-}
-</style>
