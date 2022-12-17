@@ -3,10 +3,8 @@
     :league-format="competitionFormats.PLAY_OFF.value"
     :league-name="playoff.name"
     :is-loading-league="isLoadingPlayoff"
-    :backButtonRoute="{ name: 'create-playoff-format', id: playoff.id }"
-  >
-    
-  </CreateLeagueRulesForm>
+    :back-button-route="{ name: 'create-playoff-format', id: playoff.id }"
+  />
 </template>
 
 <script lang="ts" setup>

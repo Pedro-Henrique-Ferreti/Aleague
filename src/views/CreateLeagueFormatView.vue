@@ -54,7 +54,7 @@ async function handleSubmit() {
 async function createLeague() {
   const leagueId = await leaguesStore.createLeague({
     name: league.value.name,
-  });  
+  });
 
   router.push({
     name: 'create-league-rules',

@@ -58,7 +58,7 @@ defineProps({
     padding: 0 1rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    transition: 
+    transition:
       border-color $transition--fastest ease-in-out,
       box-shadow $transition--fastest ease-in-out;
     &:hover {
