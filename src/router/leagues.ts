@@ -1,18 +1,18 @@
 import type { RouteRecordRaw } from 'vue-router';
 import LeaguesView from '@/views/LeaguesView.vue';
 import LeagueView from '@/views/LeagueView.vue';
-import CreateLeagueView from '@/views/CreateLeagueView.vue';
-import CreateLeagueFormatView from '@/views/CreateLeagueFormatView.vue';
-import CreateLeagueLeagueFormatView from '@/views/CreateLeagueLeagueFormatView.vue';
-import CreatePlayoffFormatView from '@/views/CreatePlayoffFormatView.vue';
-import CreateLeagueRulesView from '@/views/CreateLeagueRulesView.vue';
-import CreatePlayoffRulesView from '@/views/CreatePlayoffRulesView.vue';
-import CreateLeagueParticipantsView from '@/views/CreateLeagueParticipantsView.vue';
+import CreateCompetitionView from '@/views/CreateCompetitionView.vue';
+import CreateCompetitionFormatView from '@/views/CreateCompetitionFormatView.vue';
+import CreateCompetitionLeagueFormatView from '@/views/CreateCompetitionLeagueFormatView.vue';
+import CreateCompetitionPlayoffFormatView from '@/views/CreateCompetitionPlayoffFormatView.vue';
+import CreateCompetitionLeagueRulesView from '@/views/CreateCompetitionLeagueRulesView.vue';
+import CreateCompetitionPlayoffRulesView from '@/views/CreateCompetitionPlayoffRulesView.vue';
+import CreateCompetitionLeagueParticipantsView from '@/views/CreateCompetitionLeagueParticipantsView.vue';
 
 export default [
   {
     path: '/create-league',
-    component: CreateLeagueView,
+    component: CreateCompetitionView,
     meta: {
       requiresAuth: true,
     },
@@ -20,37 +20,37 @@ export default [
       {
         path: '',
         name: 'create-league',
-        component: CreateLeagueFormatView,
+        component: CreateCompetitionFormatView,
         props: true,
       },
       {
         path: 'league/:id',
         name: 'create-league-format',
-        component: CreateLeagueLeagueFormatView,
+        component: CreateCompetitionLeagueFormatView,
         props: true,
       },
       {
         path: 'playoff/:id',
         name: 'create-playoff-format',
-        component: CreatePlayoffFormatView,
+        component: CreateCompetitionPlayoffFormatView,
         props: true,
       },
       {
         path: 'league/:id/rules',
         name: 'create-league-rules',
-        component: CreateLeagueRulesView,
+        component: CreateCompetitionLeagueRulesView,
         props: true,
       },
       {
         path: 'playoff/:id/rules',
         name: 'create-playoff-rules',
-        component: CreatePlayoffRulesView,
+        component: CreateCompetitionPlayoffRulesView,
         props: true,
       },
       {
         path: 'league/:id/participants',
         name: 'create-league-participants',
-        component: CreateLeagueParticipantsView,
+        component: CreateCompetitionLeagueParticipantsView,
       },
     ],
   },

@@ -1,8 +1,8 @@
 <template>
-  <div class="create-league-layout">
+  <div class="competition-layout">
     <slot />
     <img
-      class="create-league-layout__image"
+      class="competition-layout__image"
       src="/images/marketer.svg"
       alt=""
       draggable="false"
@@ -13,7 +13,7 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-.create-league-layout {
+.competition-layout {
   display: grid;
   &__image {
     display: none;
@@ -23,12 +23,12 @@
   }
   @include for-tablet-landscape-up {
     grid-template-columns: 50% auto;
-    .create-league-layout__image {
+    .competition-layout__image {
       display: block;
     }
   }
   @include for-desktop-up {
-    .create-league-layout__image {
+    .competition-layout__image {
       height: 29.5rem;
     }
   }

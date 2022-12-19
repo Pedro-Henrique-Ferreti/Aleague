@@ -5,9 +5,9 @@
     </template>
     <p>Bem-vindo a criação de campeonatos! Para começar, escolha nome e formato para o seu campeonato.</p>
   </PageHeader>
-  <CreateLeagueStepper :current-step="1" />
-  <CreateLeagueLayout>
-    <CreateLeagueForm @submit="submitForm">
+  <CompetitionStepper :current-step="1" />
+  <CompetitionLayout>
+    <CompetitionForm @submit="submitForm">
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingLeagueData" />
         <div v-else>
@@ -16,27 +16,27 @@
             placeholder="Digite o nome do campeonato"
             icon="football"
           />
-          <div class="league-format-form">
-            <h2 class="league-format-form__title">
+          <div class="competition-format-form">
+            <h2 class="competition-format-form__title">
               Escolha o formato
             </h2>
-            <div class="league-format-form__format-grid">
-              <CreateLeagueFormatCard
+            <div class="competition-format-form__format-grid">
+              <CompetitionFormatCard
                 v-for="(competition, index) in Object.values(competitionFormats)"
                 v-model="leagueFormat"
                 :key="index"
                 :value="competition.value"
                 :image="competition.image"
                 :label="competition.name"
-                :id="`league-format--${competition.value}`"
+                :id="`competition-format--${competition.value}`"
               />
             </div>
-            <p class="league-format-form__format-description">
+            <p class="competition-format-form__format-description">
               {{ selectedFormat?.description || '' }}
             </p>
             <AppWarning
               v-if="selectedFormat && !selectedFormat.isAvailable"
-              class="league-format-form__warning"
+              class="competition-format-form__warning"
               message="Esse formato de campeonato não está disponível no momento."
             />
           </div>
@@ -56,8 +56,8 @@
           Próximo passo
         </AppButton>
       </template>
-    </CreateLeagueForm>
-  </CreateLeagueLayout>
+    </CompetitionForm>
+  </CompetitionLayout>
 </template>
 
 <script lang="ts" setup>
@@ -65,14 +65,14 @@ import { computed } from 'vue';
 import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppLargeField from '@/components/AppLargeField.vue';
+import AppTransition from '@/components/AppTransition.vue';
 import AppWarning from '@/components/AppWarning.vue';
 import PageHeader from '@/components/PageHeader.vue';
-import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
-import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
-import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
-import CreateLeagueFormatCard from '@/components/CreateLeagueFormatCard.vue';
-import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import CompetitionStepper from '@/components/CompetitionStepper.vue';
+import CompetitionForm from '@/components/CompetitionForm.vue';
+import CompetitionLayout from '@/components/CompetitionLayout.vue';
+import CompetitionFormatCard from '@/components/CompetitionFormatCard.vue';
 
 const emit = defineEmits(['update:league-name', 'update:league-format', 'submit']);
 const props = defineProps({
@@ -130,7 +130,7 @@ function submitForm() {
 </script>
 
 <style lang="scss" scoped>
-.league-format-form {
+.competition-format-form {
   margin-top: 2.5rem;
   &__title {
     margin-bottom: 1rem;

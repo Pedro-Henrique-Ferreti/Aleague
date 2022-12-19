@@ -16,12 +16,12 @@
     </template>
     <p>Escolha as equiper que participarão do campeonato. Você pode revisar as configurações antes de finalizar.</p>
   </PageHeader>
-  <CreateLeagueStepper :current-step="3" />
-  <CreateLeagueForm @submit="toggleConfirmationModal">
+  <CompetitionStepper :current-step="3" />
+  <CompetitionForm @submit="toggleConfirmationModal">
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else>
-        <CreateLeagueFormHeader
+        <CompetitionFormHeader
           :league-name="league.name"
           :teams-count="league.numberOfTeams"
         />
@@ -57,7 +57,7 @@
         Finalizar
       </AppButton>
     </template>
-  </CreateLeagueForm>
+  </CompetitionForm>
 </template>
 
 <script lang="ts" setup>
@@ -72,12 +72,12 @@ import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import AddParticipantsField from '@/components/AddParticipantsField.vue';
-import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
-import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
-import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
-import ParticipantCard from '@/components/CreateLeagueParticipantCard.vue';
-import ConfirmationModal from '@/components/CreateLeagueConfirmationModal.vue';
-import SuccessModal from '@/components/CreateLeagueSuccessModal.vue';
+import CompetitionStepper from '@/components/CompetitionStepper.vue';
+import CompetitionForm from '@/components/CompetitionForm.vue';
+import CompetitionFormHeader from '@/components/CompetitionFormHeader.vue';
+import ParticipantCard from '@/components/CompetititonParticipantCard.vue';
+import ConfirmationModal from '@/components/CompetitionConfirmationModal.vue';
+import SuccessModal from '@/components/CompetitionSuccessModal.vue';
 
 const route = useRoute();
 const teamsStore = useTeamsStore();

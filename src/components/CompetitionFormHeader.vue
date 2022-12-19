@@ -1,18 +1,18 @@
 <template>
-  <header class="league-form-header">
+  <header class="competition-form-header">
     <img
-      class="league-form-header__icon"
+      class="competition-form-header__icon"
       alt="League icon"
       :src="leagueIcon"
     />
-    <div class="league-form-header__column">
-      <span class="league-form-header__title">{{ leagueName }}</span>
-      <div class="league-form-header__details">
-        <span class="league-form-header__detail">{{ leagueFormat }}</span>
+    <div class="competition-form-header__column">
+      <span class="competition-form-header__title">{{ leagueName }}</span>
+      <div class="competition-form-header__details">
+        <span class="competition-form-header__detail">{{ leagueFormat }}</span>
         <span
           v-if="teamsCount > 0"
           v-text="`${teamsCount} participantes`"
-          class="league-form-header__detail"
+          class="competition-form-header__detail"
         />
       </div>
     </div>
@@ -41,7 +41,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.league-form-header {
+.competition-form-header {
   display: flex;
   gap: 0.5rem;
   width: 100%;
@@ -70,24 +70,24 @@ defineProps({
     }
   }
   @include for-large-smartphone-down {
-    .league-form-header__details {
+    .competition-form-header__details {
       display: block;
     }
-    .league-form-header__detail::before {
+    .competition-form-header__detail::before {
       display: none;
     }
   }
   @include for-desktop-down {
-    .league-form-header__detail:first-of-type::before {
+    .competition-form-header__detail:first-of-type::before {
       display: none;
     }
   }
   @include for-desktop-up {
     align-items: center;
-    .league-form-header__column {
+    .competition-form-header__column {
       display: flex;
     }
-    .league-form-header__detail::before {
+    .competition-form-header__detail::before {
       margin: 0 0.75rem;
     }
   }

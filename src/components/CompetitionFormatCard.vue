@@ -1,29 +1,29 @@
 <template>
   <label
-    class="league-format-card"
-    :class="{ 'league-format-card--checked': isChecked }"
+    class="competition-format-card"
+    :class="{ 'competition-format-card--checked': isChecked }"
     :for="id"
   >
     <input
       v-model="inputValue"
-      class="league-format-card__input"
+      class="competition-format-card__input"
       type="radio"
       :value="value"
       :id="id"
     />
-    <div class="league-format-card__control">
+    <div class="competition-format-card__control">
       <IconRadioControl
-        class="league-format-card__control-icon"
+        class="competition-format-card__control-icon"
         :checked="isChecked"
       />
     </div>
     <img
-      class="league-format-card__image"
+      class="competition-format-card__image"
       alt="Format icon"
       :src="image"
     />
     <slot>
-      <span class="league-format-card__label">
+      <span class="competition-format-card__label">
         {{ label }}
       </span>
     </slot>
@@ -72,7 +72,7 @@ const isChecked = computed(() => inputValue.value === props.value);
 </script>
 
 <style lang="scss" scoped>
-.league-format-card {
+.competition-format-card {
   --background-color: #{$color--white};
   --border-color: #{$color--light-gray-1};
   &--checked {

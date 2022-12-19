@@ -1,5 +1,5 @@
 <template>
-  <CreateLeagueRulesForm
+  <CompetitionRulesForm
     :league-format="competitionFormats.PLAY_OFF.value"
     :league-name="playoff.name"
     :is-loading-league="isLoadingPlayoff"
@@ -7,7 +7,7 @@
     :back-button-route="{ name: 'create-playoff-format', id: playoff.id }"
     @submit="savePlayoff"
   >
-    <CreateLeagueRulesFormRow id="rules-form-rounds">
+    <CompetitionRulesFormRow id="rules-form-rounds">
       <template #label>
         Quantidade de fases
       </template>
@@ -17,8 +17,8 @@
         :min="1"
         :max="6"
       />
-    </CreateLeagueRulesFormRow>
-    <CreateLeagueRulesFormRow id="rules-form-two-legs">
+    </CompetitionRulesFormRow>
+    <CompetitionRulesFormRow id="rules-form-two-legs">
       <template #label>
         Confrontos de ida e volta
       </template>
@@ -27,8 +27,8 @@
         show-labels
         labelled-by="rules-form-two-legs"
       />
-    </CreateLeagueRulesFormRow>
-  </CreateLeagueRulesForm>
+    </CompetitionRulesFormRow>
+  </CompetitionRulesForm>
 </template>
 
 <script lang="ts" setup>
@@ -40,8 +40,8 @@ import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppCounterField from '@/components/AppCounterField.vue';
 import AppSwitch from '@/components/AppSwitch.vue';
-import CreateLeagueRulesForm from '@/components/CreateLeagueRulesForm.vue';
-import CreateLeagueRulesFormRow from '@/components/CreateLeagueRulesFormRow.vue';
+import CompetitionRulesForm from '@/components/CompetitionRulesForm.vue';
+import CompetitionRulesFormRow from '@/components/CompetitionRulesFormRow.vue';
 
 // const router = useRouter();
 const { getPlayoffById, updatePlayoffRules } = useLeaguesStore();

@@ -8,13 +8,13 @@
       <b>{{ leagueFormat?.name.toLowerCase() }}</b>.
     </p>
   </PageHeader>
-  <CreateLeagueStepper :current-step="2" />
-  <CreateLeagueLayout>
-    <CreateLeagueForm @submit="submitForm">
+  <CompetitionStepper :current-step="2" />
+  <CompetitionLayout>
+    <CompetitionForm @submit="submitForm">
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingLeague" />
         <div v-else>
-          <CreateLeagueFormHeader
+          <CompetitionFormHeader
             :league-name="leagueName"
             :league-icon="leagueFormat?.image"
             :league-format="leagueFormat?.name"
@@ -38,8 +38,8 @@
           Próximo passo
         </AppButton>
       </template>
-    </CreateLeagueForm>
-  </CreateLeagueLayout>
+    </CompetitionForm>
+  </CompetitionLayout>
 </template>
 
 <script lang="ts" setup>
@@ -49,10 +49,10 @@ import { competitionFormats } from '@/constants/competitionFormats';
 import AppTransition from '@/components/AppTransition.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
-import CreateLeagueLayout from '@/components/CreateLeagueLayout.vue';
-import CreateLeagueForm from '@/components/CreateLeagueForm.vue';
-import CreateLeagueStepper from '@/components/CreateLeagueStepper.vue';
-import CreateLeagueFormHeader from '@/components/CreateLeagueFormHeader.vue';
+import CompetitionLayout from '@/components/CompetitionLayout.vue';
+import CompetitionForm from '@/components/CompetitionForm.vue';
+import CompetitionStepper from '@/components/CompetitionStepper.vue';
+import CompetitionFormHeader from '@/components/CompetitionFormHeader.vue';
 
 const emit = defineEmits(['submit']);
 const props = defineProps({

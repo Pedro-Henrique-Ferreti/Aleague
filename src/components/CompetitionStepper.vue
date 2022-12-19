@@ -1,6 +1,6 @@
 <template>
-  <div class="create-league-stepper">
-    <CreateLeagueStepperStep
+  <div class="competition-stepper">
+    <CompetitionStepperStep
       v-for="step in steps"
       :class="{ 'stepper--hidden': step.number !== currentStep }"
       :key="step.number"
@@ -9,13 +9,13 @@
       :is-complete="step.number < currentStep"
     >
       {{ step.name }}
-    </CreateLeagueStepperStep>
+    </CompetitionStepperStep>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
-import CreateLeagueStepperStep from './CreateLeagueStepperStep.vue';
+import CompetitionStepperStep from './CompetitionStepperStep.vue';
 
 defineProps({
   currentStep: {
@@ -32,7 +32,7 @@ const steps = [
 </script>
 
 <style lang="scss" scoped>
-.create-league-stepper {
+.competition-stepper {
   display: grid;
   gap: 2rem;
   margin-bottom: 2rem;

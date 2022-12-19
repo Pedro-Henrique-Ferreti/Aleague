@@ -1,7 +1,7 @@
 <template>
-  <CreateLeagueFormatForm
-    v-model:league-name="league.name"
-    v-model:league-format="league.format"
+  <CompetitionFormatForm
+    v-model:league-name="playoff.name"
+    v-model:league-format="playoff.format"
     :is-loading-league-data="isLoadingLeagueData"
     :is-saving-league="isSavingLeague"
     @submit="handleSubmit"
@@ -15,10 +15,10 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 
-import CreateLeagueFormatForm from '@/components/CreateLeagueFormatForm.vue';
+import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
-const { getLeagueById, updateLeague } = useLeaguesStore();
+const { getPlayoffById, updatePlayoff } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -28,14 +28,14 @@ const props = defineProps({
   },
 });
 
-// League data
-const league = ref({
+// Playoff data
+const playoff = ref({
   id: props.id,
   name: '',
-  format: competitionFormats.LEAGUE.value,
+  format: competitionFormats.PLAY_OFF.value,
 });
 
-// Get league data
+// Get playoff data
 const isLoadingLeagueData = ref(false);
 
 getPlayoff();
@@ -44,9 +44,9 @@ async function getPlayoff() {
   isLoadingLeagueData.value = true;
 
   try {
-    const { name } = await getLeagueById(league.value.id);
+    const { name } = await getPlayoffById(playoff.value.id);
 
-    league.value.name = name;
+    playoff.value.name = name;
   } catch(error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -64,14 +64,14 @@ async function handleSubmit() {
   isSavingLeague.value = true;
 
   try {
-    await updateLeague({
-      hashId: league.value.id,
-      name: league.value.name,
+    await updatePlayoff({
+      hashId: playoff.value.id,
+      name: playoff.value.name,
     });
 
     router.push({
-      name: 'create-league-rules',
-      params: { id: league.value.id },
+      name: 'create-playoff-rules',
+      params: { id: playoff.value.id },
     });
   } catch(error: any) {
     openSnackbarNotification({

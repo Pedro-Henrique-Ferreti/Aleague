@@ -1,7 +1,7 @@
 <template>
-  <div class="league-rules-form__row">
+  <div class="competition-rules-form__row">
     <label
-      class="league-rules-form__label"
+      class="competition-rules-form__label"
       :id="id"
     >
       <slot name="label" />
@@ -20,7 +20,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.league-rules-form {
+.competition-rules-form {
   margin-top: 3rem;
   &__row {
     display: flex;

@@ -1,10 +1,10 @@
 <template>
   <form
-    class="create-league-form"
+    class="competition-form"
     @submit.prevent="$emit('submit')"
   >
     <slot />
-    <div class="create-league-form__footer">
+    <div class="competition-form__footer">
       <slot name="footer" />
     </div>
   </form>
@@ -15,7 +15,7 @@ defineEmits(['submit']);
 </script>
 
 <style lang="scss" scoped>
-.create-league-form {
+.competition-form {
   display: flex;
   flex-direction: column;
   min-height: 30rem;

@@ -1,5 +1,5 @@
 <template>
-  <CreateLeagueFormatForm
+  <CompetitionFormatForm
     v-model:league-name="league.name"
     v-model:league-format="league.format"
     :is-saving-league="isSavingLeague"
@@ -14,7 +14,7 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 
-import CreateLeagueFormatForm from '@/components/CreateLeagueFormatForm.vue';
+import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
 const leaguesStore = useLeaguesStore();
