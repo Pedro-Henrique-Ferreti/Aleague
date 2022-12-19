@@ -11,14 +11,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leaguesStore';
+import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 
 import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
-const { getPlayoffById, updatePlayoff } = useLeaguesStore();
+const { getPlayoffById, updatePlayoff } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({

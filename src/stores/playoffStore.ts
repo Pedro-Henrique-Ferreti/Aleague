@@ -1,0 +1,34 @@
+import type { AxiosResponse } from 'axios';
+import type { UpdatePlayoffRulesParams } from '@/types/PlayoffStore';
+import type { Playoff } from '@/types/Playoff';
+
+import { defineStore } from 'pinia';
+import axios from '@/helpers/axios';
+
+import { PARTICIPANTS_BY_ROUND } from '@/constants/playoffs';
+
+export const usePlayoffStore = defineStore('playoff', {
+  actions: {
+    async getPlayoffById(hashId: string) {
+      const { data: playoff }: AxiosResponse<Playoff> = await axios.get(`/playoffs/${hashId}`);
+
+      return playoff;
+    },
+    async createPlayoff({ name }: { name: string }) {
+      const { data: { hashid } }: AxiosResponse<Playoff> = await axios.post('/playoffs', { name });
+
+      return hashid;
+    },
+    updatePlayoff({ hashId , name }: { hashId: string, name: string }) {
+      return axios.patch<Playoff>(`/playoffs/${hashId}`, { name });
+    },
+    updatePlayoffRules({ hashId, numberOfRounds, numberOfLegs }: UpdatePlayoffRulesParams) {
+      return axios.patch<Playoff>(`/playoffs/${hashId}/rules`, {
+        numberOfLegs,
+        numberOfTeams: PARTICIPANTS_BY_ROUND.find(
+          ({ numberOfRounds: n }) => n === numberOfRounds,
+        )?.numberOfParticipants,
+      });
+    },
+  },
+});

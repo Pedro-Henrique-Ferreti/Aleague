@@ -34,7 +34,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 // import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leaguesStore';
+import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 
@@ -44,7 +44,7 @@ import CompetitionRulesForm from '@/components/CompetitionRulesForm.vue';
 import CompetitionRulesFormRow from '@/components/CompetitionRulesFormRow.vue';
 
 // const router = useRouter();
-const { getPlayoffById, updatePlayoffRules } = useLeaguesStore();
+const { getPlayoffById, updatePlayoffRules } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({

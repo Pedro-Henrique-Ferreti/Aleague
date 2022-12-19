@@ -11,6 +11,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
+import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 
@@ -18,6 +19,7 @@ import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
 const leaguesStore = useLeaguesStore();
+const playoffStore = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
@@ -63,13 +65,13 @@ async function createLeague() {
 }
 
 async function createPlayoff() {
-  const leagueId = await leaguesStore.createPlayoff({
+  const playoffId = await playoffStore.createPlayoff({
     name: league.value.name,
   });
 
   router.push({
     name: 'create-playoff-rules',
-    params: { id: leagueId },
+    params: { id: playoffId },
   });
 }
 </script>
