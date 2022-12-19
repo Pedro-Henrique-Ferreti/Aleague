@@ -51,7 +51,7 @@
         </AppButton>
         <AppButton
           :is-loading="isSavingCompetition"
-          :disabled="!formIsValid"
+          :disabled="isLoadingCompetition || !formIsValid"
         >
           Próximo passo
         </AppButton>
