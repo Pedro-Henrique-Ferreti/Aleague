@@ -2,13 +2,13 @@
   <header class="competition-form-header">
     <img
       class="competition-form-header__icon"
-      alt="League icon"
-      :src="leagueIcon"
+      alt="Competition icon"
+      :src="competitionIcon"
     />
     <div class="competition-form-header__column">
-      <span class="competition-form-header__title">{{ leagueName }}</span>
+      <span class="competition-form-header__title">{{ competitionName }}</span>
       <div class="competition-form-header__details">
-        <span class="competition-form-header__detail">{{ leagueFormat }}</span>
+        <span class="competition-form-header__detail">{{ competitionFormatName }}</span>
         <span
           v-if="teamsCount > 0"
           v-text="`${teamsCount} participantes`"
@@ -21,15 +21,15 @@
 
 <script lang="ts" setup>
 defineProps({
-  leagueName: {
+  competitionName: {
     type: String,
     required: true,
   },
-  leagueIcon: {
+  competitionIcon: {
     type: String,
     default: '',
   },
-  leagueFormat: {
+  competitionFormatName: {
     type: String,
     default: '',
   },

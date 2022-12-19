@@ -1,8 +1,8 @@
 <template>
   <CompetitionFormatForm
-    v-model:league-name="league.name"
-    v-model:league-format="league.format"
-    :is-saving-league="isSavingLeague"
+    v-model:competition-name="league.name"
+    v-model:competition-format="league.format"
+    :is-saving-competition="isSavingLeague"
     @submit="handleSubmit"
   />
 </template>

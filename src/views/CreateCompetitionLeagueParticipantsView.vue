@@ -22,7 +22,7 @@
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else>
         <CompetitionFormHeader
-          :league-name="league.name"
+          :competition-name="league.name"
           :teams-count="league.numberOfTeams"
         />
         <AddParticipantsField

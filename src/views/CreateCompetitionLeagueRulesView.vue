@@ -1,10 +1,10 @@
 <template>
   <CompetitionRulesForm
-    :league-format="competitionFormats.LEAGUE.value"
-    :league-name="league.name"
+    :competition-format="competitionFormats.LEAGUE.value"
+    :competition-name="league.name"
     :form-is-valid="formIsValid"
-    :is-loading-league="isLoadingLeague"
-    :is-saving-league="isSavingLeague"
+    :is-loading-competition="isLoadingLeague"
+    :is-saving-competition="isSavingLeague"
     :back-button-route="{ name: 'create-league-format', id: league.id }"
     @submit="saveLeague"
   >

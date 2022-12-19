@@ -1,9 +1,9 @@
 <template>
   <CompetitionRulesForm
-    :league-format="competitionFormats.PLAY_OFF.value"
-    :league-name="playoff.name"
-    :is-loading-league="isLoadingPlayoff"
-    :is-saving-league="isSavingPlayoff"
+    :competition-format="competitionFormats.PLAY_OFF.value"
+    :competition-name="playoff.name"
+    :is-loading-competition="isLoadingPlayoff"
+    :is-saving-competition="isSavingPlayoff"
     :back-button-route="{ name: 'create-playoff-format', id: playoff.id }"
     @submit="savePlayoff"
   >

@@ -5,21 +5,21 @@
     </template>
     <p>
       Agora você deve escolher as regras para o seu campeonato
-      <b>{{ leagueFormat?.name.toLowerCase() }}</b>.
+      <b>{{ format?.name.toLowerCase() }}</b>.
     </p>
   </PageHeader>
   <CompetitionStepper :current-step="2" />
   <CompetitionLayout>
     <CompetitionForm @submit="submitForm">
       <AppTransition name="fade">
-        <LoadingIndicator v-if="isLoadingLeague" />
+        <LoadingIndicator v-if="isLoadingCompetition" />
         <div v-else>
           <CompetitionFormHeader
-            :league-name="leagueName"
-            :league-icon="leagueFormat?.image"
-            :league-format="leagueFormat?.name"
+            :competition-name="competitionName"
+            :competition-icon="format?.image"
+            :competition-format-name="format?.name"
           />
-          <div class="league-rules-form">
+          <div class="competition-rules-form">
             <slot />
           </div>
         </div>
@@ -32,7 +32,7 @@
           Voltar
         </AppButton>
         <AppButton
-          :is-loading="isSavingLeague"
+          :is-loading="isSavingCompetition"
           :disabled="!formIsValid"
         >
           Próximo passo
@@ -43,7 +43,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import type { CompetitionFormat } from '@/types/Competition';
+import { computed, type PropType } from 'vue';
 import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppTransition from '@/components/AppTransition.vue';
@@ -56,11 +57,11 @@ import CompetitionFormHeader from '@/components/CompetitionFormHeader.vue';
 
 const emit = defineEmits(['submit']);
 const props = defineProps({
-  isLoadingLeague: {
+  isLoadingCompetition: {
     type: Boolean,
     default: false,
   },
-  isSavingLeague: {
+  isSavingCompetition: {
     type: Boolean,
     default: false,
   },
@@ -68,11 +69,11 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  leagueFormat: {
-    type: String,
+  competitionFormat: {
+    type: String as PropType<CompetitionFormat>,
     required: true,
   },
-  leagueName: {
+  competitionName: {
     type: String,
     required: true,
   },
@@ -82,8 +83,8 @@ const props = defineProps({
   },
 });
 
-const leagueFormat = computed(() => Object.values(competitionFormats).find(
-  ({ value }) => value === props.leagueFormat,
+const format = computed(() => Object.values(competitionFormats).find(
+  ({ value }) => value === props.competitionFormat,
 ));
 
 function submitForm() {
@@ -94,7 +95,7 @@ function submitForm() {
 </script>
 
 <style lang="scss" scoped>
-.league-rules-form {
+.competition-rules-form {
   margin-top: 3rem;
 }
 </style>

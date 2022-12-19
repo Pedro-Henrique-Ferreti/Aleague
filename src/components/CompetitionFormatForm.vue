@@ -9,10 +9,10 @@
   <CompetitionLayout>
     <CompetitionForm @submit="submitForm">
       <AppTransition name="fade">
-        <LoadingIndicator v-if="isLoadingLeagueData" />
+        <LoadingIndicator v-if="isLoadingCompetition" />
         <div v-else>
           <AppLargeField
-            v-model.trim="leagueName"
+            v-model.trim="competitionName"
             placeholder="Digite o nome do campeonato"
             icon="football"
           />
@@ -23,7 +23,7 @@
             <div class="competition-format-form__format-grid">
               <CompetitionFormatCard
                 v-for="(competition, index) in Object.values(competitionFormats)"
-                v-model="leagueFormat"
+                v-model="competitionFormat"
                 :key="index"
                 :value="competition.value"
                 :image="competition.image"
@@ -50,7 +50,7 @@
           Voltar
         </AppButton>
         <AppButton
-          :is-loading="isSavingLeague"
+          :is-loading="isSavingCompetition"
           :disabled="!formIsValid"
         >
           Próximo passo
@@ -74,51 +74,51 @@ import CompetitionForm from '@/components/CompetitionForm.vue';
 import CompetitionLayout from '@/components/CompetitionLayout.vue';
 import CompetitionFormatCard from '@/components/CompetitionFormatCard.vue';
 
-const emit = defineEmits(['update:league-name', 'update:league-format', 'submit']);
+const emit = defineEmits(['update:competition-name', 'update:competition-format', 'submit']);
 const props = defineProps({
-  isLoadingLeagueData: {
+  isLoadingCompetition: {
     type: Boolean,
     default: false,
   },
-  isSavingLeague: {
+  isSavingCompetition: {
     type: Boolean,
     default: false,
   },
-  leagueName: {
+  competitionName: {
     type: String,
     default: '',
   },
-  leagueFormat: {
+  competitionFormat: {
     type: String,
     default: '',
   },
 });
 
 // Form inputs
-const leagueName = computed({
+const competitionName = computed({
   get() {
-    return props.leagueName;
+    return props.competitionName;
   },
   set(value) {
-    emit('update:league-name', value);
+    emit('update:competition-name', value);
   },
 });
 
-const leagueFormat = computed({
+const competitionFormat = computed({
   get() {
-    return props.leagueFormat;
+    return props.competitionFormat;
   },
   set(value) {
-    emit('update:league-format', value);
+    emit('update:competition-format', value);
   },
 });
 
 const selectedFormat = computed(() => {
-  return Object.values(competitionFormats).find(({ value }) => value === leagueFormat.value);
+  return Object.values(competitionFormats).find(({ value }) => value === competitionFormat.value);
 });
 
 const formIsValid = computed(() => {
-  return leagueName.value && selectedFormat.value?.isAvailable;
+  return competitionName.value && selectedFormat.value?.isAvailable;
 });
 
 // Submit form

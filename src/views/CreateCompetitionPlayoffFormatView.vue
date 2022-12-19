@@ -1,9 +1,9 @@
 <template>
   <CompetitionFormatForm
-    v-model:league-name="playoff.name"
-    v-model:league-format="playoff.format"
-    :is-loading-league-data="isLoadingLeagueData"
-    :is-saving-league="isSavingLeague"
+    v-model:competition-name="playoff.name"
+    v-model:competition-format="playoff.format"
+    :is-loading-competition="isLoadingPlayoff"
+    :is-saving-competition="isSavingPlayoff"
     @submit="handleSubmit"
   />
 </template>
@@ -36,12 +36,12 @@ const playoff = ref({
 });
 
 // Get playoff data
-const isLoadingLeagueData = ref(false);
+const isLoadingPlayoff = ref(false);
 
 getPlayoff();
 
 async function getPlayoff() {
-  isLoadingLeagueData.value = true;
+  isLoadingPlayoff.value = true;
 
   try {
     const { name } = await getPlayoffById(playoff.value.id);
@@ -53,15 +53,15 @@ async function getPlayoff() {
       message: error.message,
     });
   } finally {
-    isLoadingLeagueData.value = false;
+    isLoadingPlayoff.value = false;
   }
 }
 
 // Handle form submission
-const isSavingLeague = ref(false);
+const isSavingPlayoff = ref(false);
 
 async function handleSubmit() {
-  isSavingLeague.value = true;
+  isSavingPlayoff.value = true;
 
   try {
     await updatePlayoff({
@@ -79,7 +79,7 @@ async function handleSubmit() {
       message: error.message,
     });
   } finally {
-    isLoadingLeagueData.value = false;
+    isSavingPlayoff.value = false;
   }
 }
 </script>

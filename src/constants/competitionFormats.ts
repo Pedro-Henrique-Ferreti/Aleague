@@ -1,4 +1,16 @@
-export const competitionFormats = {
+import type { CompetitionFormat } from '@/types/Competition';
+
+type CompetitionFormats = {
+  [key: string]: {
+    name: string;
+    value: CompetitionFormat;
+    image: string;
+    description: string;
+    isAvailable: boolean;
+  };
+};
+
+export const competitionFormats: CompetitionFormats = {
   LEAGUE: {
     name: 'Pontos corridos',
     value: 'league',
@@ -15,7 +27,7 @@ export const competitionFormats = {
   },
   PLAY_OFF: {
     name: 'Eliminatórias',
-    value: 'play-off',
+    value: 'playoff',
     image: '/images/leagues/play-off-format-icon.svg',
     description: 'Cada equipe competidora disputa um certo número de partidas, até ser promovida à próxima fase. A equipe perdedora de cada disputa é eliminada da competição.',
     isAvailable: true,

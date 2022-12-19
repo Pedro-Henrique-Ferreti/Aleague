@@ -1,7 +1,7 @@
 <template>
   <div class="competition-stepper">
     <CompetitionStepperStep
-      v-for="step in steps"
+      v-for="step in STEPS"
       :class="{ 'stepper--hidden': step.number !== currentStep }"
       :key="step.number"
       :step="step.number.toString()"
@@ -17,18 +17,18 @@
 import type { PropType } from 'vue';
 import CompetitionStepperStep from './CompetitionStepperStep.vue';
 
+const STEPS = [
+  { number: 1, name: 'Nome e formato' },
+  { number: 2, name: 'Definir regras' },
+  { number: 3, name: 'Adicionar participantes' },
+];
+
 defineProps({
   currentStep: {
     type: Number as PropType<1 | 2 | 3>,
     required: true,
   },
 });
-
-const steps = [
-  { number: 1, name: 'Nome e formato' },
-  { number: 2, name: 'Definir regras' },
-  { number: 3, name: 'Adicionar participantes' },
-];
 </script>
 
 <style lang="scss" scoped>
