@@ -2,7 +2,7 @@
   <CompetitionFormatForm
     v-model:competition-name="league.name"
     v-model:competition-format="league.format"
-    :is-loading-competition="isLoadingLeagueData"
+    :is-loading-competition="isLoadingLeague"
     :is-saving-competition="isSavingLeague"
     @submit="handleSubmit"
   />
@@ -36,12 +36,12 @@ const league = ref({
 });
 
 // Get league data
-const isLoadingLeagueData = ref(false);
+const isLoadingLeague = ref(false);
 
-getPlayoff();
+getLeague();
 
-async function getPlayoff() {
-  isLoadingLeagueData.value = true;
+async function getLeague() {
+  isLoadingLeague.value = true;
 
   try {
     const { name } = await getLeagueById(league.value.id);
@@ -53,7 +53,7 @@ async function getPlayoff() {
       message: error.message,
     });
   } finally {
-    isLoadingLeagueData.value = false;
+    isLoadingLeague.value = false;
   }
 }
 
@@ -79,7 +79,7 @@ async function handleSubmit() {
       message: error.message,
     });
   } finally {
-    isLoadingLeagueData.value = false;
+    isLoadingLeague.value = false;
   }
 }
 </script>
