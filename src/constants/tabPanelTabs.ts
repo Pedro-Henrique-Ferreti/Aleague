@@ -1,4 +1,5 @@
 import type { TabPanel } from '@/types/TabPanel';
+import { competitionFormats } from './competitionFormats';
 
 export const teamsPageTabs: TabPanel = {
   ALL: {
@@ -13,19 +14,19 @@ export const teamsPageTabs: TabPanel = {
 
 export const leaguePageTabs: TabPanel = {
   ALL: {
-    id: 1,
+    id: 'all',
     name: 'Todos',
   },
   CUP: {
-    id: 2,
+    id: competitionFormats.CUP.value,
     name: 'Copa',
   },
-  PLAY_OFFS: {
-    id: 3,
+  PLAYOFFS: {
+    id: competitionFormats.PLAYOFF.value,
     name: 'Eliminatórias',
   },
   LEAGUES: {
-    id: 4,
+    id: competitionFormats.LEAGUE.value,
     name: 'Pontos corridos',
   },
 };

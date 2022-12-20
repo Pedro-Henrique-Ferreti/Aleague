@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { LeagueSteps } from '@/types/League';
+import type { CreateCompetitionSteps } from '@/types/Competition';
 import { computed, ref, watch, type PropType } from 'vue';
 import { getFullDate } from '@/utils';
 
@@ -81,7 +81,7 @@ const props = defineProps({
     default: 0,
   },
   stepsCompleted: {
-    type: Object as PropType<LeagueSteps>,
+    type: Object as PropType<CreateCompetitionSteps>,
     required: true,
   },
   createdAt: {

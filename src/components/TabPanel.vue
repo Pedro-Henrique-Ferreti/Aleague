@@ -29,7 +29,7 @@ defineProps({
     required: true,
   },
   activeTabId: {
-    type: Number,
+    type: [String, Number],
     required: true,
   },
 });

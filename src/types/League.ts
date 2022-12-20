@@ -14,11 +14,6 @@ export interface Standing {
   teamId: number;
   teamName: string;
 }
-export interface LeagueSteps {
-  first: boolean;
-  second: boolean;
-  third: boolean;
-}
 
 export interface LeagueParticipant {
   id: number,
@@ -39,8 +34,4 @@ export interface League {
 export interface LeagueWithStandings extends League {
   numberOfGameweeks: number;
   standings: Standing[] | null,
-}
-
-export interface LeagueListItem extends League {
-  stepsCompleted: LeagueSteps;
 }

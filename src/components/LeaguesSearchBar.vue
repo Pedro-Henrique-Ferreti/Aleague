@@ -9,10 +9,10 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useLeaguesStore } from '@/stores/leaguesStore';
+import { useCompetitionStore } from '@/stores/competitionStore';
 import AppLargeField from './AppLargeField.vue';
 
-const { searchBarValue } = storeToRefs(useLeaguesStore());
+const { searchBarValue } = storeToRefs(useCompetitionStore());
 </script>
 
 <style lang="scss" scoped>

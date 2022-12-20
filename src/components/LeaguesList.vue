@@ -17,14 +17,14 @@
   </TabPanel>
   <AppTransition name="fade">
     <LoadingIndicator v-if="isLoading" />
-    <LeaguesListNoData v-else-if="leagues.length === 0" />
-    <LeaguesListNoResults v-else-if="displayedLeagues.length === 0" />
+    <LeaguesListNoData v-else-if="competitions.length === 0" />
+    <LeaguesListNoResults v-else-if="displayedCompetititons.length === 0" />
     <div
       v-else
       class="leagues-list"
     >
       <LeagueCard
-        v-for="league in displayedLeagues"
+        v-for="league in displayedCompetititons"
         :key="league.id"
         :hash-id="league.hashid"
         :title="league.name"
@@ -39,9 +39,10 @@
 </template>
 
 <script lang="ts" setup>
+import type { CompetitionListItem } from '@/types/Competition';
 import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useLeaguesStore } from '@/stores/leaguesStore';
+import { useCompetitionStore } from '@/stores/competitionStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { leaguePageTabs } from '@/constants/tabPanelTabs';
 
@@ -53,12 +54,14 @@ import LeaguesListNoResults from './LeaguesListNoResults.vue';
 import TabPanel from './TabPanel.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
-const leaguesStore = useLeaguesStore();
-const { leagues, searchBarValue } = storeToRefs(leaguesStore);
+const competitionStore = useCompetitionStore();
+const { searchBarValue } = storeToRefs(competitionStore);
 
 const activeTabId = ref(leaguePageTabs.ALL.id);
 
-// Get leagues
+const competitions = ref<CompetitionListItem[]>([]);
+
+// Get competition
 const isLoading = ref(true);
 
 onMounted(() => getLeagues());
@@ -67,7 +70,7 @@ async function getLeagues() {
   isLoading.value = true;
 
   try {
-    await leaguesStore.getLeagues();
+    competitions.value = await competitionStore.getCompetitions();
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -78,23 +81,21 @@ async function getLeagues() {
   }
 }
 
-// Displayed leagues
-const displayedLeagues = computed(() => {
-  let displayedLeagues = leagues.value;
+// Displayed competitions
+const displayedCompetititons = computed(() => {
+  let displayedCompetititons = competitions.value;
 
   if (searchBarValue.value) {
-    displayedLeagues = leagues.value.filter(
+    displayedCompetititons = competitions.value.filter(
       ({ name }) => name.toLowerCase().includes(searchBarValue.value.toLowerCase()),
     );
   }
 
-  if (activeTabId.value === leaguePageTabs.CUP.id ||
-    activeTabId.value === leaguePageTabs.PLAY_OFFS.id
-  ) {
-    return [];
+  if (activeTabId.value === leaguePageTabs.ALL.id) {
+    return displayedCompetititons;
   }
 
-  return displayedLeagues;
+  return displayedCompetititons.filter(({ type }) => type === activeTabId.value);
 });
 </script>
 

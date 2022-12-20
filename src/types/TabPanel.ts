@@ -3,6 +3,6 @@ export interface TabPanel {
 }
 
 export type TabPanelTab = {
-  id: number;
+  id: number | string;
   name: string;
 };
