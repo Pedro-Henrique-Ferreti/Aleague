@@ -43,6 +43,7 @@
 </template>
 
 <script lang="ts" setup>
+import type { RouteLocationRaw } from 'vue-router';
 import type { CompetitionFormat } from '@/types/Competition';
 import { computed, type PropType } from 'vue';
 import { competitionFormats } from '@/constants/competitionFormats';
@@ -78,7 +79,7 @@ const props = defineProps({
     required: true,
   },
   backButtonRoute: {
-    type: [String, Object],
+    type: [String, Object] as PropType<RouteLocationRaw>,
     required: true,
   },
 });

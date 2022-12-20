@@ -5,7 +5,7 @@
     :form-is-valid="formIsValid"
     :is-loading-competition="isLoadingLeague"
     :is-saving-competition="isSavingLeague"
-    :back-button-route="{ name: 'create-league-format', id: league.id }"
+    :back-button-route="{ name: 'create-league-format', params: { id: league.id } }"
     @submit="saveLeague"
   >
     <CompetitionRulesFormRow id="rules-form-participants">

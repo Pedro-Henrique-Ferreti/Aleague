@@ -4,7 +4,7 @@
     :competition-name="playoff.name"
     :is-loading-competition="isLoadingPlayoff"
     :is-saving-competition="isSavingPlayoff"
-    :back-button-route="{ name: 'create-playoff-format', id: playoff.id }"
+    :back-button-route="{ name: 'create-playoff-format', params: { id: playoff.id } }"
     @submit="savePlayoff"
   >
     <CompetitionRulesFormRow id="rules-form-rounds">
