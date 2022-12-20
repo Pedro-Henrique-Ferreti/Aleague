@@ -6,19 +6,18 @@
     :is-loading-competition="isLoadingLeague"
     :number-of-teams="league.numberOfTeams"
     :back-button-route="{ name: 'create-league-rules', params: { id: league.id } }"
-    :save-data-function="saveLeagueParticipants"
+    :save-participants-fn="saveLeagueParticipants"
   />
 </template>
 
 <script lang="ts" setup>
-import type { LeagueParticipant } from '@/types/League';
 import { ref } from 'vue';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 import CompetitionParticipantsForm from '@/components/CompetitionParticipantsForm.vue';
 
-const { getLeagueById } = useLeaguesStore();
+const { getLeagueById, addLeagueTeams } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -58,9 +57,7 @@ async function getLeagueData() {
 }
 
 // Save data
-function saveLeagueParticipants(participants: LeagueParticipant[]) {
-  console.log(participants);
-
-  return new Promise<void>((res) => setTimeout(res, 2000));
+async function saveLeagueParticipants(participantsIds: number[]) {
+  await addLeagueTeams(league.value.id, participantsIds);
 }
 </script>

@@ -6,19 +6,18 @@
     :is-loading-competition="isLoadingPlayoff"
     :number-of-teams="playoff.numberOfTeams"
     :back-button-route="{ name: 'create-playoff-rules', params: { id: playoff.id } }"
-    :save-data-function="savePlayoffParticipants"
+    :save-participants-fn="savePlayoffParticipants"
   />
 </template>
 
 <script lang="ts" setup>
-import type { LeagueParticipant } from '@/types/League';
 import { ref } from 'vue';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 import CompetitionParticipantsForm from '@/components/CompetitionParticipantsForm.vue';
 
-const { getPlayoffById } = usePlayoffStore();
+const { getPlayoffById, addPlayoffTeams } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -58,10 +57,7 @@ async function getPlayoffData() {
 }
 
 // Save data
-
-function savePlayoffParticipants(participants: LeagueParticipant[]) {
-  console.log(participants);
-
-  return new Promise<void>((res) => setTimeout(res, 2000));
+async function savePlayoffParticipants(participantsIds: number[]) {
+  await addPlayoffTeams(playoff.value.id, participantsIds);
 }
 </script>

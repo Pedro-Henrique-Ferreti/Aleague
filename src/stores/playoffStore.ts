@@ -30,5 +30,8 @@ export const usePlayoffStore = defineStore('playoff', {
         )?.numberOfParticipants,
       });
     },
+    addPlayoffTeams(id: string, teams: number[]) {
+      return axios.post(`/playoffs/${id}/teams`, { teams });
+    },
   },
 });

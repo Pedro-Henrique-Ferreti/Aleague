@@ -20,7 +20,7 @@
           </p>
           <AppButton
             class="success-modal__button"
-            :to="{ name: 'view-league', params: { id: competitionId }}"
+            :to="buttonPath"
           >
             Visualizar o campeonato
           </AppButton>
@@ -31,14 +31,16 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
+import { competitionFormats } from '@/constants/competitionFormats';
 
 const userStore = useUserStore();
 
-defineProps({
+const props = defineProps({
   show: {
     type: Boolean,
     required: true,
@@ -47,6 +49,20 @@ defineProps({
     type: String,
     required: true,
   },
+  competitionFormat: {
+    type: String,
+    required: true,
+  },
+});
+
+const buttonPath = computed(() => {
+  switch (props.competitionFormat) {
+    case competitionFormats.LEAGUE.value:
+      return { name: 'view-league', params: { id: props.competitionId } };
+    case competitionFormats.PLAYOFF.value:
+    default:
+      return { name: 'view-playoff', params: { id: props.competitionId } };
+  }
 });
 </script>
 

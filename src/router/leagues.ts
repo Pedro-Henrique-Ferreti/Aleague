@@ -78,4 +78,12 @@ export default [
       requiresAuth: true,
     },
   },
+  {
+    path: '/playoffs/:id',
+    name: 'view-playoff',
+    component: LeagueView,
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ] as RouteRecordRaw[];

@@ -37,30 +37,6 @@ export const useLeaguesStore = defineStore('leagues', {
     addLeagueTeams(id: string, teams: number[]) {
       return axios.post(`/leagues/${id}/teams`, { teams });
     },
-    async saveLeagueParticipants(leagueId: string, participants: LeagueParticipant[]) {
-      const teamsStore = useTeamsStore();
-
-      const teamsNotCreated = participants.filter(({ created }) => !created);
-
-      if (teamsNotCreated.length > 0) {
-        await teamsStore.createManyTeams(teamsNotCreated.map(({ name }) => ({ name })));
-        await teamsStore.getTeams();
-      }
-
-      const teamIds: number[] = [];
-
-      participants.forEach((participant) => {
-        const id = (participant.created)
-          ? participant.id
-          : teamsStore.teams.find(({ name }) => name === participant.name)?.id;
-
-        if (id) {
-          teamIds.push(id);
-        }
-      });
-
-      return this.addLeagueTeams(leagueId, teamIds);
-    },
     async getLeagueGameweeks(leagueId: string) {
       const {
         data: gameweekList,

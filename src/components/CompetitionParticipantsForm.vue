@@ -9,6 +9,7 @@
   <SuccessModal
     :show="showSuccessModal"
     :competition-id="competitionId"
+    :competition-format="competitionFormat"
   />
   <PageHeader>
     <template #title>
@@ -81,8 +82,10 @@ import CompetitionFormHeader from './CompetitionFormHeader.vue';
 import CompetititonParticipantCard from './CompetititonParticipantCard.vue';
 import SuccessModal from './CompetitionSuccessModal.vue';
 import ConfirmationModal from './CompetitionConfirmationModal.vue';
+import { storeToRefs } from 'pinia';
 
-const { getTeams } = useTeamsStore();
+const teamsStore = useTeamsStore();
+const { teams } = storeToRefs(teamsStore);
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -110,8 +113,8 @@ const props = defineProps({
     type: [String, Object] as PropType<RouteLocationRaw>,
     required: true,
   },
-  saveDataFunction: {
-    type: Function as PropType<(participants: LeagueParticipant[]) => Promise<void>>,
+  saveParticipantsFn: {
+    type: Function as PropType<(participantsIds: number[]) => Promise<void>>,
     required: true,
   },
 });
@@ -128,7 +131,7 @@ onMounted(async () => {
   isLoadingTeamsList.value = true;
 
   try {
-    await getTeams();
+    await teamsStore.getTeams();
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -183,7 +186,21 @@ async function saveParticipants() {
   isSavingCompetition.value = true;
 
   try {
-    await props.saveDataFunction(participants.value);
+    await createNotCreatedTeams();
+
+    const teamIds: number[] = [];
+
+    participants.value.forEach((participant) => {
+      const id = (participant.created)
+        ? participant.id
+        : teams.value.find(({ name }) => name === participant.name)?.id;
+
+      if (id) {
+        teamIds.push(id);
+      }
+    });
+
+    await props.saveParticipantsFn(teamIds);
 
     toggleSuccessModal();
   } catch (error: any) {
@@ -193,6 +210,15 @@ async function saveParticipants() {
     });
   } finally {
     isSavingCompetition.value = false;
+  }
+}
+
+async function createNotCreatedTeams() {
+  const teamsNotCreated = participants.value.filter(({ created }) => !created);
+
+  if (teamsNotCreated.length > 0) {
+    await teamsStore.createManyTeams(teamsNotCreated.map(({ name }) => ({ name })));
+    await teamsStore.getTeams();
   }
 }
 </script>
