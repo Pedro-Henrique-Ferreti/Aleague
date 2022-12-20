@@ -20,7 +20,7 @@
           </p>
           <AppButton
             class="success-modal__button"
-            :to="{ name: 'view-league', params: { id: leagueId }}"
+            :to="{ name: 'view-league', params: { id: competitionId }}"
           >
             Visualizar o campeonato
           </AppButton>
@@ -43,7 +43,7 @@ defineProps({
     type: Boolean,
     required: true,
   },
-  leagueId: {
+  competitionId: {
     type: String,
     required: true,
   },
