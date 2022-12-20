@@ -24,15 +24,16 @@
       class="leagues-list"
     >
       <LeagueCard
-        v-for="league in displayedCompetititons"
-        :key="league.id"
-        :hash-id="league.hashid"
-        :title="league.name"
-        :teams-count="league.numberOfTeams"
-        :progress="league.progress"
-        :steps-completed="league.stepsCompleted"
-        :created-at="league.createdAt"
-        :updated-at="league.updatedAt"
+        v-for="competition in displayedCompetititons"
+        :key="competition.hashid"
+        :hash-id="competition.hashid"
+        :title="competition.name"
+        :competition-format="competition.type"
+        :teams-count="competition.numberOfTeams"
+        :progress="competition.progress"
+        :steps-completed="competition.stepsCompleted"
+        :created-at="competition.createdAt"
+        :updated-at="competition.updatedAt"
       />
     </div>
   </AppTransition>

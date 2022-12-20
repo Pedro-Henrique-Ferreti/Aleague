@@ -8,8 +8,8 @@
       <div class="league-card__details">
         <img
           class="league-card__icon"
-          src="/images/leagues/league-format-icon.svg"
-          alt="League format icon"
+          alt="Competition format icon"
+          :src="format?.image"
         />
         <div>
           <span class="league-card__title">
@@ -17,7 +17,7 @@
           </span>
           <ul class="league-card__list">
             <LeagueCardDataItem icon="football">
-              Pontos corridos
+              {{ format?.name }}
             </LeagueCardDataItem>
             <LeagueCardDataItem
               icon="people"
@@ -55,9 +55,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { CreateCompetitionSteps } from '@/types/Competition';
+import type { CompetitionFormat, CreateCompetitionSteps } from '@/types/Competition';
 import { computed, ref, watch, type PropType } from 'vue';
 import { getFullDate } from '@/utils';
+import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppProgressBar from './AppProgressBar.vue';
 import LeagueCardDataItem from './LeagueCardDataItem.vue';
@@ -70,6 +71,10 @@ const props = defineProps({
   },
   title: {
     type: String,
+    required: true,
+  },
+  competitionFormat: {
+    type: String as PropType<CompetitionFormat>,
     required: true,
   },
   teamsCount: {
@@ -106,6 +111,12 @@ const teamsCountLabel = computed(() => {
   return `${props.teamsCount} participantes`;
 });
 
+// Format data
+
+const format = computed(() => Object.values(competitionFormats).find(
+  ({ value }) => value === props.competitionFormat,
+));
+
 // League steps
 const leagueSteps = computed(() => ([
   { name: 'Passo 1', complete: props.stepsCompleted.first },
@@ -126,25 +137,38 @@ function setProgressBarValue() {
 
 // Card path
 const cardPath = computed(() => {
+  switch (props.competitionFormat) {
+    case competitionFormats.LEAGUE.value:
+      return getLeaguePath();
+    case competitionFormats.PLAYOFF.name:
+    default:
+      return getPlayoffPath();
+  }
+});
+
+function getLeaguePath() {
   if (props.stepsCompleted.third) {
-    return {
-      name: 'view-league',
-      params: { id: props.hashId },
-    };
+    return { name: 'view-league', params: { id: props.hashId } };
   }
 
   if (props.stepsCompleted.second) {
-    return {
-      name: 'create-league-participants',
-      params: { id: props.hashId },
-    };
+    return { name: 'create-league-participants', params: { id: props.hashId } };
   }
 
-  return {
-    name: 'create-league-rules',
-    params: { id: props.hashId },
-  };
-});
+  return { name: 'create-league-rules', params: { id: props.hashId } };
+}
+
+function getPlayoffPath() {
+  if (props.stepsCompleted.third) {
+    return { name: 'view-playoff', params: { id: props.hashId } };
+  }
+
+  if (props.stepsCompleted.second) {
+    return { name: 'create-playoff-participants', params: { id: props.hashId } };
+  }
+
+  return { name: 'create-playoff-rules', params: { id: props.hashId } };
+}
 </script>
 
 <style lang="scss" scoped>
