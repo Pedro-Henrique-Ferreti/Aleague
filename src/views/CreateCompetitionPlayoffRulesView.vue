@@ -1,6 +1,6 @@
 <template>
   <CompetitionRulesForm
-    :competition-format="competitionFormats.PLAY_OFF.value"
+    :competition-format="competitionFormats.PLAYOFF.value"
     :competition-name="playoff.name"
     :is-loading-competition="isLoadingPlayoff"
     :is-saving-competition="isSavingPlayoff"

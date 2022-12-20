@@ -1,7 +1,7 @@
 <template>
   <CompetitionParticipantsForm
     :competition-id="playoff.id"
-    :competition-format="competitionFormats.PLAY_OFF.value"
+    :competition-format="competitionFormats.PLAYOFF.value"
     :competition-name="playoff.name"
     :is-loading-competition="isLoadingPlayoff"
     :number-of-teams="playoff.numberOfTeams"

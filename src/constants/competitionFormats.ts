@@ -25,7 +25,7 @@ export const competitionFormats: CompetitionFormats = {
     description: 'Dividido em duas fases. Na primeira fase, as equipes são dividias em grupos, onde podem se enfrentar em um turno ou dois turnos. Um determinado número de equipes é promovido para a próxima fase, que é disputada em formato eliminatório.',
     isAvailable: false,
   },
-  PLAY_OFF: {
+  PLAYOFF: {
     name: 'Eliminatórias',
     value: 'playoff',
     image: '/images/leagues/play-off-format-icon.svg',

@@ -32,7 +32,7 @@ const props = defineProps({
 const playoff = ref({
   id: props.id,
   name: '',
-  format: competitionFormats.PLAY_OFF.value,
+  format: competitionFormats.PLAYOFF.value,
 });
 
 // Get playoff data

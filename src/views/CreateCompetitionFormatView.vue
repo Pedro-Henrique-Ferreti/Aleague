@@ -39,7 +39,7 @@ async function handleSubmit() {
       case competitionFormats.LEAGUE.value:
         await createLeague();
         break;
-      case competitionFormats.PLAY_OFF.value:
+      case competitionFormats.PLAYOFF.value:
       default:
         await createPlayoff();
     }
