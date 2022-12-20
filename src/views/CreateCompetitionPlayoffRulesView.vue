@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
@@ -43,7 +43,7 @@ import AppSwitch from '@/components/AppSwitch.vue';
 import CompetitionRulesForm from '@/components/CompetitionRulesForm.vue';
 import CompetitionRulesFormRow from '@/components/CompetitionRulesFormRow.vue';
 
-// const router = useRouter();
+const router = useRouter();
 const { getPlayoffById, updatePlayoffRules } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
@@ -96,6 +96,11 @@ async function savePlayoff() {
       hashId: playoff.value.id,
       numberOfRounds: playoff.value.numberOfRounds,
       numberOfLegs: (playoff.value.hasTwoLegs) ? 2 : 1,
+    });
+
+    router.push({
+      name: 'create-playoff-participants',
+      params: { id: playoff.value.id },
     });
   } catch (error: any) {
     openSnackbarNotification({

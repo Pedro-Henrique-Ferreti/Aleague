@@ -8,6 +8,7 @@ import CreateCompetitionPlayoffFormatView from '@/views/CreateCompetitionPlayoff
 import CreateCompetitionLeagueRulesView from '@/views/CreateCompetitionLeagueRulesView.vue';
 import CreateCompetitionPlayoffRulesView from '@/views/CreateCompetitionPlayoffRulesView.vue';
 import CreateCompetitionLeagueParticipantsView from '@/views/CreateCompetitionLeagueParticipantsView.vue';
+import CreateCompetitionPlayoffParticipantsView from '@/views/CreateCompetitionPlayoffParticipantsView.vue';
 
 export default [
   {
@@ -51,6 +52,13 @@ export default [
         path: 'league/:id/participants',
         name: 'create-league-participants',
         component: CreateCompetitionLeagueParticipantsView,
+        props: true,
+      },
+      {
+        path: 'playoff/:id/participants',
+        name: 'create-playoff-participants',
+        component: CreateCompetitionPlayoffParticipantsView,
+        props: true,
       },
     ],
   },
