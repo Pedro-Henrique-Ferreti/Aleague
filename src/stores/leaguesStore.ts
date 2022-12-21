@@ -1,14 +1,9 @@
 import type { AxiosResponse } from 'axios';
-import type {
-  League,
-  LeagueParticipant,
-  LeagueWithStandings,
-} from '@/types/League';
+import type { League, LeagueWithStandings } from '@/types/League';
 import type { SaveLeagueGamesParams, UpdateLeagueRulesParams } from '@/types/LeaguesStore';
 import type { Gameweek } from '@/types/Game';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
-import { useTeamsStore } from './teamsStore';
 
 export const useLeaguesStore = defineStore('leagues', {
   actions: {
