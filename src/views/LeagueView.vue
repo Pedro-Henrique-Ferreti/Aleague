@@ -3,7 +3,10 @@
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoadingLeague" />
       <div v-else-if="league">
-        <LeagueHeader :league-name="league.name" />
+        <CompetitionPageHeader
+          :competition-name="league.name"
+          :competition-icon="competitionFormats.LEAGUE.image"
+        />
         <LeagueDetails />
         <div class="league-panel">
           <TabPanel
@@ -34,11 +37,12 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { injectionKeys } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
+import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TabPanel from '@/components/TabPanel.vue';
-import LeagueHeader from '@/components/LeagueHeader.vue';
+import CompetitionPageHeader from '@/components/CompetitionPageHeader.vue';
 import LeagueDetails from '@/components/LeagueDetails.vue';
 import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';

@@ -1,21 +1,25 @@
 <template>
-  <header class="league-header">
-    <div class="league-header__image-wrapper">
+  <header class="competition-page-header">
+    <div class="competition-page-header__image-wrapper">
       <img
-        class="league-header__image"
-        src="/images/leagues/league-format-icon.svg"
-        alt="League icon"
+        class="competition-page-header__image"
+        alt="Competition icon"
+        :src="competitionIcon"
       />
     </div>
-    <h1 class="league-header__heading">
-      {{ leagueName }}
+    <h1 class="competition-page-header__heading">
+      {{ competitionName }}
     </h1>
   </header>
 </template>
 
 <script lang="ts" setup>
 defineProps({
-  leagueName: {
+  competitionName: {
+    type: String,
+    default: '',
+  },
+  competitionIcon: {
     type: String,
     default: '',
   },
@@ -23,7 +27,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.league-header {
+.competition-page-header {
   --image-size: 3.5rem;
   --font-size: 1.25rem;
 
