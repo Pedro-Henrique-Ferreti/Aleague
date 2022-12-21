@@ -15,7 +15,6 @@ export interface CompetitionListLeague extends League {
 }
 export interface CompetitionListPlayoff extends Playoff {
   type: CompetitionFormat;
-  progress: number;
   stepsCompleted: CreateCompetitionSteps;
 }
 

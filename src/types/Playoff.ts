@@ -1,10 +1,39 @@
+import type { Game, GameTeam } from './Game';
+
+export type PlayoffLegs = 1 | 2;
+
 export interface Playoff {
   id: number;
   hashid: string;
   name: string;
   numberOfTeams: number | null;
-	numberOfLegs: 1 | 2 | null,
+	numberOfLegs: PlayoffLegs | null,
 	numberOfRounds: number | null,
+  progress: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface PlayoffGame extends Game {
+  homeTeamId: number;
+  awayTeamId: number;
+  homeTeamScore: number | null;
+  awayTeamScore: number | null;
+  homeTeamPenaltyShootoutScore: number | null;
+  awayTeamPenaltyShootoutScore: number | null;
+}
+
+export interface PlayoffConfrontation {
+  games: PlayoffGame[];
+  teams: GameTeam[];
+}
+
+export interface PlayoffStanding {
+  number: number;
+  numberOfLegs: PlayoffLegs;
+  confrontations: PlayoffConfrontation[];
+}
+
+export interface PlayoffWithStandings extends Playoff {
+  standings: PlayoffStanding[];
 }

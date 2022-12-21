@@ -1,6 +1,19 @@
-import type { Game } from './Game';
+import type { Game, GameTeam } from './Game';
 
-export interface Standing {
+export interface LeagueGame extends Game {
+  awayTeam: GameTeam;
+  homeTeam: GameTeam;
+  awayTeamScore: number;
+  homeTeamScore: number;
+  gameweek: number;
+}
+
+export interface LeagueGameweek {
+  gameweek: number;
+  games: LeagueGame[];
+}
+
+export interface LeagueStanding {
   gamesDrawn: number;
   gamesLost: number;
   gamesPlayed: number;
@@ -9,7 +22,7 @@ export interface Standing {
   goalsAgainst: number;
   goalsFor: number;
   points: number;
-  recentGames: Game[];
+  recentGames: LeagueGame[];
   teamHashid: string;
   teamId: number;
   teamName: string;
@@ -33,5 +46,5 @@ export interface League {
 
 export interface LeagueWithStandings extends League {
   numberOfGameweeks: number;
-  standings: Standing[] | null,
+  standings: LeagueStanding[] | null,
 }

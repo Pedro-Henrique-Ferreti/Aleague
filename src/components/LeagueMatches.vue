@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Game, Gameweek } from '@/types/Game';
+import type { LeagueGame, LeagueGameweek } from '@/types/League';
 import { inject, ref } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
@@ -87,8 +87,8 @@ const reloadLeague = inject(injectionKeys.RELOAD_LEAGUE);
 // Gameweek
 const isLoadingGameweek = ref(false);
 const currentGameweekIndex = ref(0);
-const gameweeks = ref<Gameweek[]>([]);
-let staticGameweeks: Gameweek[] = [];
+const gameweeks = ref<LeagueGameweek[]>([]);
+let staticGameweeks: LeagueGameweek[] = [];
 
 getGameweeks();
 
@@ -118,7 +118,7 @@ function updateGameweekIndex(value: number) {
   }
 }
 
-function shouldShowGameDate(game: Game, index: number) {
+function shouldShowGameDate(game: LeagueGame, index: number) {
   const previousGame = gameweeks.value[currentGameweekIndex.value].games[index - 1];
 
   return (
