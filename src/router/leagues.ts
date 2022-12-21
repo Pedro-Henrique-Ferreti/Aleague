@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 import LeaguesView from '@/views/LeaguesView.vue';
 import LeagueView from '@/views/LeagueView.vue';
+import PlayoffView from '@/views/PlayoffView.vue';
 import CreateCompetitionView from '@/views/CreateCompetitionView.vue';
 import CreateCompetitionFormatView from '@/views/CreateCompetitionFormatView.vue';
 import CreateCompetitionLeagueFormatView from '@/views/CreateCompetitionLeagueFormatView.vue';
@@ -81,7 +82,7 @@ export default [
   {
     path: '/playoffs/:id',
     name: 'view-playoff',
-    component: LeagueView,
+    component: PlayoffView,
     meta: {
       requiresAuth: true,
     },
