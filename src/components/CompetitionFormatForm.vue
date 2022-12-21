@@ -5,8 +5,8 @@
     </template>
     <p>Bem-vindo a criação de campeonatos! Para começar, escolha nome e formato para o seu campeonato.</p>
   </PageHeader>
-  <CompetitionStepper :current-step="1" />
-  <CompetitionLayout>
+  <CompetitionFormStepper :current-step="1" />
+  <CompetitionFormLayout>
     <CompetitionForm @submit="submitForm">
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingCompetition" />
@@ -57,22 +57,22 @@
         </AppButton>
       </template>
     </CompetitionForm>
-  </CompetitionLayout>
+  </CompetitionFormLayout>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { competitionFormats } from '@/constants/competitionFormats';
 
-import AppLargeField from '@/components/AppLargeField.vue';
-import AppTransition from '@/components/AppTransition.vue';
-import AppWarning from '@/components/AppWarning.vue';
-import PageHeader from '@/components/PageHeader.vue';
-import LoadingIndicator from '@/components/LoadingIndicator.vue';
-import CompetitionStepper from '@/components/CompetitionStepper.vue';
-import CompetitionForm from '@/components/CompetitionForm.vue';
-import CompetitionLayout from '@/components/CompetitionLayout.vue';
-import CompetitionFormatCard from '@/components/CompetitionFormatCard.vue';
+import AppLargeField from './AppLargeField.vue';
+import AppTransition from './AppTransition.vue';
+import AppWarning from './AppWarning.vue';
+import PageHeader from './PageHeader.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
+import CompetitionFormStepper from './CompetitionFormStepper.vue';
+import CompetitionForm from './CompetitionForm.vue';
+import CompetitionFormLayout from './CompetitionFormLayout.vue';
+import CompetitionFormatCard from './CompetitionFormatCard.vue';
 
 const emit = defineEmits(['update:competition-name', 'update:competition-format', 'submit']);
 const props = defineProps({

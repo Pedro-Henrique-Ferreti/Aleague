@@ -1,8 +1,8 @@
 <template>
-  <div class="competition-layout">
+  <div class="competition-form-layout">
     <slot />
     <img
-      class="competition-layout__image"
+      class="competition-form-layout__image"
       src="/images/marketer.svg"
       alt=""
       draggable="false"
@@ -13,7 +13,7 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-.competition-layout {
+.competition-form-layout {
   display: grid;
   &__image {
     display: none;
@@ -23,12 +23,12 @@
   }
   @include for-tablet-landscape-up {
     grid-template-columns: 50% auto;
-    .competition-layout__image {
+    .competition-form-layout__image {
       display: block;
     }
   }
   @include for-desktop-up {
-    .competition-layout__image {
+    .competition-form-layout__image {
       height: 29.5rem;
     }
   }

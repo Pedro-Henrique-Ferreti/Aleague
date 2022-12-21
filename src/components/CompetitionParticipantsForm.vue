@@ -17,7 +17,7 @@
     </template>
     <p>Escolha as equipes que participarão do campeonato. Você pode revisar as configurações antes de finalizar.</p>
   </PageHeader>
-  <CompetitionStepper :current-step="3" />
+  <CompetitionFormStepper :current-step="3" />
   <CompetitionForm @submit="toggleConfirmationModal">
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoadingCompetition" />
@@ -36,7 +36,7 @@
           @add-team="addTeamToParticipantsList"
         />
         <div class="participants-grid">
-          <CompetititonParticipantCard
+          <ParticipantCard
             v-for="n in numberOfTeams"
             :key="n"
             :index="n"
@@ -76,11 +76,11 @@ import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import PageHeader from './PageHeader.vue';
 import AddParticipantsField from './AddParticipantsField.vue';
-import CompetitionStepper from './CompetitionStepper.vue';
+import CompetitionFormStepper from './CompetitionFormStepper.vue';
 import CompetitionForm from './CompetitionForm.vue';
 import CompetitionFormHeader from './CompetitionFormHeader.vue';
-import CompetititonParticipantCard from './CompetititonParticipantCard.vue';
-import SuccessModal from './CompetitionSuccessModal.vue';
+import ParticipantCard from './CompetititonFormParticipantCard.vue';
+import SuccessModal from './CompetitionFormSuccessModal.vue';
 import ConfirmationModal from './CompetitionConfirmationModal.vue';
 import { storeToRefs } from 'pinia';
 

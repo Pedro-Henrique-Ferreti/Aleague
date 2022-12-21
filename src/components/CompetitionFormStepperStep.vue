@@ -1,21 +1,21 @@
 <template>
   <div
-    class="competition-step"
+    class="competition-form-step"
     :class="stepperClasses"
   >
-    <div class="competition-step__content">
+    <div class="competition-form-step__content">
       <BaseIcon
         v-if="isComplete"
-        class="competition-step__check-icon"
+        class="competition-form-step__check-icon"
         icon="check-circle"
       />
       <span
         v-else
-        class="competition-step__number"
+        class="competition-form-step__number"
       >
         {{ step }}
       </span>
-      <span class="competition-step__label">
+      <span class="competition-form-step__label">
         <slot />
       </span>
     </div>
@@ -41,13 +41,13 @@ const props = defineProps({
 });
 
 const stepperClasses = computed(() => ({
-  'competition-step--active': props.isActive,
-  'competition-step--completed': props.isComplete,
+  'competition-form-step--active': props.isActive,
+  'competition-form-step--completed': props.isComplete,
 }));
 </script>
 
 <style lang="scss" scoped>
-.competition-step {
+.competition-form-step {
   --label-color: #{$color--text-lighten};
   --border-color: #{$color--text-lighten};
   --number-background: #{$color--light-gray-1};

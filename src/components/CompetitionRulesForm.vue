@@ -8,8 +8,8 @@
       <b>{{ format?.name.toLowerCase() }}</b>.
     </p>
   </PageHeader>
-  <CompetitionStepper :current-step="2" />
-  <CompetitionLayout>
+  <CompetitionFormStepper :current-step="2" />
+  <CompetitionFormLayout>
     <CompetitionForm @submit="submitForm">
       <AppTransition name="fade">
         <LoadingIndicator v-if="isLoadingCompetition" />
@@ -39,7 +39,7 @@
         </AppButton>
       </template>
     </CompetitionForm>
-  </CompetitionLayout>
+  </CompetitionFormLayout>
 </template>
 
 <script lang="ts" setup>
@@ -48,13 +48,13 @@ import type { CompetitionFormat } from '@/types/Competition';
 import { computed, type PropType } from 'vue';
 import { competitionFormats } from '@/constants/competitionFormats';
 
-import AppTransition from '@/components/AppTransition.vue';
-import PageHeader from '@/components/PageHeader.vue';
-import LoadingIndicator from '@/components/LoadingIndicator.vue';
-import CompetitionLayout from '@/components/CompetitionLayout.vue';
-import CompetitionForm from '@/components/CompetitionForm.vue';
-import CompetitionStepper from '@/components/CompetitionStepper.vue';
-import CompetitionFormHeader from '@/components/CompetitionFormHeader.vue';
+import AppTransition from './AppTransition.vue';
+import PageHeader from './PageHeader.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
+import CompetitionFormLayout from './CompetitionFormLayout.vue';
+import CompetitionForm from './CompetitionForm.vue';
+import CompetitionFormStepper from './CompetitionFormStepper.vue';
+import CompetitionFormHeader from './CompetitionFormHeader.vue';
 
 const emit = defineEmits(['submit']);
 const props = defineProps({

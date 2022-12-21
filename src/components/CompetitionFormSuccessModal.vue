@@ -33,10 +33,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useUserStore } from '@/stores/userStore';
+import { competitionFormats } from '@/constants/competitionFormats';
+
 import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
-import { competitionFormats } from '@/constants/competitionFormats';
 
 const userStore = useUserStore();
 
