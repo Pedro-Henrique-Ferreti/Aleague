@@ -38,9 +38,11 @@ const props = defineProps({
   },
   homeTeamScore: {
     type: [Number, String],
+    default: null,
   },
   awayTeamScore: {
     type: [Number, String],
+    default: null,
   },
 });
 
