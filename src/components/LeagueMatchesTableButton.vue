@@ -2,11 +2,11 @@
   <button
     class="league-matches-button"
     type="button"
+    :aria-label="ariaLabel"
   >
     <BaseIcon
       class="league-matches-button__icon"
       :icon="icon"
-      :aria-label="ariaLabel"
       :data-rotate="rotate || null"
     />
   </button>
