@@ -4,7 +4,7 @@
       Editar
     </SectionHeader>
     <form
-      class="league-details-form"
+      class="competition-details-form"
       @submit.prevent="submitForm"
     >
       <AppTextField
@@ -73,7 +73,7 @@ async function submitForm() {
 </script>
 
 <style lang="scss" scoped>
-.league-details-form {
+.competition-details-form {
   display: grid;
   gap: 1rem;
   @include for-tablet-portrait-up {

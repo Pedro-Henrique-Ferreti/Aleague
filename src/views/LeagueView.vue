@@ -7,7 +7,7 @@
           :competition-name="league.name"
           :competition-icon="competitionFormats.LEAGUE.image"
         />
-        <LeagueDetails />
+        <CompetitionDetails />
         <div class="league-panel">
           <TabPanel
             class="league-panel__tab-panel"
@@ -43,7 +43,7 @@ import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TabPanel from '@/components/TabPanel.vue';
 import CompetitionPageHeader from '@/components/CompetitionPageHeader.vue';
-import LeagueDetails from '@/components/LeagueDetails.vue';
+import CompetitionDetails from '@/components/CompetitionDetails.vue';
 import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';
 

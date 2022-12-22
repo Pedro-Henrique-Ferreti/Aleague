@@ -9,7 +9,7 @@
     >
       Excluir campeonato
     </AppButton>
-    <LeagueDetailsActionsModalDelete
+    <ModalDelete
       :show="showModalDelete"
       @close="toggleShowModalDelete"
     />
@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import SectionHeader from './SectionHeader.vue';
-import LeagueDetailsActionsModalDelete from './LeagueDetailsActionsModalDelete.vue';
+import ModalDelete from './CompetitionDetailsActionsModalDelete.vue';
 
 const showModalDelete = ref(false);
 

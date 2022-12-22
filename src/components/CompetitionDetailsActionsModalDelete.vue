@@ -1,6 +1,6 @@
 <template>
   <AppModal
-    id="league-actions-modal-delete"
+    id="competition-actions-modal-delete"
     title="Excluir campeonato"
     size="small"
     :show="show"

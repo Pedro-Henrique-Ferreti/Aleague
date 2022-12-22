@@ -3,38 +3,38 @@
     <SectionHeader heading="h3">
       Informações do campeonato
     </SectionHeader>
-    <ul class="league-info-list">
-      <li class="league-info-list__item">
+    <ul class="competition-info-list">
+      <li class="competition-info-list__item">
         <BaseIcon
-          class="league-info-list__item-icon"
+          class="competition-info-list__item-icon"
           icon="football"
         />
-        <span class="league-info-list__item-text">Pontos corridos</span>
+        <span class="competition-info-list__item-text">Pontos corridos</span>
       </li>
-      <li class="league-info-list__item">
+      <li class="competition-info-list__item">
         <BaseIcon
-          class="league-info-list__item-icon"
+          class="competition-info-list__item-icon"
           icon="people"
         />
-        <span class="league-info-list__item-text">
+        <span class="competition-info-list__item-text">
           {{ league?.numberOfTeams }} participantes
         </span>
       </li>
-      <li class="league-info-list__item">
+      <li class="competition-info-list__item">
         <BaseIcon
-          class="league-info-list__item-icon"
+          class="competition-info-list__item-icon"
           icon="calendar-check"
         />
-        <span class="league-info-list__item-text">
+        <span class="competition-info-list__item-text">
           Criado em {{ getFullDate(league?.createdAt || '') }}
         </span>
       </li>
-      <li class="league-info-list__item">
+      <li class="competition-info-list__item">
         <BaseIcon
-          class="league-info-list__item-icon"
+          class="competition-info-list__item-icon"
           icon="calendar-edit"
         />
-        <span class="league-info-list__item-text">
+        <span class="competition-info-list__item-text">
           Última alteração em {{ getFullDate(league?.updatedAt || '') }}
         </span>
       </li>
@@ -56,7 +56,7 @@ const league = inject(injectionKeys.LEAGUE);
 </script>
 
 <style lang="scss" scoped>
-.league-info-list {
+.competition-info-list {
   display: grid;
   gap: 0.5rem;
   margin-bottom: 1rem;
@@ -74,7 +74,7 @@ const league = inject(injectionKeys.LEAGUE);
   }
   @include for-tablet-landscape-up {
     grid-template-columns: 1fr 1fr;
-    .league-info-list__item:nth-child(n + 3) {
+    .competition-info-list__item:nth-child(n + 3) {
       grid-column: 1 / 3;
     }
   }
