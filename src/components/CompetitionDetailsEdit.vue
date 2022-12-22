@@ -24,19 +24,21 @@
 
 <script lang="ts" setup>
 import { inject, ref, computed } from 'vue';
-import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { injectionKeys, KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
-
+import {
+  KEY_COMPETITION_DETAILS,
+  KEY_RELOAD_COMPETITION,
+  KEY_UPDATE_COMPETITION,
+} from '@/constants/injectionKeys';
 import AppTextField from './AppTextField.vue';
 import SectionHeader from './SectionHeader.vue';
 
-const { updateLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Injected values
 const competition = inject(KEY_COMPETITION_DETAILS);
-const reloadLeague = inject(injectionKeys.RELOAD_LEAGUE) as () => void;
+const updateCompetition = inject(KEY_UPDATE_COMPETITION);
+const reloadCompetition = inject(KEY_RELOAD_COMPETITION);
 
 // Form fields
 const fieldName = ref(competition?.value.name || '');
@@ -49,11 +51,12 @@ const submitButtonIsDisabled = computed(() => {
 const isLoading = ref(false);
 
 async function submitForm() {
+  if (!updateCompetition || !reloadCompetition) return;
+
   isLoading.value = true;
 
   try {
-    await updateLeague({
-      hashId: '',
+    await updateCompetition({
       name: fieldName.value,
     });
 
@@ -61,7 +64,7 @@ async function submitForm() {
       message: 'Campeonato renomeado com sucesso!',
     });
 
-    reloadLeague();
+    reloadCompetition();
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

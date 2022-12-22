@@ -19,3 +19,11 @@ export interface CompetitionListPlayoff extends Playoff {
 }
 
 export type CompetitionListItem = CompetitionListLeague | CompetitionListPlayoff;
+
+export interface UpdateCompetitionParams {
+  name: string;
+}
+
+export interface ReloadCompetitionParams {
+  showLoader?: boolean;
+};

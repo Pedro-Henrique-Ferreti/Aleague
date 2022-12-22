@@ -30,12 +30,19 @@
 </template>
 
 <script lang="ts" setup>
+import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/Competition';
 import type { LeagueWithStandings } from '@/types/League';
 import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { injectionKeys, KEY_COMPETITION_DETAILS, KEY_DELETE_COMPETITION } from '@/constants/injectionKeys';
+import {
+  injectionKeys,
+  KEY_COMPETITION_DETAILS,
+  KEY_DELETE_COMPETITION,
+  KEY_RELOAD_COMPETITION,
+  KEY_UPDATE_COMPETITION,
+} from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitionFormats';
 
@@ -48,7 +55,7 @@ import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';
 
 const route = useRoute();
-const { getLeagueById, deleteLeague } = useLeaguesStore();
+const { getLeagueById, deleteLeague, updateLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
@@ -66,7 +73,9 @@ const leagueDetails = computed(() => ({
 
 // Provided values
 provide(KEY_COMPETITION_DETAILS, leagueDetails);
+provide(KEY_UPDATE_COMPETITION, updateCompetition);
 provide(KEY_DELETE_COMPETITION, deleteCompetition);
+provide(KEY_RELOAD_COMPETITION, getLeague);
 
 provide(injectionKeys.LEAGUE, league);
 provide(injectionKeys.RELOAD_LEAGUE, getLeague);
@@ -76,11 +85,8 @@ const isLoadingLeague = ref(true);
 
 getLeague();
 
-async function getLeague({ showLoader }: { showLoader?: boolean } = { showLoader: true }) {
-
-  if (showLoader) {
-    isLoadingLeague.value = true;
-  }
+async function getLeague({ showLoader }: ReloadCompetitionParams = { showLoader: true }) {
+  isLoadingLeague.value = showLoader as boolean;
 
   try {
     league.value = await getLeagueById(route.params.id as string);
@@ -94,8 +100,13 @@ async function getLeague({ showLoader }: { showLoader?: boolean } = { showLoader
   }
 }
 
-// League panel
-const activeTabId = ref(leaguePanelTabs.STANDINGS.id);
+// Update league
+function updateCompetition({ name }: UpdateCompetitionParams) {
+  return updateLeague({
+    hashId: league.value?.hashid || '',
+    name,
+  });
+}
 
 // Delete league
 function deleteCompetition() {
