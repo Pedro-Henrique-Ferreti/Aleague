@@ -33,5 +33,8 @@ export const usePlayoffStore = defineStore('playoff', {
     addPlayoffTeams(id: string, teams: number[]) {
       return axios.post(`/playoffs/${id}/teams`, { teams });
     },
+    deletePlayoff(hashId: string) {
+      return axios.delete(`/playoffs/${hashId}`);
+    },
   },
 });
