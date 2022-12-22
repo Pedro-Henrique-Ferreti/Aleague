@@ -1,6 +1,6 @@
-import type { Standing } from '@/types/League';
+import type { LeagueStanding } from '@/types/League';
 
-export const sortStandings = (a: Standing, b: Standing) => {
+export const sortStandings = (a: LeagueStanding, b: LeagueStanding) => {
   if (b.points - a.points !== 0) {
     return b.points - a.points;
   }
