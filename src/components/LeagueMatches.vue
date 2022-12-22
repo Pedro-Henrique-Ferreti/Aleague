@@ -13,12 +13,12 @@
       <div class="league-matches__table">
         <div class="league-matches__table-header">
           <TableButton
-            ariaLabel="First gameweek"
+            aria-label="First gameweek"
             icon="double-chevron"
             @click="currentGameweekIndex = 0"
           />
           <TableButton
-            ariaLabel="Previous gameweek"
+            aria-label="Previous gameweek"
             rotate="left"
             @click="updateGameweekIndex(-1)"
           />
@@ -26,11 +26,11 @@
             Rodada {{ currentGameweekIndex + 1 }}
           </span>
           <TableButton
-            ariaLabel="Next gameweek"
+            aria-label="Next gameweek"
             @click="updateGameweekIndex(1)"
           />
           <TableButton
-            ariaLabel="Last gameweek"
+            aria-label="Last gameweek"
             icon="double-chevron"
             rotate="right"
             @click="currentGameweekIndex = league?.numberOfGameweeks as number - 1"

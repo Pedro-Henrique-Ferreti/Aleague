@@ -26,4 +26,4 @@ export interface UpdateCompetitionParams {
 
 export interface ReloadCompetitionParams {
   showLoader?: boolean;
-};
+}

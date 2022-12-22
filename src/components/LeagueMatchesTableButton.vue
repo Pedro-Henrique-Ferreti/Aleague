@@ -23,6 +23,7 @@ defineProps({
   ariaLabel: {
     type: String,
     required: true,
+    default: '',
   },
   rotate: {
     type: String as PropType<'left' | 'right'>,
