@@ -13,6 +13,8 @@ interface CompetitionDetails {
 
 export const KEY_COMPETITION_DETAILS = Symbol() as InjectionKey<ComputedRef<CompetitionDetails>>;
 
+export const KEY_DELETE_COMPETITION = Symbol() as InjectionKey<() => Promise<any>>;
+
 export const injectionKeys = {
   LEAGUE: Symbol() as InjectionKey<Ref<LeagueWithStandings>>,
   RELOAD_LEAGUE: Symbol() as InjectionKey<({ showLoader }: { showLoader?: boolean }) => Promise<void>>,

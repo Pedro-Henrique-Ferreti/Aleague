@@ -39,15 +39,12 @@
 <script lang="ts" setup>
 import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
-
+import { KEY_COMPETITION_DETAILS, KEY_DELETE_COMPETITION } from '@/constants/injectionKeys';
 import BaseInput from './common/BaseInput.vue';
 import AppModal from './AppModal.vue';
 
 const router = useRouter();
-const leaguesStore = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const emit = defineEmits(['close']);
@@ -58,12 +55,14 @@ defineProps({
   },
 });
 
+// Injected values
+const competition = inject(KEY_COMPETITION_DETAILS);
+const deleteCompetition = inject(KEY_DELETE_COMPETITION);
+
+// Close modal
 function closeModal() {
   emit('close');
 }
-
-// Injected values
-const competition = inject(KEY_COMPETITION_DETAILS);
 
 // Delete league
 const isDeletingLeague = ref(false);
@@ -74,10 +73,12 @@ const confirmationValueIsValid = computed(() => {
 });
 
 async function deleteLeague() {
+  if (!deleteCompetition) return;
+
   isDeletingLeague.value = true;
 
   try {
-    await leaguesStore.deleteLeague('');
+    await deleteCompetition();
 
     closeModal();
 

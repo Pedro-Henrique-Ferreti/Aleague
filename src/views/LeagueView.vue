@@ -35,7 +35,7 @@ import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { injectionKeys, KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
+import { injectionKeys, KEY_COMPETITION_DETAILS, KEY_DELETE_COMPETITION } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitionFormats';
 
@@ -48,7 +48,7 @@ import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';
 
 const route = useRoute();
-const { getLeagueById } = useLeaguesStore();
+const { getLeagueById, deleteLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
@@ -64,11 +64,14 @@ const leagueDetails = computed(() => ({
   updatedAt: league.value?.updatedAt || '',
 }));
 
+// Provided values
 provide(KEY_COMPETITION_DETAILS, leagueDetails);
+provide(KEY_DELETE_COMPETITION, deleteCompetition);
 
 provide(injectionKeys.LEAGUE, league);
 provide(injectionKeys.RELOAD_LEAGUE, getLeague);
 
+// Get league data
 const isLoadingLeague = ref(true);
 
 getLeague();
@@ -93,6 +96,11 @@ async function getLeague({ showLoader }: { showLoader?: boolean } = { showLoader
 
 // League panel
 const activeTabId = ref(leaguePanelTabs.STANDINGS.id);
+
+// Delete league
+function deleteCompetition() {
+  return deleteLeague(league.value?.hashid || '');
+}
 </script>
 
 <style lang="scss" scoped>
