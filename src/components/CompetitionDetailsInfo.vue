@@ -9,7 +9,7 @@
           class="competition-info-list__item-icon"
           icon="football"
         />
-        <span class="competition-info-list__item-text">Pontos corridos</span>
+        <span class="competition-info-list__item-text">{{ formatName }}</span>
       </li>
       <li class="competition-info-list__item">
         <BaseIcon
@@ -17,7 +17,7 @@
           icon="people"
         />
         <span class="competition-info-list__item-text">
-          {{ league?.numberOfTeams }} participantes
+          {{ competition?.numberOfTeams }} participantes
         </span>
       </li>
       <li class="competition-info-list__item">
@@ -26,7 +26,7 @@
           icon="calendar-check"
         />
         <span class="competition-info-list__item-text">
-          Criado em {{ getFullDate(league?.createdAt || '') }}
+          Criado em {{ getFullDate(competition?.createdAt || '') }}
         </span>
       </li>
       <li class="competition-info-list__item">
@@ -35,24 +35,29 @@
           icon="calendar-edit"
         />
         <span class="competition-info-list__item-text">
-          Última alteração em {{ getFullDate(league?.updatedAt || '') }}
+          Última alteração em {{ getFullDate(competition?.updatedAt || '') }}
         </span>
       </li>
     </ul>
     <span>Andamento do campeonato</span>
-    <AppProgressBar :value="league?.progress || 0" />
+    <AppProgressBar :value="competition?.progress || 0" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
 import { getFullDate } from '@/utils';
-import { injectionKeys } from '@/constants/injectionKeys';
+import { KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
 import AppProgressBar from './AppProgressBar.vue';
 import SectionHeader from './SectionHeader.vue';
+import { competitionFormats } from '@/constants/competitionFormats';
 
 // Injected values
-const league = inject(injectionKeys.LEAGUE);
+const competition = inject(KEY_COMPETITION_DETAILS);
+
+const formatName = computed(() => Object.values(competitionFormats).find(
+  ({ value }) => value === competition?.value.format,
+)?.name);
 </script>
 
 <style lang="scss" scoped>

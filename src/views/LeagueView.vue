@@ -31,11 +31,11 @@
 
 <script lang="ts" setup>
 import type { LeagueWithStandings } from '@/types/League';
-import { provide, ref } from 'vue';
+import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { injectionKeys } from '@/constants/injectionKeys';
+import { injectionKeys, KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitionFormats';
 
@@ -53,6 +53,18 @@ const { openSnackbarNotification } = useNotificationStore();
 
 // League data
 const league = ref<LeagueWithStandings | null>(null);
+
+// League details
+const leagueDetails = computed(() => ({
+  name: league.value?.name || '',
+  format: competitionFormats.LEAGUE.value,
+  numberOfTeams: league.value?.numberOfTeams || 0,
+  progress: league.value?.progress || 0,
+  createdAt: league.value?.createdAt || '',
+  updatedAt: league.value?.updatedAt || '',
+}));
+
+provide(KEY_COMPETITION_DETAILS, leagueDetails);
 
 provide(injectionKeys.LEAGUE, league);
 provide(injectionKeys.RELOAD_LEAGUE, getLeague);

@@ -11,7 +11,7 @@
     </p>
     <div class="modal-delete__input-wrapper">
       <p>
-        Por favor, digite <span class="modal-delete__league-name">{{ league?.name }}</span> para confirmar.
+        Por favor, digite <span class="modal-delete__league-name">{{ competition?.name }}</span> para confirmar.
       </p>
       <BaseInput
         v-model.trim="confirmationValue"
@@ -41,7 +41,7 @@ import { computed, inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { injectionKeys } from '@/constants/injectionKeys';
+import { KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
 
 import BaseInput from './common/BaseInput.vue';
 import AppModal from './AppModal.vue';
@@ -63,21 +63,21 @@ function closeModal() {
 }
 
 // Injected values
-const league = inject(injectionKeys.LEAGUE);
+const competition = inject(KEY_COMPETITION_DETAILS);
 
 // Delete league
 const isDeletingLeague = ref(false);
 const confirmationValue = ref('');
 
 const confirmationValueIsValid = computed(() => {
-  return confirmationValue.value.toLowerCase() === league?.value.name.toLowerCase();
+  return confirmationValue.value.toLowerCase() === competition?.value.name.toLowerCase();
 });
 
 async function deleteLeague() {
   isDeletingLeague.value = true;
 
   try {
-    await leaguesStore.deleteLeague(league?.value.hashid || '');
+    await leaguesStore.deleteLeague('');
 
     closeModal();
 

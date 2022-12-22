@@ -10,7 +10,7 @@
       <AppTextField
         id="league--field-name"
         label="Nome do campeonato"
-        v-model.trim="leagueName"
+        v-model.trim="fieldName"
       />
       <AppButton
         :disabled="submitButtonIsDisabled"
@@ -26,7 +26,7 @@
 import { inject, ref, computed } from 'vue';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { injectionKeys } from '@/constants/injectionKeys';
+import { injectionKeys, KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
 
 import AppTextField from './AppTextField.vue';
 import SectionHeader from './SectionHeader.vue';
@@ -35,14 +35,15 @@ const { updateLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Injected values
-const league = inject(injectionKeys.LEAGUE);
+const competition = inject(KEY_COMPETITION_DETAILS);
 const reloadLeague = inject(injectionKeys.RELOAD_LEAGUE) as () => void;
 
-const leagueName = ref(league?.value.name || '');
+// Form fields
+const fieldName = ref(competition?.value.name || '');
 
 // Submit form
 const submitButtonIsDisabled = computed(() => {
-  return leagueName.value === '' || leagueName.value === league?.value.name;
+  return fieldName.value === '' || fieldName.value === competition?.value.name;
 });
 
 const isLoading = ref(false);
@@ -52,8 +53,8 @@ async function submitForm() {
 
   try {
     await updateLeague({
-      hashId: league?.value.hashid || '',
-      name: leagueName.value,
+      hashId: '',
+      name: fieldName.value,
     });
 
     openSnackbarNotification({
