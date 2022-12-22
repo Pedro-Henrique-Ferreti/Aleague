@@ -23,7 +23,4 @@ export const KEY_DELETE_COMPETITION = Symbol() as InjectionKey<() => Promise<any
 
 export const KEY_RELOAD_COMPETITION = Symbol() as InjectionKey<(params?: ReloadCompetitionParams) => void>;
 
-export const injectionKeys = {
-  LEAGUE: Symbol() as InjectionKey<Ref<LeagueWithStandings>>,
-  RELOAD_LEAGUE: Symbol() as InjectionKey<({ showLoader }: { showLoader?: boolean }) => Promise<void>>,
-};
+export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<LeagueWithStandings>>;

@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import type { LeagueGame } from '@/types/League';
 import { computed, inject, type PropType } from 'vue';
-import { injectionKeys } from '@/constants/injectionKeys';
+import { KEY_LEAGUE } from '@/constants/injectionKeys';
 import AppTooltip from './AppTooltip.vue';
 import MatchAbridged from './MatchAbridged.vue';
 
@@ -42,7 +42,7 @@ const props = defineProps({
 });
 
 // Injected values
-const league = inject(injectionKeys.LEAGUE);
+const league = inject(KEY_LEAGUE);
 
 const status = computed<'win' | 'draw' | 'lose'>(() => {
   const { homeTeamScore, awayTeamScore, homeTeam, awayTeam } = props.game;

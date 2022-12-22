@@ -37,7 +37,7 @@ import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import {
-  injectionKeys,
+  KEY_LEAGUE,
   KEY_COMPETITION_DETAILS,
   KEY_DELETE_COMPETITION,
   KEY_RELOAD_COMPETITION,
@@ -76,9 +76,10 @@ provide(KEY_COMPETITION_DETAILS, leagueDetails);
 provide(KEY_UPDATE_COMPETITION, updateCompetition);
 provide(KEY_DELETE_COMPETITION, deleteCompetition);
 provide(KEY_RELOAD_COMPETITION, getLeague);
+provide(KEY_LEAGUE, league);
 
-provide(injectionKeys.LEAGUE, league);
-provide(injectionKeys.RELOAD_LEAGUE, getLeague);
+// League panel
+const activeTabId = ref(leaguePanelTabs.STANDINGS.id);
 
 // Get league data
 const isLoadingLeague = ref(true);
