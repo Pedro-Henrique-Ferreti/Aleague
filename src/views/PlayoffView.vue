@@ -8,12 +8,14 @@
           :competition-icon="competitionFormats.PLAYOFF.image"
         />
         <CompetitionDetails />
+        <PlayoffStandings />
       </div>
     </AppTransition>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/Competition';
 import type { PlayoffWithStandings } from '@/types/Playoff';
 import { ref, computed, provide } from 'vue';
 import { useRoute } from 'vue-router';
@@ -31,7 +33,7 @@ import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import CompetitionPageHeader from '@/components/CompetitionPageHeader.vue';
 import CompetitionDetails from '@/components/CompetitionDetails.vue';
-import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/Competition';
+import PlayoffStandings from '@/components/PlayoffStandings.vue';
 
 const route = useRoute();
 const { getPlayoffById, updatePlayoff, deletePlayoff } = usePlayoffStore();
