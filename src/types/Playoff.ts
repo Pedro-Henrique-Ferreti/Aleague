@@ -15,8 +15,8 @@ export interface Playoff {
 }
 
 export interface PlayoffGame extends Game {
-  homeTeamId: number;
-  awayTeamId: number;
+  homeTeamId: number | null;
+  awayTeamId: number | null;
   homeTeamScore: number | null;
   awayTeamScore: number | null;
   homeTeamPenaltyShootoutScore: number | null;
