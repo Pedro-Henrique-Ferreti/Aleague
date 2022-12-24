@@ -18,14 +18,14 @@
     <div class="playoff-phase-grid">
       <div
         v-for="phase in displayedPhases"
+        class="playoff-standings__card-list"
         :key="phase.number"
       >
-        <div
+        <PlayoffCard
           v-for="confrontation, index in phase.confrontations"
           :key="index"
-        >
-          {{ index + 1 + ' - ' + confrontation.teams.map((team) => team?.name).join(' x ') }}
-        </div>
+          :confrontation="confrontation"
+        />
       </div>
     </div>
   </div>
@@ -36,6 +36,7 @@ import { inject, ref, computed } from 'vue';
 import { KEY_PLAYOFF } from '@/constants/injectionKeys';
 import PhaseToggle from './CompetitionPhaseToggle.vue';
 import PhaseHeader from './PlayoffPhaseHeader.vue';
+import PlayoffCard from './PlayoffCard.vue';
 
 // Injected values
 const playoffStandings = inject(KEY_PLAYOFF);
@@ -87,6 +88,16 @@ function getPhaseName(number: number): string {
     width: 100%;
     min-height: 2.75rem;
     margin-bottom: 1.5rem;
+  }
+  &__card-list {
+    display: grid;
+    gap: 1rem;
+    &:not(:first-of-type) {
+      place-items: center flex-end;
+    }
+    &:nth-child(2) {
+      place-items: center;
+    }
   }
 }
 </style>
