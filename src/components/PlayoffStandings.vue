@@ -25,6 +25,8 @@
           v-for="confrontation, index in phase.confrontations"
           :key="index"
           :confrontation="confrontation"
+          v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
+          v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
         />
       </div>
     </div>

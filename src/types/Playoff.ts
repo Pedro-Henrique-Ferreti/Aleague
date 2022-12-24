@@ -17,16 +17,15 @@ export interface Playoff {
 export interface PlayoffGame extends Game {
   homeTeamId: number | null;
   awayTeamId: number | null;
+  homeTeamName: string | null;
+  awayTeamName: string | null;
   homeTeamScore: number | null;
   awayTeamScore: number | null;
   homeTeamPenaltyShootoutScore: number | null;
   awayTeamPenaltyShootoutScore: number | null;
 }
 
-export interface PlayoffConfrontation {
-  games: PlayoffGame[];
-  teams: GameTeam[];
-}
+export type PlayoffConfrontation = PlayoffGame[];
 
 export interface PlayoffStanding {
   number: number;

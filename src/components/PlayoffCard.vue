@@ -2,27 +2,42 @@
   <div class="playoff-card">
     <div class="playoff-card__teams">
       <span
-        v-text="homeTeamName"
+        v-text="confrontation[0].homeTeamName"
         class="playoff-card__team"
-        :class="{ 'playoff-card__team--empty': !homeTeamName }"
+        :class="{ 'playoff-card__team--empty': !confrontation[0].homeTeamName }"
       />
       <span
-        v-text="awayTeamName"
+        v-text="confrontation[0].awayTeamName"
         class="playoff-card__team"
-        :class="{ 'playoff-card__team--empty': !awayTeamName }"
+        :class="{ 'playoff-card__team--empty': !confrontation[0].awayTeamName }"
       />
     </div>
-    <div
-      v-for="game in confrontation.games"
-      :key="game.id"
-      class="playoff-card__game"
-    >
+    <div class="playoff-card__game">
       <input
+        v-model="firstGameHomeTeamScore"
         class="playoff-card__game-input"
         type="number"
         placeholder="-"
       />
       <input
+        v-model="firstGameAwayTeamScore"
+        class="playoff-card__game-input"
+        type="number"
+        placeholder="-"
+      />
+    </div>
+    <div
+      v-if="confrontation[1]"
+      class="playoff-card__game"
+    >
+      <input
+        v-model="secondGameAwayTeamScore"
+        class="playoff-card__game-input"
+        type="number"
+        placeholder="-"
+      />
+      <input
+        v-model="secondGameHomeTeamScore"
         class="playoff-card__game-input"
         type="number"
         placeholder="-"
@@ -36,33 +51,73 @@ import type { PropType } from 'vue';
 import type { PlayoffConfrontation } from '@/types/Playoff';
 import { computed } from 'vue';
 
+const emit = defineEmits([
+  'update:firstGameHomeTeamScore',
+  'update:firstGameAwayTeamScore',
+  'update:secondGameHomeTeamScore',
+  'update:secondGameAwayTeamScore',
+]);
+
 const props = defineProps({
   confrontation: {
     type: Object as PropType<PlayoffConfrontation>,
     required: true,
   },
+  firstGameHomeTeamScore: {
+    type: Number as PropType<number | null>,
+    default: null,
+  },
+  firstGameAwayTeamScore: {
+    type: Number as PropType<number | null>,
+    default: null,
+  },
+  secondGameHomeTeamScore: {
+    type: Number,
+    default: null,
+  },
+  secondGameAwayTeamScore: {
+    type: Number,
+    default: null,
+  },
 });
 
-// Team names
-const homeTeamName = computed(() => {
-  const { homeTeamId } = props.confrontation.games[0];
-
-  if (!homeTeamId) {
-    return '';
-  }
-
-  return props.confrontation.teams.find(({ id }) => id === homeTeamId)?.name;
+// Model values
+const firstGameHomeTeamScore = computed({
+  get() {
+    return props.firstGameHomeTeamScore as number;
+  },
+  set(value: number) {
+    emit('update:firstGameHomeTeamScore', value);
+  },
 });
 
-const awayTeamName = computed(() => {
-  const { awayTeamId } = props.confrontation.games[0];
-
-  if (!awayTeamId) {
-    return '';
-  }
-
-  return props.confrontation.teams.find(({ id }) => id === awayTeamId)?.name;
+const firstGameAwayTeamScore = computed({
+  get() {
+    return props.firstGameAwayTeamScore as number;
+  },
+  set(value: number) {
+    emit('update:firstGameAwayTeamScore', value);
+  },
 });
+
+const secondGameHomeTeamScore = computed({
+  get() {
+    return props.secondGameHomeTeamScore;
+  },
+  set(value: number) {
+    emit('update:secondGameHomeTeamScore', value);
+  },
+});
+
+const secondGameAwayTeamScore = computed({
+  get() {
+    return props.secondGameAwayTeamScore;
+  },
+  set(value: number) {
+    emit('update:secondGameAwayTeamScore', value);
+  },
+});
+
 </script>
 
 <style lang="scss" scoped>
