@@ -23,6 +23,7 @@ import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
 import {
+  KEY_PLAYOFF,
   KEY_COMPETITION_DETAILS,
   KEY_DELETE_COMPETITION,
   KEY_RELOAD_COMPETITION,
@@ -57,6 +58,7 @@ provide(KEY_COMPETITION_DETAILS, playoffDetails);
 provide(KEY_UPDATE_COMPETITION, updateCompetition);
 provide(KEY_DELETE_COMPETITION, deleteCompetition);
 provide(KEY_RELOAD_COMPETITION, getPlayoff);
+provide(KEY_PLAYOFF, playoff);
 
 // Get playoff data
 const isLoadingPlayoff = ref(false);

@@ -4,6 +4,7 @@ import type {
   UpdateCompetitionParams,
 } from '@/types/Competition';
 import type { LeagueWithStandings } from '@/types/League';
+import type { PlayoffWithStandings } from '@/types/Playoff';
 import type { InjectionKey, Ref, ComputedRef } from 'vue';
 
 interface CompetitionDetails {
@@ -24,3 +25,5 @@ export const KEY_DELETE_COMPETITION = Symbol() as InjectionKey<() => Promise<any
 export const KEY_RELOAD_COMPETITION = Symbol() as InjectionKey<(params?: ReloadCompetitionParams) => void>;
 
 export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<LeagueWithStandings>>;
+
+export const KEY_PLAYOFF = Symbol() as InjectionKey<Ref<PlayoffWithStandings>>;
