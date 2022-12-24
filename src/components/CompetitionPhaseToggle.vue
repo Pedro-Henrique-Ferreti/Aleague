@@ -2,6 +2,7 @@
   <div class="phase-toggle">
     <button
       class="phase-toggle__button"
+      :disabled="disablePreviousButton"
       @click="$emit('previous-phase')"
     >
       <div class="phase-toggle__button-icon-wrapper">
@@ -14,6 +15,7 @@
     </button>
     <button
       class="phase-toggle__button"
+      :disabled="disableNextButton"
       @click="$emit('next-phase')"
     >
       <span>Próxima fase</span>
@@ -29,6 +31,16 @@
 
 <script lang="ts" setup>
 defineEmits(['previous-phase', 'next-phase']);
+defineProps({
+  disablePreviousButton: {
+    type: Boolean,
+    default: false,
+  },
+  disableNextButton: {
+    type: Boolean,
+    default: false,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -48,8 +60,12 @@ defineEmits(['previous-phase', 'next-phase']);
     gap: 0.5rem;
     font-weight: $font-weight--semibold;
     cursor: pointer;
-    &:hover {
+    &:hover:not(:disabled) {
       --icon-background-color: #{$color--light-gray-2};
+    }
+    &:disabled {
+      color: $color--text-lighten;
+      cursor: default;
     }
   }
   &__button-icon-wrapper {

@@ -1,8 +1,6 @@
 <template>
   <div class="phase-header | playoff-phase-grid">
-    <span>Oitavas de final</span>
-    <span>Quartas de final</span>
-    <span>Semi-final</span>
+    <slot />
   </div>
 </template>
 
