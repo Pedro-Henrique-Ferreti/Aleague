@@ -8,16 +8,18 @@
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  color: $color--text;
-  font-family: $font-family--primary;
+  color: inherit;
+  font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
 }
 
 html {
   @include scrollbar;
+  color: $color--text;
   font-size: 16px;
   font-weight: $font-weight--normal;
+  font-family: $font-family--primary;
   @include for-large-desktop-up {
     font-size: 17px;
   }
