@@ -4,3 +4,23 @@
   font-size: 0.875rem;
   font-weight: $font-weight--semibold;
 }
+
+.playoff-phase-grid {
+  display: grid;
+  @include for-large-tablet-portrait-down {
+    & > *:nth-child(n + 2) {
+      display: none;
+    }
+  }
+  @include for-large-tablet-portrait-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include for-large-tablet-landscape-down {
+    & > *:nth-child(n + 3) {
+      display: none;
+    }
+  }
+  @include for-large-tablet-landscape-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
