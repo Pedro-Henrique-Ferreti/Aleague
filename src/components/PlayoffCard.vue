@@ -20,10 +20,12 @@
       <input
         class="playoff-card__game-input"
         type="number"
+        placeholder="-"
       />
       <input
         class="playoff-card__game-input"
         type="number"
+        placeholder="-"
       />
     </div>
   </div>
@@ -106,6 +108,9 @@ const awayTeamName = computed(() => {
     &:focus {
       border: 1px solid $color--primary;
       box-shadow: 0 0 0 0.2rem get-hexadecimal-transparency($color--primary, 25);
+      &::placeholder {
+        opacity: 0;
+      }
     }
   }
 }
