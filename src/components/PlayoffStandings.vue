@@ -32,12 +32,16 @@
             v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
             v-model:secondGameHomeTeamScore="confrontation[1].homeTeamScore"
             v-model:secondGameAwayTeamScore="confrontation[1].awayTeamScore"
+            v-model:home-team-penalty-shootout-score="confrontation[0].homeTeamPenaltyShootoutScore"
+            v-model:away-team-penalty-shootout-score="confrontation[0].awayTeamPenaltyShootoutScore"
           />
           <PlayoffCard
             v-else
             :confrontation="confrontation"
             v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
             v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
+            v-model:home-team-penalty-shootout-score="confrontation[0].homeTeamPenaltyShootoutScore"
+            v-model:away-team-penalty-shootout-score="confrontation[0].awayTeamPenaltyShootoutScore"
           />
         </template>
       </div>

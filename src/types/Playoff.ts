@@ -23,8 +23,8 @@ export interface PlayoffGame extends Game {
   awayTeamName: string | null;
   homeTeamScore: ScoreInput;
   awayTeamScore: ScoreInput;
-  homeTeamPenaltyShootoutScore: number | null;
-  awayTeamPenaltyShootoutScore: number | null;
+  homeTeamPenaltyShootoutScore: ScoreInput;
+  awayTeamPenaltyShootoutScore: ScoreInput;
 }
 
 export type PlayoffConfrontation = PlayoffGame[];

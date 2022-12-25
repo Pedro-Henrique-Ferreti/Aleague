@@ -1,47 +1,68 @@
 <template>
   <div class="playoff-card">
-    <div class="playoff-card__teams">
-      <span
-        v-text="confrontation[0].homeTeamName"
-        class="playoff-card__team"
-        :class="{ 'playoff-card__team--empty': !confrontation[0].homeTeamName }"
-      />
-      <span
-        v-text="confrontation[0].awayTeamName"
-        class="playoff-card__team"
-        :class="{ 'playoff-card__team--empty': !confrontation[0].awayTeamName }"
-      />
-    </div>
-    <div class="playoff-card__game">
-      <input
-        v-model="firstGameHomeTeamScore"
-        class="playoff-card__game-input"
-        type="number"
-        placeholder="-"
-      />
-      <input
-        v-model="firstGameAwayTeamScore"
-        class="playoff-card__game-input"
-        type="number"
-        placeholder="-"
-      />
+    <div class="playoff-card__container">
+      <div class="playoff-card__teams">
+        <span
+          v-text="nameTeamA"
+          class="playoff-card__team"
+          :class="{ 'playoff-card__team--empty': !nameTeamA }"
+        />
+        <span
+          v-text="nameTeamB"
+          class="playoff-card__team"
+          :class="{ 'playoff-card__team--empty': !nameTeamB }"
+        />
+      </div>
+      <div class="playoff-card__game">
+        <input
+          v-model="firstGameHomeTeamScore"
+          class="playoff-card__game-input"
+          type="number"
+          placeholder="-"
+        />
+        <input
+          v-model="firstGameAwayTeamScore"
+          class="playoff-card__game-input"
+          type="number"
+          placeholder="-"
+        />
+      </div>
+      <div
+        v-if="confrontation[1]"
+        class="playoff-card__game"
+      >
+        <input
+          v-model="secondGameAwayTeamScore"
+          class="playoff-card__game-input"
+          type="number"
+          placeholder="-"
+        />
+        <input
+          v-model="secondGameHomeTeamScore"
+          class="playoff-card__game-input"
+          type="number"
+          placeholder="-"
+        />
+      </div>
     </div>
     <div
-      v-if="confrontation[1]"
-      class="playoff-card__game"
+      v-show="showPenaltiShootoutInputs"
+      class="playoff-card__penalty-wrapper"
     >
-      <input
-        v-model="secondGameAwayTeamScore"
-        class="playoff-card__game-input"
-        type="number"
-        placeholder="-"
-      />
-      <input
-        v-model="secondGameHomeTeamScore"
-        class="playoff-card__game-input"
-        type="number"
-        placeholder="-"
-      />
+      <div class="playoff-card__penalty-shootout">
+        <input
+          v-model="homeTeamPenaltyShootoutScore"
+          class="playoff-card__game-input"
+          type="number"
+          placeholder="-"
+        />
+        <input
+          v-model="awayTeamPenaltyShootoutScore"
+          class="playoff-card__game-input"
+          type="number"
+          placeholder="-"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -49,13 +70,15 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { PlayoffConfrontation, ScoreInput } from '@/types/Playoff';
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 
 const emit = defineEmits([
   'update:firstGameHomeTeamScore',
   'update:firstGameAwayTeamScore',
   'update:secondGameHomeTeamScore',
   'update:secondGameAwayTeamScore',
+  'update:homeTeamPenaltyShootoutScore',
+  'update:awayTeamPenaltyShootoutScore',
 ]);
 
 const props = defineProps({
@@ -79,39 +102,94 @@ const props = defineProps({
     type: [Number, String] as PropType<ScoreInput>,
     default: null,
   },
+  homeTeamPenaltyShootoutScore: {
+    type: [Number, String] as PropType<ScoreInput>,
+    default: null,
+  },
+  awayTeamPenaltyShootoutScore: {
+    type: [Number, String] as PropType<ScoreInput>,
+    default: null,
+  },
 });
 
 // Model values
 const firstGameHomeTeamScore = computed({
-  get: () => props.firstGameHomeTeamScore as number,
-  set: (value: number) => emit('update:firstGameHomeTeamScore', value),
+  get: () => props.firstGameHomeTeamScore as ScoreInput,
+  set: (value: ScoreInput) => emit('update:firstGameHomeTeamScore', value),
 });
 
 const firstGameAwayTeamScore = computed({
-  get: () => props.firstGameAwayTeamScore as number,
-  set: (value: number) => emit('update:firstGameAwayTeamScore', value),
+  get: () => props.firstGameAwayTeamScore as ScoreInput,
+  set: (value: ScoreInput) => emit('update:firstGameAwayTeamScore', value),
 });
 
 const secondGameHomeTeamScore = computed({
-  get: () => props.secondGameHomeTeamScore as number,
-  set: (value: number) => emit('update:secondGameHomeTeamScore', value),
+  get: () => props.secondGameHomeTeamScore as ScoreInput,
+  set: (value: ScoreInput) => emit('update:secondGameHomeTeamScore', value),
 });
 
 const secondGameAwayTeamScore = computed({
-  get: () => props.secondGameAwayTeamScore as number,
-  set: (value: number) => emit('update:secondGameAwayTeamScore', value),
+  get: () => props.secondGameAwayTeamScore as ScoreInput,
+  set: (value: ScoreInput) => emit('update:secondGameAwayTeamScore', value),
 });
 
+const homeTeamPenaltyShootoutScore = computed({
+  get: () => props.homeTeamPenaltyShootoutScore as ScoreInput,
+  set: (value: ScoreInput) => emit('update:homeTeamPenaltyShootoutScore', value),
+});
+
+const awayTeamPenaltyShootoutScore = computed({
+  get: () => props.awayTeamPenaltyShootoutScore as ScoreInput,
+  set: (value: ScoreInput) => emit('update:awayTeamPenaltyShootoutScore', value),
+});
+
+// Team names
+const nameTeamA = computed(() => props.confrontation[0].homeTeamName);
+const nameTeamB = computed(() => props.confrontation[0].awayTeamName);
+
+// Show penalty shootout inputs
+const isValid = (n: unknown) => Number.isInteger(n);
+
+const showPenaltiShootoutInputs = computed(() => {
+  let scoreTeamA = firstGameHomeTeamScore.value as number;
+  let scoreTeamB = firstGameAwayTeamScore.value as number;
+
+  if (!isValid(scoreTeamA) || !isValid(scoreTeamB)) {
+    return false;
+  }
+
+  if (props.confrontation[1]) {
+    if (!isValid(secondGameHomeTeamScore.value) || !isValid(secondGameAwayTeamScore.value)) {
+      return false;
+    }
+
+    scoreTeamA += (secondGameAwayTeamScore.value as number);
+    scoreTeamB += (secondGameHomeTeamScore.value as number);
+  }
+
+  return scoreTeamA === scoreTeamB;
+});
+
+// Clear penalty shootout score
+watch(() => showPenaltiShootoutInputs.value , () => {
+  homeTeamPenaltyShootoutScore.value = null;
+  awayTeamPenaltyShootoutScore.value = null;
+});
 </script>
 
 <style lang="scss" scoped>
 .playoff-card {
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
   width: 100%;
-  max-width: 19rem;
   min-height: 5rem;
   height: fit-content;
+  &__container {
+    display: flex;
+    flex-grow: 1;
+    gap: 0.5rem;
+    max-width: 19rem;
+  }
   &__teams {
     display: flex;
     flex-grow: 1;
@@ -131,7 +209,7 @@ const secondGameAwayTeamScore = computed({
   }
   &__game {
     width: 2rem;
-    background: $color--light-gray-2;
+    background-color: $color--light-gray-2;
     border-radius: 0.375rem;
   }
   &__game-input {
@@ -151,6 +229,16 @@ const secondGameAwayTeamScore = computed({
         opacity: 0;
       }
     }
+  }
+  &__penalty-wrapper {
+    margin-left: 0.25rem;
+  }
+  &__penalty-shootout {
+    width: 1.5rem;
+    height: 3rem;
+    background-color: $color--light-gray-2;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
   }
 }
 </style>
