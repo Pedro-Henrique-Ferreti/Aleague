@@ -48,7 +48,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
-import type { PlayoffConfrontation } from '@/types/Playoff';
+import type { PlayoffConfrontation, ScoreInput } from '@/types/Playoff';
 import { computed } from 'vue';
 
 const emit = defineEmits([
@@ -64,58 +64,42 @@ const props = defineProps({
     required: true,
   },
   firstGameHomeTeamScore: {
-    type: Number as PropType<number | null>,
+    type: [Number, String] as PropType<ScoreInput>,
     default: null,
   },
   firstGameAwayTeamScore: {
-    type: Number as PropType<number | null>,
+    type: [Number, String] as PropType<ScoreInput>,
     default: null,
   },
   secondGameHomeTeamScore: {
-    type: Number,
+    type: [Number, String] as PropType<ScoreInput>,
     default: null,
   },
   secondGameAwayTeamScore: {
-    type: Number,
+    type: [Number, String] as PropType<ScoreInput>,
     default: null,
   },
 });
 
 // Model values
 const firstGameHomeTeamScore = computed({
-  get() {
-    return props.firstGameHomeTeamScore as number;
-  },
-  set(value: number) {
-    emit('update:firstGameHomeTeamScore', value);
-  },
+  get: () => props.firstGameHomeTeamScore as number,
+  set: (value: number) => emit('update:firstGameHomeTeamScore', value),
 });
 
 const firstGameAwayTeamScore = computed({
-  get() {
-    return props.firstGameAwayTeamScore as number;
-  },
-  set(value: number) {
-    emit('update:firstGameAwayTeamScore', value);
-  },
+  get: () => props.firstGameAwayTeamScore as number,
+  set: (value: number) => emit('update:firstGameAwayTeamScore', value),
 });
 
 const secondGameHomeTeamScore = computed({
-  get() {
-    return props.secondGameHomeTeamScore;
-  },
-  set(value: number) {
-    emit('update:secondGameHomeTeamScore', value);
-  },
+  get: () => props.secondGameHomeTeamScore as number,
+  set: (value: number) => emit('update:secondGameHomeTeamScore', value),
 });
 
 const secondGameAwayTeamScore = computed({
-  get() {
-    return props.secondGameAwayTeamScore;
-  },
-  set(value: number) {
-    emit('update:secondGameAwayTeamScore', value);
-  },
+  get: () => props.secondGameAwayTeamScore as number,
+  set: (value: number) => emit('update:secondGameAwayTeamScore', value),
 });
 
 </script>

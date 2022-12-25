@@ -21,13 +21,25 @@
         class="playoff-standings__card-list"
         :key="phase.number"
       >
-        <PlayoffCard
+        <template
           v-for="confrontation, index in phase.confrontations"
           :key="index"
-          :confrontation="confrontation"
-          v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
-          v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
-        />
+        >
+          <PlayoffCard
+            v-if="confrontation[1]"
+            :confrontation="confrontation"
+            v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
+            v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
+            v-model:secondGameHomeTeamScore="confrontation[1].homeTeamScore"
+            v-model:secondGameAwayTeamScore="confrontation[1].awayTeamScore"
+          />
+          <PlayoffCard
+            v-else
+            :confrontation="confrontation"
+            v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
+            v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
+          />
+        </template>
       </div>
     </div>
   </div>
