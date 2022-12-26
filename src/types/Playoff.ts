@@ -31,6 +31,7 @@ export type PlayoffConfrontationGames = [PlayoffGame, PlayoffGame?];
 
 export interface PlayoffConfrontation {
   games: PlayoffConfrontationGames;
+  nextConfrontationNumber: number;
 }
 
 export interface PlayoffStanding {

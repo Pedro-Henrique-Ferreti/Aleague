@@ -13,35 +13,15 @@
         />
       </div>
       <div class="playoff-card__game">
-        <input
-          v-model.lazy="firstGameScoreTeamA"
-          class="playoff-card__game-input"
-          type="number"
-          placeholder="-"
-        />
-        <input
-          v-model.lazy="firstGameScoreTeamB"
-          class="playoff-card__game-input"
-          type="number"
-          placeholder="-"
-        />
+        <PlayoffCardInput v-model="firstGameScoreTeamA" />
+        <PlayoffCardInput v-model="firstGameScoreTeamB" />
       </div>
       <div
         v-if="confrontationHasTwoLegs"
         class="playoff-card__game"
       >
-        <input
-          v-model.lazy="secondGameScoreTeamA"
-          class="playoff-card__game-input"
-          type="number"
-          placeholder="-"
-        />
-        <input
-          v-model.lazy="secondGameScoreTeamB"
-          class="playoff-card__game-input"
-          type="number"
-          placeholder="-"
-        />
+        <PlayoffCardInput v-model="secondGameScoreTeamA" />
+        <PlayoffCardInput v-model="secondGameScoreTeamB" />
       </div>
     </div>
     <div
@@ -60,19 +40,9 @@
           icon="dice"
         />
       </button>
-      <div class="playoff-card__penalty-shootout">
-        <input
-          v-model="penaltyScoreTeamA"
-          class="playoff-card__game-input"
-          type="number"
-          placeholder="-"
-        />
-        <input
-          v-model="penaltyScoreTeamB"
-          class="playoff-card__game-input"
-          type="number"
-          placeholder="-"
-        />
+      <div class="playoff-card__penalty-inputs">
+        <PlayoffCardInput v-model="penaltyScoreTeamA" />
+        <PlayoffCardInput v-model="penaltyScoreTeamB" />
       </div>
     </div>
   </div>
@@ -82,6 +52,7 @@
 import type { PropType } from 'vue';
 import type { PlayoffConfrontationGames, ScoreInput } from '@/types/Playoff';
 import { computed, watch } from 'vue';
+import PlayoffCardInput from './PlayoffCardInput.vue';
 
 const emit = defineEmits([
   'update:firstGameScoreTeamA',
@@ -251,16 +222,22 @@ watch(confrontationWinner, () => {
 
 <style lang="scss" scoped>
 .playoff-card {
+  --gap: 0.25rem;
+  --container-width: 19rem;
+  --penalty-width: 1.5rem;
+
   display: flex;
   align-items: center;
+  gap: var(--gap);
   width: 100%;
+  max-width: calc(var(--container-width) + var(--penalty-width) + var(--gap));
   min-height: 5rem;
   height: fit-content;
   &__container {
     display: flex;
     flex-grow: 1;
     gap: 0.5rem;
-    max-width: 19rem;
+    max-width: var(--container-width);
     min-height: inherit;
   }
   &__teams {
@@ -288,31 +265,19 @@ watch(confrontationWinner, () => {
     background-color: $color--light-gray-2;
     border-radius: 0.375rem;
   }
-  &__game-input {
-    @include focus-ring;
-    width: 100%;
-    height: 50%;
-    padding: 0.25rem;
-    background-color: transparent;
-    border: 0;
-    border-radius: inherit;
-    font-weight: $font-weight--semibold;
-    text-align: center;
-    &:focus {
-      border: 1px solid $color--primary;
-      box-shadow: 0 0 0 0.2rem get-hexadecimal-transparency($color--primary, 25);
-      &::placeholder {
-        opacity: 0;
-      }
-    }
-  }
   &__penalty-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
     min-height: inherit;
-    margin-left: 0.25rem;
+  }
+  &__penalty-inputs {
+    width: var(--penalty-width);
+    height: 3.5rem;
+    background-color: $color--light-gray-2;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
   }
   &__penalty-button {
     @include focus-ring;
@@ -323,13 +288,6 @@ watch(confrontationWinner, () => {
     width: inherit;
     height: inherit;
     fill: $color--tertiary-lighten-1;
-  }
-  &__penalty-shootout {
-    width: 1.5rem;
-    height: 3.5rem;
-    background-color: $color--light-gray-2;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
   }
 }
 </style>
