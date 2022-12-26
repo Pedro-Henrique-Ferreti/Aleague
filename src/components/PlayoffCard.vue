@@ -61,7 +61,7 @@ const emit = defineEmits([
   'update:secondGameScoreTeamB',
   'update:penaltyScoreTeamA',
   'update:penaltyScoreTeamB',
-  'clear-next-phase',
+  'clear-next-round',
   'update-winner',
 ]);
 
@@ -212,7 +212,7 @@ function getRandomPenaltyScore() {
 // Check if confrontation has ended
 watch(confrontationWinner, () => {
   if (!confrontationWinner.value) {
-    emit('clear-next-phase');
+    emit('clear-next-round');
     return;
   }
 

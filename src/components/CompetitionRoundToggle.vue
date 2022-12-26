@@ -1,27 +1,27 @@
 <template>
-  <div class="phase-toggle">
+  <div class="round-toggle">
     <button
-      class="phase-toggle__button"
+      class="round-toggle__button"
       :disabled="disablePreviousButton"
-      @click="$emit('previous-phase')"
+      @click="$emit('previous-round')"
     >
-      <div class="phase-toggle__button-icon-wrapper">
+      <div class="round-toggle__button-icon-wrapper">
         <BaseIcon
-          class="phase-toggle__button-icon phase-toggle__button-icon--left"
+          class="round-toggle__button-icon round-toggle__button-icon--left"
           icon="chevron"
         />
       </div>
       <span>Fase anterior</span>
     </button>
     <button
-      class="phase-toggle__button"
+      class="round-toggle__button"
       :disabled="disableNextButton"
-      @click="$emit('next-phase')"
+      @click="$emit('next-round')"
     >
       <span>Próxima fase</span>
-      <div class="phase-toggle__button-icon-wrapper">
+      <div class="round-toggle__button-icon-wrapper">
         <BaseIcon
-          class="phase-toggle__button-icon"
+          class="round-toggle__button-icon"
           icon="chevron"
         />
       </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-defineEmits(['previous-phase', 'next-phase']);
+defineEmits(['previous-round', 'next-round']);
 defineProps({
   disablePreviousButton: {
     type: Boolean,
@@ -44,7 +44,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.phase-toggle {
+.round-toggle {
   display: flex;
   justify-content: space-between;
   width: 100%;

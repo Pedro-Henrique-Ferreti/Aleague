@@ -1,5 +1,5 @@
 <template>
-  <div class="phase-header | playoff-phase-grid">
+  <div class="round-header | playoff-round-grid">
     <slot />
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script lang="ts" setup></script>
 
 <style lang="scss" scoped>
-.phase-header {
+.round-header {
   place-items: center;
   height: 2.5rem;
   margin-bottom: 2rem;

@@ -5,7 +5,7 @@
   font-weight: $font-weight--semibold;
 }
 
-.playoff-phase-grid {
+.playoff-round-grid {
   display: grid;
   & > *:nth-child(n + 4) {
     display: none;
