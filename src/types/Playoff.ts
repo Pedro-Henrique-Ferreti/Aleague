@@ -27,7 +27,11 @@ export interface PlayoffGame extends Game {
   awayTeamPenaltyShootoutScore: ScoreInput;
 }
 
-export type PlayoffConfrontation = PlayoffGame[];
+export type PlayoffConfrontationGames = [PlayoffGame, PlayoffGame?];
+
+export interface PlayoffConfrontation {
+  games: PlayoffConfrontationGames;
+}
 
 export interface PlayoffStanding {
   number: number;

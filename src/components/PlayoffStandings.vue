@@ -26,22 +26,22 @@
           :key="index"
         >
           <PlayoffCard
-            v-if="confrontation[1]"
-            :confrontation="confrontation"
-            v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
-            v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
-            v-model:secondGameHomeTeamScore="confrontation[1].homeTeamScore"
-            v-model:secondGameAwayTeamScore="confrontation[1].awayTeamScore"
-            v-model:home-team-penalty-shootout-score="confrontation[0].homeTeamPenaltyShootoutScore"
-            v-model:away-team-penalty-shootout-score="confrontation[0].awayTeamPenaltyShootoutScore"
+            v-if="confrontation.games[1]"
+            :games="confrontation.games"
+            v-model:first-game-score-team-a="confrontation.games[0].homeTeamScore"
+            v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
+            v-model:second-game-score-team-a="confrontation.games[1].awayTeamScore"
+            v-model:second-game-score-team-b="confrontation.games[1].homeTeamScore"
+            v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
+            v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
           />
           <PlayoffCard
             v-else
-            :confrontation="confrontation"
-            v-model:firstGameHomeTeamScore="confrontation[0].homeTeamScore"
-            v-model:firstGameAwayTeamScore="confrontation[0].awayTeamScore"
-            v-model:home-team-penalty-shootout-score="confrontation[0].homeTeamPenaltyShootoutScore"
-            v-model:away-team-penalty-shootout-score="confrontation[0].awayTeamPenaltyShootoutScore"
+            :games="confrontation.games"
+            v-model:first-game-score-team-a="confrontation.games[0].homeTeamScore"
+            v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
+            v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
+            v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
           />
         </template>
       </div>
