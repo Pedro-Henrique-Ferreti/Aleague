@@ -45,6 +45,18 @@
       v-show="showPenaltiInputs"
       class="playoff-card__penalty-wrapper"
     >
+      <button
+        class="playoff-card__penalty-button"
+        type="button"
+        title="Sortear pênaltis"
+        aria-label="Sortear pênaltis"
+        @click="getRandomPenaltyScore"
+      >
+        <BaseIcon
+          class="playoff-card__penalty-button-icon"
+          icon="dice"
+        />
+      </button>
       <div class="playoff-card__penalty-shootout">
         <input
           v-model="penaltyScoreTeamA"
@@ -171,6 +183,16 @@ watch(() => showPenaltiInputs.value , () => {
   penaltyScoreTeamA.value = null;
   penaltyScoreTeamB.value = null;
 });
+
+function getRandomPenaltyScore() {
+  if (new Date().getTime() % 2 === 0) {
+    penaltyScoreTeamA.value = 5;
+    penaltyScoreTeamB.value = 4;
+  } else {
+    penaltyScoreTeamA.value = 4;
+    penaltyScoreTeamB.value = 5;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -228,11 +250,26 @@ watch(() => showPenaltiInputs.value , () => {
     }
   }
   &__penalty-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    min-height: inherit;
     margin-left: 0.25rem;
+  }
+  &__penalty-button {
+    @include focus-ring;
+    width: 1rem;
+    height: 1rem;
+  }
+  &__penalty-button-icon {
+    width: inherit;
+    height: inherit;
+    fill: $color--tertiary-lighten-1;
   }
   &__penalty-shootout {
     width: 1.5rem;
-    height: 3rem;
+    height: 3.5rem;
     background-color: $color--light-gray-2;
     border-radius: 0.25rem;
     font-size: 0.875rem;
