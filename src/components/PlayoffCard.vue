@@ -3,38 +3,41 @@
     <div class="playoff-card__container">
       <div class="playoff-card__teams">
         <span
-          v-for="name, index in [nameTeamA, nameTeamB]"
-          v-text="name"
+          v-for="team, index in [teamA, teamB]"
+          v-text="team.name"
           :key="index"
-          :class="{ 'playoff-card__team--empty': !name }"
+          :class="{
+            'playoff-card__team--empty': !team.id,
+            'playoff-card__team--looser': (confrontationWinner && confrontationWinner.id !== team.id)
+          }"
         />
       </div>
       <div class="playoff-card__game">
         <input
-          v-model="firstGameScoreTeamA"
+          v-model.lazy="firstGameScoreTeamA"
           class="playoff-card__game-input"
           type="number"
           placeholder="-"
         />
         <input
-          v-model="firstGameScoreTeamB"
+          v-model.lazy="firstGameScoreTeamB"
           class="playoff-card__game-input"
           type="number"
           placeholder="-"
         />
       </div>
       <div
-        v-if="games[1]"
+        v-if="confrontationHasTwoLegs"
         class="playoff-card__game"
       >
         <input
-          v-model="secondGameScoreTeamA"
+          v-model.lazy="secondGameScoreTeamA"
           class="playoff-card__game-input"
           type="number"
           placeholder="-"
         />
         <input
-          v-model="secondGameScoreTeamB"
+          v-model.lazy="secondGameScoreTeamB"
           class="playoff-card__game-input"
           type="number"
           placeholder="-"
@@ -42,7 +45,7 @@
       </div>
     </div>
     <div
-      v-show="showPenaltiInputs"
+      v-show="confrontationIsDrew"
       class="playoff-card__penalty-wrapper"
     >
       <button
@@ -87,6 +90,8 @@ const emit = defineEmits([
   'update:secondGameScoreTeamB',
   'update:penaltyScoreTeamA',
   'update:penaltyScoreTeamB',
+  'clear-next-phase',
+  'update-winner',
 ]);
 
 const props = defineProps({
@@ -120,6 +125,8 @@ const props = defineProps({
   },
 });
 
+const isNumber = (n: unknown) => Number.isInteger(n);
+
 // Model values
 const firstGameScoreTeamA = computed({
   get: () => props.firstGameScoreTeamA as ScoreInput,
@@ -152,34 +159,71 @@ const penaltyScoreTeamB = computed({
 });
 
 // Team names
-const nameTeamA = computed(() => props.games[0].homeTeamName);
-const nameTeamB = computed(() => props.games[0].awayTeamName);
+const teamA = computed(() => ({
+  id: props.games[0].homeTeamId,
+  name: props.games[0].homeTeamName,
+}));
+const teamB = computed(() => ({
+  id: props.games[0].awayTeamId,
+  name: props.games[0].awayTeamName,
+}));
 
-// Show penalty shootout inputs
-const isValid = (n: unknown) => Number.isInteger(n);
+const confrontationHasTwoLegs = computed(() => props.games[1]);
 
-const showPenaltiInputs = computed(() => {
-  let scoreTeamA = firstGameScoreTeamA.value as number;
-  let scoreTeamB = firstGameScoreTeamB.value as number;
+const firstGameIsOver = computed(() => (
+  isNumber(firstGameScoreTeamA.value) && isNumber(firstGameScoreTeamB.value)
+));
 
-  if (!isValid(scoreTeamA) || !isValid(scoreTeamB)) {
+const secondGameIsOver = computed(() => (
+  isNumber(secondGameScoreTeamA.value) && isNumber(secondGameScoreTeamB.value)
+));
+
+const penaltyShootoutIsOver = computed(() =>(
+  isNumber(penaltyScoreTeamA.value) && isNumber(penaltyScoreTeamB.value)
+));
+
+const confrontationIsDrew = computed(() => {
+  if (
+    !firstGameIsOver.value
+    || (confrontationHasTwoLegs.value && !secondGameIsOver.value)
+  ) {
     return false;
   }
 
-  if (props.games[1]) {
-    if (!isValid(secondGameScoreTeamA.value) || !isValid(secondGameScoreTeamB.value)) {
-      return false;
-    }
-
-    scoreTeamA += (secondGameScoreTeamA.value as number);
-    scoreTeamB += (secondGameScoreTeamB.value as number);
-  }
+  const scoreTeamA = Number(firstGameScoreTeamA.value) + Number(secondGameScoreTeamA.value);
+  const scoreTeamB = Number(firstGameScoreTeamB.value) + Number(secondGameScoreTeamB.value);
 
   return scoreTeamA === scoreTeamB;
 });
 
+const confrontationWinner = computed(() => {
+  const scoreTeamA = (
+    Number(firstGameScoreTeamA.value)
+    + Number(secondGameScoreTeamA.value)
+    + Number(penaltyScoreTeamA.value)
+  );
+  const scoreTeamB = (
+    Number(firstGameScoreTeamB.value)
+    + Number(secondGameScoreTeamB.value)
+    + Number(penaltyScoreTeamB.value)
+  );
+
+  if (
+    !firstGameIsOver.value
+    || (confrontationHasTwoLegs.value && !secondGameIsOver.value)
+    || (confrontationIsDrew.value && !penaltyShootoutIsOver.value)
+    || scoreTeamA === scoreTeamB
+  ) {
+    return null;
+  }
+
+  const winner = (scoreTeamA > scoreTeamB) ? teamA.value : teamB.value;
+
+  return winner;
+});
+
 // Clear penalty shootout score
-watch(() => showPenaltiInputs.value , () => {
+watch(() => confrontationIsDrew.value , () => {
   penaltyScoreTeamA.value = null;
   penaltyScoreTeamB.value = null;
 });
@@ -193,6 +237,16 @@ function getRandomPenaltyScore() {
     penaltyScoreTeamB.value = 5;
   }
 }
+
+// Check if confrontation has ended
+watch(confrontationWinner, () => {
+  if (!confrontationWinner.value) {
+    emit('clear-next-phase');
+    return;
+  }
+
+  emit('update-winner', confrontationWinner.value);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -224,6 +278,9 @@ function getRandomPenaltyScore() {
       height: 1.5rem;
       background-image: linear-gradient(#F5F5F5 0%, #F4F4F4 100%);
       border-radius: 0.25rem;
+    }
+    &--looser {
+      color: $color--text-lighten;
     }
   }
   &__game {

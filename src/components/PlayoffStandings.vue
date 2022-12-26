@@ -34,6 +34,8 @@
             v-model:second-game-score-team-b="confrontation.games[1].homeTeamScore"
             v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
             v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
+            @clear-next-phase="clearNextPhase"
+            @update-winner="moveTeamToNextPhase"
           />
           <PlayoffCard
             v-else
@@ -42,6 +44,8 @@
             v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
             v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
             v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
+            @clear-next-phase="clearNextPhase"
+            @update-winner="moveTeamToNextPhase"
           />
         </template>
       </div>
@@ -94,6 +98,16 @@ function getPhaseName(number: number): string {
     default:
       return `Fase ${number}`;
   }
+}
+
+// Clear next phase
+function clearNextPhase() {
+  console.log('clear phase');
+}
+
+// Move team to next phase
+function moveTeamToNextPhase(team: { id: number, name: string }) {
+  console.log(team);
 }
 </script>
 
