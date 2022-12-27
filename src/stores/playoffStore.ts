@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import type { UpdatePlayoffRulesParams } from '@/types/PlayoffStore';
+import type { SavePlayoffGamesParams, UpdatePlayoffRulesParams } from '@/types/PlayoffStore';
 import type { Playoff, PlayoffWithStandings } from '@/types/Playoff';
 
 import { defineStore } from 'pinia';
@@ -35,6 +35,11 @@ export const usePlayoffStore = defineStore('playoff', {
     },
     deletePlayoff(hashId: string) {
       return axios.delete(`/playoffs/${hashId}`);
+    },
+    savePlayoffGames({ hashId, games }: SavePlayoffGamesParams) {
+      return axios.patch(`/playoffs/${hashId}/games/updateMany`, {
+        games,
+      });
     },
   },
 });
