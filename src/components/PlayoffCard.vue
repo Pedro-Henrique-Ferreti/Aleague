@@ -61,8 +61,7 @@ const emit = defineEmits([
   'update:secondGameScoreTeamB',
   'update:penaltyScoreTeamA',
   'update:penaltyScoreTeamB',
-  'clear-next-round',
-  'update-winner',
+  'update-next-round',
 ]);
 
 const props = defineProps({
@@ -211,12 +210,7 @@ function getRandomPenaltyScore() {
 
 // Check if confrontation has ended
 watch(confrontationWinner, () => {
-  if (!confrontationWinner.value) {
-    emit('clear-next-round');
-    return;
-  }
-
-  emit('update-winner', confrontationWinner.value);
+  emit('update-next-round', confrontationWinner.value);
 });
 </script>
 

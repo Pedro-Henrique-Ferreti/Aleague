@@ -32,16 +32,12 @@
             v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
             v-model:second-game-score-team-a="confrontation.games[1].awayTeamScore"
             v-model:second-game-score-team-b="confrontation.games[1].homeTeamScore"
-            v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
-            v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
-            @clear-next-round="clearNextRound({
-              roundNumber: round.number,
-              confrontationNumber: confrontation.nextConfrontationNumber
-            })"
-            @update-winner="moveTeamToNextRound({
+            v-model:penalty-score-team-a="confrontation.games[1].awayTeamPenaltyShootoutScore"
+            v-model:penalty-score-team-b="confrontation.games[1].homeTeamPenaltyShootoutScore"
+            @update-next-round="updateNextRound({
               team: $event,
-              confrontationNumber: confrontation.number,
               roundNumber: round.number,
+              confrontationNumber: confrontation.number,
               nextConfrontationNumber: confrontation.nextConfrontationNumber
             })"
           />
@@ -52,11 +48,7 @@
             v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
             v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
             v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
-            @clear-next-round="clearNextRound({
-              roundNumber: round.number,
-              confrontationNumber: confrontation.nextConfrontationNumber
-            })"
-            @update-winner="moveTeamToNextRound({
+            @update-next-round="updateNextRound({
               team: $event,
               confrontationNumber: confrontation.number,
               roundNumber: round.number,
@@ -72,16 +64,11 @@
 <script lang="ts">
 type Team = { id: number | null, name: string | null };
 
-interface ClearNextRoundParams {
+interface UpdateNextRoundParams {
   roundNumber: number;
-  confrontationNumber: number | null;
-}
-
-interface MoveTeamToNextRoundParams {
-  team: Team;
   confrontationNumber: number;
-  roundNumber: number;
   nextConfrontationNumber: number | null;
+  team: Team | null;
 }
 
 interface setConfrontationTeamParams {
@@ -139,6 +126,7 @@ function getRoundName(number: number): string {
   }
 }
 
+// Update next round
 function getNextRoundIndex(round: number) {
   if (!playoffStandings) {
     return null;
@@ -163,37 +151,12 @@ function getNextConfronationIndex(roundIndex: number, confrontationNumber: numbe
   return (index === -1) ? null : index;
 }
 
-function setConfrontationTeam({
-  team,
-  roundIndex,
-  confrontationIndex,
-  isTeamA,
-}: setConfrontationTeamParams) {
-  if (!playoffStandings) return;
-
-  const games = playoffStandings.value.standings[roundIndex].confrontations[confrontationIndex].games;
-
-  games[0][isTeamA ? 'homeTeamId' : 'awayTeamId'] = team.id;
-  games[0][isTeamA ? 'homeTeamName' : 'awayTeamName'] = team.name;
-
-  if (games[1]) {
-    games[1][isTeamA ? 'awayTeamId' : 'homeTeamId'] = team.id;
-    games[1][isTeamA ? 'awayTeamName' : 'homeTeamName'] = team.name;
-  }
-}
-
-// Clear next round
-function clearNextRound({ roundNumber, confrontationNumber }: ClearNextRoundParams) {
-  console.log('clear round');
-}
-
-// Move team to next round
-function moveTeamToNextRound({
-  team,
-  nextConfrontationNumber,
+function updateNextRound({
   roundNumber,
   confrontationNumber,
-}: MoveTeamToNextRoundParams) {
+  nextConfrontationNumber,
+  team,
+}: UpdateNextRoundParams) {
   if (!nextConfrontationNumber) return;
 
   const nextRoundIndex = getNextRoundIndex(roundNumber);
@@ -205,11 +168,36 @@ function moveTeamToNextRound({
   if (nextConfrontationIndex === null) return;
 
   setConfrontationTeam({
-    team,
+    team: team || { id: null, name: null },
     roundIndex: nextRoundIndex,
     confrontationIndex: nextConfrontationIndex,
     isTeamA: confrontationNumber % 2 === 1,
   });
+}
+
+function setConfrontationTeam({
+  team,
+  roundIndex,
+  confrontationIndex,
+  isTeamA,
+}: setConfrontationTeamParams) {
+  if (!playoffStandings) return;
+
+  const games = playoffStandings.value.standings[roundIndex].confrontations[confrontationIndex].games;
+
+  const { id, name } = team;
+
+  games[0][isTeamA ? 'homeTeamId' : 'awayTeamId'] = id;
+  games[0][isTeamA ? 'homeTeamName' : 'awayTeamName'] = name;
+  games[0].homeTeamScore = null;
+  games[0].awayTeamScore = null;
+
+  if (games[1]) {
+    games[1][isTeamA ? 'awayTeamId' : 'homeTeamId'] = id;
+    games[1][isTeamA ? 'awayTeamName' : 'homeTeamName'] = name;
+    games[1].homeTeamScore = null;
+    games[1].awayTeamScore = null;
+  }
 }
 </script>
 
