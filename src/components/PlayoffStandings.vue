@@ -91,6 +91,7 @@ interface setConfrontationTeamParams {
 </script>
 
 <script lang="ts" setup>
+import type { PlayoffGame } from '@/types/Playoff';
 import { inject, ref, computed } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { usePlayoffStore } from '@/stores/playoffStore';
@@ -98,7 +99,6 @@ import { KEY_PLAYOFF } from '@/constants/injectionKeys';
 import RoundToggle from './CompetitionRoundToggle.vue';
 import RoundHeader from './PlayoffRoundHeader.vue';
 import PlayoffCard from './PlayoffCard.vue';
-import type { PlayoffGame } from '@/types/Playoff';
 
 const { openSnackbarNotification } = useNotificationStore();
 const { savePlayoffGames } = usePlayoffStore();
@@ -217,7 +217,22 @@ function setConfrontationTeam({
   }
 }
 
+function getPlayoffGames() {
+  let playoffGames: PlayoffGame[] = [];
+
+  if (playoff) {
+    playoff.value.standings.forEach(({ confrontations }) => {
+      confrontations.forEach(({ games }) => {
+        playoffGames = [...playoffGames, ...games] as PlayoffGame[];
+      });
+    });
+  }
+
+  return JSON.parse(JSON.stringify(playoffGames)) as PlayoffGame[];
+}
+
 // Save games
+let staticPlayoffGames = getPlayoffGames();
 const isSavingGames = ref(false);
 
 async function saveGames() {
@@ -226,18 +241,38 @@ async function saveGames() {
   isSavingGames.value = true;
 
   try {
-    let playoffGames: PlayoffGame[] = [];
+    const playoffGames = getPlayoffGames();
 
-    playoff.value.standings.forEach(({ confrontations }) => {
-      confrontations.forEach(({ games }) => {
-        playoffGames = [...playoffGames, ...games] as PlayoffGame[];
-      });
-    });  
+    const updatedGames: PlayoffGame[] = [];
+
+    playoffGames.forEach((game, index) => {
+      const {
+        homeTeamId,
+        awayTeamId,
+        homeTeamScore,
+        awayTeamScore,
+        homeTeamPenaltyShootoutScore,
+        awayTeamPenaltyShootoutScore,
+      } = staticPlayoffGames[index];
+
+      if (
+        homeTeamId !== game.homeTeamId
+        || awayTeamId !== game.awayTeamId
+        || homeTeamScore !== game.homeTeamScore
+        || awayTeamScore !== game.awayTeamScore
+        || homeTeamPenaltyShootoutScore !== game.homeTeamPenaltyShootoutScore
+        || awayTeamPenaltyShootoutScore !== game.awayTeamPenaltyShootoutScore
+      ) {
+        updatedGames.push(game);
+      }
+    });
 
     await savePlayoffGames({
       hashId: playoff.value.hashid,
-      games: playoffGames,
+      games: updatedGames,
     });
+
+    staticPlayoffGames = getPlayoffGames();
 
     openSnackbarNotification({
       message: 'Alterações salvas com sucesso!',
