@@ -22,8 +22,8 @@
         :key="round.number"
       >
         <template
-          v-for="confrontation, index in round.confrontations"
-          :key="index"
+          v-for="confrontation in round.confrontations"
+          :key="confrontation.number"
         >
           <PlayoffCard
             v-if="confrontation.games[1]"
@@ -34,8 +34,16 @@
             v-model:second-game-score-team-b="confrontation.games[1].homeTeamScore"
             v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
             v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
-            @clear-next-round="clearNextRound"
-            @update-winner="moveTeamToNextRound"
+            @clear-next-round="clearNextRound({
+              roundNumber: round.number,
+              confrontationNumber: confrontation.nextConfrontationNumber
+            })"
+            @update-winner="moveTeamToNextRound({
+              team: $event,
+              confrontationNumber: confrontation.number,
+              roundNumber: round.number,
+              nextConfrontationNumber: confrontation.nextConfrontationNumber
+            })"
           />
           <PlayoffCard
             v-else
@@ -44,14 +52,45 @@
             v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
             v-model:penalty-score-team-a="confrontation.games[0].homeTeamPenaltyShootoutScore"
             v-model:penalty-score-team-b="confrontation.games[0].awayTeamPenaltyShootoutScore"
-            @clear-next-round="clearNextRound"
-            @update-winner="moveTeamToNextRound"
+            @clear-next-round="clearNextRound({
+              roundNumber: round.number,
+              confrontationNumber: confrontation.nextConfrontationNumber
+            })"
+            @update-winner="moveTeamToNextRound({
+              team: $event,
+              confrontationNumber: confrontation.number,
+              roundNumber: round.number,
+              nextConfrontationNumber: confrontation.nextConfrontationNumber
+            })"
           />
         </template>
       </div>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+type Team = { id: number | null, name: string | null };
+
+interface ClearNextRoundParams {
+  roundNumber: number;
+  confrontationNumber: number | null;
+}
+
+interface MoveTeamToNextRoundParams {
+  team: Team;
+  confrontationNumber: number;
+  roundNumber: number;
+  nextConfrontationNumber: number | null;
+}
+
+interface setConfrontationTeamParams {
+  roundIndex: number,
+  confrontationIndex: number,
+  team: Team,
+  isTeamA: boolean,
+}
+</script>
 
 <script lang="ts" setup>
 import { inject, ref, computed } from 'vue';
@@ -100,14 +139,77 @@ function getRoundName(number: number): string {
   }
 }
 
+function getNextRoundIndex(round: number) {
+  if (!playoffStandings) {
+    return null;
+  }
+
+  const index = playoffStandings.value.standings.findIndex(
+    ({ number }) => number === round + 1,
+  );
+
+  return (index === -1) ? null : index;
+}
+
+function getNextConfronationIndex(roundIndex: number, confrontationNumber: number) {
+  if (!playoffStandings) {
+    return null;
+  }
+
+  const index = playoffStandings.value.standings[roundIndex].confrontations.findIndex(
+    ({ number }) => number === confrontationNumber,
+  );
+
+  return (index === -1) ? null : index;
+}
+
+function setConfrontationTeam({
+  team,
+  roundIndex,
+  confrontationIndex,
+  isTeamA,
+}: setConfrontationTeamParams) {
+  if (!playoffStandings) return;
+
+  const games = playoffStandings.value.standings[roundIndex].confrontations[confrontationIndex].games;
+
+  games[0][isTeamA ? 'homeTeamId' : 'awayTeamId'] = team.id;
+  games[0][isTeamA ? 'homeTeamName' : 'awayTeamName'] = team.name;
+
+  if (games[1]) {
+    games[1][isTeamA ? 'awayTeamId' : 'homeTeamId'] = team.id;
+    games[1][isTeamA ? 'awayTeamName' : 'homeTeamName'] = team.name;
+  }
+}
+
 // Clear next round
-function clearNextRound() {
+function clearNextRound({ roundNumber, confrontationNumber }: ClearNextRoundParams) {
   console.log('clear round');
 }
 
 // Move team to next round
-function moveTeamToNextRound(team: { id: number, name: string }) {
-  console.log(team);
+function moveTeamToNextRound({
+  team,
+  nextConfrontationNumber,
+  roundNumber,
+  confrontationNumber,
+}: MoveTeamToNextRoundParams) {
+  if (!nextConfrontationNumber) return;
+
+  const nextRoundIndex = getNextRoundIndex(roundNumber);
+
+  if (nextRoundIndex === null) return;
+
+  const nextConfrontationIndex = getNextConfronationIndex(nextRoundIndex, nextConfrontationNumber);
+
+  if (nextConfrontationIndex === null) return;
+
+  setConfrontationTeam({
+    team,
+    roundIndex: nextRoundIndex,
+    confrontationIndex: nextConfrontationIndex,
+    isTeamA: confrontationNumber % 2 === 1,
+  });
 }
 </script>
 
