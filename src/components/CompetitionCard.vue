@@ -1,21 +1,21 @@
 <template>
   <router-link
-    class="league-card__link"
+    class="competition-card__link"
     :to="cardPath"
     :title="title"
   >
-    <div class="league-card">
-      <div class="league-card__details">
+    <div class="competition-card">
+      <div class="competition-card__details">
         <img
-          class="league-card__icon"
+          class="competition-card__icon"
           alt="Competition format icon"
           :src="format?.image"
         />
         <div>
-          <span class="league-card__title">
+          <span class="competition-card__title">
             {{ title }}
           </span>
-          <ul class="league-card__list">
+          <ul class="competition-card__list">
             <LeagueCardDataItem icon="football">
               {{ format?.name }}
             </LeagueCardDataItem>
@@ -43,9 +43,9 @@
       />
       <div
         v-else
-        class="league-card__league-progress"
+        class="competition-card__league-progress"
       >
-        <span class="league-card__league-progress-title">
+        <span class="competition-card__league-progress-title">
           Andamento do campeonato
         </span>
         <AppProgressBar :value="progressBarValue" />
@@ -172,7 +172,7 @@ function getPlayoffPath() {
 </script>
 
 <style lang="scss" scoped>
-.league-card {
+.competition-card {
   display: flex;
   flex-direction: column;
   height: 100%;

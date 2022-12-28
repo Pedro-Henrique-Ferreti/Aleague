@@ -23,7 +23,7 @@
       v-else
       class="leagues-list"
     >
-      <LeagueCard
+      <CompetitionCard
         v-for="competition in displayedCompetititons"
         :key="competition.hashid"
         :hash-id="competition.hashid"
@@ -49,7 +49,7 @@ import { leaguePageTabs } from '@/constants/tabPanelTabs';
 
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
-import LeagueCard from './LeagueCard.vue';
+import CompetitionCard from './CompetitionCard.vue';
 import LeaguesListNoData from './LeaguesListNoData.vue';
 import LeaguesListNoResults from './LeaguesListNoResults.vue';
 import TabPanel from './TabPanel.vue';
