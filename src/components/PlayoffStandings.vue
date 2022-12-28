@@ -21,12 +21,14 @@
         class="playoff-standings__card-list"
         :key="round.number"
       >
-        <template
+        <div
           v-for="confrontation in round.confrontations"
+          class="playoff-standings__card-list-item"
           :key="confrontation.number"
         >
           <PlayoffCard
             v-if="confrontation.games[1]"
+            class="playoff-standings__card"
             :games="confrontation.games"
             v-model:first-game-score-team-a="confrontation.games[0].homeTeamScore"
             v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
@@ -43,6 +45,7 @@
           />
           <PlayoffCard
             v-else
+            class="playoff-standings__card"
             :games="confrontation.games"
             v-model:first-game-score-team-a="confrontation.games[0].homeTeamScore"
             v-model:first-game-score-team-b="confrontation.games[0].awayTeamScore"
@@ -55,7 +58,7 @@
               nextConfrontationNumber: confrontation.nextConfrontationNumber
             })"
           />
-        </template>
+        </div>
       </div>
     </div>
     <div class="playoff-standings__save-button-wrapper">
@@ -303,13 +306,51 @@ async function saveGames() {
     margin-bottom: 1.5rem;
   }
   &__card-list {
+    --justify: flex-start;
+    --bracket-display: none;
     display: grid;
     gap: 1rem;
     &:not(:first-of-type) {
-      place-items: center flex-end;
+      --justify: flex-end;
+      --bracket-display: block;
     }
     &:nth-child(2) {
-      place-items: center;
+      --justify: center;
+    }
+    @include for-large-tablet-portrait-down {
+      --justify: center;
+    }
+  }
+  &__card-list-item {
+    display: flex;
+    justify-content: var(--justify);
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  &__card {
+    &::before,
+    &::after {
+      content: '';
+      display: var(--bracket-display);
+      position: absolute;
+      z-index: -1;
+    }
+    &::before {
+      width: max(2rem, 12.5%);
+      height: 54%;
+      border: 2px solid $color--light-gray-1;
+      border-top-right-radius: 0.75rem;
+      border-bottom-right-radius: 0.75rem;
+      border-left-color: transparent;
+      transform: translateX(calc(-100% - 2.5rem));
+    }
+    &::after {
+      width: 2.5rem;
+      height: 2px;
+      background-color: $color--light-gray-1;
+      transform: translateX(-100%);
     }
   }
   &__save-button-wrapper {

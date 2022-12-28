@@ -18,12 +18,12 @@
   @include for-large-tablet-portrait-up {
     grid-template-columns: repeat(2, 1fr);
   }
-  @include for-large-tablet-landscape-down {
+  @include for-desktop-down {
     & > *:nth-child(n + 3) {
       display: none;
     }
   }
-  @include for-large-tablet-landscape-up {
+  @include for-desktop-up {
     grid-template-columns: repeat(3, 1fr);
   }
 }
