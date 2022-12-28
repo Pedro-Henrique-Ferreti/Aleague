@@ -1,57 +1,69 @@
 <template>
-  <router-link
-    class="competition-card__link"
-    :to="cardPath"
-    :title="title"
-  >
-    <div class="competition-card">
-      <div class="competition-card__details">
+  <div class="competition-card">
+    <div class="competition-card__details">
+      <router-link
+        class="competition-card__icon-link | focus-ring"
+        :to="cardPath"
+      >
         <img
           class="competition-card__icon"
           alt="Competition format icon"
           :src="format?.image"
         />
-        <div>
-          <span class="competition-card__title">
-            {{ title }}
-          </span>
-          <ul class="competition-card__list">
-            <LeagueCardDataItem icon="football">
-              {{ format?.name }}
-            </LeagueCardDataItem>
-            <LeagueCardDataItem
-              icon="people"
-              :warning="!teamsCount"
-            >
-              {{ teamsCountLabel }}
-            </LeagueCardDataItem>
-            <LeagueCardDataItem icon="calendar-check">
-              Criado em {{ getFullDate(createdAt) }}
-            </LeagueCardDataItem>
-            <LeagueCardDataItem
-              v-if="stepsCompleted.third"
-              icon="calendar-edit"
-            >
-              Última alteração em {{ getFullDate(updatedAt) }}
-            </LeagueCardDataItem>
-          </ul>
-        </div>
-      </div>
-      <LeagueCardStepper
-        v-if="!stepsCompleted.third"
-        :steps="leagueSteps"
-      />
-      <div
-        v-else
-        class="competition-card__league-progress"
-      >
-        <span class="competition-card__league-progress-title">
-          Andamento do campeonato
-        </span>
-        <AppProgressBar :value="progressBarValue" />
+      </router-link>
+      <div>
+        <router-link
+          class="competition-card__title | focus-ring"
+          :class="{ 'competition-card__title--margin' : showDeleteButton }"
+          :to="cardPath"
+        >
+          {{ title }}
+        </router-link>
+        <ul class="competition-card__list">
+          <LeagueCardDataItem icon="football">
+            {{ format?.name }}
+          </LeagueCardDataItem>
+          <LeagueCardDataItem
+            icon="people"
+            :warning="!teamsCount"
+          >
+            {{ teamsCountLabel }}
+          </LeagueCardDataItem>
+          <LeagueCardDataItem icon="calendar-check">
+            Criado em {{ getFullDate(createdAt) }}
+          </LeagueCardDataItem>
+          <LeagueCardDataItem
+            v-if="stepsCompleted.third"
+            icon="calendar-edit"
+          >
+            Última alteração em {{ getFullDate(updatedAt) }}
+          </LeagueCardDataItem>
+        </ul>
       </div>
     </div>
-  </router-link>
+    <LeagueCardStepper
+      v-if="!stepsCompleted.third"
+      :steps="leagueSteps"
+    />
+    <div
+      v-else
+      class="competition-card__league-progress"
+    >
+      <span class="competition-card__league-progress-title">
+        Andamento do campeonato
+      </span>
+      <AppProgressBar :value="progressBarValue" />
+    </div>
+    <div class="competition-card__button-wrapper">
+      <AppIconButton
+        v-if="showDeleteButton"
+        class="competition-card__button-delete"
+        aria-label="Excluir campeonato"
+        title="Excluir campeonato"
+        icon="trash-can-outline"
+      />
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -60,6 +72,7 @@ import { computed, ref, watch, type PropType } from 'vue';
 import { getFullDate } from '@/utils';
 import { competitionFormats } from '@/constants/competitionFormats';
 
+import AppIconButton from './AppIconButton.vue';
 import AppProgressBar from './AppProgressBar.vue';
 import LeagueCardDataItem from './LeagueCardDataItem.vue';
 import LeagueCardStepper from './LeagueCardStepper.vue';
@@ -112,7 +125,6 @@ const teamsCountLabel = computed(() => {
 });
 
 // Format data
-
 const format = computed(() => Object.values(competitionFormats).find(
   ({ value }) => value === props.competitionFormat,
 ));
@@ -169,6 +181,9 @@ function getPlayoffPath() {
 
   return { name: 'create-playoff-rules', params: { id: props.hashId } };
 }
+
+// Show delete button
+const showDeleteButton = computed(() => !props.stepsCompleted.third);
 </script>
 
 <style lang="scss" scoped>
@@ -177,21 +192,17 @@ function getPlayoffPath() {
   flex-direction: column;
   height: 100%;
   padding: 1rem;
-  background-color: $color--white;
   border: 1px solid $color--light-gray-1;
   border-radius: 0.5rem;
   box-shadow: $box-shadow--layer-1;
-  transition: background-color $transition--fastest ease-in;
-  &:hover {
-    background-color: $color--light-gray-2;
-  }
-  &__link {
-    @include focus-ring;
-  }
+  position: relative;
   &__details {
     display: flex;
     gap: 1rem;
     width: 100%;
+  }
+  &__icon-link {
+    height: fit-content;
   }
   &__icon {
     --size: 3rem;
@@ -207,6 +218,9 @@ function getPlayoffPath() {
     color: $color--text-darken;
     font-size: 1.125rem;
     font-weight: $font-weight--semibold;
+    &--margin {
+      margin-right: 2rem;
+    }
   }
   &__list {
     display: grid;
@@ -217,6 +231,14 @@ function getPlayoffPath() {
   }
   &__league-progress-title {
     color: $color--text-darken;
+  }
+  &__button-wrapper {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+  }
+  &__button-delete {
+    --border: none !important;
   }
 }
 </style>

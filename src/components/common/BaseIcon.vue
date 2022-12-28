@@ -38,6 +38,7 @@ import Search from '@/components/icons/IconSearch.vue';
 import TeamAdd from '@/components/icons/IconTeamAdd.vue';
 import TeamShield from '@/components/icons/IconTeamShield.vue';
 import TeamShieldOutline from '@/components/icons/IconTeamShieldOutline.vue';
+import TrashCanOutline from '@/components/icons/IconTrashCanOutline.vue';
 import Trophy from '@/components/icons/IconTrophy.vue';
 import TrophyOutline from '@/components/icons/IconTrophyOutline.vue';
 import WarningCircle from '@/components/icons/IconWarningCircle.vue';
@@ -119,6 +120,8 @@ const icon = computed(() => {
       return TeamShield;
     case 'teamshieldoutline':
       return TeamShieldOutline;
+    case 'trashcanoutline':
+      return TrashCanOutline;
     case 'trophy':
       return Trophy;
     case 'trophyoutline':
