@@ -267,6 +267,8 @@ async function saveGames() {
       }
     });
 
+    if (updatedGames.length < 1) return;
+
     await savePlayoffGames({
       hashId: playoff.value.hashid,
       games: updatedGames,
