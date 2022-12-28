@@ -3,16 +3,18 @@
     <div class="header-controls__buttons">
       <OnClickOutside @trigger="showNotificationsModal = false">
         <div class="header-controls__notifications-wrapper">
-          <TheHeaderControlsButton
+          <AppIconButton
             icon="bell"
+            aria-label="Exibir notificações"
             :is-active="showNotificationsModal"
             @click="showNotificationsModal = !showNotificationsModal"
           />
           <TheHeaderNotificationsModal :show="showNotificationsModal" />
         </div>
       </OnClickOutside>
-      <TheHeaderControlsButton
+      <AppIconButton
         icon="gear"
+        aria-label="Abrir configurações da conta"
         @click="openUserSettingsModal"
       />
     </div>
@@ -24,8 +26,8 @@
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
 import { useUserSettingsStore } from '@/stores/userSettingsStore';
+import AppIconButton from './AppIconButton.vue';
 import TheHeaderLoggedInUser from './TheHeaderLoggedInUser.vue';
-import TheHeaderControlsButton from './TheHeaderControlsButton.vue';
 import TheHeaderNotificationsModal from './TheHeaderNotificationsModal.vue';
 
 const { openModal: openUserSettingsModal } = useUserSettingsStore();

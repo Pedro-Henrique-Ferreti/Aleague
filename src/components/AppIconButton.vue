@@ -1,11 +1,11 @@
 <template>
   <button
-    class="header-button"
+    class="icon-button"
     :class="buttonClasses"
     @click="$emit('click')"
   >
     <BaseIcon
-      class="header-button__icon"
+      class="icon-button__icon"
       :icon="icon"
     />
   </button>
@@ -28,19 +28,20 @@ const props = defineProps({
 });
 
 const buttonClasses = computed(() => ({
-  'header-button--active': props.isActive,
+  'icon-button--active': props.isActive,
 }));
 </script>
 
 <style lang="scss" scoped>
-.header-button {
+.icon-button {
+  --border: 1px solid #{$color--light-gray-1};
   display: flex;
   justify-content: center;
   align-items: center;
   width: 2rem;
   height: 2rem;
   background-color: $color--white;
-  border: 1px solid $color--light-gray-1;
+  border: var(--border);
   border-radius: 0.25rem;
   transition: background-color $transition--fastest ease-in-out;
   @include focus-ring;
