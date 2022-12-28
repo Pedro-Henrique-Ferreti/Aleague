@@ -137,9 +137,9 @@ const isDeletingCompetition = ref(false);
 
 async function deleteCompetition() {
   const { hashid, format } = competitionToDelete.value;
-  
+
   if (!hashid || !format) return;
-  
+
   isDeletingCompetition.value = true;
 
   try {
