@@ -34,27 +34,40 @@
         :steps-completed="competition.stepsCompleted"
         :created-at="competition.createdAt"
         :updated-at="competition.updatedAt"
+        @delete="openDeleteCompetitionModal(competition.hashid, competition.type)"
       />
     </div>
   </AppTransition>
+  <CompetitionModalDelete
+    :show="showDeleteCompetitionModal"
+    :is-loading="isDeletingCompetition"
+    @close="closeDeleteCompetitionModal"
+    @confirm="deleteCompetition"
+  />
 </template>
 
 <script lang="ts" setup>
-import type { CompetitionListItem } from '@/types/Competition';
-import { ref, onMounted, computed } from 'vue';
+import type { CompetitionFormat, CompetitionListItem } from '@/types/Competition';
+import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useCompetitionStore } from '@/stores/competitionStore';
 import { useNotificationStore } from '@/stores/notificationStore';
+import { useLeaguesStore } from '@/stores/leaguesStore';
+import { usePlayoffStore } from '@/stores/playoffStore';
 import { leaguePageTabs } from '@/constants/tabPanelTabs';
+import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import CompetitionCard from './CompetitionCard.vue';
+import CompetitionModalDelete from './CompetitionModalDelete.vue';
 import LeaguesListNoData from './LeaguesListNoData.vue';
 import LeaguesListNoResults from './LeaguesListNoResults.vue';
 import TabPanel from './TabPanel.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
+const { deleteLeague } = useLeaguesStore();
+const { deletePlayoff } = usePlayoffStore();
 const competitionStore = useCompetitionStore();
 const { searchBarValue } = storeToRefs(competitionStore);
 
@@ -65,9 +78,9 @@ const competitions = ref<CompetitionListItem[]>([]);
 // Get competition
 const isLoading = ref(true);
 
-onMounted(() => getLeagues());
+getCompetitions();
 
-async function getLeagues() {
+async function getCompetitions() {
   isLoading.value = true;
 
   try {
@@ -98,6 +111,65 @@ const displayedCompetititons = computed(() => {
 
   return displayedCompetititons.filter(({ type }) => type === activeTabId.value);
 });
+
+// Delete competition modal
+const showDeleteCompetitionModal = ref(false);
+
+function openDeleteCompetitionModal(hashid: string, format: CompetitionFormat) {
+  showDeleteCompetitionModal.value = true;
+
+  competitionToDelete.value = { hashid, format };
+}
+
+function closeDeleteCompetitionModal() {
+  showDeleteCompetitionModal.value = false;
+
+  competitionToDelete.value = { hashid: null, format: null };
+}
+
+// Delete competition
+const competitionToDelete = ref<{ hashid: string | null, format: CompetitionFormat | null }>({
+  hashid: null,
+  format: null,
+});
+
+const isDeletingCompetition = ref(false);
+
+async function deleteCompetition() {
+  const { hashid, format } = competitionToDelete.value;
+  
+  if (!hashid || !format) return;
+  
+  isDeletingCompetition.value = true;
+
+  try {
+    switch (format) {
+      case competitionFormats.LEAGUE.value:
+        await deleteLeague(hashid);
+        break;
+      case competitionFormats.PLAYOFF.value:
+        await deletePlayoff(hashid);
+        break;
+      default:
+        throw new Error('Invalid format');
+    }
+
+    openSnackbarNotification({
+      message: 'Campeonato excluído com sucesso.',
+    });
+
+    closeDeleteCompetitionModal();
+
+    getCompetitions();
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isDeletingCompetition.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

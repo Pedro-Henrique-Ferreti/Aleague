@@ -61,6 +61,7 @@
         aria-label="Excluir campeonato"
         title="Excluir campeonato"
         icon="trash-can-outline"
+        @click="$emit('delete')"
       />
     </div>
   </div>
@@ -77,6 +78,7 @@ import AppProgressBar from './AppProgressBar.vue';
 import LeagueCardDataItem from './LeagueCardDataItem.vue';
 import LeagueCardStepper from './LeagueCardStepper.vue';
 
+defineEmits(['delete']);
 const props = defineProps({
   hashId: {
     type: String,
