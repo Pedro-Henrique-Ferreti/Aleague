@@ -1,15 +1,11 @@
 <template>
   <div class="league-matches">
     <div class="league-matches__content">
-      <AppButton
-        icon-rounded
+      <SaveButton
         class="league-matches__save-button"
-        icon-left="save"
         :is-loading="isSavingGames"
         @click="saveGames"
-      >
-        Salvar
-      </AppButton>
+      />
       <div class="league-matches__table">
         <div class="league-matches__table-header">
           <TableButton
@@ -73,6 +69,7 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { KEY_LEAGUE, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
 
 import LoadingIndicator from './LoadingIndicator.vue';
+import SaveButton from './SaveButton.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
 import GameDate from './LeagueMatchesGameDate.vue';
 import LeagueMatchesGame from './LeagueMatchesGame.vue';

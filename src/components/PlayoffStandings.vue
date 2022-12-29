@@ -62,15 +62,10 @@
       </div>
     </div>
     <div class="playoff-standings__save-button-wrapper">
-      <AppButton
-        icon-rounded
-        class="playoff-standings__save-button"
-        icon-left="save"
+      <SaveButton
         :is-loading="isSavingGames"
         @click="saveGames"
-      >
-        Salvar
-      </AppButton>
+      />
     </div>
   </div>
 </template>
@@ -99,6 +94,8 @@ import { inject, ref, computed } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { KEY_PLAYOFF } from '@/constants/injectionKeys';
+
+import SaveButton from './SaveButton.vue';
 import RoundToggle from './CompetitionRoundToggle.vue';
 import RoundHeader from './PlayoffRoundHeader.vue';
 import PlayoffCard from './PlayoffCard.vue';
@@ -362,9 +359,6 @@ async function saveGames() {
       top: 0;
       right: 0;
     }
-  }
-  &__save-button {
-    --min-width: 9rem !important;
   }
 }
 </style>
