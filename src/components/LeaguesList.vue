@@ -16,7 +16,15 @@
     </template>
   </TabPanel>
   <AppTransition name="fade">
-    <LoadingIndicator v-if="isLoading" />
+    <div
+      v-if="isLoading"
+      class="leagues-list"
+    >
+      <SkeletonCard />  
+      <SkeletonCard />  
+      <SkeletonCard />  
+      <SkeletonCard />  
+    </div>
     <LeaguesListNoData v-else-if="competitions.length === 0" />
     <LeaguesListNoResults v-else-if="displayedCompetititons.length === 0" />
     <div
@@ -58,12 +66,12 @@ import { leaguePageTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppTransition from './AppTransition.vue';
-import LoadingIndicator from './LoadingIndicator.vue';
 import CompetitionCard from './CompetitionCard.vue';
 import CompetitionModalDelete from './CompetitionModalDelete.vue';
 import LeaguesListNoData from './LeaguesListNoData.vue';
 import LeaguesListNoResults from './LeaguesListNoResults.vue';
 import TabPanel from './TabPanel.vue';
+import SkeletonCard from './SkeletonCompetitionCard.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 const { deleteLeague } = useLeaguesStore();
