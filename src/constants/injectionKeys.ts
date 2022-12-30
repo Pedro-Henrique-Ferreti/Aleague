@@ -3,7 +3,7 @@ import type {
   ReloadCompetitionParams,
   UpdateCompetitionParams,
 } from '@/types/Competition';
-import type { LeagueWithStandings } from '@/types/League';
+import type { LeagueWithGameweeks } from '@/types/League';
 import type { PlayoffWithStandings } from '@/types/Playoff';
 import type { InjectionKey, Ref, ComputedRef } from 'vue';
 
@@ -24,6 +24,6 @@ export const KEY_DELETE_COMPETITION = Symbol() as InjectionKey<() => Promise<any
 
 export const KEY_RELOAD_COMPETITION = Symbol() as InjectionKey<(params?: ReloadCompetitionParams) => void>;
 
-export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<LeagueWithStandings>>;
+export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<LeagueWithGameweeks>>;
 
 export const KEY_PLAYOFF = Symbol() as InjectionKey<Ref<PlayoffWithStandings>>;

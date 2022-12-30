@@ -33,11 +33,7 @@
           />
         </div>
         <div class="league-matches__table-body">
-          <LoadingIndicator
-            v-if="isLoadingGameweek"
-            class="league-matches__loading-indicator"
-          />
-          <template v-else>
+          <template v-if="gameweeks[currentGameweekIndex]">
             <template
               v-for="(game, index) in gameweeks[currentGameweekIndex].games"
               :key="game.id"
@@ -66,9 +62,9 @@ import type { LeagueGame, LeagueGameweek } from '@/types/League';
 import { inject, ref } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
+import { clone } from '@/utils';
 import { KEY_LEAGUE, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
 
-import LoadingIndicator from './LoadingIndicator.vue';
 import SaveButton from './SaveButton.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
 import GameDate from './LeagueMatchesGameDate.vue';
@@ -82,30 +78,9 @@ const league = inject(KEY_LEAGUE);
 const reloadLeague = inject(KEY_RELOAD_COMPETITION);
 
 // Gameweek
-const isLoadingGameweek = ref(false);
 const currentGameweekIndex = ref(0);
-const gameweeks = ref<LeagueGameweek[]>([]);
-let staticGameweeks: LeagueGameweek[] = [];
-
-getGameweeks();
-
-async function getGameweeks() {
-  isLoadingGameweek.value = true;
-
-  try {
-    const gameweeksValues = await leaguesStore.getLeagueGameweeks(league?.value.hashid || '');
-
-    gameweeks.value = JSON.parse(JSON.stringify(gameweeksValues));
-    staticGameweeks = JSON.parse(JSON.stringify(gameweeksValues));
-  } catch (error: any) {
-    openSnackbarNotification({
-      type: 'error',
-      message: error.message,
-    });
-  } finally {
-    isLoadingGameweek.value = false;
-  }
-}
+const gameweeks = ref<LeagueGameweek[]>(clone(league?.value.gameweeks || []));
+let staticGameweeks: LeagueGameweek[] = clone(league?.value.gameweeks || []);
 
 function updateGameweekIndex(value: number) {
   const newIndex = currentGameweekIndex.value + value;
@@ -161,7 +136,7 @@ async function saveGames() {
       await reloadLeague({ showLoader: false });
     }
 
-    staticGameweeks = JSON.parse(JSON.stringify(gameweeks.value));
+    staticGameweeks = clone(gameweeks.value);
 
     openSnackbarNotification({
       message: 'Alterações salvas com sucesso!',
@@ -214,10 +189,6 @@ async function saveGames() {
   }
   &__table-body {
     padding: var(--spacing);
-  }
-  &__loading-indicator {
-    --size: 3rem;
-    height: 10rem;
   }
 }
 </style>

@@ -48,3 +48,7 @@ export interface LeagueWithStandings extends League {
   numberOfGameweeks: number;
   standings: LeagueStanding[] | null,
 }
+
+export interface LeagueWithGameweeks extends LeagueWithStandings {
+  gameweeks: LeagueGameweek[],
+}
