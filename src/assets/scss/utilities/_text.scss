@@ -6,6 +6,18 @@
   color: $color--text-lighten;
 }
 
+.text-secondary-lighten {
+  color: $color--tertiary-lighten-1;
+}
+
+.text-success {
+  color: $color--success-darken-2;
+}
+
+.text-danger {
+  color: $color--danger;
+}
+
 .text-center {
   text-align: center;
 }
@@ -16,4 +28,8 @@
 
 .text-right {
   text-align: right;
+}
+
+.font-semibold {
+  font-weight: $font-weight--semibold;
 }
