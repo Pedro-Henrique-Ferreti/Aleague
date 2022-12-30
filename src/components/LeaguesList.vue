@@ -20,10 +20,10 @@
       v-if="isLoading"
       class="leagues-list"
     >
-      <SkeletonCard />  
-      <SkeletonCard />  
-      <SkeletonCard />  
-      <SkeletonCard />  
+      <SkeletonCard />
+      <SkeletonCard />
+      <SkeletonCard />
+      <SkeletonCard />
     </div>
     <LeaguesListNoData v-else-if="competitions.length === 0" />
     <LeaguesListNoResults v-else-if="displayedCompetititons.length === 0" />
