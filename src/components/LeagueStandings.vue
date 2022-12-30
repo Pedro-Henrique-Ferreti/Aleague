@@ -56,7 +56,10 @@
           v-for="(standing, index) in leagueStandings"
           :key="standing.teamId"
         >
-          <tr class="table-row">
+          <tr
+            class="table-row"
+            :class="{ 'expanded': expandedRowId === standing.teamId }"
+          >
             <LeagueStandingsButtonExpand
               :expanded="expandedRowId === standing.teamId"
               @click="setExpandedRow(standing.teamId)"
@@ -98,13 +101,11 @@
               </div>
             </td>
           </tr>
-          <tr v-show="expandedRowId === standing.teamId">
-            <td colspan="12">
-              <span class="team-details__name">
-                {{ standing.teamName }}
-              </span>
-            </td>
-          </tr>
+          <LeagueStandingsTeamDetails
+            v-show="expandedRowId === standing.teamId"
+            :id="standing.teamId"
+            :name="standing.teamName"
+          />
         </template>
       </TransitionGroup>
     </table>
@@ -117,6 +118,7 @@ import { KEY_LEAGUE } from '@/constants/injectionKeys';
 import { sortStandings } from '@/helpers/standings';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
 import LeagueStandingsButtonExpand from './LeagueStandingsButtonExpand.vue';
+import LeagueStandingsTeamDetails from './LeagueStandingsTeamDetails.vue';
 
 // Injected values
 const league = inject(KEY_LEAGUE);
@@ -226,15 +228,21 @@ function getPercentage(points: number, gamesPlayed: number) {
       right: 0;
     }
   }
-  .table-row td {
-    height: var(--row-height);
-    padding: var(--cell-spacing);
-    border-bottom: 1px solid $color--light-gray-1;
-    &:last-child {
-      padding-right: var(--padding);
+  .table-row {
+    --border-color: #{$color--light-gray-1};
+    &.expanded {
+      --border-color: transparent;
     }
-    &:not(.team, .position) {
-      font-size: 0.9rem;
+    > td {
+      height: var(--row-height);
+      padding: var(--cell-spacing);
+      border-bottom: 1px solid var(--border-color);
+      &:last-child {
+        padding-right: var(--padding);
+      }
+      &:not(.team, .position) {
+        font-size: 0.9rem;
+      }
     }
   }
   .position {
