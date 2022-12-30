@@ -78,9 +78,21 @@ const league = inject(KEY_LEAGUE);
 const reloadLeague = inject(KEY_RELOAD_COMPETITION);
 
 // Gameweek
-const currentGameweekIndex = ref(0);
 const gameweeks = ref<LeagueGameweek[]>(clone(league?.value.gameweeks || []));
 let staticGameweeks: LeagueGameweek[] = clone(league?.value.gameweeks || []);
+
+// Displayed gameweek
+function getFirstNotCompletedGameweek() {
+  const index = gameweeks.value.findIndex(
+    ({ games }) => games.filter(
+      (game) => game.homeTeamScore === null && game.awayTeamScore === null,
+    ).length > 0,
+  );
+
+  return (index === -1) ? 0 : index;
+}
+
+const currentGameweekIndex = ref(getFirstNotCompletedGameweek());
 
 function updateGameweekIndex(value: number) {
   const newIndex = currentGameweekIndex.value + value;
