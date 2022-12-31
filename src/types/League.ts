@@ -14,7 +14,7 @@ export interface LeagueGameweek {
 }
 
 export interface LeagueStanding {
-  gamesDrawn: number;
+  gamesTied: number;
   gamesLost: number;
   gamesPlayed: number;
   gamesWon: number;

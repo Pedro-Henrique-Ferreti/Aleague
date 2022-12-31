@@ -78,7 +78,7 @@
             </td>
             <td>{{ standing.gamesPlayed }}</td>
             <td>{{ standing.gamesWon }}</td>
-            <td>{{ standing.gamesDrawn }}</td>
+            <td>{{ standing.gamesTied }}</td>
             <td>{{ standing.gamesLost }}</td>
             <td class="hide-tablet-landscape">
               {{ standing.goalsFor }}
