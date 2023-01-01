@@ -1,134 +1,131 @@
 <template>
-  <tr>
+  <tr v-show="show">
     <td colspan="16">
       <div class="team-details">
-        <p class="team-details__title | text-darken">
-          {{ name }}
-        </p>
-        <ul class="team-details__statistics-list">
-          <li class="team-details__statistics-list-title">
-            <span class="text-darken font-semibold">
-              {{ homeGames.length }}
-            </span> Jogos mandante:
-          </li>
-          <li>
-            <span class="text-success font-semibold">
-              {{ homeStatistics.wins }}
-            </span> Vitórias
-          </li>
-          <li>
-            <span class="text-secondary-lighten font-semibold">
-              {{ homeStatistics.draws }}
-            </span> Empates
-          </li>
-          <li>
-            <span class="text-danger font-semibold">
-              {{ homeStatistics.losses }}
-            </span> Derrotas
-          </li>
-          <li class="team-details__statistics-list-title">
-            <span class="text-darken font-semibold">
-              {{ awayGames.length }}
-            </span> Jogos visitante:
-          </li>
-          <li>
-            <span class="text-success font-semibold">
-              {{ awayStatistics.wins }}
-            </span> Vitórias
-          </li>
-          <li>
-            <span class="text-secondary-lighten font-semibold">
-              {{ awayStatistics.draws }}
-            </span> Empates
-          </li>
-          <li>
-            <span class="text-danger font-semibold">
-              {{ awayStatistics.losses }}
-            </span> Derrotas
-          </li>
-        </ul>
-        <p class="team-details__heading">
-          Sequência no campeonato
-        </p>
-        <div class="team-details__matches-list">
-          <LeagueStandingsRecentGame
-            v-for="game in games"
-            :key="game.id"
-            :game="game"
-            :team-id="id"
-          />
-        </div>
+        <LoadingIndicator v-if="!statistics || isLoadingStatistics" />
+        <template v-else>
+          <p class="team-details__title | text-darken">
+            {{ name }}
+          </p>
+          <ul class="team-details__statistics-list">
+            <li class="team-details__statistics-list-title">
+              <span class="text-darken font-semibold">
+                {{ statistics?.home.gamesPlayed }}
+              </span> Jogos mandante:
+            </li>
+            <li>
+              <span class="text-success font-semibold">
+                {{ statistics?.home.wins }}
+              </span> Vitórias
+            </li>
+            <li>
+              <span class="text-secondary-lighten font-semibold">
+                {{ statistics?.home.ties }}
+              </span> Empates
+            </li>
+            <li>
+              <span class="text-danger font-semibold">
+                {{ statistics?.home.losses }}
+              </span> Derrotas
+            </li>
+            <li class="team-details__statistics-list-title">
+              <span class="text-darken font-semibold">
+                {{ statistics?.away.gamesPlayed }}
+              </span> Jogos visitante:
+            </li>
+            <li>
+              <span class="text-success font-semibold">
+                {{ statistics?.away.wins }}
+              </span> Vitórias
+            </li>
+            <li>
+              <span class="text-secondary-lighten font-semibold">
+                {{ statistics?.away.ties }}
+              </span> Empates
+            </li>
+            <li>
+              <span class="text-danger font-semibold">
+                {{ statistics?.away.losses }}
+              </span> Derrotas
+            </li>
+          </ul>
+          <p class="team-details__heading">
+            Sequência no campeonato
+          </p>
+          <div class="team-details__matches-list">
+            <LeagueStandingsRecentGame
+              v-for="game in statistics.completedGames"
+              :key="game.id"
+              :game="game"
+              :team-id="id"
+            />
+          </div>
+        </template>
       </div>
     </td>
   </tr>
 </template>
 
 <script lang="ts" setup>
-import type { LeagueGame } from '@/types/League';
-import { inject, computed } from 'vue';
-import { KEY_LEAGUE } from '@/constants/injectionKeys';
+import type { PropType } from 'vue';
+import type { LeagueTeamStatistics } from '@/types/League';
+import { ref, watch } from 'vue';
+import { useNotificationStore } from '@/stores/notificationStore';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
+import LoadingIndicator from './LoadingIndicator.vue';
 
-// Injected values
-const league = inject(KEY_LEAGUE);
+const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
+  show: {
+    type: Boolean,
+    default: false,
+  },
   id: {
     type: Number,
+    required: true,
+  },
+  hashId: {
+    type: String,
     required: true,
   },
   name: {
     type: String,
     default: '',
   },
+  statistics: {
+    type: Object as PropType<LeagueTeamStatistics>,
+    default: null,
+  },
+  getStatisticsFn: {
+    type: Function as PropType<(teamId: string) => Promise<void>>,
+    required: true,
+  },
 });
 
-const games = computed(() => {
-  if (!league) {
-    return [];
+// Statistics
+const isLoadingStatistics = ref(false);
+
+async function getStatistics() {
+  isLoadingStatistics.value = true;
+
+  try {
+    await props.getStatisticsFn(props.hashId);
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isLoadingStatistics.value = false;
   }
-
-  let leagueGames: LeagueGame[] = [];
-
-  league.value.gameweeks.forEach(({ games }) => {
-    leagueGames = [...leagueGames, ...games];
-  });
-
-  return leagueGames.filter(({ homeTeam, awayTeam, homeTeamScore, awayTeamScore }) => (
-    [homeTeam.id, awayTeam.id].includes(props.id)
-    && homeTeamScore !== null
-    && awayTeamScore !== null
-  ));
-});
-
-const homeGames = computed(() => games.value.filter(({ homeTeam: { id } }) => id === props.id));
-const awayGames = computed(() => games.value.filter(({ awayTeam: { id } }) => id === props.id));
-
-const homeStatistics = computed(() => getGameStatistics(homeGames.value));
-
-const awayStatistics = computed(() => {
-  const { wins, draws, losses } = getGameStatistics(awayGames.value);
-
-  return {
-    draws,
-    wins: losses,
-    losses: wins,
-  };
-});
-
-function getGameStatistics(games: LeagueGame[]) {
-  let wins = 0;
-  let draws = 0;
-  let losses = 0;
-
-  games.forEach(({ homeTeamScore, awayTeamScore }) => {
-    if (homeTeamScore > awayTeamScore) wins += 1;
-    else if (homeTeamScore === awayTeamScore) draws += 1;
-    else losses += 1;
-  });
-
-  return { wins, losses, draws };
 }
+
+watch([() => props.show, () => props.statistics], () => {
+  if (props.show && !props.statistics && !isLoadingStatistics.value) {
+    getStatistics();
+  }
+});
 </script>
 
 <style lang="scss" scoped>

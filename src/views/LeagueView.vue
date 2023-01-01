@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/Competition';
-import type { LeagueWithGameweeks } from '@/types/League';
+import type { LeagueWithStandings } from '@/types/League';
 import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
@@ -55,16 +55,11 @@ import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';
 
 const route = useRoute();
-const {
-  getLeagueById,
-  getLeagueGameweeks,
-  deleteLeague,
-  updateLeague,
-} = useLeaguesStore();
+const { getLeagueById, deleteLeague, updateLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
-const league = ref<LeagueWithGameweeks | null>(null);
+const league = ref<LeagueWithStandings | null>(null);
 
 // League details
 const leagueDetails = computed(() => ({
@@ -95,12 +90,7 @@ async function getLeague({ showLoader }: ReloadCompetitionParams = { showLoader:
   isLoadingLeague.value = showLoader as boolean;
 
   try {
-    const [leagueData, gameweeks] = await Promise.all([
-      getLeagueById(route.params.id as string),
-      getLeagueGameweeks(route.params.id as string),
-    ]);
-
-    league.value = { ...leagueData, gameweeks };
+    league.value = await getLeagueById(route.params.id as string);
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

@@ -49,6 +49,26 @@ export interface LeagueWithStandings extends League {
   standings: LeagueStanding[] | null,
 }
 
-export interface LeagueWithGameweeks extends LeagueWithStandings {
-  gameweeks: LeagueGameweek[],
+export interface LeagueTeamStatistics {
+  home: {
+		gamesPlayed: number;
+		wins: number;
+		ties: number;
+		losses: number;
+	};
+  away: {
+		gamesPlayed: number;
+		wins: number;
+		ties: number;
+		losses: number;
+	};
+	streak: {
+		win: number;
+		tie: number;
+		loss: number;
+		maxWin: number;
+		maxTie: number;
+		maxLoss: number;
+	};
+	completedGames: LeagueGame[];
 }

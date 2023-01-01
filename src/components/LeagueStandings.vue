@@ -102,9 +102,12 @@
             </td>
           </tr>
           <LeagueStandingsTeamDetails
-            v-show="expandedRowId === standing.teamId"
+            :show="expandedRowId === standing.teamId"
             :id="standing.teamId"
+            :hash-id="standing.teamHashid"
             :name="standing.teamName"
+            :statistics="getStatisticsByTeamId(standing.teamHashid)"
+            :get-statistics-fn="getStatistics"
           />
         </template>
       </TransitionGroup>
@@ -113,12 +116,16 @@
 </template>
 
 <script lang="ts" setup>
+import type { LeagueTeamStatistics } from '@/types/League';
 import { computed, inject, ref, watch } from 'vue';
+import { useLeaguesStore } from '@/stores/leaguesStore';
 import { KEY_LEAGUE } from '@/constants/injectionKeys';
 import { sortStandings } from '@/helpers/standings';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
 import LeagueStandingsButtonExpand from './LeagueStandingsButtonExpand.vue';
 import LeagueStandingsTeamDetails from './LeagueStandingsTeamDetails.vue';
+
+const { getTeamStatistics } = useLeaguesStore();
 
 // Injected values
 const league = inject(KEY_LEAGUE);
@@ -130,6 +137,26 @@ const leagueStandings = computed(() => {
   }
   return [...league.value.standings].sort(sortStandings);
 });
+
+// Team statistics
+const teamStatistics = ref<{ teamId: string; statistics: LeagueTeamStatistics }[]>([]);
+
+async function getStatistics(teamId: string) {
+  const statistics = await getTeamStatistics({
+    leagueId: league?.value.hashid || '',
+    teamHashId: teamId,
+  });
+
+  teamStatistics.value.push({ teamId, statistics });
+}
+
+function getStatisticsByTeamId(id: string) {
+  return teamStatistics.value.find(({ teamId }) => teamId === id)?.statistics;
+}
+
+watch(() => league?.value.standings, () => {
+  teamStatistics.value = [];
+}, { deep: true });
 
 // Transition
 const transitionName = ref<'standings' | ''>('standings');

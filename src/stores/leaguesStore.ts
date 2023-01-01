@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import type { League, LeagueWithStandings } from '@/types/League';
+import type { League, LeagueTeamStatistics, LeagueWithStandings } from '@/types/League';
 import type { SaveLeagueGamesParams, UpdateLeagueRulesParams } from '@/types/LeaguesStore';
 import type { LeagueGameweek } from '@/types/League';
 import { defineStore } from 'pinia';
@@ -41,6 +41,11 @@ export const useLeaguesStore = defineStore('leagues', {
     },
     saveLeagueGames({ leagueId, games }: SaveLeagueGamesParams) {
       return axios.patch(`/leagues/${leagueId}/games/updateMany`, { games });
+    },
+    async getTeamStatistics({ leagueId, teamHashId }: { leagueId: string; teamHashId: string }) {
+      const { data } = await axios.get<LeagueTeamStatistics>(`/leagues/${leagueId}/statistics/teams/${teamHashId}`);
+      
+      return data;
     },
   },
 });

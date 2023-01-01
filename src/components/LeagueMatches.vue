@@ -33,7 +33,11 @@
           />
         </div>
         <div class="league-matches__table-body">
-          <template v-if="gameweeks[currentGameweekIndex]">
+          <LoadingIndicator
+            v-if="isLoadingGameweek"
+            class="league-matches__loading-indicator"
+          />
+          <template v-else>
             <template
               v-for="(game, index) in gameweeks[currentGameweekIndex].games"
               :key="game.id"
@@ -65,34 +69,56 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { clone } from '@/utils';
 import { KEY_LEAGUE, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
 
+import LoadingIndicator from './LoadingIndicator.vue';
 import SaveButton from './SaveButton.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
 import GameDate from './LeagueMatchesGameDate.vue';
 import LeagueMatchesGame from './LeagueMatchesGame.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
-const leaguesStore = useLeaguesStore();
+const { getLeagueGameweeks, saveLeagueGames } = useLeaguesStore();
 
 // Injected values
 const league = inject(KEY_LEAGUE);
 const reloadLeague = inject(KEY_RELOAD_COMPETITION);
 
-// Gameweek
-const gameweeks = ref<LeagueGameweek[]>(clone(league?.value.gameweeks || []));
-let staticGameweeks: LeagueGameweek[] = clone(league?.value.gameweeks || []);
+// Gameweeks
+const gameweeks = ref<LeagueGameweek[]>([]);
+let staticGameweeks: LeagueGameweek[] = [];
+const currentGameweekIndex = ref(0);
+const isLoadingGameweek = ref(false);
 
-// Displayed gameweek
+getGameweeks();
+
+async function getGameweeks() {
+  isLoadingGameweek.value = true;
+
+  try {
+    const gameweeksValues = await getLeagueGameweeks(league?.value.hashid || '');
+
+    gameweeks.value = clone(gameweeksValues);
+    staticGameweeks = clone(gameweeksValues);
+
+    currentGameweekIndex.value = getFirstNotCompletedGameweek();
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isLoadingGameweek.value = false;
+  }
+}
+
 function getFirstNotCompletedGameweek() {
   const index = gameweeks.value.findIndex(
     ({ games }) => games.filter(
-      (game) => game.homeTeamScore === null && game.awayTeamScore === null,
+      (game) => game.homeTeamScore === null || game.awayTeamScore === null,
     ).length > 0,
   );
 
   return (index === -1) ? 0 : index;
 }
-
-const currentGameweekIndex = ref(getFirstNotCompletedGameweek());
 
 function updateGameweekIndex(value: number) {
   const newIndex = currentGameweekIndex.value + value;
@@ -139,7 +165,7 @@ async function saveGames() {
 
     if (updatedGames.length < 1) return;
 
-    await leaguesStore.saveLeagueGames({
+    await saveLeagueGames({
       leagueId: league?.value.hashid || '',
       games: updatedGames as any,
     });
@@ -201,6 +227,10 @@ async function saveGames() {
   }
   &__table-body {
     padding: var(--spacing);
+  }
+  &__loading-indicator {
+    --size: 3rem;
+    height: 10rem;
   }
 }
 </style>
