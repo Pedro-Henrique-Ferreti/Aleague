@@ -2,11 +2,11 @@
   <tr v-show="show">
     <td colspan="16">
       <div class="team-details">
-        <LoadingIndicator v-if="!statistics || isLoadingStatistics" />
+        <p class="team-details__title | text-darken">
+          {{ name }}
+        </p>
+        <SkeletonLoader v-if="!statistics || isLoadingStatistics" />
         <template v-else>
-          <p class="team-details__title | text-darken">
-            {{ name }}
-          </p>
           <ul class="team-details__statistics-list">
             <li class="team-details__statistics-list-title">
               <span class="text-darken font-semibold">
@@ -72,7 +72,7 @@ import type { LeagueTeamStatistics } from '@/types/League';
 import { ref, watch } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
-import LoadingIndicator from './LoadingIndicator.vue';
+import SkeletonLoader from './SkeletonLeagueStandingsTeamDetails.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 
@@ -159,6 +159,7 @@ watch([() => props.show, () => props.statistics], () => {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem;
+    max-width: 24rem;
   }
 }
 </style>
