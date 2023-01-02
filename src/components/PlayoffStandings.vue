@@ -330,11 +330,11 @@ async function saveGames() {
       z-index: -1;
     }
     &::before {
-      width: max(2rem, 12.5%);
+      width: 1.5rem;
       height: 54%;
       border: 2px solid $color--light-gray-1;
-      border-top-right-radius: 0.75rem;
-      border-bottom-right-radius: 0.75rem;
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
       border-left-color: transparent;
       transform: translateX(calc(-100% - 2.5rem));
     }
