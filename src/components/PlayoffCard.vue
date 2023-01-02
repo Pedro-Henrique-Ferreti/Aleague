@@ -4,11 +4,11 @@
       <div class="playoff-card__teams">
         <span
           v-for="team, index in [teamA, teamB]"
-          v-text="team.name"
+          v-text="team?.name"
           :key="index"
           :class="{
-            'playoff-card__team--empty': !team.id,
-            'playoff-card__team--looser': (confrontationWinner && confrontationWinner.id !== team.id)
+            'playoff-card__team--empty': !team?.id,
+            'playoff-card__team--looser': (confrontationWinner && confrontationWinner.id !== team?.id)
           }"
         />
       </div>
@@ -129,14 +129,8 @@ const penaltyScoreTeamB = computed({
 });
 
 // Team names
-const teamA = computed(() => ({
-  id: props.games[0].homeTeamId,
-  name: props.games[0].homeTeamName,
-}));
-const teamB = computed(() => ({
-  id: props.games[0].awayTeamId,
-  name: props.games[0].awayTeamName,
-}));
+const teamA = computed(() => props.games[0].homeTeam);
+const teamB = computed(() => props.games[0].awayTeam);
 
 const confrontationHasTwoLegs = computed(() => props.games[1]);
 

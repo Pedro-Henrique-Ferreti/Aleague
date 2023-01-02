@@ -71,25 +71,24 @@
 </template>
 
 <script lang="ts">
-type Team = { id: number | null, name: string | null };
-
 interface UpdateNextRoundParams {
   roundNumber: number;
   confrontationNumber: number;
   nextConfrontationNumber: number | null;
-  team: Team | null;
+  team: GameTeam | null;
 }
 
-interface setConfrontationTeamParams {
+interface SetConfrontationTeamParams {
   roundIndex: number,
   confrontationIndex: number,
-  team: Team,
+  team: GameTeam | null,
   isTeamA: boolean,
 }
 </script>
 
 <script lang="ts" setup>
 import type { PlayoffGame } from '@/types/Playoff';
+import type { GameTeam } from '@/types/Game';
 import { inject, ref, computed } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { usePlayoffStore } from '@/stores/playoffStore';
@@ -185,7 +184,7 @@ function updateNextRound({
   if (nextConfrontationIndex === null) return;
 
   setConfrontationTeam({
-    team: team || { id: null, name: null },
+    team,
     roundIndex: nextRoundIndex,
     confrontationIndex: nextConfrontationIndex,
     isTeamA: confrontationNumber % 2 === 1,
@@ -197,21 +196,17 @@ function setConfrontationTeam({
   roundIndex,
   confrontationIndex,
   isTeamA,
-}: setConfrontationTeamParams) {
+}: SetConfrontationTeamParams) {
   if (!playoff) return;
 
   const games = playoff.value.standings[roundIndex].confrontations[confrontationIndex].games;
 
-  const { id, name } = team;
-
-  games[0][isTeamA ? 'homeTeamId' : 'awayTeamId'] = id;
-  games[0][isTeamA ? 'homeTeamName' : 'awayTeamName'] = name;
+  games[0][isTeamA ? 'homeTeam' : 'awayTeam'] = team;
   games[0].homeTeamScore = null;
   games[0].awayTeamScore = null;
 
   if (games[1]) {
-    games[1][isTeamA ? 'awayTeamId' : 'homeTeamId'] = id;
-    games[1][isTeamA ? 'awayTeamName' : 'homeTeamName'] = name;
+    games[1][isTeamA ? 'awayTeam' : 'homeTeam'] = team;
     games[1].homeTeamScore = null;
     games[1].awayTeamScore = null;
   }
@@ -247,8 +242,8 @@ async function saveGames() {
 
     playoffGames.forEach((game, index) => {
       const {
-        homeTeamId,
-        awayTeamId,
+        homeTeam,
+        awayTeam,
         homeTeamScore,
         awayTeamScore,
         homeTeamPenaltyShootoutScore,
@@ -256,8 +251,8 @@ async function saveGames() {
       } = staticPlayoffGames[index];
 
       if (
-        homeTeamId !== game.homeTeamId
-        || awayTeamId !== game.awayTeamId
+        homeTeam?.id !== game.homeTeam?.id
+        || awayTeam?.id !== game.awayTeam?.id
         || homeTeamScore !== game.homeTeamScore
         || awayTeamScore !== game.awayTeamScore
         || homeTeamPenaltyShootoutScore !== game.homeTeamPenaltyShootoutScore

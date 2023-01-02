@@ -44,7 +44,7 @@ export const useLeaguesStore = defineStore('leagues', {
     },
     async getTeamStatistics({ leagueId, teamHashId }: { leagueId: string; teamHashId: string }) {
       const { data } = await axios.get<LeagueTeamStatistics>(`/leagues/${leagueId}/statistics/teams/${teamHashId}`);
-      
+
       return data;
     },
   },

@@ -38,7 +38,15 @@ export const usePlayoffStore = defineStore('playoff', {
     },
     savePlayoffGames({ hashId, games }: SavePlayoffGamesParams) {
       return axios.patch(`/playoffs/${hashId}/games/updateMany`, {
-        games,
+        games: games.map((game) => ({
+          id: game.id,
+          homeTeamId: game.homeTeam?.id || null,
+          awayTeamId: game.awayTeam?.id || null,
+          homeTeamScore: game.homeTeamScore,
+          awayTeamScore: game.awayTeamScore,
+          homeTeamPenaltyShootoutScore: game.homeTeamPenaltyShootoutScore,
+          awayTeamPenaltyShootoutScore: game.awayTeamPenaltyShootoutScore,
+        })),
       });
     },
   },

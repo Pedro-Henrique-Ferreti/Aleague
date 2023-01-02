@@ -1,4 +1,4 @@
-import type { Game } from './Game';
+import type { Game, GameTeam } from './Game';
 
 export type PlayoffLegs = 1 | 2;
 
@@ -17,10 +17,8 @@ export interface Playoff {
 }
 
 export interface PlayoffGame extends Game {
-  homeTeamId: number | null;
-  awayTeamId: number | null;
-  homeTeamName: string | null;
-  awayTeamName: string | null;
+  homeTeam: GameTeam | null;
+  awayTeam: GameTeam | null;
   homeTeamScore: ScoreInput;
   awayTeamScore: ScoreInput;
   homeTeamPenaltyShootoutScore: ScoreInput;
