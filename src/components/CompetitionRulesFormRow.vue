@@ -1,11 +1,16 @@
 <template>
   <div class="competition-rules-form__row">
-    <label
-      class="competition-rules-form__label"
-      :id="id"
-    >
-      <slot name="label" />
-    </label>
+    <div>
+      <label
+        class="competition-rules-form__label"
+        :id="id"
+      >
+        <slot name="label" />
+      </label>
+      <span class="competition-rules-form__label-subtitle">
+        <slot name="label-subtitle" />
+      </span>
+    </div>
     <slot />
   </div>
 </template>
@@ -39,6 +44,14 @@ defineProps({
   }
   &__label {
     color: $color--text-darken;
+  }
+  &__label-subtitle {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: $font-weight--semibold;
+    &:empty {
+      display: none;
+    }
   }
 }
 </style>

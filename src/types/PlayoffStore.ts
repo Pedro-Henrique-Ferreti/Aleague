@@ -3,7 +3,7 @@ import type { PlayoffGame } from './Playoff';
 export interface UpdatePlayoffRulesParams {
   hashId: string;
   numberOfLegs: 1 | 2;
-  numberOfRounds: number;
+  numberOfTeams: number;
 }
 
 export interface SavePlayoffGamesParams {

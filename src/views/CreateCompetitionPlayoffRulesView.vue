@@ -11,6 +11,9 @@
       <template #label>
         Quantidade de fases
       </template>
+      <template #label-subtitle>
+        {{ numberOfParticipants }} participantes
+      </template>
       <AppCounterField
         v-model="playoff.numberOfRounds"
         labelled-by="rules-form-rounds"
@@ -32,11 +35,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { competitionFormats } from '@/constants/competitionFormats';
+import { PARTICIPANTS_BY_ROUND } from '@/constants/playoffs';
 
 import AppCounterField from '@/components/AppCounterField.vue';
 import AppSwitch from '@/components/AppSwitch.vue';
@@ -60,6 +64,11 @@ const playoff = ref({
   numberOfRounds: 1,
   hasTwoLegs: false,
 });
+
+const numberOfParticipants = computed(() => PARTICIPANTS_BY_ROUND.find(
+  ({ numberOfRounds: n }) => n === playoff.value.numberOfRounds,
+  )?.numberOfParticipants,
+);
 
 // Get playoff data
 const isLoadingPlayoff = ref(false);
@@ -94,7 +103,7 @@ async function savePlayoff() {
   try {
     await updatePlayoffRules({
       hashId: playoff.value.id,
-      numberOfRounds: playoff.value.numberOfRounds,
+      numberOfTeams: numberOfParticipants.value || PARTICIPANTS_BY_ROUND[0].numberOfParticipants,
       numberOfLegs: (playoff.value.hasTwoLegs) ? 2 : 1,
     });
 
