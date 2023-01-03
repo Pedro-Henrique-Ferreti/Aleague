@@ -38,7 +38,7 @@ defineProps({
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
   border-radius: 0.5rem;
-  box-shadow: $box-shadow--layer-1;
+  box-shadow: $shadow--small;
   text-align: left;
   transition: background-color $transition--fastest ease-in;
   &:hover {

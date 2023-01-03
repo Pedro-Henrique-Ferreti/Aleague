@@ -95,13 +95,9 @@ const cardClasses = computed(() => ({
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
   border-radius: 0.75rem;
-  box-shadow: $box-shadow--layer-1;
-  transition:
-    transform $transition--fast ease-in-out,
-    box-shadow $transition--fast ease-in-out;
+  transition: box-shadow $transition--fast ease-in-out;
   &:hover {
-    transform: scale(1.005);
-    box-shadow: $box-shadow--layer-2;
+    box-shadow: $shadow--medium;
   }
   &__wrapper {
     @include focus-ring;

@@ -195,8 +195,11 @@ const showDeleteButton = computed(() => !props.stepsCompleted.third);
   padding: 1rem;
   border: 1px solid $color--light-gray-1;
   border-radius: 0.5rem;
-  box-shadow: $box-shadow--layer-1;
   position: relative;
+  transition: box-shadow $transition--fast ease-in-out;
+  &:hover {
+    box-shadow: $shadow--medium;
+  }
   &__details {
     display: flex;
     gap: 1rem;

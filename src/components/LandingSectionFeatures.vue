@@ -97,11 +97,12 @@ import SectionTitle from './LandingSectionTitle.vue';
     padding: 1.5rem;
     border: 1px solid $color--light-gray-1;
     border-radius: 0.75rem;
-    box-shadow: $box-shadow--layer-1;
-    transition: all $transition--fast ease-in-out;
+    transition:
+      transform $transition--fast ease-in-out,
+      box-shadow $transition--fast ease-in-out;
     &:hover {
-      box-shadow: $box-shadow--layer-2;
-      transform: scale(1.01);
+      transform: scale(1.005);
+      box-shadow: $shadow--medium;
     }
     @include for-tablet-landscape-up {
       min-height: 16rem;

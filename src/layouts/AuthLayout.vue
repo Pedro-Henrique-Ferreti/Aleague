@@ -81,7 +81,7 @@ import AppLogo from '@/components/AppLogo.vue';
       padding-top: 1.5rem;
       min-height: calc(100vh - 160px);
       background-color: $color--white;
-      box-shadow: $box-shadow--layer-2;
+      box-shadow: $shadow--medium;
       border-radius: 0.5rem 2.5rem 0.5rem 2.5rem;
     }
   }

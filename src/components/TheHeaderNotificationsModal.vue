@@ -46,6 +46,7 @@ defineProps({
   &__modal {
     width: 25rem;
     min-height: 17rem;
+    box-shadow: $shadow--medium;
   }
   :deep(.header-notifications__content) {
     display: flex;

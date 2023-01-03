@@ -36,7 +36,7 @@ const { activeSnackbar } = storeToRefs(notificationStore);
   pointer-events: none;
   .snackbar {
     min-width: 19.5rem;
-    box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+    box-shadow: $shadow--large;
     pointer-events: auto;
     @media (min-width: $desktop-up) {
       max-width: 75vw;

@@ -35,7 +35,7 @@
   background-color: $color--white;
   border-radius: 0.5rem;
   opacity: 0;
-  box-shadow: 0 2px 8px rgb(31 45 61 / 15%);
+  box-shadow: $shadow--medium;
   position: absolute;
   bottom: calc(100% + 0.5rem);
   right: -1rem;

@@ -27,7 +27,6 @@
   padding: 1rem;
   border: 1px solid $color--light-gray-1;
   border-radius: 0.5rem;
-  box-shadow: $box-shadow--layer-1;
   &__image {
     --height: 4rem;
   }

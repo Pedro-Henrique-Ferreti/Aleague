@@ -62,7 +62,7 @@ document.addEventListener('scroll', () => {
   z-index: $z-index--landing-header;
   &--pinned {
     background-color: $color--white;
-    box-shadow: $box-shadow--layer-1;
+    box-shadow: $shadow--small;
     position: fixed;
     animation: header-slide-down $transition--slowest ease-in-out;
   }
@@ -88,7 +88,7 @@ document.addEventListener('scroll', () => {
     }
     @include for-large-tablet-portrait-down {
       background-color: $color--white;
-      box-shadow: $box-shadow--layer-2;
+      box-shadow: $shadow--medium;
       @include hide-shadow($top: true);
     }
     @include for-large-tablet-portrait-up {

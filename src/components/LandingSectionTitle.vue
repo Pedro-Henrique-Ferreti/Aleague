@@ -17,9 +17,9 @@
     content: '';
     display: block;
     width: 75%;
-    height: 1px;
+    height: 2px;
     margin: 0 auto;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     background-color: $color--primary;
   }
 }

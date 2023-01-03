@@ -174,7 +174,7 @@ watch(() => showAutocompleteList.value, () => {
     :deep(.base-input) {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      box-shadow: 0 15px 40px 0 rgba(74, 84, 114, 0.1);
+      box-shadow: $shadow--medium;
     }
   }
   &__button {
@@ -196,7 +196,7 @@ watch(() => showAutocompleteList.value, () => {
     border: 1px solid $color--light-gray-1;
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
-    box-shadow: 0 15px 40px 0 rgba(74, 84, 114, 0.1);
+    box-shadow: $shadow--medium;
     position: absolute;
     top: calc(100% - 1px);
   }

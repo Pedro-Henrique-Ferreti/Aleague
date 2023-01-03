@@ -219,6 +219,8 @@ async function saveGames() {
     padding: 0.5rem var(--spacing);
     background-color: $color--light-gray-2;
     border-bottom: 1px solid $color--light-gray-1;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
   }
   &__table-gameweek {
     flex: 1;
