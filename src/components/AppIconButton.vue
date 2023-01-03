@@ -34,14 +34,12 @@ const buttonClasses = computed(() => ({
 
 <style lang="scss" scoped>
 .icon-button {
-  --border: 1px solid #{$color--light-gray-1};
   display: flex;
   justify-content: center;
   align-items: center;
   width: 2rem;
   height: 2rem;
   background-color: $color--white;
-  border: var(--border);
   border-radius: 0.25rem;
   transition: background-color $transition--fastest ease-in-out;
   @include focus-ring;

@@ -57,7 +57,6 @@
     <div class="competition-card__button-wrapper">
       <AppIconButton
         v-if="showDeleteButton"
-        class="competition-card__button-delete"
         aria-label="Excluir campeonato"
         title="Excluir campeonato"
         icon="trash-can-outline"
@@ -238,9 +237,6 @@ const showDeleteButton = computed(() => !props.stepsCompleted.third);
     position: absolute;
     top: 0.625rem;
     right: 0.625rem;
-  }
-  &__button-delete {
-    --border: none !important;
   }
 }
 </style>
