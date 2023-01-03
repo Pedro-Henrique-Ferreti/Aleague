@@ -3,7 +3,7 @@
     <div class="playoff-standings__controls">
       <RoundToggle
         :disable-previous-button="activeRoundNumber === 1"
-        :disable-next-button="activeRoundNumber === playoff?.standings.length"
+        :disable-next-button="activeRoundNumber === playoff?.rounds.length"
         @previous-round="activeRoundNumber--"
         @next-round="activeRoundNumber++"
       />
@@ -40,7 +40,7 @@
               team: $event,
               roundNumber: round.number,
               confrontationNumber: confrontation.number,
-              nextConfrontationNumber: confrontation.nextConfrontationNumber
+              nextConfrontationId: confrontation.nextConfrontationId
             })"
           />
           <PlayoffCard
@@ -55,7 +55,7 @@
               team: $event,
               confrontationNumber: confrontation.number,
               roundNumber: round.number,
-              nextConfrontationNumber: confrontation.nextConfrontationNumber
+              nextConfrontationId: confrontation.nextConfrontationId
             })"
           />
         </div>
@@ -74,7 +74,7 @@
 interface UpdateNextRoundParams {
   roundNumber: number;
   confrontationNumber: number;
-  nextConfrontationNumber: number | null;
+  nextConfrontationId: number | null;
   team: GameTeam | null;
 }
 
@@ -112,10 +112,10 @@ const displayedRounds = computed(() => {
     return [];
   }
 
-  const { standings } = playoff.value;
+  const { rounds } = playoff.value;
   const index = activeRoundNumber.value - 1;
 
-  return standings.slice(index, index + 3);
+  return rounds.slice(index, index + 3);
 });
 
 function getRoundName(number: number): string {
@@ -123,7 +123,7 @@ function getRoundName(number: number): string {
     return '';
   }
 
-  const roundNumbers = playoff.value.standings
+  const roundNumbers = playoff.value.rounds
     .slice(-4)
     .map(({ number }) => number)
     .reverse();
@@ -148,20 +148,20 @@ function getNextRoundIndex(round: number) {
     return null;
   }
 
-  const index = playoff.value.standings.findIndex(
+  const index = playoff.value.rounds.findIndex(
     ({ number }) => number === round + 1,
   );
 
   return (index === -1) ? null : index;
 }
 
-function getNextConfronationIndex(roundIndex: number, confrontationNumber: number) {
+function getNextConfronationIndex(roundIndex: number, confrontationId: number) {
   if (!playoff) {
     return null;
   }
 
-  const index = playoff.value.standings[roundIndex].confrontations.findIndex(
-    ({ number }) => number === confrontationNumber,
+  const index = playoff.value.rounds[roundIndex].confrontations.findIndex(
+    ({ id }) => id === confrontationId,
   );
 
   return (index === -1) ? null : index;
@@ -170,16 +170,16 @@ function getNextConfronationIndex(roundIndex: number, confrontationNumber: numbe
 function updateNextRound({
   roundNumber,
   confrontationNumber,
-  nextConfrontationNumber,
+  nextConfrontationId,
   team,
-}: UpdateNextRoundParams) {
-  if (!nextConfrontationNumber) return;
+}: UpdateNextRoundParams) {  
+  if (!nextConfrontationId) return;
 
   const nextRoundIndex = getNextRoundIndex(roundNumber);
 
   if (nextRoundIndex === null) return;
 
-  const nextConfrontationIndex = getNextConfronationIndex(nextRoundIndex, nextConfrontationNumber);
+  const nextConfrontationIndex = getNextConfronationIndex(nextRoundIndex, nextConfrontationId);
 
   if (nextConfrontationIndex === null) return;
 
@@ -199,7 +199,7 @@ function setConfrontationTeam({
 }: SetConfrontationTeamParams) {
   if (!playoff) return;
 
-  const games = playoff.value.standings[roundIndex].confrontations[confrontationIndex].games;
+  const games = playoff.value.rounds[roundIndex].confrontations[confrontationIndex].games;
 
   games[0][isTeamA ? 'homeTeam' : 'awayTeam'] = team;
   games[0].homeTeamScore = null;
@@ -216,7 +216,7 @@ function getPlayoffGames() {
   let playoffGames: PlayoffGame[] = [];
 
   if (playoff) {
-    playoff.value.standings.forEach(({ confrontations }) => {
+    playoff.value.rounds.forEach(({ confrontations }) => {
       confrontations.forEach(({ games }) => {
         playoffGames = [...playoffGames, ...games] as PlayoffGame[];
       });

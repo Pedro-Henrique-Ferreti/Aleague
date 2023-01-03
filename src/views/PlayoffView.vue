@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/Competition';
-import type { PlayoffWithStandings } from '@/types/Playoff';
+import type { PlayoffWithRounds } from '@/types/Playoff';
 import { ref, computed, provide } from 'vue';
 import { useRoute } from 'vue-router';
 import { usePlayoffStore } from '@/stores/playoffStore';
@@ -41,7 +41,7 @@ const { getPlayoffById, updatePlayoff, deletePlayoff } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Playoff data
-const playoff = ref<PlayoffWithStandings | null>(null);
+const playoff = ref<PlayoffWithRounds | null>(null);
 
 // Playoff details
 const playoffDetails = computed(() => ({

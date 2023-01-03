@@ -28,17 +28,18 @@ export interface PlayoffGame extends Game {
 export type PlayoffConfrontationGames = [PlayoffGame, PlayoffGame?];
 
 export interface PlayoffConfrontation {
-  games: PlayoffConfrontationGames;
+  id: number;
   number: number;
-  nextConfrontationNumber: number | null;
+  nextConfrontationId: number | null;
+  games: PlayoffConfrontationGames;
 }
 
-export interface PlayoffStanding {
+export interface PlayoffRound {
   number: number;
   numberOfLegs: PlayoffLegs;
   confrontations: PlayoffConfrontation[];
 }
 
-export interface PlayoffWithStandings extends Playoff {
-  standings: PlayoffStanding[];
+export interface PlayoffWithRounds extends Playoff {
+  rounds: PlayoffRound[];
 }

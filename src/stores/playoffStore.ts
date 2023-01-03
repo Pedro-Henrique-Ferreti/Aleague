@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import type { SavePlayoffGamesParams, UpdatePlayoffRulesParams } from '@/types/PlayoffStore';
-import type { Playoff, PlayoffWithStandings } from '@/types/Playoff';
+import type { Playoff, PlayoffWithRounds } from '@/types/Playoff';
 
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';
@@ -10,7 +10,7 @@ import { PARTICIPANTS_BY_ROUND } from '@/constants/playoffs';
 export const usePlayoffStore = defineStore('playoff', {
   actions: {
     async getPlayoffById(hashId: string) {
-      const { data: playoff }: AxiosResponse<PlayoffWithStandings> = await axios.get(`/playoffs/${hashId}`);
+      const { data: playoff }: AxiosResponse<PlayoffWithRounds> = await axios.get(`/playoffs/${hashId}`);
 
       return playoff;
     },
