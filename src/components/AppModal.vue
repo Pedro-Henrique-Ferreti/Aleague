@@ -166,10 +166,10 @@ function handleKeyupEvent(event: KeyboardEvent) {
     }
   }
   &--use-max-height {
-    height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
+    height: calc(100vh - (var(--spacing--modal-overlay-padding) * 2));
   }
   width: 100%;
-  max-height: calc(100vh - (#{$spacing--modal-overlay-padding} * 2));
+  max-height: calc(100vh - (var(--spacing--modal-overlay-padding) * 2));
   position: relative;
   :deep(.app-modal__content-wrapper) {
     @include scrollbar;
@@ -203,7 +203,7 @@ function handleKeyupEvent(event: KeyboardEvent) {
     width: 100%;
   }
   @include for-tablet-portrait-down {
-    --content-spacing: #{$spacing--screen-vertical-padding};
+    --content-spacing: var(--spacing--screen-vertical-padding);
     height: 100vh;
     max-height: unset;
     border: 0;

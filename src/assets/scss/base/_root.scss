@@ -1,38 +1,12 @@
 :root {
-/* 
-* Adds color variables to CSS root
-*/
-  --color--white: #{$color--white};
-  --color--black: #{$color--black};
-  --color--gray-1: #{$color--gray-1};
-  --color--light-gray-1: #{$color--light-gray-1};
-  --color--light-gray-2: #{$color--light-gray-2};
-  --color--light-gray-3: #{$color--light-gray-3};
+  --spacing--modal-overlay-padding: max(11.7vh, 4rem);
+  --spacing--screen-vertical-padding: 1rem;
 
-  --color--primary: #{$color--primary};
-  --color--primary-lighten-1: #{$color--primary-lighten-1};
-  --color--primary-lighten-2: #{$color--primary-lighten-2};
-  --color--primary-lighten-3: #{$color--primary-lighten-3};
-  --color--primary-lighten-4: #{$color--primary-lighten-4};
+  @include for-tablet-portrait-up {
+    --spacing--screen-vertical-padding: 1.5rem;
+  }
 
-  --color--secondary: #{$color--secondary};
-  --color--secondary-lighten-1: #{$color--secondary-lighten-1};
-  --color--secondary-lighten-2: #{$color--secondary-lighten-2};
-  --color--secondary-lighten-3: #{$color--secondary-lighten-3};
-
-  --color--tertiary: #{$color--tertiary};
-  --color--tertiary-lighten-1: #{$color--tertiary-lighten-1};
-  --color--tertiary-lighten-2: #{$color--tertiary-lighten-2};
-  --color--tertiary-lighten-3: #{$color--tertiary-lighten-3};
-  --color--tertiary-lighten-4: #{$color--tertiary-lighten-4};
-  --color--tertiary-lighten-5: #{$color--tertiary-lighten-5};
-  --color--tertiary-lighten-6: #{$color--tertiary-lighten-6};
-
-  --color--danger: #{$color--danger};
-  --color--danger-lighten-1: #{$color--danger-lighten-1};
-  --color--danger-lighten-4: #{$color--danger-lighten-4};
-
-  --color--text-darken: #{$color--text-darken};
-  --color--text: #{$color--text};
-  --color--text-lighten: #{$color--text-lighten};
+  @include for-desktop-up {
+    --spacing--screen-vertical-padding: 2rem;
+  }
 }

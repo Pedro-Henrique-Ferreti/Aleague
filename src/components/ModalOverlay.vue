@@ -26,7 +26,7 @@ defineProps({
 .overlay {
   display: grid;
   place-items: start center;
-  padding: $spacing--modal-overlay-padding $spacing--screen-vertical-padding;
+  padding: var(--spacing--modal-overlay-padding) var(--spacing--screen-vertical-padding);
   background-color: $color--text-darken-50;
   overflow: hidden;
   position: fixed;
