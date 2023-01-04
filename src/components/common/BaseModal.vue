@@ -106,15 +106,18 @@ const modalClasses = computed(() => ({
     align-items: center;
     width: var(--close-button-size);
     height: var(--close-button-size);
-    background-color: $color--white;
-    border: 1px solid $color--light-gray-1;
     border-radius: 0.25rem;
     position: absolute;
-    right: var(--content-spacing);
+    right: calc(var(--content-spacing) - 0.625rem);
+    transition: background-color $transition--fastest ease-in;
+    &:hover {
+      background-color: $color--white;
+    }
   }
   &__close-button-icon {
-    width: 1rem;
-    height: 1rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    fill: $color--text-darken;
   }
   &__content-wrapper {
     flex: 1;
