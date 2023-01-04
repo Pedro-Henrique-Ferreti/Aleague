@@ -26,7 +26,7 @@
     </AppWarning>
     <div class="confirmation-modal__footer">
       <AppButton
-        color="gray"
+        color="outline"
         @click="$emit('close')"
       >
         Cancelar

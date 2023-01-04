@@ -205,7 +205,6 @@ const buttonClasses = computed(() => ({
   }
   &.button--outline {
     border: 1px solid $color--light-gray-1;
-    --color: #{$color--text};
     --hover-background-color: #{$color--light-gray-2};
     --disabled-color: #{$color--text};
   }

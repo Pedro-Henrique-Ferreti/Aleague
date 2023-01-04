@@ -32,7 +32,7 @@
             <slot name="footer">
               <div class="app-modal__footer-buttons">
                 <AppButton
-                  color="gray"
+                  color="outline"
                   @click="$emit('cancel')"
                 >
                   Cancelar

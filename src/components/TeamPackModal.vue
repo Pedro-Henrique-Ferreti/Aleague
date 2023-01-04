@@ -27,7 +27,7 @@
     <template #footer>
       <div class="team-pack-modal__footer">
         <AppButton
-          color="gray"
+          color="outline"
           @click="selectedTeamPack = null"
         >
           Voltar

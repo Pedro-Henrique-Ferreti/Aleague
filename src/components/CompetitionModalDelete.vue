@@ -26,7 +26,7 @@
     </div>
     <div class="modal-delete__footer">
       <AppButton
-        color="gray"
+        color="outline"
         @click="closeModal"
       >
         Cancelar
