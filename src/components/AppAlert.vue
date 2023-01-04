@@ -64,62 +64,66 @@ const alertIcon = computed(() => {
 
 <style lang="scss" scoped>
 .alert {
-  --background-color: #{$color--white};
-  --border-color: #{$color--white};
-  --icon-color: #{$color--white};
+  --background-color: none;
+  --border-color: none;
+  --icon-color: none;
   &--success {
-    --background-color: #{$color--success-lighten-4};
-    --border-color: #{$color--success};
-    --icon-color: #{$color--success-darken-2};
+    --background-color: #{$color--success-100};
+    --border-color: #{$color--success-600};
+    --icon-color: #{$color--success-600};
   }
   &--error {
     --background-color: #{$color--danger-lighten-4};
-    --border-color: #{$color--danger-lighten-1};
+    --border-color: #{$color--danger};
     --icon-color: #{$color--danger};
   }
 
-  display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  align-items: center;
+  display: flex;
+  width: 100%;
   min-height: 3.5rem;
-  padding: 0.75rem 0;
-  padding-left: 0.625rem;
-  padding-right: 1rem;
+  padding: 0.5rem;
+  align-items: center;
   background-color: var(--background-color);
-  border-radius: 0.375rem;
-  border-left: 0.375rem solid var(--border-color);
-  position: relative;
+  border-radius: 0.5rem;
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: 2px;
+    height: 100%;
+    margin-right: 0.5rem;
+    background-color: var(--border-color);
+    border-radius: 0.5rem;
+  }
   &__icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
     fill: var(--icon-color);
   }
   &__content {
-    margin-right: 2rem;
-    * {
-      color: $color--text-darken;
-      font-weight: $font-weight--medium;
-    }
+    margin: 0.5rem 1rem;
+    color: $color--text-darken;
+    font-weight: $font-weight--semibold;
   }
   &__close-button {
     @include focus-ring;
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: 2rem;
     height: 2rem;
-    border-radius: 0.25rem;
-    position: absolute !important;
-    right: 0.5rem;
+    margin-left: auto;
+    border-radius: 0.5rem;
     transition: background-color $transition--fastest ease-in-out;
     &:hover {
-      background-color: #{$color--white}BF;
+      background-color: get-hexadecimal-transparency($color--white, 85);
     }
   }
   &__close-button-icon {
-    width: 0.625rem;
-    height: 0.625rem;
-    fill: $color--text;
+    width: 0.75rem;
+    height: 0.75rem;
+    fill: var(--icon-color);
   }
 }
 </style>

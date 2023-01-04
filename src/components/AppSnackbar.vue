@@ -29,18 +29,15 @@ const { activeSnackbar } = storeToRefs(notificationStore);
   display: flex;
   justify-content: center;
   position: fixed;
-  bottom: 1rem;
+  bottom: 2rem;
   left: 0;
   right: 0;
   z-index: $z-index--snackbar-container;
   pointer-events: none;
   .snackbar {
-    min-width: 19.5rem;
+    max-width: 30rem;
     box-shadow: $shadow--large;
     pointer-events: auto;
-    @media (min-width: $desktop-up) {
-      max-width: 75vw;
-    }
   }
 }
 </style>
