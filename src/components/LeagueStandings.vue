@@ -277,7 +277,7 @@ function getPercentage(points: number, gamesPlayed: number) {
     color: $color--text-lighten;
     font-weight: $font-weight--semibold;
     &.promotion {
-      color: $color--green;
+      color: $color--success-600;
     }
     &.relegation {
       color: $color--danger;

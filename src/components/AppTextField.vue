@@ -129,7 +129,7 @@ function handleChange(event: Event) {
     right: 0.75rem;
     &--valid {
       display: var(--icon-valid-display);
-      fill: $color--success-darken-2;
+      fill: $color--success-500;
     }
     &--invalid {
       display: var(--icon-invalid-display);

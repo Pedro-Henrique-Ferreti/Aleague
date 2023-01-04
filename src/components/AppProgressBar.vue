@@ -68,7 +68,7 @@ const progress = computed(() => ({
     background-color: $color--tertiary;
     border-radius: inherit;
     &--complete {
-      background-color: $color--success-darken-2;
+      background-color: $color--success-500;
     }
   }
 }

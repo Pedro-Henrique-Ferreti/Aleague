@@ -81,14 +81,14 @@ const countLabel = computed(() => {
     background: $color--light-gray-2;
   }
   &--applied {
-    background-color: $color--success-lighten-4;
-    border-color: $color--success-darken-2;
+    background-color: $color--success-100;
+    border-color: $color--success-500;
   }
   &__icon-applied {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    fill: $color--success-darken-2;
+    fill: $color--success-500;
   }
   &__image {
     width: 4rem;

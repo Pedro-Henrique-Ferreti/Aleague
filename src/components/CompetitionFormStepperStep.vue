@@ -60,7 +60,7 @@ const stepperClasses = computed(() => ({
   }
   &--completed {
     --label-color: #{$color--text-darken};
-    --border-color: #{$color--success-darken-2};
+    --border-color: #{$color--success-500};
     --number-color: #{$color--white};
   }
 
@@ -86,7 +86,7 @@ const stepperClasses = computed(() => ({
   &__check-icon {
     width: 1.5rem;
     height: 1.5rem;
-    fill: $color--success-darken-2;
+    fill: $color--success-500;
   }
   &__label {
     color: var(--label-color);

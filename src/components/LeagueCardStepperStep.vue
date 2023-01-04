@@ -29,8 +29,8 @@ defineProps({
   --icon-color: #{$color--primary};
   --line-color: #{$color--light-gray-1};
   &--complete {
-    --icon-color: #{$color--success-darken-2};
-    --line-color: #{$color--success-darken-2};
+    --icon-color: #{$color--success-500};
+    --line-color: #{$color--success-500};
   }
 
   display: flex;

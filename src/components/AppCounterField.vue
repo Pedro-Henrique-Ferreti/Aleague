@@ -80,7 +80,7 @@ const inputValue = computed({
       --color: #{$color--danger};
     }
     &--increment {
-      --color: #{$color--success-darken-2};
+      --color: #{$color--success-500};
     }
 
     @include focus-ring;

@@ -88,7 +88,7 @@ const icon = computed(() => {
     width: 1rem;
     height: 1rem;
     &.win {
-      fill: $color--success-darken-2;
+      fill: $color--success-500;
     }
     &.draw {
       fill: $color--text-lighten;
