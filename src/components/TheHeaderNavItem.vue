@@ -43,7 +43,8 @@ defineProps({
 
 <style lang="scss" scoped>
 .header-nav-item {
-  --color: #{$color--text};
+  --color: #{$color--text-darken};
+  --icon-color: #{$color--text-lighten};
   --indicator-display: none;
 
   display: flex;
@@ -56,6 +57,7 @@ defineProps({
     align-items: center;
     &.router-link-active {
       --color: #{$color--secondary};
+      --icon-color: #{$color--secondary};
       --indicator-display: block;
     }
     &::before {
@@ -78,7 +80,7 @@ defineProps({
   &__icon {
     width: 1.5rem;
     height: 1.5rem;
-    fill: var(--color);
+    fill: var(--icon-color);
     &--desktop {
       display: none;
     }
