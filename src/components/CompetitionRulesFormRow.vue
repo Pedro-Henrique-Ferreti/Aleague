@@ -1,16 +1,11 @@
 <template>
   <div class="competition-rules-form__row">
-    <div>
-      <label
-        class="competition-rules-form__label"
-        :id="id"
-      >
-        <slot name="label" />
-      </label>
-      <span class="competition-rules-form__label-subtitle">
-        <slot name="label-subtitle" />
-      </span>
-    </div>
+    <label
+      class="competition-rules-form__label"
+      :id="id"
+    >
+      <slot name="label" />
+    </label>
     <slot />
   </div>
 </template>
@@ -31,8 +26,8 @@ defineProps({
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    &:not(:last-of-type) {
-      margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    &:last-of-type {
       padding-bottom: 1.5rem;
       border-bottom: 1px solid $color--light-gray-1;
     }

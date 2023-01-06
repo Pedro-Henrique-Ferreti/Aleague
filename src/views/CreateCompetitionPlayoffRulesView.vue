@@ -7,30 +7,32 @@
     :back-button-route="{ name: 'create-playoff-format', params: { id: playoff.id } }"
     @submit="savePlayoff"
   >
-    <CompetitionRulesFormRow id="rules-form-rounds">
-      <template #label>
-        Quantidade de fases
-      </template>
-      <template #label-subtitle>
-        {{ numberOfParticipants }} participantes
-      </template>
-      <AppCounterField
-        v-model="playoff.numberOfRounds"
-        labelled-by="rules-form-rounds"
-        :min="1"
-        :max="6"
-      />
-    </CompetitionRulesFormRow>
-    <CompetitionRulesFormRow id="rules-form-two-legs">
-      <template #label>
-        Confrontos de ida e volta
-      </template>
-      <AppSwitch
-        v-model="playoff.hasTwoLegs"
-        show-labels
-        labelled-by="rules-form-two-legs"
-      />
-    </CompetitionRulesFormRow>
+    <CompetitionRulesFormSection
+      title="Fases eliminatórias"
+      :participants="numberOfParticipants"
+    >
+      <CompetitionRulesFormRow id="rules-form-rounds">
+        <template #label>
+          Quantidade de fases
+        </template>
+        <AppCounterField
+          v-model="playoff.numberOfRounds"
+          labelled-by="rules-form-rounds"
+          :min="1"
+          :max="6"
+        />
+      </CompetitionRulesFormRow>
+      <CompetitionRulesFormRow id="rules-form-two-legs">
+        <template #label>
+          Confrontos de ida e volta
+        </template>
+        <AppSwitch
+          v-model="playoff.hasTwoLegs"
+          show-labels
+          labelled-by="rules-form-two-legs"
+        />
+      </CompetitionRulesFormRow>
+    </CompetitionRulesFormSection>
   </CompetitionRulesForm>
 </template>
 
@@ -46,6 +48,7 @@ import AppCounterField from '@/components/AppCounterField.vue';
 import AppSwitch from '@/components/AppSwitch.vue';
 import CompetitionRulesForm from '@/components/CompetitionRulesForm.vue';
 import CompetitionRulesFormRow from '@/components/CompetitionRulesFormRow.vue';
+import CompetitionRulesFormSection from '@/components/CompetitionRulesFormSection.vue';
 
 const router = useRouter();
 const { getPlayoffById, updatePlayoffRules } = usePlayoffStore();
