@@ -124,9 +124,9 @@ const buttonClasses = computed(() => ({
   --background-color: transparent;
   --min-width: 7.5rem;
   --height: 2.75rem;
-  --border-radius: 0.5rem;
+  --border-radius: 0.625rem;
   --gap: 0.875rem;
-  --icon-width: 1rem;
+  --icon-size: 1rem;
   --loading-icon-color: #{$color--white};
   --icon-background-color: transparent;
   --hover-background-color: transparent;
@@ -217,8 +217,8 @@ const buttonClasses = computed(() => ({
     --height: 3rem;
   }
   &.button--icon-rounded {
-    --gap: 0.5rem;
-    --icon-width: 0.75rem;
+    --gap: 0.75rem;
+    --icon-size: 0.75rem;
     .button__icon-wrapper {
       justify-content: center;
       align-items: center;
@@ -238,7 +238,8 @@ const buttonClasses = computed(() => ({
     display: flex;
   }
   .button__icon {
-    width: var(--icon-width);
+    width: var(--icon-size);
+    height: var(--icon-size);
     fill: var(--color);
   }
 }
