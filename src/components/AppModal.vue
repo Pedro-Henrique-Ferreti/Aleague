@@ -189,7 +189,6 @@ function handleKeyupEvent(event: KeyboardEvent) {
     display: flex;
     padding: var(--content-spacing);
     padding-top: 1.5rem;
-    background-color: $color--white;
     border-top: 1px solid $color--light-gray-1;
     position: absolute;
     bottom: 0;

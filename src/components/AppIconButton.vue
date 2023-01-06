@@ -40,7 +40,7 @@ const buttonClasses = computed(() => ({
   width: 2rem;
   height: 2rem;
   background-color: $color--white;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   transition: background-color $transition--fastest ease-in-out;
   @include focus-ring;
   &:hover,

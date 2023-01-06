@@ -42,7 +42,7 @@ defineProps({
   height: 2rem;
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
   transition: background-color $transition--fastest ease-in;
   &:hover {
     background-color: $color--light-gray-2;

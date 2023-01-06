@@ -206,7 +206,7 @@ async function saveGames() {
   }
   &__table {
     --spacing: 1rem;
-    border-radius: 0.25rem;
+    border-radius: 0.375rem;
     border: 1px solid $color--light-gray-1;
     @include for-tablet-portrait-up {
       width: 25rem;

@@ -82,7 +82,7 @@ const modalClasses = computed(() => ({
   min-width: 18rem;
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   &__header {
     display: flex;
     align-items: center;
@@ -106,7 +106,7 @@ const modalClasses = computed(() => ({
     align-items: center;
     width: var(--close-button-size);
     height: var(--close-button-size);
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     position: absolute;
     right: calc(var(--content-spacing) - 0.625rem);
     transition: background-color $transition--fastest ease-in;

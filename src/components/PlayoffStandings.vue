@@ -172,7 +172,7 @@ function updateNextRound({
   confrontationNumber,
   nextConfrontationId,
   team,
-}: UpdateNextRoundParams) {  
+}: UpdateNextRoundParams) {
   if (!nextConfrontationId) return;
 
   const nextRoundIndex = getNextRoundIndex(roundNumber);

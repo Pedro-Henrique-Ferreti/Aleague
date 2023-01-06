@@ -87,7 +87,7 @@ function handleEditUserAvatarClick() {
   padding: 1rem 0;
   background-color: $color--white;
   border: 1px solid $color--light-gray-1;
-  border-radius: .5rem;
+  border-radius: 0.75rem;
   box-shadow: $shadow--medium;
   &__avatar {
     display: flex;

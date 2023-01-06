@@ -84,7 +84,7 @@ const alertIcon = computed(() => {
   padding: 0.5rem;
   align-items: center;
   background-color: var(--background-color);
-  border-radius: 0.5rem;
+  border-radius: 0.625rem;
   &::before {
     content: '';
     flex-shrink: 0;
