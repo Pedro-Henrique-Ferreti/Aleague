@@ -3,12 +3,21 @@
     <SectionHeader heading="h3">
       Ações
     </SectionHeader>
-    <AppButton
-      color="dangerGray"
-      @click="toggleShowModalDelete"
-    >
-      Excluir campeonato
-    </AppButton>
+    <div class="actions-container">
+      <AppButton
+        color="outline"
+        icon-left="refresh"
+      >
+        Reiniciar campeonato
+      </AppButton>
+      <AppButton
+        color="dangerGray"
+        icon-left="trash-can-outline"
+        @click="toggleShowModalDelete"
+      >
+        Excluir campeonato
+      </AppButton>
+    </div>
     <ModalDelete
       ask-for-confirmation
       :show="showModalDelete"
@@ -69,3 +78,13 @@ async function handleConfirm() {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.actions-container {
+  display: flex;
+  gap: 1.5rem;
+  @include for-tablet-portrait-down {
+    flex-direction: column;
+  }
+}
+</style>

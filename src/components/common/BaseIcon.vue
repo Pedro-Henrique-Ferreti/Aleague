@@ -33,6 +33,7 @@ import Package from '@/components/icons/IconPackage.vue';
 import Pencil from '@/components/icons/IconPencil.vue';
 import People from '@/components/icons/IconPeople.vue';
 import Plus from '@/components/icons/IconPlus.vue';
+import Refresh from '@/components/icons/IconRefresh.vue';
 import Save from '@/components/icons/IconSave.vue';
 import Search from '@/components/icons/IconSearch.vue';
 import TeamAdd from '@/components/icons/IconTeamAdd.vue';
@@ -114,6 +115,8 @@ const icon = computed(() => {
       return Search;
     case 'plus':
       return Plus;
+    case 'refresh':
+      return Refresh;
     case 'teamadd':
       return TeamAdd;
     case 'teamshield':
