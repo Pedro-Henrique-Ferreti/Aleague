@@ -3,11 +3,11 @@ import { competitionFormats } from './competitionFormats';
 
 export const teamsPageTabs: TabPanel = {
   ALL: {
-    id: 1,
+    id: 'teams-page-tab--all',
     name: 'Todos',
   },
   FAVORITES: {
-    id: 2,
+    id: 'teams-page-tab--favorites',
     name: 'Favoritos',
   },
 };
@@ -33,11 +33,11 @@ export const leaguePageTabs: TabPanel = {
 
 export const leaguePanelTabs: TabPanel = {
   STANDINGS: {
-    id: 1,
+    id: 'league-page-tab--standings',
     name: 'Tabela',
   },
   MATCHES: {
-    id: 2,
+    id: 'league-page-tab--matches',
     name: 'Partidas',
   },
 };
