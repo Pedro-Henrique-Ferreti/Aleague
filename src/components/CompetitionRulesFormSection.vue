@@ -35,7 +35,7 @@ defineProps({
   }
   &__section-title {
    font-size: 1.125rem;
-   font-weight: $font-weight--semibold; 
+   font-weight: $font-weight--semibold;
   }
   &__section-participants {
     display: inline-block;
