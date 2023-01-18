@@ -10,10 +10,9 @@
         <CompetitionDetails />
         <div class="league-panel">
           <TabPanel
+            v-model:active-tab-id="activeTabId"
             class="league-panel__tab-panel"
             :tabs="Object.values(leaguePanelTabs)"
-            :active-tab-id="activeTabId"
-            @set-active-tab="activeTabId = $event"
           />
           <LeagueStandings
             v-show="activeTabId === leaguePanelTabs.STANDINGS.id"

@@ -1,9 +1,8 @@
 <template>
   <TabPanel
+    v-model:active-tab-id="activeTabId"
     class="teams-tab-panel"
     :tabs="Object.values(teamsPageTabs)"
-    :active-tab-id="activeTabId"
-    @set-active-tab="activeTabId = $event"
   >
     <template #controls>
       <AppButton
