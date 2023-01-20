@@ -4,5 +4,6 @@ export interface TabPanel {
 
 export type TabPanelTab = {
   id: string;
+  elementId?: string;
   name: string;
 };

@@ -5,7 +5,7 @@
   >
     <div class="tab-panel__tab-grid">
       <div
-        v-for="{ id, name } in tabs"
+        v-for="{ id, elementId, name } in tabs"
         class="tab-panel__item"
         :key="id"
         :data-id="id"
@@ -15,13 +15,13 @@
           class="tab-panel__item-input"
           type="radio"
           :name="name"
-          :id="id"
+          :id="elementId || id"
           :value="id"
         />
         <label
           v-text="name"
           class="tab-panel__item-label"
-          :for="id"
+          :for="elementId || id"
         />
       </div>
       <div
