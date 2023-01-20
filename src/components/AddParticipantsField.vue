@@ -4,9 +4,10 @@
     :class="{ 'add-participants-field--list-open': showAutocompleteList }"
   >
     <AppLargeField
-      icon="team-add"
       v-bind="$attrs"
       v-model.trim="teamName"
+      :disabled="disabled"
+      icon="team-add"
       @focus="inputIsFocused = true"
       @blur="handleBlur"
       @keyup.up="moveHighlightedAutocompleteOption(-1)"
@@ -16,7 +17,7 @@
     <AppButton
       class="add-participants-field__button"
       type="button"
-      :disabled="disableAddTeam"
+      :disabled="disableAddTeamButton"
       :size="showSmallButton ? 'small' : null"
       @click="addTeam"
     >
@@ -58,7 +59,7 @@ const props = defineProps({
     type: Array as PropType<LeagueParticipant[]>,
     default: () => ([]),
   },
-  disableAddTeam: {
+  disabled: {
     type: Boolean,
     default: false,
   },
@@ -77,10 +78,10 @@ const { tabletPortraitUp: showSmallButton } = useMediaQuery();
 // Input state
 const teamName = ref('');
 
-const disableAddTeam = computed(() => {
+const disableAddTeamButton = computed(() => {
   return participantNames.value.includes(normalizeName(teamName.value))
     || teamName.value === ''
-    || props.disableAddTeam;
+    || props.disabled;
 });
 
 // Select and add a team

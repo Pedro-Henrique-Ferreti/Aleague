@@ -32,7 +32,7 @@
           class="participants-search-field"
           placeholder="Digite o nome da equipe"
           :participants="participants"
-          :disable-add-team="participants.length >= numberOfTeams"
+          :disabled="participants.length >= numberOfTeams"
           @add-team="addTeamToParticipantsList"
         />
         <div class="participants-grid">
