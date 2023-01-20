@@ -17,6 +17,7 @@
           :name="name"
           :id="elementId || id"
           :value="id"
+          @keypress.enter="($event.target as HTMLInputElement).click()"
         />
         <label
           v-text="name"
@@ -121,7 +122,6 @@ function getMarkerStyles() {
     padding: 0 0.5rem;
     position: relative;
     white-space: nowrap;
-
   }
   &__item-label {
     color: $color--text-lighten;
@@ -130,10 +130,10 @@ function getMarkerStyles() {
     cursor: pointer;
   }
   &__item-input {
-    width: 0;
-    height: 0;
+    @include focus-ring($apply-position: false);
+    position: absolute;
+    inset: 0;
     opacity: 0;
-    visibility: hidden;
     &:checked {
       &~.tab-panel__item-label {
         color: $color--secondary;
