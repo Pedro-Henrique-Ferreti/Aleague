@@ -9,6 +9,7 @@
       class="large-field__input"
       :type="type"
       :placeholder="placeholder"
+      :disabled="disabled"
       @focus="$attrs.onFocus"
       @blur="$attrs.onBlur"
     />
@@ -36,6 +37,10 @@ const props = defineProps({
   icon: {
     type: String,
     default: 'search',
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 

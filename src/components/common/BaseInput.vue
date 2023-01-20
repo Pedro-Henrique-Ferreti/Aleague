@@ -61,6 +61,8 @@ defineProps({
     transition:
       border-color $transition--fastest ease-in-out,
       box-shadow $transition--fastest ease-in-out;
+  }
+  &:not([readonly], [disabled]) {
     &:hover {
     --border-color: #{$color--text-lighten};
     }
@@ -69,7 +71,8 @@ defineProps({
       box-shadow: 0 0 0 0.2rem get-hexadecimal-transparency($color--primary, 25);
     }
   }
-  &[readonly] {
+  &[readonly],
+  &[disabled] {
     cursor: default;
   }
   &[type="password"] {
