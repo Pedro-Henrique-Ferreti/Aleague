@@ -206,11 +206,11 @@ watch(() => showAutocompleteList.value, () => {
     align-items: center;
     min-height: 2.5rem;
     padding: 0 1rem;
-    transition: all $transition--fastest ease-in;
+    transition: all 0.1s linear;
     cursor: pointer;
     &:hover,
     &.highlighted {
-      background-color: $color--light-gray-2;
+      background-color: $color--light-gray-1;
       color: $color--text-darken;
     }
   }
