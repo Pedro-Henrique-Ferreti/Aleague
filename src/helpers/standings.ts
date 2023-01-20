@@ -1,6 +1,10 @@
 import type { LeagueStanding } from '@/types/League';
 
 export const sortStandings = (a: LeagueStanding, b: LeagueStanding) => {
+  if (a.gamesPlayed === 0 && b.gamesPlayed === 0) {
+    return (a.teamName < b.teamName) ? -1 : 1;
+  }
+
   if (b.points - a.points !== 0) {
     return b.points - a.points;
   }
