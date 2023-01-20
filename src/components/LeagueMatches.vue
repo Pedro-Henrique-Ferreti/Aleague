@@ -195,7 +195,6 @@ async function saveGames() {
   &__content {
     display: flex;
     flex-direction: column-reverse;
-    align-items: flex-end;
     gap: 1rem;
     @include for-desktop-up {
       flex-direction: column;
@@ -203,6 +202,14 @@ async function saveGames() {
   }
   &__save-button {
     margin-left: auto;
+    @include for-tablet-portrait-up {
+      margin-left: unset;
+      margin-right: auto;
+    }
+    @include for-desktop-up {
+      margin-right: unset;
+      margin-left: auto;
+    }
   }
   &__table {
     --spacing: 1rem;
