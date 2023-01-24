@@ -2,15 +2,24 @@
   <div class="playoff-card">
     <div class="playoff-card__container">
       <div class="playoff-card__teams">
-        <span
+        <template
           v-for="team, index in [teamA, teamB]"
-          v-text="team?.name"
           :key="index"
-          :class="{
-            'playoff-card__team--empty': !team?.id,
-            'playoff-card__team--looser': (confrontationWinner && confrontationWinner.id !== team?.id)
-          }"
-        />
+        >
+          <TeamSlot
+            v-if="!team?.id"
+            small
+          >
+            A definir
+          </TeamSlot>
+          <span
+            v-else
+            v-text="team?.name"
+            :class="{
+              'text-lighten': (confrontationWinner && confrontationWinner.id !== team?.id)
+            }"
+          />
+        </template>
       </div>
       <div class="playoff-card__game">
         <PlayoffCardInput v-model="firstGameScoreTeamA" />
@@ -53,6 +62,7 @@ import type { PropType } from 'vue';
 import type { PlayoffConfrontationGames, ScoreInput } from '@/types/Playoff';
 import { computed, watch } from 'vue';
 import PlayoffCardInput from './PlayoffCardInput.vue';
+import TeamSlot from './TeamSlot.vue';
 
 const emit = defineEmits([
   'update:firstGameScoreTeamA',
@@ -236,17 +246,6 @@ watch(confrontationWinner, () => {
     padding: 0.75rem;
     border: 1px solid $color--light-gray-1;
     border-radius: 0.5rem;
-  }
-  &__team {
-    &--empty {
-      width: 100%;
-      height: 1.5rem;
-      background-image: linear-gradient(#F5F5F5 0%, #F4F4F4 100%);
-      border-radius: 0.25rem;
-    }
-    &--looser {
-      color: $color--text-lighten;
-    }
   }
   &__game {
     width: 2rem;
