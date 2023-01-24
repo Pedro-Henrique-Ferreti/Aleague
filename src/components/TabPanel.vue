@@ -127,13 +127,13 @@ function getMarkerStyles() {
     color: $color--text-lighten;
     font-size: 1.125rem;
     font-weight: $font-weight--semibold;
-    cursor: pointer;
   }
   &__item-input {
     @include focus-ring($apply-position: false);
     position: absolute;
     inset: 0;
     opacity: 0;
+    cursor: pointer;
     &:checked {
       &~.tab-panel__item-label {
         color: $color--secondary;
