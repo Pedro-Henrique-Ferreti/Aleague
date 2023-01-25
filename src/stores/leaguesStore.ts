@@ -40,7 +40,7 @@ export const useLeaguesStore = defineStore('leagues', {
       return gameweekList;
     },
     saveLeagueGames({ leagueId, games }: SaveLeagueGamesParams) {
-      return axios.patch(`/leagues/${leagueId}/games/updateMany`, { games });
+      return axios.patch(`/leagues/${leagueId}/games/update-many`, { games });
     },
     async getTeamStatistics({ leagueId, teamHashId }: { leagueId: string; teamHashId: string }) {
       const { data } = await axios.get<LeagueTeamStatistics>(`/leagues/${leagueId}/statistics/teams/${teamHashId}`);

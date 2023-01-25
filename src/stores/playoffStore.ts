@@ -32,7 +32,7 @@ export const usePlayoffStore = defineStore('playoff', {
       return axios.delete(`/playoffs/${hashId}`);
     },
     savePlayoffGames({ hashId, games }: SavePlayoffGamesParams) {
-      return axios.patch(`/playoffs/${hashId}/games/updateMany`, {
+      return axios.patch(`/playoffs/${hashId}/games/update-many`, {
         games: games.map((game) => ({
           id: game.id,
           homeTeamId: game.homeTeam?.id || null,
