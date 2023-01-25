@@ -76,7 +76,7 @@ defineProps({
     height: 2rem;
     background-color: var(--icon-background-color);
     border: 1px solid $color--light-gray-1;
-    border-radius: 0.25rem;
+    border-radius: 0.375rem;
     transition: background-color $transition--fastest ease-in-out;
   }
   &__button-icon {
