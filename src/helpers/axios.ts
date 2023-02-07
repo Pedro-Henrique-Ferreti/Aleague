@@ -1,11 +1,20 @@
 import axios, { type AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import Cookies from 'js-cookie';
+import router from '@/router';
 
 function handleSuccess(response: AxiosResponse) {
   return response;
 }
 
 function handleError(error: AxiosError) {
+  if (error.response?.status === 404) {
+    router.push({
+      name: 'not-found',
+      params: { pathMatch: window.location.pathname.substring(1).split('/') },
+    });
+    return;
+  }
+
   const { data } = error.response as AxiosResponse;
 
   if (data.errors) {
