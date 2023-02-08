@@ -72,6 +72,7 @@
             </td>
             <td class="team">
               {{ standing.teamName }}
+              <span>{{ standing.positionChange }}</span>
             </td>
             <td class="points">
               {{ standing.points }}
