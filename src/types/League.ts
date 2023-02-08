@@ -26,6 +26,7 @@ export interface LeagueStanding {
   teamHashid: string;
   teamId: number;
   teamName: string;
+  positionChange: number;
 }
 
 export interface LeagueParticipant {
