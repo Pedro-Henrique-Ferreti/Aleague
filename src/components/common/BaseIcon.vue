@@ -5,6 +5,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import ArrowForward from '@/components/icons/IconArrowForward.vue';
+import ArrowBackwards from '@/components/icons/IconArrowBackwards.vue';
 import Bell from '@/components/icons/IconBell.vue';
 import Bookmark from '@/components/icons/IconBookmark.vue';
 import CalendarCheck from '@/components/icons/IconCalendarCheck.vue';
@@ -55,6 +56,8 @@ const icon = computed(() => {
   switch (props.icon.toLowerCase().replaceAll('-', '')) {
     case 'arrowforward':
       return ArrowForward;
+    case 'arrowbackwards':
+      return ArrowBackwards;
     case 'bell':
       return Bell;
     case 'bookmark':
