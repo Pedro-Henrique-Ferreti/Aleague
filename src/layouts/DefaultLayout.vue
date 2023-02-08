@@ -17,6 +17,8 @@ import AppSnackbar from '@/components/AppSnackbar.vue';
 
 <style lang="scss" scoped>
 .default-layout {
+  display: flex;
+  width: 100%;
   min-height: calc(100vh - 4.5rem);
   padding-top: 1rem;
   padding-bottom: 5rem;

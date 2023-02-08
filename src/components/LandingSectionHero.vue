@@ -148,6 +148,7 @@ const autoplayOptions = ref({
 	--slide-theme-color: #{$color--primary};
 
 	padding-top: 6rem;
+  margin-top: calc(var(--layout-padding-top) * -1);
 	position: relative;
 	@include for-tablet-landscape-up {
 		padding-top: 8rem;
