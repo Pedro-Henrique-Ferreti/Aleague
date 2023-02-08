@@ -17,7 +17,7 @@
         <AppButton
           class="sign-in__button"
           icon-rounded
-          icon-right="ArrowFoward"
+          icon-right="arrow-forward"
           :to="{ name: 'register' }"
         >
           Iniciar o Aleague
@@ -26,7 +26,7 @@
           class="sign-in__button"
           icon-rounded
           color="gray"
-          icon-right="ArrowFoward"
+          icon-right="arrow-forward"
           :to="{ name: 'login' }"
         >
           Acessar conta

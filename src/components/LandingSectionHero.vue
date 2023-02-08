@@ -23,7 +23,7 @@
             <AppButton
               color="tertiary"
               size="large"
-              icon-right="arrowFoward"
+              icon-right="arrow-forward"
               icon-rounded
               :to="{ name: 'register' }"
             >
@@ -52,7 +52,7 @@
             <AppButton
               size="large"
               color="secondary"
-              icon-right="arrowFoward"
+              icon-right="arrow-forward"
               icon-rounded
               :to="{ name: 'register' }"
             >
@@ -80,7 +80,7 @@
             </p>
             <AppButton
               size="large"
-              icon-right="arrowFoward"
+              icon-right="arrow-forward"
               icon-rounded
               :to="{ name: 'register' }"
             >

@@ -27,7 +27,7 @@
         <span class="home-card__footer-text">Ir para {{ title }}</span>
         <BaseIcon
           class="home-card__footer-icon"
-          icon="arrow-foward"
+          icon="arrow-forward"
         />
       </div>
     </section>
