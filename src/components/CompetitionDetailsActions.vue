@@ -7,6 +7,7 @@
       <AppButton
         color="outline"
         icon-left="refresh"
+        @click="toggleShowModalRestart"
       >
         Reiniciar campeonato
       </AppButton>
@@ -18,13 +19,19 @@
         Excluir campeonato
       </AppButton>
     </div>
+    <ModalRestart
+      :show="showModalRestart"
+      :is-loading="isRestartingCompetition"
+      @close="toggleShowModalRestart"
+      @confirm="handleRestartCompetition"
+    />
     <ModalDelete
       ask-for-confirmation
       :show="showModalDelete"
       :competition-name="competition?.name"
       :is-loading="isDeletingCompetition"
       @close="toggleShowModalDelete"
-      @confirm="handleConfirm"
+      @confirm="handleDeleteCompetition"
     />
   </section>
 </template>
@@ -33,8 +40,13 @@
 import { ref, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { KEY_COMPETITION_DETAILS, KEY_DELETE_COMPETITION } from '@/constants/injectionKeys';
+import {
+  KEY_COMPETITION_DETAILS,
+  KEY_RESTART_COMPETITION, 
+  KEY_DELETE_COMPETITION,
+} from '@/constants/injectionKeys';
 import SectionHeader from './SectionHeader.vue';
+import ModalRestart from './CompetitionModalRestart.vue';
 import ModalDelete from './CompetitionModalDelete.vue';
 
 const router = useRouter();
@@ -42,18 +54,49 @@ const { openSnackbarNotification } = useNotificationStore();
 
 // Injected values
 const competition = inject(KEY_COMPETITION_DETAILS);
+const restartCompetition = inject(KEY_RESTART_COMPETITION);
 const deleteCompetition = inject(KEY_DELETE_COMPETITION);
 
+// Restart competition
+const showModalRestart = ref(false);
+const isRestartingCompetition = ref(false);
+
+function toggleShowModalRestart() {
+  showModalRestart.value = !showModalRestart.value;
+}
+
+async function handleRestartCompetition() {
+  if (!restartCompetition) return;
+
+  isRestartingCompetition.value = true;
+
+  try {
+    await restartCompetition();
+
+    toggleShowModalRestart();
+
+    openSnackbarNotification({
+      message: 'Campeonato reiniciado com sucesso.',
+    });
+  } catch (error: any) {
+    openSnackbarNotification({
+      type: 'error',
+      message: error.message,
+    });
+  } finally {
+    isRestartingCompetition.value = false;
+  }
+}
+
+// Delete competition
 const showModalDelete = ref(false);
+const isDeletingCompetition = ref(false);
 
 function toggleShowModalDelete() {
   showModalDelete.value = !showModalDelete.value;
 }
 
-// Delete competition
-const isDeletingCompetition = ref(false);
-
-async function handleConfirm() {
+async function handleDeleteCompetition() {
   if (!deleteCompetition) return;
 
   isDeletingCompetition.value = true;
