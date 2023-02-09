@@ -1,51 +1,43 @@
 <template>
-  <AppModal
+  <ConfirmationModal
     id="competition-modal-delete"
     title="Excluir campeonato"
-    size="small"
     :show="show"
-    @close="closeModal"
+    :is-loading="isLoading"
+    :disable-confirm-button="askForConfirmation && !confirmationValueIsValid"
+    :confirm-button-text="askForConfirmation ? 'Confirmar e excluir' : ''"
+    @close="emit('close')"
+    @confirm="$emit('confirm')"
   >
-    <p class="text-center">
-      Você tem certeza que deseja excluir este campeonato? Esta ação não poderá ser desfeita.
-      <template v-if="askForConfirmation">
-        As estatísticas das suas equipes serão alteradas.
-      </template>
-    </p>
-    <div
-      v-if="askForConfirmation"
-      class="modal-delete__input-wrapper"
-    >
+    <template #message>
       <p>
-        Por favor, digite <span class="modal-delete__league-name">{{ competitionName }}</span> para confirmar.
+        Você tem certeza que deseja excluir este campeonato? Esta ação não poderá ser desfeita.
+        <template v-if="askForConfirmation">
+          As estatísticas das suas equipes serão alteradas.
+        </template>
       </p>
-      <BaseInput
-        v-model.trim="confirmationValue"
-        class="modal-delete__input"
-      />
-    </div>
-    <div class="modal-delete__footer">
-      <AppButton
-        color="outline"
-        @click="closeModal"
+    </template>
+    <template #content>
+      <div
+        v-if="askForConfirmation"
+        class="modal-delete__input-wrapper"
       >
-        Cancelar
-      </AppButton>
-      <AppButton
-        :disabled="askForConfirmation && !confirmationValueIsValid"
-        :is-loading="isLoading"
-        @click="emit('confirm')"
-      >
-        {{ askForConfirmation ? 'Confirmar e excluir' : 'Confirmar' }}
-      </AppButton>
-    </div>
-  </AppModal>
+        <p>
+          Por favor, digite <span class="modal-delete__league-name">{{ competitionName }}</span> para confirmar.
+        </p>
+        <BaseInput
+          v-model.trim="confirmationValue"
+          class="modal-delete__input"
+        />
+      </div>
+    </template>
+  </ConfirmationModal>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
 import BaseInput from './common/BaseInput.vue';
-import AppModal from './AppModal.vue';
+import ConfirmationModal from './ConfirmationModal.vue';
 
 const emit = defineEmits(['close', 'confirm']);
 const props = defineProps({
@@ -79,13 +71,6 @@ watch(() => props.show, () => {
     confirmationValue.value = '';
   }
 });
-
-// Close modal
-function closeModal() {
-  if (props.isLoading) return;
-
-  emit('close');
-}
 </script>
 
 <style lang="scss" scoped>
@@ -99,15 +84,6 @@ function closeModal() {
   }
   &__input {
     margin-top: 0.5rem;
-  }
-  &__footer {
-    display: grid;
-    gap: 1rem;
-    margin-top: 2rem;
-    @include for-tablet-portrait-up {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
   }
 }
 </style>
