@@ -37,12 +37,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject } from 'vue';
+import { ref, inject, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNotificationStore } from '@/stores/notificationStore';
 import {
   KEY_COMPETITION_DETAILS,
-  KEY_RESTART_COMPETITION, 
+  KEY_RELOAD_COMPETITION,
+  KEY_RESTART_COMPETITION,
   KEY_DELETE_COMPETITION,
 } from '@/constants/injectionKeys';
 import SectionHeader from './SectionHeader.vue';
@@ -54,6 +55,7 @@ const { openSnackbarNotification } = useNotificationStore();
 
 // Injected values
 const competition = inject(KEY_COMPETITION_DETAILS);
+const reloadCompetition = inject(KEY_RELOAD_COMPETITION);
 const restartCompetition = inject(KEY_RESTART_COMPETITION);
 const deleteCompetition = inject(KEY_DELETE_COMPETITION);
 
@@ -66,7 +68,7 @@ function toggleShowModalRestart() {
 }
 
 async function handleRestartCompetition() {
-  if (!restartCompetition) return;
+  if (!restartCompetition || !reloadCompetition) return;
 
   isRestartingCompetition.value = true;
 
@@ -78,6 +80,10 @@ async function handleRestartCompetition() {
     openSnackbarNotification({
       message: 'Campeonato reiniciado com sucesso.',
     });
+
+    await nextTick();
+
+    reloadCompetition();
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

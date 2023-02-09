@@ -38,9 +38,10 @@ import { useNotificationStore } from '@/stores/notificationStore';
 import {
   KEY_LEAGUE,
   KEY_COMPETITION_DETAILS,
+  KEY_RESTART_COMPETITION,
+  KEY_UPDATE_COMPETITION,
   KEY_DELETE_COMPETITION,
   KEY_RELOAD_COMPETITION,
-  KEY_UPDATE_COMPETITION,
 } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitionFormats';
@@ -54,7 +55,12 @@ import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';
 
 const route = useRoute();
-const { getLeagueById, deleteLeague, updateLeague } = useLeaguesStore();
+const {
+  getLeagueById,
+  updateLeague,
+  restartLeague,
+  deleteLeague,
+} = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
@@ -72,6 +78,7 @@ const leagueDetails = computed(() => ({
 
 // Provided values
 provide(KEY_COMPETITION_DETAILS, leagueDetails);
+provide(KEY_RESTART_COMPETITION, restartCompetition);
 provide(KEY_UPDATE_COMPETITION, updateCompetition);
 provide(KEY_DELETE_COMPETITION, deleteCompetition);
 provide(KEY_RELOAD_COMPETITION, getLeague);
@@ -106,6 +113,11 @@ function updateCompetition({ name }: UpdateCompetitionParams) {
     hashId: league.value?.hashid || '',
     name,
   });
+}
+
+// Restart league
+function restartCompetition() {
+  return restartLeague(league.value?.hashid || '');
 }
 
 // Delete league
