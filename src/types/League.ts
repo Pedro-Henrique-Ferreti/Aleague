@@ -1,5 +1,7 @@
 import type { Game, GameTeam } from './Game';
 
+export type LeagueStandingMovement = number | null;
+
 export interface LeagueGame extends Game {
   awayTeam: GameTeam;
   homeTeam: GameTeam;
@@ -26,7 +28,7 @@ export interface LeagueStanding {
   teamHashid: string;
   teamId: number;
   teamName: string;
-  positionChange: number;
+  movement: LeagueStandingMovement;
 }
 
 export interface LeagueParticipant {

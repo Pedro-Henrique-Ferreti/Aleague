@@ -71,8 +71,14 @@
               {{ index + 1 }}
             </td>
             <td class="team">
-              {{ standing.teamName }}
-              <span>{{ standing.positionChange }}</span>
+              <div class="team__content">
+                <span>{{ standing.teamName }}</span>
+                <span
+                  v-text="(standing.movement) ? standing.movement : ''"
+                  class="movement | hide-mobile"
+                  :class="getMovementClass(standing.movement)"
+                />
+              </div>
             </td>
             <td class="points">
               {{ standing.points }}
@@ -117,7 +123,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { LeagueTeamStatistics } from '@/types/League';
+import type { LeagueStandingMovement, LeagueTeamStatistics } from '@/types/League';
 import { computed, inject, ref, watch } from 'vue';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { KEY_LEAGUE } from '@/constants/injectionKeys';
@@ -187,6 +193,14 @@ function getPositionClass(position: number) {
   if (length === 20 && position >= 17) {
     return 'relegation';
   }
+}
+
+function getMovementClass(movement: LeagueStandingMovement) {
+  return {
+    up: movement && movement > 0,
+    none: !movement,
+    down: movement && movement < 0,
+  };
 }
 
 function getPercentage(points: number, gamesPlayed: number) {
@@ -287,6 +301,39 @@ function getPercentage(points: number, gamesPlayed: number) {
   .team {
     width: var(--team-width);
     text-align: left;
+    &__content {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .movement {
+      display: flex;
+      gap: 0.25rem;
+      align-items: center;
+      font-size: 0.75rem;
+      font-weight: $font-weight--medium;
+      &::after {
+        content: '';
+        display: block;
+        width: 0.3rem;
+        height: 0.3rem;
+      }
+      &.up::after {
+        border: 4px solid transparent;
+        border-bottom-color: #3AE374;
+        transform: translateY(-0.125rem);
+      }
+      &.down::after {
+        border: 4px solid transparent;
+        border-top-color: $color--danger;
+        transform: translateY(0.125rem);
+      }
+      &.none::after {
+        background-color: $color--text-lighten;
+        border-radius: 50%;
+      }
+    }
   }
   .points {
     color: $color--text-darken;
