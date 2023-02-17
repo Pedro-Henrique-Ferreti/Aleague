@@ -17,11 +17,11 @@ function handleError(error: AxiosError) {
 
   const { data } = error.response as AxiosResponse;
 
-  if (data.errors) {
+  if (data && data.errors) {
     throw new Error(Object.values<string[]>(data.errors)[0][0]);
   }
 
-  if (data.message) {
+  if (data && data.message) {
     throw new Error(data.message);
   }
 
