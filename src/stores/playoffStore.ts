@@ -16,6 +16,9 @@ export const usePlayoffStore = defineStore('playoff', {
 
       return hashid;
     },
+    restartPlayoff(hashId: string) {
+      return axios.post(`/playoffs/${hashId}/resort-games`);
+    },
     updatePlayoff({ hashId , name }: { hashId: string, name: string }) {
       return axios.patch<Playoff>(`/playoffs/${hashId}`, { name });
     },

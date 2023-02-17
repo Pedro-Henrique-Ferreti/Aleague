@@ -25,6 +25,7 @@ import { competitionFormats } from '@/constants/competitionFormats';
 import {
   KEY_PLAYOFF,
   KEY_COMPETITION_DETAILS,
+  KEY_RESTART_COMPETITION,
   KEY_DELETE_COMPETITION,
   KEY_RELOAD_COMPETITION,
   KEY_UPDATE_COMPETITION,
@@ -37,7 +38,12 @@ import CompetitionDetails from '@/components/CompetitionDetails.vue';
 import PlayoffStandings from '@/components/PlayoffStandings.vue';
 
 const route = useRoute();
-const { getPlayoffById, updatePlayoff, deletePlayoff } = usePlayoffStore();
+const {
+  getPlayoffById,
+  restartPlayoff,
+  updatePlayoff,
+  deletePlayoff,
+} = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Playoff data
@@ -55,6 +61,7 @@ const playoffDetails = computed(() => ({
 
 // Provided values
 provide(KEY_COMPETITION_DETAILS, playoffDetails);
+provide(KEY_RESTART_COMPETITION, restartCompetition);
 provide(KEY_UPDATE_COMPETITION, updateCompetition);
 provide(KEY_DELETE_COMPETITION, deleteCompetition);
 provide(KEY_RELOAD_COMPETITION, getPlayoff);
@@ -78,6 +85,11 @@ async function getPlayoff({ showLoader }: ReloadCompetitionParams = { showLoader
   } finally {
     isLoadingPlayoff.value = false;
   }
+}
+
+// Restart playoff
+function restartCompetition() {
+  return restartPlayoff(playoff.value?.hashid || '');
 }
 
 // Update playoff
