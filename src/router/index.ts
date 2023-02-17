@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { useAuthStore } from '@/stores/authStore';
 import { useUserStore } from '@/stores/userStore';
 import authRoutes from './auth';
-import leaguesRoutes from './leagues';
+import competitionsRoutes from './competitions';
 import teamsRoutes from './teams';
 import LandingView from '@/views/LandingView.vue';
 import HomeView from '@/views/HomeView.vue';
@@ -15,7 +15,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     ...authRoutes,
-    ...leaguesRoutes,
+    ...competitionsRoutes,
     ...teamsRoutes,
     {
       path: '/',

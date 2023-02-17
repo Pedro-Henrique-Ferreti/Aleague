@@ -1,6 +1,6 @@
 <template>
   <AppLargeField
-    class="leagues-search-bar"
+    class="competitions-search-bar"
     type="search"
     placeholder="Pesquise por um campeonato aqui"
     v-model.trim="searchBarValue"
@@ -16,7 +16,7 @@ const { searchBarValue } = storeToRefs(useCompetitionStore());
 </script>
 
 <style lang="scss" scoped>
-.leagues-search-bar {
+.competitions-search-bar {
   margin-bottom: 2rem;
   @include for-large-tablet-landscape-up {
     max-width: 50%;

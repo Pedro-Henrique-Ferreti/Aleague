@@ -2,7 +2,7 @@
   <TabPanel
     v-model:active-tab-id="activeTabId"
     class="leagues-tab-panel"
-    :tabs="Object.values(leaguePageTabs)"
+    :tabs="Object.values(competitionPageTabs)"
   >
     <template #controls>
       <AppButton
@@ -24,8 +24,8 @@
       <SkeletonCard />
       <SkeletonCard />
     </div>
-    <LeaguesListNoData v-else-if="competitions.length === 0" />
-    <LeaguesListNoResults v-else-if="displayedCompetititons.length === 0" />
+    <CompetitionsListNoData v-else-if="competitions.length === 0" />
+    <CompetitionsListNoResults v-else-if="displayedCompetititons.length === 0" />
     <div
       v-else
       class="leagues-list"
@@ -61,14 +61,14 @@ import { useCompetitionStore } from '@/stores/competitionStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { usePlayoffStore } from '@/stores/playoffStore';
-import { leaguePageTabs } from '@/constants/tabPanelTabs';
+import { competitionPageTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitionFormats';
 
 import AppTransition from './AppTransition.vue';
 import CompetitionCard from './CompetitionCard.vue';
 import CompetitionModalDelete from './CompetitionModalDelete.vue';
-import LeaguesListNoData from './LeaguesListNoData.vue';
-import LeaguesListNoResults from './LeaguesListNoResults.vue';
+import CompetitionsListNoData from './CompetitionsListNoData.vue';
+import CompetitionsListNoResults from './CompetitionsListNoResults.vue';
 import TabPanel from './TabPanel.vue';
 import SkeletonCard from './SkeletonCompetitionCard.vue';
 
@@ -78,7 +78,7 @@ const { deletePlayoff } = usePlayoffStore();
 const competitionStore = useCompetitionStore();
 const { searchBarValue } = storeToRefs(competitionStore);
 
-const activeTabId = ref(leaguePageTabs.ALL.id);
+const activeTabId = ref(competitionPageTabs.ALL.id);
 
 const competitions = ref<CompetitionListItem[]>([]);
 
@@ -112,7 +112,7 @@ const displayedCompetititons = computed(() => {
     );
   }
 
-  if (activeTabId.value === leaguePageTabs.ALL.id) {
+  if (activeTabId.value === competitionPageTabs.ALL.id) {
     return displayedCompetititons;
   }
 

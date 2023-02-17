@@ -12,7 +12,7 @@ export const teamsPageTabs: TabPanel = {
   },
 };
 
-export const leaguePageTabs: TabPanel = {
+export const competitionPageTabs: TabPanel = {
   ALL: {
     id: 'all',
     name: 'Todos',
