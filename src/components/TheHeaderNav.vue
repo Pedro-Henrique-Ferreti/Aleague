@@ -29,7 +29,7 @@
         icon-mobile="plus"
         icon-desktop="plus"
         aria-label="Go to Create championship page"
-        :path="{ name: 'create-league' }"
+        :path="{ name: 'create-competition' }"
       >
         Criar campeonato
       </TheHeaderNavItem>

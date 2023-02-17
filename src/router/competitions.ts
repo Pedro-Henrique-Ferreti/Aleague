@@ -13,7 +13,7 @@ import CreateCompetitionPlayoffParticipantsView from '@/views/CreateCompetitionP
 
 export default [
   {
-    path: '/create-league',
+    path: '/create-competition',
     component: CreateCompetitionView,
     meta: {
       requiresAuth: true,
@@ -21,7 +21,7 @@ export default [
     children: [
       {
         path: '',
-        name: 'create-league',
+        name: 'create-competition',
         component: CreateCompetitionFormatView,
         props: true,
       },

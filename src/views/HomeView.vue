@@ -28,7 +28,7 @@
         description="Defina as regras e as equipes participantes para um campeonato totalmente novo."
         icon="plus"
         aria-label="Ir para Criar campeonato"
-        :path="{ name: 'create-league' }"
+        :path="{ name: 'create-competition' }"
       />
     </div>
     <img

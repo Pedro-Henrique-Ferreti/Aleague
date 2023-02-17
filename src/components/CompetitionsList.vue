@@ -8,7 +8,7 @@
       <AppButton
         icon-left="plus"
         icon-rounded
-        :to="{ name: 'create-league' }"
+        :to="{ name: 'create-competition' }"
       >
         Novo campeonato
       </AppButton>
