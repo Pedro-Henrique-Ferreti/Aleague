@@ -41,6 +41,7 @@ import {
   KEY_RESTART_COMPETITION,
   KEY_UPDATE_COMPETITION,
   KEY_DELETE_COMPETITION,
+  KEY_RESET_COMPETITION_GAMES,
   KEY_RELOAD_COMPETITION,
 } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
@@ -59,6 +60,7 @@ const {
   getLeagueById,
   updateLeague,
   restartLeague,
+  resetLeagueStandings,
   deleteLeague,
 } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
@@ -75,14 +77,6 @@ const leagueDetails = computed(() => ({
   createdAt: league.value?.createdAt || '',
   updatedAt: league.value?.updatedAt || '',
 }));
-
-// Provided values
-provide(KEY_COMPETITION_DETAILS, leagueDetails);
-provide(KEY_RESTART_COMPETITION, restartCompetition);
-provide(KEY_UPDATE_COMPETITION, updateCompetition);
-provide(KEY_DELETE_COMPETITION, deleteCompetition);
-provide(KEY_RELOAD_COMPETITION, getLeague);
-provide(KEY_LEAGUE, league);
 
 // League panel
 const activeTabId = ref(leaguePanelTabs.STANDINGS.id);
@@ -120,10 +114,24 @@ function restartCompetition() {
   return restartLeague(league.value?.hashid || '');
 }
 
+// Reset league standings
+function resetCompetitionStandings() {
+  return resetLeagueStandings(league.value?.hashid || '');
+}
+
 // Delete league
 function deleteCompetition() {
   return deleteLeague(league.value?.hashid || '');
 }
+
+// Provided values
+provide(KEY_COMPETITION_DETAILS, leagueDetails);
+provide(KEY_RESTART_COMPETITION, restartCompetition);
+provide(KEY_UPDATE_COMPETITION, updateCompetition);
+provide(KEY_DELETE_COMPETITION, deleteCompetition);
+provide(KEY_RELOAD_COMPETITION, getLeague);
+provide(KEY_RESET_COMPETITION_GAMES, resetCompetitionStandings);
+provide(KEY_LEAGUE, league);
 </script>
 
 <style lang="scss" scoped>

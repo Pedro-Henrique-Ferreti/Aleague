@@ -26,6 +26,9 @@ export const useLeaguesStore = defineStore('leagues', {
         awayGames,
       });
     },
+    resetLeagueStandings(hashId: string) {
+      return axios.post(`/leagues/${hashId}/reset-standings`);
+    },
     restartLeague(hashId: string) {
       return axios.post(`/leagues/${hashId}/resort-games`);
     },
