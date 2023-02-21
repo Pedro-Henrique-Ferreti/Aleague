@@ -61,12 +61,11 @@
         </div>
       </div>
     </div>
-    <div class="playoff-standings__save-button-wrapper">
-      <SaveButton
-        :is-loading="isSavingGames"
-        @click="saveGames"
-      />
-    </div>
+    <MatchesControls
+      class="playoff-standings__matches-controls"
+      :is-saving-games="isSavingGames"
+      @save-games="saveGames"
+    />
   </div>
 </template>
 
@@ -94,10 +93,10 @@ import { useNotificationStore } from '@/stores/notificationStore';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { KEY_PLAYOFF } from '@/constants/injectionKeys';
 
-import SaveButton from './SaveButton.vue';
 import RoundToggle from './CompetitionRoundToggle.vue';
 import RoundHeader from './PlayoffRoundHeader.vue';
 import PlayoffCard from './PlayoffCard.vue';
+import MatchesControls from './CompetitionMatchesControls.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 const { savePlayoffGames } = usePlayoffStore();
@@ -345,10 +344,10 @@ async function saveGames() {
       transform: translateX(-100%);
     }
   }
-  &__save-button-wrapper {
+  &__matches-controls {
     margin-top: 2rem;
     margin-left: auto;
-    @include for-large-tablet-portrait-up {
+    @include for-tablet-landscape-up {
       margin: 0;
       position: absolute;
       top: 0;

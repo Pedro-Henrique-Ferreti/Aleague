@@ -1,10 +1,10 @@
 <template>
   <div class="league-matches">
     <div class="league-matches__content">
-      <SaveButton
-        class="league-matches__save-button"
-        :is-loading="isSavingGames"
-        @click="saveGames"
+      <MatchesControls
+        class="league-matches__controls"
+        :is-saving-games="isSavingGames"
+        @save-games="saveGames"
       />
       <div class="league-matches__table">
         <div class="league-matches__table-header">
@@ -70,10 +70,10 @@ import { clone } from '@/utils';
 import { KEY_LEAGUE, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
 
 import LoadingIndicator from './LoadingIndicator.vue';
-import SaveButton from './SaveButton.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
 import GameDate from './LeagueMatchesGameDate.vue';
 import LeagueMatchesGame from './LeagueMatchesGame.vue';
+import MatchesControls from './CompetitionMatchesControls.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 const { getLeagueGameweeks, saveLeagueGames } = useLeaguesStore();
@@ -192,6 +192,7 @@ async function saveGames() {
 
 <style lang="scss" scoped>
 .league-matches {
+  --table-width: 25rem;
   &__content {
     display: flex;
     flex-direction: column-reverse;
@@ -200,15 +201,10 @@ async function saveGames() {
       flex-direction: column;
     }
   }
-  &__save-button {
-    margin-left: auto;
+  &__controls {
+    justify-content: flex-end;
     @include for-tablet-portrait-up {
-      margin-left: unset;
-      margin-right: auto;
-    }
-    @include for-desktop-up {
-      margin-right: unset;
-      margin-left: auto;
+      width: var(--table-width);
     }
   }
   &__table {
@@ -216,7 +212,7 @@ async function saveGames() {
     border-radius: 0.375rem;
     border: 1px solid $color--light-gray-1;
     @include for-tablet-portrait-up {
-      width: 25rem;
+      width: var(--table-width);
     }
   }
   &__table-header {
