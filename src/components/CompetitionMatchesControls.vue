@@ -11,7 +11,7 @@
       :is-loading="isSavingGames"
       @click="$emit('save-games')"
     />
-    <ModalResetResults
+    <ModalResetGames
       :show="showResetGamesModal"
       :is-loading="isResettingGames"
       @confirm="handleResetGames"
@@ -25,7 +25,7 @@ import { ref, inject, nextTick } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { KEY_RESET_COMPETITION_GAMES, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
 import SaveButton from './SaveButton.vue';
-import ModalResetResults from './CompetitionModalResetResults.vue';
+import ModalResetGames from './CompetitionModalResetGames.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 

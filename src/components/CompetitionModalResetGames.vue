@@ -1,6 +1,6 @@
 <template>
   <ConfirmationModal
-    id="competition-modal-reset-results"
+    id="competition-modal-reset-games"
     title="Apagar resultados"
     :show="show"
     :is-loading="isLoading"
