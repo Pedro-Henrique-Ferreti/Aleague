@@ -24,6 +24,8 @@ export const KEY_DELETE_COMPETITION = Symbol() as InjectionKey<() => Promise<any
 
 export const KEY_RESTART_COMPETITION = Symbol() as InjectionKey<() => Promise<any>>;
 
+export const KEY_RESET_COMPETITION_GAMES = Symbol() as InjectionKey<() => Promise<any>>;
+
 export const KEY_RELOAD_COMPETITION = Symbol() as InjectionKey<(params?: ReloadCompetitionParams) => void>;
 
 export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<LeagueWithStandings>>;
