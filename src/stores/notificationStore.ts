@@ -1,5 +1,5 @@
 import type { Snackbar } from '@/types/Snackbar';
-import { MIN_DURATION } from '@/constants/snackbar';
+import { MIN_DURATION_SUCCESS, MIN_DURATION_ERROR } from '@/constants/snackbar';
 import { defineStore } from 'pinia';
 
 interface State {
@@ -15,14 +15,20 @@ export const useNotificationStore = defineStore('notification', {
     };
   },
   actions: {
-    openSnackbarNotification({ message, type, duration }: Snackbar) {
-      const snackbarDuration = (duration && duration >= MIN_DURATION)
-        ? duration
-        : MIN_DURATION;
+    openSnackbarNotification({ message, type = 'success', duration }: Snackbar) {
+      let snackbarDuration = duration;
+
+      if (type === 'success' && (!snackbarDuration || snackbarDuration < MIN_DURATION_SUCCESS)) {
+        snackbarDuration = MIN_DURATION_SUCCESS;
+      }
+
+      if (type === 'error' && (!snackbarDuration || snackbarDuration < MIN_DURATION_ERROR)) {
+        snackbarDuration = MIN_DURATION_ERROR;
+      }
 
       this.snackbarQueue.push({
         message,
-        type: type || 'success',
+        type,
         duration: snackbarDuration,
       });
 
