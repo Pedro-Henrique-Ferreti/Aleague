@@ -54,11 +54,13 @@ enum Sizes {
 </script>
 
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue';
+import { computed, useSlots, type PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
 import BaseButton from './common/BaseButton.vue';
 
 defineEmits(['click']);
+
+const slots = useSlots();
 
 const props = defineProps({
   to: {
@@ -115,6 +117,7 @@ const buttonClasses = computed(() => ({
   'button--large': props.size === Sizes.large,
   'button--disabled': buttonIsDisabled.value,
   'button--icon-rounded': props.iconRounded,
+  'button--icon-only': !slots.default,
 }));
 </script>
 
@@ -126,6 +129,7 @@ const buttonClasses = computed(() => ({
   --height: 2.75rem;
   --border-radius: 0.625rem;
   --gap: 0.875rem;
+  --padding: 0 1rem;
   --icon-size: 1rem;
   --loading-icon-color: #{$color--white};
   --icon-background-color: transparent;
@@ -139,7 +143,7 @@ const buttonClasses = computed(() => ({
   align-items: center;
   min-width: var(--min-width);
   height: var(--height);
-  padding: 0 1rem;
+  padding: var(--padding);
   color: var(--color);
   background-color: var(--background-color);
   border-radius: var(--border-radius);
@@ -207,6 +211,14 @@ const buttonClasses = computed(() => ({
     border: 1px solid $color--light-gray-1;
     --hover-background-color: #{$color--light-gray-2};
     --disabled-color: #{$color--text};
+    &.button--icon-only {
+      --color: #{$color--text-lighten};
+    }
+  }
+  &.button--icon-only {
+    --padding: 0 0.75rem;
+    --min-width: unset;
+    --icon-size: 1.25rem;
   }
   &.button--small {
     --min-width: 6.25rem;
