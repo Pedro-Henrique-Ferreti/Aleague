@@ -28,6 +28,9 @@ export const usePlayoffStore = defineStore('playoff', {
         numberOfTeams,
       });
     },
+    resetPlayoffGames(hashId: string) {
+      return axios.post(`/playoffs/${hashId}/reset-rounds`);
+    },
     addPlayoffTeams(id: string, teams: number[]) {
       return axios.post(`/playoffs/${id}/teams`, { teams });
     },

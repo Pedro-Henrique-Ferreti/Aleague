@@ -29,6 +29,7 @@ import {
   KEY_DELETE_COMPETITION,
   KEY_RELOAD_COMPETITION,
   KEY_UPDATE_COMPETITION,
+  KEY_RESET_COMPETITION_GAMES,
 } from '@/constants/injectionKeys';
 
 import AppTransition from '@/components/AppTransition.vue';
@@ -42,6 +43,7 @@ const {
   getPlayoffById,
   restartPlayoff,
   updatePlayoff,
+  resetPlayoffGames,
   deletePlayoff,
 } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
@@ -58,14 +60,6 @@ const playoffDetails = computed(() => ({
   createdAt: playoff.value?.createdAt || '',
   updatedAt: playoff.value?.updatedAt || '',
 }));
-
-// Provided values
-provide(KEY_COMPETITION_DETAILS, playoffDetails);
-provide(KEY_RESTART_COMPETITION, restartCompetition);
-provide(KEY_UPDATE_COMPETITION, updateCompetition);
-provide(KEY_DELETE_COMPETITION, deleteCompetition);
-provide(KEY_RELOAD_COMPETITION, getPlayoff);
-provide(KEY_PLAYOFF, playoff);
 
 // Get playoff data
 const isLoadingPlayoff = ref(false);
@@ -100,8 +94,22 @@ function updateCompetition({ name }: UpdateCompetitionParams) {
   });
 }
 
+// Reset playoff games
+function resetCompetitionGames() {
+  return resetPlayoffGames(playoff.value?.hashid || '');
+}
+
 // Delete playoff
 function deleteCompetition() {
   return deletePlayoff(playoff.value?.hashid || '');
 }
+
+// Provided values
+provide(KEY_COMPETITION_DETAILS, playoffDetails);
+provide(KEY_RESTART_COMPETITION, restartCompetition);
+provide(KEY_UPDATE_COMPETITION, updateCompetition);
+provide(KEY_DELETE_COMPETITION, deleteCompetition);
+provide(KEY_RESET_COMPETITION_GAMES, resetCompetitionGames);
+provide(KEY_RELOAD_COMPETITION, getPlayoff);
+provide(KEY_PLAYOFF, playoff);
 </script>
