@@ -6,7 +6,7 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     class="radio-input"
-    :class="{ 'radio-input--checked': checked }"
+    :data-checked="checked"
   >
     <template v-if="checked">
       <circle
@@ -46,7 +46,7 @@ defineProps({
 <style lang="scss" scoped>
 .radio-input {
   --color: #{$color--light-gray-1};
-  &--checked {
+  &[data-checked="true"] {
     --color: #{$color--tertiary};
   }
 }

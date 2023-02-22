@@ -1,13 +1,13 @@
 <template>
   <div
     class="add-participants-field"
-    :class="{ 'add-participants-field--list-open': showAutocompleteList }"
+    :data-expanded="showAutocompleteList"
   >
     <AppLargeField
       v-bind="$attrs"
       v-model.trim="teamName"
-      :disabled="disabled"
       icon="team-add"
+      :disabled="disabled"
       @focus="inputIsFocused = true"
       @blur="handleBlur"
       @keyup.up="moveHighlightedAutocompleteOption(-1)"
@@ -31,7 +31,7 @@
         <div
           v-for="(team, index) in autocompleteValues"
           class="add-participants-field__autocomplete-list-item"
-          :class="{ 'highlighted': highlightedAutocompleteOption === index }"
+          :data-active="highlightedAutocompleteOption === index"
           :key="team.id"
           @click="selectTeam(team)"
         >
@@ -171,11 +171,10 @@ watch(() => showAutocompleteList.value, () => {
 <style lang="scss" scoped>
 .add-participants-field {
   position: relative;
-  &--list-open {
+  &[data-expanded="true"] {
     :deep(.base-input) {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      box-shadow: $shadow--medium;
     }
   }
   &__button {
@@ -209,7 +208,7 @@ watch(() => showAutocompleteList.value, () => {
     transition: all 0.1s linear;
     cursor: pointer;
     &:hover,
-    &.highlighted {
+    &[data-active="true"] {
       background-color: $color--light-gray-1;
       color: $color--text-darken;
     }

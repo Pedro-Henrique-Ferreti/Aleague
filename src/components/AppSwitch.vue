@@ -1,7 +1,7 @@
 <template>
   <div
     class="switch"
-    :class="{ 'switch--checked': inputValue }"
+    :data-checked="inputValue"
   >
     <span
       v-if="showLabels"
@@ -64,7 +64,7 @@ const inputValue = computed({
 .switch {
   --control-bg: #{$color--text-lighten};
   --track-translate: 0;
-  &--checked {
+  &[data-checked="true"] {
     --control-bg: #{$color--secondary};
     --track-translate: 1.75rem;
   }

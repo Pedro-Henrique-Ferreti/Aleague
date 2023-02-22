@@ -1,7 +1,7 @@
 <template>
   <div
     class="team-slot"
-    :class="{ 'team-slot--small': small }"
+    :data-small="small"
   >
     <div class="team-slot__icon-wrapper">
       <BaseIcon
@@ -29,7 +29,7 @@ defineProps({
   --card-height: 3.5rem;
   --font-size: 1.125rem;
   --icon-wrapper-size: 2rem;
-  &--small {
+  &[data-small="true"] {
     --card-height: 1.5rem;
     --font-size: 1rem;
     --icon-wrapper-size: auto;
@@ -40,7 +40,7 @@ defineProps({
   align-items: center;
   gap: 1rem;
   height: var(--card-height);
-  &:not(.team-slot--small) {
+  &[data-small="false"] {
     justify-content: center;
     background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23B0CDFAFF' stroke-width='2' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
   }

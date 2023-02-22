@@ -13,7 +13,7 @@
     <div class="progress-bar__background">
       <div
         class="progress-bar__tracker"
-        :class="{ 'progress-bar__tracker--complete': value === 100 }"
+        :data-complete="value === 100"
       />
     </div>
   </div>
@@ -67,7 +67,7 @@ const progress = computed(() => ({
     height: inherit;
     background-color: $color--tertiary;
     border-radius: inherit;
-    &--complete {
+    &[data-complete="true"] {
       background-color: $color--success-500;
     }
   }

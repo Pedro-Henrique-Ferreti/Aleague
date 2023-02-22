@@ -1,7 +1,7 @@
 <template>
   <li
     class="league-card-data-item"
-    :class="{ 'league-card-data-item--warning': warning }"
+    :data-warning="warning"
   >
     <BaseIcon
       class="league-card-data-item__icon"
@@ -29,7 +29,7 @@ defineProps({
 <style lang="scss" scoped>
 .league-card-data-item {
   --color: #{$color--text};
-  &--warning {
+  &[data-warning="true"] {
     --color: #{$color--primary};
   }
   display: grid;

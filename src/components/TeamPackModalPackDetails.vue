@@ -17,7 +17,7 @@
         v-text="team.name"
         :key="index"
         class="team-pack-details__team"
-        :class="{ 'team-pack-details__team--created': team.created }"
+        :data-created="team.created"
       />
     </ul>
   </div>
@@ -73,7 +73,7 @@ defineProps({
   }
   &__team {
     color: $color--text-darken;
-    &--created {
+    &[data-created="true"] {
       color: $color--text-lighten;
       text-decoration: line-through;
     }

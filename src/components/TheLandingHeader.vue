@@ -1,7 +1,7 @@
 <template>
   <header
     class="landing-header"
-    :class="[headerIsPinned ? 'landing-header--pinned' : '']"
+    :data-pinned="headerIsPinned"
   >
     <div class="landing-header__content container-medium">
       <AppLogo />
@@ -20,7 +20,7 @@
       <nav
         class="landing-header__menu container"
         id="landing-header-nav"
-        :class="[menuIsOpen ? 'landing-header__menu--open' : '']"
+        :data-open="menuIsOpen"
       >
         <hr class="landing-header__menu-divider" />
         <AppButton
@@ -60,7 +60,7 @@ document.addEventListener('scroll', () => {
   right: 0;
   left: 0;
   z-index: $z-index--landing-header;
-  &--pinned {
+  &[data-pinned="true"] {
     background-color: $color--white;
     box-shadow: $shadow--small;
     position: fixed;
@@ -83,7 +83,7 @@ document.addEventListener('scroll', () => {
     left: 0;
     right: 0;
     z-index: $z-index--landing-header-menu;
-    &--open {
+    &[data-open="true"] {
       display: flex;
     }
     @include for-large-tablet-portrait-down {

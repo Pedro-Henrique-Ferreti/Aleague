@@ -16,7 +16,7 @@
           class="user-profile-picture__avatar-button"
           type="button"
           :key="picture.path"
-          :class="{ 'user-profile-picture__avatar-button--selected': profile.selectedAvatar === picture.path }"
+          :data-selected="profile.selectedAvatar === picture.path"
           :aria-label="`Avatar option ${index}: ${picture.description}`"
           @click="profile.selectedAvatar = picture.path"
         >
@@ -75,7 +75,7 @@ const { profile } = storeToRefs(userSettingsStore);
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 50%;
-    &--selected {
+    &[data-selected="true"] {
       border: 1px solid $color--primary;
     }
   }

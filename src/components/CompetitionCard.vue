@@ -14,7 +14,7 @@
       <div>
         <router-link
           class="competition-card__title | focus-ring"
-          :class="{ 'competition-card__title--margin' : showDeleteButton }"
+          :data-margin="showDeleteButton"
           :to="cardPath"
         >
           {{ title }}
@@ -222,7 +222,7 @@ const showDeleteButton = computed(() => !props.stepsCompleted.third);
     color: $color--text-darken;
     font-size: 1.125rem;
     font-weight: $font-weight--semibold;
-    &--margin {
+    &[data-margin="true"] {
       margin-right: 2rem;
     }
   }

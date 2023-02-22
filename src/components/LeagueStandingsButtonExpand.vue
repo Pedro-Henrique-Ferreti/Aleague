@@ -3,7 +3,7 @@
     class="league-standings-button-expand"
     role="button"
     tabindex="0"
-    :class="{ 'expanded': expanded }"
+    :data-expanded="expanded"
     @click="$emit('click')"
     @keypress.enter="$emit('click')"
   >
@@ -33,7 +33,7 @@ defineProps({
   &:hover {
     --background-color: #{$color--light-gray-1};
   }
-  &.expanded {
+  &[data-expanded="true"] {
     --rotate: -90deg;
     --color: #{$color--white};
     --background-color: #{$color--primary};

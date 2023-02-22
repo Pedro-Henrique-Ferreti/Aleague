@@ -2,7 +2,7 @@
   <button
     type="button"
     class="team-pack-card"
-    :class="{ 'team-pack-card--applied': applied }"
+    :data-applied="applied"
     :disabled="applied"
     @click="$emit('click')"
   >
@@ -80,7 +80,7 @@ const countLabel = computed(() => {
   &:hover:not(.team-pack-card--applied) {
     background: $color--light-gray-2;
   }
-  &--applied {
+  &[data-applied="true"] {
     background-color: $color--success-100;
     border-color: $color--success-500;
   }

@@ -2,7 +2,7 @@
   <button
     class="user-settings-tab-button"
     type="button"
-    :class="{ 'user-settings-tab-button--active': isActive }"
+    :data-active="isActive"
     @click="$emit('click', $event)"
   >
     <slot />
@@ -33,7 +33,7 @@ defineProps({
   font-weight: $font-weight--semibold;
   white-space: nowrap;
   transition: all $transition--fastest ease-in;
-  &--active {
+  &[data-active="true"] {
     color: $color--secondary;
     background-color: $color--light-gray-2;
   }

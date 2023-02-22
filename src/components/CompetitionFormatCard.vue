@@ -1,7 +1,7 @@
 <template>
   <label
     class="competition-format-card"
-    :class="{ 'competition-format-card--checked': isChecked }"
+    :data-checked="isChecked"
     :for="id"
   >
     <input
@@ -75,7 +75,7 @@ const isChecked = computed(() => inputValue.value === props.value);
 .competition-format-card {
   --background-color: #{$color--white};
   --border-color: #{$color--light-gray-1};
-  &--checked {
+  &[data-checked="true"] {
     --background-color: #{$color--light-gray-2};
     --border-color: #{$color--tertiary};
   }

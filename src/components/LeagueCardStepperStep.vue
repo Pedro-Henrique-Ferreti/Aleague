@@ -1,7 +1,7 @@
 <template>
   <div
     class="stepper-step"
-    :class="{ 'stepper-step--complete': complete }"
+    :data-complete="complete"
   >
     <div class="stepper-step__icon-wrapper">
       <BaseIcon
@@ -28,7 +28,7 @@ defineProps({
 .stepper-step {
   --icon-color: #{$color--primary};
   --line-color: #{$color--light-gray-1};
-  &--complete {
+  &[data-complete="true"] {
     --icon-color: #{$color--success-500};
     --line-color: #{$color--success-500};
   }
