@@ -1,5 +1,6 @@
 <template>
   <AppModal
+    role="alertdialog"
     size="small"
     :id="id"
     :title="title"

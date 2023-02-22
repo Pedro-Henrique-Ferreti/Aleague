@@ -9,12 +9,12 @@
           v-show="show"
           class="app-modal"
           content-wrapper-classes="app-modal__content-wrapper"
-          role="dialog"
           aria-modal="true"
           :class="modalClasses"
           :title="title"
-          :aria-labelledby="modalLabelledById"
           :title-id="modalLabelledById"
+          :role="role"
+          :aria-labelledby="modalLabelledById"
           @close="$emit('close')"
         >
           <div
@@ -88,6 +88,10 @@ const props = defineProps({
   title: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    default: 'dialog',
   },
   size: {
     type: String as PropType<keyof typeof Sizes>,
