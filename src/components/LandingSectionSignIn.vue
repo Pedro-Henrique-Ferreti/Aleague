@@ -11,7 +11,7 @@
     <div class="sign-in__content">
       <SectionTitle>Comece agora a se divertir</SectionTitle>
       <p class="sign-in__description">
-        Cadastre-se no Alegue para criar os seu campeonatos de futubol. Se já possuir uma conta, faça login.
+        Cadastre-se no Alegue para criar os seu campeonatos de futebol. Se já possuir uma conta, faça login.
       </p>
       <div class="sign-in__buttons">
         <AppButton
