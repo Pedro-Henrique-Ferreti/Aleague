@@ -3,11 +3,15 @@
     role="alertdialog"
     size="small"
     :id="id"
+    :aria-described-by="modalDescribedById"
     :title="title"
     :show="show"
     @close="closeModal"
   >
-    <div class="text-center">
+    <div
+      class="text-center"
+      :id="modalDescribedById"
+    >
       <slot name="message" />
     </div>
     <slot name="content" />
@@ -32,6 +36,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import AppModal from './AppModal.vue';
 
 const emit = defineEmits(['close', 'confirm']);
@@ -61,6 +66,8 @@ const props = defineProps({
     default: '',
   },
 });
+
+const modalDescribedById = computed(() => `${props.id}-desc`);
 
 // Close modal
 function closeModal() {

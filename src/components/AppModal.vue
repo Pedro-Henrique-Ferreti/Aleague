@@ -15,6 +15,7 @@
           :title-id="modalLabelledById"
           :role="role"
           :aria-labelledby="modalLabelledById"
+          :aria-describedby="ariaDescribedBy || undefined"
           @close="$emit('close')"
         >
           <div
@@ -84,6 +85,10 @@ const props = defineProps({
   id: {
     type: String,
     required: true,
+  },
+  ariaDescribedBy: {
+    type: String,
+    default: '',
   },
   title: {
     type: String,
