@@ -94,7 +94,7 @@ async function getGameweeks() {
   isLoadingGameweek.value = true;
 
   try {
-    const gameweeksValues = await getLeagueGameweeks(league?.value.hashid || '');
+    const gameweeksValues = await getLeagueGameweeks(league?.value.id || '');
 
     gameweeks.value = clone(gameweeksValues);
     staticGameweeks = clone(gameweeksValues);
@@ -166,7 +166,7 @@ async function saveGames() {
     if (updatedGames.length < 1) return;
 
     await saveLeagueGames({
-      leagueId: league?.value.hashid || '',
+      leagueId: league?.value.id || '',
       games: updatedGames as any,
     });
 

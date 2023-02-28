@@ -41,7 +41,7 @@
             :key="n"
             :index="n"
             :name="participants[n - 1]?.name || ''"
-            @remove="removeTeamFromParticipantsList(participants[n - 1]?.id || -1)"
+            @remove="removeTeamFromParticipantsList(participants[n - 1]?.id || '')"
           />
         </div>
       </div>
@@ -114,7 +114,7 @@ const props = defineProps({
     required: true,
   },
   saveParticipantsFn: {
-    type: Function as PropType<(participantsIds: number[]) => Promise<void>>,
+    type: Function as PropType<(participantsIds: string[]) => Promise<void>>,
     required: true,
   },
 });
@@ -155,7 +155,7 @@ function addTeamToParticipantsList(team: LeagueParticipant) {
   participants.value.push(team);
 }
 
-function removeTeamFromParticipantsList(id: number) {
+function removeTeamFromParticipantsList(id: string) {
   const teamIndex = participants.value.findIndex((item) => item.id === id);
 
   if (teamIndex > -1) {
@@ -188,7 +188,7 @@ async function saveParticipants() {
   try {
     await createNotCreatedTeams();
 
-    const teamIds: number[] = [];
+    const teamIds: string[] = [];
 
     participants.value.forEach((participant) => {
       const id = (participant.created)

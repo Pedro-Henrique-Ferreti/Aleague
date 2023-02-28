@@ -73,7 +73,7 @@
 interface UpdateNextRoundParams {
   roundNumber: number;
   confrontationNumber: number;
-  nextConfrontationId: number | null;
+  nextConfrontationId: string | null;
   team: GameTeam | null;
 }
 
@@ -154,7 +154,7 @@ function getNextRoundIndex(round: number) {
   return (index === -1) ? null : index;
 }
 
-function getNextConfronationIndex(roundIndex: number, confrontationId: number) {
+function getNextConfronationIndex(roundIndex: number, confrontationId: string) {
   if (!playoff) {
     return null;
   }
@@ -264,7 +264,7 @@ async function saveGames() {
     if (updatedGames.length < 1) return;
 
     await savePlayoffGames({
-      hashId: playoff.value.hashid,
+      id: playoff.value.id,
       games: updatedGames,
     });
 

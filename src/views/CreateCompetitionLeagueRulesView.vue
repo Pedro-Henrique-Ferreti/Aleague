@@ -100,7 +100,7 @@ async function saveLeague() {
 
   try {
     await updateLeagueRules({
-      hashId: league.value.id,
+      id: league.value.id,
       numberOfTeams: league.value.numberOfTeams,
       awayGames: league.value.awayGames,
     });

@@ -1,5 +1,5 @@
 export interface UpdateLeagueRulesParams {
-  hashId: string;
+  id: string;
   numberOfTeams: number;
   awayGames: boolean;
 }
@@ -7,7 +7,7 @@ export interface UpdateLeagueRulesParams {
 export interface SaveLeagueGamesParams {
   leagueId: string;
   games: {
-    id: number;
+    id: string;
     homeTeamScore: number;
     awayTeamScore: number;
   }[];

@@ -7,35 +7,35 @@ import axios from '@/helpers/axios';
 
 export const useLeaguesStore = defineStore('leagues', {
   actions: {
-    async getLeagueById(hashId: string) {
-      const { data: league }: AxiosResponse<LeagueWithStandings> = await axios.get(`/leagues/${hashId}`);
+    async getLeagueById(id: string) {
+      const { data: league }: AxiosResponse<LeagueWithStandings> = await axios.get(`/leagues/${id}`);
 
       return league;
     },
     async createLeague({ name }: { name: string }) {
-      const { data: { hashid } }: AxiosResponse<League> = await axios.post('/leagues', { name });
+      const { data: { id } }: AxiosResponse<League> = await axios.post('/leagues', { name });
 
-      return hashid;
+      return id;
     },
-    updateLeague({ hashId , name }: { hashId: string, name: string }) {
-      return axios.patch<League>(`/leagues/${hashId}`, { name });
+    updateLeague({ id , name }: { id: string, name: string }) {
+      return axios.patch<League>(`/leagues/${id}`, { name });
     },
-    updateLeagueRules({ hashId, numberOfTeams, awayGames }: UpdateLeagueRulesParams) {
-      return axios.patch<League>(`/leagues/${hashId}/rules`, {
+    updateLeagueRules({ id, numberOfTeams, awayGames }: UpdateLeagueRulesParams) {
+      return axios.patch<League>(`/leagues/${id}/rules`, {
         numberOfTeams,
         awayGames,
       });
     },
-    resetLeagueStandings(hashId: string) {
-      return axios.post(`/leagues/${hashId}/reset-standings`);
+    resetLeagueStandings(id: string) {
+      return axios.post(`/leagues/${id}/reset-standings`);
     },
-    restartLeague(hashId: string) {
-      return axios.post(`/leagues/${hashId}/resort-games`);
+    restartLeague(id: string) {
+      return axios.post(`/leagues/${id}/resort-games`);
     },
-    deleteLeague(hashId: string) {
-      return axios.delete(`/leagues/${hashId}`);
+    deleteLeague(id: string) {
+      return axios.delete(`/leagues/${id}`);
     },
-    addLeagueTeams(id: string, teams: number[]) {
+    addLeagueTeams(id: string, teams: string[]) {
       return axios.post(`/leagues/${id}/teams`, { teams });
     },
     async getLeagueGameweeks(leagueId: string) {
@@ -48,8 +48,8 @@ export const useLeaguesStore = defineStore('leagues', {
     saveLeagueGames({ leagueId, games }: SaveLeagueGamesParams) {
       return axios.patch(`/leagues/${leagueId}/games/update-many`, { games });
     },
-    async getTeamStatistics({ leagueId, teamHashId }: { leagueId: string; teamHashId: string }) {
-      const { data } = await axios.get<LeagueTeamStatistics>(`/leagues/${leagueId}/statistics/teams/${teamHashId}`);
+    async getTeamStatistics({ leagueId, teamId }: { leagueId: string; teamId: string }) {
+      const { data } = await axios.get<LeagueTeamStatistics>(`/leagues/${leagueId}/statistics/teams/${teamId}`);
 
       return data;
     },

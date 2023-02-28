@@ -50,7 +50,7 @@
   <TeamDetailsModal
     :show="!!selectedTeam"
     :team-name="selectedTeam?.name"
-    :team-id="selectedTeam?.hashid"
+    :team-id="selectedTeam?.id"
     @close="selectedTeam = null"
   />
 </template>

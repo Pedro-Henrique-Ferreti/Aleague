@@ -32,8 +32,8 @@
     >
       <CompetitionCard
         v-for="competition in displayedCompetititons"
-        :key="competition.hashid"
-        :hash-id="competition.hashid"
+        :key="competition.id"
+        :id="competition.id"
         :title="competition.name"
         :competition-format="competition.type"
         :teams-count="competition.numberOfTeams"
@@ -41,7 +41,7 @@
         :steps-completed="competition.stepsCompleted"
         :created-at="competition.createdAt"
         :updated-at="competition.updatedAt"
-        @delete="openDeleteCompetitionModal(competition.hashid, competition.type)"
+        @delete="openDeleteCompetitionModal(competition.id, competition.type)"
       />
     </div>
   </AppTransition>
@@ -122,40 +122,40 @@ const displayedCompetititons = computed(() => {
 // Delete competition modal
 const showDeleteCompetitionModal = ref(false);
 
-function openDeleteCompetitionModal(hashid: string, format: CompetitionFormat) {
+function openDeleteCompetitionModal(id: string, format: CompetitionFormat) {
   showDeleteCompetitionModal.value = true;
 
-  competitionToDelete.value = { hashid, format };
+  competitionToDelete.value = { id, format };
 }
 
 function closeDeleteCompetitionModal() {
   showDeleteCompetitionModal.value = false;
 
-  competitionToDelete.value = { hashid: null, format: null };
+  competitionToDelete.value = { id: null, format: null };
 }
 
 // Delete competition
-const competitionToDelete = ref<{ hashid: string | null, format: CompetitionFormat | null }>({
-  hashid: null,
+const competitionToDelete = ref<{ id: string | null, format: CompetitionFormat | null }>({
+  id: null,
   format: null,
 });
 
 const isDeletingCompetition = ref(false);
 
 async function deleteCompetition() {
-  const { hashid, format } = competitionToDelete.value;
+  const { id, format } = competitionToDelete.value;
 
-  if (!hashid || !format) return;
+  if (!id || !format) return;
 
   isDeletingCompetition.value = true;
 
   try {
     switch (format) {
       case competitionFormats.LEAGUE.value:
-        await deleteLeague(hashid);
+        await deleteLeague(id);
         break;
       case competitionFormats.PLAYOFF.value:
-        await deletePlayoff(hashid);
+        await deletePlayoff(id);
         break;
       default:
         throw new Error('Invalid format');

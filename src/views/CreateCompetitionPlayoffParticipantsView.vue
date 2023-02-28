@@ -57,7 +57,7 @@ async function getPlayoffData() {
 }
 
 // Save data
-async function savePlayoffParticipants(participantsIds: number[]) {
+async function savePlayoffParticipants(participantsIds: string[]) {
   await addPlayoffTeams(playoff.value.id, participantsIds);
 }
 </script>

@@ -36,7 +36,7 @@ const props = defineProps({
     required: true,
   },
   teamId: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

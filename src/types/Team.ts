@@ -1,5 +1,5 @@
 export interface Team {
-  id: number;
+  id: string;
   name: string;
   isFavorite: boolean;
   createdAt: Date;
@@ -7,8 +7,7 @@ export interface Team {
 }
 
 export interface TeamListItem {
-  id: number;
-  hashid: string;
+  id: string;
   name: string;
   isFavorite: boolean;
 }

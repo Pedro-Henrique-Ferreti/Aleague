@@ -111,9 +111,8 @@
           <LeagueStandingsTeamDetails
             :show="expandedRowId === standing.teamId"
             :id="standing.teamId"
-            :hash-id="standing.teamHashid"
             :name="standing.teamName"
-            :statistics="getStatisticsByTeamId(standing.teamHashid)"
+            :statistics="getStatisticsByTeamId(standing.teamId)"
             :get-statistics-fn="getStatistics"
           />
         </template>
@@ -150,8 +149,8 @@ const teamStatistics = ref<{ teamId: string; statistics: LeagueTeamStatistics }[
 
 async function getStatistics(teamId: string) {
   const statistics = await getTeamStatistics({
-    leagueId: league?.value.hashid || '',
-    teamHashId: teamId,
+    leagueId: league?.value.id || '',
+    teamId,
   });
 
   teamStatistics.value.push({ teamId, statistics });
@@ -173,13 +172,13 @@ watch(() => leagueStandings.value, () => {
 }, { deep: true });
 
 // League table
-const expandedRowId = ref(0);
+const expandedRowId = ref<string | null>(null);
 
-function setExpandedRow(rowId: number) {
+function setExpandedRow(rowId: string) {
   transitionName.value = '';
 
   (expandedRowId.value === rowId)
-    ? expandedRowId.value = 0
+    ? expandedRowId.value = null
     : expandedRowId.value = rowId;
 }
 

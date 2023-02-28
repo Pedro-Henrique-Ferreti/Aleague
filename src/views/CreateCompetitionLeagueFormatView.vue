@@ -65,7 +65,7 @@ async function handleSubmit() {
 
   try {
     await updateLeague({
-      hashId: league.value.id,
+      id: league.value.id,
       name: league.value.name,
     });
 

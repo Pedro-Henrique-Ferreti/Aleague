@@ -79,7 +79,7 @@ import LeagueCardStepper from './LeagueCardStepper.vue';
 
 defineEmits(['delete']);
 const props = defineProps({
-  hashId: {
+  id: {
     type: String,
     required: true,
   },
@@ -161,26 +161,26 @@ const cardPath = computed(() => {
 
 function getLeaguePath() {
   if (props.stepsCompleted.third) {
-    return { name: 'view-league', params: { id: props.hashId } };
+    return { name: 'view-league', params: { id: props.id } };
   }
 
   if (props.stepsCompleted.second) {
-    return { name: 'create-league-participants', params: { id: props.hashId } };
+    return { name: 'create-league-participants', params: { id: props.id } };
   }
 
-  return { name: 'create-league-rules', params: { id: props.hashId } };
+  return { name: 'create-league-rules', params: { id: props.id } };
 }
 
 function getPlayoffPath() {
   if (props.stepsCompleted.third) {
-    return { name: 'view-playoff', params: { id: props.hashId } };
+    return { name: 'view-playoff', params: { id: props.id } };
   }
 
   if (props.stepsCompleted.second) {
-    return { name: 'create-playoff-participants', params: { id: props.hashId } };
+    return { name: 'create-playoff-participants', params: { id: props.id } };
   }
 
-  return { name: 'create-playoff-rules', params: { id: props.hashId } };
+  return { name: 'create-playoff-rules', params: { id: props.id } };
 }
 
 // Show delete button

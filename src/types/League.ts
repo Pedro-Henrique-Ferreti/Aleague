@@ -25,21 +25,19 @@ export interface LeagueStanding {
   goalsFor: number;
   points: number;
   recentGames: LeagueGame[];
-  teamHashid: string;
-  teamId: number;
+  teamId: string;
   teamName: string;
   movement: LeagueStandingMovement;
 }
 
 export interface LeagueParticipant {
-  id: number,
+  id: string;
   name: string;
   created: boolean;
 }
 
 export interface League {
-  id: number;
-  hashid: string;
+  id: string;
   name: string;
   numberOfTeams: number | null;
   progress: number;

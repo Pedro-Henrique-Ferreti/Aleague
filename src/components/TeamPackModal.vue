@@ -98,11 +98,11 @@ async function loadTeamPacks() {
 const isLoadingTeamPackDetails = ref(false);
 const selectedTeamPack = ref<TeamPack | null>(null);
 
-async function getTeamPackDetails(hashId: string) {
+async function getTeamPackDetails(id: string) {
   isLoadingTeamPackDetails.value = true;
 
   try {
-    selectedTeamPack.value = await getTeamPackById(hashId);
+    selectedTeamPack.value = await getTeamPackById(id);
   } catch (error) {
     openSnackbarNotification({
       type: 'error',
@@ -122,7 +122,7 @@ async function handleApplyTeamPack() {
   isApplyingTeamPack.value = true;
 
   try {
-    await applyTeamPack(selectedTeamPack.value.hashid);
+    await applyTeamPack(selectedTeamPack.value.id);
 
     openSnackbarNotification({
       message: 'Pacote applicado com sucesso!',

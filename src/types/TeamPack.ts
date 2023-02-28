@@ -1,6 +1,5 @@
 export interface TeamPack {
   id: string;
-  hashid: string;
   name: string;
   description: string;
   icon: string;
@@ -13,10 +12,9 @@ export interface TeamPackTeam {
 }
 
 export interface TeamPackListItem {
-  id: number;
+  id: string;
   name: string;
   icon: string;
-  hashid: string;
   teamsCount: number;
   applied: boolean;
 }

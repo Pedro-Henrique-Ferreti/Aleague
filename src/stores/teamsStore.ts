@@ -24,8 +24,8 @@ export const useTeamsStore = defineStore('teams', {
 
       this.teams = teams;
     },
-    async getTeamById(hashId: string) {
-      const { data: team }: AxiosResponse<Team> = await axios.get(`/teams/${hashId}`);
+    async getTeamById(id: string) {
+      const { data: team }: AxiosResponse<Team> = await axios.get(`/teams/${id}`);
 
       return team;
     },
@@ -34,13 +34,13 @@ export const useTeamsStore = defineStore('teams', {
 
       this.teamPacks = teamPacks;
     },
-    async getTeamPackById(hashId: string) {
-      const { data: teamPack }: AxiosResponse<TeamPack> = await axios.get(`/team-packs/${hashId}`);
+    async getTeamPackById(id: string) {
+      const { data: teamPack }: AxiosResponse<TeamPack> = await axios.get(`/team-packs/${id}`);
 
       return teamPack;
     },
-    applyTeamPack(hashId: string) {
-      return axios.post(`/team-packs/${hashId}/apply`);
+    applyTeamPack(id: string) {
+      return axios.post(`/team-packs/${id}/apply`);
     },
     createManyTeams(teams: TeamToBeCreated[]) {
       return axios.post('/teams/createMany', { teams });

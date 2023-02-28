@@ -104,24 +104,24 @@ async function getLeague({ showLoader }: ReloadCompetitionParams = { showLoader:
 // Update league
 function updateCompetition({ name }: UpdateCompetitionParams) {
   return updateLeague({
-    hashId: league.value?.hashid || '',
+    id: league.value?.id || '',
     name,
   });
 }
 
 // Restart league
 function restartCompetition() {
-  return restartLeague(league.value?.hashid || '');
+  return restartLeague(league.value?.id || '');
 }
 
 // Reset league standings
 function resetCompetitionStandings() {
-  return resetLeagueStandings(league.value?.hashid || '');
+  return resetLeagueStandings(league.value?.id || '');
 }
 
 // Delete league
 function deleteCompetition() {
-  return deleteLeague(league.value?.hashid || '');
+  return deleteLeague(league.value?.id || '');
 }
 
 // Provided values

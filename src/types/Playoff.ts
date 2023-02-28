@@ -5,12 +5,11 @@ export type PlayoffLegs = 1 | 2;
 export type ScoreInput = number | string | null;
 
 export interface Playoff {
-  id: number;
-  hashid: string;
+  id: string;
   name: string;
   numberOfTeams: number | null;
-	numberOfLegs: PlayoffLegs | null,
-	numberOfRounds: number | null,
+	numberOfLegs: PlayoffLegs | null;
+	numberOfRounds: number | null;
   progress: number;
   createdAt: string;
   updatedAt: string;
@@ -28,9 +27,9 @@ export interface PlayoffGame extends Game {
 export type PlayoffConfrontationGames = [PlayoffGame, PlayoffGame?];
 
 export interface PlayoffConfrontation {
-  id: number;
+  id: string;
   number: number;
-  nextConfrontationId: number | null;
+  nextConfrontationId: string | null;
   games: PlayoffConfrontationGames;
 }
 

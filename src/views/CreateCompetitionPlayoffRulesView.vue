@@ -105,7 +105,7 @@ async function savePlayoff() {
 
   try {
     await updatePlayoffRules({
-      hashId: playoff.value.id,
+      id: playoff.value.id,
       numberOfTeams: numberOfParticipants.value || PARTICIPANTS_BY_ROUND[0].numberOfParticipants,
       numberOfLegs: (playoff.value.hasTwoLegs) ? 2 : 1,
     });

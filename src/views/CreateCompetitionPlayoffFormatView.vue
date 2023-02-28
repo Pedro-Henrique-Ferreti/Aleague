@@ -65,7 +65,7 @@ async function handleSubmit() {
 
   try {
     await updatePlayoff({
-      hashId: playoff.value.id,
+      id: playoff.value.id,
       name: playoff.value.name,
     });
 

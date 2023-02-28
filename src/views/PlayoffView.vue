@@ -83,25 +83,25 @@ async function getPlayoff({ showLoader }: ReloadCompetitionParams = { showLoader
 
 // Restart playoff
 function restartCompetition() {
-  return restartPlayoff(playoff.value?.hashid || '');
+  return restartPlayoff(playoff.value?.id || '');
 }
 
 // Update playoff
 function updateCompetition({ name }: UpdateCompetitionParams) {
   return updatePlayoff({
-    hashId: playoff.value?.hashid || '',
+    id: playoff.value?.id || '',
     name,
   });
 }
 
 // Reset playoff games
 function resetCompetitionGames() {
-  return resetPlayoffGames(playoff.value?.hashid || '');
+  return resetPlayoffGames(playoff.value?.id || '');
 }
 
 // Delete playoff
 function deleteCompetition() {
-  return deletePlayoff(playoff.value?.hashid || '');
+  return deletePlayoff(playoff.value?.id || '');
 }
 
 // Provided values

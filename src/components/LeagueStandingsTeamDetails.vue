@@ -82,10 +82,6 @@ const props = defineProps({
     default: false,
   },
   id: {
-    type: Number,
-    required: true,
-  },
-  hashId: {
     type: String,
     required: true,
   },
@@ -110,7 +106,7 @@ async function getStatistics() {
   isLoadingStatistics.value = true;
 
   try {
-    await props.getStatisticsFn(props.hashId);
+    await props.getStatisticsFn(props.id);
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

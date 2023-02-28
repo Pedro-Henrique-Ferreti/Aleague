@@ -116,7 +116,7 @@ function addTeam() {
     });
   } else {
     emit('add-team', {
-      id: new Date().getTime(),
+      id: new Date().getTime().toString(),
       name: teamName.value,
       created: false,
     });

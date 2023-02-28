@@ -6,39 +6,39 @@ import axios from '@/helpers/axios';
 
 export const usePlayoffStore = defineStore('playoff', {
   actions: {
-    async getPlayoffById(hashId: string) {
-      const { data: playoff }: AxiosResponse<PlayoffWithRounds> = await axios.get(`/playoffs/${hashId}`);
+    async getPlayoffById(id: string) {
+      const { data: playoff }: AxiosResponse<PlayoffWithRounds> = await axios.get(`/playoffs/${id}`);
 
       return playoff;
     },
     async createPlayoff({ name }: { name: string }) {
-      const { data: { hashid } }: AxiosResponse<Playoff> = await axios.post('/playoffs', { name });
+      const { data: { id } }: AxiosResponse<Playoff> = await axios.post('/playoffs', { name });
 
-      return hashid;
+      return id;
     },
-    restartPlayoff(hashId: string) {
-      return axios.post(`/playoffs/${hashId}/resort-games`);
+    restartPlayoff(id: string) {
+      return axios.post(`/playoffs/${id}/resort-games`);
     },
-    updatePlayoff({ hashId , name }: { hashId: string, name: string }) {
-      return axios.patch<Playoff>(`/playoffs/${hashId}`, { name });
+    updatePlayoff({ id , name }: { id: string, name: string }) {
+      return axios.patch<Playoff>(`/playoffs/${id}`, { name });
     },
-    updatePlayoffRules({ hashId, numberOfTeams, numberOfLegs }: UpdatePlayoffRulesParams) {
-      return axios.patch<Playoff>(`/playoffs/${hashId}/rules`, {
+    updatePlayoffRules({ id, numberOfTeams, numberOfLegs }: UpdatePlayoffRulesParams) {
+      return axios.patch<Playoff>(`/playoffs/${id}/rules`, {
         numberOfLegs,
         numberOfTeams,
       });
     },
-    resetPlayoffGames(hashId: string) {
-      return axios.post(`/playoffs/${hashId}/reset-rounds`);
+    resetPlayoffGames(id: string) {
+      return axios.post(`/playoffs/${id}/reset-rounds`);
     },
-    addPlayoffTeams(id: string, teams: number[]) {
+    addPlayoffTeams(id: string, teams: string[]) {
       return axios.post(`/playoffs/${id}/teams`, { teams });
     },
-    deletePlayoff(hashId: string) {
-      return axios.delete(`/playoffs/${hashId}`);
+    deletePlayoff(id: string) {
+      return axios.delete(`/playoffs/${id}`);
     },
-    savePlayoffGames({ hashId, games }: SavePlayoffGamesParams) {
-      return axios.patch(`/playoffs/${hashId}/games/update-many`, {
+    savePlayoffGames({ id, games }: SavePlayoffGamesParams) {
+      return axios.patch(`/playoffs/${id}/games/update-many`, {
         games: games.map((game) => ({
           id: game.id,
           homeTeamId: game.homeTeam?.id || null,

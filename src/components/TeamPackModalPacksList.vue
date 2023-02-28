@@ -16,7 +16,7 @@
           :icon="teamPack.icon"
           :applied="teamPack.applied"
           :teams-count="teamPack.teamsCount"
-          @click="$emit('get-team-pack-details', teamPack.hashid)"
+          @click="$emit('get-team-pack-details', teamPack.id)"
         />
       </div>
     </AppTransition>
