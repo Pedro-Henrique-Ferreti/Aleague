@@ -55,7 +55,7 @@ const playoff = ref<PlayoffWithRounds | null>(null);
 const playoffDetails = computed(() => ({
   name: playoff.value?.name || '',
   format: competitionFormats.PLAYOFF.value,
-  numberOfTeams: playoff.value?.numberOfTeams || 0,
+  numberOfTeams: playoff.value?.rules?.numberOfTeams || 0,
   progress: playoff.value?.progress || 0,
   createdAt: playoff.value?.createdAt || '',
   updatedAt: playoff.value?.updatedAt || '',

@@ -82,11 +82,14 @@ async function getPlayoffData() {
   isLoadingPlayoff.value = true;
 
   try {
-    const { name, numberOfLegs, numberOfRounds } = await getPlayoffById(playoff.value.id);
+    const { name, rules } = await getPlayoffById(playoff.value.id);
 
     playoff.value.name = name;
-    playoff.value.hasTwoLegs = numberOfLegs === 2;
-    playoff.value.numberOfRounds = numberOfRounds || 1;
+
+    if (rules) {
+      playoff.value.hasTwoLegs = rules.numberOfLegs === 2;
+      playoff.value.numberOfRounds = rules.numberOfRounds || 1;
+    }
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

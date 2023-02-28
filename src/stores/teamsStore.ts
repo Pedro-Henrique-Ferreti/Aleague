@@ -43,7 +43,7 @@ export const useTeamsStore = defineStore('teams', {
       return axios.post(`/team-packs/${id}/apply`);
     },
     createManyTeams(teams: TeamToBeCreated[]) {
-      return axios.post('/teams/createMany', { teams });
+      return axios.post('/teams/create-many', { teams });
     },
   },
 });

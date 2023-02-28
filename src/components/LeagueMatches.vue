@@ -29,7 +29,7 @@
             aria-label="Last gameweek"
             icon="double-chevron"
             rotate="right"
-            @click="currentGameweekIndex = league?.numberOfGameweeks as number - 1"
+            @click="currentGameweekIndex = league?.rules?.numberOfGameweeks as number - 1"
           />
         </div>
         <div class="league-matches__table-body">
@@ -123,7 +123,7 @@ function getFirstNotCompletedGameweek() {
 function updateGameweekIndex(value: number) {
   const newIndex = currentGameweekIndex.value + value;
 
-  if (league && newIndex > -1 && newIndex < league.value.numberOfGameweeks) {
+  if (league?.value.rules && newIndex > -1 && newIndex < league.value.rules.numberOfGameweeks) {
     currentGameweekIndex.value = newIndex;
   }
 }

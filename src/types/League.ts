@@ -39,15 +39,14 @@ export interface LeagueParticipant {
 export interface League {
   id: string;
   name: string;
-  numberOfTeams: number | null;
+  rules: null | {
+    numberOfGameweeks: number;
+    numberOfTeams: number;
+  };
   progress: number;
+  standings: LeagueStanding[] | null;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface LeagueWithStandings extends League {
-  numberOfGameweeks: number;
-  standings: LeagueStanding[] | null,
 }
 
 export interface LeagueTeamStatistics {

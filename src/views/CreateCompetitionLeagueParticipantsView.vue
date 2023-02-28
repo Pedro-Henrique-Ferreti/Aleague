@@ -42,10 +42,10 @@ async function getLeagueData() {
   isLoadingLeague.value = true;
 
   try {
-    const { name, numberOfTeams } = await getLeagueById(league.value.id);
+    const { name, rules } = await getLeagueById(league.value.id);
 
     league.value.name = name;
-    league.value.numberOfTeams = numberOfTeams || 0;
+    league.value.numberOfTeams = rules?.numberOfTeams || 0;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

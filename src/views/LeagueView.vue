@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/Competition';
-import type { LeagueWithStandings } from '@/types/League';
+import type { League } from '@/types/League';
 import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
@@ -66,13 +66,13 @@ const {
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
-const league = ref<LeagueWithStandings | null>(null);
+const league = ref<League | null>(null);
 
 // League details
 const leagueDetails = computed(() => ({
   name: league.value?.name || '',
   format: competitionFormats.LEAGUE.value,
-  numberOfTeams: league.value?.numberOfTeams || 0,
+  numberOfTeams: league.value?.rules?.numberOfTeams || 0,
   progress: league.value?.progress || 0,
   createdAt: league.value?.createdAt || '',
   updatedAt: league.value?.updatedAt || '',

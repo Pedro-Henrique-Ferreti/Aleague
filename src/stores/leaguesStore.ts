@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import type { League, LeagueTeamStatistics, LeagueWithStandings } from '@/types/League';
+import type { League, LeagueTeamStatistics } from '@/types/League';
 import type { SaveLeagueGamesParams, UpdateLeagueRulesParams } from '@/types/LeaguesStore';
 import type { LeagueGameweek } from '@/types/League';
 import { defineStore } from 'pinia';
@@ -8,7 +8,7 @@ import axios from '@/helpers/axios';
 export const useLeaguesStore = defineStore('leagues', {
   actions: {
     async getLeagueById(id: string) {
-      const { data: league }: AxiosResponse<LeagueWithStandings> = await axios.get(`/leagues/${id}`);
+      const { data: league }: AxiosResponse<League> = await axios.get(`/leagues/${id}`);
 
       return league;
     },

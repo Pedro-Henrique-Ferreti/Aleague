@@ -7,10 +7,12 @@ export type ScoreInput = number | string | null;
 export interface Playoff {
   id: string;
   name: string;
-  numberOfTeams: number | null;
-	numberOfLegs: PlayoffLegs | null;
-	numberOfRounds: number | null;
   progress: number;
+  rules: null | {
+    numberOfLegs: PlayoffLegs;
+    numberOfRounds: number;
+    numberOfTeams: number;
+  },
   createdAt: string;
   updatedAt: string;
 }

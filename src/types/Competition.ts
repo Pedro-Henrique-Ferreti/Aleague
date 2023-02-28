@@ -1,6 +1,3 @@
-import type { League } from './League';
-import type { Playoff } from './Playoff';
-
 export type CompetitionFormat = 'league' | 'cup' | 'playoff';
 
 export interface CreateCompetitionSteps {
@@ -9,16 +6,17 @@ export interface CreateCompetitionSteps {
   third: boolean;
 }
 
-export interface CompetitionListLeague extends League {
+export interface CompetitionListItem {
+  id: string;
+  name: string;
+  createdAt: string;
+  numberOfLegs: number | null;
+  numberOfTeams: number | null;
+  progress: number;
   type: CompetitionFormat;
   stepsCompleted: CreateCompetitionSteps;
+  updatedAt: string;
 }
-export interface CompetitionListPlayoff extends Playoff {
-  type: CompetitionFormat;
-  stepsCompleted: CreateCompetitionSteps;
-}
-
-export type CompetitionListItem = CompetitionListLeague | CompetitionListPlayoff;
 
 export interface UpdateCompetitionParams {
   name: string;

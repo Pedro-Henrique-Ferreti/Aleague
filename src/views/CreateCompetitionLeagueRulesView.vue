@@ -71,13 +71,14 @@ async function getLeagueData() {
   isLoadingLeague.value = true;
 
   try {
-    const { name, numberOfTeams, numberOfGameweeks } = await getLeagueById(league.value.id);
+    const { name, rules } = await getLeagueById(league.value.id);
 
     league.value.name = name;
-    league.value.numberOfTeams = numberOfTeams || 0;
-    league.value.awayGames = (numberOfTeams && numberOfGameweeks)
-      ? numberOfGameweeks === (numberOfTeams - 1) * 2
-      : false;
+
+    if (rules) {
+      league.value.numberOfTeams = rules.numberOfTeams;
+      league.value.awayGames = rules.numberOfGameweeks === (rules.numberOfTeams - 1) * 2;
+    }
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',

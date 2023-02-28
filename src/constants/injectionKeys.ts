@@ -3,7 +3,7 @@ import type {
   ReloadCompetitionParams,
   UpdateCompetitionParams,
 } from '@/types/Competition';
-import type { LeagueWithStandings } from '@/types/League';
+import type { League } from '@/types/League';
 import type { PlayoffWithRounds } from '@/types/Playoff';
 import type { InjectionKey, Ref, ComputedRef } from 'vue';
 
@@ -28,6 +28,6 @@ export const KEY_RESET_COMPETITION_GAMES = Symbol() as InjectionKey<() => Promis
 
 export const KEY_RELOAD_COMPETITION = Symbol() as InjectionKey<(params?: ReloadCompetitionParams) => void>;
 
-export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<LeagueWithStandings>>;
+export const KEY_LEAGUE = Symbol() as InjectionKey<Ref<League>>;
 
 export const KEY_PLAYOFF = Symbol() as InjectionKey<Ref<PlayoffWithRounds>>;
