@@ -8,7 +8,7 @@
       class="switch__label"
       aria-hidden="true"
     >
-      Não
+      {{ inputValue ? 'Sim' : 'Não' }}
     </span>
     <div class="switch__control">
       <input
@@ -21,13 +21,6 @@
       />
       <div class="switch__control-track" />
     </div>
-    <span
-      v-if="showLabels"
-      class="switch__label"
-      aria-hidden="true"
-    >
-      Sim
-    </span>
   </div>
 </template>
 
