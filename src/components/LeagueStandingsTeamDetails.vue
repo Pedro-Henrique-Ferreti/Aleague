@@ -60,6 +60,13 @@
               :team-id="id"
             />
           </div>
+          <p class="team-details__heading">
+            Performance
+          </p>
+          <AppChart
+            :id="`performance-chart-team-${id}`"
+            :config="performanceChartConfig"
+          />
         </template>
       </div>
     </td>
@@ -68,9 +75,11 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
+import type { ChartConfiguration } from 'chart.js';
 import type { LeagueTeamStatistics } from '@/types/League';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useNotificationStore } from '@/stores/notificationStore';
+import AppChart from './AppChart.vue';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
 import SkeletonLoader from './SkeletonLeagueStandingsTeamDetails.vue';
 
@@ -88,6 +97,10 @@ const props = defineProps({
   name: {
     type: String,
     default: '',
+  },
+  standingsLength: {
+    type: Number,
+    default: 1,
   },
   statistics: {
     type: Object as PropType<LeagueTeamStatistics>,
@@ -122,6 +135,91 @@ watch([() => props.show, () => props.statistics], () => {
     getStatistics();
   }
 });
+
+// Performance chart config
+const pointBackgroundColors = computed(() => props.statistics.positionHistory.map(({ gameweek }) => {
+  const game = props.statistics.completedGames.find((game) => game.gameweek === gameweek);
+
+  if (!game) return '#F8F8F8';
+
+  const { homeTeamScore, awayTeamScore, homeTeam, awayTeam } = game;
+
+  if (homeTeamScore === awayTeamScore) return '#B3BAC5';
+
+  if (
+    (homeTeamScore > awayTeamScore && homeTeam.id === props.id)
+    || (awayTeamScore > homeTeamScore && awayTeam.id === props.id)
+  ) return '#1DA365';
+
+  return '#FF3838';
+}));
+
+const performanceChartConfig = computed<ChartConfiguration>(() => ({
+  type: 'line',
+  data: {
+    labels: props.statistics.positionHistory.map(({ gameweek }) => gameweek),
+    datasets: [{
+      data: props.statistics.positionHistory.map(({ position }) => position),
+      fill: {
+        target: 'origin',
+        above: 'rgb(255, 0, 0)',
+      },
+      borderColor: '#B3BAC5',
+      borderWidth: 2,
+      tension: 0.1,
+      pointRadius: 6,
+      pointBackgroundColor: pointBackgroundColors.value,
+      pointBorderColor: '#FFF',
+    }],
+  },
+  options: {
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        title: {
+          display: true,
+          text: 'Partidas',
+          color: '#1F2D3D',
+        },
+        ticks: {
+          padding: 12,
+        },
+      },
+      y: {
+        reverse: true,
+        position: 'left',
+        min: 1,
+        max: props.standingsLength,
+        grid: {
+          drawTicks: false,
+        },
+        ticks: {
+          padding: 12,
+        },
+        title: {
+          display: true,
+          text: 'Posição',
+          color: '#1F2D3D',
+        },
+      },
+    },
+    plugins: {
+      tooltip: {
+        displayColors: false,
+        callbacks: {
+          title: (tooltips) => tooltips.map(({ label }) => `Rodada ${label}`),
+          label: (tooltip) => `Pos: ${tooltip.formattedValue}`,
+        },
+      },
+    },
+  },
+}));
 </script>
 
 <style lang="scss" scoped>

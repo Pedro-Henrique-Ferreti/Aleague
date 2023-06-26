@@ -112,6 +112,7 @@
             :show="expandedRowId === standing.teamId"
             :id="standing.teamId"
             :name="standing.teamName"
+            :standings-length="leagueStandings.length"
             :statistics="getStatisticsByTeamId(standing.teamId)"
             :get-statistics-fn="getStatistics"
           />

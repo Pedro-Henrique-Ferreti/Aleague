@@ -70,5 +70,10 @@ export interface LeagueTeamStatistics {
 		maxTie: number;
 		maxLoss: number;
 	};
+  positionHistory: {
+    gameweek: number;
+    points: number;
+    position: number;
+  }[];
 	completedGames: LeagueGame[];
 }
