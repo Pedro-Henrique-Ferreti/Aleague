@@ -50,7 +50,7 @@
       class="competition-card__league-progress"
     >
       <span class="competition-card__league-progress-title">
-        Andamento do campeonato
+        {{ progress === 100 ? 'Campeonato concluído' : 'Andamento do campeonato' }}
       </span>
       <AppProgressBar :value="progressBarValue" />
     </div>
