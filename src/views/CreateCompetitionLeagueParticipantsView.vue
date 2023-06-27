@@ -14,7 +14,7 @@
 import { ref } from 'vue';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 import CompetitionParticipantsForm from '@/components/CompetitionParticipantsForm.vue';
 
 const { getLeagueById, addLeagueTeams } = useLeaguesStore();

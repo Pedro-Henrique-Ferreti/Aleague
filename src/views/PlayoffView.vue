@@ -21,7 +21,7 @@ import { ref, computed, provide } from 'vue';
 import { useRoute } from 'vue-router';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 import {
   KEY_PLAYOFF,
   KEY_COMPETITION_DETAILS,

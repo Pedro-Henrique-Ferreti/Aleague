@@ -1,5 +1,5 @@
 import type { TabPanel } from '@/types/TabPanel';
-import { competitionFormats } from './competitionFormats';
+import { competitionFormats } from './competitions';
 
 export const teamsPageTabs: TabPanel = {
   ALL: {

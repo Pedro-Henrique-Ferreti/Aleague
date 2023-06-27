@@ -45,7 +45,7 @@ import {
   KEY_RELOAD_COMPETITION,
 } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';

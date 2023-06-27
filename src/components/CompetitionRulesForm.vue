@@ -46,7 +46,7 @@
 import type { RouteLocationRaw } from 'vue-router';
 import type { CompetitionFormat } from '@/types/Competition';
 import { computed, type PropType } from 'vue';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 
 import AppTransition from './AppTransition.vue';
 import PageHeader from './PageHeader.vue';

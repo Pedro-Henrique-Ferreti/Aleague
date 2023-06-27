@@ -36,7 +36,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLeaguesStore } from '@/stores/leaguesStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 
 import AppCounterField from '@/components/AppCounterField.vue';
 import AppSwitch from '@/components/AppSwitch.vue';

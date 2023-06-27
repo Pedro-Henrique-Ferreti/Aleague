@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 
 import AppLargeField from './AppLargeField.vue';
 import AppTransition from './AppTransition.vue';

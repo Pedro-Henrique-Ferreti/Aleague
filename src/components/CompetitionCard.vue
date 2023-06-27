@@ -71,7 +71,7 @@
 import type { CompetitionFormat, CreateCompetitionSteps } from '@/types/Competition';
 import { computed, ref, watch, type PropType } from 'vue';
 import { getFullDate } from '@/utils';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 
 import AppIconButton from './AppIconButton.vue';
 import AppProgressBar from './AppProgressBar.vue';

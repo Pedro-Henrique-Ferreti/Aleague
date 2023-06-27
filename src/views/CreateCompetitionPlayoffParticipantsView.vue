@@ -14,7 +14,7 @@
 import { ref } from 'vue';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 import CompetitionParticipantsForm from '@/components/CompetitionParticipantsForm.vue';
 
 const { getPlayoffById, addPlayoffTeams } = usePlayoffStore();

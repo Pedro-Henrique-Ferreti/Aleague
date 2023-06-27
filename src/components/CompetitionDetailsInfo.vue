@@ -50,7 +50,7 @@ import { getFullDate } from '@/utils';
 import { KEY_COMPETITION_DETAILS } from '@/constants/injectionKeys';
 import AppProgressBar from './AppProgressBar.vue';
 import SectionHeader from './SectionHeader.vue';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 
 // Injected values
 const competition = inject(KEY_COMPETITION_DETAILS);

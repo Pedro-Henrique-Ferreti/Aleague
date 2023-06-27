@@ -41,7 +41,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { useNotificationStore } from '@/stores/notificationStore';
-import { competitionFormats } from '@/constants/competitionFormats';
+import { competitionFormats } from '@/constants/competitions';
 import { PARTICIPANTS_BY_ROUND } from '@/constants/playoffs';
 
 import AppCounterField from '@/components/AppCounterField.vue';
