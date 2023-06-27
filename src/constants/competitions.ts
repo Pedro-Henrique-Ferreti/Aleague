@@ -1,4 +1,5 @@
 import type { CompetitionFormat } from '@/types/Competition';
+import type { SelectOption } from '@/types/Select';
 
 type CompetitionFormats = {
   [key: string]: {
@@ -31,5 +32,24 @@ export const competitionFormats: CompetitionFormats = {
     image: '/images/leagues/play-off-format-icon.svg',
     description: 'Cada equipe competidora disputa um certo número de partidas, até ser promovida à próxima fase. A equipe perdedora de cada disputa é eliminada da competição.',
     isAvailable: true,
+  },
+};
+
+export const competitionStatusFilter = {
+  ALL: {
+    id: '',
+    text: 'Todos os campeonatos',
+  },
+  NOT_STARTED: {
+    id: '1',
+    text: 'Não iniciados',
+  },
+  IN_PROGRESS: {
+    id: '2',
+    text: 'Em andamento',
+  },
+  COMPLETED: {
+    id: '3',
+    text: 'Concluídos',
   },
 };
