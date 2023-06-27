@@ -1,7 +1,8 @@
 <template>
   <button
     class="icon-button"
-    :class="buttonClasses"
+    :data-theme="theme"
+    :data-active="isActive"
     @click="$emit('click')"
   >
     <BaseIcon
@@ -11,12 +12,16 @@
   </button>
 </template>
 
+<script lang="ts">
+type IconButtonTheme = 'danger' | 'hover-danger';
+</script>
+
 <script lang="ts" setup>
-import { computed } from 'vue';
+import type { PropType } from 'vue';
 
 defineEmits(['click']);
 
-const props = defineProps({
+defineProps({
   icon: {
     type: String,
     required: true,
@@ -25,15 +30,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  theme: {
+    type: String as PropType<IconButtonTheme>,
+    default: '',
+  },
 });
-
-const buttonClasses = computed(() => ({
-  'icon-button--active': props.isActive,
-}));
 </script>
 
 <style lang="scss" scoped>
 .icon-button {
+  --bg-color: #{$color--light-gray-2};
+  --icon-color: #{$color--text-lighten};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,14 +50,19 @@ const buttonClasses = computed(() => ({
   border-radius: 0.375rem;
   transition: background-color $transition--fastest ease-in-out;
   @include focus-ring;
+  &[data-theme="hover-danger"]:hover {
+    --bg-color: #{$color--danger-lighten-4};
+    --icon-color: #{$color--danger};
+  }
   &:hover,
-  &--active {
-    background-color: $color--light-gray-2;
+  &[data-active="true"] {
+    background-color: var(--bg-color);
   }
   &__icon {
     width: 1.25rem;
     height: 1.25rem;
-    fill: $color--text-lighten;
+    fill: var(--icon-color);
+    transition: fill $transition--fastest ease-in-out;
   }
 }
 </style>

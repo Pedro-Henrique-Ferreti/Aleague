@@ -57,6 +57,7 @@
     <div class="competition-card__button-wrapper">
       <AppIconButton
         v-if="showDeleteButton"
+        theme="hover-danger"
         aria-label="Excluir campeonato"
         title="Excluir campeonato"
         icon="trash-can-outline"
