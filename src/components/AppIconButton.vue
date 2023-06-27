@@ -40,6 +40,7 @@ defineProps({
 <style lang="scss" scoped>
 .icon-button {
   --bg-color: #{$color--light-gray-2};
+  --icon-size: 1.25rem;
   --icon-color: #{$color--text-lighten};
   display: flex;
   justify-content: center;
@@ -59,8 +60,8 @@ defineProps({
     background-color: var(--bg-color);
   }
   &__icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: var(--icon-size);
+    height: var(--icon-size);
     fill: var(--icon-color);
     transition: fill $transition--fastest ease-in-out;
   }
