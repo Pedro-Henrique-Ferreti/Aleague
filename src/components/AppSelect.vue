@@ -13,13 +13,21 @@
       :readonly="readonly"
       :aria-label="label ? undefined : ariaLabel"
     >
-      <slot />
+      <slot>
+        <option
+          v-for="option in options"
+          v-text="option.text"
+          :key="option.id"
+          :value="option.id"
+        />
+      </slot>
     </select>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import type { SelectOption } from '@/types/Select';
+import { computed, type PropType } from 'vue';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -43,6 +51,10 @@ const props = defineProps({
   readonly: {
     type: Boolean,
     default: false,
+  },
+  options: {
+    type: Array as PropType<SelectOption[]>,
+    default: () => ([]),
   },
 });
 

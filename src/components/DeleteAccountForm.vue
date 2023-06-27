@@ -16,14 +16,8 @@
           class="delete-account-form__input"
           id="delete-account-reason"
           aria-label="Motivo para excluir a conta"
-        >
-          <option
-            v-for="option in DELETE_ACCOUNT_REASONS"
-            v-text="option.text"
-            :key="option.id"
-            :value="option.id"
-          />
-        </AppSelect>
+          :options="DELETE_ACCOUNT_REASONS"
+        />
       </div>
       <div
         v-if="activeStep === steps.ADDITIONAL_COMMENTARY"

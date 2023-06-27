@@ -1,9 +1,6 @@
-type DeleteAccountReason = {
-  id: number;
-  text: string;
-};
+import type { SelectOption } from '@/types/Select';
 
-export const DELETE_ACCOUNT_REASONS: DeleteAccountReason[] = [
+export const DELETE_ACCOUNT_REASONS: SelectOption[] = [
   {
     id: 1,
     text: 'O Aleague não tem o que eu preciso',
