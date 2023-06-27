@@ -78,14 +78,14 @@ const cardClasses = computed(() => ({
 <style lang="scss" scoped>
 .home-card {
   --icon-color: #{$color--primary};
-  --icon-background-color: #{$color--primary-lighten-4};
+  --icon-background-color: #{$color--primary-100};
   &--secondary {
     --icon-color: #{$color--secondary};
-    --icon-background-color: #{$color--secondary-lighten-3};
+    --icon-background-color: #{$color--secondary-200};
   }
   &--tertiary {
     --icon-color: #{$color--tertiary};
-    --icon-background-color: #{$color--tertiary-lighten-4};
+    --icon-background-color: #{$color--tertiary-100};
   }
 
   display: flex;
@@ -134,14 +134,14 @@ const cardClasses = computed(() => ({
     padding-top: 1rem;
   }
   &__footer-text {
-    color: $color--tertiary-lighten-1;
+    color: $color--tertiary-400;
     font-weight: $font-weight--semibold;
   }
   &__footer-icon {
     width: 0.75rem;
     height: 0.75rem;
     margin-left: 0.5rem;
-    fill: $color--tertiary-lighten-1;
+    fill: $color--tertiary-400;
   }
   @include for-large-tablet-landscape-up {
     min-height: 19.5rem;

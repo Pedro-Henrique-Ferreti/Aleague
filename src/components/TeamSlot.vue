@@ -50,13 +50,13 @@ defineProps({
     align-items: center;
     width: var(--icon-wrapper-size);
     height: var(--icon-wrapper-size);
-    background-color: $color--tertiary-lighten-5;
+    background-color: $color--tertiary-50;
     border-radius: 50%;
   }
   &__icon {
     width: 1rem;
     height: 1rem;
-    fill: $color--tertiary-lighten-1;
+    fill: $color--tertiary-400;
   }
   &__text {
     font-size: var(--font-size);

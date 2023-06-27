@@ -7,27 +7,30 @@ $color--light-gray-2: #F8F8F8;
 $color--light-gray-3: #FCFCFC;
 
 $color--primary: #FFB142;
-$color--primary-lighten-1: #FFCA71;
-$color--primary-lighten-2: #FFD98D;
-$color--primary-lighten-3: #FFE9B3;
-$color--primary-lighten-4: #FFF5D9;
+$color--primary-400: #FFCA71;
+$color--primary-300: #FFD98D;
+$color--primary-200: #FFE9B3;
+$color--primary-100: #FFF5D9;
 
 $color--secondary: #8854D0;
-$color--secondary-lighten-1: #AC7DE2;
-$color--secondary-lighten-2: #C69AF0;
-$color--secondary-lighten-3: #DFBEFA;
+$color--secondary-400: #AC7DE2;
+$color--secondary-300: #C69AF0;
+$color--secondary-200: #DFBEFA;
+$color--secondary-100: #F0DEFC;
 
 $color--tertiary: #3867D6;
-$color--tertiary-lighten-1: #6690E6;
-$color--tertiary-lighten-2: #87ADF2;
-$color--tertiary-lighten-3: #B0CDFA;
-$color--tertiary-lighten-4: #D7E7FC;
-$color--tertiary-lighten-5: #D7E7FC80;
-$color--tertiary-lighten-6: #d7e7fc33;
+$color--tertiary-400: #6690E6;
+$color--tertiary-300: #87ADF2;
+$color--tertiary-200: #B0CDFA;
+$color--tertiary-100: #D7E7FC;
+$color--tertiary-50: #D7E7FC80;
+$color--tertiary-25: #d7e7fc33;
 
 $color--danger: #FF3838;
-$color--danger-lighten-1: #FF7669;
-$color--danger-lighten-4: #FFE4D7;
+$color--danger-400: #FF7669;
+$color--danger-300: #FF7669;
+$color--danger-200: #FFC4AF;
+$color--danger-100: #FFE4D7;
 
 $color--text-darken: #1F2D3D;
 $color--text-darken-50: #{$color--text-darken}80;

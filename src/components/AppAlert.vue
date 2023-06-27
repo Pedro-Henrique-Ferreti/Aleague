@@ -73,7 +73,7 @@ const alertIcon = computed(() => {
     --icon-color: #{$color--success-600};
   }
   &--error {
-    --background-color: #{$color--danger-lighten-4};
+    --background-color: #{$color--danger-100};
     --border-color: #{$color--danger};
     --icon-color: #{$color--danger};
   }

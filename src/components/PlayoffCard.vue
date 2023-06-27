@@ -274,7 +274,7 @@ watch(confrontationWinner, () => {
   &__penalty-button-icon {
     width: inherit;
     height: inherit;
-    fill: $color--tertiary-lighten-1;
+    fill: $color--tertiary-400;
   }
 }
 </style>

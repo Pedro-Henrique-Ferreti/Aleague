@@ -51,7 +51,7 @@ defineProps({
   transition: background-color $transition--fastest ease-in-out;
   @include focus-ring;
   &[data-theme="hover-danger"]:hover {
-    --bg-color: #{$color--danger-lighten-4};
+    --bg-color: #{$color--danger-100};
     --icon-color: #{$color--danger};
   }
   &:hover,

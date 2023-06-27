@@ -164,27 +164,27 @@ const buttonClasses = computed(() => ({
   }
   &.button--primary {
     --background-color: #{$color--primary};
-    --icon-background-color: #{$color--primary-lighten-1};
+    --icon-background-color: #{$color--primary-400};
     --loading-icon-color: #{$color--text-darken};
-    --hover-background-color: #{$color--primary-lighten-1};
+    --hover-background-color: #{$color--primary-400};
     --disabled-color: #{$color--text};
-    --disabled-background-color: #{$color--primary-lighten-2};
+    --disabled-background-color: #{$color--primary-300};
   }
   &.button--secondary {
     --background-color: #{$color--secondary};
     --color: #{$color--white};
-    --icon-background-color: #{$color--secondary-lighten-1};
-    --hover-background-color: #{$color--secondary-lighten-1};
+    --icon-background-color: #{$color--secondary-400};
+    --hover-background-color: #{$color--secondary-400};
     --disabled-color: #{$color--white};
-    --disabled-background-color: #{$color--secondary-lighten-2};
+    --disabled-background-color: #{$color--secondary-300};
   }
   &.button--tertiary {
     --background-color: #{$color--tertiary};
     --color: #{$color--white};
-    --icon-background-color: #{$color--tertiary-lighten-1};
-    --hover-background-color: #{$color--tertiary-lighten-1};
+    --icon-background-color: #{$color--tertiary-400};
+    --hover-background-color: #{$color--tertiary-400};
     --disabled-color: #{$color--white};
-    --disabled-background-color: #{$color--tertiary-lighten-2};
+    --disabled-background-color: #{$color--tertiary-300};
   }
   &.button--gray {
     --background-color: #{$color--light-gray-2};
@@ -196,9 +196,9 @@ const buttonClasses = computed(() => ({
   &.button--danger {
     --background-color: #{$color--danger};
     --color: #{$color--white};
-    --hover-background-color: #{$color--danger-lighten-1};
+    --hover-background-color: #{$color--danger-400};
     --disabled-color: #{$color--white};
-    --disabled-background-color: #{$color--danger-lighten-1};
+    --disabled-background-color: #{$color--danger-400};
   }
   &.button--danger-gray {
     --background-color: #{$color--light-gray-2};

@@ -33,7 +33,7 @@ defineProps({
   display: flex;
   width: 100%;
   padding: 1rem;
-  border: 1px solid $color--tertiary-lighten-3;
+  border: 1px solid $color--tertiary-200;
   border-radius: 0.5rem;
   position: relative;
   &::before {
