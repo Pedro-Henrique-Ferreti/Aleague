@@ -1,5 +1,4 @@
 import type { CompetitionFormat } from '@/types/Competition';
-import type { SelectOption } from '@/types/Select';
 
 type CompetitionFormats = {
   [key: string]: {
