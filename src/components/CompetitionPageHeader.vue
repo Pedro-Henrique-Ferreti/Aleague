@@ -40,12 +40,14 @@ defineProps({
     align-items: center;
     width: var(--image-size);
     height: var(--image-size);
-    margin-right: 1rem;
-    border: 1px solid $color--light-gray-1;
-    border-radius: 0.25rem;
+    padding: 0.375rem;
+    margin-right: 1.25rem;
+    border: 1px solid $color--light-gray-2;
+    border-radius: 0.75em;
+    box-shadow: $shadow--extra-small;
   }
   &__image {
-    width: 89%;
+    width: 100%;
     height: auto;
   }
   &__heading {
@@ -54,7 +56,7 @@ defineProps({
     font-weight: $font-weight--semibold;
   }
   @include for-large-tablet-portrait-up {
-    --image-size: 4rem;
+    --image-size: 4.25rem;
     --font-size: 1.875rem;
 
     margin-bottom: 2rem;
