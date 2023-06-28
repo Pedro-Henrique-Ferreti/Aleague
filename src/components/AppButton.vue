@@ -129,7 +129,7 @@ const buttonClasses = computed(() => ({
 <style lang="scss" scoped>
 .button {
   --color: #{$color--text-darken};
-  --background-color: transparent;
+  --bg-color: transparent;
   --min-width: 7.5rem;
   --height: 2.75rem;
   --border-radius: 0.625rem;
@@ -137,10 +137,10 @@ const buttonClasses = computed(() => ({
   --padding: 0 1rem;
   --icon-size: 1rem;
   --loading-icon-color: #{$color--white};
-  --icon-background-color: transparent;
-  --hover-background-color: transparent;
+  --icon-bg-color: transparent;
+  --hover-bg-color: transparent;
   --disabled-color:#{$color--text-darken};
-  --disabled-background-color: transparent;
+  --disabled-bg-color: transparent;
 
   display: inline-flex;
   gap: var(--gap);
@@ -150,7 +150,7 @@ const buttonClasses = computed(() => ({
   height: var(--height);
   padding: var(--padding);
   color: var(--color);
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   border-radius: var(--border-radius);
   transition:
     background-color $transition--fastest ease,
@@ -159,67 +159,67 @@ const buttonClasses = computed(() => ({
   @include focus-ring;
   &:hover,
   &:active {
-    background-color: var(--hover-background-color);
+    background-color: var(--hover-bg-color);
   }
 
   &.button--disabled {
     pointer-events: none;
     color: var(--disabled-color);
-    background-color: var(--disabled-background-color);
+    background-color: var(--disabled-bg-color);
   }
   &.button--primary {
-    --background-color: #{$color--primary};
-    --icon-background-color: #{$color--primary-400};
+    --bg-color: #{$color--primary};
+    --icon-bg-color: #{$color--primary-400};
     --loading-icon-color: #{$color--text-darken};
-    --hover-background-color: #{$color--primary-400};
+    --hover-bg-color: #{$color--primary-400};
     --disabled-color: #{$color--text};
-    --disabled-background-color: #{$color--primary-300};
+    --disabled-bg-color: #{$color--primary-300};
   }
   &.button--secondary {
-    --background-color: #{$color--secondary};
+    --bg-color: #{$color--secondary};
     --color: #{$color--white};
-    --icon-background-color: #{$color--secondary-400};
-    --hover-background-color: #{$color--secondary-400};
+    --icon-bg-color: #{$color--secondary-400};
+    --hover-bg-color: #{$color--secondary-400};
     --disabled-color: #{$color--white};
-    --disabled-background-color: #{$color--secondary-300};
+    --disabled-bg-color: #{$color--secondary-300};
   }
   &.button--tertiary {
-    --background-color: #{$color--tertiary};
+    --bg-color: #{$color--tertiary};
     --color: #{$color--white};
-    --icon-background-color: #{$color--tertiary-400};
-    --hover-background-color: #{$color--tertiary-400};
+    --icon-bg-color: #{$color--tertiary-400};
+    --hover-bg-color: #{$color--tertiary-400};
     --disabled-color: #{$color--white};
-    --disabled-background-color: #{$color--tertiary-300};
+    --disabled-bg-color: #{$color--tertiary-300};
   }
   &.button--gray {
-    --background-color: #{$color--light-gray-2};
+    --bg-color: #{$color--light-gray-2};
     --loading-icon-color: #{$color--text-darken};
-    --hover-background-color: #{$color--light-gray-1};
+    --hover-bg-color: #{$color--light-gray-1};
     --disabled-color: #{$color--text-lighten};
-    --disabled-background-color: #{$color--light-gray-2};
+    --disabled-bg-color: #{$color--light-gray-2};
   }
   &.button--danger {
-    --background-color: #{$color--danger};
+    --bg-color: #{$color--danger};
     --color: #{$color--white};
-    --hover-background-color: #{$color--danger-400};
+    --hover-bg-color: #{$color--danger-400};
     --disabled-color: #{$color--white};
-    --disabled-background-color: #{$color--danger-400};
+    --disabled-bg-color: #{$color--danger-400};
   }
   &.button--danger-gray {
-    --background-color: #{$color--light-gray-2};
+    --bg-color: #{$color--light-gray-2};
     --color: #{$color--danger};
-    --hover-background-color: #{$color--light-gray-1};
+    --hover-bg-color: #{$color--light-gray-1};
     --disabled-color: #{$color--danger};
-    --disabled-background-color: #{$color--light-gray-2};
+    --disabled-bg-color: #{$color--light-gray-2};
   }
   &.button--outline {
     border: 1px solid $color--light-gray-1;
-    --hover-background-color: #{$color--light-gray-2};
+    --hover-bg-color: #{$color--light-gray-2};
     --disabled-color: #{$color--text};
     &.button--icon-only {
       --color: #{$color--text-lighten};
       &[data-active="true"] {
-        --background-color: #{$color--light-gray-2};
+        --bg-color: #{$color--light-gray-2};
         --color: #{$color--text-darken};
       }
     }
@@ -246,7 +246,7 @@ const buttonClasses = computed(() => ({
       width: 1.75rem;
       height: 1.75rem;
       border-radius: 50%;
-      background-color: var(--icon-background-color);
+      background-color: var(--icon-bg-color);
     }
   }
 
