@@ -137,24 +137,27 @@ const displayedCompetitions = computed(() => competitions.value.filter((competit
   let isValid = true;
 
   if (filter.value.search) {
-    isValid = competition.name.toLowerCase().includes(filter.value.search.toLowerCase());
+    isValid = (
+      isValid &&
+      competition.name.toLowerCase().includes(filter.value.search.toLowerCase())
+    );
   }
 
   if (activeTabId.value !== competitionPageTabs.ALL.id) {
-    isValid = competition.type === activeTabId.value;
+    isValid = (isValid && competition.type === activeTabId.value);
   }
 
   if (filter.value.competitionStatus !== competitionStatusFilter.ALL.id) {
     switch (filter.value.competitionStatus) {
       case competitionStatusFilter.NOT_STARTED.id:
-        isValid = !competition.stepsCompleted.third;
+        isValid = (isValid && !competition.stepsCompleted.third);
         break;
       case competitionStatusFilter.IN_PROGRESS.id:
-        isValid = competition.stepsCompleted.third && competition.progress < 100;
+        isValid = (isValid && competition.stepsCompleted.third && competition.progress < 100);
         break;
       case competitionStatusFilter.COMPLETED.id:
       default:
-        isValid = competition.progress === 100;
+        isValid = (isValid && competition.progress === 100);
         break;
     }
   }
