@@ -36,37 +36,39 @@
       :options="Object.values(competitionStatusFilter)"
     />
   </div>
-  <AppTransition name="fade">
-    <div
-      v-if="isLoading"
-      class="competition-list"
-    >
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-      <SkeletonCard />
-    </div>
-    <CompetitionsListNoData v-else-if="competitions.length === 0" />
-    <CompetitionsListNoResults v-else-if="displayedCompetitions.length === 0" />
-    <div
-      v-else
-      class="competition-list"
-    >
-      <CompetitionCard
-        v-for="competition in displayedCompetitions"
-        :key="competition.id"
-        :id="competition.id"
-        :title="competition.name"
-        :competition-format="competition.type"
-        :teams-count="competition.numberOfTeams"
-        :progress="competition.progress"
-        :steps-completed="competition.stepsCompleted"
-        :created-at="competition.createdAt"
-        :updated-at="competition.updatedAt"
-        @delete="openDeleteCompetitionModal(competition.id, competition.type)"
-      />
-    </div>
-  </AppTransition>
+  <div class="competition-list-wrapper">
+    <AppTransition name="fade">
+      <div
+        v-if="isLoading"
+        class="competition-list"
+      >
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+      <CompetitionsListNoData v-else-if="competitions.length === 0" />
+      <CompetitionsListNoResults v-else-if="displayedCompetitions.length === 0" />
+      <div
+        v-else
+        class="competition-list"
+      >
+        <CompetitionCard
+          v-for="competition in displayedCompetitions"
+          :key="competition.id"
+          :id="competition.id"
+          :title="competition.name"
+          :competition-format="competition.type"
+          :teams-count="competition.numberOfTeams"
+          :progress="competition.progress"
+          :steps-completed="competition.stepsCompleted"
+          :created-at="competition.createdAt"
+          :updated-at="competition.updatedAt"
+          @delete="openDeleteCompetitionModal(competition.id, competition.type)"
+        />
+      </div>
+    </AppTransition>
+  </div>
   <CompetitionModalDelete
     :show="showDeleteCompetitionModal"
     :is-loading="isDeletingCompetition"
@@ -233,10 +235,12 @@ async function deleteCompetition() {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+.competition-list-wrapper {
+  margin-top: 2rem;
+}
 .competition-list {
   display: grid;
   gap: 1rem;
-  margin-top: 2rem;
   @include for-tablet-portrait-up {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem 1rem;
