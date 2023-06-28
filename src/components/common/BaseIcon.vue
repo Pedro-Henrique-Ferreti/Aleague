@@ -20,6 +20,7 @@ import Dice from '@/components/icons/IconDice.vue';
 import DoubleChevron from '@/components/icons/IconDoubleChevron.vue';
 import EnvelopeCheck from '@/components/icons/IconEnvelopeCheck.vue';
 import ErrorCircle from '@/components/icons/IconErrorCircle.vue';
+import Filter from '@/components/icons/IconFilter.vue';
 import Football from '@/components/icons/IconFootball.vue';
 import Gear from '@/components/icons/IconGear.vue';
 import Home from '@/components/icons/IconHome.vue';
@@ -86,6 +87,8 @@ const icon = computed(() => {
       return EnvelopeCheck;
     case 'errorcircle':
       return ErrorCircle;
+    case 'filter':
+      return Filter;
     case 'football':
       return Football;
     case 'gear':

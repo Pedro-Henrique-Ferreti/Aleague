@@ -5,6 +5,14 @@
   >
     <template #controls>
       <AppButton
+        color="outline"
+        aria-label="Exibir filtros"
+        title="Exibir filtros"
+        icon-left="filter"
+        :is-active="showFilters"
+        @click="showFilters = !showFilters"
+      />
+      <AppButton
         icon-left="plus"
         icon-rounded
         :to="{ name: 'create-competition' }"
@@ -13,7 +21,10 @@
       </AppButton>
     </template>
   </TabPanel>
-  <div class="competition-filters">
+  <div
+    v-show="showFilters"
+    class="competition-filters"
+  >
     <AppSearchField
       v-model="filter.search"
       placeholder="Pesquisar por um campeonato"
@@ -112,7 +123,8 @@ async function getCompetitions() {
   }
 }
 
-// Filter values
+// Filters
+const showFilters = ref(false);
 const filter = ref({
   search: '',
   competitionStatus: competitionStatusFilter.ALL.id,
