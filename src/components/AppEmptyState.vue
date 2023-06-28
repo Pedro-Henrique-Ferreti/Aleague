@@ -1,26 +1,29 @@
 <template>
-  <div class="no-content">
+  <div class="empty-state">
     <img
-      class="no-content__image"
-      src="/images/business-analysis.svg"
-      alt="Business Analysis"
+      class="empty-state__image"
+      alt="Empty List"
       draggable="false"
+      :src="imageSrc"
     />
-    <span class="no-content__title">
+    <span class="empty-state__title">
       {{ title }}
     </span>
-    <div class="no-content__body">
+    <div class="empty-state__content">
       <slot />
     </div>
-    <div class="no-content__action-wrapper">
-      <slot name="action">
+    <div
+      v-if="showControls"
+      class="empty-state__controls"
+    >
+      <slot name="controls">
         <AppButton
-          class="no-content__action-button"
+          class="empty-state__button"
           color="primary"
-          :to="actionButtonPath"
-          @click="$emit('action-button-click')"
+          :to="buttonPath"
+          @click="$emit('button-click')"
         >
-          {{ actionButtonText }}
+          {{ buttonText }}
         </AppButton>
       </slot>
     </div>
@@ -31,47 +34,57 @@
 import type { PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
 
-defineEmits(['action-button-click']);
+defineEmits(['button-click']);
 defineProps({
   title: {
     type: String,
     required: true,
   },
-  actionButtonText: {
+  imageSrc: {
+    type: String,
+    required: true,
+  },
+  buttonText: {
     type: String,
     default: '',
   },
-  actionButtonPath: {
+  buttonPath: {
     type: [String, Object] as PropType<RouteLocationRaw>,
     default: '',
+  },
+  showControls: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.no-content {
+.empty-state {
+  --max-width: 28rem;
+  --img-width: 17rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 30rem;
+  max-width: var(--max-width);
   margin: 0 auto;
   text-align: center;
   &__image {
-    width: auto;
-    height: 15.5rem;
+    width: var(--img-width);
+    opacity: 0.9;
   }
   &__title {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 0.5rem;
     color: $color--text-darken;
     font-size: 1.5rem;
     font-weight: $font-weight--semibold;
   }
-  &__action-wrapper {
-    margin-top: 1.5rem;
+  &__controls {
+    margin-top: 2rem;
   }
-  .no-content__action-button {
-    min-width: 18.75rem;
+  .empty-state__button {
+    min-width: 14rem;
   }
 }
 </style>

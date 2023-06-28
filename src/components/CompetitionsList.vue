@@ -47,8 +47,26 @@
         <SkeletonCard />
         <SkeletonCard />
       </div>
-      <CompetitionsListNoData v-else-if="competitions.length === 0" />
-      <CompetitionsListNoResults v-else-if="displayedCompetitions.length === 0" />
+      <AppEmptyState
+        v-else-if="competitions.length === 0"
+        show-controls
+        title="Nenhum campeonato"
+        image-src="/images/football-team.svg"
+        button-text="Criar campeonato"
+        :button-path="{ name: 'create-competition' }"
+      >
+        <p>Você ainda não criou nenhum campeonato</p>
+      </AppEmptyState>
+      <AppEmptyState
+        v-else-if="displayedCompetitions.length === 0"
+        show-controls
+        title="Nenhum resultado"
+        image-src="/images/football-team.svg"
+        button-text="Criar campeonato"
+        :button-path="{ name: 'create-competition' }"
+      >
+        <p>Nenhum resultado foi encontrado para a sua busca</p>
+      </AppEmptyState>
       <div
         v-else
         class="competition-list"
@@ -86,14 +104,13 @@ import { useLeaguesStore } from '@/stores/leaguesStore';
 import { usePlayoffStore } from '@/stores/playoffStore';
 import { competitionPageTabs } from '@/constants/tabPanelTabs';
 import { competitionStatusFilter, competitionFormats } from '@/constants/competitions';
+import AppEmptyState from './AppEmptyState.vue';
 import AppSearchField from './AppSearchField.vue';
 import AppTransition from './AppTransition.vue';
 import TabPanel from './TabPanel.vue';
 import SkeletonCard from './SkeletonCompetitionCard.vue';
 import CompetitionCard from './CompetitionCard.vue';
 import CompetitionModalDelete from './CompetitionModalDelete.vue';
-import CompetitionsListNoData from './CompetitionsListNoData.vue';
-import CompetitionsListNoResults from './CompetitionsListNoResults.vue';
 import AppSelect from './AppSelect.vue';
 
 const { openSnackbarNotification } = useNotificationStore();

@@ -28,14 +28,26 @@
   <div class="team-list-wrapper">
     <AppTransition name="fade">
       <LoadingIndicator v-if="isLoading" />
-      <TeamsListNoData
+      <AppEmptyState
         v-else-if="teams.length === 0"
-        @action-button-click="toggleShowTeamPackModal"
-      />
-      <TeamsListNoResults
+        show-controls
+        title="Não há equipes cadastradas"
+        image-src="/images/business-analysis.svg"
+        button-text="Acessar pacotes de equipe"
+        @button-click="toggleShowTeamPackModal"
+      >
+        <p>Você ainda não criou nenhuma equipe. Você pode fazer isso através dos pacotes de equipe</p>
+      </AppEmptyState>
+      <AppEmptyState
         v-else-if="filteredTeams.length === 0"
-        @action-button-click="toggleShowTeamPackModal"
-      />
+        show-controls
+        title="Nenhuma equipe encontrada"
+        image-src="/images/business-analysis.svg"
+        button-text="Acessar pacotes de equipe"
+        @button-click="toggleShowTeamPackModal"
+      >
+        <p>Parece que a equipe que você está procurando ainda não existe. Que tal criá-la agora?</p>
+      </AppEmptyState>
       <div
         v-else
         class="team-list"
@@ -71,13 +83,12 @@ import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { teamsPageTabs } from '@/constants/tabPanelTabs';
 
+import AppEmptyState from './AppEmptyState.vue';
 import AppSearchField from './AppSearchField.vue';
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TabPanel from './TabPanel.vue';
 import TeamsCard from './TeamsCard.vue';
-import TeamsListNoData from './TeamsListNoData.vue';
-import TeamsListNoResults from './TeamsListNoResults.vue';
 import TeamDetailsModal from './TeamDetailsModal.vue';
 import TeamPackModal from './TeamPackModal.vue';
 
