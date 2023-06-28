@@ -7,7 +7,6 @@ import { defineStore } from 'pinia';
 interface State {
   teams: TeamListItem[];
   teamPacks: TeamPackListItem[];
-  searchBarValue: string;
 }
 
 export const useTeamsStore = defineStore('teams', {
@@ -15,7 +14,6 @@ export const useTeamsStore = defineStore('teams', {
     return {
       teams: [],
       teamPacks: [],
-      searchBarValue: '',
     };
   },
   actions: {

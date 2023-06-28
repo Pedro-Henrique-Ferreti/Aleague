@@ -1,7 +1,6 @@
 <template>
   <TabPanel
     v-model:active-tab-id="activeTabId"
-    class="teams-tab-panel"
     :tabs="Object.values(teamsPageTabs)"
   >
     <template #controls>
@@ -20,29 +19,37 @@
       </AppButton>
     </template>
   </TabPanel>
-  <AppTransition name="fade">
-    <LoadingIndicator v-if="isLoading" />
-    <TeamsListNoData
-      v-else-if="teams.length === 0"
-      @action-button-click="toggleShowTeamPackModal"
+  <div class="team-filters">
+    <AppSearchField
+      v-model="searchBarValue"
+      placeholder="Pesquisar por uma equipe"
     />
-    <TeamsListNoResults
-      v-else-if="filteredTeams.length === 0"
-      @action-button-click="toggleShowTeamPackModal"
-    />
-    <div
-      v-else
-      class="teams-list"
-    >
-      <TeamsCard
-        v-for="team in filteredTeams"
-        :key="team.id"
-        :name="team.name"
-        :is-favorite="team.isFavorite"
-        @click="selectedTeam = team"
+  </div>
+  <div class="team-list-wrapper">
+    <AppTransition name="fade">
+      <LoadingIndicator v-if="isLoading" />
+      <TeamsListNoData
+        v-else-if="teams.length === 0"
+        @action-button-click="toggleShowTeamPackModal"
       />
-    </div>
-  </AppTransition>
+      <TeamsListNoResults
+        v-else-if="filteredTeams.length === 0"
+        @action-button-click="toggleShowTeamPackModal"
+      />
+      <div
+        v-else
+        class="team-list"
+      >
+        <TeamsCard
+          v-for="team in filteredTeams"
+          :key="team.id"
+          :name="team.name"
+          :is-favorite="team.isFavorite"
+          @click="selectedTeam = team"
+        />
+      </div>
+    </AppTransition>
+  </div>
   <TeamPackModal
     :show="showTeamPackModal"
     @close="toggleShowTeamPackModal"
@@ -64,6 +71,7 @@ import { useTeamsStore } from '@/stores/teamsStore';
 import { useNotificationStore } from '@/stores/notificationStore';
 import { teamsPageTabs } from '@/constants/tabPanelTabs';
 
+import AppSearchField from './AppSearchField.vue';
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TabPanel from './TabPanel.vue';
@@ -75,10 +83,11 @@ import TeamPackModal from './TeamPackModal.vue';
 
 const teamsStore = useTeamsStore();
 const { openSnackbarNotification } = useNotificationStore();
-const { teams, searchBarValue } = storeToRefs(teamsStore);
+const { teams } = storeToRefs(teamsStore);
 
 const activeTabId = ref(teamsPageTabs.ALL.id);
 const showTeamPackModal = ref(false);
+const searchBarValue = ref('');
 
 const toggleShowTeamPackModal = useToggle(showTeamPackModal);
 
@@ -123,10 +132,22 @@ const selectedTeam = ref<TeamListItem | null>(null);
 </script>
 
 <style lang="scss" scoped>
-.teams-tab-panel {
-  margin-bottom: 2rem;
+.team-filters {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  @include for-tablet-portrait-up {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @include for-desktop-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-.teams-list {
+.team-list-wrapper {
+  margin-top: 2rem;
+}
+.team-list {
   display: grid;
   gap: 1rem;
   @include for-tablet-portrait-up {
