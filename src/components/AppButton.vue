@@ -4,6 +4,7 @@
     :class="buttonClasses"
     :disabled="buttonIsDisabled"
     :to="to"
+    :data-active="isActive"
     @click="$emit('click')"
   >
     <BaseIcon
@@ -98,6 +99,10 @@ const props = defineProps({
     default: false,
   },
   isLoading: {
+    type: Boolean,
+    default: false,
+  },
+  isActive: {
     type: Boolean,
     default: false,
   },
@@ -213,6 +218,10 @@ const buttonClasses = computed(() => ({
     --disabled-color: #{$color--text};
     &.button--icon-only {
       --color: #{$color--text-lighten};
+      &[data-active="true"] {
+        --background-color: #{$color--light-gray-2};
+        --color: #{$color--text-darken};
+      }
     }
   }
   &.button--icon-only {
@@ -253,6 +262,7 @@ const buttonClasses = computed(() => ({
     width: var(--icon-size);
     height: var(--icon-size);
     fill: var(--color);
+    transition: fill $transition--fastest ease-in-out;
   }
 }
 </style>
