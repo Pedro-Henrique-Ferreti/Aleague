@@ -6,6 +6,7 @@
         <CompetitionPageHeader
           :competition-name="playoff.name"
           :competition-icon="competitionFormats.PLAYOFF.image"
+          :competition-is-completed="playoff.progress === 100"
         />
         <CompetitionDetails />
         <PlayoffStandings />

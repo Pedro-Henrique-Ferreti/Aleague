@@ -1,19 +1,30 @@
 <template>
-  <header class="competition-page-header">
-    <div class="competition-page-header__image-wrapper">
-      <img
-        class="competition-page-header__image"
-        alt="Competition icon"
-        :src="competitionIcon"
-      />
+  <header class="competition-header">
+    <div class="competition-header__content">
+      <div class="competition-header__icon-wrapper">
+        <img
+          class="competition-header__icon"
+          alt="Competition icon"
+          :src="competitionIcon"
+        />
+      </div>
+      <h1 class="competition-header__title">
+        {{ competitionName }}
+      </h1>
     </div>
-    <h1 class="competition-page-header__heading">
-      {{ competitionName }}
-    </h1>
+    <span class="competition-header__status">
+      Status:
+      <AppChip
+        :type="competitionIsCompleted ? 'success' : 'info'"
+        :text="competitionIsCompleted ? 'Campeonato concluído' : 'Campeonato em andamento'"
+      />
+    </span>
   </header>
 </template>
 
 <script lang="ts" setup>
+import AppChip from './AppChip.vue';
+
 defineProps({
   competitionName: {
     type: String,
@@ -23,43 +34,68 @@ defineProps({
     type: String,
     default: '',
   },
+  competitionIsCompleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <style lang="scss" scoped>
-.competition-page-header {
-  --image-size: 3.5rem;
-  --font-size: 1.25rem;
-
+.competition-header {
+  --icon-size: 3.5rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
-  &__image-wrapper {
+  &__content {
+    display: flex;
+    gap: 1rem;
+    @include for-large-tablet-portrait-up {
+      align-items: center;
+      gap: 1.25rem;
+    }
+  }
+  &__icon-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: var(--image-size);
-    height: var(--image-size);
+    width: var(--icon-size);
+    height: var(--icon-size);
     padding: 0.375rem;
-    margin-right: 1.25rem;
     border: 1px solid $color--light-gray-2;
     border-radius: 0.75em;
     box-shadow: $shadow--extra-small;
   }
-  &__image {
+  &__icon {
     width: 100%;
     height: auto;
   }
-  &__heading {
+  &__title {
+    display: flex;
+    align-items: center;
     flex: 1;
-    font-size: var(--font-size);
+    font-size: 1.25rem;
     font-weight: $font-weight--semibold;
+    min-height: var(--icon-size);
+    @include for-large-tablet-portrait-up {
+      min-height: unset;
+      font-size: 1.875rem;
+    }
+  }
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
   @include for-large-tablet-portrait-up {
-    --image-size: 4.25rem;
-    --font-size: 1.875rem;
-
+    --icon-size: 4.25rem;
     margin-bottom: 2rem;
+  }
+  @include for-large-tablet-landscape-up {
+    flex-direction: row;
+    gap: 1.25rem;
   }
 }
 </style>

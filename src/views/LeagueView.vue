@@ -6,6 +6,7 @@
         <CompetitionPageHeader
           :competition-name="league.name"
           :competition-icon="competitionFormats.LEAGUE.image"
+          :competition-is-completed="league.progress === 100"
         />
         <CompetitionDetails />
         <div class="league-panel">
