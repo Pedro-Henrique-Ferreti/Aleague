@@ -34,8 +34,8 @@ import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/C
 import type { League } from '@/types/League';
 import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leaguesStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useLeaguesStore } from '@/stores/leagues';
+import { useNotificationStore } from '@/stores/notification';
 import {
   KEY_LEAGUE,
   KEY_COMPETITION_DETAILS,

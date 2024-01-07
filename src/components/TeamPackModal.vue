@@ -46,8 +46,8 @@
 <script lang="ts" setup>
 import type { TeamPack } from '@/types/TeamPack';
 import { ref, watch } from 'vue';
-import { useTeamsStore } from '@/stores/teamsStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useTeamsStore } from '@/stores/teams';
+import { useNotificationStore } from '@/stores/notification';
 
 import AppModal from './AppModal.vue';
 import AppTransition from './AppTransition.vue';

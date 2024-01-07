@@ -125,7 +125,7 @@
 <script lang="ts" setup>
 import type { LeagueStandingMovement, LeagueTeamStatistics } from '@/types/League';
 import { computed, inject, ref, watch } from 'vue';
-import { useLeaguesStore } from '@/stores/leaguesStore';
+import { useLeaguesStore } from '@/stores/leagues';
 import { KEY_LEAGUE } from '@/constants/injectionKeys';
 import { sortStandings } from '@/helpers/standings';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';

@@ -1,5 +1,5 @@
 import type { NavigationGuard, RouteRecordRaw } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/auth';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import PasswordRecoveryView from '@/views/PasswordRecoveryView.vue';

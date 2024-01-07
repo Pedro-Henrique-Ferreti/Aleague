@@ -20,8 +20,8 @@ import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/C
 import type { PlayoffWithRounds } from '@/types/Playoff';
 import { ref, computed, provide } from 'vue';
 import { useRoute } from 'vue-router';
-import { usePlayoffStore } from '@/stores/playoffStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { usePlayoffStore } from '@/stores/playoff';
+import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 import {
   KEY_PLAYOFF,

@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import type { UpdateUserInfoParams, State } from '@/types/UserStore';
+import type { UpdateUserInfoParams, State } from '@/types/user';
 import type User from '@/types/User';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';

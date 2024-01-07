@@ -47,7 +47,7 @@ import type { TeamListItem } from '@/types/Team';
 import type { LeagueParticipant } from '@/types/League';
 import { computed, ref, watch, type PropType } from 'vue';
 import { useMediaQuery } from '@/utils';
-import { useTeamsStore } from '@/stores/teamsStore';
+import { useTeamsStore } from '@/stores/teams';
 import AppLargeField from './AppLargeField.vue';
 import AppTransition from './AppTransition.vue';
 

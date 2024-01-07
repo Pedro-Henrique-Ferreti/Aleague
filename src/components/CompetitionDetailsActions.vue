@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { ref, inject, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useNotificationStore } from '@/stores/notification';
 import {
   KEY_COMPETITION_DETAILS,
   KEY_RELOAD_COMPETITION,

@@ -81,8 +81,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useAuthStore } from '@/stores/auth';
+import { useNotificationStore } from '@/stores/notification';
 import { DELETE_ACCOUNT_REASONS, COMMENTARY_MAX_LENGTH } from '@/constants/deleteAccount';
 
 import AppTransition from './AppTransition.vue';

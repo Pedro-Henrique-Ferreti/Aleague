@@ -89,8 +89,8 @@ interface SetConfrontationTeamParams {
 import type { PlayoffGame } from '@/types/Playoff';
 import type { GameTeam } from '@/types/Game';
 import { inject, ref, computed } from 'vue';
-import { useNotificationStore } from '@/stores/notificationStore';
-import { usePlayoffStore } from '@/stores/playoffStore';
+import { useNotificationStore } from '@/stores/notification';
+import { usePlayoffStore } from '@/stores/playoff';
 import { KEY_PLAYOFF } from '@/constants/injectionKeys';
 
 import RoundToggle from './CompetitionRoundToggle.vue';

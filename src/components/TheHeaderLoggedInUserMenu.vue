@@ -57,9 +57,9 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
-import { useUserStore } from '@/stores/userStore';
-import { useUserSettingsStore } from '@/stores/userSettingsStore';
+import { useAuthStore } from '@/stores/auth';
+import { useUserStore } from '@/stores/user';
+import { useUserSettingsStore } from '@/stores/userSettings';
 
 const emit = defineEmits(['close']);
 

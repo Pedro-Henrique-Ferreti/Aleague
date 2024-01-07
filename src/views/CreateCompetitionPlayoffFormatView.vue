@@ -11,8 +11,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePlayoffStore } from '@/stores/playoffStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { usePlayoffStore } from '@/stores/playoff';
+import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 
 import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Cookies from 'js-cookie';
-import { useAuthStore } from '@/stores/authStore';
-import { useUserStore } from '@/stores/userStore';
+import { useAuthStore } from '@/stores/auth';
+import { useUserStore } from '@/stores/user';
 import authRoutes from './auth';
 import competitionsRoutes from './competitions';
 import teamsRoutes from './teams';

@@ -78,7 +78,7 @@ import type { PropType } from 'vue';
 import type { ChartConfiguration } from 'chart.js';
 import type { LeagueTeamStatistics } from '@/types/League';
 import { computed, ref, watch } from 'vue';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useNotificationStore } from '@/stores/notification';
 import AppChart from './AppChart.vue';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
 import SkeletonLoader from './SkeletonLeagueStandingsTeamDetails.vue';

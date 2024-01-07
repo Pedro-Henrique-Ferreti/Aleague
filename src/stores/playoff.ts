@@ -1,5 +1,5 @@
 import type { AxiosResponse } from 'axios';
-import type { SavePlayoffGamesParams, UpdatePlayoffRulesParams } from '@/types/PlayoffStore';
+import type { SavePlayoffGamesParams, UpdatePlayoffRulesParams } from '@/types/playoff';
 import type { Playoff, PlayoffWithRounds } from '@/types/Playoff';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';

@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '@/stores/user';
 import { competitionFormats } from '@/constants/competitions';
 
 import BaseModal from './common/BaseModal.vue';

@@ -12,8 +12,8 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useLeaguesStore } from '@/stores/leaguesStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useLeaguesStore } from '@/stores/leagues';
+import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 import CompetitionParticipantsForm from '@/components/CompetitionParticipantsForm.vue';
 

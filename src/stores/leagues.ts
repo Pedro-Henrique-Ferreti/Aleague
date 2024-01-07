@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import type { League, LeagueTeamStatistics } from '@/types/League';
-import type { SaveLeagueGamesParams, UpdateLeagueRulesParams } from '@/types/LeaguesStore';
+import type { SaveLeagueGamesParams, UpdateLeagueRulesParams } from '@/types/leagues';
 import type { LeagueGameweek } from '@/types/League';
 import { defineStore } from 'pinia';
 import axios from '@/helpers/axios';

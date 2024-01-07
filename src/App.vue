@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, type Component } from 'vue';
 import { useRoute } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/auth';
 import LandingLayout from '@/layouts/LandingLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import NotFoundLayout from '@/layouts/NotFoundLayout.vue';

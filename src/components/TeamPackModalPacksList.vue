@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useTeamsStore } from '@/stores/teamsStore';
+import { useTeamsStore } from '@/stores/teams';
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TeamPackCard from './TeamPackCard.vue';

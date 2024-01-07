@@ -31,8 +31,8 @@
 import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { useUserSettingsStore } from '@/stores/userSettingsStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useUserSettingsStore } from '@/stores/userSettings';
+import { useNotificationStore } from '@/stores/notification';
 import AppModal from './AppModal.vue';
 import UserSettingsTabButton from './UserSettingsTabButton.vue';
 import UserSettingsProfile from './UserSettingsProfile.vue';

@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/auth';
 
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';

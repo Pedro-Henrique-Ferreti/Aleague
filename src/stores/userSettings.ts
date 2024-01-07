@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { useAuthStore } from './authStore';
-import { useUserStore } from './userStore';
+import { useAuthStore } from './auth';
+import { useUserStore } from './user';
 
 interface State {
   showModal: boolean;

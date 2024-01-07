@@ -64,8 +64,8 @@
 <script lang="ts" setup>
 import type { LeagueGame, LeagueGameweek } from '@/types/League';
 import { inject, ref } from 'vue';
-import { useNotificationStore } from '@/stores/notificationStore';
-import { useLeaguesStore } from '@/stores/leaguesStore';
+import { useNotificationStore } from '@/stores/notification';
+import { useLeaguesStore } from '@/stores/leagues';
 import { clone } from '@/utils';
 import { KEY_LEAGUE, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
 

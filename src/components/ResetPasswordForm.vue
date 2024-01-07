@@ -46,7 +46,7 @@ import { useRoute } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { required } from '@/helpers/i18nValidators';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/auth';
 import AppTextField from './AppTextField.vue';
 import AuthForm from './AuthForm.vue';
 import AuthHeading from './AuthHeading.vue';

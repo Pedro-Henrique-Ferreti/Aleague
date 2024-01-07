@@ -34,8 +34,8 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leaguesStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useLeaguesStore } from '@/stores/leagues';
+import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 
 import AppCounterField from '@/components/AppCounterField.vue';

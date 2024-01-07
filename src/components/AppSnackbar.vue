@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useNotificationStore } from '@/stores/notification';
 import AppAlert from './AppAlert.vue';
 import AppTransition from './AppTransition.vue';
 

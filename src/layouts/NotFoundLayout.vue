@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useAuthStore } from '@/stores/authStore';
+import { useAuthStore } from '@/stores/auth';
 import DefaultLayout from './DefaultLayout.vue';
 import LandingLayout from './LandingLayout.vue';
 

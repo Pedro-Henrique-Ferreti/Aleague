@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { inject, ref, computed } from 'vue';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useNotificationStore } from '@/stores/notification';
 import {
   KEY_COMPETITION_DETAILS,
   KEY_RELOAD_COMPETITION,

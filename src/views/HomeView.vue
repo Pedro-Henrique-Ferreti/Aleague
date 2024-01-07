@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '@/stores/user';
 import PageHeader from '@/components/PageHeader.vue';
 import HomeCard from '@/components/HomeCard.vue';
 

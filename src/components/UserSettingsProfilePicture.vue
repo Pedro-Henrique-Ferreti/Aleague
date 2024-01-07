@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useUserSettingsStore } from '@/stores/userSettingsStore';
+import { useUserSettingsStore } from '@/stores/userSettings';
 import { PROFILE_PICTURES } from '@/data';
 import SectionHeader from './SectionHeader.vue';
 

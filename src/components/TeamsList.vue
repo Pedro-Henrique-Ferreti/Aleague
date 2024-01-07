@@ -79,8 +79,8 @@ import type { TeamListItem } from '@/types/Team';
 import { ref, onMounted, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useToggle } from '@vueuse/core';
-import { useTeamsStore } from '@/stores/teamsStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useTeamsStore } from '@/stores/teams';
+import { useNotificationStore } from '@/stores/notification';
 import { teamsPageTabs } from '@/constants/tabPanelTabs';
 
 import AppEmptyState from './AppEmptyState.vue';

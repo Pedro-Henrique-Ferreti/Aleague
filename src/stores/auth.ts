@@ -14,7 +14,7 @@ import type User from '@/types/User';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import axios from '@/helpers/axios';
-import { useUserStore } from './userStore';
+import { useUserStore } from './user';
 
 export const useAuthStore = defineStore('auth', {
   state: (): State => {

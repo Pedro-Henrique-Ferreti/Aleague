@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
-import { useUserSettingsStore } from '@/stores/userSettingsStore';
+import { useUserSettingsStore } from '@/stores/userSettings';
 import AppIconButton from './AppIconButton.vue';
 import TheHeaderLoggedInUser from './TheHeaderLoggedInUser.vue';
 import TheHeaderNotificationsModal from './TheHeaderNotificationsModal.vue';

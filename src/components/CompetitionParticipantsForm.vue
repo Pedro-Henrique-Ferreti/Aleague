@@ -68,8 +68,8 @@ import type { RouteLocationRaw } from 'vue-router';
 import type { CompetitionFormat } from '@/types/Competition';
 import type { LeagueParticipant } from '@/types/League';
 import { computed, ref, onMounted, type PropType } from 'vue';
-import { useTeamsStore } from '@/stores/teamsStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useTeamsStore } from '@/stores/teams';
+import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 
 import AppTransition from './AppTransition.vue';

@@ -98,10 +98,10 @@
 <script lang="ts" setup>
 import type { CompetitionFormat, CompetitionListItem } from '@/types/Competition';
 import { ref, computed } from 'vue';
-import { useCompetitionStore } from '@/stores/competitionStore';
-import { useNotificationStore } from '@/stores/notificationStore';
-import { useLeaguesStore } from '@/stores/leaguesStore';
-import { usePlayoffStore } from '@/stores/playoffStore';
+import { useCompetitionStore } from '@/stores/competition';
+import { useNotificationStore } from '@/stores/notification';
+import { useLeaguesStore } from '@/stores/leagues';
+import { usePlayoffStore } from '@/stores/playoff';
 import { competitionPageTabs } from '@/constants/tabPanelTabs';
 import { competitionStatusFilter, competitionFormats } from '@/constants/competitions';
 import AppEmptyState from './AppEmptyState.vue';

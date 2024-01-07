@@ -21,8 +21,8 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useUserStore } from '@/stores/userStore';
-import { useUserSettingsStore } from '@/stores/userSettingsStore';
+import { useUserStore } from '@/stores/user';
+import { useUserSettingsStore } from '@/stores/userSettings';
 import AppTextField from './AppTextField.vue';
 import SectionHeader from './SectionHeader.vue';
 

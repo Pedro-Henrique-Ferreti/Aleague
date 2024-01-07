@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
-import { useUserStore } from '@/stores/userStore';
+import { useUserStore } from '@/stores/user';
 import AppTransition from './AppTransition.vue';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 

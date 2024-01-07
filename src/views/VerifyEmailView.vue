@@ -38,8 +38,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/authStore';
-import { useUserStore } from '@/stores/userStore';
+import { useAuthStore } from '@/stores/auth';
+import { useUserStore } from '@/stores/user';
 
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';

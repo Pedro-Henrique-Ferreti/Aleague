@@ -12,8 +12,8 @@
 <script lang="ts" setup>
 import type { Team } from '@/types/Team';
 import { computed, ref, watch } from 'vue';
-import { useTeamsStore } from '@/stores/teamsStore';
-import { useNotificationStore } from '@/stores/notificationStore';
+import { useTeamsStore } from '@/stores/teams';
+import { useNotificationStore } from '@/stores/notification';
 import AppModal from './AppModal.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 
