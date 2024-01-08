@@ -1,11 +1,13 @@
 import type User from './User';
 
-export interface State {
+// Store types
+export interface StoreState {
   showSplashScreen: boolean,
   accessToken: string | null,
 }
 
-export interface LoginParams {
+// API types
+export interface LoginPayload {
   email: string,
   password: string,
 }
@@ -15,35 +17,21 @@ export interface LoginResponse {
   accessToken: string;
 }
 
-export interface RegisterParams {
+export interface RegisterPayload {
   username: string,
   email: string,
   password: string,
   passwordConfirmation: string,
 }
 
-export interface RegisterResponse {
-  user: User;
-  accessToken: string;
-}
-
-export interface ResetPasswordParams {
+export interface ResetPasswordPayload {
   email: string,
   token: string,
   password: string,
   passwordConfirmation: string,
 }
 
-export interface ValidatePasswordResetTokenParams {
-  email: string,
-  token: string,
-}
-
-export interface ValidatePasswordResetTokenResponse {
-  isValid: boolean;
-}
-
-export interface DeleteUserAccountParams {
+export interface DeleteUserAccountPayload {
   verificationCode: string;
   reason: string;
   commentary: string;

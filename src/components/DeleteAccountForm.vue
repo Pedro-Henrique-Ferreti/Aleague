@@ -84,7 +84,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notification';
 import { DELETE_ACCOUNT_REASONS, COMMENTARY_MAX_LENGTH } from '@/constants/deleteAccount';
-
+import api from '@/api';
 import AppTransition from './AppTransition.vue';
 import AppSelect from './AppSelect.vue';
 import AppTextarea from './AppTextarea.vue';
@@ -125,7 +125,7 @@ async function sendVerificationCode() {
   isSendingCode.value = true;
 
   try {
-    await authStore.sendDeleteAccountVerificationCode();
+    await api.authService.sendDeleteAccountVerificationCode();
 
     activeStep.value = steps.VERIFICATION_CODE;
   } catch (error: any) {
@@ -147,13 +147,13 @@ async function deleteUserAccount() {
   try {
     const { reason, commentary, verificationCode } = deleteAccount.value;
 
-    await authStore.deleteUserAccount({
+    await api.authService.deleteUserAccount({
       verificationCode,
       reason: DELETE_ACCOUNT_REASONS.find(({ id }) => id === reason)?.text || '',
       commentary,
     });
 
-    await authStore.logout();
+    authStore.logout();
 
     router.push({ name: 'goodbye' });
   } catch (error: any) {

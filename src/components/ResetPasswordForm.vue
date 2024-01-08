@@ -46,7 +46,7 @@ import { useRoute } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { required } from '@/helpers/i18nValidators';
-import { useAuthStore } from '@/stores/auth';
+import api from '@/api';
 import AppTextField from './AppTextField.vue';
 import AuthForm from './AuthForm.vue';
 import AuthHeading from './AuthHeading.vue';
@@ -54,7 +54,6 @@ import AuthHeading from './AuthHeading.vue';
 const emit = defineEmits(['password-reset']);
 
 const route = useRoute();
-const authStore = useAuthStore();
 
 const minLenghtValidator = helpers.withMessage(
   'Sua nova senha deve ter ao menos 8 caracteres.',
@@ -95,7 +94,7 @@ async function submitForm() {
   isLoading.value = true;
 
   try {
-    await authStore.resetPassword({
+    await api.authService.resetPassword({
       email: route.query.email as string,
       token: route.query.token as string,
       password: password.value,

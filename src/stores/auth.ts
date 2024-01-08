@@ -1,23 +1,15 @@
-import type { AxiosResponse } from 'axios';
 import type {
-  State,
-  LoginParams,
-  RegisterParams,
-  ResetPasswordParams,
-  ValidatePasswordResetTokenParams,
-  LoginResponse,
-  RegisterResponse,
-  ValidatePasswordResetTokenResponse,
-  DeleteUserAccountParams,
-} from '@/types/AuthStore';
-import type User from '@/types/User';
+  StoreState,
+  LoginPayload,
+  RegisterPayload,
+} from '@/types/Auth';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
-import { axiosInstance } from '@/helpers/axios';
+import api from '@/api';
 import { useUserStore } from './user';
 
 export const useAuthStore = defineStore('auth', {
-  state: (): State => {
+  state: (): StoreState => {
     return {
       showSplashScreen: Boolean(Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE)),
       accessToken: null,
@@ -31,13 +23,10 @@ export const useAuthStore = defineStore('auth', {
     },
   },
   actions: {
-    async login({ email, password }: LoginParams) {
+    async login(payload: LoginPayload) {
       const userStore = useUserStore();
 
-      const { data }: AxiosResponse<LoginResponse> = await axiosInstance.post('/auth/login', {
-        email,
-        password,
-      });
+      const { data } = await api.authService.login(payload);
 
       userStore.user = data.user;
 
@@ -46,60 +35,19 @@ export const useAuthStore = defineStore('auth', {
     logout() {
       this.setAccessToken();
     },
-    async register({ username, email, password, passwordConfirmation }: RegisterParams) {
+    async register(payload: RegisterPayload) {
       const userStore = useUserStore();
 
-      const { data }: AxiosResponse<RegisterResponse> = await axiosInstance.post('/auth/register', {
-        username,
-        email,
-        password,
-        passwordConfirmation,
-      });
+      const { data } = await api.authService.register(payload);
 
       userStore.user = data.user;
 
       this.setAccessToken(data.accessToken);
     },
-    sendEmailVerificationCode() {
-      const { user } = useUserStore();
-
-      return axiosInstance.post('/auth/verify-email/resend', {
-        email: user?.email,
-      });
-    },
-    verifyEmailAddress(code: string) {
-      const { user } = useUserStore();
-
-      return axiosInstance.post('/auth/verify-email', {
-        email: user?.email,
-        code,
-      });
-    },
-    sendPasswordRecoveryEmail(email: string) {
-      return axiosInstance.post('/auth/password/forgot', {
-        email,
-      });
-    },
-    resetPassword({ email, token, password, passwordConfirmation }: ResetPasswordParams) {
-      return axiosInstance.post('/auth/password/reset', {
-        email,
-        token,
-        password,
-        passwordConfirmation,
-      });
-    },
-    async validatePasswordResetToken({ email, token }: ValidatePasswordResetTokenParams) {
-      const { data }: AxiosResponse<ValidatePasswordResetTokenResponse> = await axiosInstance.post('/auth/password/validate-token', {
-        email,
-        token,
-      });
-
-      return data;
-    },
     async getAuthenticatedUser() {
       const userStore = useUserStore();
 
-      const { data: user }: AxiosResponse<User> = await axiosInstance.get('/auth/me');
+      const { data: user } = await api.authService.getAuthenticatedUser();
 
       userStore.user = user;
     },
@@ -127,16 +75,6 @@ export const useAuthStore = defineStore('auth', {
       } finally {
         this.showSplashScreen = false;
       }
-    },
-    sendDeleteAccountVerificationCode() {
-      return axiosInstance.post('/auth/delete-account/send-verification-code');
-    },
-    deleteUserAccount({ verificationCode, reason, commentary }: DeleteUserAccountParams) {
-      return axiosInstance.post('/auth/delete-account', {
-        reason,
-        code: verificationCode,
-        comment: commentary,
-      });
     },
   },
 });

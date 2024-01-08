@@ -38,15 +38,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
 import { useUserStore } from '@/stores/user';
-
+import api from '@/api';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 import AppCodeField from '@/components/AppCodeField.vue';
 
 const router = useRouter();
-const authStore = useAuthStore();
 const userStore = useUserStore();
 
 const errorMessage = ref('');
@@ -58,7 +56,7 @@ async function resendCode() {
   isSendingCode.value = true;
 
   try {
-    await authStore.sendEmailVerificationCode();
+    await api.authService.sendVerificationCodeEmail(userStore.user.email);
   } catch (error) {
     errorMessage.value = 'Falha ao enviar o código de verificação. Por favor, tente novamente.';
   } finally {
@@ -70,7 +68,10 @@ async function verifyEmailAddress() {
   isLoading.value = true;
 
   try {
-    await authStore.verifyEmailAddress(verificationCode.value);
+    await api.authService.verifyEmailAddress({
+      email: userStore.user.email,
+      code: verificationCode.value,
+    });
 
     router.push({ name: 'home' });
   } catch (error: any) {

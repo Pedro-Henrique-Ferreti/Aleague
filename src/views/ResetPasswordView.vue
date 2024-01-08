@@ -19,8 +19,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useAuthStore } from '@/stores/auth';
-
+import api from '@/api';
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ResetPasswordForm from '@/components/ResetPasswordForm.vue';
@@ -28,7 +27,6 @@ import ResetPasswordSuccess from '@/components/ResetPasswordSuccess.vue';
 import ResetPasswordExpiredLink from '@/components/ResetPasswordExpiredLink.vue';
 
 const route = useRoute();
-const authStore = useAuthStore();
 
 const showSuccessMessage = ref(false);
 const showLinkExpiredMessage = ref(false);
@@ -42,9 +40,9 @@ async function validateEmailAndToken() {
       throw new Error();
     }
 
-    const { isValid } = await authStore.validatePasswordResetToken({ email, token });
+    const { data } = await api.authService.validatePasswordResetToken({ email, token });
 
-    if (!isValid) {
+    if (!data.isValid) {
       throw new Error();
     }
   } catch(error) {

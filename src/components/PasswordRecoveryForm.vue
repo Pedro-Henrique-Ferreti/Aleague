@@ -40,14 +40,12 @@
 import { ref, computed } from 'vue';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValidator } from '@/helpers/i18nValidators';
-import { useAuthStore } from '@/stores/auth';
+import api from '@/api';
 import AppTextField from './AppTextField.vue';
 import AuthHeading from './AuthHeading.vue';
 import AuthForm from './AuthForm.vue';
 
 const emit = defineEmits(['email-sent']);
-
-const authStore = useAuthStore();
 
 const email = ref('');
 const isLoading = ref(false);
@@ -74,7 +72,7 @@ async function submitForm() {
   isLoading.value = true;
 
   try {
-    await authStore.sendPasswordRecoveryEmail(email.value);
+    await api.authService.sendPasswordRecoveryEmail(email.value);
 
     emit('email-sent');
   } catch (error: any) {
