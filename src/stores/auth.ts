@@ -6,50 +6,38 @@ import type {
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import api from '@/api';
-import { useUserStore } from './user';
 
 export const useAuthStore = defineStore('auth', {
   state: (): StoreState => {
     return {
       showSplashScreen: Boolean(Cookies.get(import.meta.env.VITE_ACCESS_TOKEN_COOKIE)),
       accessToken: null,
+      user: null,
     };
   },
   getters: {
-    userIsAuthenticated(state) {
-      const userStore = useUserStore();
-
-      return !!(state.accessToken && userStore.user);
-    },
+    userIsAuthenticated: (state) => !!(state.accessToken && state.user),
   },
   actions: {
     async login(payload: LoginPayload) {
-      const userStore = useUserStore();
-
       const { data } = await api.authService.login(payload);
 
-      userStore.user = data.user;
-
+      this.user = data.user;
       this.setAccessToken(data.accessToken);
     },
     logout() {
       this.setAccessToken();
     },
     async register(payload: RegisterPayload) {
-      const userStore = useUserStore();
-
       const { data } = await api.authService.register(payload);
 
-      userStore.user = data.user;
-
+      this.user = data.user;
       this.setAccessToken(data.accessToken);
     },
     async getAuthenticatedUser() {
-      const userStore = useUserStore();
-
       const { data: user } = await api.authService.getAuthenticatedUser();
 
-      userStore.user = user;
+      this.user = user;
     },
     setAccessToken(accessToken?: string) {
       if (!accessToken) {

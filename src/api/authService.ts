@@ -1,16 +1,23 @@
-import type User from '@/types/User';
 import type {
   LoginPayload,
   LoginResponse,
   RegisterPayload,
   ResetPasswordPayload,
   DeleteUserAccountPayload,
+  User,
 } from '@/types/Auth';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class AuthService {
   static getAuthenticatedUser() {
     return axiosInstance.get<User>('/auth/me');
+  }
+
+  static updateUserInfo(payload: { username: string; avatar: string; }) {
+    return axiosInstance.patch<User>('/auth/me', {
+      username: payload.username,
+      avatar: payload.avatar,
+    });
   }
 
   static login(payload: LoginPayload) {

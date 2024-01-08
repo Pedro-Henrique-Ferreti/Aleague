@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
+import api from '@/api';
 import { useAuthStore } from './auth';
-import { useUserStore } from './user';
 
 interface State {
   showModal: boolean;
@@ -22,7 +22,7 @@ export const useUserSettingsStore = defineStore('userSettings', {
   },
   getters: {
     profileHasUnsavedChanges(): boolean {
-      const { user } = useUserStore();
+      const { user } = useAuthStore();
       const { selectedAvatar, username } = this.profile;
 
       const selectedAvatarIsUnsaved = !!(selectedAvatar && selectedAvatar !== user?.avatar);
@@ -41,17 +41,19 @@ export const useUserSettingsStore = defineStore('userSettings', {
       this.showModal = false;
     },
     setProfileInfo() {
-      const { user } = useUserStore();
+      const { user } = useAuthStore();
 
       this.profile.selectedAvatar = user?.avatar;
       this.profile.username = user?.username;
     },
     async saveProfileInfo() {
-      const { updateUserInfo } = useUserStore();
+      const { user } = useAuthStore();
 
-      await updateUserInfo({
-        username: this.profile.username,
-        avatar: this.profile.selectedAvatar,
+      if (!user) return;
+
+      await api.authService.updateUserInfo({
+        username: this.profile.username || user.username,
+        avatar: this.profile.selectedAvatar || user.avatar,
       });
 
       const { getAuthenticatedUser } = useAuthStore();

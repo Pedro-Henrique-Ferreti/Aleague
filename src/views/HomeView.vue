@@ -42,11 +42,11 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import PageHeader from '@/components/PageHeader.vue';
 import HomeCard from '@/components/HomeCard.vue';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const greetingMessage = computed(() => {
   const curentHour = new Date().getHours();
@@ -58,7 +58,7 @@ const greetingMessage = computed(() => {
     greeting = 'Boa tarde';
   }
 
-  return `${greeting}, ${userStore.user?.username}`;
+  return `${greeting}, ${authStore.user?.username}`;
 });
 </script>
 

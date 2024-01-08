@@ -1,7 +1,7 @@
 <template>
   <main class="delete-account container-extra-small">
     <h1 class="delete-account__title text-darken">
-      Sentimos muito em ver você partir, {{ userStore.user?.username }}
+      Sentimos muito em ver você partir, {{ authStore.user?.username }}
     </h1>
     <img
       class="delete-account__image"
@@ -27,11 +27,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { useUserSettingsStore } from '@/stores/userSettings';
 import DeleteAccountForm from '@/components/DeleteAccountForm.vue';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 const { openModal: openUserSettingsModal } = useUserSettingsStore();
 </script>
 

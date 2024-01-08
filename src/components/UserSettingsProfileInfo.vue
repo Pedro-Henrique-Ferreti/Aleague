@@ -21,12 +21,12 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { useUserSettingsStore } from '@/stores/userSettings';
 import AppTextField from './AppTextField.vue';
 import SectionHeader from './SectionHeader.vue';
 
-const { user } = useUserStore();
+const { user } = useAuthStore();
 const userSettingsStore = useUserSettingsStore();
 
 const { profile } = storeToRefs(userSettingsStore);

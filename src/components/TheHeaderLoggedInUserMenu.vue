@@ -12,7 +12,7 @@
           class="header-user-menu__avatar-image"
           alt="User profile picture"
           draggable="false"
-          :src="userStore.user?.avatar"
+          :src="authStore.user?.avatar"
         />
         <span class="header-user-menu__edit-avatar-button-icon-wrapper">
           <BaseIcon
@@ -22,7 +22,7 @@
         </span>
       </button>
       <span class="header-user-menu__name">
-        {{ userStore.user?.username }}
+        {{ authStore.user?.username }}
       </span>
     </div>
     <div class="header-user-menu__info">
@@ -32,7 +32,7 @@
           icon="envelope-check"
         />
         <span class="header-user-menu__info-text">
-          {{ userStore.user?.email }}
+          {{ authStore.user?.email }}
         </span>
       </div>
       <div class="header-user-menu__info-item">
@@ -58,25 +58,21 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import { useUserStore } from '@/stores/user';
 import { useUserSettingsStore } from '@/stores/userSettings';
 
 const emit = defineEmits(['close']);
 
 const router = useRouter();
-const userStore = useUserStore();
 const { openModal: openUserSettingsModal } = useUserSettingsStore();
-const { logout } = useAuthStore();
+const authStore = useAuthStore();
 
 function logoutUser() {
-  logout();
-
+  authStore.logout();
   router.push({ name: 'landing' });
 }
 
 function handleEditUserAvatarClick() {
   openUserSettingsModal();
-
   emit('close');
 }
 </script>

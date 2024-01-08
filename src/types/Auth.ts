@@ -1,9 +1,18 @@
-import type User from './User';
+export interface User {
+  id: string,
+  username: string,
+  email: string,
+  emailVerifiedAt: string | null,
+  avatar: string,
+  createdAt: string,
+  updatedAt: string,
+}
 
 // Store types
 export interface StoreState {
   showSplashScreen: boolean,
   accessToken: string | null,
+  user: User | null,
 }
 
 // API types

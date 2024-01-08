@@ -53,15 +53,12 @@ import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { required, email as emailValidator } from '@/helpers/i18nValidators';
 import { useAuthStore } from '@/stores/auth';
-import { useUserStore } from '@/stores/user';
-
 import AppTextField from '@/components/AppTextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
-const userStore = useUserStore();
 
 const email = ref('john.doe@gmail.com');
 const password = ref('safe_password');
@@ -95,7 +92,7 @@ async function submitForm() {
       password: password.value,
     });
 
-    if (!userStore.user?.emailVerifiedAt) {
+    if (!authStore.user?.emailVerifiedAt) {
       router.push({ name: 'verify-email' });
       return;
     }

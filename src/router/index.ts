@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Cookies from 'js-cookie';
 import { useAuthStore } from '@/stores/auth';
-import { useUserStore } from '@/stores/user';
 import authRoutes from './auth';
 import competitionsRoutes from './competitions';
 import teamsRoutes from './teams';
@@ -23,8 +22,7 @@ const router = createRouter({
       component: LandingView,
       meta: { layout: 'landing' },
       beforeEnter: () => {
-        const { userIsAuthenticated } = useAuthStore();
-        const { user } = useUserStore();
+        const { userIsAuthenticated, user } = useAuthStore();
 
         if (userIsAuthenticated && !user?.emailVerifiedAt) {
           return { name: 'verify-email' };

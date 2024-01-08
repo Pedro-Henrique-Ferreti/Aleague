@@ -1,5 +1,5 @@
 <template>
-  <AuthHeading :subtitle="userStore.user?.email">
+  <AuthHeading :subtitle="authStore.user?.email">
     Verifique seu email
   </AuthHeading>
   <AuthForm
@@ -38,14 +38,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import api from '@/api';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
 import AppCodeField from '@/components/AppCodeField.vue';
 
 const router = useRouter();
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const errorMessage = ref('');
 const verificationCode = ref('');
@@ -53,10 +53,12 @@ const isLoading = ref(false);
 const isSendingCode = ref(false);
 
 async function resendCode() {
+  if (!authStore.user) return;
+
   isSendingCode.value = true;
 
   try {
-    await api.authService.sendVerificationCodeEmail(userStore.user.email);
+    await api.authService.sendVerificationCodeEmail(authStore.user.email);
   } catch (error) {
     errorMessage.value = 'Falha ao enviar o código de verificação. Por favor, tente novamente.';
   } finally {
@@ -65,11 +67,13 @@ async function resendCode() {
 }
 
 async function verifyEmailAddress() {
+  if (!authStore.user) return;
+
   isLoading.value = true;
 
   try {
     await api.authService.verifyEmailAddress({
-      email: userStore.user.email,
+      email: authStore.user.email,
       code: verificationCode.value,
     });
 

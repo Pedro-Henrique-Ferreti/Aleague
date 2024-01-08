@@ -13,7 +13,7 @@
             class="success-modal__image"
           />
           <span class="success-modal__title">
-            Muito bem, {{ userStore.user?.username }}!
+            Muito bem, {{ authStore.user?.username }}!
           </span>
           <p class="success-modal__message">
             Seu campeonato foi criado com sucesso.
@@ -32,14 +32,14 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { competitionFormats } from '@/constants/competitions';
 
 import BaseModal from './common/BaseModal.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const props = defineProps({
   show: {

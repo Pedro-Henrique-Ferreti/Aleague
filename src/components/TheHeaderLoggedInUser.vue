@@ -9,13 +9,13 @@
       >
         <div class="header-user__button-content">
           <span class="header-user__name">
-            {{ userStore.user?.username }}
+            {{ authStore.user?.username }}
           </span>
           <img
             class="header-user__avatar"
             alt="User profile picture"
             draggable="false"
-            :src="userStore.user?.avatar"
+            :src="authStore.user?.avatar"
           />
         </div>
         <BaseIcon
@@ -38,11 +38,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
-import { useUserStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import AppTransition from './AppTransition.vue';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const showMenu = ref(false);
 </script>
