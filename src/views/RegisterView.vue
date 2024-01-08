@@ -61,7 +61,7 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
-import { required, email as emailValidator } from '@/helpers/i18nValidators';
+import { requiredValidator, emailValidator } from '@/helpers/validators';
 import { useAuthStore } from '@/stores/auth';
 
 import AppTextField from '@/components/AppTextField.vue';
@@ -82,19 +82,19 @@ const errorMessage = ref('');
 
 const rules = computed(() => ({
   username: {
-    required,
+    required: requiredValidator,
     minLength: helpers.withMessage('O nome de usuário deve ter ao menos 6 caracteres.', minLength(6)),
   },
   email: {
-    required,
+    required: requiredValidator,
     email: emailValidator,
   },
   password: {
-    required,
+    required: requiredValidator,
     minLength: minLenghtValidator,
   },
   passwordConfirmation: {
-    required,
+    required: requiredValidator,
     minLength: minLenghtValidator,
     sameAsRef: helpers.withMessage('As senhas informadas não são iguais.', sameAs(password)),
   },

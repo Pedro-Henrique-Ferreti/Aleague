@@ -51,7 +51,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
-import { required, email as emailValidator } from '@/helpers/i18nValidators';
+import { requiredValidator, emailValidator } from '@/helpers/validators';
 import { useAuthStore } from '@/stores/auth';
 import AppTextField from '@/components/AppTextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
@@ -67,10 +67,10 @@ const errorMessage = ref('');
 
 const rules = computed(() => ({
   email: {
-    required,
+    required: requiredValidator,
     email: emailValidator,
   },
-  password: { required },
+  password: { required: requiredValidator },
 }));
 
 const v$ = useVuelidate(rules, { email, password }, { $autoDirty: true });

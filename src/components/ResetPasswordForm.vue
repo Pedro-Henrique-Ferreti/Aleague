@@ -45,7 +45,7 @@ import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
-import { required } from '@/helpers/i18nValidators';
+import { requiredValidator } from '@/helpers/validators';
 import api from '@/api';
 import AppTextField from './AppTextField.vue';
 import AuthForm from './AuthForm.vue';
@@ -67,11 +67,11 @@ const errorMessage = ref('');
 
 const rules = computed(() => ({
   password: {
-    required,
+    required: requiredValidator,
     minLength: minLenghtValidator,
   },
   passwordConfirmation: {
-    required,
+    required: requiredValidator,
     minLength: minLenghtValidator,
     sameAsRef: helpers.withMessage('As senhas informadas não são iguais.', sameAs(password)),
   },

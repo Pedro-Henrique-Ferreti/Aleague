@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import useVuelidate from '@vuelidate/core';
-import { required, email as emailValidator } from '@/helpers/i18nValidators';
+import { requiredValidator, emailValidator } from '@/helpers/validators';
 import api from '@/api';
 import AppTextField from './AppTextField.vue';
 import AuthHeading from './AuthHeading.vue';
@@ -53,7 +53,7 @@ const errorMessage = ref('');
 
 const rules = computed(() => ({
   email: {
-    required,
+    required: requiredValidator,
     email: emailValidator,
   },
 }));
