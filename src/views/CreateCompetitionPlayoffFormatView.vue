@@ -11,14 +11,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePlayoffStore } from '@/stores/playoff';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
-
+import api from '@/api';
 import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
-const { getPlayoffById, updatePlayoff } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -44,9 +42,9 @@ async function getPlayoff() {
   isLoadingPlayoff.value = true;
 
   try {
-    const { name } = await getPlayoffById(playoff.value.id);
+    const { data } = await api.playoffService.getPlayoffById(playoff.value.id);
 
-    playoff.value.name = name;
+    playoff.value.name = data.name;
   } catch(error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -64,7 +62,7 @@ async function handleSubmit() {
   isSavingPlayoff.value = true;
 
   try {
-    await updatePlayoff({
+    await api.playoffService.updatePlayoff({
       id: playoff.value.id,
       name: playoff.value.name,
     });

@@ -20,7 +20,6 @@ import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/C
 import type { PlayoffWithRounds } from '@/types/Playoff';
 import { ref, computed, provide } from 'vue';
 import { useRoute } from 'vue-router';
-import { usePlayoffStore } from '@/stores/playoff';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 import {
@@ -32,7 +31,7 @@ import {
   KEY_UPDATE_COMPETITION,
   KEY_RESET_COMPETITION_GAMES,
 } from '@/constants/injectionKeys';
-
+import api from '@/api';
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import CompetitionPageHeader from '@/components/CompetitionPageHeader.vue';
@@ -40,13 +39,6 @@ import CompetitionDetails from '@/components/CompetitionDetails.vue';
 import PlayoffStandings from '@/components/PlayoffStandings.vue';
 
 const route = useRoute();
-const {
-  getPlayoffById,
-  restartPlayoff,
-  updatePlayoff,
-  resetPlayoffGames,
-  deletePlayoff,
-} = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // Playoff data
@@ -71,7 +63,9 @@ async function getPlayoff({ showLoader }: ReloadCompetitionParams = { showLoader
   isLoadingPlayoff.value = showLoader as boolean;
 
   try {
-    playoff.value = await getPlayoffById(route.params.id as string);
+    const { data } = await api.playoffService.getPlayoffById(route.params.id as string);
+
+    playoff.value = data;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -84,12 +78,12 @@ async function getPlayoff({ showLoader }: ReloadCompetitionParams = { showLoader
 
 // Restart playoff
 function restartCompetition() {
-  return restartPlayoff(playoff.value?.id || '');
+  return api.playoffService.restartPlayoff(playoff.value?.id || '');
 }
 
 // Update playoff
 function updateCompetition({ name }: UpdateCompetitionParams) {
-  return updatePlayoff({
+  return api.playoffService.updatePlayoff({
     id: playoff.value?.id || '',
     name,
   });
@@ -97,12 +91,12 @@ function updateCompetition({ name }: UpdateCompetitionParams) {
 
 // Reset playoff games
 function resetCompetitionGames() {
-  return resetPlayoffGames(playoff.value?.id || '');
+  return api.playoffService.resetPlayoffGames(playoff.value?.id || '');
 }
 
 // Delete playoff
 function deleteCompetition() {
-  return deletePlayoff(playoff.value?.id || '');
+  return api.playoffService.deletePlayoff(playoff.value?.id || '');
 }
 
 // Provided values

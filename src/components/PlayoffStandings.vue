@@ -90,16 +90,14 @@ import type { PlayoffGame } from '@/types/Playoff';
 import type { GameTeam } from '@/types/Game';
 import { inject, ref, computed } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
-import { usePlayoffStore } from '@/stores/playoff';
 import { KEY_PLAYOFF } from '@/constants/injectionKeys';
-
+import api from '@/api';
 import RoundToggle from './CompetitionRoundToggle.vue';
 import RoundHeader from './PlayoffRoundHeader.vue';
 import PlayoffCard from './PlayoffCard.vue';
 import MatchesControls from './CompetitionMatchesControls.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
-const { savePlayoffGames } = usePlayoffStore();
 
 // Injected values
 const playoff = inject(KEY_PLAYOFF);
@@ -263,7 +261,7 @@ async function saveGames() {
 
     if (updatedGames.length < 1) return;
 
-    await savePlayoffGames({
+    await api.playoffService.savePlayoffGames({
       id: playoff.value.id,
       games: updatedGames,
     });

@@ -44,3 +44,15 @@ export interface PlayoffRound {
 export interface PlayoffWithRounds extends Playoff {
   rounds: PlayoffRound[];
 }
+
+// API types
+export interface UpdatePlayoffRulesPayload {
+  id: string;
+  numberOfLegs: 1 | 2;
+  numberOfTeams: number;
+}
+
+export interface SavePlayoffGamesPayload {
+  id: string;
+  games: PlayoffGame[];
+}

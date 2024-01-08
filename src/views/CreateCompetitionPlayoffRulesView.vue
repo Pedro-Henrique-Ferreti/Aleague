@@ -39,11 +39,10 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePlayoffStore } from '@/stores/playoff';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
 import { PARTICIPANTS_BY_ROUND } from '@/constants/playoffs';
-
+import api from '@/api';
 import AppCounterField from '@/components/AppCounterField.vue';
 import AppSwitch from '@/components/AppSwitch.vue';
 import CompetitionRulesForm from '@/components/CompetitionRulesForm.vue';
@@ -51,7 +50,6 @@ import CompetitionRulesFormRow from '@/components/CompetitionRulesFormRow.vue';
 import CompetitionRulesFormSection from '@/components/CompetitionRulesFormSection.vue';
 
 const router = useRouter();
-const { getPlayoffById, updatePlayoffRules } = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -82,13 +80,13 @@ async function getPlayoffData() {
   isLoadingPlayoff.value = true;
 
   try {
-    const { name, rules } = await getPlayoffById(playoff.value.id);
+    const { data } = await api.playoffService.getPlayoffById(playoff.value.id);
 
-    playoff.value.name = name;
+    playoff.value.name = data.name;
 
-    if (rules) {
-      playoff.value.hasTwoLegs = rules.numberOfLegs === 2;
-      playoff.value.numberOfRounds = rules.numberOfRounds || 1;
+    if (data.rules) {
+      playoff.value.hasTwoLegs = data.rules.numberOfLegs === 2;
+      playoff.value.numberOfRounds = data.rules.numberOfRounds || 1;
     }
   } catch (error: any) {
     openSnackbarNotification({
@@ -107,7 +105,7 @@ async function savePlayoff() {
   isSavingPlayoff.value = true;
 
   try {
-    await updatePlayoffRules({
+    await api.playoffService.updatePlayoffRules({
       id: playoff.value.id,
       numberOfTeams: numberOfParticipants.value || PARTICIPANTS_BY_ROUND[0].numberOfParticipants,
       numberOfLegs: (playoff.value.hasTwoLegs) ? 2 : 1,

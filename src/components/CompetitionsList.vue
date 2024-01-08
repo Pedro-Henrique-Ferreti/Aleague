@@ -99,7 +99,6 @@
 import type { CompetitionFormat, CompetitionListItem } from '@/types/Competition';
 import { ref, computed } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
-import { usePlayoffStore } from '@/stores/playoff';
 import { competitionPageTabs } from '@/constants/tabPanelTabs';
 import { competitionStatusFilter, competitionFormats } from '@/constants/competitions';
 import api from '@/api';
@@ -114,7 +113,6 @@ import CompetitionCard from './CompetitionCard.vue';
 import CompetitionModalDelete from './CompetitionModalDelete.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
-const { deletePlayoff } = usePlayoffStore();
 
 const activeTabId = ref(competitionPageTabs.ALL.id);
 
@@ -218,7 +216,7 @@ async function deleteCompetition() {
         await api.leagueService.deleteLeague(id);
         break;
       case competitionFormats.PLAYOFF.value:
-        await deletePlayoff(id);
+        await api.playoffService.deletePlayoff(id);
         break;
       default:
         throw new Error('Invalid format');
