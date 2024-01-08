@@ -34,7 +34,6 @@ import type { ReloadCompetitionParams, UpdateCompetitionParams } from '@/types/C
 import type { League } from '@/types/League';
 import { provide, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leagues';
 import { useNotificationStore } from '@/stores/notification';
 import {
   KEY_LEAGUE,
@@ -47,7 +46,7 @@ import {
 } from '@/constants/injectionKeys';
 import { leaguePanelTabs } from '@/constants/tabPanelTabs';
 import { competitionFormats } from '@/constants/competitions';
-
+import api from '@/api';
 import AppTransition from '@/components/AppTransition.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TabPanel from '@/components/TabPanel.vue';
@@ -57,13 +56,6 @@ import LeagueStandings from '@/components/LeagueStandings.vue';
 import LeagueMatches from '@/components/LeagueMatches.vue';
 
 const route = useRoute();
-const {
-  getLeagueById,
-  updateLeague,
-  restartLeague,
-  resetLeagueStandings,
-  deleteLeague,
-} = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 // League data
@@ -91,7 +83,9 @@ async function getLeague({ showLoader }: ReloadCompetitionParams = { showLoader:
   isLoadingLeague.value = showLoader as boolean;
 
   try {
-    league.value = await getLeagueById(route.params.id as string);
+    const { data } = await api.leagueService.getLeagueById(route.params.id as string);
+
+    league.value = data;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -104,7 +98,7 @@ async function getLeague({ showLoader }: ReloadCompetitionParams = { showLoader:
 
 // Update league
 function updateCompetition({ name }: UpdateCompetitionParams) {
-  return updateLeague({
+  return api.leagueService.updateLeague({
     id: league.value?.id || '',
     name,
   });
@@ -112,17 +106,17 @@ function updateCompetition({ name }: UpdateCompetitionParams) {
 
 // Restart league
 function restartCompetition() {
-  return restartLeague(league.value?.id || '');
+  return api.leagueService.restartLeague(league.value?.id || '');
 }
 
 // Reset league standings
 function resetCompetitionStandings() {
-  return resetLeagueStandings(league.value?.id || '');
+  return api.leagueService.resetLeagueStandings(league.value?.id || '');
 }
 
 // Delete league
 function deleteCompetition() {
-  return deleteLeague(league.value?.id || '');
+  return api.leagueService.deleteLeague(league.value?.id || '');
 }
 
 // Provided values

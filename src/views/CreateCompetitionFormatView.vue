@@ -10,15 +10,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leagues';
 import { usePlayoffStore } from '@/stores/playoff';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
-
+import api from '@/api';
 import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
-const leaguesStore = useLeaguesStore();
 const playoffStore = usePlayoffStore();
 const { openSnackbarNotification } = useNotificationStore();
 
@@ -54,13 +52,13 @@ async function handleSubmit() {
 }
 
 async function createLeague() {
-  const leagueId = await leaguesStore.createLeague({
+  const { data }  = await api.leagueService.createLeague({
     name: league.value.name,
   });
 
   router.push({
     name: 'create-league-rules',
-    params: { id: leagueId },
+    params: { id: data.id },
   });
 }
 

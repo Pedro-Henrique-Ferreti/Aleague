@@ -12,12 +12,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useLeaguesStore } from '@/stores/leagues';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
+import api from '@/api';
 import CompetitionParticipantsForm from '@/components/CompetitionParticipantsForm.vue';
 
-const { getLeagueById, addLeagueTeams } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -42,10 +41,10 @@ async function getLeagueData() {
   isLoadingLeague.value = true;
 
   try {
-    const { name, rules } = await getLeagueById(league.value.id);
+    const { data } = await api.leagueService.getLeagueById(league.value.id);
 
-    league.value.name = name;
-    league.value.numberOfTeams = rules?.numberOfTeams || 0;
+    league.value.name = data.name;
+    league.value.numberOfTeams = data.rules?.numberOfTeams || 0;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -58,6 +57,6 @@ async function getLeagueData() {
 
 // Save data
 async function saveLeagueParticipants(participantsIds: string[]) {
-  await addLeagueTeams(league.value.id, participantsIds);
+  await api.leagueService.addLeagueTeams(league.value.id, participantsIds);
 }
 </script>

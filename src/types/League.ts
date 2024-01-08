@@ -77,3 +77,19 @@ export interface LeagueTeamStatistics {
   }[];
 	completedGames: LeagueGame[];
 }
+
+// API types
+export interface UpdateLeagueRulesPayload {
+  id: string;
+  numberOfTeams: number;
+  awayGames: boolean;
+}
+
+export interface SaveLeagueGamesPayload {
+  leagueId: string;
+  games: {
+    id: string;
+    homeTeamScore: number;
+    awayTeamScore: number;
+  }[];
+}

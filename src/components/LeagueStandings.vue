@@ -125,14 +125,12 @@
 <script lang="ts" setup>
 import type { LeagueStandingMovement, LeagueTeamStatistics } from '@/types/League';
 import { computed, inject, ref, watch } from 'vue';
-import { useLeaguesStore } from '@/stores/leagues';
 import { KEY_LEAGUE } from '@/constants/injectionKeys';
 import { sortStandings } from '@/helpers/standings';
+import api from '@/api';
 import LeagueStandingsRecentGame from './LeagueStandingsRecentGame.vue';
 import LeagueStandingsButtonExpand from './LeagueStandingsButtonExpand.vue';
 import LeagueStandingsTeamDetails from './LeagueStandingsTeamDetails.vue';
-
-const { getTeamStatistics } = useLeaguesStore();
 
 // Injected values
 const league = inject(KEY_LEAGUE);
@@ -149,12 +147,12 @@ const leagueStandings = computed(() => {
 const teamStatistics = ref<{ teamId: string; statistics: LeagueTeamStatistics }[]>([]);
 
 async function getStatistics(teamId: string) {
-  const statistics = await getTeamStatistics({
+  const { data } = await api.leagueService.getTeamStatistics({
     leagueId: league?.value.id || '',
     teamId,
   });
 
-  teamStatistics.value.push({ teamId, statistics });
+  teamStatistics.value.push({ teamId, statistics: data });
 }
 
 function getStatisticsByTeamId(id: string) {

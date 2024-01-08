@@ -11,14 +11,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leagues';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
-
+import api from '@/api';
 import CompetitionFormatForm from '@/components/CompetitionFormatForm.vue';
 
 const router = useRouter();
-const { getLeagueById, updateLeague } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -44,9 +42,9 @@ async function getLeague() {
   isLoadingLeague.value = true;
 
   try {
-    const { name } = await getLeagueById(league.value.id);
+    const { data } = await api.leagueService.getLeagueById(league.value.id);
 
-    league.value.name = name;
+    league.value.name = data.name;
   } catch(error: any) {
     openSnackbarNotification({
       type: 'error',
@@ -64,7 +62,7 @@ async function handleSubmit() {
   isSavingLeague.value = true;
 
   try {
-    await updateLeague({
+    await api.leagueService.updateLeague({
       id: league.value.id,
       name: league.value.name,
     });

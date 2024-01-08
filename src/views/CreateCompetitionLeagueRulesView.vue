@@ -34,17 +34,15 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLeaguesStore } from '@/stores/leagues';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
-
+import api from '@/api';
 import AppCounterField from '@/components/AppCounterField.vue';
 import AppSwitch from '@/components/AppSwitch.vue';
 import CompetitionRulesForm from '@/components/CompetitionRulesForm.vue';
 import CompetitionRulesFormRow from '@/components/CompetitionRulesFormRow.vue';
 
 const router = useRouter();
-const { getLeagueById, updateLeagueRules } = useLeaguesStore();
 const { openSnackbarNotification } = useNotificationStore();
 
 const props = defineProps({
@@ -71,13 +69,13 @@ async function getLeagueData() {
   isLoadingLeague.value = true;
 
   try {
-    const { name, rules } = await getLeagueById(league.value.id);
+    const { data } = await api.leagueService.getLeagueById(league.value.id);
 
-    league.value.name = name;
+    league.value.name = data.name;
 
-    if (rules) {
-      league.value.numberOfTeams = rules.numberOfTeams;
-      league.value.awayGames = rules.numberOfGameweeks === (rules.numberOfTeams - 1) * 2;
+    if (data.rules) {
+      league.value.numberOfTeams = data.rules.numberOfTeams;
+      league.value.awayGames = data.rules.numberOfGameweeks === (data.rules.numberOfTeams - 1) * 2;
     }
   } catch (error: any) {
     openSnackbarNotification({
@@ -100,7 +98,7 @@ async function saveLeague() {
   isSavingLeague.value = true;
 
   try {
-    await updateLeagueRules({
+    await api.leagueService.updateLeagueRules({
       id: league.value.id,
       numberOfTeams: league.value.numberOfTeams,
       awayGames: league.value.awayGames,

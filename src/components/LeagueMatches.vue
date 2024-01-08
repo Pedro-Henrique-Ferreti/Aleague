@@ -65,10 +65,9 @@
 import type { LeagueGame, LeagueGameweek } from '@/types/League';
 import { inject, ref } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
-import { useLeaguesStore } from '@/stores/leagues';
 import { clone } from '@/utils';
 import { KEY_LEAGUE, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
-
+import api from '@/api';
 import LoadingIndicator from './LoadingIndicator.vue';
 import TableButton from './LeagueMatchesTableButton.vue';
 import GameDate from './LeagueMatchesGameDate.vue';
@@ -76,7 +75,6 @@ import LeagueMatchesGame from './LeagueMatchesGame.vue';
 import MatchesControls from './CompetitionMatchesControls.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
-const { getLeagueGameweeks, saveLeagueGames } = useLeaguesStore();
 
 // Injected values
 const league = inject(KEY_LEAGUE);
@@ -94,10 +92,10 @@ async function getGameweeks() {
   isLoadingGameweek.value = true;
 
   try {
-    const gameweeksValues = await getLeagueGameweeks(league?.value.id || '');
+    const { data } = await api.leagueService.getLeagueGameweeks(league?.value.id || '');
 
-    gameweeks.value = clone(gameweeksValues);
-    staticGameweeks = clone(gameweeksValues);
+    gameweeks.value = clone(data);
+    staticGameweeks = clone(data);
 
     currentGameweekIndex.value = getFirstNotCompletedGameweek();
   } catch (error: any) {
@@ -165,7 +163,7 @@ async function saveGames() {
 
     if (updatedGames.length < 1) return;
 
-    await saveLeagueGames({
+    await api.leagueService.saveLeagueGames({
       leagueId: league?.value.id || '',
       games: updatedGames as any,
     });
