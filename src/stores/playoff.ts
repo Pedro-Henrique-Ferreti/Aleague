@@ -2,43 +2,43 @@ import type { AxiosResponse } from 'axios';
 import type { SavePlayoffGamesParams, UpdatePlayoffRulesParams } from '@/types/playoff';
 import type { Playoff, PlayoffWithRounds } from '@/types/Playoff';
 import { defineStore } from 'pinia';
-import axios from '@/helpers/axios';
+import { axiosInstance } from '@/helpers/axios';
 
 export const usePlayoffStore = defineStore('playoff', {
   actions: {
     async getPlayoffById(id: string) {
-      const { data: playoff }: AxiosResponse<PlayoffWithRounds> = await axios.get(`/playoffs/${id}`);
+      const { data: playoff }: AxiosResponse<PlayoffWithRounds> = await axiosInstance.get(`/playoffs/${id}`);
 
       return playoff;
     },
     async createPlayoff({ name }: { name: string }) {
-      const { data: { id } }: AxiosResponse<Playoff> = await axios.post('/playoffs', { name });
+      const { data: { id } }: AxiosResponse<Playoff> = await axiosInstance.post('/playoffs', { name });
 
       return id;
     },
     restartPlayoff(id: string) {
-      return axios.post(`/playoffs/${id}/resort-games`);
+      return axiosInstance.post(`/playoffs/${id}/resort-games`);
     },
     updatePlayoff({ id , name }: { id: string, name: string }) {
-      return axios.patch<Playoff>(`/playoffs/${id}`, { name });
+      return axiosInstance.patch<Playoff>(`/playoffs/${id}`, { name });
     },
     updatePlayoffRules({ id, numberOfTeams, numberOfLegs }: UpdatePlayoffRulesParams) {
-      return axios.patch<Playoff>(`/playoffs/${id}/rules`, {
+      return axiosInstance.patch<Playoff>(`/playoffs/${id}/rules`, {
         numberOfLegs,
         numberOfTeams,
       });
     },
     resetPlayoffGames(id: string) {
-      return axios.post(`/playoffs/${id}/reset-rounds`);
+      return axiosInstance.post(`/playoffs/${id}/reset-rounds`);
     },
     addPlayoffTeams(id: string, teams: string[]) {
-      return axios.post(`/playoffs/${id}/teams`, { teams });
+      return axiosInstance.post(`/playoffs/${id}/teams`, { teams });
     },
     deletePlayoff(id: string) {
-      return axios.delete(`/playoffs/${id}`);
+      return axiosInstance.delete(`/playoffs/${id}`);
     },
     savePlayoffGames({ id, games }: SavePlayoffGamesParams) {
-      return axios.patch(`/playoffs/${id}/games/update-many`, {
+      return axiosInstance.patch(`/playoffs/${id}/games/update-many`, {
         games: games.map((game) => ({
           id: game.id,
           homeTeamId: game.homeTeam?.id || null,

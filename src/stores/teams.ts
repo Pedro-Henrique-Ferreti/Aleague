@@ -1,8 +1,8 @@
 import type { AxiosResponse } from 'axios';
 import type { Team, TeamListItem, TeamToBeCreated } from '@/types/Team';
 import type { TeamPack, TeamPackListItem } from '@/types/TeamPack';
-import axios from '@/helpers/axios';
 import { defineStore } from 'pinia';
+import { axiosInstance } from '@/helpers/axios';
 
 interface State {
   teams: TeamListItem[];
@@ -18,30 +18,30 @@ export const useTeamsStore = defineStore('teams', {
   },
   actions: {
     async getTeams() {
-      const { data: teams }: AxiosResponse<TeamListItem[]> = await axios.get('/teams');
+      const { data: teams }: AxiosResponse<TeamListItem[]> = await axiosInstance.get('/teams');
 
       this.teams = teams;
     },
     async getTeamById(id: string) {
-      const { data: team }: AxiosResponse<Team> = await axios.get(`/teams/${id}`);
+      const { data: team }: AxiosResponse<Team> = await axiosInstance.get(`/teams/${id}`);
 
       return team;
     },
     async getTeamPacks() {
-      const { data: teamPacks }: AxiosResponse<TeamPackListItem[]> = await axios.get('/team-packs');
+      const { data: teamPacks }: AxiosResponse<TeamPackListItem[]> = await axiosInstance.get('/team-packs');
 
       this.teamPacks = teamPacks;
     },
     async getTeamPackById(id: string) {
-      const { data: teamPack }: AxiosResponse<TeamPack> = await axios.get(`/team-packs/${id}`);
+      const { data: teamPack }: AxiosResponse<TeamPack> = await axiosInstance.get(`/team-packs/${id}`);
 
       return teamPack;
     },
     applyTeamPack(id: string) {
-      return axios.post(`/team-packs/${id}/apply`);
+      return axiosInstance.post(`/team-packs/${id}/apply`);
     },
     createManyTeams(teams: TeamToBeCreated[]) {
-      return axios.post('/teams/create-many', { teams });
+      return axiosInstance.post('/teams/create-many', { teams });
     },
   },
 });

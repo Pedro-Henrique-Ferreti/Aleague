@@ -28,7 +28,7 @@ function handleError(error: AxiosError) {
   throw new Error('Ocorreu um erro na comunicação com o servidor. Por favor, tente novamente.');
 }
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -47,5 +47,3 @@ axiosInstance.interceptors.request.use(function (config: AxiosRequestConfig) {
 });
 
 axiosInstance.interceptors.response.use(handleSuccess, handleError);
-
-export default axiosInstance;
