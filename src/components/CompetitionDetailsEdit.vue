@@ -30,6 +30,7 @@ import {
   KEY_RELOAD_COMPETITION,
   KEY_UPDATE_COMPETITION,
 } from '@/constants/injectionKeys';
+import AppButton from './AppButton.vue';
 import AppTextField from './AppTextField.vue';
 import SectionHeader from './SectionHeader.vue';
 

@@ -104,6 +104,8 @@ import { useLeaguesStore } from '@/stores/leagues';
 import { usePlayoffStore } from '@/stores/playoff';
 import { competitionPageTabs } from '@/constants/tabPanelTabs';
 import { competitionStatusFilter, competitionFormats } from '@/constants/competitions';
+import AppButton from './AppButton.vue';
+import AppSelect from './AppSelect.vue';
 import AppEmptyState from './AppEmptyState.vue';
 import AppSearchField from './AppSearchField.vue';
 import AppTransition from './AppTransition.vue';
@@ -111,7 +113,6 @@ import TabPanel from './TabPanel.vue';
 import SkeletonCard from './SkeletonCompetitionCard.vue';
 import CompetitionCard from './CompetitionCard.vue';
 import CompetitionModalDelete from './CompetitionModalDelete.vue';
-import AppSelect from './AppSelect.vue';
 
 const { openSnackbarNotification } = useNotificationStore();
 const { deleteLeague } = useLeaguesStore();

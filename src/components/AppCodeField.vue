@@ -18,7 +18,6 @@
     <AppButton
       class="code-field__resend-code"
       color="gray"
-      type="button"
       :disabled="remainingSecondsForResend > 0"
       :is-loading="isLoading"
       @click="resendCode"
@@ -30,6 +29,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch, onMounted } from 'vue';
+import AppButton from './AppButton.vue';
 
 const emit = defineEmits(['resend-code', 'update-code']);
 const props = defineProps({

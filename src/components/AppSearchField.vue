@@ -19,6 +19,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import BaseInput from './common/BaseInput.vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({

@@ -37,6 +37,7 @@
 </template>
 
 <script lang="ts" setup>
+import AppButton from './AppButton.vue';
 import SectionTitle from './LandingSectionTitle.vue';
 </script>
 

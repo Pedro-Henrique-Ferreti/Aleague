@@ -41,6 +41,7 @@ import { ref, computed } from 'vue';
 import useVuelidate from '@vuelidate/core';
 import { requiredValidator, emailValidator } from '@/helpers/validators';
 import api from '@/api';
+import AppButton from './AppButton.vue';
 import AppTextField from './AppTextField.vue';
 import AuthHeading from './AuthHeading.vue';
 import AuthForm from './AuthForm.vue';

@@ -37,6 +37,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import BaseIcon from './BaseIcon.vue';
 
 defineEmits(['close']);
 

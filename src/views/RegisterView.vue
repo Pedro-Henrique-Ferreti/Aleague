@@ -63,7 +63,7 @@ import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { requiredValidator, emailValidator } from '@/helpers/validators';
 import { useAuthStore } from '@/stores/auth';
-
+import AppButton from '@/components/AppButton.vue';
 import AppTextField from '@/components/AppTextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';

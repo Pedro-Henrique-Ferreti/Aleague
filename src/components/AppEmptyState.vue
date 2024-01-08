@@ -33,6 +33,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
+import AppButton from './AppButton.vue';
 
 defineEmits(['button-click']);
 defineProps({

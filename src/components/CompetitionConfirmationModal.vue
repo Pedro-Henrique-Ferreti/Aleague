@@ -41,6 +41,7 @@
 <script lang="ts" setup>
 import type { LeagueParticipant } from '@/types/League';
 import type { PropType } from 'vue';
+import AppButton from './AppButton.vue';
 import AppModal from './AppModal.vue';
 import AppWarning from './AppWarning.vue';
 

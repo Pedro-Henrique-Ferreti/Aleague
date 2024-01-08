@@ -59,6 +59,8 @@
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import { useUserSettingsStore } from '@/stores/userSettings';
+import BaseIcon from './common/BaseIcon.vue';
+import AppButton from './AppButton.vue';
 
 const emit = defineEmits(['close']);
 

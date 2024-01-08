@@ -38,6 +38,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import AppModal from './AppModal.vue';
+import AppButton from './AppButton.vue';
 
 const emit = defineEmits(['close', 'confirm']);
 const props = defineProps({

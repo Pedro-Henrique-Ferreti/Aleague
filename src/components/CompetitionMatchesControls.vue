@@ -24,6 +24,7 @@
 import { ref, inject, nextTick } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
 import { KEY_RESET_COMPETITION_GAMES, KEY_RELOAD_COMPETITION } from '@/constants/injectionKeys';
+import AppButton from './AppButton.vue';
 import SaveButton from './SaveButton.vue';
 import ModalResetGames from './CompetitionModalResetGames.vue';
 

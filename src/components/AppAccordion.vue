@@ -30,6 +30,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 defineProps({
   title: {

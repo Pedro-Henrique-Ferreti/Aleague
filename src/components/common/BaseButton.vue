@@ -25,11 +25,17 @@
 </template>
 
 <script lang="ts" setup>
+import type { ButtonHTMLAttributes, PropType } from 'vue';
+
 const emit = defineEmits(['click']);
 const props = defineProps({
   to: {
     type: [String, Object],
     default: '',
+  },
+  type: {
+    type: String as PropType<ButtonHTMLAttributes['type']>,
+    default: 'button',
   },
   disabled: {
     type: Boolean,

@@ -25,6 +25,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import BaseInput from './common/BaseInput.vue';
 
 const emit = defineEmits(['update:modelValue']);
 

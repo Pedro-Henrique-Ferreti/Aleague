@@ -59,7 +59,6 @@
       </AppButton>
       <AppButton
         v-show="activeStep !== steps.VERIFICATION_CODE"
-        type="button"
         :is-loading="isSendingCode"
         @click="handleContinueButtonClick"
       >
@@ -85,6 +84,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useNotificationStore } from '@/stores/notification';
 import { DELETE_ACCOUNT_REASONS, COMMENTARY_MAX_LENGTH } from '@/constants/deleteAccount';
 import api from '@/api';
+import AppButton from './AppButton.vue';
 import AppTransition from './AppTransition.vue';
 import AppSelect from './AppSelect.vue';
 import AppTextarea from './AppTextarea.vue';

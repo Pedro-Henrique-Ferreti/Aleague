@@ -58,6 +58,7 @@ enum Sizes {
 import { computed, useSlots, type PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
 import BaseButton from './common/BaseButton.vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 defineEmits(['click']);
 

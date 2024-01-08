@@ -39,6 +39,7 @@
 import { ref } from 'vue';
 import { OnClickOutside } from '@vueuse/components';
 import { useAuthStore } from '@/stores/auth';
+import BaseIcon from './common/BaseIcon.vue';
 import AppTransition from './AppTransition.vue';
 import TheHeaderLoggedInUserMenu from './TheHeaderLoggedInUserMenu.vue';
 

@@ -18,7 +18,7 @@
       class="add-participants-field__button"
       type="button"
       :disabled="disableAddTeamButton"
-      :size="showSmallButton ? 'small' : null"
+      :size="showSmallButton ? 'small' : undefined"
       @click="addTeam"
     >
       Adicionar
@@ -48,6 +48,7 @@ import type { LeagueParticipant } from '@/types/League';
 import { computed, ref, watch, type PropType } from 'vue';
 import { useMediaQuery } from '@/utils';
 import { useTeamsStore } from '@/stores/teams';
+import AppButton from './AppButton.vue';
 import AppLargeField from './AppLargeField.vue';
 import AppTransition from './AppTransition.vue';
 

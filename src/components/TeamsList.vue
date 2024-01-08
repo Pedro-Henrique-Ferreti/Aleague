@@ -82,7 +82,7 @@ import { useToggle } from '@vueuse/core';
 import { useTeamsStore } from '@/stores/teams';
 import { useNotificationStore } from '@/stores/notification';
 import { teamsPageTabs } from '@/constants/tabPanelTabs';
-
+import AppButton from './AppButton.vue';
 import AppEmptyState from './AppEmptyState.vue';
 import AppSearchField from './AppSearchField.vue';
 import AppTransition from './AppTransition.vue';

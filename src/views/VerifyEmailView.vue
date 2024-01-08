@@ -40,9 +40,10 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import api from '@/api';
+import AppButton from '@/components/AppButton.vue';
+import AppCodeField from '@/components/AppCodeField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';
-import AppCodeField from '@/components/AppCodeField.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();

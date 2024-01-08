@@ -48,7 +48,7 @@ import type { TeamPack } from '@/types/TeamPack';
 import { ref, watch } from 'vue';
 import { useTeamsStore } from '@/stores/teams';
 import { useNotificationStore } from '@/stores/notification';
-
+import AppButton from './AppButton.vue';
 import AppModal from './AppModal.vue';
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';

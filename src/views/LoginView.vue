@@ -53,6 +53,7 @@ import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { requiredValidator, emailValidator } from '@/helpers/validators';
 import { useAuthStore } from '@/stores/auth';
+import AppButton from '@/components/AppButton.vue';
 import AppTextField from '@/components/AppTextField.vue';
 import AuthHeading from '@/components/AuthHeading.vue';
 import AuthForm from '@/components/AuthForm.vue';

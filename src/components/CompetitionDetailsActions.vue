@@ -46,6 +46,7 @@ import {
   KEY_RESTART_COMPETITION,
   KEY_DELETE_COMPETITION,
 } from '@/constants/injectionKeys';
+import AppButton from './AppButton.vue';
 import SectionHeader from './SectionHeader.vue';
 import ModalRestart from './CompetitionModalRestart.vue';
 import ModalDelete from './CompetitionModalDelete.vue';

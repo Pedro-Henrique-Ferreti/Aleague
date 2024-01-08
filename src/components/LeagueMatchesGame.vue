@@ -25,6 +25,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 const emit = defineEmits(['update:homeTeamScore', 'update:awayTeamScore']);
 const props = defineProps({

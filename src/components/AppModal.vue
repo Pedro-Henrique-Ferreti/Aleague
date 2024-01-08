@@ -66,6 +66,7 @@ enum Sizes {
 import type { PropType } from 'vue';
 import { computed, watch, useSlots } from 'vue';
 import BaseModal from './common/BaseModal.vue';
+import AppButton from './AppButton.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
 

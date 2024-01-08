@@ -26,6 +26,10 @@
   </main>
 </template>
 
+<script lang="ts" setup>
+import AppButton from '@/components/AppButton.vue';
+</script>
+
 <style lang="scss" scoped>
 .not-found {
   display: flex;

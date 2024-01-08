@@ -27,6 +27,7 @@
 import type { LeagueGame } from '@/types/League';
 import { computed, inject, type PropType } from 'vue';
 import { KEY_LEAGUE } from '@/constants/injectionKeys';
+import BaseIcon from './common/BaseIcon.vue';
 import AppTooltip from './AppTooltip.vue';
 import MatchAbridged from './MatchAbridged.vue';
 

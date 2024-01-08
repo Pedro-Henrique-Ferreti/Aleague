@@ -61,6 +61,7 @@
 import type { PropType } from 'vue';
 import type { PlayoffConfrontationGames, ScoreInput } from '@/types/Playoff';
 import { computed, watch } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 import PlayoffCardInput from './PlayoffCardInput.vue';
 import TeamSlot from './TeamSlot.vue';
 

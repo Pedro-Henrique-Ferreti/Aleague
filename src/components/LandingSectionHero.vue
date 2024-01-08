@@ -103,6 +103,7 @@
 import { ref } from 'vue';
 import { Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+import AppButton from './AppButton.vue';
 
 import 'swiper/css';
 import 'swiper/css/autoplay';

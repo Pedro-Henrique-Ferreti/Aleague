@@ -18,6 +18,7 @@ type IconButtonTheme = 'danger' | 'hover-danger';
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 defineEmits(['click']);
 

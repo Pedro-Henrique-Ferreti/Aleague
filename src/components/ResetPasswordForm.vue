@@ -47,6 +47,7 @@ import useVuelidate from '@vuelidate/core';
 import { helpers, sameAs, minLength } from '@vuelidate/validators';
 import { requiredValidator } from '@/helpers/validators';
 import api from '@/api';
+import AppButton from './AppButton.vue';
 import AppTextField from './AppTextField.vue';
 import AuthForm from './AuthForm.vue';
 import AuthHeading from './AuthHeading.vue';

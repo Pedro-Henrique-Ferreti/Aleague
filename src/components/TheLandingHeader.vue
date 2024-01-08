@@ -43,6 +43,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import AppButton from './AppButton.vue';
 import AppLogo from './AppLogo.vue';
 
 const menuIsOpen = ref(false);

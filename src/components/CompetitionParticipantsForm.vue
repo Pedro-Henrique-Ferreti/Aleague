@@ -71,7 +71,7 @@ import { computed, ref, onMounted, type PropType } from 'vue';
 import { useTeamsStore } from '@/stores/teams';
 import { useNotificationStore } from '@/stores/notification';
 import { competitionFormats } from '@/constants/competitions';
-
+import AppButton from './AppButton.vue';
 import AppTransition from './AppTransition.vue';
 import LoadingIndicator from './LoadingIndicator.vue';
 import PageHeader from './PageHeader.vue';

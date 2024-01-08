@@ -24,6 +24,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 const props = defineProps({
   step: {

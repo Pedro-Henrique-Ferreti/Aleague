@@ -44,6 +44,7 @@ enum Themes {
 
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 const props = defineProps({
   theme: {

@@ -8,7 +8,9 @@
   </AppButton>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import AppButton from './AppButton.vue';
+</script>
 
 <style lang="scss" scoped>
 .save-button {

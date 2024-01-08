@@ -34,8 +34,8 @@
 import { computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { competitionFormats } from '@/constants/competitions';
-
 import BaseModal from './common/BaseModal.vue';
+import AppButton from './AppButton.vue';
 import AppTransition from './AppTransition.vue';
 import ModalOverlay from './ModalOverlay.vue';
 

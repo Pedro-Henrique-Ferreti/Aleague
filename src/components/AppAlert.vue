@@ -34,6 +34,7 @@ enum Types {
 
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 defineEmits(['close']);
 const props = defineProps({

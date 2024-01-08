@@ -27,6 +27,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import BaseIcon from './common/BaseIcon.vue';
 
 defineEmits(['click']);
 const props = defineProps({

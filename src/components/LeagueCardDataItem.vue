@@ -14,6 +14,8 @@
 </template>
 
 <script lang="ts" setup>
+import BaseIcon from './common/BaseIcon.vue';
+
 defineProps({
   icon: {
     type: String,
