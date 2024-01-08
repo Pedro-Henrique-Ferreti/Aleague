@@ -98,12 +98,12 @@
 <script lang="ts" setup>
 import type { CompetitionFormat, CompetitionListItem } from '@/types/Competition';
 import { ref, computed } from 'vue';
-import { useCompetitionStore } from '@/stores/competition';
 import { useNotificationStore } from '@/stores/notification';
 import { useLeaguesStore } from '@/stores/leagues';
 import { usePlayoffStore } from '@/stores/playoff';
 import { competitionPageTabs } from '@/constants/tabPanelTabs';
 import { competitionStatusFilter, competitionFormats } from '@/constants/competitions';
+import api from '@/api';
 import AppButton from './AppButton.vue';
 import AppSelect from './AppSelect.vue';
 import AppEmptyState from './AppEmptyState.vue';
@@ -117,7 +117,6 @@ import CompetitionModalDelete from './CompetitionModalDelete.vue';
 const { openSnackbarNotification } = useNotificationStore();
 const { deleteLeague } = useLeaguesStore();
 const { deletePlayoff } = usePlayoffStore();
-const competitionStore = useCompetitionStore();
 
 const activeTabId = ref(competitionPageTabs.ALL.id);
 
@@ -132,7 +131,9 @@ async function getCompetitions() {
   isLoading.value = true;
 
   try {
-    competitions.value = await competitionStore.getCompetitions();
+    const { data } = await api.competitionService.getCompetitions();
+
+    competitions.value = data;
   } catch (error: any) {
     openSnackbarNotification({
       type: 'error',
