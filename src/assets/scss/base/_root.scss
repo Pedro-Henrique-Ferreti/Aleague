@@ -1,0 +1,12 @@
+:root {
+  --spacing--modal-overlay-padding: max(11.7vh, 4rem);
+  --spacing--screen-vertical-padding: 1rem;
+
+  @include for-tablet-portrait-up {
+    --spacing--screen-vertical-padding: 1.5rem;
+  }
+
+  @include for-desktop-up {
+    --spacing--screen-vertical-padding: 2rem;
+  }
+}

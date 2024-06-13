@@ -1,0 +1,39 @@
+/*
+* Focus ring mixin for keyboard navigation
+*/
+@mixin focus-ring($apply-position: true) {
+  &:focus {
+    outline: none;
+    @if $apply-position {
+      position: relative;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 1px;
+      outline: 2px solid $color--primary;
+      outline-offset: 0.25rem;
+    }
+  }
+  &:focus:not(:focus-visible) {
+    outline: initial;
+    @if $apply-position {
+      position: initial;
+    }
+    &:after {
+      display: none;
+      position: unset;
+      top: unset;
+      left: unset;
+      right: unset;
+      bottom: unset;
+      border-radius: unset;
+      outline: unset;
+      outline-offset: unset;
+    }
+  }
+}

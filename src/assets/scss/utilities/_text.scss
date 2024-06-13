@@ -1,0 +1,41 @@
+// .text-darken {
+//   color: $color--text-darken;
+// }
+
+// .text-lighten {
+//   color: $color--text-lighten;
+// }
+
+// .text-secondary-lighten {
+//   color: $color--tertiary-400;
+// }
+
+// .text-success {
+//   color: $color--success-500;
+// }
+
+// .text-danger {
+//   color: $color--danger;
+// }
+
+.h2 {
+  color: $color--text-strong;
+  font-size: 1.5rem;
+  font-weight: $font-weight--medium;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-semibold {
+  font-weight: $font-weight--semibold;
+}
