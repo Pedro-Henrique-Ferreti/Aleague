@@ -6,6 +6,7 @@
         <div class="header__buttons">
           <AppButton
             color="secondary"
+            :to="{ name: 'login' }"
           >
             Entrar
           </AppButton>

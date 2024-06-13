@@ -10,7 +10,10 @@
       Com o Alegue, você pode criar campeonatos de futebol de maneira fácil e rápida.
       Escolha entre diversos formatos e opções de regras para ter uma experiência completa.
     </p>
-    <AppButton class="landing__button">
+    <AppButton
+      class="landing__button"
+      :to="{ name: 'login' }"
+    >
       Começar agora
     </AppButton>
     <img
