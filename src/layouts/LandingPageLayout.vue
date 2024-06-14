@@ -10,7 +10,7 @@
           >
             Entrar
           </AppButton>
-          <AppButton>
+          <AppButton :to="{ name: 'register' }">
             Começar agora
           </AppButton>
         </div>

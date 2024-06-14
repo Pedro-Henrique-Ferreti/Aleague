@@ -69,12 +69,17 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { emailValidator, requiredValidator } from '@/helpers/validators';
+import { useAuthStore } from '@/stores/auth';
 import IconGoogle from '@/assets/icons/IconGoogle.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/AppInput.vue';
 import AppTextButton from '@/components/AppTextButton.vue';
+
+const router = useRouter();
+const authStore = useAuthStore();
 
 const form = ref({
   email: '',
@@ -97,6 +102,16 @@ async function submitForm() {
   if (!await v$.value.$validate()) return;
 
   isLoading.value = true;
+
+  try {
+    await authStore.login(form.value);
+
+    router.push({ name: 'teams' });
+  } catch (error: any) {
+    console.log(error);
+  } finally {
+    isLoading.value = false;
+  }
 }
 </script>
 
