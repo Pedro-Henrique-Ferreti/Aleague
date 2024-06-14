@@ -28,8 +28,6 @@
 </template>
 
 <script lang="ts">
-type ValueOf<T> = T[keyof T];
-
 const Colors = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
@@ -43,6 +41,7 @@ const Colors = {
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
+import type { ValueOf } from '@/types/Auth';
 import IconSpinner from './icons/IconSpinner.vue';
 import BaseButton from './BaseButton.vue';
 
