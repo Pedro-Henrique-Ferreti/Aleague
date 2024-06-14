@@ -1,6 +1,6 @@
 <template>
   <component :is="currentLayout">
-    <router-view />
+    <RouterView />
   </component>
 </template>
 

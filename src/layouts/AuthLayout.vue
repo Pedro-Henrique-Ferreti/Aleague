@@ -2,12 +2,12 @@
   <div class="auth-layout | container">
     <div class="auth-layout__card | app-base-card">
       <header class="auth-layout__card-header">
-        <router-link
+        <RouterLink
           aria-label="Go to the Home page"
           :to="{ name: 'landing-page' }"
         >
           <AppLogo class="auth-layout__logo" />
-        </router-link>
+        </RouterLink>
       </header>
       <slot />
     </div>

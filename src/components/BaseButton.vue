@@ -16,13 +16,13 @@
   >
     <slot />
   </a>
-  <router-link
+  <RouterLink
     v-else
     :to="to"
     @click="handleClick"
   >
     <slot />
-  </router-link>
+  </RouterLink>
 </template>
 
 <script lang="ts" setup>
@@ -56,7 +56,7 @@ const renderExternalLink = computed(() => (
 
 function handleClick(event: Event) {
   /**
-   * Prevents <a> and <router-link> elements from being activated
+   * Prevents <a> and <RouterLink> elements from being activated
    * with Tab + Enter keys when button is disabled
    */
   if (props.disabled) {
