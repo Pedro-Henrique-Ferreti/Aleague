@@ -1,3 +1,12 @@
+import type { AxiosResponse } from 'axios';
+
+export type ValueOf<T> = T[keyof T];
+
+export type ApiError = AxiosResponse<{
+  message: string;
+  errors: { [key: string]: string[] };
+}>;
+
 export interface User {
   avatar: string;
   createdAt: string;

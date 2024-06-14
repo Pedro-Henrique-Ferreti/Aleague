@@ -1,0 +1,14 @@
+@import 'vue-toastification/src/scss/_variables';
+@import 'vue-toastification/src/scss/_toastContainer';
+@import 'vue-toastification/src/scss/_toast';
+@import 'vue-toastification/src/scss/animations/_fade';
+
+.Vue-Toastification__toast.app-toast {
+  min-width: unset;
+  min-height: unset;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  border-radius: 0.625rem;
+  background-color: transparent;
+  box-shadow: $shadow--card;
+}

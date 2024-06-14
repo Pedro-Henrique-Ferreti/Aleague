@@ -33,6 +33,12 @@
           </template>
         </AppInput>
       </div>
+      <AppToast
+        v-if="errorMessage"
+        class="form__toast"
+        :type="TYPE.ERROR"
+        :message="errorMessage"
+      />
       <div class="form__footer">
         <AppButton
           class="form__button"
@@ -68,15 +74,18 @@
 </template>
 
 <script lang="ts" setup>
+import type { ApiError } from '@/types/Auth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { TYPE } from 'vue-toastification';
 import useVuelidate from '@vuelidate/core';
-import { emailValidator, requiredValidator } from '@/helpers/validators';
 import { useAuthStore } from '@/stores/auth';
+import { emailValidator, requiredValidator } from '@/helpers/validators';
 import IconGoogle from '@/assets/icons/IconGoogle.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/AppInput.vue';
 import AppTextButton from '@/components/AppTextButton.vue';
+import AppToast from '@/components/AppToast.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -97,18 +106,22 @@ const v$ = useVuelidate({
 
 // Submit form
 const isLoading = ref(false);
+const errorMessage = ref('');
 
 async function submitForm() {
+  errorMessage.value = '';
+
   if (!await v$.value.$validate()) return;
 
   isLoading.value = true;
 
   try {
     await authStore.login(form.value);
-
     router.push({ name: 'teams' });
   } catch (error: any) {
-    console.log(error);
+    errorMessage.value = (error.response)
+      ? (error.response as ApiError).data.message
+      : 'Ocorreu um erro inesperado. Por favor, tente novamente.';
   } finally {
     isLoading.value = false;
   }
@@ -129,6 +142,9 @@ async function submitForm() {
   }
   &__button {
     width: 100%;
+  }
+  &__toast {
+    margin-top: 2rem;
   }
   &__footer {
     display: grid;
