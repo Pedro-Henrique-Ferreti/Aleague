@@ -1,10 +1,10 @@
 <template>
   <main>
     <h1 class="h2 text-center">
-      Bem-vindo de volta
+      Crie sua conta
     </h1>
     <p class="form__description">
-      Digite email e senha para acessar sua conta
+      Para começar, preencha os campos abaixo
     </p>
     <form
       class="form"
@@ -12,26 +12,35 @@
     >
       <div class="form__fields">
         <AppInput
+          v-model.lazy="form.username"
+          id="register--username"
+          label="Nome de usuário"
+          :dirty="v$.username.$dirty"
+          :error-message="v$.username.$errors[0]?.$message"
+        />
+        <AppInput
           v-model.lazy="form.email"
-          id="login--email"
+          id="register--email"
           label="Email"
           :dirty="v$.email.$dirty"
           :error-message="v$.email.$errors[0]?.$message"
         />
         <AppInput
           v-model.lazy="form.password"
-          id="login--password"
-          type="password"
+          id="register--password"
           label="Senha"
+          type="password"
           :dirty="v$.password.$dirty"
           :error-message="v$.password.$errors[0]?.$message"
-        >
-          <template #support-text>
-            <AppTextButton>
-              Recuperar senha
-            </AppTextButton>
-          </template>
-        </AppInput>
+        />
+        <AppInput
+          v-model.lazy="form.passwordConfirmation"
+          id="register--password-confirmation"
+          type="password"
+          label="Repita a senha"
+          :dirty="v$.passwordConfirmation.$dirty"
+          :error-message="v$.passwordConfirmation.$errors[0]?.$message"
+        />
       </div>
       <div class="form__footer">
         <AppButton
@@ -39,29 +48,17 @@
           type="submit"
           :is-loading="isLoading"
         >
-          Fazer login
-        </AppButton>
-        <div class="form__footer-divider">
-          <span>Ou entrar com</span>
-        </div>
-        <AppButton
-          class="form__button"
-          outline
-        >
-          <template #icon-left>
-            <IconGoogle />
-          </template>
-          Google
+          Criar conta
         </AppButton>
       </div>
     </form>
     <p class="text-center">
-      Não possui uma conta?
+      Já possui uma conta?
       <RouterLink
         class="app-link"
-        :to="{ name: 'register' }"
+        :to="{ name: 'login' }"
       >
-        Cadastre-se
+        Fazer login
       </RouterLink>
     </p>
   </main>
@@ -69,25 +66,36 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { helpers } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
 import { emailValidator, requiredValidator } from '@/helpers/validators';
-import IconGoogle from '@/assets/icons/IconGoogle.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/AppInput.vue';
-import AppTextButton from '@/components/AppTextButton.vue';
 
 const form = ref({
+  username: '',
   email: '',
   password: '',
+  passwordConfirmation: '',
 });
 
 // Validation rules
+const sameAsPassword = (value: string) => value === form.value.password;
+
 const v$ = useVuelidate({
   email: {
     required: requiredValidator,
     email: emailValidator,
   },
+  username: { required: requiredValidator },
   password: { required: requiredValidator },
+  passwordConfirmation: {
+    required: requiredValidator,
+    sameAsRef: helpers.withMessage(
+      'As senhas informadas devem ser iguais.',
+      sameAsPassword,
+    ),
+  },
 }, form, { $autoDirty: true });
 
 // Submit form
@@ -119,25 +127,6 @@ async function submitForm() {
     display: grid;
     gap: 2rem;
     margin-top: 2rem;
-  }
-  &__footer-divider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    &::after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 1px;
-      background-color: $color--text-200;
-      position: absolute;
-    }
-    span {
-      padding: 0 0.5rem;
-      background-color: $color--white;
-      z-index: 1;
-    }
   }
 }
 </style>

@@ -60,8 +60,6 @@ function handleClick(event: Event) {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: fit-content;
-  height: 2rem;
   color: var(--text-color);
   font-weight: $font-weight--medium;
   font-size: 0.875rem;
@@ -69,7 +67,7 @@ function handleClick(event: Event) {
   outline-offset: 0.25rem;
   cursor: pointer;
   &:hover:not([data-loading="true"]) {
-    color: var(--hover-text-color, var(--text-color));
+    text-decoration: underline;
   }
   &:disabled {
     color: var(--disabled-text-color, var(--text-color));

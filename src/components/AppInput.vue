@@ -229,7 +229,7 @@ const inputType = computed(() => {
   }
   &__validation-message,
   &__support-text {
-    margin-top: 0.25rem;
+    margin-top: 0.75rem;
     font-size: 0.75rem;
   }
   &__validation-message {
