@@ -1,0 +1,17 @@
+// App base card
+.app-base-card {
+  padding: var(--base-card--padding, 1.25rem);
+  background-color: $color--white;
+  border-radius: 1rem;
+  box-shadow: $shadow--card;
+}
+
+// App link
+.app-link {
+  color: $color--primary-800;
+  font-weight: $font-weight--medium;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
