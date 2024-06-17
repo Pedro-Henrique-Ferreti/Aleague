@@ -12,7 +12,18 @@ export default defineConfig({
     vue(),
     VueDevTools(),
     eslint(),
-    svgLoader(),
+    svgLoader({
+      svgoConfig: {
+        plugins: [{
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+            },
+          },
+        }],
+      },
+    }),
   ],
   server: {
     port: 8080,
