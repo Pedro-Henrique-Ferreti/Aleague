@@ -6,6 +6,7 @@
     :data-disabled="disabled"
     :data-color="color"
     :data-outline="outline"
+    :data-block="block"
     :data-loading="isLoading"
     @click="handleClick"
   >
@@ -56,6 +57,10 @@ const props = defineProps({
     default: false,
   },
   outline: {
+    type: Boolean,
+    default: false,
+  },
+  block: {
     type: Boolean,
     default: false,
   },
@@ -126,6 +131,9 @@ function handleClick(event: Event) {
     &[data-disabled="true"] {
       border-color: var(--disabled-border-color, var(--border-color));
     }
+  }
+  &[data-block="true"] {
+    width: 100%;
   }
   &__content-wrapper {
     height: 100%;
