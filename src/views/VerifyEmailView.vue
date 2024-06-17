@@ -1,56 +1,49 @@
 <template>
-  <main>
-    <h1 class="h2 text-center">
+  <AuthCard
+    :error-message="errorMessage"
+    @submit-form="submitForm"
+  >
+    <template #title>
       Verificação de email
-    </h1>
-    <p class="form__description">
+    </template>
+    <template #description>
       Nós enviamos um código de verificação para o seu email:
       <br />
       {{ displayedEmail }}
-    </p>
-    <form
-      class="form"
-      @submit.prevent="submitForm"
-    >
+    </template>
+    <template #form-fields>
       <AppOtpInput v-model="verificationCode" />
-      <AppToast
-        v-if="errorMessage"
-        class="form__toast"
-        :type="TYPE.ERROR"
-        :message="errorMessage"
-      />
-      <div class="form__footer">
-        <AppTextButton
-          :is-loading="isResendingEmail"
-          @click="resendEmail"
-        >
-          Reenviar código
-        </AppTextButton>
-        <AppButton
-          class="form__button"
-          type="submit"
-          :is-loading="isLoading"
-          :disabled="verificationCode.length !== 6"
-        >
-          Verificar email
-        </AppButton>
-      </div>
-    </form>
-  </main>
+    </template>
+    <template #form-footer>
+      <AppTextButton
+        :is-loading="isResendingEmail"
+        @click="resendEmail"
+      >
+        Reenviar código
+      </AppTextButton>
+      <AppButton
+        block
+        type="submit"
+        :is-loading="isLoading"
+        :disabled="verificationCode.length !== 6"
+      >
+        Verificar email
+      </AppButton>
+    </template>
+  </AuthCard>
 </template>
 
 <script lang="ts" setup>
 import type { ApiError } from '@/types/Auth';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { TYPE } from 'vue-toastification';
 import { useAuthStore } from '@/stores/auth';
 import { useToast } from '@/composables/toast';
 import api from '@/api';
 import AppButton from '@/components/AppButton.vue';
 import AppTextButton from '@/components/AppTextButton.vue';
-import AppToast from '@/components/AppToast.vue';
 import AppOtpInput from '@/components/AppOtpInput.vue';
+import AuthCard from '@/components/AuthCard.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -67,7 +60,6 @@ const displayedEmail = computed(() => {
 
 // Form
 const verificationCode = ref('');
-
 const isLoading = ref(false);
 const errorMessage = ref('');
 
@@ -111,25 +103,3 @@ async function resendEmail() {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.form {
-  &__description {
-    margin-top: 0.75rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  &__button {
-    width: 100%;
-  }
-  &__toast {
-    margin-top: 2rem;
-  }
-  &__footer {
-    display: grid;
-    place-items: center;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-}
-</style>
