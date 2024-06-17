@@ -8,6 +8,10 @@
         <AppLogo class="auth-card__logo" />
       </RouterLink>
     </header>
+    <IconSuccess
+      v-if="showSuccessIcon"
+      class="auth-card__success-icon"
+    />
     <h1 class="h2 text-center">
       <slot name="title" />
     </h1>
@@ -18,7 +22,10 @@
       class="auth-card__form"
       @submit.prevent="$emit('submit-form', $event)"
     >
-      <div class="auth-card__form-fields">
+      <div
+        v-if="$slots['form-fields']"
+        class="auth-card__form-fields"
+      >
         <slot name="form-fields" />
       </div>
       <AppToast
@@ -39,12 +46,17 @@
 import { TYPE } from 'vue-toastification';
 import AppLogo from '@/components/AppLogo.vue';
 import AppToast from '@/components/AppToast.vue';
+import IconSuccess from '@/assets/icons/IconSuccess.svg';
 
 defineEmits(['submit-form']);
 defineProps({
   errorMessage: {
     type: String,
     default: '',
+  },
+  showSuccessIcon: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
@@ -59,6 +71,14 @@ defineProps({
     display: flex;
     justify-content: center;
     margin-bottom: 2rem;
+  }
+  &__success-icon {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    color: $color--success-600;
   }
   &__description {
     margin-top: 0.75rem;

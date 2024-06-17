@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import VerifyEmailView from '@/views/VerifyEmailView.vue';
+import RecoverPasswordView from '@/views/RecoverPasswordView.vue';
 
 async function reloadUser() {
   const authStore = useAuthStore();
@@ -30,6 +31,13 @@ export default [
     path: '/nova-conta',
     name: 'register',
     component: RegisterView,
+    meta: { layout: 'auth' },
+    beforeEnter: notAuthenticatedGuard,
+  },
+  {
+    path: '/recuperar-senha',
+    name: 'recover-password',
+    component: RecoverPasswordView,
     meta: { layout: 'auth' },
     beforeEnter: notAuthenticatedGuard,
   },

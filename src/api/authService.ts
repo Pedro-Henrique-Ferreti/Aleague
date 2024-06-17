@@ -27,4 +27,8 @@ export default class AuthService {
   static verifyEmailAddress(code: string) {
     return axiosInstance.post('/auth/verify-email', { code });
   }
+
+  static sendResetPasswordEmail(email: string) {
+    return axiosInstance.post('/auth/password/forgot', { email });
+  }
 }
