@@ -11,7 +11,7 @@ export interface User {
   avatar: string;
   createdAt: string;
   email: string;
-  emailVerifiedAt: string;
+  emailVerifiedAt: string | null;
   id: string;
   lastLoginAt: string;
   updatedAt: string;
@@ -32,4 +32,11 @@ export interface AuthStoreState {
 export interface AuthPayload {
   email: string;
   password: string;
+}
+
+export interface RegisterPayload {
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
 }

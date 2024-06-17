@@ -1,4 +1,6 @@
-import type { AuthPayload, SessionCookie } from '@/types/Auth';
+import type {
+  AuthPayload, RegisterPayload, SessionCookie,
+} from '@/types/Auth';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class AuthService {
@@ -7,5 +9,22 @@ export default class AuthService {
       email: payload.email,
       password: payload.password,
     });
+  }
+
+  static register(payload: RegisterPayload) {
+    return axiosInstance.post<SessionCookie>('/auth/register', {
+      username: payload.username,
+      email: payload.email,
+      password: payload.password,
+      passwordConfirmation: payload.password,
+    });
+  }
+
+  static resendVerificationEmail() {
+    return axiosInstance.post('/auth/verify-email/resend');
+  }
+
+  static verifyEmailAddress(code: string) {
+    return axiosInstance.post('/auth/verify-email', { code });
   }
 }

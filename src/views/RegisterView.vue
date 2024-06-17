@@ -66,12 +66,18 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { helpers } from '@vuelidate/validators';
+import { useRouter } from 'vue-router';
+import { helpers, minLength } from '@vuelidate/validators';
 import useVuelidate from '@vuelidate/core';
+import { useAuthStore } from '@/stores/auth';
 import { emailValidator, requiredValidator } from '@/helpers/validators';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/AppInput.vue';
 
+const router = useRouter();
+const authStore = useAuthStore();
+
+// Form
 const form = ref({
   username: '',
   email: '',
@@ -87,8 +93,20 @@ const v$ = useVuelidate({
     required: requiredValidator,
     email: emailValidator,
   },
-  username: { required: requiredValidator },
-  password: { required: requiredValidator },
+  username: {
+    required: requiredValidator,
+    minLength: helpers.withMessage(
+      'O nome de usuário deve ter ao menos 6 caracteres.',
+      minLength(6),
+    ),
+  },
+  password: {
+    required: requiredValidator,
+    minLength: helpers.withMessage(
+      'A senha deve ter ao menos 8 caracteres.',
+      minLength(8),
+    ),
+  },
   passwordConfirmation: {
     required: requiredValidator,
     sameAsRef: helpers.withMessage(
@@ -100,11 +118,23 @@ const v$ = useVuelidate({
 
 // Submit form
 const isLoading = ref(false);
+const errorMessage = ref('');
 
 async function submitForm() {
+  errorMessage.value = '';
+
   if (!await v$.value.$validate()) return;
 
   isLoading.value = true;
+
+  try {
+    await authStore.register(form.value);
+    router.push({ name: 'verify-email' });
+  } catch (error: any) {
+    errorMessage.value = 'Ocorreu um erro inesperado. Por favor, tente novamente.';
+  } finally {
+    isLoading.value = false;
+  }
 }
 </script>
 

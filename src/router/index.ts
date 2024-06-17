@@ -35,11 +35,21 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   await reloadUser();
-  const { userIsAuthenticated } = useAuthStore();
+  const { userIsAuthenticated, user } = useAuthStore();
+
+  let redirect;
 
   if (to.meta.requiresAuth && !userIsAuthenticated) {
-    return { name: 'login' };
+    redirect = { name: 'login' };
+  } else if (
+    to.meta.requiresAuth
+    && !user?.emailVerifiedAt
+    && to.name !== 'verify-email'
+  ) {
+    redirect = { name: 'verify-email' };
   }
+
+  return redirect;
 });
 
 export default router;

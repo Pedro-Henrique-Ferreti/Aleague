@@ -2,6 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import LoginView from '@/views/LoginView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import VerifyEmailView from '@/views/VerifyEmailView.vue';
 
 async function reloadUser() {
   const authStore = useAuthStore();
@@ -31,5 +32,21 @@ export default [
     component: RegisterView,
     meta: { layout: 'auth' },
     beforeEnter: notAuthenticatedGuard,
+  },
+  {
+    path: '/verificar-email',
+    name: 'verify-email',
+    component: VerifyEmailView,
+    meta: {
+      layout: 'auth',
+      requiresAuth: true,
+    },
+    beforeEnter() {
+      const { user } = useAuthStore();
+
+      if (user?.emailVerifiedAt) {
+        return { name: 'teams' };
+      }
+    },
   },
 ] as RouteRecordRaw[];

@@ -1,4 +1,6 @@
-import type { SessionCookie, AuthPayload, AuthStoreState } from '@/types/Auth';
+import type {
+  SessionCookie, AuthPayload, AuthStoreState, RegisterPayload,
+} from '@/types/Auth';
 import { defineStore } from 'pinia';
 import Cookies from 'js-cookie';
 import api from '@/api';
@@ -14,6 +16,11 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login(payload: AuthPayload) {
       const { data } = await api.authService.authenticate(payload);
+
+      this.setSessionCookie(data);
+    },
+    async register(payload: RegisterPayload) {
+      const { data } = await api.authService.register(payload);
 
       this.setSessionCookie(data);
     },
