@@ -60,10 +60,12 @@ function handleClick(event: Event) {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  width: fit-content;
   color: var(--text-color);
   font-weight: $font-weight--medium;
   font-size: 0.875rem;
   transition: all $transition--fast ease-in;
+  outline-color: $color--focus-ring;
   outline-offset: 0.25rem;
   cursor: pointer;
   &:hover:not([data-loading="true"]) {

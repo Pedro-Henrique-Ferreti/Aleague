@@ -101,6 +101,7 @@ function handleClick(event: Event) {
   border-radius: $radius--full;
   font-weight: $font-weight--medium;
   font-size: 0.875rem;
+  outline-color: $color--focus-ring;
   outline-offset: 0.25rem;
   cursor: pointer;
   transition:
