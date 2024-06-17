@@ -81,10 +81,9 @@ b {
   cursor: default;
 }
 
-// ::selection {
-//   color: $color--white;
-//   background-color: $color--primary;
-// }
+::selection {
+  background-color: $color--text-200;
+}
 
 /* Removes arrows from number inputs */
 
