@@ -1,5 +1,5 @@
 import type {
-  AuthPayload, RegisterPayload, SessionCookie,
+  AuthPayload, RegisterPayload, SessionCookie, User,
 } from '@/types/Auth';
 import { axiosInstance } from '@/helpers/axios';
 
@@ -25,7 +25,7 @@ export default class AuthService {
   }
 
   static verifyEmailAddress(code: string) {
-    return axiosInstance.post('/auth/verify-email', { code });
+    return axiosInstance.post<User>('/auth/verify-email', { code });
   }
 
   static sendResetPasswordEmail(email: string) {

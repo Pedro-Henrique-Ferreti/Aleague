@@ -55,7 +55,7 @@ const displayedEmail = computed(() => {
 
   const [first, last] = authStore.user.email.split('@');
 
-  return `${first.substring(0, 3).padEnd(3, '*')}****@${last}`;
+  return `${first.substring(0, 3)}****@${last}`;
 });
 
 // Form
@@ -68,7 +68,12 @@ async function submitForm() {
   isLoading.value = true;
 
   try {
-    await api.authService.verifyEmailAddress(verificationCode.value);
+    const { data: user } = await api.authService.verifyEmailAddress(verificationCode.value);
+
+    authStore.setSessionCookie({
+      accessToken: authStore.accessToken as string,
+      user,
+    });
 
     router.push({ name: 'teams' });
   } catch (error: any) {
