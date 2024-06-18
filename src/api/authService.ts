@@ -31,4 +31,22 @@ export default class AuthService {
   static sendResetPasswordEmail(email: string) {
     return axiosInstance.post('/auth/password/forgot', { email });
   }
+
+  static validateResetPasswordToken(payload: { token: string; email: string }) {
+    return axiosInstance.post<{ isValid: boolean }>('/auth/password/validate-reset-token', {
+      token: payload.token,
+      email: payload.email,
+    });
+  }
+
+  static resetPassword(payload: {
+    token: string; email: string; password: string; passwordConfirmation: string;
+  }) {
+    return axiosInstance.post('/auth/password/reset', {
+      token: payload.token,
+      email: payload.email,
+      password: payload.password,
+      passwordConfirmation: payload.passwordConfirmation,
+    });
+  }
 }
