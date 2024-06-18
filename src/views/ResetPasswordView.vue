@@ -1,8 +1,6 @@
 <template>
   <TransitionSlide direction="left">
-    <p v-if="isValidatingToken">
-      Loading...
-    </p>
+    <LoadingIndicator v-if="isValidatingToken" />
     <AuthCard v-else-if="tokenIsExpired">
       <template #title>
         Link expirado
@@ -95,6 +93,7 @@ import AppInput from '@/components/AppInput.vue';
 import AppTextButton from '@/components/AppTextButton.vue';
 import AuthCard from '@/components/AuthCard.vue';
 import TransitionSlide from '@/components/TransitionSlide.vue';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
 
 const route = useRoute();
 
