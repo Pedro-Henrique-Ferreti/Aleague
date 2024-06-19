@@ -1,0 +1,12 @@
+.v-popper--theme-user-menu {
+  .v-popper__inner {
+    width: 13rem;
+    padding: 1.25rem;
+    background-color: $color--white;
+    border-radius: $radius--large;
+    box-shadow: $shadow-popup;
+  }
+  .v-popper__arrow-container {
+    display: none;
+  }
+}

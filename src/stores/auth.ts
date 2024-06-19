@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', {
     },
     logout() {
       Cookies.remove(import.meta.env.VITE_SESSION_COOKIE);
-      document.location.replace(`${document.location.origin}login`);
+      document.location.replace(`${document.location.origin}/login`);
     },
   },
 });
