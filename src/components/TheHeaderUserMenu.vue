@@ -96,6 +96,7 @@ const authStore = useAuthStore();
     display: grid;
     gap: 0.75rem;
     margin-top: 1rem;
+    font-size: 0.875rem;
   }
   &__popup-item:last-child {
     padding-top: 0.75rem;
