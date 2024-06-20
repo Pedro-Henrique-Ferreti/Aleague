@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import LandingPageView from '@/views/LandingPageView.vue';
 import authRoutes from './auth';
+import seasonRoutes from './seasons';
 import teamsRoutes from './teams';
+import tournamentsRoutes from './tournaments';
 
 async function reloadUser() {
   const authStore = useAuthStore();
@@ -23,6 +25,8 @@ const router = createRouter({
   routes: [
     ...authRoutes,
     ...teamsRoutes,
+    ...seasonRoutes,
+    ...tournamentsRoutes,
     {
       path: '/',
       name: 'landing-page',
