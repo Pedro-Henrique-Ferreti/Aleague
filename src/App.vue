@@ -7,6 +7,7 @@
 <script lang="ts" setup>
 import { computed, type Component } from 'vue';
 import { useRoute } from 'vue-router';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
 import LandingPageLayout from '@/layouts/LandingPageLayout.vue';
 
@@ -16,8 +17,10 @@ const currentLayout = computed<Component>(() => {
   switch (route.meta.layout) {
     case 'auth':
       return AuthLayout;
-    default:
+    case 'landing-page':
       return LandingPageLayout;
+    default:
+      return DefaultLayout;
   }
 });
 </script>
