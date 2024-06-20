@@ -9,4 +9,10 @@
   @include for-desktop-up {
     --spacing--screen-vertical-padding: 2rem;
   }
+
+  --rt-headerHeight: 4rem;
+
+  @include for-large-tablet-landscape-up {
+    --rt-headerHeight: 6rem;
+  }
 }

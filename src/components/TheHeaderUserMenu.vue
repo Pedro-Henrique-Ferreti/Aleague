@@ -69,14 +69,14 @@ const authStore = useAuthStore();
   &__picture {
     width: 2.5rem;
     height: auto;
-    @include for-tablet-landscape-up {
+    @include for-large-tablet-landscape-up {
       width: 3rem;
     }
   }
   &__icon {
     width: 0.875rem;
     height: auto;
-    @include for-tablet-landscape-down {
+    @include for-large-tablet-landscape-down {
       display: none;
     }
   }
