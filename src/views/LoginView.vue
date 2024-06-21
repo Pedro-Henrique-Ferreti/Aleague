@@ -50,7 +50,7 @@
         block
       >
         <template #icon-left>
-          <IconGoogle />
+          <IconGoogle class="login__button-icon" />
         </template>
         Google
       </AppButton>
@@ -142,6 +142,9 @@ async function submitForm() {
       background-color: $color--white;
       z-index: 1;
     }
+  }
+  &__button-icon {
+    height: 1.5rem !important;
   }
   &__register {
     margin-top: 3rem;

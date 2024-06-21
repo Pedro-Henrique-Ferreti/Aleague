@@ -13,11 +13,21 @@
     <div class="button__content-wrapper">
       <div class="button__content">
         <span class="button__icon button__icon--left">
-          <slot name="icon-left" />
+          <slot name="icon-left">
+            <component
+              v-if="iconLeft"
+              :is="iconLeft"
+            />
+          </slot>
         </span>
         <slot />
         <span class="button__icon">
-          <slot name="icon" />
+          <slot name="icon-right">
+            <component
+              v-if="iconRight"
+              :is="iconRight"
+            />
+          </slot>
         </span>
       </div>
       <IconSpinner
@@ -71,6 +81,14 @@ const props = defineProps({
   isLoading: {
     type: Boolean,
     default: false,
+  },
+  iconLeft: {
+    type: null,
+    default: () => null,
+  },
+  iconRight: {
+    type: null,
+    default: () => null,
   },
 });
 
@@ -165,7 +183,7 @@ function handleClick(event: Event) {
     }
     :deep(svg) {
       width: auto;
-      height: 1rem;
+      height: 0.875rem;
       fill: currentColor;
     }
   }
