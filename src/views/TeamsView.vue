@@ -10,6 +10,23 @@
     </PageHeader>
     <TransitionFade>
       <LoadingIndicator v-if="isLoading" />
+      <ErrorState
+        v-else-if="errorMessage"
+        :message="errorMessage"
+        @reload="getTeams"
+      />
+      <EmptyState v-else-if="teams.length === 0">
+        Parece que você ainda não adicionou nenhuma equipe.
+        <template #controls>
+          <AppButton
+            color="secondary"
+            :to="{ name: 'new-team' }"
+            :icon-left="IconPlus"
+          >
+            Nova equipe
+          </AppButton>
+        </template>
+      </EmptyState>
       <div
         v-else
         class="team-grid"
@@ -52,18 +69,24 @@ import IconPlus from '@/assets/icons/IconPlus.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppChip from '@/components/AppChip.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
+import EmptyState from '@/components/EmptyState.vue';
+import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
 
 const isLoading = ref(true);
 const teams = ref<TeamListItem[]>([]);
+const errorMessage = ref('');
 
 async function getTeams() {
+  isLoading.value = true;
+  errorMessage.value = '';
+
   try {
     const { data } = await api.teamService.getTeamList();
     teams.value = data;
   } catch (error: any) {
-    console.error(error);
+    errorMessage.value = 'Algo deu errado e não foi possível listar suas equipes.';
   } finally {
     isLoading.value = false;
   }
