@@ -8,37 +8,39 @@
         Nova equipe
       </AppButton>
     </PageHeader>
-    <LoadingIndicator v-if="isLoading" />
-    <div
-      v-else
-      class="team-grid"
-    >
-      <RouterLink
-        v-for="team in teams"
-        :key="team.id"
-        class="team-card"
-        to="#"
+    <TransitionFade>
+      <LoadingIndicator v-if="isLoading" />
+      <div
+        v-else
+        class="team-grid"
       >
-        <div class="team-card__header">
-          <div class="team-card__emblem">
-            <img
-              class="team-card__emblem-image"
-              :src="team.emblem.url"
-              :alt="`${team.name}'s emblem`"
-            />
-          </div>
-          <AppChip :text="team.country">
-            <template #icon-left>
+        <RouterLink
+          v-for="team in teams"
+          :key="team.id"
+          class="team-card"
+          to="#"
+        >
+          <div class="team-card__header">
+            <div class="team-card__emblem">
               <img
-                :src="`/images/country-flag/${team.country}.svg`"
-                alt="Team country flag"
+                class="team-card__emblem-image"
+                :src="team.emblem.url"
+                :alt="`${team.name}'s emblem`"
               />
-            </template>
-          </AppChip>
-        </div>
-        <span>{{ team.name }}</span>
-      </RouterLink>
-    </div>
+            </div>
+            <AppChip :text="team.country">
+              <template #icon-left>
+                <img
+                  :src="`/images/country-flag/${team.country}.svg`"
+                  alt="Team country flag"
+                />
+              </template>
+            </AppChip>
+          </div>
+          <span>{{ team.name }}</span>
+        </RouterLink>
+      </div>
+    </TransitionFade>
   </main>
 </template>
 
@@ -49,6 +51,7 @@ import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppChip from '@/components/AppChip.vue';
+import TransitionFade from '@/components/TransitionFade.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
 
