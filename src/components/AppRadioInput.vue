@@ -81,9 +81,9 @@ const isChecked = computed(() => inputValue.value === props.value);
   font-size: 1rem;
   font-weight: $font-weight--medium;
   position: relative;
-  transition: border-color $transition--fastest linear;
   &:not([data-checked="true"], [data-disabled="true"]):hover {
     border-color: $color--text-300;
+    transition: border-color $transition--fastest linear;
     cursor: pointer;
   }
   &:has(input:focus-visible) {
@@ -99,6 +99,7 @@ const isChecked = computed(() => inputValue.value === props.value);
     color: $color--blue-800;
     border-color: $color--blue-800;
     background: linear-gradient(23deg, #FAFAFA, #FFF 100%);
+    transition: border-color $transition--fastest linear;
   }
   &[data-disabled="true"] {
     background-color: $color--neutral-300;
