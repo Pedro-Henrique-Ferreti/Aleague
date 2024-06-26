@@ -136,7 +136,9 @@ watch(() => props.mask, () => {
   border-radius: $radius--large;
   outline: 2px solid var(--outline-color);
   outline-offset: -1px;
-  transition: outline-color $transition--fastest ease-in;
+  transition:
+    outline-color $transition--fastest ease-in,
+    border-color $transition--fastest ease-in;
   &--textarea {
     padding: 0.5rem 1rem;
     min-height: 4rem;
@@ -151,7 +153,7 @@ watch(() => props.mask, () => {
     background-color: $color--neutral-100;
   }
   &:hover {
-    --outline-color: #{$color--neutral-300};
+    border-color: $color--text-300;
   }
   &:focus {
     --outline-color: #{$color--primary-800};
