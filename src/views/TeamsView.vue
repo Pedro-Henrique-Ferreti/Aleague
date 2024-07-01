@@ -8,6 +8,28 @@
         Nova equipe
       </AppButton>
     </PageHeader>
+    <SearchBar v-model="form.searchValue">
+      <AppDropdown
+        v-model="form.country"
+        class="teams__search-bar-dropdown"
+        id="search-bar-dropdown"
+        :options="COUNTRY_OPTIONS"
+      />
+      <div class="teams__search-bar-radio">
+        <AppRadioInput
+          v-model="form.showFavorites"
+          id="search-bar-radio-favorites--false"
+          text="Todos"
+          :value="false"
+        />
+        <AppRadioInput
+          v-model="form.showFavorites"
+          id="search-bar-radio-favorites--true"
+          text="Favoritos"
+          :value="true"
+        />
+      </div>
+    </SearchBar>
     <TransitionFade>
       <LoadingIndicator v-if="isLoading" />
       <ErrorState
@@ -32,7 +54,7 @@
         class="team-grid"
       >
         <RouterLink
-          v-for="team in teams"
+          v-for="team in displayedTeams"
           :key="team.id"
           class="team-card"
           to="#"
@@ -63,19 +85,43 @@
 
 <script lang="ts" setup>
 import type { TeamListItem } from '@/types/Team';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { COUNTRY_OPTIONS } from '@/constants/country';
 import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
 import AppButton from '@/components/AppButton.vue';
+import AppRadioInput from '@/components/AppRadioInput.vue';
+import AppDropdown from '@/components/AppDropdown.vue';
 import AppChip from '@/components/AppChip.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import SearchBar from '@/components/SearchBar.vue';
 
-const isLoading = ref(true);
+// Search bar
+const form = ref({
+  searchValue: '',
+  showFavorites: false,
+  country: COUNTRY_OPTIONS[5].id,
+});
+
 const teams = ref<TeamListItem[]>([]);
+
+const displayedTeams = computed(() => teams.value.filter((team) => {
+  if (team.country !== form.value.country) return false;
+  if (form.value.showFavorites && !team.isFavorite) return false;
+  if (
+    form.value.searchValue
+    && !team.name.toLocaleLowerCase().includes(form.value.searchValue.toLocaleLowerCase())
+  ) return false;
+
+  return true;
+}));
+
+// Get teams
+const isLoading = ref(true);
 const errorMessage = ref('');
 
 async function getTeams() {
@@ -96,6 +142,15 @@ getTeams();
 </script>
 
 <style lang="scss" scoped>
+.teams {
+  &__search-bar-radio {
+    display: flex;
+    gap: 0.75rem;
+  }
+  &__search-bar-dropdown {
+    min-width: 15.5rem;
+  }
+}
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
