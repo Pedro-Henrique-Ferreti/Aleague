@@ -33,6 +33,14 @@ app.use(FloatingVue, {
       placement: 'bottom-end',
       distance: 16,
     },
+    'app-dropdown': {
+      $extend: 'dropdown',
+      $resetCss: true,
+      arrowOverflow: false,
+      placement: 'bottom-start',
+      distance: 2,
+      container: '#app',
+    },
   },
 });
 

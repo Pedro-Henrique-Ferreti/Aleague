@@ -1,10 +1,40 @@
+@mixin transition-scale-from-top {
+  &.v-popper__popper--show-from .v-popper__wrapper {
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
+  &.v-popper__popper--show-to .v-popper__wrapper {
+    transition:
+      transform 0.12s cubic-bezier(0, 0, 0.2, 1),
+      opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
+      transform-origin: top center;
+  }
+}
+
 .v-popper--theme-user-menu {
+  @include transition-scale-from-top();
   .v-popper__inner {
     width: 13rem;
     padding: 1.25rem;
     background-color: $color--white;
     border-radius: $radius--large;
     box-shadow: $shadow--popup;
+  }
+  .v-popper__arrow-container {
+    display: none;
+  }
+}
+.v-popper--theme-app-dropdown {
+  @include transition-scale-from-top();
+  .v-popper__wrapper {
+    background-color: $color--white;
+    border: 1px solid $color--neutral-300;
+    border-radius: $radius--large;
+    box-shadow: $shadow--dropdown;
+    overflow-x: hidden;
+  }
+  .v-popper__inner {
+    max-height: 11rem;
   }
   .v-popper__arrow-container {
     display: none;
