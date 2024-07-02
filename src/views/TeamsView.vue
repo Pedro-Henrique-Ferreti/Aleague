@@ -71,7 +71,7 @@
                 :alt="`${team.name}'s emblem`"
               />
             </div>
-            <AppChip :text="team.country">
+            <AppChip :text="t(`countryAbbreviations.${team.country}`)">
               <template #icon-left>
                 <img
                   :src="`/images/country-flag/${team.country}.svg`"
@@ -90,6 +90,7 @@
 <script lang="ts" setup>
 import type { TeamListItem } from '@/types/Team';
 import { computed, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { COUNTRY_OPTIONS } from '@/constants/country';
 import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
@@ -104,6 +105,8 @@ import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import EmptySearchState from '@/components/EmptySearchState.vue';
+
+const { t } = useI18n();
 
 // Search bar
 const form = ref({
