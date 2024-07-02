@@ -49,6 +49,10 @@
           </AppButton>
         </template>
       </EmptyState>
+      <EmptySearchState
+        v-else-if="displayedTeams.length === 0"
+        @clear-filters="clearSearchFilters"
+      />
       <div
         v-else
         class="team-grid"
@@ -99,6 +103,7 @@ import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import SearchBar from '@/components/SearchBar.vue';
+import EmptySearchState from '@/components/EmptySearchState.vue';
 
 // Search bar
 const form = ref({
@@ -119,6 +124,12 @@ const displayedTeams = computed(() => teams.value.filter((team) => {
 
   return true;
 }));
+
+// Clear search filters
+function clearSearchFilters() {
+  form.value.searchValue = '';
+  form.value.showFavorites = false;
+}
 
 // Get teams
 const isLoading = ref(true);
