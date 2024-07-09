@@ -1,6 +1,7 @@
 import type { TypeCountry } from './Country';
 
-export interface TeamListItem {
+// Api types
+export type ApiGetAllTeamsResponse = {
   id: string;
   name: string;
   country: TypeCountry;
@@ -9,4 +10,4 @@ export interface TeamListItem {
     id: string;
     url: string;
   }
-}
+}[];

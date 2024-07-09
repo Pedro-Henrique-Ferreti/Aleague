@@ -17,6 +17,7 @@
         v-model="form.country"
         class="teams__search-bar-dropdown"
         id="search-bar-dropdown"
+        rounded
         :options="COUNTRY_OPTIONS"
       />
       <div class="teams__search-bar-radio">
@@ -92,7 +93,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TeamListItem } from '@/types/Team';
+import type { ApiGetAllTeamsResponse } from '@/types/Team';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { COUNTRY_OPTIONS } from '@/constants/country';
@@ -119,7 +120,7 @@ const form = ref({
   country: COUNTRY_OPTIONS[5].id,
 });
 
-const teams = ref<TeamListItem[]>([]);
+const teams = ref<ApiGetAllTeamsResponse>([]);
 
 const displayedTeams = computed(() => teams.value.filter((team) => {
   if (team.country !== form.value.country) return false;
@@ -147,7 +148,7 @@ async function getTeams() {
   errorMessage.value = '';
 
   try {
-    const { data } = await api.teamService.getTeamList();
+    const { data } = await api.teamService.getAllTeams();
     teams.value = data;
   } catch (error: any) {
     errorMessage.value = 'Algo deu errado e não foi possível listar suas equipes.';
