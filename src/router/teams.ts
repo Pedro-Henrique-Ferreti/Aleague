@@ -10,13 +10,15 @@ export default [
     meta: {
       requiresAuth: true,
     },
-  },
-  {
-    path: '/equipes/novo',
-    name: 'new-team',
-    component: NewTeamView,
-    meta: {
-      requiresAuth: true,
-    },
+    children: [
+      {
+        path: '/equipes/novo',
+        name: 'new-team',
+        component: NewTeamView,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+    ],
   },
 ] as RouteRecordRaw[];

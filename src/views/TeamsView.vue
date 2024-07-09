@@ -1,5 +1,9 @@
 <template>
-  <main class="teams">
+  <RouterView v-if="$route.name !== 'teams'" />
+  <main
+    v-else
+    class="teams"
+  >
     <PageHeader title="Equipes">
       <AppButton
         :to="{ name: 'new-team' }"
