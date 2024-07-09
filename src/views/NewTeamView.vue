@@ -21,7 +21,7 @@
         </RouterLink>
         <RouterLink
           class="card__link"
-          to="/"
+          :to="{ name: 'team-list' }"
         >
           <div class="card__link-icon-wrapper">
             <IconCreateMultiple />
