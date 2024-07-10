@@ -63,23 +63,23 @@
         ref="dropdownList"
       >
         <li
-          v-for="option in options"
+          v-for="opt in options"
           class="app-dropdown__option"
           role="option"
           tabindex="-1"
           ref="dropdownOptions"
-          :key="option.id"
-          :aria-selected="selectedOption?.id === option.id"
-          @click="onSelectOption(option)"
-          @keypress.enter.prevent="onSelectOption(option)"
+          :key="opt.id"
+          :aria-selected="selectedOption?.id === opt.id"
+          @click="onSelectOption(opt)"
+          @keypress.enter.prevent="onSelectOption(opt)"
         >
           <img
-            v-if="option.icon"
+            v-if="opt.icon"
             class="app-dropdown__input-icon"
             alt="Option icon"
-            :src="option.icon"
+            :src="(selectedOption?.id === opt.id && opt.iconSelected) ? opt.iconSelected : opt.icon"
           />
-          <span>{{ option.text }}</span>
+          <span>{{ opt.text }}</span>
         </li>
       </ul>
     </template>

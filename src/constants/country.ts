@@ -82,7 +82,12 @@ export const COUNTRY_OPTIONS: DropdownOption<TypeCountry>[] = [
 ];
 
 export const ALL_COUNTRIES_OPTIONS: DropdownOption<TypeCountry | ''>[] = [
-  { id: '', text: 'Todos', icon: '/images/country-flag/INTERNATIONAL.svg' },
+  {
+    id: '',
+    text: 'Todos',
+    icon: '/images/country-flag/INTERNATIONAL.svg',
+    iconSelected: '/images/country-flag/INTERNATIONAL_LIGHT.svg',
+  },
   ...COUNTRY_OPTIONS,
 ];
 
