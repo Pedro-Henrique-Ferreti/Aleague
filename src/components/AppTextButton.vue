@@ -3,6 +3,7 @@
     class="text-button"
     :disabled="disabled"
     :to="to"
+    :data-color="color"
     :data-loading="isLoading"
     @click="handleClick"
   >
@@ -17,9 +18,17 @@
   </BaseButton>
 </template>
 
+<script lang="ts">
+const Colors = {
+  PRIMARY: 'primary',
+  BLUE: 'blue',
+} as const;
+</script>
+
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
+import type { ValueOf } from '@/types/Auth';
 import IconSpinner from './icons/IconSpinner.vue';
 import BaseButton from './BaseButton.vue';
 
@@ -37,6 +46,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  color: {
+    type: String as PropType<ValueOf<typeof Colors>>,
+    default: Colors.PRIMARY,
+  },
 });
 
 function handleClick(event: Event) {
@@ -52,9 +65,12 @@ function handleClick(event: Event) {
 <style lang="scss" scoped>
 .text-button {
   --text-color: #{$color--primary-800};
-  --hover-text-color: #{$color--primary-900};
-  --disabled-text-color: #{$color--text};
   --loader-indicator-color: #{$color--primary-800};
+  --disabled-text-color: #{$color--text};
+  &[data-color="blue"] {
+    --text-color: #{$color--blue-800};
+    --loader-indicator-color: #{$color--blue-800};
+  }
 
   display: inline-flex;
   justify-content: center;
