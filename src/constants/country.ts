@@ -4,6 +4,7 @@ import type { TypeCountry } from '@/types/Country';
 export const Country = {
   GERMANY: 'DEU',
   ARGENTINA: 'ARG',
+  BELGIUM: 'BEL',
   SAUDI_ARABIA: 'SAU',
   AUSTRALIA: 'AUS',
   AUSTRIA: 'AUT',
@@ -46,6 +47,7 @@ export const COUNTRY_OPTIONS: DropdownOption<TypeCountry>[] = [
   { id: Country.SAUDI_ARABIA, text: 'Arábia Saudita', icon: '/images/country-flag/SAU.svg' },
   { id: Country.AUSTRALIA, text: 'Austrália', icon: '/images/country-flag/AUS.svg' },
   { id: Country.AUSTRIA, text: 'Aústria', icon: '/images/country-flag/AUT.svg' },
+  { id: Country.BELGIUM, text: 'Bélgica', icon: '/images/country-flag/BEL.svg' },
   { id: Country.BRAZIL, text: 'Brasil', icon: '/images/country-flag/BRA.svg' },
   { id: Country.CANADA, text: 'Canada', icon: '/images/country-flag/CAN.svg' },
   { id: Country.CHILE, text: 'Chile', icon: '/images/country-flag/CHL.svg' },
@@ -87,6 +89,7 @@ export const ALL_COUNTRIES_OPTIONS: DropdownOption<TypeCountry | ''>[] = [
 export const CountryColor: { [K in TypeCountry]: string } = {
   [Country.GERMANY]: '#FFF9EB',
   [Country.ARGENTINA]: '#E0EFF5',
+  [Country.BELGIUM]: '#FFF9EB',
   [Country.SAUDI_ARABIA]: '#E0F5ED',
   [Country.AUSTRALIA]: '#E0EFF5',
   [Country.AUSTRIA]: '#FFF5F5',

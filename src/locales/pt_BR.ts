@@ -2,6 +2,7 @@ export default {
   countryAbbreviations: {
     DEU: 'ALE',
     ARG: 'ARG',
+    BEL: 'BEL',
     SAU: 'SAU',
     AUS: 'AUS',
     AUT: 'AUT',
