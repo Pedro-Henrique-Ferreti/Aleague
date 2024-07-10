@@ -79,6 +79,11 @@ export const COUNTRY_OPTIONS: DropdownOption<TypeCountry>[] = [
   { id: Country.VENEZUELA, text: 'Venezuela', icon: '/images/country-flag/VEN.svg' },
 ];
 
+export const ALL_COUNTRIES_OPTIONS: DropdownOption<TypeCountry | ''>[] = [
+  { id: '', text: 'Todos', icon: '/images/country-flag/INTERNATIONAL.svg' },
+  ...COUNTRY_OPTIONS,
+];
+
 export const CountryColor: { [K in TypeCountry]: string } = {
   [Country.GERMANY]: '#FFF9EB',
   [Country.ARGENTINA]: '#E0EFF5',

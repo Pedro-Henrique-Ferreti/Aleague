@@ -18,7 +18,7 @@
         class="teams__search-bar-dropdown"
         id="search-bar-dropdown"
         rounded
-        :options="COUNTRY_OPTIONS"
+        :options="ALL_COUNTRIES_OPTIONS"
       />
       <div class="teams__search-bar-radio">
         <AppRadioInput
@@ -96,7 +96,7 @@
 import type { ApiGetAllTeamsResponse } from '@/types/Team';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { COUNTRY_OPTIONS } from '@/constants/country';
+import { ALL_COUNTRIES_OPTIONS } from '@/constants/country';
 import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
 import AppButton from '@/components/AppButton.vue';
@@ -117,13 +117,13 @@ const { t } = useI18n();
 const form = ref({
   searchValue: '',
   showFavorites: false,
-  country: COUNTRY_OPTIONS[5].id,
+  country: '',
 });
 
 const teams = ref<ApiGetAllTeamsResponse>([]);
 
 const displayedTeams = computed(() => teams.value.filter((team) => {
-  if (team.country !== form.value.country) return false;
+  if (form.value.country && team.country !== form.value.country) return false;
   if (form.value.showFavorites && !team.isFavorite) return false;
   if (
     form.value.searchValue

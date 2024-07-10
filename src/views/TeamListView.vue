@@ -10,7 +10,7 @@
         class="team-list__search-bar-dropdown"
         id="search-bar-dropdown"
         rounded
-        :options="COUNTRY_OPTIONS"
+        :options="ALL_COUNTRIES_OPTIONS"
       />
     </SearchBar>
     <TransitionFade>
@@ -65,7 +65,7 @@
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamList } from '@/types/Team';
 import { computed, ref } from 'vue';
-import { Country, COUNTRY_OPTIONS, CountryColor } from '@/constants/country';
+import { ALL_COUNTRIES_OPTIONS, CountryColor } from '@/constants/country';
 import api from '@/api';
 import AppDropdown from '@/components/AppDropdown.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -85,13 +85,13 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
 // Form
 const form = ref({
   searchValue: '',
-  country: Country.BRAZIL,
+  country: '',
 });
 
 const teamLists = ref<TeamList[]>([]);
 
 const displayedTeamLists = computed(() => teamLists.value.filter((list) => {
-  if (list.teams[0].country !== form.value.country) return false;
+  if (form.value.country && list.teams[0].country !== form.value.country) return false;
   if (
     form.value.searchValue
     && !list.name.toLocaleLowerCase().includes(form.value.searchValue.toLocaleLowerCase())
