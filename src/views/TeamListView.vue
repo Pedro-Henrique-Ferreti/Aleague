@@ -34,16 +34,7 @@
           class="list-card"
         >
           <div class="list-card__content">
-            <div
-              class="list-card__flag"
-              :style="`--bg-color: ${CountryColor[list.teams[0].country]}`"
-            >
-              <img
-                class="list-card__flag-image"
-                :src="`/images/country-flag/${list.teams[0].country}.svg`"
-                :alt="list.teams[0].country"
-              />
-            </div>
+            <CountryFlag :country="list.teams[0].country" />
             <span class="list-card__title">
               {{ list.name }}
             </span>
@@ -74,6 +65,7 @@ import TransitionFade from '@/components/TransitionFade.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import EmptySearchState from '@/components/EmptySearchState.vue';
+import CountryFlag from '@/components/CountryFlag.vue';
 
 // Breadcrumb items
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
@@ -140,18 +132,6 @@ getTeamLists();
   position: relative;
   &__content {
     padding: 0.75rem;
-  }
-  &__flag {
-    display: grid;
-    place-items: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    background-color: var(--bg-color);
-    border-radius: 0.5rem;
-  }
-  &__flag-image {
-    width: 2.25rem;
-    height: 2.25rem;
   }
   &__title {
     display: block;
