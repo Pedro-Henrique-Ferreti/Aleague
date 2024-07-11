@@ -268,7 +268,6 @@ watchEffect(() => {
   min-height: 100vh;
   border-radius: 0;
   .modal-card__title {
-    font-size: 1.5rem;
     text-align: center;
   }
   .modal-card__content {
