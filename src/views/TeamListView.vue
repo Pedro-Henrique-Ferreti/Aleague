@@ -51,6 +51,7 @@
         <TeamListModal
           :team-list="selectedTeamList"
           @close="selectedTeamList = null"
+          @list-applied="getTeamLists"
         />
       </div>
     </TransitionFade>

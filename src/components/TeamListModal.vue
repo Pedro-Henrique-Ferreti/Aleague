@@ -2,7 +2,6 @@
   <AppModal
     id="team-list-modal"
     format="drawer"
-    confirm-button-text="Adicionar equipes"
     :title="teamList?.name || ''"
     :show="!!teamList"
     @close="$emit('close')"
@@ -28,22 +27,62 @@
         <span>{{ team.name }}</span>
       </li>
     </ul>
+    <template #footer-confirm>
+      <AppButton
+        :is-loading="isLoading"
+        :disabled="submitButtonIsDisabled"
+        @click="applyTeamList"
+      >
+        Adicionar equipes
+      </AppButton>
+    </template>
   </AppModal>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue';
 import type { TeamList } from '@/types/Team';
+import { computed, ref, type PropType } from 'vue';
+import { useToast } from '@/composables/toast';
+import api from '@/api';
 import AppModal from './AppModal.vue';
+import AppButton from './AppButton.vue';
 import CountryFlag from './CountryFlag.vue';
 
-defineEmits(['close']);
-defineProps({
+const toast = useToast();
+
+const emit = defineEmits(['list-applied', 'close']);
+const props = defineProps({
   teamList: {
     type: Object as PropType<TeamList | null>,
     default: null,
   },
 });
+
+const submitButtonIsDisabled = computed(() => (
+  !props.teamList || props.teamList.teams.every((team) => team.exists)
+));
+
+// Apply team list
+const isLoading = ref(false);
+
+async function applyTeamList() {
+  if (!props.teamList) return;
+
+  isLoading.value = true;
+
+  try {
+    await api.teamService.applyTeamList(props.teamList?.id);
+
+    toast.success('Equipes adicionadas com sucesso!');
+
+    emit('list-applied');
+    emit('close');
+  } catch (error: any) {
+    toast.error('Não foi possivel adicionar as equipes. Por favor, tente novamente.');
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

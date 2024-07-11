@@ -9,4 +9,8 @@ export default class TeamService {
   static getTeamLists() {
     return axiosInstance.get<TeamList[]>('/teams/team-packs');
   }
+
+  static applyTeamList(listId: string) {
+    return axiosInstance.post(`/teams/team-packs/${listId}/apply`);
+  }
 }
