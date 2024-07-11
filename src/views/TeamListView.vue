@@ -43,10 +43,15 @@
           <button
             class="list-card__button"
             type="button"
+            @click="selectedTeamList = list"
           >
             Ver lista
           </button>
         </div>
+        <TeamListModal
+          :team-list="selectedTeamList"
+          @close="selectedTeamList = null"
+        />
       </div>
     </TransitionFade>
   </main>
@@ -56,7 +61,7 @@
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamList } from '@/types/Team';
 import { computed, ref } from 'vue';
-import { ALL_COUNTRIES_OPTIONS, CountryColor } from '@/constants/country';
+import { ALL_COUNTRIES_OPTIONS } from '@/constants/country';
 import api from '@/api';
 import AppDropdown from '@/components/AppDropdown.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -66,6 +71,7 @@ import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import EmptySearchState from '@/components/EmptySearchState.vue';
 import CountryFlag from '@/components/CountryFlag.vue';
+import TeamListModal from '@/components/TeamListModal.vue';
 
 // Breadcrumb items
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
@@ -81,6 +87,7 @@ const form = ref({
 });
 
 const teamLists = ref<TeamList[]>([]);
+const selectedTeamList = ref<TeamList | null>(null);
 
 const displayedTeamLists = computed(() => teamLists.value.filter((list) => {
   if (form.value.country && list.teams[0].country !== form.value.country) return false;
