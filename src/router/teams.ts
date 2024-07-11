@@ -11,23 +11,23 @@ export default [
     meta: {
       requiresAuth: true,
     },
-    children: [
-      {
-        path: '/equipes/novo',
-        name: 'new-team',
-        component: NewTeamView,
-        meta: {
-          requiresAuth: true,
-        },
-      },
-      {
-        path: '/equipes/listas',
-        name: 'team-list',
-        component: TeamListView,
-        meta: {
-          requiresAuth: true,
-        },
-      },
-    ],
+  },
+  {
+    path: '/equipes/novo',
+    name: 'new-team',
+    component: NewTeamView,
+    meta: {
+      requiresAuth: true,
+      headerPath: 'teams',
+    },
+  },
+  {
+    path: '/equipes/listas',
+    name: 'team-list',
+    component: TeamListView,
+    meta: {
+      requiresAuth: true,
+      headerPath: 'teams',
+    },
   },
 ] as RouteRecordRaw[];

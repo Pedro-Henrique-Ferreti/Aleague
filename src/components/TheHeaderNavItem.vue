@@ -2,6 +2,7 @@
   <li class="nav-item">
     <RouterLink
       class="nav-item__link"
+      :class="{ 'router-link-active': $route.meta.headerPath === to.name }"
       :to="to"
     >
       <span>{{ name }}</span>
@@ -11,11 +12,11 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
-import type { RouteLocationRaw } from 'vue-router';
+import type { RouteLocationNamedRaw } from 'vue-router';
 
 defineProps({
   to: {
-    type: [String, Object] as PropType<RouteLocationRaw>,
+    type: [String, Object] as PropType<RouteLocationNamedRaw>,
     default: '',
   },
   name: {
