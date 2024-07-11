@@ -56,12 +56,14 @@
                 >
                   {{ cancelButtonText }}
                 </AppButton>
-                <AppButton
-                  :block="format === Format.dialog"
-                  @click="$emit('confirm')"
-                >
-                  {{ confirmButtonText }}
-                </AppButton>
+                <slot name="footer-confirm">
+                  <AppButton
+                    :block="format === Format.dialog"
+                    @click="$emit('confirm')"
+                  >
+                    {{ confirmButtonText }}
+                  </AppButton>
+                </slot>
               </slot>
             </div>
           </div>
