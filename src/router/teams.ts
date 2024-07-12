@@ -2,6 +2,7 @@ import type { RouteRecordRaw } from 'vue-router';
 import TeamsView from '@/views/TeamsView.vue';
 import NewTeamView from '@/views/NewTeamView.vue';
 import TeamListView from '@/views/TeamListView.vue';
+import CreateTeamsView from '@/views/CreateTeamsView.vue';
 
 export default [
   {
@@ -16,6 +17,15 @@ export default [
     path: '/equipes/novo',
     name: 'new-team',
     component: NewTeamView,
+    meta: {
+      requiresAuth: true,
+      headerPath: 'teams',
+    },
+  },
+  {
+    path: '/equipes/criar-equipes',
+    name: 'create-teams',
+    component: CreateTeamsView,
     meta: {
       requiresAuth: true,
       headerPath: 'teams',

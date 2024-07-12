@@ -12,7 +12,7 @@
         <RouterLink
           class="card__link"
           data-theme="blue"
-          to="/"
+          :to="{ name: 'team-list' }"
         >
           <div class="card__link-icon-wrapper">
             <IconListSearch />
@@ -21,12 +21,12 @@
         </RouterLink>
         <RouterLink
           class="card__link"
-          :to="{ name: 'team-list' }"
+          :to="{ name: 'create-teams' }"
         >
           <div class="card__link-icon-wrapper">
             <IconCreateMultiple />
           </div>
-          <p>Procurar equipes na lista</p>
+          <p>Criar uma nova equipe</p>
         </RouterLink>
       </div>
     </div>
