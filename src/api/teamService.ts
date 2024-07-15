@@ -1,4 +1,4 @@
-import type { ApiGetAllTeamsResponse, TeamList } from '@/types/Team';
+import type { ApiGetAllTeamsResponse, TeamEmblem, TeamList } from '@/types/Team';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class TeamService {
@@ -12,5 +12,9 @@ export default class TeamService {
 
   static applyTeamList(listId: string) {
     return axiosInstance.post(`/teams/team-packs/${listId}/apply`);
+  }
+
+  static getTeamEmblems() {
+    return axiosInstance.get<TeamEmblem[]>('/teams/emblems');
   }
 }

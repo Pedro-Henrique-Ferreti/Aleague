@@ -45,6 +45,15 @@ app.use(FloatingVue, {
       distance: 2,
       container: '#app',
     },
+    'app-popup-large': {
+      $extend: 'dropdown',
+      $resetCss: true,
+      arrowOverflow: false,
+      placement: 'bottom-start',
+      distance: 12,
+      skidding: -12,
+      container: '#app',
+    },
   },
 });
 

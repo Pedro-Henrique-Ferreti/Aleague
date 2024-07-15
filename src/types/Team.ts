@@ -12,6 +12,19 @@ export interface TeamList {
   }[];
 }
 
+export interface TeamEmblem {
+  id: string;
+  url: string;
+  createdAt: string;
+  isSystemEmblem: boolean;
+}
+
+export interface TeamToBeCreated {
+  name: string;
+  country: TypeCountry;
+  emblem: TeamEmblem;
+}
+
 // Api types
 export type ApiGetAllTeamsResponse = {
   id: string;
@@ -23,3 +36,10 @@ export type ApiGetAllTeamsResponse = {
     url: string;
   }
 }[];
+
+export interface ApiTeamToBeCreated {
+  id: number;
+  name: string;
+  country: TypeCountry;
+  emblem: TeamEmblem | null;
+}

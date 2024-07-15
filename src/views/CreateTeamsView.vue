@@ -16,27 +16,24 @@
             <span>Nacionalidade</span>
           </div>
           <div
-            v-for="n in 1"
+            v-for="team in form.teams"
             class="form__team"
-            :key="n"
+            :key="team.id"
           >
-            <img
-              class="form__team-emblem"
-              src="http://127.0.0.1:8000/assets/emblems/teams/default.png"
-              alt=""
-            />
+            <CreateTeamFieldEmblem />
             <AppInput
-              id="team-name"
+              v-model="team.name"
+              id="form--team-name"
             />
             <AppDropdown
-              id="team-name"
+              v-model="team.country"
+              id="form--team-country"
+              :options="COUNTRY_OPTIONS"
             />
             <AppIconButton
               color="danger"
               small
               :icon="IconDelete"
-              :is-loading="isLoading"
-              @click="isLoading = !isLoading"
             />
           </div>
         </div>
@@ -53,15 +50,18 @@
 
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
+import type { ApiTeamToBeCreated } from '@/types/Team';
 import { ref } from 'vue';
+import { Country, COUNTRY_OPTIONS } from '@/constants/country';
 import IconPlus from '@/assets/icons/IconPlus.svg';
 import IconDelete from '@/assets/icons/IconDelete.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppTextButton from '@/components/AppTextButton.vue';
-import PageHeader from '@/components/PageHeader.vue';
 import AppInput from '@/components/AppInput.vue';
 import AppDropdown from '@/components/AppDropdown.vue';
 import AppIconButton from '@/components/AppIconButton.vue';
+import PageHeader from '@/components/PageHeader.vue';
+import CreateTeamFieldEmblem from '@/components/CreateTeamFieldEmblem.vue';
 
 // Breadcrumb items
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
@@ -70,7 +70,18 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
   'Criar nova equipe',
 ];
 
-const isLoading = ref(false);
+// New team
+const newTeam = (): ApiTeamToBeCreated => ({
+  id: new Date().getTime(),
+  name: '',
+  country: Country.BRAZIL,
+  emblem: null,
+});
+
+// Form
+const form = ref({
+  teams: [newTeam()] as ApiTeamToBeCreated[],
+});
 </script>
 
 <style lang="scss" scoped>
@@ -100,11 +111,6 @@ const isLoading = ref(false);
     grid-column: 1 / 5;
     grid-template-columns: subgrid;
     place-items: center normal;
-  }
-  &__team-emblem {
-    width: 2.25rem;
-    height: 2.25rem;
-    place-self: center;
   }
 }
 </style>
