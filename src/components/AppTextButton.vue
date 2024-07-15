@@ -7,13 +7,23 @@
     :data-loading="isLoading"
     @click="handleClick"
   >
+    <IconSpinner
+      v-if="isLoading && iconLeft"
+      class="text-button__icon-loader"
+      size="14"
+    />
+    <component
+      v-else-if="iconLeft"
+      class="text-button__icon"
+      :is="iconLeft"
+    />
     <div class="text-button__content">
       <slot />
     </div>
     <IconSpinner
-      v-if="isLoading"
+      v-if="isLoading && !iconLeft"
       class="text-button__icon-loader"
-      size="16"
+      size="14"
     />
   </BaseButton>
 </template>
@@ -49,6 +59,10 @@ const props = defineProps({
   color: {
     type: String as PropType<ValueOf<typeof Colors>>,
     default: Colors.PRIMARY,
+  },
+  iconLeft: {
+    type: null,
+    default: () => null,
   },
 });
 
@@ -96,11 +110,10 @@ function handleClick(event: Event) {
     --indicator-color: var(--loader-indicator-color);
     fill: currentColor;
   }
-  &__icon-wrapper :deep(svg) {
+  &__icon {
+    width: auto;
+    height: 0.875rem;
     fill: currentColor;
-  }
-  &__icon-left {
-    transform: rotate(180deg);
   }
 }
 </style>
