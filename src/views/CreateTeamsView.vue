@@ -14,7 +14,7 @@
       <form
         v-else
         class="form"
-        @submit.prevent
+        @submit.prevent="submitForm"
       >
         <div class="form__card | app-base-card">
           <div class="form__table">
@@ -24,7 +24,7 @@
               <span>Nacionalidade</span>
             </div>
             <div
-              v-for="team in form.teams"
+              v-for="(team, index) in form.teams"
               class="form__team"
               :key="team.id"
             >
@@ -33,8 +33,10 @@
                 :team-emblems="teamEmblems"
               />
               <AppInput
-                v-model="team.name"
+                v-model.trim="team.name"
                 :id="`form--team-name-${team.id}`"
+                :dirty="v$.teams.$dirty"
+                :error-message="v$.teams.$each.$message[index][0]"
               />
               <AppDropdown
                 v-model="team.country"
@@ -57,7 +59,10 @@
             Nova equipe
           </AppTextButton>
         </div>
-        <AppButton type="submit">
+        <AppButton
+          type="submit"
+          :is-loading="isSaving"
+        >
           Salvar equipes
         </AppButton>
       </form>
@@ -66,9 +71,14 @@
 </template>
 
 <script lang="ts" setup>
+import type { ApiError } from '@/types/Auth';
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { ApiTeamToBeCreated, TeamEmblem } from '@/types/Team';
 import { ref } from 'vue';
+import useVuelidate from '@vuelidate/core';
+import { helpers } from '@vuelidate/validators';
+import { useToast } from '@/composables/toast';
+import { requiredValidator } from '@/helpers/validators';
 import { Country, COUNTRY_OPTIONS } from '@/constants/country';
 import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
@@ -84,6 +94,8 @@ import ErrorState from '@/components/ErrorState.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import CreateTeamFieldEmblem from '@/components/CreateTeamFieldEmblem.vue';
 
+const toast = useToast();
+
 // Breadcrumb items
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
   { title: 'Equipes', to: { name: 'teams' } },
@@ -95,6 +107,17 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
 const form = ref({
   teams: [] as ApiTeamToBeCreated[],
 });
+
+// Form validation
+const v$ = useVuelidate({
+  teams: {
+    $each: helpers.forEach({
+      name: {
+        requiredValidator,
+      },
+    }),
+  },
+}, form, { $autoDirty: true });
 
 // Delete team
 function deleteTeam(id: number) {
@@ -141,6 +164,27 @@ async function getTeamEmblems() {
 }
 
 getTeamEmblems();
+
+// Submit form
+const isSaving = ref(false);
+
+async function submitForm() {
+  if (!await v$.value.$validate()) return;
+
+  isSaving.value = true;
+
+  try {
+    await api.teamService.createTeams(form.value.teams);
+  } catch (error: any) {
+    toast.error(
+      (error.response)
+        ? (error.response as ApiError).data.message
+        : 'Ocorreu um erro inesperado. Por favor, tente novamente.',
+    );
+  } finally {
+    isSaving.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

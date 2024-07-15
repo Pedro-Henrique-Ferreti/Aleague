@@ -1,4 +1,6 @@
-import type { ApiGetAllTeamsResponse, TeamEmblem, TeamList } from '@/types/Team';
+import type {
+  ApiGetAllTeamsResponse, ApiTeamToBeCreated, TeamEmblem, TeamList,
+} from '@/types/Team';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class TeamService {
@@ -16,5 +18,15 @@ export default class TeamService {
 
   static getTeamEmblems() {
     return axiosInstance.get<TeamEmblem[]>('/teams/emblems');
+  }
+
+  static createTeams(teams: ApiTeamToBeCreated[]) {
+    return axiosInstance.post('/teams', {
+      teams: teams.map((team) => ({
+        name: team.name,
+        country: team.country,
+        emblemId: team.emblem.id,
+      })),
+    });
   }
 }
