@@ -4,55 +4,73 @@
       title="Criar nova equipe"
       :breadcrumb-items="BREADCRUMB_ITEMS"
     />
-    <form
-      class="form"
-      @submit.prevent
-    >
-      <div class="form__card | app-base-card">
-        <div class="form__table">
-          <div class="form__table-header">
-            <span>Escudo</span>
-            <span>Nome</span>
-            <span>Nacionalidade</span>
+    <TransitionFade>
+      <LoadingIndicator v-if="isLoading" />
+      <ErrorState
+        v-else-if="errorMessage"
+        :message="errorMessage"
+        @reload="getTeamEmblems"
+      />
+      <form
+        v-else
+        class="form"
+        @submit.prevent
+      >
+        <div class="form__card | app-base-card">
+          <div class="form__table">
+            <div class="form__table-header">
+              <span>Escudo</span>
+              <span>Nome</span>
+              <span>Nacionalidade</span>
+            </div>
+            <div
+              v-for="team in form.teams"
+              class="form__team"
+              :key="team.id"
+            >
+              <CreateTeamFieldEmblem
+                v-model:selected-emblem="team.emblem"
+                :team-emblems="teamEmblems"
+              />
+              <AppInput
+                v-model="team.name"
+                :id="`form--team-name-${team.id}`"
+              />
+              <AppDropdown
+                v-model="team.country"
+                :id="`form--team-country-${team.id}`"
+                :options="COUNTRY_OPTIONS"
+              />
+              <AppIconButton
+                v-if="form.teams.length > 1"
+                color="danger"
+                small
+                :icon="IconDelete"
+                @click="deleteTeam(team.id)"
+              />
+            </div>
           </div>
-          <div
-            v-for="team in form.teams"
-            class="form__team"
-            :key="team.id"
+          <AppTextButton
+            :icon-left="IconPlus"
+            @click="form.teams.push(newTeam())"
           >
-            <CreateTeamFieldEmblem />
-            <AppInput
-              v-model="team.name"
-              id="form--team-name"
-            />
-            <AppDropdown
-              v-model="team.country"
-              id="form--team-country"
-              :options="COUNTRY_OPTIONS"
-            />
-            <AppIconButton
-              color="danger"
-              small
-              :icon="IconDelete"
-            />
-          </div>
+            Nova equipe
+          </AppTextButton>
         </div>
-        <AppTextButton :icon-left="IconPlus">
-          Nova equipe
-        </AppTextButton>
-      </div>
-      <AppButton type="submit">
-        Salvar equipes
-      </AppButton>
-    </form>
+        <AppButton type="submit">
+          Salvar equipes
+        </AppButton>
+      </form>
+    </TransitionFade>
   </main>
 </template>
 
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
-import type { ApiTeamToBeCreated } from '@/types/Team';
+import type { ApiTeamToBeCreated, TeamEmblem } from '@/types/Team';
 import { ref } from 'vue';
 import { Country, COUNTRY_OPTIONS } from '@/constants/country';
+import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
 import IconDelete from '@/assets/icons/IconDelete.svg';
 import AppButton from '@/components/AppButton.vue';
@@ -61,6 +79,9 @@ import AppInput from '@/components/AppInput.vue';
 import AppDropdown from '@/components/AppDropdown.vue';
 import AppIconButton from '@/components/AppIconButton.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import ErrorState from '@/components/ErrorState.vue';
+import TransitionFade from '@/components/TransitionFade.vue';
 import CreateTeamFieldEmblem from '@/components/CreateTeamFieldEmblem.vue';
 
 // Breadcrumb items
@@ -70,18 +91,56 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
   'Criar nova equipe',
 ];
 
+// Form
+const form = ref({
+  teams: [] as ApiTeamToBeCreated[],
+});
+
+// Delete team
+function deleteTeam(id: number) {
+  const index = form.value.teams.findIndex((item) => item.id === id);
+
+  if (index >= 0) {
+    form.value.teams.splice(index, 1);
+  }
+}
+
+// Team emblems
+const teamEmblems = ref<TeamEmblem[]>([]);
+const isLoading = ref(true);
+const errorMessage = ref('');
+
 // New team
 const newTeam = (): ApiTeamToBeCreated => ({
   id: new Date().getTime(),
   name: '',
   country: Country.BRAZIL,
-  emblem: null,
+  emblem: teamEmblems.value[0],
 });
 
-// Form
-const form = ref({
-  teams: [newTeam()] as ApiTeamToBeCreated[],
-});
+// Get team emblems
+async function getTeamEmblems() {
+  isLoading.value = true;
+  errorMessage.value = '';
+
+  try {
+    const { data } = await api.teamService.getTeamEmblems();
+
+    teamEmblems.value = data.sort((a, b) => {
+      if (a.isDefaultEmblem && !b.isDefaultEmblem) return -1;
+      if (!a.isDefaultEmblem && b.isDefaultEmblem) return 1;
+      return 0;
+    });
+
+    form.value.teams.push(newTeam());
+  } catch (error) {
+    errorMessage.value = 'Algo deu errado e não foi possível carregar a lista de escudos.';
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+getTeamEmblems();
 </script>
 
 <style lang="scss" scoped>

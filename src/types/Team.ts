@@ -17,6 +17,7 @@ export interface TeamEmblem {
   url: string;
   createdAt: string;
   isSystemEmblem: boolean;
+  isDefaultEmblem: boolean;
 }
 
 export interface TeamToBeCreated {
@@ -41,5 +42,5 @@ export interface ApiTeamToBeCreated {
   id: number;
   name: string;
   country: TypeCountry;
-  emblem: TeamEmblem | null;
+  emblem: TeamEmblem;
 }

@@ -4,7 +4,6 @@
     theme="app-popup-large"
     auto-hide
     :triggers="['click']"
-    @apply-show="loadEmblems"
   >
     <button
       class="team-emblem__button"
@@ -12,57 +11,47 @@
     >
       <img
         class="team-emblem__image"
-        src="http://127.0.0.1:8000/assets/emblems/teams/default.png"
         alt=""
+        :src="selectedEmblem.url"
       />
     </button>
-    <template #popper>
-      <TransitionFade>
-        <LoadingIndicator
-          v-if="teamEmblemStore.isLoadingEmblems"
-          class="team-emblem__loader"
-        />
-        <ErrorState
-          v-else-if="teamEmblemStore.showTeamEmblemsErrorMessage"
-          message="Não foi possível carregar a lista de escudos."
-          @reload="loadEmblems"
-        />
-        <div
-          v-else
-          class="team-emblem__list"
+    <template #popper="{ hide }">
+      <div class="team-emblem__list">
+        <button
+          v-for="emblem in teamEmblems"
+          class="team-emblem__item"
+          type="button"
+          :key="emblem.id"
+          :data-selected="selectedEmblem.id === emblem.id"
+          @click="$emit('update:selectedEmblem', emblem), hide()"
         >
-          <button
-            v-for="emblem in teamEmblemStore.teamEmblems"
-            class="team-emblem__item"
-            type="button"
-            :key="emblem.id"
-          >
-            <img
-              class="team-emblem__image"
-              alt=""
-              :src="emblem.url"
-            />
-          </button>
-        </div>
-      </TransitionFade>
+          <img
+            class="team-emblem__image"
+            alt=""
+            :src="emblem.url"
+          />
+        </button>
+      </div>
     </template>
   </Dropdown>
 </template>
 
 <script lang="ts" setup>
+import type { PropType } from 'vue';
+import type { TeamEmblem } from '@/types/Team';
 import { Dropdown } from 'floating-vue';
-import { useTeamEmblemStore } from '@/stores/teamEmblem';
-import TransitionFade from './TransitionFade.vue';
-import LoadingIndicator from './LoadingIndicator.vue';
-import ErrorState from './ErrorState.vue';
 
-const teamEmblemStore = useTeamEmblemStore();
-
-function loadEmblems() {
-  if (teamEmblemStore.teamEmblems.length === 0) {
-    teamEmblemStore.loadTeamEmblems();
-  }
-}
+defineEmits(['update:selectedEmblem']);
+defineProps({
+  teamEmblems: {
+    type: Array as PropType<TeamEmblem[]>,
+    required: true,
+  },
+  selectedEmblem: {
+    type: Object as PropType<TeamEmblem>,
+    required: true,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -70,9 +59,11 @@ function loadEmblems() {
   display: grid;
   place-items: center;
   place-self: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   &__button {
+    display: grid;
+    place-items: center;
     width: inherit;
     height: inherit;
   }
