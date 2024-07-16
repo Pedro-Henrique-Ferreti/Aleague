@@ -1,5 +1,6 @@
 // App base card
 .app-base-card {
+  height: fit-content;
   padding: var(--base-card--padding, 1.25rem);
   background-color: $color--white;
   border-radius: 1rem;
