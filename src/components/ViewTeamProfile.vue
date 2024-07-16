@@ -29,15 +29,15 @@
     <div class="team-profile__controls">
       <AppIconButton
         color="secondary"
-        :icon="IconGraphLine"
-      />
-      <AppIconButton
-        color="secondary"
         :icon="IconPencil"
       />
       <AppIconButton
         color="secondary"
         :icon="IconStarOutline"
+      />
+      <AppIconButton
+        color="secondary"
+        :icon="IconGraphLine"
       />
     </div>
   </div>

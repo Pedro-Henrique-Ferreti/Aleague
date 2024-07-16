@@ -62,7 +62,7 @@
           v-for="team in displayedTeams"
           :key="team.id"
           class="team-card"
-          to="#"
+          :to="{ name: 'view-team', params: { id: team.id } }"
         >
           <div class="team-card__header">
             <div class="team-card__emblem">

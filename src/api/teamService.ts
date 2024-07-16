@@ -1,5 +1,5 @@
 import type {
-  ApiGetAllTeamsResponse, ApiTeamToBeCreated, TeamEmblem, TeamList,
+  ApiGetAllTeamsResponse, ApiTeamToBeCreated, TeamDetails, TeamEmblem, TeamList,
 } from '@/types/Team';
 import { axiosInstance } from '@/helpers/axios';
 
@@ -28,5 +28,9 @@ export default class TeamService {
         emblemId: team.emblem.id,
       })),
     });
+  }
+
+  static getTeamById(id: string) {
+    return axiosInstance.get<TeamDetails>(`/teams/${id}`);
   }
 }

@@ -3,6 +3,7 @@ import TeamsView from '@/views/TeamsView.vue';
 import NewTeamView from '@/views/NewTeamView.vue';
 import TeamListView from '@/views/TeamListView.vue';
 import CreateTeamsView from '@/views/CreateTeamsView.vue';
+import ViewTeamView from '@/views/ViewTeamView.vue';
 
 export default [
   {
@@ -35,6 +36,15 @@ export default [
     path: '/equipes/listas',
     name: 'team-list',
     component: TeamListView,
+    meta: {
+      requiresAuth: true,
+      headerPath: 'teams',
+    },
+  },
+  {
+    path: '/equipes/:id',
+    name: 'view-team',
+    component: ViewTeamView,
     meta: {
       requiresAuth: true,
       headerPath: 'teams',
