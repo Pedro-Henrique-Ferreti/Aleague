@@ -64,3 +64,26 @@
     display: none;
   }
 }
+
+.v-popper--theme-tooltip {
+  &.v-popper__popper--show-from .v-popper__wrapper {
+    opacity: 0;
+    transform: translateY(0.375rem);
+  }
+  &.v-popper__popper--show-to .v-popper__wrapper {
+    transition:
+      transform 0.12s cubic-bezier(0, 0, 0.2, 1),
+      opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
+  }
+  .v-popper__inner {
+    padding: 0.25rem 0.375rem;
+    background-color: $color--black;
+    border-radius: 0.375rem;
+    color: $color--neutral-100;
+    font-size: 0.875rem;
+    font-weight: $font-weight--medium;
+  }
+  .v-popper__arrow-outer {
+    border-color: $color--black;
+  }
+}

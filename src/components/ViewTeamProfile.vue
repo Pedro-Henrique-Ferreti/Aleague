@@ -28,14 +28,17 @@
     </div>
     <div class="team-profile__controls">
       <AppIconButton
+        v-tooltip="'Editar equipe'"
         color="secondary"
         :icon="IconPencil"
       />
       <AppIconButton
+        v-tooltip="'Favoritar equipe'"
         color="secondary"
         :icon="IconStarOutline"
       />
       <AppIconButton
+        v-tooltip="'Estatísticas'"
         color="secondary"
         :icon="IconGraphLine"
       />

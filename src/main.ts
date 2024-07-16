@@ -54,6 +54,10 @@ app.use(FloatingVue, {
       skidding: -12,
       container: '#app',
     },
+    tooltip: {
+      $resetCss: true,
+      distance: 8,
+    },
   },
 });
 
