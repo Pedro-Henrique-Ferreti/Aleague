@@ -93,6 +93,7 @@ defineProps({
   display: flex;
   align-items: center;
   width: fit-content;
+  height: fit-content;
   gap: 0.5rem;
   padding: 0.125rem 0.375rem;
   background-color: var(--bg-color);
