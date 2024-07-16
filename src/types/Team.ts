@@ -26,6 +26,29 @@ export interface TeamToBeCreated {
   emblem: TeamEmblem;
 }
 
+export interface RivalTeam {
+  id: string;
+  name: string;
+  country: TypeCountry;
+  emblem: {
+    id: string;
+    url: string;
+  };
+}
+
+export interface TeamDetails {
+  id: string;
+  isFavorite: boolean;
+  name: string;
+  country: TypeCountry;
+  createdAt: string;
+  emblem: {
+    id: string;
+    url: string;
+  };
+  rivals: RivalTeam[];
+}
+
 // Api types
 export type ApiGetAllTeamsResponse = {
   id: string;

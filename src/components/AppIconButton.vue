@@ -154,6 +154,7 @@ function handleClick(event: Event) {
     --bg-color: #{$color--neutral-100};
     --text-color: #{$color--primary-800};
     --loader-indicator-color: #{$color--primary-800};
+    --hover-text-color: #{$color--primary-900};
   }
   &[data-color="secondary-dark"] {
     --bg-color: #{$color--neutral-100};
