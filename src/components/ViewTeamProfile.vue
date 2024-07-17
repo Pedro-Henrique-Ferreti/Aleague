@@ -38,7 +38,7 @@
         :icon="IconStarOutline"
       />
       <AppIconButton
-        v-tooltip="'Estatísticas'"
+        v-tooltip="'Comparar estatísticas'"
         color="secondary"
         :icon="IconGraphLine"
       />
