@@ -9,7 +9,13 @@ import svgLoader from 'vite-svg-loader';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('swiper'),
+        },
+      },
+    }),
     VueDevTools(),
     eslint(),
     svgLoader({

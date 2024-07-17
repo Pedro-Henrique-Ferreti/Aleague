@@ -6,9 +6,12 @@ import { createPinia } from 'pinia';
 import Toast, { type PluginOptions } from 'vue-toastification';
 import FloatingVue from 'floating-vue';
 import { createI18n } from 'vue-i18n';
+import { register } from 'swiper/element/bundle';
 import App from './App.vue';
 import router from './router';
 import ptBR from './locales/pt_BR';
+
+register();
 
 const app = createApp(App);
 
