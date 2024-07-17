@@ -11,6 +11,7 @@
   }
 }
 
+// User menu
 .v-popper--theme-user-menu {
   @include transition-scale-from-top;
   .v-popper__inner {
@@ -25,6 +26,7 @@
   }
 }
 
+// App dropdown
 .v-popper--theme-app-dropdown {
   @include transition-scale-from-top;
   .v-popper__wrapper {
@@ -42,6 +44,7 @@
   }
 }
 
+// Popup large
 .v-popper--theme-app-popup-large {
   width: 100%;
   max-width: 22.25rem;
@@ -65,6 +68,7 @@
   }
 }
 
+// Tooltip
 .v-popper--theme-tooltip {
   &.v-popper__popper--show-from .v-popper__wrapper {
     opacity: 0;
@@ -85,5 +89,27 @@
   }
   .v-popper__arrow-outer {
     border-color: $color--black;
+  }
+}
+
+// Context menu
+.v-popper--theme-context-menu {
+  &.v-popper__popper--show-from .v-popper__wrapper {
+    opacity: 0;
+    transform: translateX(-0.375rem);
+  }
+  &.v-popper__popper--show-to .v-popper__wrapper {
+    transition:
+      transform 0.12s cubic-bezier(0, 0, 0.2, 1),
+      opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
+  }
+  .v-popper__wrapper {
+    width: 12.25rem;
+    background-color: $color--white;
+    border-radius: $radius--medium;
+    box-shadow: $shadow--popup;
+  }
+  .v-popper__arrow-container {
+    display: none;
   }
 }

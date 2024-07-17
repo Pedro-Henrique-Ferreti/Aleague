@@ -55,6 +55,13 @@ app.use(FloatingVue, {
       distance: 12,
       skidding: -12,
     },
+    'context-menu': {
+      $extend: 'dropdown',
+      $resetCss: true,
+      arrowOverflow: false,
+      placement: 'right-start',
+      distance: 8,
+    },
     tooltip: {
       $resetCss: true,
       distance: 8,
