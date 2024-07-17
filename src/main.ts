@@ -43,7 +43,6 @@ app.use(FloatingVue, {
       arrowOverflow: false,
       placement: 'bottom-start',
       distance: 2,
-      container: '#app',
     },
     'app-popup-large': {
       $extend: 'dropdown',
@@ -52,7 +51,6 @@ app.use(FloatingVue, {
       placement: 'bottom-start',
       distance: 12,
       skidding: -12,
-      container: '#app',
     },
     tooltip: {
       $resetCss: true,
