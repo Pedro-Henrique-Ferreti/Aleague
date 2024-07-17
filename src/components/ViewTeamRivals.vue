@@ -1,20 +1,31 @@
 <template>
   <AppCard title="Rivais">
     <div class="rivals">
-      <button
-        v-for="item in team.rivals"
-        v-tooltip="item.name"
-        class="rivals__rival-team"
-        type="button"
-        :key="item.id"
-        @click="rivalToRemove = item"
-      >
-        <img
-          class="rivals__rival-team-emblem"
-          :src="item.emblem.url"
-          :alt="`${item.name}'s emblem'`"
-        />
-      </button>
+      <div class="rivals__container">
+        <swiper-container
+          space-between="12"
+          slides-per-view="auto"
+        >
+          <swiper-slide
+            v-for="item in team.rivals"
+            class="rivals__rival-team-slide"
+            :key="item.id"
+          >
+            <button
+              v-tooltip="item.name"
+              class="rivals__rival-team"
+              type="button"
+              @click="rivalToRemove = item"
+            >
+              <img
+                class="rivals__rival-team-emblem"
+                :src="item.emblem.url"
+                :alt="`${item.name}'s emblem'`"
+              />
+            </button>
+          </swiper-slide>
+        </swiper-container>
+      </div>
       <button
         v-tooltip="'Adicionar rival'"
         class="rivals__button-add"
@@ -47,7 +58,7 @@
       format="dialog"
       :show="!!rivalToRemove"
       :confirm-button-is-loading="isRemovingRival"
-      @close="addRivalModalIsOpen = false"
+      @close="rivalToRemove = null"
       @confirm="removeRival"
     >
       <p>
@@ -169,9 +180,12 @@ async function removeRival() {
 
 <style lang="scss" scoped>
 .rivals {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 0.75rem;
+  &__container {
+    overflow: hidden;
+  }
   &__rival-team {
     display: grid;
     place-items: center;
@@ -179,6 +193,9 @@ async function removeRival() {
     height: 5rem;
     border: 1px solid $color--neutral-100;
     border-radius: $radius--medium;
+  }
+  &__rival-team-slide {
+    width: fit-content;
   }
   &__rival-team-emblem {
     max-width: 4rem;
