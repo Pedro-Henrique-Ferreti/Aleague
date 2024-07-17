@@ -1,5 +1,5 @@
 import type {
-  ApiGetAllTeamsResponse, ApiTeamToBeCreated, TeamDetails, TeamEmblem, TeamList,
+  ApiGetAllTeamsResponse, ApiTeamToBeCreated, RivalTeam, TeamDetails, TeamEmblem, TeamList,
 } from '@/types/Team';
 import { axiosInstance } from '@/helpers/axios';
 
@@ -35,12 +35,12 @@ export default class TeamService {
   }
 
   static addRivalToTeam(payload: { teamId: string; rivalTeamId: string }) {
-    return axiosInstance.post(`/teams/${payload.teamId}/rivals`, {
+    return axiosInstance.post<RivalTeam[]>(`/teams/${payload.teamId}/rivals`, {
       rivalId: payload.rivalTeamId,
     });
   }
 
   static removeRivalFromTeam(payload: { teamId: string; rivalTeamId: string }) {
-    return axiosInstance.delete(`/teams/${payload.teamId}/rivals/${payload.rivalTeamId}`);
+    return axiosInstance.delete<RivalTeam[]>(`/teams/${payload.teamId}/rivals/${payload.rivalTeamId}`);
   }
 }

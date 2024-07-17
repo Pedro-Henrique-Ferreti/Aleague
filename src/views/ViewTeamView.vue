@@ -17,6 +17,7 @@
           <ViewTeamRivals
             class="team__rivals-card"
             :team="team"
+            @update-rivals="(team) ? team.rivals = $event : null"
           />
         </div>
       </div>

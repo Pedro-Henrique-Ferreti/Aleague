@@ -84,6 +84,9 @@ import AppDropdown from './AppDropdown.vue';
 
 const toast = useToast();
 
+const emit = defineEmits<{
+  (e: 'update-rivals', value: RivalTeam[]): void;
+}>();
 const props = defineProps({
   team: {
     type: Object as PropType<TeamDetails>,
@@ -136,13 +139,14 @@ async function addRival() {
   isAddingRival.value = true;
 
   try {
-    await api.teamService.addRivalToTeam({
+    const { data: updatedRivals } = await api.teamService.addRivalToTeam({
       teamId: props.team.id,
       rivalTeamId: selectedRivalTeamId.value,
     });
 
     toast.success('Rival adicionado com sucesso!');
 
+    emit('update-rivals', updatedRivals);
     addRivalModalIsOpen.value = false;
     selectedRivalTeamId.value = '';
   } catch (error: any) {
@@ -162,13 +166,14 @@ async function removeRival() {
   isRemovingRival.value = true;
 
   try {
-    await api.teamService.removeRivalFromTeam({
+    const { data: updatedRivals } = await api.teamService.removeRivalFromTeam({
       teamId: props.team.id,
       rivalTeamId: rivalToRemove.value.id,
     });
 
     toast.success('Rival removido com sucesso.');
 
+    emit('update-rivals', updatedRivals);
     rivalToRemove.value = null;
   } catch (error: any) {
     toast.error('Não foi possível remover o rival. Por favor, tente novamente.');
