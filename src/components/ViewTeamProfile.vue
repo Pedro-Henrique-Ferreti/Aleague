@@ -33,9 +33,11 @@
         :icon="IconPencil"
       />
       <AppIconButton
-        v-tooltip="'Favoritar equipe'"
+        v-tooltip="(team.isFavorite) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
         color="secondary"
-        :icon="IconStarOutline"
+        :icon="(team.isFavorite) ? IconStar : IconStarOutline"
+        :is-loading="isUpdatingTeamFavoriteStatus"
+        @click="toggleTeamFavoriteStatus"
       />
       <AppIconButton
         v-tooltip="'Comparar estatísticas'"
@@ -47,18 +49,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import type { TeamDetails } from '@/types/Team';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { useToast } from '@/composables/toast';
 import { COUNTRY_OPTIONS } from '@/constants/country';
+import api from '@/api';
 import IconCalendarAdd from '@/assets/icons/IconCalendarAdd.svg';
 import IconGraphLine from '@/assets/icons/IconGraphLine.svg';
 import IconPencil from '@/assets/icons/IconPencil.svg';
+import IconStar from '@/assets/icons/IconStar.svg';
 import IconStarOutline from '@/assets/icons/IconStarOutline.svg';
 import AppIconButton from './AppIconButton.vue';
 import AppChip from './AppChip.vue';
 
+const toast = useToast();
+
+const emit = defineEmits<{
+  (e: 'update-favorite-status', value: boolean): void;
+}>();
 const props = defineProps({
   team: {
     type: Object as PropType<TeamDetails>,
@@ -69,6 +79,25 @@ const props = defineProps({
 const countryName = computed(() => (
   COUNTRY_OPTIONS.find(({ id }) => id === props.team.country)?.text
 ));
+
+// Toggle team favorite status
+const isUpdatingTeamFavoriteStatus = ref(false);
+
+async function toggleTeamFavoriteStatus() {
+  isUpdatingTeamFavoriteStatus.value = true;
+
+  try {
+    await api.teamService.toggleTeamFavoriteStatus(props.team.id);
+
+    toast.success('Status da equipe atualizado com sucesso!');
+
+    emit('update-favorite-status', !props.team.isFavorite);
+  } catch (error: any) {
+    toast.error('Não foi possível atualizar o status da equipe. Por favor, tente novamente.');
+  } finally {
+    isUpdatingTeamFavoriteStatus.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

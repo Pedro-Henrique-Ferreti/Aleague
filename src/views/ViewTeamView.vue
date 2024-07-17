@@ -13,6 +13,7 @@
           <ViewTeamProfile
             class="team__profile-card"
             :team="team"
+            @update-favorite-status="(team) ? team.isFavorite = $event : null"
           />
           <ViewTeamRivals
             class="team__rivals-card"
