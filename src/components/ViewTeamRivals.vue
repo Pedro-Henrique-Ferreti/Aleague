@@ -11,18 +11,10 @@
             class="rivals__rival-team-slide"
             :key="item.id"
           >
-            <button
-              v-tooltip="item.name"
-              class="rivals__rival-team"
-              type="button"
-              @click="rivalToRemove = item"
-            >
-              <img
-                class="rivals__rival-team-emblem"
-                :src="item.emblem.url"
-                :alt="`${item.name}'s emblem'`"
-              />
-            </button>
+            <ViewTeamRivalsItem
+              :team="item"
+              @remove="rivalToRemove = item"
+            />
           </swiper-slide>
         </swiper-container>
       </div>
@@ -81,6 +73,7 @@ import api from '@/api';
 import AppCard from './AppCard.vue';
 import AppModal from './AppModal.vue';
 import AppDropdown from './AppDropdown.vue';
+import ViewTeamRivalsItem from './ViewTeamRivalsItem.vue';
 
 const toast = useToast();
 
@@ -190,20 +183,8 @@ async function removeRival() {
   &__container {
     overflow: hidden;
   }
-  &__rival-team {
-    display: grid;
-    place-items: center;
-    width: 5rem;
-    height: 5rem;
-    border: 1px solid $color--neutral-100;
-    border-radius: $radius--medium;
-  }
   &__rival-team-slide {
     width: fit-content;
-  }
-  &__rival-team-emblem {
-    max-width: 4rem;
-    max-height: 4rem;
   }
   &__button-add {
     display: grid;
