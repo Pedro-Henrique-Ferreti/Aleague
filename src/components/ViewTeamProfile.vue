@@ -75,31 +75,39 @@ const countryName = computed(() => (
 .team-profile {
   display: grid;
   gap: 1rem;
-  @include for-tablet-portrait-up {
-    grid-template-columns: 1fr auto;
-  }
+  grid-template-columns: 1fr auto;
   &__emblem {
+    --size: 6rem;
+    @include for-tablet-portrait-up {
+      --size: 8.5rem;
+    }
     display: grid;
     place-items: center;
-    width: 8.5rem;
-    height: 8.5rem;
+    width: var(--size);
+    height: var(--size);
     border: 1px solid $color--neutral-100;
     border-radius: 0.75rem;
   }
   &__emblem-img {
-    max-width: 7rem;
-    max-height: 7rem;
+    max-width: 83%;
+    max-height: 83%;
   }
   &__content-wrapper {
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    @include for-tablet-portrait-up {
+      gap: 1.5rem;
+    }
   }
   &__content {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     flex: 1;
-    padding-top: 0.5rem;
+    @include for-tablet-portrait-up {
+      padding-top: 0.5rem;
+    }
   }
   &__flag {
     display: flex;
@@ -112,10 +120,8 @@ const countryName = computed(() => (
   }
   &__controls {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
-    @include for-tablet-portrait-up {
-      flex-direction: column;
-    }
   }
 }
 </style>

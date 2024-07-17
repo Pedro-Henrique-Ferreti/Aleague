@@ -186,8 +186,7 @@ async function removeRival() {
 <style lang="scss" scoped>
 .rivals {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.75rem;
+  grid-template-columns: auto 1fr;
   &__container {
     overflow: hidden;
   }
