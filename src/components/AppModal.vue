@@ -59,6 +59,7 @@
                 <slot name="footer-confirm">
                   <AppButton
                     :block="format === Format.dialog"
+                    :is-loading="confirmButtonIsLoading"
                     @click="$emit('confirm')"
                   >
                     {{ confirmButtonText }}
@@ -126,6 +127,10 @@ const props = defineProps({
   cancelButtonText: {
     type: String,
     default: 'Cancelar',
+  },
+  confirmButtonIsLoading: {
+    type: Boolean,
+    default: false,
   },
 });
 
