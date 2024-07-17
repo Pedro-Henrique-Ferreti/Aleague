@@ -29,7 +29,7 @@
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamDetails } from '@/types/Team';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import api from '@/api';
 import TransitionFade from '@/components/TransitionFade.vue';
@@ -56,6 +56,8 @@ const errorMessage = ref('');
 
 async function getTeam() {
   isLoading.value = true;
+  team.value = null;
+  errorMessage.value = '';
 
   try {
     const { data } = await api.teamService.getTeamById(route.params.id as string);
@@ -70,6 +72,7 @@ async function getTeam() {
 
 getTeam();
 
+watch(() => route.params.id, getTeam);
 </script>
 
 <style lang="scss" scoped>
