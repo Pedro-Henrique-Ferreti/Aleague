@@ -33,4 +33,10 @@ export default class TeamService {
   static getTeamById(id: string) {
     return axiosInstance.get<TeamDetails>(`/teams/${id}`);
   }
+
+  static addRivalToTeam(payload: { teamId: string; rivalTeamId: string }) {
+    return axiosInstance.post(`/teams/${payload.teamId}/rivals`, {
+      rivalId: payload.rivalTeamId,
+    });
+  }
 }
