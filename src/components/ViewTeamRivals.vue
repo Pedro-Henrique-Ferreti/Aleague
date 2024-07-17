@@ -7,6 +7,7 @@
         class="rivals__rival-team"
         type="button"
         :key="item.id"
+        @click="rivalToRemove = item"
       >
         <img
           class="rivals__rival-team-emblem"
@@ -40,12 +41,28 @@
         :options="rivalTeamOptions"
       />
     </AppModal>
+    <AppModal
+      title="Remover rival"
+      id="remove-rival-modal"
+      format="dialog"
+      :show="!!rivalToRemove"
+      :confirm-button-is-loading="isRemovingRival"
+      @close="addRivalModalIsOpen = false"
+      @confirm="removeRival"
+    >
+      <p>
+        Você tem certeza que deseja remover o rival
+        <b class="rivals__remove-rival-name">
+          {{ rivalToRemove?.name }}?
+        </b>
+      </p>
+    </AppModal>
   </AppCard>
 </template>
 
 <script lang="ts" setup>
 import type { DropdownOption } from '@/types/Dropdown';
-import type { ApiGetAllTeamsResponse, TeamDetails } from '@/types/Team';
+import type { ApiGetAllTeamsResponse, RivalTeam, TeamDetails } from '@/types/Team';
 import { computed, ref, type PropType } from 'vue';
 import { useToast } from '@/composables/toast';
 import IconPlus from '@/assets/icons/IconPlus.svg';
@@ -123,6 +140,31 @@ async function addRival() {
     isAddingRival.value = false;
   }
 }
+
+// Remove rival
+const rivalToRemove = ref<RivalTeam | null>(null);
+const isRemovingRival = ref(false);
+
+async function removeRival() {
+  if (!rivalToRemove.value) return;
+
+  isRemovingRival.value = true;
+
+  try {
+    await api.teamService.removeRivalFromTeam({
+      teamId: props.team.id,
+      rivalTeamId: rivalToRemove.value.id,
+    });
+
+    toast.success('Rival removido com sucesso.');
+
+    rivalToRemove.value = null;
+  } catch (error: any) {
+    toast.error('Não foi possível remover o rival. Por favor, tente novamente.');
+  } finally {
+    isRemovingRival.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -154,6 +196,10 @@ async function addRival() {
     &:hover {
       color: $color--primary-800;
     }
+  }
+  &__remove-rival-name {
+    color: $color--text-strong;
+    font-weight: $font-weight--medium;
   }
 }
 </style>

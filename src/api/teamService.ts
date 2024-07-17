@@ -39,4 +39,8 @@ export default class TeamService {
       rivalId: payload.rivalTeamId,
     });
   }
+
+  static removeRivalFromTeam(payload: { teamId: string; rivalTeamId: string }) {
+    return axiosInstance.delete(`/teams/${payload.teamId}/rivals/${payload.rivalTeamId}`);
+  }
 }
