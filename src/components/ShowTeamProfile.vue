@@ -31,6 +31,7 @@
         v-tooltip="'Editar equipe'"
         color="secondary"
         :icon="IconPencil"
+        :to="{ name: 'edit-team', params: { id: team.id } }"
       />
       <AppIconButton
         v-tooltip="(team.isFavorite) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
