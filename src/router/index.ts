@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 import LandingPageView from '@/views/LandingPageView.vue';
 import authRoutes from './auth';
-import seasonRoutes from './seasons';
+import careersRoutes from './careers';
 import teamsRoutes from './teams';
 import tournamentsRoutes from './tournaments';
 
@@ -25,7 +25,7 @@ const router = createRouter({
   routes: [
     ...authRoutes,
     ...teamsRoutes,
-    ...seasonRoutes,
+    ...careersRoutes,
     ...tournamentsRoutes,
     {
       path: '/',

@@ -1,11 +1,11 @@
 import type { RouteRecordRaw } from 'vue-router';
-import SeasonsView from '@/views/SeasonsView.vue';
+import CareersView from '@/views/CareersView.vue';
 
 export default [
   {
     path: '/temporadas',
-    name: 'seasons',
-    component: SeasonsView,
+    name: 'careers',
+    component: CareersView,
     meta: {
       requiresAuth: true,
     },

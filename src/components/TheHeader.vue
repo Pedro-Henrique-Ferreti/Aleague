@@ -23,7 +23,7 @@
         />
         <TheHeaderNavItem
           name="Temporadas"
-          :to="{ name: 'seasons' }"
+          :to="{ name: 'careers' }"
         />
       </ul>
     </nav>
