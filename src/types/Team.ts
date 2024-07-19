@@ -42,6 +42,7 @@ export interface TeamDetails {
   name: string;
   country: TypeCountry;
   createdAt: string;
+  updatedAt: string;
   emblem: {
     id: string;
     url: string;

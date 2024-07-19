@@ -6,7 +6,7 @@
     </div>
     <div class="team-details__item">
       <b>Última atualização em</b>
-      <span>{{ formatDate(team.createdAt) }}</span>
+      <span>{{ formatDate(team.updatedAt) }}</span>
     </div>
     <AppButton
       block
