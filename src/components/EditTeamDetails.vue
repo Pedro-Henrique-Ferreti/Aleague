@@ -12,21 +12,39 @@
       block
       color="danger"
       :icon-left="IconDelete"
+      :is-loading="isDeletingTeam"
+      @click="showDeleteModal = true"
     >
       Excluir equipe
     </AppButton>
   </div>
+  <AppDeleteModal
+    id="delete-team-modal"
+    title="Excluir equipe"
+    :show="showDeleteModal"
+    @close="showDeleteModal = false"
+    @confirm="deleteTeam"
+  >
+    <p>Tem certeza que deseja excluir essa equipe? Essa ação não poderá ser desfeita.</p>
+  </AppDeleteModal>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue';
 import type { TeamDetails } from '@/types/Team';
+import { ref, type PropType } from 'vue';
+import { useRouter } from 'vue-router';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { useToast } from '@/composables/toast';
+import api from '@/api';
 import IconDelete from '@/assets/icons/IconDelete.svg';
 import AppButton from './AppButton.vue';
+import AppDeleteModal from './AppDeleteModal.vue';
 
-defineProps({
+const router = useRouter();
+const toast = useToast();
+
+const props = defineProps({
   team: {
     type: Object as PropType<TeamDetails>,
     required: true,
@@ -36,6 +54,29 @@ defineProps({
 // Format date
 function formatDate(date: string) {
   return format(new Date(date), 'd MMMM yyyy', { locale: ptBR });
+}
+
+// Delete modal
+const showDeleteModal = ref(false);
+
+// Delete team
+const isDeletingTeam = ref(false);
+
+async function deleteTeam() {
+  isDeletingTeam.value = true;
+  showDeleteModal.value = false;
+
+  try {
+    await api.teamService.deleteTeam(props.team.id);
+
+    toast.success('Equipe excluída com sucesso.');
+
+    router.push({ name: 'teams' });
+  } catch (error: any) {
+    toast.error('Algo deu errado e não foi possível excluir a equipe.');
+  } finally {
+    isDeletingTeam.value = false;
+  }
 }
 </script>
 

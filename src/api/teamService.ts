@@ -55,4 +55,8 @@ export default class TeamService {
   static toggleTeamFavoriteStatus(teamId: string) {
     return axiosInstance.post(`/teams/${teamId}/favorite`);
   }
+
+  static deleteTeam(teamId: string) {
+    return axiosInstance.delete(`/teams/${teamId}`);
+  }
 }
