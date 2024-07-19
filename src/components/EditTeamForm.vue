@@ -1,7 +1,7 @@
 <template>
   <form
     class="edit-team-form"
-    @submit.prevent
+    @submit.prevent="submitForm"
   >
     <AppCard title="Configurações">
       <div class="edit-team-form__fields">
@@ -18,9 +18,11 @@
           </button>
         </TeamEmblemPopup>
         <AppInput
-          v-model="form.name"
+          v-model.trim="form.name"
           id="edit-team-form--name"
           label="Nome da equipe"
+          :dirty="v$.name.$dirty"
+          :error-message="v$.name.$errors[0]?.$message"
         />
       </div>
     </AppCard>
@@ -31,7 +33,11 @@
       >
         Cancelar
       </AppButton>
-      <AppButton type="submit">
+      <AppButton
+        type="submit"
+        :is-loading="isSaving"
+        :disabled="submitButtonIsDisabled"
+      >
         Salvar alterações
       </AppButton>
     </div>
@@ -40,11 +46,19 @@
 
 <script lang="ts" setup>
 import type { TeamDetails, TeamEmblem } from '@/types/Team';
-import { type PropType, ref } from 'vue';
+import { computed, type PropType, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import useVuelidate from '@vuelidate/core';
+import { useToast } from '@/composables/toast';
+import { requiredValidator } from '@/helpers/validators';
+import api from '@/api';
 import AppButton from './AppButton.vue';
 import AppCard from './AppCard.vue';
 import AppInput from './AppInput.vue';
 import TeamEmblemPopup from './TeamEmblemPopup.vue';
+
+const router = useRouter();
+const toast = useToast();
 
 const props = defineProps({
   team: {
@@ -53,6 +67,7 @@ const props = defineProps({
   },
 });
 
+// Form
 const form = ref({
   name: props.team.name,
   emblem: {
@@ -63,6 +78,41 @@ const form = ref({
     isSystemEmblem: true,
   } as TeamEmblem,
 });
+
+const submitButtonIsDisabled = computed(() => (
+  form.value.name === props.team.name && form.value.emblem.id === props.team.emblem.id
+));
+
+// Validation rules
+const v$ = useVuelidate({
+  name: {
+    required: requiredValidator,
+  },
+}, form, { $autoDirty: true });
+
+// Submit form
+const isSaving = ref(false);
+
+async function submitForm() {
+  if (!await v$.value.$validate()) return;
+
+  isSaving.value = true;
+
+  try {
+    await api.teamService.updateTeam({
+      teamId: props.team.id,
+      name: form.value.name,
+      emblemId: form.value.emblem.id,
+    });
+
+    toast.success('Equipe atualizada com sucesso!');
+    router.push({ name: 'show-team', params: { id: props.team.id } });
+  } catch (error: any) {
+    toast.error('Não foi possivel atualizar a equipe. Por favor, tente novamente.');
+  } finally {
+    isSaving.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>

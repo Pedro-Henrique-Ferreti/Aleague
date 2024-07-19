@@ -56,6 +56,13 @@ export default class TeamService {
     return axiosInstance.post(`/teams/${teamId}/favorite`);
   }
 
+  static updateTeam(payload: { teamId: string; name: string; emblemId: string }) {
+    return axiosInstance.patch(`/teams/${payload.teamId}`, {
+      name: payload.name,
+      emblemId: payload.emblemId,
+    });
+  }
+
   static deleteTeam(teamId: string) {
     return axiosInstance.delete(`/teams/${teamId}`);
   }
