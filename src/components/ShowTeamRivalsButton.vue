@@ -17,7 +17,7 @@
         :icon="IconArrowRight"
         :to="{ name: 'show-team', params: { id: team.id } }"
       />
-      <hr class="app-context-menu-divider" />
+      <hr />
       <AppContextMenuItem
         text="Remover rival"
         color="danger"
