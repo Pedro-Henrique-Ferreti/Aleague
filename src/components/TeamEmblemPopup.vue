@@ -1,20 +1,10 @@
 <template>
   <Dropdown
-    class="team-emblem"
     theme="app-popup-large"
     auto-hide
     :triggers="['click']"
   >
-    <button
-      class="team-emblem__button"
-      type="button"
-    >
-      <img
-        class="team-emblem__image"
-        alt=""
-        :src="selectedEmblem.url"
-      />
-    </button>
+    <slot />
     <template #popper="{ hide }">
       <div class="team-emblem__list">
         <button
@@ -26,7 +16,7 @@
           @click="$emit('update:selectedEmblem', emblem), hide()"
         >
           <img
-            class="team-emblem__image"
+            class="team-emblem__item-image"
             alt=""
             :src="emblem.url"
           />
@@ -56,24 +46,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .team-emblem {
-  display: grid;
-  place-items: center;
-  place-self: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  &__button {
-    display: grid;
-    place-items: center;
-    width: inherit;
-    height: inherit;
-  }
-  &__image {
-    max-width: 88%;
-    max-height: 88%;
-  }
-  &__loader {
-    margin: auto 0;
-  }
   &__list {
     display: grid;
     place-items: center;
@@ -93,6 +65,10 @@ defineProps({
     &[data-selected="true"] {
       background-color: $color--blue-1100;
     }
+  }
+  &__item-image {
+    max-width: 88%;
+    max-height: 88%;
   }
 }
 </style>

@@ -28,10 +28,22 @@
               class="form__team"
               :key="team.id"
             >
-              <CreateTeamFieldEmblem
+              <TeamEmblemPopup
                 v-model:selected-emblem="team.emblem"
+                class="form__team-emblem"
                 :team-emblems="teamEmblems"
-              />
+              >
+                <button
+                  class="form__team-emblem-button"
+                  type="button"
+                >
+                  <img
+                    class="form__team-emblem-button-image"
+                    alt=""
+                    :src="team.emblem.url"
+                  />
+                </button>
+              </TeamEmblemPopup>
               <AppInput
                 v-model.trim="team.name"
                 :id="`form--team-name-${team.id}`"
@@ -92,7 +104,7 @@ import PageHeader from '@/components/PageHeader.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
-import CreateTeamFieldEmblem from '@/components/CreateTeamFieldEmblem.vue';
+import TeamEmblemPopup from '@/components/TeamEmblemPopup.vue';
 
 const toast = useToast();
 
@@ -214,6 +226,23 @@ async function submitForm() {
     grid-column: 1 / 5;
     grid-template-columns: subgrid;
     place-items: center normal;
+  }
+  &__team-emblem {
+    display: grid;
+    place-items: center;
+    place-self: center;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  &__team-emblem-button {
+    display: grid;
+    place-items: center;
+    width: inherit;
+    height: inherit;
+  }
+  &__team-emblem-button-image {
+    max-width: 88%;
+    max-height: 88%;
   }
 }
 </style>
