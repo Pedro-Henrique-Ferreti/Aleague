@@ -16,8 +16,16 @@ export default class TeamService {
     return axiosInstance.post(`/teams/team-packs/${listId}/apply`);
   }
 
-  static getTeamEmblems() {
-    return axiosInstance.get<TeamEmblem[]>('/teams/emblems');
+  static async getTeamEmblems() {
+    const response = await axiosInstance.get<TeamEmblem[]>('/teams/emblems');
+
+    response.data = response.data.sort((a, b) => {
+      if (a.isDefaultEmblem && !b.isDefaultEmblem) return -1;
+      if (!a.isDefaultEmblem && b.isDefaultEmblem) return 1;
+      return 0;
+    });
+
+    return response;
   }
 
   static createTeams(teams: ApiTeamToBeCreated[]) {

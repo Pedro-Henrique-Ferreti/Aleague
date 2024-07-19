@@ -29,9 +29,9 @@
               :key="team.id"
             >
               <TeamEmblemPopup
-                v-model:selected-emblem="team.emblem"
+                v-model="team.emblem"
                 class="form__team-emblem"
-                :team-emblems="teamEmblems"
+                :emblems="teamEmblems"
               >
                 <button
                   class="form__team-emblem-button"
@@ -161,12 +161,7 @@ async function getTeamEmblems() {
   try {
     const { data } = await api.teamService.getTeamEmblems();
 
-    teamEmblems.value = data.sort((a, b) => {
-      if (a.isDefaultEmblem && !b.isDefaultEmblem) return -1;
-      if (!a.isDefaultEmblem && b.isDefaultEmblem) return 1;
-      return 0;
-    });
-
+    teamEmblems.value = data;
     form.value.teams.push(newTeam());
   } catch (error) {
     errorMessage.value = 'Algo deu errado e não foi possível carregar a lista de escudos.';

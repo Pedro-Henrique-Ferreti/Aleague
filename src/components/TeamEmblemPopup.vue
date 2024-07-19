@@ -12,8 +12,8 @@
           class="team-emblem__item"
           type="button"
           :key="emblem.id"
-          :data-selected="selectedEmblem.id === emblem.id"
-          @click="$emit('update:selectedEmblem', emblem), hide()"
+          :data-selected="modelValue.id === emblem.id"
+          @click="$emit('update:modelValue', emblem), hide()"
         >
           <img
             class="team-emblem__item-image"
@@ -27,20 +27,46 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue';
 import type { TeamEmblem } from '@/types/Team';
+import { onMounted, ref, type PropType } from 'vue';
 import { Dropdown } from 'floating-vue';
+import api from '@/api';
 
-defineEmits(['update:selectedEmblem']);
-defineProps({
-  teamEmblems: {
+defineEmits(['update:modelValue']);
+const props = defineProps({
+  emblems: {
     type: Array as PropType<TeamEmblem[]>,
-    required: true,
+    default: () => ([]),
   },
-  selectedEmblem: {
+  modelValue: {
     type: Object as PropType<TeamEmblem>,
-    required: true,
+    default: () => ({}),
   },
+});
+
+// Team emblems
+const teamEmblems = ref<TeamEmblem[]>(props.emblems);
+const isLoading = ref(false);
+const errorMessage = ref('');
+
+// Get team emblems
+async function getTeamEmblems() {
+  isLoading.value = true;
+  errorMessage.value = '';
+
+  try {
+    const { data } = await api.teamService.getTeamEmblems();
+
+    teamEmblems.value = data;
+  } catch (error) {
+    errorMessage.value = 'Algo deu errado e não foi possível carregar a lista de escudos.';
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+onMounted(() => {
+  if (teamEmblems.value.length === 0) getTeamEmblems();
 });
 </script>
 
