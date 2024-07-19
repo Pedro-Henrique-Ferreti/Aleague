@@ -15,7 +15,7 @@
       <AppContextMenuItem
         text="Ver equipe"
         :icon="IconArrowRight"
-        :to="{ name: 'view-team', params: { id: team.id } }"
+        :to="{ name: 'show-team', params: { id: team.id } }"
       />
       <hr class="app-context-menu-divider" />
       <AppContextMenuItem

@@ -11,7 +11,7 @@
             class="rivals__rival-team-slide"
             :key="item.id"
           >
-            <ViewTeamRivalsItem
+            <ShowTeamRivalsItem
               :team="item"
               @remove="rivalToRemove = item"
             />
@@ -73,7 +73,7 @@ import api from '@/api';
 import AppCard from './AppCard.vue';
 import AppModal from './AppModal.vue';
 import AppDropdown from './AppDropdown.vue';
-import ViewTeamRivalsItem from './ViewTeamRivalsItem.vue';
+import ShowTeamRivalsItem from './ShowTeamRivalsButton.vue';
 
 const toast = useToast();
 

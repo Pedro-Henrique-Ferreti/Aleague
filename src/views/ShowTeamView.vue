@@ -10,12 +10,12 @@
       <div v-else-if="team">
         <PageHeader :breadcrumb-items="breadcrumbItems" />
         <div class="team__grid">
-          <ViewTeamProfile
+          <ShowTeamProfile
             class="team__profile-card"
             :team="team"
             @update-favorite-status="(team) ? team.isFavorite = $event : null"
           />
-          <ViewTeamRivals
+          <ShowTeamRivals
             class="team__rivals-card"
             :team="team"
             @update-rivals="(team) ? team.rivals = $event : null"
@@ -36,8 +36,8 @@ import TransitionFade from '@/components/TransitionFade.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
-import ViewTeamProfile from '@/components/ViewTeamProfile.vue';
-import ViewTeamRivals from '@/components/ViewTeamRivals.vue';
+import ShowTeamProfile from '@/components/ShowTeamProfile.vue';
+import ShowTeamRivals from '@/components/ShowTeamRivals.vue';
 
 const route = useRoute();
 
