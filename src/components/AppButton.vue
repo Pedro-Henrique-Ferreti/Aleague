@@ -115,7 +115,8 @@ function handleClick(event: Event) {
     }
   }
 
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
   width: fit-content;
   height: var(--height);
   padding: 0 1.5rem;
