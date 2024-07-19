@@ -142,7 +142,6 @@ function handleClick(event: Event) {
     pointer-events: none;
   }
   &[data-outline="true"] {
-    background-color: transparent;
     border: 1px solid var(--border-color);
     &:hover:not([data-loading="true"]) {
       border-color: var(--hover-border-color, var(--border-color));
@@ -218,6 +217,7 @@ function handleClick(event: Event) {
   &[data-outline="true"] {
     --text-color: #{$color--text-strong};
     --border-color: #{$color--neutral-300};
+    --bg-color: #{$color--white};
     --hover-bg-color: #{$color--neutral-200};
     --disabled-text-color: #{$color--text};
   }
