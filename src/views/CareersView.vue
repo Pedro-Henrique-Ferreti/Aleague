@@ -8,7 +8,10 @@
         @reload="getAllCareers"
       />
       <div v-else>
-        <PageHeader title="Carreiras" />
+        <NewCareerMessage v-if="careers.length === 0" />
+        <template v-else>
+          <PageHeader title="Carreiras" />
+        </template>
       </div>
     </TransitionFade>
   </main>
@@ -21,6 +24,7 @@ import TransitionFade from '@/components/TransitionFade.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
+import NewCareerMessage from '@/components/NewCareerMessage.vue';
 
 // Careers
 const careers = ref([]);
