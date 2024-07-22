@@ -22,7 +22,7 @@
           :to="{ name: 'tournaments' }"
         />
         <TheHeaderNavItem
-          name="Temporadas"
+          name="Carreiras"
           :to="{ name: 'careers' }"
         />
       </ul>

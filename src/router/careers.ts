@@ -3,7 +3,7 @@ import CareersView from '@/views/CareersView.vue';
 
 export default [
   {
-    path: '/temporadas',
+    path: '/carreiras',
     name: 'careers',
     component: CareersView,
     meta: {
