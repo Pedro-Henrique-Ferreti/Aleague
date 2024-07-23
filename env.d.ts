@@ -8,6 +8,6 @@ declare module 'vue-router' {
   interface RouteMeta {
     layout?: 'landing-page' | 'auth';
     requiresAuth?: boolean;
-    headerPath?: string;
+    headerPath?: 'teams' | 'careers' | 'tournaments';
   }
 }
