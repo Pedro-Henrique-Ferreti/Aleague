@@ -1,5 +1,6 @@
 <template>
   <Dropdown
+    class="tournament-icon__wrapper"
     theme="app-popup-large"
     auto-hide
     :triggers="['click']"
@@ -71,6 +72,9 @@ function setScrollPosition() {
 
 <style lang="scss" scoped>
 .tournament-icon {
+  &__wrapper {
+    height: fit-content;
+  }
   &__button {
     display: flex;
     justify-content: center;
