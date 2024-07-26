@@ -1,0 +1,3 @@
+export const NUMBER_OF_TOURNAMENT_ICONS = 40;
+
+export const NEW_TOURNAMENT_DEFAULT_ICON_ID = 1;
