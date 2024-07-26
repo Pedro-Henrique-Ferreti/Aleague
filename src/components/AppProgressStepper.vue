@@ -1,23 +1,29 @@
 <template>
   <div class="stepper">
-    <div
-      v-for="(step, index) in items"
-      class="stepper__step"
-      :key="index"
+    <swiper-container
+      free-mode="true"
+      slides-per-view="auto"
     >
-      <span>{{ step.name }}</span>
-      <TransitionFade>
-        <IconSuccess
-          v-if="step.isCompleted"
-          class="stepper__step-icon"
-        />
-        <span
-          v-else
-          v-text="index + 1"
-          class="stepper__step-number"
-        />
-      </TransitionFade>
-    </div>
+      <swiper-slide
+        v-for="(step, index) in items"
+        :key="index"
+      >
+        <div class="stepper__step">
+          <span>{{ step.name }}</span>
+          <TransitionFade>
+            <IconSuccess
+              v-if="step.isCompleted"
+              class="stepper__step-icon"
+            />
+            <span
+              v-else
+              v-text="index + 1"
+              class="stepper__step-number"
+            />
+          </TransitionFade>
+        </div>
+      </swiper-slide>
+    </swiper-container>
   </div>
 </template>
 
@@ -37,10 +43,24 @@ defineProps({
 
 <style lang="scss" scoped>
 .stepper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.75rem;
+  swiper-container {
+    max-width: fit-content;
+    margin: 0 auto;
+  }
+  swiper-slide {
+    width: max-content;
+    &:not(:first-child) .stepper__step {
+      margin-left: 0.75rem;
+      &::before {
+        content: '';
+        width: 2.5rem;
+        height: 0.1875rem;
+        margin-right: 0.5rem;
+        background-color: $color--neutral-300;
+        border-radius: $radius--full;
+      }
+    }
+  }
   &__step {
     display: flex;
     align-items: center;
@@ -48,14 +68,6 @@ defineProps({
     color: $color--text-strong;
     font-size: 0.875rem;
     font-weight: $font-weight--medium;
-    &:not(:first-child)::before {
-      content: '';
-      width: 2.5rem;
-      height: 0.1875rem;
-      margin-right: 0.5rem;
-      background-color: $color--neutral-300;
-      border-radius: $radius--full;
-    }
   }
   &__step-number {
     display: grid;
