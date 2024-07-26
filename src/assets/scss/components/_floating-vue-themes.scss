@@ -46,8 +46,10 @@
 
 // Popup large
 .v-popper--theme-app-popup-large {
-  width: 100%;
-  max-width: 22.25rem;
+  &.v-popper__popper {
+    width: 100%;
+    max-width: 22.25rem;
+  }
   .v-popper__wrapper {
     background-color: $color--white;
     border-radius: $radius--large;
@@ -57,11 +59,6 @@
   .v-popper__inner {
     height: 23.75rem;
     padding: 1rem;
-    > div:not([class]) {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
   }
   .v-popper__arrow-container {
     display: none;
