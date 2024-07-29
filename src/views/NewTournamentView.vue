@@ -16,7 +16,10 @@
         />
       </AppCard>
       <div class="new-tournament__controls">
-        <AppButton type="submit">
+        <AppButton
+          type="submit"
+          :disabled="!form.tournamentName"
+        >
           Continuar
         </AppButton>
       </div>

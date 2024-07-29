@@ -3,7 +3,7 @@
     <NewTournamentSettingsFormIcon v-model:selected-icon-id="iconIdValue" />
     <div>
       <AppInput
-        v-model="tournamentNameValue"
+        v-model.trim="tournamentNameValue"
         id="new-tournament--name"
         label="Nome do campeonato"
       />
