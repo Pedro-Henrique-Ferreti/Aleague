@@ -30,9 +30,8 @@
         é o campeão. Pode ser disputado em turno único ou em dois turnos (turno e returno).
       </p>
       <p v-else-if="formatValue === TournamentFormat.PLAYOFFS">
-        Dividido em duas fases. Na primeira fase, as equipes são dividias em grupos, onde podem
-        se enfrentar em um turno ou dois turnos. Um determinado número de equipes é promovido
-        para a próxima fase, que é disputada em formato eliminatório.
+        Cada equipe competidora disputa um certo número de partidas, até ser promovida à
+        próxima fase. A equipe perdedora de cada disputa é eliminada da competição.
       </p>
       <p v-else-if="formatValue === TournamentFormat.CUSTOM">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
