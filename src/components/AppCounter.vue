@@ -5,6 +5,7 @@
     </span>
     <div class="counter__controls">
       <AppIconButton
+        v-if="!readonly"
         color="secondary"
         :icon="IconMinus"
         :disabled="(inputValue - step) < min"
@@ -14,6 +15,7 @@
         {{ modelValue }}
       </span>
       <AppIconButton
+        v-if="!readonly"
         color="secondary"
         :icon="IconPlus"
         :disabled="!!max && ((inputValue + step) > max)"
@@ -54,6 +56,10 @@ const props = defineProps({
     default: 0,
     validator: (value: number) => (value >= 0),
   },
+  readonly: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const inputValue = computed({
@@ -73,6 +79,7 @@ const inputValue = computed({
     display: block;
     margin-bottom: 1.5rem;
     color: $color--text-strong;
+    text-align: center;
   }
   &__controls {
     display: flex;
@@ -86,6 +93,7 @@ const inputValue = computed({
     font-size: 2rem;
     font-weight: $font-weight--medium;
     text-align: center;
+    line-height: 1.375;
   }
 }
 </style>
