@@ -7,3 +7,6 @@ export const TournamentFormat = {
   PLAYOFFS: 'playoffs',
   CUSTOM: 'custom',
 } as const;
+
+export const ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS = 2;
+export const ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS = 24;

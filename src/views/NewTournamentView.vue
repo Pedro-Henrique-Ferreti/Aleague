@@ -1,7 +1,7 @@
 <template>
   <main class="new-tournament | container-small">
     <PageHeader
-      :title="(activeStepId === NewTournamentSteps.RULES) ? settingsForm.name : 'Novo campeonato'"
+      :title="pageTitle"
       :breadcrumb-items="BREADCRUMB_ITEMS"
     />
     <form @submit.prevent="submitForm">
@@ -12,6 +12,8 @@
         <template v-if="activeStepId === NewTournamentSteps.RULES">
           <NewTournamentAllPlayAllForm
             v-if="settingsForm.format === TournamentFormat.ALL_PLAY_ALL"
+            v-model:participants="allPlayAllForm.participants"
+            v-model:has-two-legs="allPlayAllForm.hasTwoLegs"
           />
         </template>
         <NewTournamentSettingsForm
@@ -50,8 +52,10 @@
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { ProgressStepperStep } from '@/types/ProgressStepper';
 import type { TypeTournamentFormat } from '@/types/Tournament';
-import { computed, ref } from 'vue';
-import { NEW_TOURNAMENT_DEFAULT_ICON_ID, TournamentFormat } from '@/constants/tournament';
+import { computed, ref, watch } from 'vue';
+import {
+  ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS, NEW_TOURNAMENT_DEFAULT_ICON_ID, TournamentFormat,
+} from '@/constants/tournament';
 import IconChevronLeft from '@/assets/icons/IconChevronLeft.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppCard from '@/components/AppCard.vue';
@@ -85,6 +89,21 @@ const settingsForm = ref({
   iconId: NEW_TOURNAMENT_DEFAULT_ICON_ID,
   format: TournamentFormat.ALL_PLAY_ALL as TypeTournamentFormat,
 });
+
+// All-play-all form
+const allPlayAllForm = ref({
+  participants: ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
+  hasTwoLegs: false,
+});
+
+// Page title
+const pageTitle = ref('');
+
+watch(() => activeStepId.value, (currentStepId, previousStepId) => {
+  pageTitle.value = (
+    [currentStepId, previousStepId].includes(NewTournamentSteps.RULES)
+  ) ? settingsForm.value.name : 'Novo campeonato';
+}, { immediate: true });
 
 // Submit form
 function submitForm() {
