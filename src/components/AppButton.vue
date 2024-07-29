@@ -173,12 +173,12 @@ function handleClick(event: Event) {
   &__icon {
     display: flex;
     align-items: center;
-    margin-left: 0.625rem;
+    margin-left: 0.5rem;
     &:empty {
       display: none;
     }
     &--left {
-      margin-right: 0.625rem;
+      margin-right: 0.5rem;
       margin-left: 0;
     }
     :deep(svg) {
