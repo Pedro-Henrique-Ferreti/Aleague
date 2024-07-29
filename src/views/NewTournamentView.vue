@@ -9,11 +9,17 @@
         <template #header>
           <AppProgressStepper :items="progressSteps" />
         </template>
-        <template v-if="activeStepId === NewTournamentSteps.RULES">
+        <template v-if="activeStepId === FormStep.RULES">
           <NewTournamentAllPlayAllForm
             v-if="settingsForm.format === TournamentFormat.ALL_PLAY_ALL"
             v-model:participants="allPlayAllForm.participants"
             v-model:has-two-legs="allPlayAllForm.hasTwoLegs"
+          />
+          <NewTournamentPlayoffsForm
+            v-else-if="settingsForm.format === TournamentFormat.PLAYOFFS"
+            v-model:rounds="playoffsForm.rounds"
+            v-model:two-legged-rounds="playoffsForm.twoLeggedRounds"
+            v-model:two-legged-final="playoffsForm.twoLeggedFinal"
           />
         </template>
         <NewTournamentSettingsForm
@@ -24,11 +30,11 @@
         />
       </AppCard>
       <div class="new-tournament__controls">
-        <template v-if="activeStepId === NewTournamentSteps.RULES">
+        <template v-if="activeStepId === FormStep.RULES">
           <AppButton
             outline
             :icon-left="IconChevronLeft"
-            @click="activeStepId = NewTournamentSteps.FORMAT"
+            @click="activeStepId = FormStep.FORMAT"
           >
             Voltar
           </AppButton>
@@ -54,7 +60,10 @@ import type { ProgressStepperStep } from '@/types/ProgressStepper';
 import type { TypeTournamentFormat } from '@/types/Tournament';
 import { computed, ref, watch } from 'vue';
 import {
-  ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS, NEW_TOURNAMENT_DEFAULT_ICON_ID, TournamentFormat,
+  ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
+  NEW_TOURNAMENT_DEFAULT_ICON_ID,
+  PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
+  TournamentFormat,
 } from '@/constants/tournament';
 import IconChevronLeft from '@/assets/icons/IconChevronLeft.svg';
 import AppButton from '@/components/AppButton.vue';
@@ -63,6 +72,7 @@ import AppProgressStepper from '@/components/AppProgressStepper.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import NewTournamentSettingsForm from '@/components/NewTournamentSettingsForm.vue';
 import NewTournamentAllPlayAllForm from '@/components/NewTournamentAllPlayAllForm.vue';
+import NewTournamentPlayoffsForm from '@/components/NewTournamentPlayoffsForm.vue';
 
 // Breadcrumb
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
@@ -71,15 +81,15 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
 ];
 
 // Form steps
-const NewTournamentSteps = {
+const FormStep = {
   FORMAT: 0,
   RULES: 1,
 } as const;
 
-const activeStepId = ref<number>(NewTournamentSteps.FORMAT);
+const activeStepId = ref<number>(FormStep.FORMAT);
 
 const progressSteps = computed<ProgressStepperStep[]>(() => ([
-  { name: 'Nome e formato', isCompleted: activeStepId.value === NewTournamentSteps.RULES },
+  { name: 'Nome e formato', isCompleted: activeStepId.value === FormStep.RULES },
   { name: 'Definir regras', isCompleted: false },
 ]));
 
@@ -96,19 +106,26 @@ const allPlayAllForm = ref({
   hasTwoLegs: false,
 });
 
+// Playoffs form
+const playoffsForm = ref({
+  rounds: PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
+  twoLeggedRounds: false,
+  twoLeggedFinal: false,
+});
+
 // Page title
 const pageTitle = ref('');
 
 watch(() => activeStepId.value, (currentStepId, previousStepId) => {
   pageTitle.value = (
-    [currentStepId, previousStepId].includes(NewTournamentSteps.RULES)
+    [currentStepId, previousStepId].includes(FormStep.RULES)
   ) ? settingsForm.value.name : 'Novo campeonato';
 }, { immediate: true });
 
 // Submit form
 function submitForm() {
-  if (activeStepId.value === NewTournamentSteps.FORMAT) {
-    activeStepId.value = NewTournamentSteps.RULES;
+  if (activeStepId.value === FormStep.FORMAT) {
+    activeStepId.value = FormStep.RULES;
   }
 }
 </script>

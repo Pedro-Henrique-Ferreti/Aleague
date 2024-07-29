@@ -10,3 +10,6 @@ export const TournamentFormat = {
 
 export const ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS = 2;
 export const ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS = 24;
+
+export const PLAYOFFS_MIN_NUMBER_OF_ROUNDS = 1;
+export const PLAYOFFS_MAX_NUMBER_OF_ROUNDS = 7;
