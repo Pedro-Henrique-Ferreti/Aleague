@@ -38,7 +38,10 @@
           >
             Voltar
           </AppButton>
-          <AppButton type="submit">
+          <AppButton
+            type="submit"
+            :is-loading="isCreatingTournament"
+          >
             Criar campeonato
           </AppButton>
         </template>
@@ -59,12 +62,15 @@ import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { ProgressStepperStep } from '@/types/ProgressStepper';
 import type { TypeTournamentFormat } from '@/types/Tournament';
 import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { useToast } from '@/composables/toast';
 import {
   ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
   NEW_TOURNAMENT_DEFAULT_ICON_ID,
   PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
   TournamentFormat,
 } from '@/constants/tournament';
+import api from '@/api';
 import IconChevronLeft from '@/assets/icons/IconChevronLeft.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppCard from '@/components/AppCard.vue';
@@ -73,6 +79,9 @@ import PageHeader from '@/components/PageHeader.vue';
 import NewTournamentSettingsForm from '@/components/NewTournamentSettingsForm.vue';
 import NewTournamentAllPlayAllForm from '@/components/NewTournamentAllPlayAllForm.vue';
 import NewTournamentPlayoffsForm from '@/components/NewTournamentPlayoffsForm.vue';
+
+const router = useRouter();
+const toast = useToast();
 
 // Breadcrumb
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
@@ -100,11 +109,34 @@ const settingsForm = ref({
   format: TournamentFormat.ALL_PLAY_ALL as TypeTournamentFormat,
 });
 
+const isCreatingTournament = ref(false);
+
 // All-play-all form
 const allPlayAllForm = ref({
   participants: ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
   hasTwoLegs: false,
 });
+
+async function createAllPlayAllTournament() {
+  isCreatingTournament.value = true;
+
+  try {
+    await api.tournamentService.createAllPlayAllTournament({
+      name: settingsForm.value.name,
+      icon: settingsForm.value.iconId,
+      numberOfTeams: allPlayAllForm.value.participants,
+      hasTwoLegs: allPlayAllForm.value.hasTwoLegs,
+    });
+
+    toast.success('Campeonato criado com sucesso!');
+
+    router.push({ name: 'tournaments' });
+  } catch (error: any) {
+    toast.error('Algo deu errado e não foi possível criar o campeonato. Por favor, tente novamente.');
+  } finally {
+    isCreatingTournament.value = false;
+  }
+}
 
 // Playoffs form
 const playoffsForm = ref({
@@ -126,6 +158,11 @@ watch(() => activeStepId.value, (currentStepId, previousStepId) => {
 function submitForm() {
   if (activeStepId.value === FormStep.FORMAT) {
     activeStepId.value = FormStep.RULES;
+    return;
+  }
+
+  if (settingsForm.value.format === TournamentFormat.ALL_PLAY_ALL) {
+    createAllPlayAllTournament();
   }
 }
 </script>
