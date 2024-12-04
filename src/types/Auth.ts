@@ -15,7 +15,7 @@ export interface User {
   id: string;
   lastLoginAt: string;
   updatedAt: string;
-  username: string; 
+  username: string;
 }
 
 export interface SessionCookie {

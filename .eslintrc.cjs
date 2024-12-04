@@ -11,11 +11,11 @@ module.exports = {
   ],
   rules: {
     // eslint rules
-    'quotes': [2, 'single'],
-    'semi': 2,
+    quotes: [2, 'single'],
+    semi: 2,
     'no-trailing-spaces': 'error',
     'comma-dangle': ['error', 'always-multiline'],
-    'camelcase': 2,
+    camelcase: 2,
     'linebreak-style': 'off',
     'import/first': 'off',
     'import/prefer-default-export': 'off',
@@ -25,16 +25,16 @@ module.exports = {
 
     // vue.js rules
     'vue/html-self-closing': ['error', {
-      'html': {
-        'void': 'always',
-        'normal': 'always',
-        'component': 'always',
+      html: {
+        void: 'always',
+        normal: 'always',
+        component: 'always',
       },
     }],
     'vuejs-accessibility/form-control-has-label': 'off',
     'vue/no-setup-props-destructure': 'off',
   },
   parserOptions: {
-    'ecmaVersion': 'latest',
+    ecmaVersion: 'latest',
   },
 };

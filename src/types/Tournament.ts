@@ -1,5 +1,5 @@
-import type { ValueOf } from './Auth';
 import { TournamentFormat } from '@/constants/tournament';
+import type { ValueOf } from './Auth';
 
 export type TypeTournamentFormat = ValueOf<typeof TournamentFormat>;
 
