@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router';
 import TournamentsView from '@/views/TournamentsView.vue';
 import NewTournamentView from '@/views/NewTournamentView.vue';
+import ShowTournamentView from '@/views/ShowTournamentView.vue';
 
 export default [
   {
@@ -15,6 +16,15 @@ export default [
     path: '/campeonatos/novo',
     name: 'new-tournament',
     component: NewTournamentView,
+    meta: {
+      requiresAuth: true,
+      headerPath: 'tournaments',
+    },
+  },
+  {
+    path: '/campeonatos/:id',
+    name: 'show-tournament',
+    component: ShowTournamentView,
     meta: {
       requiresAuth: true,
       headerPath: 'tournaments',

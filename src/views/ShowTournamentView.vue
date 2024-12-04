@@ -1,0 +1,47 @@
+<template>
+  <TransitionFade>
+    <LoadingIndicator v-if="isLoading" />
+    <ErrorState
+      v-else-if="errorMessage"
+      :message="errorMessage"
+      @reload="getTournament"
+    />
+    <pre v-else-if="tournament && !tournament.startedAt">
+      {{ tournament }}
+    </pre>
+  </TransitionFade>
+</template>
+
+<script lang="ts" setup>
+import type { Tournament } from '@/types/Tournament';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import api from '@/api';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import TransitionFade from '@/components/TransitionFade.vue';
+import ErrorState from '@/components/ErrorState.vue';
+
+const route = useRoute();
+
+const tournament = ref<Tournament | null>(null);
+
+// Get tournament
+const isLoading = ref(true);
+const errorMessage = ref('');
+
+async function getTournament() {
+  isLoading.value = true;
+  errorMessage.value = '';
+
+  try {
+    const { data } = await api.tournamentService.getTournamentById(route.params.id as string);
+    tournament.value = data;
+  } catch (error: any) {
+    errorMessage.value = 'Algo deu errado e não foi possível carregar o campeonato.';
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+getTournament();
+</script>

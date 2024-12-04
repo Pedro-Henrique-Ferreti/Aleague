@@ -1,4 +1,4 @@
-import type { ApiCreateAllPlayAllTournamentPayload, ApiGetAllTournamentsResponse } from '@/types/Tournament';
+import type { ApiCreateAllPlayAllTournamentPayload, ApiGetAllTournamentsResponse, Tournament } from '@/types/Tournament';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class TournamentService {
@@ -13,5 +13,9 @@ export default class TournamentService {
       numberOfTeams: payload.numberOfTeams,
       hasTwoLegs: payload.hasTwoLegs,
     });
+  }
+
+  static getTournamentById(id: string) {
+    return axiosInstance.get<Tournament>(`/competitions/${id}`);
   }
 }

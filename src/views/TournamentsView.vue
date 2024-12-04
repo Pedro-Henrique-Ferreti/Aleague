@@ -59,9 +59,9 @@
       >
         <RouterLink
           v-for="tournament in displayedTournaments"
-          :key="tournament.id"
           class="tournament-card"
-          :to="'/'"
+          :key="tournament.id"
+          :to="{ name: 'show-tournament', params: { id: tournament.id } }"
         >
           <div class="tournament-card__header">
             <div class="tournament-card__icon">

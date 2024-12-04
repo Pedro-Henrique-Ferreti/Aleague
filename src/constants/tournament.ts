@@ -8,6 +8,17 @@ export const TournamentFormat = {
   CUSTOM: 'custom',
 } as const;
 
+export const TournamentStage = {
+  GROUPS: 'groups',
+  PLAYOFFS: 'playoffs',
+} as const;
+
+export const TournamentStageConfrontation = {
+  AGAINST_TEAMS_FROM_SAME_GROUP: 'against-teams-from-same-group',
+  AGAINST_TEAMS_FROM_OTHER_GROUPS: 'against-teams-from-other-groups',
+  ALL_AGAINST_ALL: 'all-against-all',
+} as const;
+
 export const ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS = 2;
 export const ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS = 24;
 
