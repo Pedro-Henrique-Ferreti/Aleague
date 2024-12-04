@@ -2,11 +2,11 @@
   <div class="team-details | app-base-card">
     <div class="team-details__item">
       <b>Criado em</b>
-      <span>{{ formatDate(team.createdAt) }}</span>
+      <span>{{ formatDate(team.createdAt, 'd MMMM yyyy') }}</span>
     </div>
     <div class="team-details__item">
       <b>Última atualização em</b>
-      <span>{{ formatDate(team.updatedAt) }}</span>
+      <span>{{ formatDate(team.updatedAt, 'd MMMM yyyy') }}</span>
     </div>
     <AppButton
       block
@@ -33,9 +33,8 @@
 import type { TeamDetails } from '@/types/Team';
 import { ref, type PropType } from 'vue';
 import { useRouter } from 'vue-router';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { useToast } from '@/composables/toast';
+import { formatDate } from '@/utils';
 import api from '@/api';
 import IconDelete from '@/assets/icons/IconDelete.svg';
 import AppButton from './AppButton.vue';
@@ -50,11 +49,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-// Format date
-function formatDate(date: string) {
-  return format(new Date(date), 'd MMMM yyyy', { locale: ptBR });
-}
 
 // Delete modal
 const showDeleteModal = ref(false);

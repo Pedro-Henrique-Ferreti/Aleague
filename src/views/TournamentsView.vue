@@ -67,7 +67,7 @@
             <div class="tournament-card__icon">
               <img
                 class="tournament-card__icon-image"
-                alt="Selected icon"
+                alt="Tournament icon"
                 :src="`/images/competition-icons/icon-${tournament.icon}.svg`"
               />
             </div>
@@ -88,11 +88,11 @@
             />
             <AppChip
               :icon-left="IconCalendarAdd"
-              :text="formatDate(tournament.createdAt)"
+              :text="formatDate(tournament.createdAt, 'd MMM yyyy')"
             />
             <AppChip
               :icon-left="IconPencil"
-              :text="formatDate(tournament.updatedAt)"
+              :text="formatDate(tournament.updatedAt, 'd MMM yyyy')"
             />
           </div>
         </RouterLink>
@@ -104,8 +104,7 @@
 <script lang="ts" setup>
 import type { ApiGetAllTournamentsResponse } from '@/types/Tournament';
 import { computed, ref } from 'vue';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { formatDate } from '@/utils';
 import api from '@/api';
 import IconPlus from '@/assets/icons/IconPlus.svg';
 import IconCalendarAdd from '@/assets/icons/IconCalendarAdd.svg';
@@ -127,11 +126,6 @@ enum FilterType {
   ALL = 0,
   IN_PROGRESS = 1,
   COMPLETED = 2,
-}
-
-// Format date
-function formatDate(date: string) {
-  return format(new Date(date), 'd MMM yyyy', { locale: ptBR });
 }
 
 // Search bar
