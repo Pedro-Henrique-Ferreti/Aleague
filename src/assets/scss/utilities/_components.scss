@@ -16,3 +16,10 @@
     text-decoration: underline;
   }
 }
+
+// App chip group
+.app-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

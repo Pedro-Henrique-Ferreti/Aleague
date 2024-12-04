@@ -6,9 +6,10 @@
       :message="errorMessage"
       @reload="getTournament"
     />
-    <pre v-else-if="tournament && !tournament.startedAt">
-      {{ tournament }}
-    </pre>
+    <TournamentParticipants
+      v-else-if="tournament && !tournament.startedAt"
+      :tournament="tournament"
+    />
   </TransitionFade>
 </template>
 
@@ -20,6 +21,7 @@ import api from '@/api';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import ErrorState from '@/components/ErrorState.vue';
+import TournamentParticipants from '@/components/TournamentParticipants.vue';
 
 const route = useRoute();
 

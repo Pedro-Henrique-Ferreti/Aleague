@@ -75,7 +75,7 @@ defineProps({
     }
   }
   &__breadcrumb-icon {
-    width: 0.75rem;
+    width: 0.625rem;
     height: auto;
     transform: rotate(-90deg);
   }
