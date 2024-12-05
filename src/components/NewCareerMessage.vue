@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import IconSuccess from '@/assets/icons/IconSuccess.svg';
+import IconSuccess from '@/assets/icons/Success.svg';
 import AppButton from './AppButton.vue';
 </script>
 

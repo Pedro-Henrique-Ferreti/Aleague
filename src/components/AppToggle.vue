@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import IconCheck from '@/assets/icons/IconCheck.svg';
+import IconCheck from '@/assets/icons/Check.svg';
 import IconSpinner from './icons/IconSpinner.vue';
 
 const emit = defineEmits(['update:modelValue']);

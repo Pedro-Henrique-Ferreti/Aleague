@@ -45,9 +45,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { TournamentFormat } from '@/constants/tournament';
-import IconMedal from '@/assets/icons/IconMedal.svg';
-import IconPlayoff from '@/assets/icons/IconPlayoff.svg';
-import IconTrophy from '@/assets/icons/IconTrophy.svg';
+import IconMedal from '@/assets/icons/Medal.svg';
+import IconPlayoff from '@/assets/icons/Playoff.svg';
+import IconTrophy from '@/assets/icons/Trophy.svg';
 import AppSelectionCard from './AppSelectionCard.vue';
 
 const emit = defineEmits(['update:modelValue']);

@@ -71,7 +71,7 @@ import {
   TournamentFormat,
 } from '@/constants/tournament';
 import api from '@/api';
-import IconChevronLeft from '@/assets/icons/IconChevronLeft.svg';
+import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppCard from '@/components/AppCard.vue';
 import AppProgressStepper from '@/components/AppProgressStepper.vue';

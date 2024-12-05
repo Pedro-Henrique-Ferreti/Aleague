@@ -45,9 +45,9 @@
 import type { Tournament } from '@/types/Tournament';
 import { computed, type PropType } from 'vue';
 import { formatDate } from '@/utils';
-import IconCalendarAdd from '@/assets/icons/IconCalendarAdd.svg';
-import IconShield from '@/assets/icons/IconShield.svg';
-import IconPencil from '@/assets/icons/IconPencil.svg';
+import IconCalendarAdd from '@/assets/icons/CalendarAdd.svg';
+import IconShield from '@/assets/icons/Shield.svg';
+import IconPencil from '@/assets/icons/Pencil.svg';
 import IconCopy from '@/assets/icons/Copy.svg';
 import AppChip from './AppChip.vue';
 import AppIconButton from './AppIconButton.vue';

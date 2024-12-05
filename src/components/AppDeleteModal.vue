@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import IconDelete from '@/assets/icons/IconDelete.svg';
+import IconDelete from '@/assets/icons/Delete.svg';
 import AppModal from './AppModal.vue';
 import AppButton from './AppButton.vue';
 

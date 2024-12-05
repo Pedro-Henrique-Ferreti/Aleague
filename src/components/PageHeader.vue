@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { Breadcrumb } from '@/types/Breadcrumb';
-import IconChevron from '@/assets/icons/IconChevron.svg';
+import IconChevron from '@/assets/icons/Chevron.svg';
 
 defineProps({
   title: {

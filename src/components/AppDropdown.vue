@@ -92,7 +92,7 @@ import {
   computed, ref, type PropType, type Ref,
 } from 'vue';
 import { Dropdown } from 'floating-vue';
-import IconChevron from '@/assets/icons/IconChevron.svg';
+import IconChevron from '@/assets/icons/Chevron.svg';
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({

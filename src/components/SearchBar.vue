@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import IconSearch from '@/assets/icons/IconSearch.svg';
+import IconSearch from '@/assets/icons/Search.svg';
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({

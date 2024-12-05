@@ -57,11 +57,11 @@ import { ptBR } from 'date-fns/locale';
 import { useToast } from '@/composables/toast';
 import { COUNTRY_OPTIONS } from '@/constants/country';
 import api from '@/api';
-import IconCalendarAdd from '@/assets/icons/IconCalendarAdd.svg';
-import IconGraphLine from '@/assets/icons/IconGraphLine.svg';
-import IconPencil from '@/assets/icons/IconPencil.svg';
-import IconStar from '@/assets/icons/IconStar.svg';
-import IconStarOutline from '@/assets/icons/IconStarOutline.svg';
+import IconCalendarAdd from '@/assets/icons/CalendarAdd.svg';
+import IconGraphLine from '@/assets/icons/GraphLine.svg';
+import IconPencil from '@/assets/icons/Pencil.svg';
+import IconStar from '@/assets/icons/Star.svg';
+import IconStarOutline from '@/assets/icons/StarOutline.svg';
 import AppIconButton from './AppIconButton.vue';
 import AppChip from './AppChip.vue';
 

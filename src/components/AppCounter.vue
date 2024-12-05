@@ -27,8 +27,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import IconPlus from '@/assets/icons/IconPlus.svg';
-import IconMinus from '@/assets/icons/IconMinus.svg';
+import IconPlus from '@/assets/icons/Plus.svg';
+import IconMinus from '@/assets/icons/Minus.svg';
 import AppIconButton from './AppIconButton.vue';
 
 const emit = defineEmits(['update:modelValue']);

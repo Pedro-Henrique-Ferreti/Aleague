@@ -49,7 +49,7 @@
 import { ref } from 'vue';
 import { Dropdown } from 'floating-vue';
 import { NUMBER_OF_TOURNAMENT_ICONS } from '@/constants/tournament';
-import IconSuccess from '@/assets/icons/IconSuccess.svg';
+import IconSuccess from '@/assets/icons/Success.svg';
 
 defineEmits(['update:selectedIconId']);
 defineProps({

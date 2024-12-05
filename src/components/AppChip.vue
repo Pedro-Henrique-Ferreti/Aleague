@@ -39,7 +39,7 @@ enum Colors {
 
 <script lang="ts" setup>
 import type { PropType } from 'vue';
-import IconClose from '@/assets/icons/IconClose.svg';
+import IconClose from '@/assets/icons/Close.svg';
 
 defineEmits(['remove']);
 defineProps({

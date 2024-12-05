@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import IconSettings from '@/assets/icons/IconSettings.svg';
+import IconSettings from '@/assets/icons/Settings.svg';
 </script>
 
 <style lang="scss" scoped>

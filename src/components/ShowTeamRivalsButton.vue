@@ -31,8 +31,8 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { RivalTeam } from '@/types/Team';
-import IconDelete from '@/assets/icons/IconDelete.svg';
-import IconArrowRight from '@/assets/icons/IconArrowRight.svg';
+import IconDelete from '@/assets/icons/Delete.svg';
+import IconArrowRight from '@/assets/icons/ArrowRight.svg';
 import AppContextMenu from './AppContextMenu.vue';
 import AppContextMenuItem from './AppContextMenuItem.vue';
 

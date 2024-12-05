@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import IconNotificationBell from '@/assets/icons/IconNotificationBell.svg';
+import IconNotificationBell from '@/assets/icons/NotificationBell.svg';
 </script>
 
 <style lang="scss" scoped>

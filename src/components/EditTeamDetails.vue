@@ -36,7 +36,7 @@ import { useRouter } from 'vue-router';
 import { useToast } from '@/composables/toast';
 import { formatDate } from '@/utils';
 import api from '@/api';
-import IconDelete from '@/assets/icons/IconDelete.svg';
+import IconDelete from '@/assets/icons/Delete.svg';
 import AppButton from './AppButton.vue';
 import AppDeleteModal from './AppDeleteModal.vue';
 

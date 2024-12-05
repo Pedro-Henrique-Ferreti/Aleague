@@ -42,11 +42,11 @@ import {
   type PropType, type Ref, ref, computed, onMounted,
 } from 'vue';
 import { TYPE } from 'vue-toastification';
-import IconClose from '@/assets/icons/IconClose.svg';
-import IconInfoFilled from '@/assets/icons/IconInfoFilled.svg';
-import IconWarningTriangle from '@/assets/icons/IconWarningTriangle.svg';
-import IconWarning from '@/assets/icons/IconWarning.svg';
-import IconSuccess from '@/assets/icons/IconSuccess.svg';
+import IconClose from '@/assets/icons/Close.svg';
+import IconInfoFilled from '@/assets/icons/InfoFilled.svg';
+import IconWarningTriangle from '@/assets/icons/WarningTriangle.svg';
+import IconWarning from '@/assets/icons/Warning.svg';
+import IconSuccess from '@/assets/icons/Success.svg';
 
 defineEmits(['close-toast']);
 const props = defineProps({

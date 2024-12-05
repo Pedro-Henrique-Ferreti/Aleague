@@ -35,7 +35,7 @@ import type { TeamEmblem } from '@/types/Team';
 import { onMounted, ref, type PropType } from 'vue';
 import { Dropdown } from 'floating-vue';
 import api from '@/api';
-import IconSuccess from '@/assets/icons/IconSuccess.svg';
+import IconSuccess from '@/assets/icons/Success.svg';
 
 defineEmits(['update:modelValue']);
 const props = defineProps({

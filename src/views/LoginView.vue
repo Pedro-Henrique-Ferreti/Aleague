@@ -74,7 +74,7 @@ import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { useAuthStore } from '@/stores/auth';
 import { emailValidator, requiredValidator } from '@/helpers/validators';
-import IconGoogle from '@/assets/icons/IconGoogle.svg';
+import IconGoogle from '@/assets/icons/Google.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/AppInput.vue';
 import AppTextButton from '@/components/AppTextButton.vue';

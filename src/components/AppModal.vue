@@ -88,7 +88,7 @@ enum Format {
 
 <script lang="ts" setup>
 import { watchEffect, type PropType } from 'vue';
-import IconClose from '@/assets/icons/IconClose.svg';
+import IconClose from '@/assets/icons/Close.svg';
 import TransitionOverlayFade from './TransitionOverlayFade.vue';
 import TransitionDrawer from './TransitionDrawer.vue';
 import TransitionDialog from './TransitionDialog.vue';

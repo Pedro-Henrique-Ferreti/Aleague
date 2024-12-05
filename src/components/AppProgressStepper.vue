@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue';
 import type { ProgressStepperStep } from '@/types/ProgressStepper';
-import IconSuccess from '@/assets/icons/IconSuccess.svg';
+import IconSuccess from '@/assets/icons/Success.svg';
 import TransitionFade from './TransitionFade.vue';
 
 defineProps({

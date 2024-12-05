@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import IconRestart from '@/assets/icons/IconRestart.svg';
+import IconRestart from '@/assets/icons/Restart.svg';
 import ErrorState from '@/assets/icons/ErrorState.svg';
 import AppButton from './AppButton.vue';
 

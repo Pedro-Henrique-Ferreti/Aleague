@@ -46,7 +46,7 @@
 import { TYPE } from 'vue-toastification';
 import AppLogo from '@/components/AppLogo.vue';
 import AppToast from '@/components/AppToast.vue';
-import IconSuccess from '@/assets/icons/IconSuccess.svg';
+import IconSuccess from '@/assets/icons/Success.svg';
 
 defineEmits(['submit-form']);
 defineProps({

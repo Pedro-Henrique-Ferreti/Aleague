@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue';
-import IconPlus from '@/assets/icons/IconPlus.svg';
+import IconPlus from '@/assets/icons/Plus.svg';
 import AppChip from './AppChip.vue';
 
 const emit = defineEmits(['update:selectedTeams']);

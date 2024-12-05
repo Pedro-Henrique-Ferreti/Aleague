@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import IconMenu from '@/assets/icons/IconMenu.svg';
-import IconClose from '@/assets/icons/IconClose.svg';
+import IconMenu from '@/assets/icons/Menu.svg';
+import IconClose from '@/assets/icons/Close.svg';
 
 defineProps({
   menuIsOpen: {

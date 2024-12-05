@@ -68,7 +68,7 @@ import type { DropdownOption } from '@/types/Dropdown';
 import type { ApiGetAllTeamsResponse, RivalTeam, TeamDetails } from '@/types/Team';
 import { computed, ref, type PropType } from 'vue';
 import { useToast } from '@/composables/toast';
-import IconPlus from '@/assets/icons/IconPlus.svg';
+import IconPlus from '@/assets/icons/Plus.svg';
 import api from '@/api';
 import AppCard from './AppCard.vue';
 import AppModal from './AppModal.vue';

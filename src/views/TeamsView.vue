@@ -94,7 +94,7 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ALL_COUNTRIES_OPTIONS } from '@/constants/country';
 import api from '@/api';
-import IconPlus from '@/assets/icons/IconPlus.svg';
+import IconPlus from '@/assets/icons/Plus.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppRadioInput from '@/components/AppRadioInput.vue';
 import AppDropdown from '@/components/AppDropdown.vue';

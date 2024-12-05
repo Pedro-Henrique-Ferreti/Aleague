@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts" setup>
-import IconListSearch from '@/assets/icons/IconListSearch.svg';
-import IconCreateMultiple from '@/assets/icons/IconCreateMultiple.svg';
+import IconListSearch from '@/assets/icons/ListSearch.svg';
+import IconCreateMultiple from '@/assets/icons/CreateMultiple.svg';
 import PageHeader from '@/components/PageHeader.vue';
 </script>
 

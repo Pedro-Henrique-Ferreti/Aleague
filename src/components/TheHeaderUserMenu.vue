@@ -55,7 +55,7 @@
 <script lang="ts" setup>
 import { Menu } from 'floating-vue';
 import { useAuthStore } from '@/stores/auth';
-import IconChevron from '@/assets/icons/IconChevron.svg';
+import IconChevron from '@/assets/icons/Chevron.svg';
 
 const authStore = useAuthStore();
 </script>
