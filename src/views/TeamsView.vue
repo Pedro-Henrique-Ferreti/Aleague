@@ -8,7 +8,7 @@
         Nova equipe
       </AppButton>
     </PageHeader>
-    <SearchBar v-model="form.searchValue">
+    <AppToolbar v-model="form.searchValue">
       <AppDropdown
         v-model="form.country"
         class="teams__search-bar-dropdown"
@@ -30,7 +30,7 @@
           :value="true"
         />
       </div>
-    </SearchBar>
+    </AppToolbar>
     <TransitionFade>
       <LoadingIndicator v-if="isLoading" />
       <ErrorState
@@ -104,7 +104,7 @@ import EmptyState from '@/components/EmptyState.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
-import SearchBar from '@/components/SearchBar.vue';
+import AppToolbar from '@/components/AppToolbar.vue';
 import EmptySearchState from '@/components/EmptySearchState.vue';
 
 const { t } = useI18n();

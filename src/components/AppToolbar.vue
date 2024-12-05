@@ -1,21 +1,21 @@
 <template>
-  <div class="search-bar">
+  <div class="toolbar">
     <label
-      class="search-bar__input"
-      for="search-bar-input"
+      class="toolbar__input"
+      for="toolbar-input"
     >
-      <IconSearch class="search-bar__input-icon" />
+      <IconSearch class="toolbar__input-icon" />
       <input
         v-model.trim="inputValue"
-        id="search-bar-input"
-        class="search-bar__input-field"
-        type="serach"
+        id="toolbar--search-field"
+        class="toolbar__input-field"
+        type="search"
         placeholder="Pesquisar"
       />
     </label>
     <div
       v-if="$slots.default"
-      class="search-bar__controls"
+      class="toolbar__controls"
     >
       <slot />
     </div>
@@ -43,7 +43,7 @@ const inputValue = computed({
 </script>
 
 <style lang="scss" scoped>
-.search-bar {
+.toolbar {
   display: grid;
   gap: 1.5rem;
   width: 100%;
@@ -63,7 +63,7 @@ const inputValue = computed({
     position: relative;
   }
   &__input-icon {
-    width: 1.25rem;
+    width: 1rem;
     height: auto;
     position: absolute;
     left: 0;
@@ -71,7 +71,7 @@ const inputValue = computed({
   &__input-field {
     width: 100%;
     height: inherit;
-    padding-left: 2rem;
+    padding-left: 1.75rem;
     border: 0;
     outline: none;
     &:focus::placeholder {

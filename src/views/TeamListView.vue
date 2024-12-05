@@ -4,7 +4,7 @@
       title="Listas de equipes"
       :breadcrumb-items="BREADCRUMB_ITEMS"
     />
-    <SearchBar v-model="form.searchValue">
+    <AppToolbar v-model="form.searchValue">
       <AppDropdown
         v-model="form.country"
         class="team-list__search-bar-dropdown"
@@ -12,7 +12,7 @@
         rounded
         :options="ALL_COUNTRIES_OPTIONS"
       />
-    </SearchBar>
+    </AppToolbar>
     <TransitionFade>
       <LoadingIndicator v-if="isLoading" />
       <ErrorState
@@ -66,7 +66,7 @@ import { ALL_COUNTRIES_OPTIONS } from '@/constants/country';
 import api from '@/api';
 import AppDropdown from '@/components/AppDropdown.vue';
 import PageHeader from '@/components/PageHeader.vue';
-import SearchBar from '@/components/SearchBar.vue';
+import AppToolbar from '@/components/AppToolbar.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';

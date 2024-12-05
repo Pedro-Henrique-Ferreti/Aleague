@@ -8,7 +8,7 @@
         Novo campeonato
       </AppButton>
     </PageHeader>
-    <SearchBar v-model="form.searchValue">
+    <AppToolbar v-model="form.searchValue">
       <div class="tournaments__search-bar-radio">
         <AppRadioInput
           v-model="form.filterType"
@@ -29,7 +29,7 @@
           :value="FilterType.COMPLETED"
         />
       </div>
-    </SearchBar>
+    </AppToolbar>
     <TransitionFade>
       <LoadingIndicator v-if="isLoading" />
       <ErrorState
@@ -115,7 +115,7 @@ import AppButton from '@/components/AppButton.vue';
 import AppProgressBar from '@/components/AppProgressBar.vue';
 import AppRadioInput from '@/components/AppRadioInput.vue';
 import PageHeader from '@/components/PageHeader.vue';
-import SearchBar from '@/components/SearchBar.vue';
+import AppToolbar from '@/components/AppToolbar.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
