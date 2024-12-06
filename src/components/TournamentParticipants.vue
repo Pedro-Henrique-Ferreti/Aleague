@@ -5,6 +5,7 @@
     <div class="stages__grid">
       <AppAccordion
         v-for="(stage, index) in tournament.stages"
+        initial-open
         :key="stage.id"
         :title="getStageCardTitle(stage, index)"
       >
