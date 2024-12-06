@@ -31,14 +31,11 @@
                 :id="`${id}--title`"
                 class="modal-card__title"
               />
-              <button
+              <AppRemoveButton
                 class="modal-card__close-button"
-                type="button"
                 aria-label="Close modal"
                 @click="$emit('close')"
-              >
-                <IconClose class="modal-card__close-button-icon" />
-              </button>
+              />
             </header>
             <div class="modal-card__content">
               <slot />
@@ -88,11 +85,11 @@ enum Format {
 
 <script lang="ts" setup>
 import { watchEffect, type PropType } from 'vue';
-import IconClose from '@/assets/icons/Close.svg';
 import TransitionOverlayFade from './TransitionOverlayFade.vue';
 import TransitionDrawer from './TransitionDrawer.vue';
 import TransitionDialog from './TransitionDialog.vue';
 import AppButton from './AppButton.vue';
+import AppRemoveButton from './AppRemoveButton.vue';
 
 const emit = defineEmits(['close', 'confirm']);
 const props = defineProps({
@@ -215,25 +212,9 @@ watchEffect(() => {
     margin-bottom: 1rem;
   }
   &__close-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 1px solid $color--neutral-300;
-    border-radius: $radius--full;
-    outline-color: $color--focus-ring;
     position: absolute;
     top: 1rem;
     right: 1rem;
-    transition: border-color $transition--fastest linear;
-    &:hover {
-      border-color: $color--text-300;
-    }
-  }
-  &__close-button-icon {
-    width: 0.75rem;
-    height: 0.75rem;
   }
   &__content {
     padding-bottom: 2.5rem;
