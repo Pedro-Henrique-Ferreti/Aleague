@@ -5,7 +5,7 @@
     :to="to"
     :data-disabled="disabled"
     :data-loading="isLoading"
-    :data-small="small"
+    :data-size="size"
     :data-color="color"
     @click="handleClick"
   >
@@ -20,7 +20,7 @@
       </span>
       <IconSpinner
         class="button__icon-loader"
-        :size="small ? '14' : '16'"
+        :size="!!size ? '14' : '16'"
       />
     </div>
   </BaseButton>
@@ -32,6 +32,11 @@ const Colors = {
   SECONDARY: 'secondary',
   DANGER: 'danger',
   SECONDARY_DARK: 'secondary-dark',
+} as const;
+
+const Sizes = {
+  SMALL: 'small',
+  EXTRA_SMALL: 'extra-small',
 } as const;
 </script>
 
@@ -52,9 +57,9 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  small: {
-    type: Boolean,
-    default: false,
+  size: {
+    type: String as PropType<ValueOf<typeof Sizes>>,
+    default: '',
   },
   color: {
     type: String as PropType<ValueOf<typeof Colors>>,
@@ -85,7 +90,11 @@ function handleClick(event: Event) {
   --size: 2.75rem;
   --icon-size: 1rem;
   --loader-indicator-color: #{$color--text-strong};
-  &[data-small="true"] {
+  &[data-size="small"] {
+    --size: 2.25rem;
+    --icon-size: 0.875rem;
+  }
+  &[data-size="extra-small"] {
     --size: 2rem;
     --icon-size: 0.875rem;
   }
