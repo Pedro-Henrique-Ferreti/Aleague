@@ -11,7 +11,7 @@
       >
         <div class="stages__card-header">
           <AppIconButton
-            v-tooltip="'Duplicar campeonato'"
+            v-tooltip="'Preencher participantes'"
             color="secondary"
             :icon="IconMagicWand"
           />
@@ -22,8 +22,9 @@
           />
         </div>
         <TournamentParticipantsGroup
-          :selected-teams="[]"
-          :slots="stage.rules.numberOfTeams"
+          v-model:selected-teams="form.selectedTeams"
+          :team-options="teamOptions"
+          :number-of-slots="stage.rules.numberOfTeams"
         />
       </AppAccordion>
     </div>
@@ -34,10 +35,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue';
+import type { TeamPreview } from '@/types/Team';
+import { ref, type PropType } from 'vue';
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { Tournament, TournamentStage } from '@/types/Tournament';
 import { TournamentFormat } from '@/constants/tournament';
+import api from '@/api';
 import IconMagicWand from '@/assets/icons/MagicWand.svg';
 import IconShuffle from '@/assets/icons/Shuffle.svg';
 import AppAccordion from './AppAccordion.vue';
@@ -63,6 +66,32 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
   },
   'Adicionar participantes',
 ];
+
+// Form
+const form = ref({
+  selectedTeams: [] as TeamPreview[],
+});
+
+// Team options
+const teamOptions = ref<TeamPreview[]>([]);
+const isLoadingTeamOptions = ref(true);
+const loadTeamOptionsError = ref(false);
+
+async function getTeamOptions() {
+  isLoadingTeamOptions.value = true;
+  loadTeamOptionsError.value = false;
+
+  try {
+    const { data } = await api.teamService.getAllTeams();
+    teamOptions.value = data;
+  } catch (error) {
+    loadTeamOptionsError.value = true;
+  } finally {
+    isLoadingTeamOptions.value = false;
+  }
+}
+
+getTeamOptions();
 
 // Stage card
 function getStageCardTitle(stage: TournamentStage, index: number) {

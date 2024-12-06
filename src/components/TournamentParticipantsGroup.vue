@@ -5,30 +5,55 @@
       color="blue"
       text="Equipes"
     />
-    <button
-      v-for="item in slots"
-      class="group__empty-slot-button"
-      type="button"
-      :key="item"
-    >
-      <IconPlus />
-      <span>Adicionar</span>
-    </button>
+    <template v-for="slot in numberOfSlots">
+      <div
+        v-if="selectedTeams[slot - 1]"
+        class="group__team"
+        :key="selectedTeams[slot - 1].id"
+      >
+        <img
+          class="group__team-emblem"
+          :src="selectedTeams[slot - 1].emblem.url"
+          :alt="`${selectedTeams[slot - 1].name}'s emblem'`"
+        />
+        <span>{{ selectedTeams[slot - 1].name }}</span>
+        <AppRemoveButton
+          aria-label="Remover equipe"
+          @click="() => delete selectedTeamsValue[slot - 1]"
+        />
+      </div>
+      <button
+        v-else
+        class="group__empty-slot-button"
+        type="button"
+        :key="slot"
+        @click="selectedTeamsValue[slot - 1] = teamOptions[slot - 1]"
+      >
+        <IconPlus />
+        <span>Adicionar</span>
+      </button>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { TeamPreview } from '@/types/Team';
 import { computed, type PropType } from 'vue';
 import IconPlus from '@/assets/icons/Plus.svg';
 import AppChip from './AppChip.vue';
+import AppRemoveButton from './AppRemoveButton.vue';
 
 const emit = defineEmits(['update:selectedTeams']);
 const props = defineProps({
   selectedTeams: {
-    type: Array as PropType<string[]>,
+    type: Array as PropType<TeamPreview[]>,
     required: true,
   },
-  slots: {
+  teamOptions: {
+    type: Array as PropType<TeamPreview[]>,
+    required: true,
+  },
+  numberOfSlots: {
     type: Number,
     required: true,
   },
@@ -38,7 +63,6 @@ const selectedTeamsValue = computed({
   get: () => props.selectedTeams,
   set: (value) => emit('update:selectedTeams', value),
 });
-console.log(selectedTeamsValue);
 </script>
 
 <style lang="scss" scoped>
@@ -56,6 +80,19 @@ console.log(selectedTeamsValue);
     top: -0.875rem;
     left: 50%;
     transform: translateX(-50%);
+  }
+  &__team {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2.375rem;
+    padding: 0 0.625rem;
+    color: $color--text-strong;
+  }
+  &__team-emblem {
+    max-width: 1.5rem;
+    max-height: 1.5rem;
   }
   &__empty-slot-button {
     display: flex;
