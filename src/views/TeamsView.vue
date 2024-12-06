@@ -89,7 +89,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ApiGetAllTeamsResponse } from '@/types/Team';
+import type { TeamPreview } from '@/types/Team';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ALL_COUNTRIES_OPTIONS } from '@/constants/country';
@@ -116,7 +116,7 @@ const form = ref({
   country: '',
 });
 
-const teams = ref<ApiGetAllTeamsResponse>([]);
+const teams = ref<TeamPreview[]>([]);
 
 const displayedTeams = computed(() => teams.value.filter((team) => {
   if (form.value.country && team.country !== form.value.country) return false;

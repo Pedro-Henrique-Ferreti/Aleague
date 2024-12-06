@@ -65,7 +65,7 @@
 
 <script lang="ts" setup>
 import type { DropdownOption } from '@/types/Dropdown';
-import type { ApiGetAllTeamsResponse, RivalTeam, TeamDetails } from '@/types/Team';
+import type { TeamPreview, RivalTeam, TeamDetails } from '@/types/Team';
 import { computed, ref, type PropType } from 'vue';
 import { useToast } from '@/composables/toast';
 import IconPlus from '@/assets/icons/Plus.svg';
@@ -88,7 +88,7 @@ const props = defineProps({
 });
 
 // Teams
-const teams = ref<ApiGetAllTeamsResponse>([]);
+const teams = ref<TeamPreview[]>([]);
 const isLoadingTeams = ref(true);
 const errorMessage = ref('');
 

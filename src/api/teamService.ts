@@ -1,11 +1,11 @@
 import type {
-  ApiGetAllTeamsResponse, ApiTeamToBeCreated, RivalTeam, TeamDetails, TeamEmblem, TeamList,
+  TeamPreview, ApiTeamToBeCreated, RivalTeam, TeamDetails, TeamEmblem, TeamList,
 } from '@/types/Team';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class TeamService {
   static getAllTeams() {
-    return axiosInstance.get<ApiGetAllTeamsResponse>('/teams');
+    return axiosInstance.get<TeamPreview[]>('/teams');
   }
 
   static getTeamLists() {

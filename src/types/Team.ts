@@ -50,8 +50,7 @@ export interface TeamDetails {
   rivals: RivalTeam[];
 }
 
-// Api types
-export type ApiGetAllTeamsResponse = {
+export interface TeamPreview {
   id: string;
   name: string;
   country: TypeCountry;
@@ -59,9 +58,10 @@ export type ApiGetAllTeamsResponse = {
   emblem: {
     id: string;
     url: string;
-  }
-}[];
+  };
+}
 
+// Api types
 export interface ApiTeamToBeCreated {
   id: number;
   name: string;
