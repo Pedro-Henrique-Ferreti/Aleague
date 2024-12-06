@@ -58,7 +58,7 @@
               <AppIconButton
                 v-if="form.teams.length > 1"
                 color="danger"
-                size="small"
+                size="extra-small"
                 :icon="IconDelete"
                 @click="deleteTeam(team.id)"
               />
