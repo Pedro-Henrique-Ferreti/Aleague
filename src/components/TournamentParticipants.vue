@@ -14,7 +14,7 @@
             v-tooltip="'Preencher participantes'"
             color="secondary"
             :icon="IconMagicWand"
-
+            @click="fillStageTeams(index)"
           />
           <AppIconButton
             v-tooltip="'Embaralhar equipes'"
@@ -39,6 +39,7 @@
 <script lang="ts">
 interface FormStage {
   stageId: string;
+  numberOfSlots: number;
   selectedTeams: TeamPreview[];
 }
 </script>
@@ -80,6 +81,7 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
 const form = ref({
   stages: props.tournament.stages.map((stage): FormStage => ({
     stageId: stage.id,
+    numberOfSlots: stage.rules.numberOfTeams,
     selectedTeams: [],
   })),
 });
@@ -108,6 +110,25 @@ getTeamOptions();
 // Shuffle teams
 function shuffleStageTeams(stageIndex: number) {
   form.value.stages[stageIndex].selectedTeams.sort(() => Math.random() - 0.5);
+}
+
+// Fill teams
+function fillStageTeams(stageIndex: number) {
+  const stage = form.value.stages[stageIndex];
+
+  for (let slot = 0; slot < stage.numberOfSlots; slot += 1) {
+    if (!stage.selectedTeams[slot]) {
+      const selectedTeams = form.value.stages.flatMap(
+        (stage) => stage.selectedTeams,
+      ).map(({ id }) => id);
+
+      const availableTeams = teamOptions.value.filter(
+        (team) => !selectedTeams.includes(team.id),
+      );
+
+      stage.selectedTeams[slot] = availableTeams[Math.floor(Math.random() * availableTeams.length)];
+    }
+  }
 }
 
 // Stage card
