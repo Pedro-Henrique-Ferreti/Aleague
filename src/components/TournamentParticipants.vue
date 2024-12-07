@@ -14,15 +14,17 @@
             v-tooltip="'Preencher participantes'"
             color="secondary"
             :icon="IconMagicWand"
+
           />
           <AppIconButton
             v-tooltip="'Embaralhar equipes'"
             color="secondary"
             :icon="IconShuffle"
+            @click="shuffleStageTeams(index)"
           />
         </div>
         <TournamentParticipantsGroup
-          v-model:selected-teams="form.selectedTeams"
+          v-model:selected-teams="form.stages[index].selectedTeams"
           :team-options="teamOptions"
           :number-of-slots="stage.rules.numberOfTeams"
         />
@@ -34,11 +36,18 @@
   </div>
 </template>
 
+<script lang="ts">
+interface FormStage {
+  stageId: string;
+  selectedTeams: TeamPreview[];
+}
+</script>
+
 <script lang="ts" setup>
-import type { TeamPreview } from '@/types/Team';
-import { ref, type PropType } from 'vue';
 import type { Breadcrumb } from '@/types/Breadcrumb';
+import type { TeamPreview } from '@/types/Team';
 import type { Tournament, TournamentStage } from '@/types/Tournament';
+import { ref, type PropType } from 'vue';
 import { TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
 import IconMagicWand from '@/assets/icons/MagicWand.svg';
@@ -69,7 +78,10 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
 
 // Form
 const form = ref({
-  selectedTeams: [] as TeamPreview[],
+  stages: props.tournament.stages.map((stage): FormStage => ({
+    stageId: stage.id,
+    selectedTeams: [],
+  })),
 });
 
 // Team options
@@ -92,6 +104,11 @@ async function getTeamOptions() {
 }
 
 getTeamOptions();
+
+// Shuffle teams
+function shuffleStageTeams(stageIndex: number) {
+  form.value.stages[stageIndex].selectedTeams.sort(() => Math.random() - 0.5);
+}
 
 // Stage card
 function getStageCardTitle(stage: TournamentStage, index: number) {
