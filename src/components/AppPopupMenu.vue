@@ -63,7 +63,6 @@ defineProps({
     min-height: 3.375rem;
     padding: 0.75rem 1rem;
     padding-bottom: 0.5rem;
-    margin-bottom: 0.75rem;
     border-bottom: 1px solid $color--neutral-300;
   }
   &__header-controls {
@@ -76,7 +75,9 @@ defineProps({
     font-weight: $font-weight--medium;
   }
   &__content {
-    padding: 0 1rem;
+    @include scrollbar;
+    overflow-y: auto;
+    padding: 1rem;
   }
   &__footer {
     display: flex;
@@ -86,7 +87,6 @@ defineProps({
     gap: 1.5rem;
     height: 4rem;
     padding: 0 1rem;
-    margin-top: auto;
     border-top: 1px solid $color--neutral-300;
   }
 }

@@ -37,6 +37,7 @@
     overflow-x: hidden;
   }
   .v-popper__inner {
+    @include scrollbar;
     max-height: 11rem;
   }
   .v-popper__arrow-container {
@@ -132,7 +133,7 @@
     display: none;
   }
   .v-popper__inner {
-    height: 21rem;
+    height: 23rem;
     > div:first-child {
       display: flex;
       flex-direction: column;
