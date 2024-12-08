@@ -3,6 +3,7 @@
     class="app-chip"
     :data-size="size"
     :data-color="color"
+    :data-rounded="rounded"
   >
     <slot name="icon-left">
       <component
@@ -26,6 +27,7 @@
 
 <script lang="ts">
 enum Sizes {
+  small = 'small',
   medium = 'medium',
   large = 'large',
 }
@@ -63,6 +65,10 @@ defineProps({
     type: null,
     default: () => null,
   },
+  rounded: {
+    type: Boolean,
+    default: true,
+  },
 });
 </script>
 
@@ -73,6 +79,13 @@ defineProps({
   &[data-size="large"] {
     padding: 0.25rem 0.5rem;
     font-size: 1rem;
+  }
+  &[data-size="small"] {
+    padding: 0 0.125rem;
+    font-size: 0.75rem;
+  }
+  &[data-rounded="false"] {
+    --border-radius: #{$radius--small};
   }
   &[data-color="primary"] {
     --bg-color: #{$color--primary-100};
@@ -97,7 +110,7 @@ defineProps({
   gap: 0.5rem;
   padding: 0.125rem 0.375rem;
   background-color: var(--bg-color);
-  border-radius: $radius--full;
+  border-radius: var(--border-radius, #{$radius--full});
   color: var(--text-color);
   font-size: 0.875rem;
   > :deep(svg),

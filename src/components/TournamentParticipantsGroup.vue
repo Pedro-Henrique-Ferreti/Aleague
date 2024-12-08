@@ -22,16 +22,22 @@
           @click="() => delete selectedTeamsValue[slot - 1]"
         />
       </div>
-      <button
+      <SelectTeamMenu
         v-else
-        class="group__empty-slot-button"
-        type="button"
+        title="Adicionar equipe"
+        confirm-button-text="Adicionar"
+        :team-options="selectTeamMenuOptions"
         :key="slot"
-        @click="selectedTeamsValue[slot - 1] = teamOptions[slot - 1]"
+        @select-team="selectedTeamsValue[slot - 1] = $event"
       >
-        <IconPlus />
-        <span>Adicionar</span>
-      </button>
+        <button
+          class="group__empty-slot-button"
+          type="button"
+        >
+          <IconPlus />
+          <span>Adicionar</span>
+        </button>
+      </SelectTeamMenu>
     </template>
   </div>
 </template>
@@ -42,6 +48,7 @@ import { computed, type PropType } from 'vue';
 import IconPlus from '@/assets/icons/Plus.svg';
 import AppChip from './AppChip.vue';
 import AppRemoveButton from './AppRemoveButton.vue';
+import SelectTeamMenu from './SelectTeamMenu.vue';
 
 const emit = defineEmits(['update:selectedTeams']);
 const props = defineProps({
@@ -63,6 +70,11 @@ const selectedTeamsValue = computed({
   get: () => props.selectedTeams,
   set: (value) => emit('update:selectedTeams', value),
 });
+
+const selectTeamMenuOptions = computed(() => props.teamOptions.map((team) => ({
+  ...team,
+  disabled: props.selectedTeams.map(({ id }) => id).includes(team.id),
+})));
 </script>
 
 <style lang="scss" scoped>
@@ -99,6 +111,7 @@ const selectedTeamsValue = computed({
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
     height: 2.375rem;
     background-color: $color--neutral-100;
     border: 1px dashed $color--neutral-300;
