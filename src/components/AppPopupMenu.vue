@@ -16,6 +16,12 @@
           <slot name="header-controls" />
         </div>
       </div>
+      <div
+        v-if="$slots['before-content']"
+        class="menu__before-content"
+      >
+        <slot name="before-content" />
+      </div>
       <div class="menu__content">
         <slot name="content" />
       </div>
@@ -74,6 +80,13 @@ defineProps({
     font-size: 1.125rem;
     font-weight: $font-weight--medium;
   }
+  &__before-content {
+    padding: 1rem;
+    padding-bottom: 0.5rem;
+    & + .menu__content {
+      padding-top: 0.5rem;
+    }
+  }
   &__content {
     @include scrollbar;
     overflow-y: auto;
@@ -87,6 +100,7 @@ defineProps({
     gap: 1.5rem;
     height: 4rem;
     padding: 0 1rem;
+    margin-top: auto;
     border-top: 1px solid $color--neutral-300;
   }
 }

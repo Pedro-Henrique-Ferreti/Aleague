@@ -6,10 +6,23 @@
     @confirm="selectTeam"
   >
     <slot />
+    <template #before-content>
+      <AppSearchInput
+        v-model="form.searchValue"
+        id="select-team-menu-search-input"
+        size="small"
+      />
+    </template>
     <template #content>
       <div class="team-list">
+        <span
+          v-if="displayedTeamOptions.length === 0"
+          class="team-list__empty-state"
+        >
+          Nenhum resultado encontrado
+        </span>
         <SelectTeamMenuItem
-          v-for="team in teamOptions"
+          v-for="team in displayedTeamOptions"
           v-model="form.selectedTeamId"
           :key="team.id"
           :item="team"
@@ -21,8 +34,9 @@
 
 <script lang="ts" setup>
 import type { SelectTeamMenuOption } from '@/types/SelectTeamMenu';
-import { ref, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import AppPopupMenu from './AppPopupMenu.vue';
+import AppSearchInput from './AppSearchInput.vue';
 import SelectTeamMenuItem from './SelectTeamMenuItem.vue';
 
 const emit = defineEmits<{
@@ -44,8 +58,13 @@ const props = defineProps({
 });
 
 const form = ref({
+  searchValue: '',
   selectedTeamId: '',
 });
+
+const displayedTeamOptions = computed(() => props.teamOptions.filter((team) => (
+  team.name.toLowerCase().includes(form.value.searchValue.toLowerCase())
+)));
 
 function selectTeam() {
   emit('select-team', props.teamOptions.find((team) => team.id === form.value.selectedTeamId)!);
@@ -56,5 +75,10 @@ function selectTeam() {
 .team-list {
   display: grid;
   gap: 0.5rem;
+  &__empty-state {
+    color: $color--text-500;
+    font-size: 0.875rem;
+    text-align: center;
+  }
 }
 </style>
