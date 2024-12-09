@@ -30,7 +30,12 @@
         />
       </AppAccordion>
     </div>
-    <AppButton>
+    <AppButton
+      class="stages__submit-button"
+      :is-loading="isLoading"
+      :disabled="submitButtonIsDisabled"
+      @click="submitParticipants"
+    >
       Iniciar campeonato
     </AppButton>
   </div>
@@ -48,7 +53,8 @@ interface FormStage {
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamPreview } from '@/types/Team';
 import type { Tournament, TournamentStage } from '@/types/Tournament';
-import { ref, type PropType } from 'vue';
+import { computed, ref, type PropType } from 'vue';
+import { useToast } from '@/composables/toast';
 import { TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
 import IconMagicWand from '@/assets/icons/MagicWand.svg';
@@ -60,6 +66,9 @@ import PageHeader from './PageHeader.vue';
 import TournamentProfileCard from './TournamentProfileCard.vue';
 import TournamentParticipantsGroup from './TournamentParticipantsGroup.vue';
 
+const toast = useToast();
+
+const emit = defineEmits(['participants-submitted']);
 const props = defineProps({
   tournament: {
     type: Object as PropType<Tournament>,
@@ -139,10 +148,36 @@ function getStageCardTitle(stage: TournamentStage, index: number) {
 
   return ` ${name} - ${stage.rules.numberOfTeams} equipes`;
 }
+
+// Submit participants
+const submitButtonIsDisabled = computed(() => (
+  form.value.stages.some((stage) => stage.selectedTeams.length !== stage.numberOfSlots)
+));
+
+const isLoading = ref(false);
+
+async function submitParticipants() {
+  isLoading.value = true;
+
+  try {
+    await api.tournamentService.initializeAllPlayAllTournament({
+      id: props.tournament.id,
+      teams: form.value.stages.flatMap((stage) => stage.selectedTeams.map(({ id }) => id)),
+    });
+
+    emit('participants-submitted');
+  } catch (error: any) {
+    toast.error('Não foi possivel iniciar o campeonato. Por favor, tente novamente.');
+  } finally {
+    isLoading.value = false;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .stages {
+  display: flex;
+  flex-direction: column;
   &__grid {
     display: grid;
     gap: 1.5rem;
@@ -154,6 +189,9 @@ function getStageCardTitle(stage: TournamentStage, index: number) {
     justify-content: flex-end;
     gap: 1rem;
     margin-bottom: 2rem;
+  }
+  &__submit-button {
+    margin-left: auto;
   }
 }
 </style>

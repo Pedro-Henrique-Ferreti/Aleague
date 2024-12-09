@@ -9,6 +9,7 @@
     <TournamentParticipants
       v-else-if="tournament && !tournament.startedAt"
       :tournament="tournament"
+      @participants-submitted="getTournament"
     />
   </TransitionFade>
 </template>
@@ -34,6 +35,7 @@ const errorMessage = ref('');
 async function getTournament() {
   isLoading.value = true;
   errorMessage.value = '';
+  tournament.value = null;
 
   try {
     const { data } = await api.tournamentService.getAllPlayAllTournamentById(
