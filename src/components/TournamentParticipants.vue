@@ -160,7 +160,7 @@ async function submitParticipants() {
   isLoading.value = true;
 
   try {
-    await api.tournamentService.initializeAllPlayAllTournament({
+    await api.tournamentService.addTournamentParticipants({
       id: props.tournament.id,
       teams: form.value.stages.flatMap((stage) => stage.selectedTeams.map(({ id }) => id)),
     });

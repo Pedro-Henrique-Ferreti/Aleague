@@ -43,9 +43,7 @@ async function getTournament() {
   tournament.value = null;
 
   try {
-    const { data } = await api.tournamentService.getAllPlayAllTournamentById(
-      route.params.id as string,
-    );
+    const { data } = await api.tournamentService.getTournamentById(route.params.id as string);
     tournament.value = data;
   } catch (error: any) {
     errorMessage.value = 'Algo deu errado e não foi possível carregar o campeonato.';

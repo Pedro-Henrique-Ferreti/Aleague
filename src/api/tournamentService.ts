@@ -16,12 +16,12 @@ export default class TournamentService {
     });
   }
 
-  static getAllPlayAllTournamentById(id: string) {
-    return axiosInstance.get<Tournament>(`/competitions/all-play-all/${id}`);
+  static getTournamentById(id: string) {
+    return axiosInstance.get<Tournament>(`/competitions/${id}`);
   }
 
-  static initializeAllPlayAllTournament(payload: { id: string; teams: string[] }) {
-    return axiosInstance.post(`/competitions/all-play-all/${payload.id}/initialize`, {
+  static addTournamentParticipants(payload: { id: string; teams: string[] }) {
+    return axiosInstance.post(`/competitions/${payload.id}/add-participants`, {
       teams: payload.teams,
     });
   }
