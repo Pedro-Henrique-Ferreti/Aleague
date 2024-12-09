@@ -15,7 +15,7 @@ export default class TournamentService {
     });
   }
 
-  static getTournamentById(id: string) {
-    return axiosInstance.get<Tournament>(`/competitions/${id}`);
+  static getAllPlayAllTournamentById(id: string) {
+    return axiosInstance.get<Tournament>(`/competitions/all-play-all/${id}`);
   }
 }
