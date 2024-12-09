@@ -36,6 +36,7 @@
         v-tooltip="'Editar campeonato'"
         color="secondary"
         :icon="IconPencil"
+        :to="{ name: 'edit-tournament', params: { id: tournament.id } }"
       />
     </div>
   </div>
