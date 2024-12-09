@@ -58,6 +58,7 @@
     overflow-x: hidden;
   }
   .v-popper__inner {
+    @include scrollbar;
     height: 23.75rem;
     padding: 1rem;
   }
