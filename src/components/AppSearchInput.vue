@@ -62,9 +62,6 @@ const inputValue = computed({
     &:hover {
       border-color: $color--text-300;
     }
-    &:focus::placeholder {
-     opacity: 0;
-    }
     &::placeholder {
       color: $color--text-500;
     }
