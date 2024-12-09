@@ -24,9 +24,12 @@
           />
         </div>
         <TournamentParticipantsGroup
-          v-model:selected-teams="form.stages[index].selectedTeams"
+          v-for="(group, i) in form.stages[index].participantsGroups"
+          v-model:teams="form.stages[index].participantsGroups[i].teams"
+          :key="group.id"
+          :name="group.name"
           :team-options="teamOptions"
-          :number-of-slots="stage.rules.numberOfTeams"
+          :number-of-slots="form.stages[index].slotsPerParticipantsGroup"
         />
       </AppAccordion>
     </div>
@@ -42,17 +45,23 @@
 </template>
 
 <script lang="ts">
+interface ParticipantsGroup {
+  id: number;
+  name: string;
+  teams: TeamPreview[];
+}
+
 interface FormStage {
   stageId: string;
-  numberOfSlots: number;
-  selectedTeams: TeamPreview[];
+  slotsPerParticipantsGroup: number;
+  participantsGroups: ParticipantsGroup[];
 }
 </script>
 
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamPreview } from '@/types/Team';
-import type { Tournament, TournamentStage } from '@/types/Tournament';
+import { TournamentStageType, type Tournament, type TournamentStage } from '@/types/Tournament';
 import { computed, ref, type PropType } from 'vue';
 import { useToast } from '@/composables/toast';
 import { TournamentFormat } from '@/constants/tournament';
@@ -86,13 +95,39 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
   'Adicionar participantes',
 ];
 
+// Map tournament stages
+function mapTournamentStage(stage: TournamentStage): FormStage {
+  const participantsGroups: ParticipantsGroup[] = [];
+  const numberOfGroups = (
+    stage.type === TournamentStageType.GROUPS
+      ? stage.rules.numberOfGroups
+      : stage.rules.numberOfTeams / 2
+  );
+
+  for (let i = 1; i <= numberOfGroups; i += 1) {
+    participantsGroups.push({
+      id: i,
+      teams: [],
+      name: (
+        props.tournament.type === TournamentFormat.ALL_PLAY_ALL
+          ? 'Equipes'
+          : `${stage.type === TournamentStageType.GROUPS ? 'Grupo' : 'Partida'} ${i}`
+      ),
+    });
+  }
+
+  return {
+    stageId: stage.id,
+    participantsGroups,
+    slotsPerParticipantsGroup: (
+      stage.type === TournamentStageType.GROUPS ? stage.rules.numberOfTeamsPerGroup : 2
+    ),
+  };
+}
+
 // Form
 const form = ref({
-  stages: props.tournament.stages.map((stage): FormStage => ({
-    stageId: stage.id,
-    numberOfSlots: stage.rules.numberOfTeams,
-    selectedTeams: [],
-  })),
+  stages: props.tournament.stages.map(mapTournamentStage),
 });
 
 // Team options
@@ -118,26 +153,37 @@ getTeamOptions();
 
 // Shuffle teams
 function shuffleStageTeams(stageIndex: number) {
-  form.value.stages[stageIndex].selectedTeams.sort(() => Math.random() - 0.5);
+  const stage = form.value.stages[stageIndex];
+  const teams = stage.participantsGroups.flatMap((group) => group.teams);
+
+  teams.sort(() => Math.random() - 0.5);
+
+  for (let i = 0; i < stage.participantsGroups.length; i += 1) {
+    stage.participantsGroups[i].teams = teams.splice(0, stage.slotsPerParticipantsGroup);
+  }
 }
 
 // Fill teams
 function fillStageTeams(stageIndex: number) {
   const stage = form.value.stages[stageIndex];
 
-  for (let slot = 0; slot < stage.numberOfSlots; slot += 1) {
-    if (!stage.selectedTeams[slot]) {
-      const selectedTeams = form.value.stages.flatMap(
-        (stage) => stage.selectedTeams,
-      ).map(({ id }) => id);
+  stage.participantsGroups.forEach((group, groupIndex) => {
+    for (let slot = 0; slot < stage.slotsPerParticipantsGroup; slot += 1) {
+      if (!group.teams[slot]) {
+        const allSelectedTeams = form.value.stages.flatMap(
+          (stage) => stage.participantsGroups.flatMap((group) => group.teams),
+        ).map(({ id }) => id);
 
-      const availableTeams = teamOptions.value.filter(
-        (team) => !selectedTeams.includes(team.id),
-      );
+        const availableTeams = teamOptions.value.filter(
+          (team) => !allSelectedTeams.includes(team.id),
+        );
 
-      stage.selectedTeams[slot] = availableTeams[Math.floor(Math.random() * availableTeams.length)];
+        form.value.stages[stageIndex].participantsGroups[groupIndex].teams[slot] = (
+          availableTeams[Math.floor(Math.random() * availableTeams.length)]
+        );
+      }
     }
-  }
+  });
 }
 
 // Stage card
@@ -150,9 +196,11 @@ function getStageCardTitle(stage: TournamentStage, index: number) {
 }
 
 // Submit participants
-const submitButtonIsDisabled = computed(() => (
-  form.value.stages.some((stage) => stage.selectedTeams.length !== stage.numberOfSlots)
-));
+const submitButtonIsDisabled = computed(() => form.value.stages.some((stage) => (
+  stage.participantsGroups.some(
+    ({ teams }) => teams.filter((i) => !!i).length !== stage.slotsPerParticipantsGroup,
+  )
+)));
 
 const isLoading = ref(false);
 
@@ -162,7 +210,10 @@ async function submitParticipants() {
   try {
     await api.tournamentService.addTournamentParticipants({
       id: props.tournament.id,
-      teams: form.value.stages.flatMap((stage) => stage.selectedTeams.map(({ id }) => id)),
+      stages: form.value.stages.map((stage) => ({
+        id: stage.stageId,
+        teams: stage.participantsGroups.flatMap((group) => group.teams).map((team) => team.id),
+      })),
     });
 
     emit('participants-submitted');

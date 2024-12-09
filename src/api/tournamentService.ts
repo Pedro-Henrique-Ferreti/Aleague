@@ -20,9 +20,11 @@ export default class TournamentService {
     return axiosInstance.get<Tournament>(`/competitions/${id}`);
   }
 
-  static addTournamentParticipants(payload: { id: string; teams: string[] }) {
+  static addTournamentParticipants(
+    payload: { id: string; stages: { id: string; teams: string[] }[] },
+  ) {
     return axiosInstance.post(`/competitions/${payload.id}/add-participants`, {
-      teams: payload.teams,
+      stages: payload.stages,
     });
   }
 }

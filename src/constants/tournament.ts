@@ -8,11 +8,6 @@ export const TournamentFormat = {
   CUSTOM: 'custom',
 } as const;
 
-export const TournamentStage = {
-  GROUPS: 'groups',
-  PLAYOFFS: 'playoffs',
-} as const;
-
 export const TournamentStageConfrontation = {
   AGAINST_TEAMS_FROM_SAME_GROUP: 'against-teams-from-same-group',
   AGAINST_TEAMS_FROM_OTHER_GROUPS: 'against-teams-from-other-groups',

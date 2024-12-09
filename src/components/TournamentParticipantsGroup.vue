@@ -3,23 +3,23 @@
     <AppChip
       class="group__chip"
       color="blue"
-      text="Equipes"
+      :text="name"
     />
     <template v-for="slot in numberOfSlots">
       <div
-        v-if="selectedTeams[slot - 1]"
+        v-if="teams[slot - 1]"
         class="group__team"
-        :key="selectedTeams[slot - 1].id"
+        :key="teams[slot - 1].id"
       >
         <img
           class="group__team-emblem"
-          :src="selectedTeams[slot - 1].emblem.url"
-          :alt="`${selectedTeams[slot - 1].name}'s emblem'`"
+          :src="teams[slot - 1].emblem.url"
+          :alt="`${teams[slot - 1].name}'s emblem'`"
         />
-        <span>{{ selectedTeams[slot - 1].name }}</span>
+        <span>{{ teams[slot - 1].name }}</span>
         <AppRemoveButton
           aria-label="Remover equipe"
-          @click="() => delete selectedTeamsValue[slot - 1]"
+          @click="() => delete teamsValue[slot - 1]"
         />
       </div>
       <SelectTeamMenu
@@ -28,7 +28,7 @@
         confirm-button-text="Adicionar"
         :team-options="selectTeamMenuOptions"
         :key="slot"
-        @select-team="selectedTeamsValue[slot - 1] = $event"
+        @select-team="teamsValue[slot - 1] = $event"
       >
         <button
           class="group__empty-slot-button"
@@ -50,9 +50,13 @@ import AppChip from './AppChip.vue';
 import AppRemoveButton from './AppRemoveButton.vue';
 import SelectTeamMenu from './SelectTeamMenu.vue';
 
-const emit = defineEmits(['update:selectedTeams']);
+const emit = defineEmits(['update:teams']);
 const props = defineProps({
-  selectedTeams: {
+  name: {
+    type: String,
+    required: true,
+  },
+  teams: {
     type: Array as PropType<TeamPreview[]>,
     required: true,
   },
@@ -66,14 +70,14 @@ const props = defineProps({
   },
 });
 
-const selectedTeamsValue = computed({
-  get: () => props.selectedTeams,
-  set: (value) => emit('update:selectedTeams', value),
+const teamsValue = computed({
+  get: () => props.teams,
+  set: (value) => emit('update:teams', value),
 });
 
 const selectTeamMenuOptions = computed(() => props.teamOptions.map((team) => ({
   ...team,
-  disabled: props.selectedTeams.map(({ id }) => id).includes(team.id),
+  disabled: props.teams.map(({ id }) => id).includes(team.id),
 })));
 </script>
 

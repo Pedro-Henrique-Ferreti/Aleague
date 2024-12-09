@@ -1,16 +1,20 @@
-import { TournamentFormat, TournamentStage, TournamentStageConfrontation } from '@/constants/tournament';
+import { TournamentFormat, TournamentStageConfrontation } from '@/constants/tournament';
 import type { ValueOf } from './Auth';
 
-export type TypeTournamentFormat = ValueOf<typeof TournamentFormat>;
-export type TypeTournamentStage = ValueOf<typeof TournamentStage>;
-export type TypeTournamentStageConfrontation = ValueOf<typeof TournamentStageConfrontation>;
+export enum TournamentStageType {
+  GROUPS = 'groups',
+  PLAYOFFS = 'playoffs',
+}
 
-export interface TournamentStageRules {
+export type TypeTournamentFormat = ValueOf<typeof TournamentFormat>;
+export type TypeStageConfrontationType = ValueOf<typeof TournamentStageConfrontation>;
+
+export interface GroupsStageRules {
   numberOfTeams: number;
   numberOfGroups: number;
   numberOfTeamsPerGroup: number;
   numberOfLegs: number;
-  confrontationType: TypeTournamentStageConfrontation,
+  confrontationType: TypeStageConfrontationType,
   qualification: {
     fromPreviousStages: {
       numberOfTeams: number;
@@ -22,15 +26,31 @@ export interface TournamentStageRules {
   };
 }
 
-export interface TournamentStage {
+export interface PlayoffsStageRules {
+  numberOfTeams: number;
+}
+
+interface BaseTournamentStage {
   id: string;
   name: string | null;
-  type: TypeTournamentStage;
   sequence: number;
-  rules: TournamentStageRules;
+  type: TournamentStageType;
+  rules: GroupsStageRules | PlayoffsStageRules;
   standings: TournamentStageStanding[];
   gameweeks: TournamentStageGameweek[];
 }
+
+export interface TournamentGroupsStage extends BaseTournamentStage {
+  type: TournamentStageType.GROUPS;
+  rules: GroupsStageRules;
+}
+
+export interface TournamentPlayoffsStage extends BaseTournamentStage {
+  type: TournamentStageType.PLAYOFFS;
+  rules: PlayoffsStageRules;
+}
+
+export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;
 
 export interface TournamentStageStanding {}
 
