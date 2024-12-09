@@ -72,9 +72,11 @@ const statusColor = computed(() => {
 <style lang="scss" scoped>
 .tournament-card {
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
+  width: 100%;
   @include for-large-tablet-portrait-up {
     grid-template-columns: 1fr auto;
+    gap: 2rem;
   }
   &__image {
     max-width: 5.625rem;

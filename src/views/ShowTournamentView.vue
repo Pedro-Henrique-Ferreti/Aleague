@@ -11,6 +11,10 @@
       :tournament="tournament"
       @participants-submitted="getTournament"
     />
+    <TournamentPage
+      v-else-if="tournament"
+      :tournament="tournament"
+    />
   </TransitionFade>
 </template>
 
@@ -23,6 +27,7 @@ import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import TournamentParticipants from '@/components/TournamentParticipants.vue';
+import TournamentPage from '@/components/TournamentPage.vue';
 
 const route = useRoute();
 
