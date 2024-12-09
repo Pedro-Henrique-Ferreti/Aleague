@@ -76,7 +76,7 @@
                 {{ tournament.name }}
               </span>
               <span class="tournament-card__type">
-                {{ tournament.type }}
+                {{ getTournamentTypeText(tournament.type) }}
               </span>
             </div>
           </div>
@@ -102,7 +102,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ApiGetAllTournamentsResponse } from '@/types/Tournament';
+import type { ApiGetAllTournamentsResponse, TypeTournamentFormat } from '@/types/Tournament';
 import { computed, ref } from 'vue';
 import { formatDate } from '@/utils';
 import api from '@/api';
@@ -121,6 +121,7 @@ import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import EmptySearchState from '@/components/EmptySearchState.vue';
+import { TournamentFormat } from '@/constants/tournament';
 
 enum FilterType {
   ALL = 0,
@@ -177,6 +178,20 @@ async function getTournaments() {
 }
 
 getTournaments();
+
+// Tournament type text
+function getTournamentTypeText(type: TypeTournamentFormat) {
+  switch (type) {
+    case TournamentFormat.ALL_PLAY_ALL:
+      return 'Pontos corridos';
+    case TournamentFormat.PLAYOFFS:
+      return 'Eliminatórias';
+    case TournamentFormat.CUSTOM:
+      return 'Fases livres';
+    default:
+      return '';
+  }
+}
 </script>
 
 <style lang="scss" scoped>
