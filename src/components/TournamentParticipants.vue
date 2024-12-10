@@ -30,6 +30,9 @@
           :name="group.name"
           :team-options="teamOptions"
           :number-of-slots="form.stages[index].slotsPerParticipantsGroup"
+          :number-of-groups="form.stages[index].participantsGroups.length"
+          :stages="form.stages"
+          :show-team-option-label="tournament.type !== TournamentFormat.ALL_PLAY_ALL"
         />
       </AppAccordion>
     </div>
@@ -51,7 +54,7 @@ interface ParticipantsGroup {
   teams: TeamPreview[];
 }
 
-interface FormStage {
+export interface FormStage {
   stageId: string;
   slotsPerParticipantsGroup: number;
   participantsGroups: ParticipantsGroup[];

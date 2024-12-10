@@ -44,6 +44,7 @@
 
 <script lang="ts" setup>
 import type { TeamPreview } from '@/types/Team';
+import type { FormStage } from '@/components/TournamentParticipants.vue';
 import { computed, type PropType } from 'vue';
 import IconPlus from '@/assets/icons/Plus.svg';
 import AppChip from './AppChip.vue';
@@ -68,6 +69,18 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  numberOfGroups: {
+    type: Number,
+    required: true,
+  },
+  stages: {
+    type: Array as PropType<FormStage[]>,
+    required: true,
+  },
+  showTeamOptionLabel: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const teamsValue = computed({
@@ -75,10 +88,17 @@ const teamsValue = computed({
   set: (value) => emit('update:teams', value),
 });
 
-const selectTeamMenuOptions = computed(() => props.teamOptions.map((team) => ({
-  ...team,
-  disabled: props.teams.map(({ id }) => id).includes(team.id),
-})));
+const selectTeamMenuOptions = computed(() => props.teamOptions.map((team) => {
+  const participantGroup = props.stages.flatMap(
+    (stage) => stage.participantsGroups,
+  ).find((group) => group.teams.find((item) => item?.id === team.id));
+
+  return {
+    ...team,
+    disabled: !!participantGroup,
+    labelText: (props.showTeamOptionLabel) ? participantGroup?.name : undefined,
+  };
+}));
 </script>
 
 <style lang="scss" scoped>
