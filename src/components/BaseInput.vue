@@ -5,6 +5,7 @@
     class="base-input base-input--textarea"
     :id="id"
     :disabled="disabled"
+    :data-headless="headless || null"
     @change="handleChange(($event.target as HTMLInputElement).value)"
   />
   <input
@@ -14,6 +15,7 @@
     ref="input"
     type="text"
     :disabled="disabled"
+    :data-headless="headless || null"
     @blur="handleChange(imaskInstance?.unmaskedValue || '')"
   />
   <input
@@ -23,6 +25,7 @@
     :id="id"
     :type="type"
     :disabled="disabled"
+    :data-headless="headless || null"
     @change="handleChange(($event.target as HTMLInputElement).value)"
   />
 </template>
@@ -66,6 +69,10 @@ const props = defineProps({
   modelModifiers: {
     type: Object as PropType<{ lazy?: boolean }>,
     default: () => ({}),
+  },
+  headless: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -125,7 +132,7 @@ watch(() => props.mask, () => {
 </script>
 
 <style lang="scss" scoped>
-.base-input {
+.base-input:not([data-headless]) {
   --outline-color: transparent;
   width: 100%;
   min-height: 2.75rem;
@@ -139,7 +146,7 @@ watch(() => props.mask, () => {
   transition:
     outline-color $transition--fastest ease-in,
     border-color $transition--fastest ease-in;
-  &--textarea {
+  &.base-input--textarea {
     padding: 0.5rem 1rem;
     min-height: 4rem;
   }
