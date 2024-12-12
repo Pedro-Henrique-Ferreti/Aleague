@@ -18,8 +18,8 @@
           <NewTournamentPlayoffsForm
             v-else-if="settingsForm.format === TournamentFormat.PLAYOFFS"
             v-model:rounds="playoffsForm.rounds"
-            v-model:two-legged-rounds="playoffsForm.twoLeggedRounds"
-            v-model:two-legged-final="playoffsForm.twoLeggedFinal"
+            v-model:is-double-legged="playoffsForm.isDoubleLegged"
+            v-model:final-round-is-double-legged="playoffsForm.finalRoundIsDoubleLegged"
           />
         </template>
         <NewTournamentSettingsForm
@@ -120,8 +120,8 @@ const allPlayAllForm = ref({
 // Playoffs form
 const playoffsForm = ref({
   rounds: PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
-  twoLeggedRounds: false,
-  twoLeggedFinal: false,
+  isDoubleLegged: false,
+  finalRoundIsDoubleLegged: false,
 });
 
 // Page title
@@ -158,8 +158,8 @@ async function submitForm() {
         name: settingsForm.value.name,
         icon: settingsForm.value.iconId,
         numberOfTeams: 2 ** playoffsForm.value.rounds,
-        hasTwoLegs: playoffsForm.value.twoLeggedRounds,
-        twoLeggedFinal: playoffsForm.value.twoLeggedFinal,
+        isDoubleLegged: playoffsForm.value.isDoubleLegged,
+        finalRoundIsDoubleLegged: playoffsForm.value.finalRoundIsDoubleLegged,
       });
       id = data.id;
     }
