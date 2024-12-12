@@ -183,9 +183,11 @@ function fillStageTeams(stageIndex: number) {
           (team) => !allSelectedTeams.includes(team.id),
         );
 
-        form.value.stages[stageIndex].participantsGroups[groupIndex].teams[slot] = (
-          availableTeams[Math.floor(Math.random() * availableTeams.length)]
-        );
+        if (availableTeams.length > 0) {
+          form.value.stages[stageIndex].participantsGroups[groupIndex].teams[slot] = (
+            availableTeams[Math.floor(Math.random() * availableTeams.length)]
+          );
+        }
       }
     }
   });
