@@ -24,9 +24,14 @@ defineProps({
 .groups-page {
   --grid-gap: 1.5rem;
   display: grid;
-  grid-template-columns: 3fr 1fr;
   gap: var(--grid-gap);
   margin-top: 1.5rem;
+  @include for-desktop-up {
+    grid-template-columns: 2.25fr minmax(20rem, 1fr);
+  }
+  @include for-large-desktop-up {
+    grid-template-columns: 3fr minmax(20rem, 1fr);
+  }
   &__standings {
     display: grid;
     gap: var(--grid-gap);

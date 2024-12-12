@@ -21,6 +21,16 @@
         @click="currentGameweek += 1"
       />
     </header>
+    <div class="gameweeks-card__matches">
+      <AppMatch
+        v-for="match in gameweeks[currentGameweek - 1].matches"
+        v-model:home-score="match.homeTeamScore"
+        v-model:away-score="match.awayTeamScore"
+        :key="match.id"
+        :home-team="match.homeTeam"
+        :away-team="match.awayTeam"
+      />
+    </div>
   </section>
 </template>
 
@@ -30,6 +40,7 @@ import { computed, ref, type PropType } from 'vue';
 import IconChevronRight from '@/assets/icons/ChevronRight.svg';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppIconButton from './AppIconButton.vue';
+import AppMatch from './AppMatch.vue';
 
 const props = defineProps({
   gameweeks: {
@@ -58,6 +69,10 @@ const disableNextButton = computed(() => currentGameweek.value === props.gamewee
   &__title {
     color: $color--text-strong;
     font-weight: $font-weight--medium;
+  }
+  &__matches {
+    display: grid;
+    gap: 0.75rem;
   }
 }
 </style>
