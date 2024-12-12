@@ -14,7 +14,7 @@
       <AppCounter
         readonly
         label="Equipes participantes"
-        :model-value="participants"
+        :model-value="2 ** roundsValue"
       />
     </div>
     <div class="form__toggles">
@@ -67,19 +67,6 @@ const twoLeggedRoundsValue = computed({
 const twoLeggedFinalValue = computed({
   get: () => props.twoLeggedFinal,
   set: (value) => emit('update:twoLeggedFinal', value),
-});
-
-// Participants
-const participants = computed(() => {
-  let teams = 1;
-  let i = 0;
-
-  while (i < props.rounds) {
-    teams *= 2;
-    i += 1;
-  }
-
-  return teams;
 });
 </script>
 

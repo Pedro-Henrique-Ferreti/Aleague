@@ -1,4 +1,9 @@
-import type { ApiCreateAllPlayAllTournamentPayload, ApiGetAllTournamentsResponse, Tournament } from '@/types/Tournament';
+import type {
+  ApiCreateAllPlayAllTournamentPayload,
+  ApiCreatePlayoffsTournamentPayload,
+  ApiGetAllTournamentsResponse,
+  Tournament,
+} from '@/types/Tournament';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class TournamentService {
@@ -6,9 +11,12 @@ export default class TournamentService {
     return axiosInstance.get<ApiGetAllTournamentsResponse>('/competitions');
   }
 
-  // All-play-all
+  static getTournamentById(id: string) {
+    return axiosInstance.get<Tournament>(`/competitions/${id}`);
+  }
+
   static createAllPlayAllTournament(payload: ApiCreateAllPlayAllTournamentPayload) {
-    return axiosInstance.post('/competitions/all-play-all', {
+    return axiosInstance.post<{ id: string }>('/competitions/all-play-all', {
       name: payload.name,
       icon: payload.icon,
       numberOfTeams: payload.numberOfTeams,
@@ -16,8 +24,14 @@ export default class TournamentService {
     });
   }
 
-  static getTournamentById(id: string) {
-    return axiosInstance.get<Tournament>(`/competitions/${id}`);
+  static createPlayoffsTournament(payload: ApiCreatePlayoffsTournamentPayload) {
+    return axiosInstance.post<{ id: string }>('/competitions/playoffs', {
+      name: payload.name,
+      icon: payload.icon,
+      numberOfTeams: payload.numberOfTeams,
+      hasTwoLegs: payload.hasTwoLegs,
+      twoLeggedFinal: payload.twoLeggedFinal,
+    });
   }
 
   static addTournamentParticipants(

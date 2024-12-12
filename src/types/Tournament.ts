@@ -89,3 +89,11 @@ export interface ApiCreateAllPlayAllTournamentPayload {
   numberOfTeams: number;
   hasTwoLegs: boolean;
 }
+
+export interface ApiCreatePlayoffsTournamentPayload {
+  name: string;
+  icon: number;
+  numberOfTeams: number;
+  hasTwoLegs: boolean;
+  twoLeggedFinal: boolean;
+}

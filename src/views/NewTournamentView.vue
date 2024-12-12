@@ -117,27 +117,6 @@ const allPlayAllForm = ref({
   hasTwoLegs: false,
 });
 
-async function createAllPlayAllTournament() {
-  isCreatingTournament.value = true;
-
-  try {
-    await api.tournamentService.createAllPlayAllTournament({
-      name: settingsForm.value.name,
-      icon: settingsForm.value.iconId,
-      numberOfTeams: allPlayAllForm.value.participants,
-      hasTwoLegs: allPlayAllForm.value.hasTwoLegs,
-    });
-
-    toast.success('Campeonato criado com sucesso!');
-
-    router.push({ name: 'tournaments' });
-  } catch (error: any) {
-    toast.error('Algo deu errado e não foi possível criar o campeonato. Por favor, tente novamente.');
-  } finally {
-    isCreatingTournament.value = false;
-  }
-}
-
 // Playoffs form
 const playoffsForm = ref({
   rounds: PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
@@ -155,14 +134,43 @@ watch(() => activeStepId.value, (currentStepId, previousStepId) => {
 }, { immediate: true });
 
 // Submit form
-function submitForm() {
+async function submitForm() {
   if (activeStepId.value === FormStep.FORMAT) {
     activeStepId.value = FormStep.RULES;
     return;
   }
 
-  if (settingsForm.value.format === TournamentFormat.ALL_PLAY_ALL) {
-    createAllPlayAllTournament();
+  isCreatingTournament.value = true;
+
+  try {
+    let id = '';
+
+    if (settingsForm.value.format === TournamentFormat.ALL_PLAY_ALL) {
+      const { data } = await api.tournamentService.createAllPlayAllTournament({
+        name: settingsForm.value.name,
+        icon: settingsForm.value.iconId,
+        numberOfTeams: allPlayAllForm.value.participants,
+        hasTwoLegs: allPlayAllForm.value.hasTwoLegs,
+      });
+      id = data.id;
+    } else if (settingsForm.value.format === TournamentFormat.PLAYOFFS) {
+      const { data } = await api.tournamentService.createPlayoffsTournament({
+        name: settingsForm.value.name,
+        icon: settingsForm.value.iconId,
+        numberOfTeams: 2 ** playoffsForm.value.rounds,
+        hasTwoLegs: playoffsForm.value.twoLeggedRounds,
+        twoLeggedFinal: playoffsForm.value.twoLeggedFinal,
+      });
+      id = data.id;
+    }
+
+    toast.success('Campeonato criado com sucesso!');
+
+    router.push({ name: 'show-tournament', params: { id } });
+  } catch (error: any) {
+    toast.error('Algo deu errado e não foi possível criar o campeonato. Por favor, tente novamente.');
+  } finally {
+    isCreatingTournament.value = false;
   }
 }
 </script>
