@@ -1,0 +1,63 @@
+<template>
+  <section class="gameweeks-card | app-base-card">
+    <header class="gameweeks-card__header">
+      <AppIconButton
+        color="secondary"
+        size="small"
+        aria-label="Mostrar rodada anterior"
+        :icon="IconChevronLeft"
+        :disabled="disablePreviousButton"
+        @click="currentGameweek -= 1"
+      />
+      <h3 class="gameweeks-card__title">
+        Rodada {{ currentGameweek }}
+      </h3>
+      <AppIconButton
+        color="secondary"
+        size="small"
+        aria-label="Mostrar próxima anterior"
+        :icon="IconChevronRight"
+        :disabled="disableNextButton"
+        @click="currentGameweek += 1"
+      />
+    </header>
+  </section>
+</template>
+
+<script lang="ts" setup>
+import type { TournamentStageGameweek } from '@/types/Tournament';
+import { computed, ref, type PropType } from 'vue';
+import IconChevronRight from '@/assets/icons/ChevronRight.svg';
+import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
+import AppIconButton from './AppIconButton.vue';
+
+const props = defineProps({
+  gameweeks: {
+    type: Array as PropType<TournamentStageGameweek[]>,
+    required: true,
+  },
+});
+
+const currentGameweek = ref(props.gameweeks[0].gameweek);
+
+const disablePreviousButton = computed(() => currentGameweek.value === 1);
+const disableNextButton = computed(() => currentGameweek.value === props.gameweeks.length);
+</script>
+
+<style lang="scss" scoped>
+.gameweeks-card {
+  --base-card--padding: 1.25rem 1rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $color--neutral-300;
+  }
+  &__title {
+    color: $color--text-strong;
+    font-weight: $font-weight--medium;
+  }
+}
+</style>

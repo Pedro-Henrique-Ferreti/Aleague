@@ -5,16 +5,21 @@
       <TournamentProfileCard :tournament="tournament" />
       <AppButton>Salvar alterações</AppButton>
     </div>
+    <TournamentPageGroups
+      v-if="tournament.stages[0].type === TournamentStageType.GROUPS"
+      :stage="tournament.stages[0]"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
-import type { Tournament } from '@/types/Tournament';
+import { TournamentStageType, type Tournament } from '@/types/Tournament';
 import type { PropType } from 'vue';
 import AppButton from './AppButton.vue';
 import PageHeader from './PageHeader.vue';
 import TournamentProfileCard from './TournamentProfileCard.vue';
+import TournamentPageGroups from './TournamentPageGroups.vue';
 
 const props = defineProps({
   tournament: {
