@@ -104,13 +104,15 @@ const selectTeamMenuOptions = computed(() => props.teamOptions.map((team) => {
 <style lang="scss" scoped>
 .group {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(19.25rem, 1fr));
   gap: 0.5rem;
   padding: 0.5rem 0.625rem;
   padding-top: 1.25rem;
   border: 1px solid $color--neutral-300;
   border-radius: $radius--large;
   position: relative;
+  @include for-tablet-portrait-up {
+    grid-template-columns: repeat(auto-fit, minmax(18.5rem, 1fr));
+  }
   &__chip {
     position: absolute;
     top: -0.875rem;

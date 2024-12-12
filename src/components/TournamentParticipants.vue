@@ -23,17 +23,19 @@
             @click="shuffleStageTeams(index)"
           />
         </div>
-        <TournamentParticipantsGroup
-          v-for="(group, i) in form.stages[index].participantsGroups"
-          v-model:teams="form.stages[index].participantsGroups[i].teams"
-          :key="group.id"
-          :name="group.name"
-          :team-options="teamOptions"
-          :number-of-slots="form.stages[index].slotsPerParticipantsGroup"
-          :number-of-groups="form.stages[index].participantsGroups.length"
-          :stages="form.stages"
-          :show-team-option-label="tournament.type !== TournamentFormat.ALL_PLAY_ALL"
-        />
+        <div class="stages__card-groups">
+          <TournamentParticipantsGroup
+            v-for="(group, i) in form.stages[index].participantsGroups"
+            v-model:teams="form.stages[index].participantsGroups[i].teams"
+            :key="group.id"
+            :name="group.name"
+            :team-options="teamOptions"
+            :number-of-slots="form.stages[index].slotsPerParticipantsGroup"
+            :number-of-groups="form.stages[index].participantsGroups.length"
+            :stages="form.stages"
+            :show-team-option-label="tournament.type !== TournamentFormat.ALL_PLAY_ALL"
+          />
+        </div>
       </AppAccordion>
     </div>
     <AppButton
@@ -191,9 +193,15 @@ function fillStageTeams(stageIndex: number) {
 
 // Stage card
 function getStageCardTitle(stage: TournamentStage, index: number) {
-  const name = (
-    props.tournament.type === TournamentFormat.ALL_PLAY_ALL
-  ) ? 'Pontos Corridos' : stage.name || `Fase ${index + 1}`;
+  let name = '';
+
+  if (props.tournament.type === TournamentFormat.ALL_PLAY_ALL) {
+    name = 'Pontos Corridos';
+  } else if (props.tournament.type === TournamentFormat.PLAYOFFS) {
+    name = 'Eliminatórias';
+  } else {
+    name = stage.name || `Fase ${index + 1}`;
+  }
 
   return ` ${name} - ${stage.rules.numberOfTeams} equipes`;
 }
@@ -243,6 +251,13 @@ async function submitParticipants() {
     justify-content: flex-end;
     gap: 1rem;
     margin-bottom: 2rem;
+  }
+  &__card-groups {
+    display: grid;
+    gap: 1.5rem 1rem;
+    @include for-tablet-portrait-up {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
   }
   &__submit-button {
     margin-left: auto;
