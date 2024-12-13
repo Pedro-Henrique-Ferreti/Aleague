@@ -140,6 +140,7 @@ onMounted(async () => {
     }
     &[data-active="true"] {
       background-color: $color--neutral-100;
+      border-color: transparent;
       color: $color--text-strong;
     }
   }
