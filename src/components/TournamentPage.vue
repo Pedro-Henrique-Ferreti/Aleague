@@ -5,13 +5,20 @@
       <TournamentProfileCard :tournament="tournament" />
       <AppButton>Salvar alterações</AppButton>
     </div>
+    <TournamentPageStageControl
+      v-if="tournament.type !== TournamentFormat.ALL_PLAY_ALL"
+      v-model="form.selectedRoundId"
+      class="tournament__stage-control"
+      :stages="tournament.stages"
+    />
     <TournamentPageGroups
-      v-if="tournament.stages[0].type === TournamentStageType.GROUPS"
-      :stage="tournament.stages[0]"
+      v-if="form.tournament.stages[0].type === TournamentStageType.GROUPS"
+      v-model:stage="form.tournament.stages[0]"
     />
     <TournamentPagePlayoffs
       v-else
-      :stage="tournament.stages[0]"
+      v-model:stage="form.tournament.stages[0]"
+      :selected-round-id="form.selectedRoundId"
     />
   </div>
 </template>
@@ -19,12 +26,14 @@
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import { TournamentStageType, type Tournament } from '@/types/Tournament';
-import type { PropType } from 'vue';
+import { onMounted, ref, type PropType } from 'vue';
+import { TournamentFormat } from '@/constants/tournament';
 import AppButton from './AppButton.vue';
 import PageHeader from './PageHeader.vue';
 import TournamentProfileCard from './TournamentProfileCard.vue';
 import TournamentPageGroups from './TournamentPageGroups.vue';
 import TournamentPagePlayoffs from './TournamentPagePlayoffs.vue';
+import TournamentPageStageControl from './TournamentPageStageControl.vue';
 
 const props = defineProps({
   tournament: {
@@ -38,6 +47,18 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
   { title: 'Campeonatos', to: { name: 'tournaments' } },
   props.tournament?.name || '',
 ];
+
+// Form
+const form = ref({
+  tournament: props.tournament,
+  selectedRoundId: '',
+});
+
+onMounted(() => {
+  if (props.tournament.stages[0].type === TournamentStageType.PLAYOFFS) {
+    form.value.selectedRoundId = props.tournament.stages[0].rounds[0].id;
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -52,6 +73,10 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
     @include for-large-desktop-up {
       grid-template-columns: 1fr 1fr;
     }
+  }
+  &__stage-control {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
   }
 }
 </style>

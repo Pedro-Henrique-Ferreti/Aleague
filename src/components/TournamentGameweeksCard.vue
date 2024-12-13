@@ -25,7 +25,7 @@
     </header>
     <div class="gameweeks-card__matches">
       <AppMatch
-        v-for="match in gameweeks[currentGameweek - 1].matches"
+        v-for="match in gameweeksInput[currentGameweek - 1].matches"
         v-model:home-score="match.homeTeamScore"
         v-model:away-score="match.awayTeamScore"
         :key="match.id"
@@ -44,11 +44,17 @@ import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppIconButton from './AppIconButton.vue';
 import AppMatch from './AppMatch.vue';
 
+const emit = defineEmits(['update:gameweeks']);
 const props = defineProps({
   gameweeks: {
     type: Array as PropType<TournamentStageGameweek[]>,
     required: true,
   },
+});
+
+const gameweeksInput = computed({
+  get: () => props.gameweeks,
+  set: (value) => emit('update:gameweeks', value),
 });
 
 const currentGameweek = ref(props.gameweeks[0].gameweek);

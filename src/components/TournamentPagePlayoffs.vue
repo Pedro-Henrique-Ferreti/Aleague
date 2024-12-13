@@ -1,28 +1,28 @@
 <template>
   <div class="playoffs-page">
-    <TournamentPageStageControl
-      v-model="selectedRoundId"
-      :stages="[stage]"
-    />
     <div
       class="playoffs-page__rounds"
-      :data-max-rounds="displayedRounds.length - maxDisplayedRounds === 0"
+      :data-display-max-rounds="displayedRoundsId.length - maxDisplayedRounds === 0"
     >
-      <TournamentPlayoffRound
-        v-for="round in displayedRounds"
-        :round="round"
+      <template
+        v-for="round in stageValue.rounds"
         :key="round.id"
-      />
+      >
+        <TournamentPlayoffRound
+          v-if="displayedRoundsId.includes(round.id)"
+          v-model:name="round.name"
+          v-model:matchups="round.matchups"
+        />
+      </template>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { TournamentPlayoffsStage } from '@/types/Tournament';
-import { computed, ref, type PropType } from 'vue';
+import { computed, type PropType } from 'vue';
 import { useBreakpoints } from '@vueuse/core';
 import { Breakpoints } from '@/constants/breakpoints';
-import TournamentPageStageControl from './TournamentPageStageControl.vue';
 import TournamentPlayoffRound from './TournamentPlayoffRound.vue';
 
 const breakpoints = useBreakpoints({
@@ -30,16 +30,25 @@ const breakpoints = useBreakpoints({
   LARGE_DESKTOP_UP: 1500,
 });
 
+const emit = defineEmits(['update:stage']);
 const props = defineProps({
   stage: {
     type: Object as PropType<TournamentPlayoffsStage>,
     required: true,
   },
+  selectedRoundId: {
+    type: String,
+    default: '',
+  },
 });
 
-const selectedRoundId = ref(props.stage.rounds[0].id);
+const stageValue = computed({
+  get: () => props.stage,
+  set: (stage) => emit('update:stage', stage),
+});
+
 const selectedRoundIndex = computed(() => (
-  props.stage.rounds.findIndex((round) => round.id === selectedRoundId.value)
+  props.stage.rounds.findIndex((round) => round.id === props.selectedRoundId)
 ));
 
 const maxDisplayedRounds = computed(() => {
@@ -49,10 +58,10 @@ const maxDisplayedRounds = computed(() => {
   return 1;
 });
 
-const displayedRounds = computed(() => props.stage.rounds.slice(
+const displayedRoundsId = computed(() => props.stage.rounds.slice(
   selectedRoundIndex.value,
   selectedRoundIndex.value + maxDisplayedRounds.value,
-));
+).map((round) => round.id));
 </script>
 
 <style lang="scss" scoped>
@@ -66,7 +75,7 @@ const displayedRounds = computed(() => props.stage.rounds.slice(
     @include for-desktop-up {
       justify-content: flex-start;
       gap: 6rem;
-      &[data-max-rounds="true"] {
+      &[data-display-max-rounds="true"] {
         justify-content: space-between;
       }
     }

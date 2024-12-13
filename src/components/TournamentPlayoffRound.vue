@@ -1,7 +1,7 @@
 <template>
   <div class="playoff-round">
     <BaseInput
-      v-model.trim.lazy="roundValue.name"
+      v-model.trim.lazy="nameInput"
       class="playoff-round__name-input"
       id=""
       type="text"
@@ -9,16 +9,16 @@
     />
     <div class="playoff-round__matchups">
       <div
-        v-for="matchup in roundValue.matchups"
+        v-for="matchup in matchupsInput"
         class="playoff-round__matchup-card | app-base-card"
         :key="matchup.id"
       >
         <AppMatch
+          v-model:home-score="matchup.games[0].homeTeamScore"
+          v-model:away-score="matchup.games[0].awayTeamScore"
           direction="vertical"
           :home-team="matchup.games[0].homeTeam"
           :away-team="matchup.games[0].awayTeam"
-          :home-score="matchup.games[0].homeTeamScore"
-          :away-score="matchup.games[0].awayTeamScore"
         />
       </div>
     </div>
@@ -26,24 +26,31 @@
 </template>
 
 <script lang="ts" setup>
-import type { TournamentStageRound } from '@/types/Tournament';
+import type { TournamentStageRoundMatchup } from '@/types/Tournament';
 import { computed, type PropType } from 'vue';
 import BaseInput from './BaseInput.vue';
 import AppMatch from './AppMatch.vue';
 
-const emit = defineEmits(['update:round']);
+const emit = defineEmits(['update:name', 'update:matchups']);
 const props = defineProps({
-  round: {
-    type: Object as PropType<TournamentStageRound>,
+  name: {
+    type: String,
+    default: '',
+  },
+  matchups: {
+    type: Array as PropType<TournamentStageRoundMatchup[]>,
     required: true,
   },
 });
 
-const roundValue = computed({
-  get: () => props.round,
-  set: (round: TournamentStageRound) => {
-    emit('update:round', round);
-  },
+const nameInput = computed({
+  get: () => props.name,
+  set: (name) => emit('update:name', name),
+});
+
+const matchupsInput = computed({
+  get: () => props.matchups,
+  set: (matchups) => emit('update:matchups', matchups),
 });
 </script>
 
