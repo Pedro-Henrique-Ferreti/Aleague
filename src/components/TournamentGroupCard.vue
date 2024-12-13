@@ -17,8 +17,12 @@
                 class="header-placeholder"
                 aria-hidden="true"
               />
-              <th class="position">Posição</th>
-              <th class="points">Pontos</th>
+              <th class="position">
+                Posição
+              </th>
+              <th class="points">
+                Pontos
+              </th>
               <th>Jogos</th>
               <th>Vitórias</th>
               <th>Empates</th>
@@ -62,7 +66,9 @@
                   <span>{{ row.team.name }}</span>
                 </div>
               </td>
-              <td class="points">{{ row.points }}</td>
+              <td class="points">
+                {{ row.points }}
+              </td>
               <td>{{ row.gamesPlayed }}</td>
               <td>{{ row.gamesWon }}</td>
               <td>{{ row.gamesDrawn }}</td>
@@ -70,9 +76,11 @@
               <td>{{ row.goalsFor }}</td>
               <td>{{ row.goalsAgainst }}</td>
               <td>{{ row.goalsFor - row.goalsAgainst }}</td>
-              <td>{{
-                (row.gamesPlayed === 0) ? 0 : Math.round(row.points / (row.gamesPlayed * 3) * 100)
-              }}%</td>
+              <td>
+                {{
+                  (row.gamesPlayed === 0) ? 0 : Math.round(row.points / (row.gamesPlayed * 3) * 100)
+                }}%
+              </td>
             </tr>
           </tbody>
         </table>
