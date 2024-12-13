@@ -114,6 +114,7 @@ defineProps({
     .match__team {
       &[data-home] {
         flex-direction: row-reverse;
+        text-align: right;
       }
     }
   }

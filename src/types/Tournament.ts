@@ -1,6 +1,6 @@
 import { TournamentFormat, TournamentStageConfrontation } from '@/constants/tournament';
 import type { ValueOf } from './Auth';
-import type { Match } from './Match';
+import type { Match, MatchTeam } from './Match';
 
 export enum TournamentStageType {
   GROUPS = 'groups',
@@ -36,6 +36,19 @@ export interface TournamentStageGameweek {
   matches: Match[];
 }
 
+export interface TournamentStageStandings {
+  id: string;
+  position: number;
+  points: number;
+  gamesPlayed: number;
+  gamesWon: number;
+  gamesDrawn: number;
+  gamesLost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  team: MatchTeam;
+}
+
 interface BaseTournamentStage {
   id: string;
   name: string | null;
@@ -48,7 +61,10 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
   type: TournamentStageType.GROUPS;
   rules: GroupsStageRules;
   gameweeks: TournamentStageGameweek[];
-  // standings: TournamentStageStandings[];
+  groups: {
+    number: number;
+    standings: TournamentStageStandings[];
+  }[];
 }
 
 export interface TournamentPlayoffsStage extends BaseTournamentStage {
@@ -57,8 +73,6 @@ export interface TournamentPlayoffsStage extends BaseTournamentStage {
 }
 
 export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;
-
-export interface TournamentStageStandings {}
 
 export interface Tournament {
   id: string;

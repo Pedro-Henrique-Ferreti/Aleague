@@ -1,7 +1,12 @@
 <template>
   <div class="groups-page">
-    <div class="groups-page__standings">
-      standings
+    <div class="groups-page__groups">
+      <TournamentGroupCard
+        v-for="group in stage.groups"
+        :key="group.number"
+        :title="(stage.groups.length === 1) ? 'Classificação' : `Grupo ${group.number}`"
+        :standings="group.standings"
+      />
     </div>
     <TournamentGameweeksCard :gameweeks="stage.gameweeks" />
   </div>
@@ -11,6 +16,7 @@
 import type { TournamentGroupsStage } from '@/types/Tournament';
 import type { PropType } from 'vue';
 import TournamentGameweeksCard from './TournamentGameweeksCard.vue';
+import TournamentGroupCard from './TournamentGroupCard.vue';
 
 defineProps({
   stage: {
@@ -27,12 +33,12 @@ defineProps({
   gap: var(--grid-gap);
   margin-top: 1.5rem;
   @include for-desktop-up {
-    grid-template-columns: 2.25fr minmax(20rem, 1fr);
+    grid-template-columns: 2.25fr minmax(25rem, 1fr);
   }
   @include for-large-desktop-up {
-    grid-template-columns: 3fr minmax(20rem, 1fr);
+    grid-template-columns: 3fr minmax(25rem, 1fr);
   }
-  &__standings {
+  &__groups {
     display: grid;
     gap: var(--grid-gap);
   }
