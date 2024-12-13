@@ -23,19 +23,46 @@
           class="match__score-input"
           headless
           id=""
+          :model-modifiers="{ lazy: true }"
           :mask="Number"
           :mask-options="MASK_OPTIONS"
-          :model-value="(typeof homeScore === 'number') ? String(homeScore) : ''"
-          @update:model-value="$emit('update:home-score', ($event === '') ? null : +$event)"
+          :model-value="getModelValue(homeScore)"
+          @update:model-value="updateModelValue('update:home-score', $event)"
         />
         <BaseInput
           class="match__score-input"
           headless
           id=""
+          :model-modifiers="{ lazy: true }"
           :mask="Number"
           :mask-options="MASK_OPTIONS"
-          :model-value="(typeof awayScore === 'number') ? String(awayScore) : ''"
-          @update:model-value="$emit('update:away-score', ($event === '') ? null : +$event)"
+          :model-value="getModelValue(awayScore)"
+          @update:model-value="updateModelValue('update:away-score', $event)"
+        />
+      </div>
+      <div
+        v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
+        class="match__score"
+      >
+        <BaseInput
+          class="match__score-input"
+          headless
+          id=""
+          :model-modifiers="{ lazy: true }"
+          :mask="Number"
+          :mask-options="MASK_OPTIONS"
+          :model-value="getModelValue(fixtureTwoHomeScore)"
+          @update:model-value="updateModelValue('update:fixture-two-home-score', $event)"
+        />
+        <BaseInput
+          class="match__score-input"
+          headless
+          id=""
+          :model-modifiers="{ lazy: true }"
+          :mask="Number"
+          :mask-options="MASK_OPTIONS"
+          :model-value="getModelValue(fixtureTwoAwayScore)"
+          @update:model-value="updateModelValue('update:fixture-two-away-score', $event)"
         />
       </div>
     </div>
@@ -60,28 +87,28 @@ import BaseInput from './BaseInput.vue';
 
 const MASK_OPTIONS = { min: 0, max: 99 } as const;
 
-defineEmits([
+const emit = defineEmits([
   'update:home-score',
   'update:away-score',
-  'update:second-leg-home-score',
-  'update:second-leg-away-score',
+  'update:fixture-two-home-score',
+  'update:fixture-two-away-score',
 ]);
 defineProps({
   homeScore: {
-    type: Number as PropType<Number | null>,
+    type: Number as PropType<number | null>,
     default: null,
   },
   awayScore: {
-    type: Number as PropType<Number | null>,
+    type: Number as PropType<number | null>,
     default: null,
   },
-  secondLegHomeScore: {
-    type: Number as PropType<Number | null>,
-    default: null,
+  fixtureTwoHomeScore: {
+    type: Number as PropType<number | null>,
+    default: undefined,
   },
-  secondLegAwayScore: {
-    type: Number as PropType<Number | null>,
-    default: null,
+  fixtureTwoAwayScore: {
+    type: Number as PropType<number | null>,
+    default: undefined,
   },
   direction: {
     type: String as PropType<'vertical' | 'horizontal'>,
@@ -96,6 +123,14 @@ defineProps({
     default: null,
   },
 });
+
+function getModelValue(value: number | null) {
+  return (typeof value === 'number') ? String(value) : '';
+}
+
+function updateModelValue(event: Parameters<typeof emit>[0], value: string) {
+  emit(event, (value === '') ? null : +value);
+}
 </script>
 
 <style lang="scss" scoped>

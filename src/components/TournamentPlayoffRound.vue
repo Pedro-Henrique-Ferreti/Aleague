@@ -19,6 +19,14 @@
           direction="vertical"
           :home-team="matchup.games[0].homeTeam"
           :away-team="matchup.games[0].awayTeam"
+          :fixture-two-home-score="matchup.games[1]?.homeTeamScore"
+          :fixture-two-away-score="matchup.games[1]?.awayTeamScore"
+          @update:fixture-two-home-score="(
+            (matchup.games[1]) ? matchup.games[1].homeTeamScore = $event : null
+          )"
+          @update:fixture-two-away-score="(
+            (matchup.games[1]) ? matchup.games[1].awayTeamScore = $event : null
+          )"
         />
       </div>
     </div>
