@@ -2,6 +2,7 @@
   <section class="gameweeks-card | app-base-card">
     <header class="gameweeks-card__header">
       <AppIconButton
+        v-tooltip="'Rodada anterior'"
         color="secondary"
         size="small"
         aria-label="Mostrar rodada anterior"
@@ -13,9 +14,10 @@
         Rodada {{ currentGameweek }}
       </h3>
       <AppIconButton
+        v-tooltip="'Próxima rodada'"
         color="secondary"
         size="small"
-        aria-label="Mostrar próxima anterior"
+        aria-label="Mostrar próxima rodada"
         :icon="IconChevronRight"
         :disabled="disableNextButton"
         @click="currentGameweek += 1"
