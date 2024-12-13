@@ -29,6 +29,15 @@ export interface GroupsStageRules {
 
 export interface PlayoffsStageRules {
   numberOfTeams: number;
+  isDoubleLegged: boolean;
+  finalRoundIsDoubleLegged: boolean;
+  qualification: {
+    fromPreviousStages: null;
+    directlyInThisStage: {
+      numberOfTeams: number;
+      fixedTeams: [];
+    } | null;
+  }
 }
 
 export interface TournamentStageGameweek {
@@ -47,6 +56,21 @@ export interface TournamentStageStandings {
   goalsFor: number;
   goalsAgainst: number;
   team: MatchTeam;
+}
+
+export interface TournamentStageRoundMatchup {
+  id: string;
+  nextRoundMatchupId: string | null;
+  firstTeam: MatchTeam;
+  secondTeam: MatchTeam;
+  games: [Match] | [Match, Match];
+}
+
+export interface TournamentStageRound {
+  id: string;
+  name: string;
+  sequence: number;
+  matchups: TournamentStageRoundMatchup[];
 }
 
 interface BaseTournamentStage {
@@ -70,6 +94,7 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
 export interface TournamentPlayoffsStage extends BaseTournamentStage {
   type: TournamentStageType.PLAYOFFS;
   rules: PlayoffsStageRules;
+  rounds: TournamentStageRound[];
 }
 
 export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;

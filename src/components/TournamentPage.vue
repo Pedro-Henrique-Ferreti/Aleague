@@ -9,6 +9,10 @@
       v-if="tournament.stages[0].type === TournamentStageType.GROUPS"
       :stage="tournament.stages[0]"
     />
+    <TournamentPagePlayoffs
+      v-else
+      :stage="tournament.stages[0]"
+    />
   </div>
 </template>
 
@@ -20,6 +24,7 @@ import AppButton from './AppButton.vue';
 import PageHeader from './PageHeader.vue';
 import TournamentProfileCard from './TournamentProfileCard.vue';
 import TournamentPageGroups from './TournamentPageGroups.vue';
+import TournamentPagePlayoffs from './TournamentPagePlayoffs.vue';
 
 const props = defineProps({
   tournament: {
