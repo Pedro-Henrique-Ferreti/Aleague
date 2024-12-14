@@ -26,7 +26,8 @@
 
 <script lang="ts" setup>
 import type { TournamentStageRoundMatchup } from '@/types/Tournament';
-import { computed, type PropType } from 'vue';
+import type { MatchTeam } from '@/types/Match';
+import { computed, watch, type PropType } from 'vue';
 import AppMatch from './AppMatch.vue';
 import AppChip from './AppChip.vue';
 
@@ -45,6 +46,27 @@ const props = defineProps({
 const matchupInput = computed({
   get: () => props.matchup,
   set: (value) => emit('update:matchup', value),
+});
+
+const matchupWinner = computed<MatchTeam | null>(() => {
+  const [matchOne, matchTwo] = props.matchup.games;
+
+  if (
+    matchOne.homeTeamScore === null
+    || matchOne.awayTeamScore === null
+    || (matchTwo && (matchTwo.homeTeamScore === null || matchTwo.awayTeamScore === null))
+  ) {
+    return null;
+  }
+
+  const firstTeamScore = matchOne.homeTeamScore + (matchTwo?.awayTeamScore || 0);
+  const secondTeamScore = matchOne.awayTeamScore + (matchTwo?.homeTeamScore || 0);
+
+  return (firstTeamScore > secondTeamScore) ? props.matchup.firstTeam : props.matchup.secondTeam;
+});
+
+watch(matchupWinner, (winner) => {
+  console.log(winner);
 });
 </script>
 
