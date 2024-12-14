@@ -5,13 +5,14 @@
       :data-display-max-rounds="displayedRoundsId.length - maxDisplayedRounds === 0"
     >
       <template
-        v-for="round in stageValue.rounds"
+        v-for="(round, index) in stageValue.rounds"
         :key="round.id"
       >
         <TournamentPlayoffRound
           v-if="displayedRoundsId.includes(round.id)"
           v-model:name="round.name"
           v-model:matchups="round.matchups"
+          :is-last-round="isLastStage && stageValue.rounds.length - 1 === index"
         />
       </template>
     </div>
@@ -39,6 +40,10 @@ const props = defineProps({
   selectedRoundId: {
     type: String,
     default: '',
+  },
+  isLastStage: {
+    type: Boolean,
+    default: false,
   },
 });
 

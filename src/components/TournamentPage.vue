@@ -18,6 +18,7 @@
     <TournamentPagePlayoffs
       v-else
       v-model:stage="form.tournament.stages[0]"
+      is-last-stage
       :selected-round-id="form.selectedRoundId"
     />
   </div>

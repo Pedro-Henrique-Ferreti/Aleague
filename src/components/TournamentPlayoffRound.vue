@@ -28,6 +28,12 @@
             (matchup.games[1]) ? matchup.games[1].awayTeamScore = $event : null
           )"
         />
+        <AppChip
+          v-if="isLastRound"
+          class="playoff-round__chip"
+          color="blue"
+          text="Final"
+        />
       </div>
     </div>
   </div>
@@ -38,6 +44,7 @@ import type { TournamentStageRoundMatchup } from '@/types/Tournament';
 import { computed, type PropType } from 'vue';
 import BaseInput from './BaseInput.vue';
 import AppMatch from './AppMatch.vue';
+import AppChip from './AppChip.vue';
 
 const emit = defineEmits(['update:name', 'update:matchups']);
 const props = defineProps({
@@ -48,6 +55,10 @@ const props = defineProps({
   matchups: {
     type: Array as PropType<TournamentStageRoundMatchup[]>,
     required: true,
+  },
+  isLastRound: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -131,6 +142,13 @@ const matchupsInput = computed({
       left: -2.5rem;
       transform: translateY(-50%);
     }
+  }
+  &__chip {
+    box-shadow: $shadow--popup;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
   }
 }
 </style>
