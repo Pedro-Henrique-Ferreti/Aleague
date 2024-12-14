@@ -8,33 +8,13 @@
       headless
     />
     <div class="playoff-round__matchups">
-      <div
-        v-for="matchup in matchupsInput"
-        class="playoff-round__matchup-card | app-base-card"
+      <TournamentPlayoffRoundMatchup
+        v-for="(matchup, index) in matchupsInput"
+        v-model:matchup="matchupsInput[index]"
+        class="playoff-round__matchup-card"
         :key="matchup.id"
-      >
-        <AppMatch
-          v-model:home-score="matchup.games[0].homeTeamScore"
-          v-model:away-score="matchup.games[0].awayTeamScore"
-          direction="vertical"
-          :home-team="matchup.games[0].homeTeam"
-          :away-team="matchup.games[0].awayTeam"
-          :fixture-two-home-score="matchup.games[1]?.homeTeamScore"
-          :fixture-two-away-score="matchup.games[1]?.awayTeamScore"
-          @update:fixture-two-home-score="(
-            (matchup.games[1]) ? matchup.games[1].homeTeamScore = $event : null
-          )"
-          @update:fixture-two-away-score="(
-            (matchup.games[1]) ? matchup.games[1].awayTeamScore = $event : null
-          )"
-        />
-        <AppChip
-          v-if="isLastRound"
-          class="playoff-round__chip"
-          color="blue"
-          text="Final"
-        />
-      </div>
+        :is-last-round="isLastRound"
+      />
     </div>
   </div>
 </template>
@@ -43,8 +23,7 @@
 import type { TournamentStageRoundMatchup } from '@/types/Tournament';
 import { computed, type PropType } from 'vue';
 import BaseInput from './BaseInput.vue';
-import AppMatch from './AppMatch.vue';
-import AppChip from './AppChip.vue';
+import TournamentPlayoffRoundMatchup from './TournamentPlayoffRoundMatchup.vue';
 
 const emit = defineEmits(['update:name', 'update:matchups']);
 const props = defineProps({
@@ -105,16 +84,6 @@ const matchupsInput = computed({
     height: 100%;
   }
   &__matchup-card {
-    --base-card--padding: 0.75rem;
-    width: 100%;
-    border-radius: $radius--large;
-    position: relative;
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
-      &:nth-child(even) {
-        margin-bottom: 1.5rem;
-      }
-    }
     &::before,
     &::after {
       content: '';
@@ -142,13 +111,6 @@ const matchupsInput = computed({
       left: -2.5rem;
       transform: translateY(-50%);
     }
-  }
-  &__chip {
-    box-shadow: $shadow--popup;
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translate(-50%, 50%);
   }
 }
 </style>
