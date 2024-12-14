@@ -14,6 +14,11 @@
         class="playoff-round__matchup-card"
         :key="matchup.id"
         :is-last-round="isLastRound"
+        @update-next-round="$emit('update-next-round', {
+          team: $event.team,
+          previousTeam: $event.previousTeam,
+          nextRoundMatchupId: matchup.nextRoundMatchupId,
+        })"
       />
     </div>
   </div>
@@ -21,11 +26,20 @@
 
 <script lang="ts" setup>
 import type { TournamentStageRoundMatchup } from '@/types/Tournament';
+import type { MatchTeam } from '@/types/Match';
 import { computed, type PropType } from 'vue';
 import BaseInput from './BaseInput.vue';
 import TournamentPlayoffRoundMatchup from './TournamentPlayoffRoundMatchup.vue';
 
-const emit = defineEmits(['update:name', 'update:matchups']);
+const emit = defineEmits<{
+  (e: 'update:name', value: string): void;
+  (e: 'update:matchups', value: TournamentStageRoundMatchup[]): void;
+  (e: 'update-next-round', value: {
+    team: MatchTeam | null;
+    previousTeam: MatchTeam | null;
+    nextRoundMatchupId: string | null;
+  }): void;
+}>();
 const props = defineProps({
   name: {
     type: String,

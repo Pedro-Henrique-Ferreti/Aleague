@@ -13,14 +13,30 @@
           v-model:name="round.name"
           v-model:matchups="round.matchups"
           :is-last-round="isLastStage && stageValue.rounds.length - 1 === index"
+          @update-next-round="updateRoundMatchups({
+            roundIndex: index,
+            team: $event.team,
+            previousTeam: $event.previousTeam,
+            nextMatchupId: $event.nextRoundMatchupId,
+          })"
         />
       </template>
     </div>
   </div>
 </template>
 
+<script lang="ts">
+type UpdateRoundMatchupsPayload = {
+  roundIndex: number;
+  team: MatchTeam | null;
+  previousTeam: MatchTeam | null;
+  nextMatchupId: string | null;
+};
+</script>
+
 <script lang="ts" setup>
 import type { TournamentPlayoffsStage } from '@/types/Tournament';
+import type { MatchTeam } from '@/types/Match';
 import { computed, type PropType } from 'vue';
 import { useBreakpoints } from '@vueuse/core';
 import { Breakpoints } from '@/constants/breakpoints';
@@ -67,6 +83,65 @@ const displayedRoundsId = computed(() => props.stage.rounds.slice(
   selectedRoundIndex.value,
   selectedRoundIndex.value + maxDisplayedRounds.value,
 ).map((round) => round.id));
+
+// Update round matchups
+function updateMatchupFirstTeam(roundIndex: number, matchupIndex: number, team: MatchTeam | null) {
+  const matchup = stageValue.value.rounds[roundIndex].matchups[matchupIndex];
+
+  matchup.firstTeam = team;
+  matchup.games[0].homeTeam = team;
+  matchup.games[0].homeTeamScore = null;
+  matchup.games[0].awayTeamScore = null;
+
+  if (matchup.games[1]) {
+    matchup.games[1].awayTeam = team;
+    matchup.games[1].homeTeamScore = null;
+    matchup.games[1].awayTeamScore = null;
+  }
+}
+
+function updateMatchupSecondTeam(roundIndex: number, matchupIndex: number, team: MatchTeam | null) {
+  const matchup = stageValue.value.rounds[roundIndex].matchups[matchupIndex];
+
+  matchup.secondTeam = team;
+  matchup.games[0].awayTeam = team;
+  matchup.games[0].homeTeamScore = null;
+  matchup.games[0].awayTeamScore = null;
+
+  if (matchup.games[1]) {
+    matchup.games[1].homeTeam = team;
+    matchup.games[1].homeTeamScore = null;
+    matchup.games[1].awayTeamScore = null;
+  }
+}
+
+function updateRoundMatchups(payload: UpdateRoundMatchupsPayload) {
+  const nextRoundIndex = payload.roundIndex + 1;
+  const nextRound = stageValue.value.rounds[nextRoundIndex];
+
+  if (!nextRound) return;
+
+  const matchupIndex = nextRound.matchups.findIndex(({ id }) => id === payload.nextMatchupId);
+
+  if (matchupIndex === -1) return;
+
+  const matchup = nextRound.matchups[matchupIndex];
+
+  if (!payload.team) {
+    if (matchup.firstTeam?.id === payload.previousTeam?.id) {
+      updateMatchupFirstTeam(nextRoundIndex, matchupIndex, null);
+    } else {
+      updateMatchupSecondTeam(nextRoundIndex, matchupIndex, null);
+    }
+    return;
+  }
+
+  if (!matchup.firstTeam || matchup.firstTeam.id === payload.previousTeam?.id) {
+    updateMatchupFirstTeam(nextRoundIndex, matchupIndex, payload.team);
+  } else {
+    updateMatchupSecondTeam(nextRoundIndex, matchupIndex, payload.team);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

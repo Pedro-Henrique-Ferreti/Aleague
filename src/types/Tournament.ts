@@ -61,8 +61,8 @@ export interface TournamentStageStandings {
 export interface TournamentStageRoundMatchup {
   id: string;
   nextRoundMatchupId: string | null;
-  firstTeam: MatchTeam;
-  secondTeam: MatchTeam;
+  firstTeam: MatchTeam | null;
+  secondTeam: MatchTeam | null;
   games: [Match] | [Match, Match];
 }
 

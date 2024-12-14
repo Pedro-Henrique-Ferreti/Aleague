@@ -31,7 +31,13 @@ import { computed, watch, type PropType } from 'vue';
 import AppMatch from './AppMatch.vue';
 import AppChip from './AppChip.vue';
 
-const emit = defineEmits(['update:matchup']);
+const emit = defineEmits<{
+  (e: 'update:matchup', value: TournamentStageRoundMatchup): void;
+  (e: 'update-next-round', value: {
+    team: MatchTeam | null;
+    previousTeam: MatchTeam | null;
+  }): void;
+}>();
 const props = defineProps({
   matchup: {
     type: Object as PropType<TournamentStageRoundMatchup>,
@@ -65,8 +71,11 @@ const matchupWinner = computed<MatchTeam | null>(() => {
   return (firstTeamScore > secondTeamScore) ? props.matchup.firstTeam : props.matchup.secondTeam;
 });
 
-watch(matchupWinner, (winner) => {
-  console.log(winner);
+watch(matchupWinner, (winner, previousWinner) => {
+  emit('update-next-round', {
+    team: winner,
+    previousTeam: previousWinner,
+  });
 });
 </script>
 

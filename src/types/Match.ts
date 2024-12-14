@@ -9,8 +9,8 @@ export interface MatchTeam {
 export interface Match {
   id: string;
   gameweek: number;
-  homeTeam: MatchTeam;
-  awayTeam: MatchTeam;
+  homeTeam: MatchTeam | null;
+  awayTeam: MatchTeam | null;
   awayTeamScore: number | null;
   homeTeamScore: number | null;
   weekDay: '0' | '1' | '2' | '3' | '4' | '5' | '6';
