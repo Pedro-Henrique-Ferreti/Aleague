@@ -3,89 +3,55 @@
     class="match"
     :data-direction="direction"
   >
-    <div
+    <AppMatchTeam
       class="match__team"
       data-home
-    >
-      <img
-        class="match__team-emblem"
-        :src="homeTeam?.emblem.url"
-        :alt="`${homeTeam?.name}'s emblem`"
-      />
-      <span>{{ homeTeam?.name }}</span>
-    </div>
+      :team="homeTeam"
+    />
     <div
       class="match__scores"
       :data-direction="direction"
+      :data-tbd="!homeTeam || !awayTeam"
     >
-      <div class="match__score">
-        <BaseInput
-          class="match__score-input"
-          headless
-          id=""
-          :model-modifiers="{ lazy: true }"
-          :mask="Number"
-          :mask-options="MASK_OPTIONS"
-          :model-value="getModelValue(homeScore)"
-          @update:model-value="updateModelValue('update:home-score', $event)"
-        />
-        <BaseInput
-          class="match__score-input"
-          headless
-          id=""
-          :model-modifiers="{ lazy: true }"
-          :mask="Number"
-          :mask-options="MASK_OPTIONS"
-          :model-value="getModelValue(awayScore)"
-          @update:model-value="updateModelValue('update:away-score', $event)"
-        />
-      </div>
-      <div
-        v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
-        class="match__score"
-      >
-        <BaseInput
-          class="match__score-input"
-          headless
-          id=""
-          :model-modifiers="{ lazy: true }"
-          :mask="Number"
-          :mask-options="MASK_OPTIONS"
-          :model-value="getModelValue(fixtureTwoHomeScore)"
-          @update:model-value="updateModelValue('update:fixture-two-home-score', $event)"
-        />
-        <BaseInput
-          class="match__score-input"
-          headless
-          id=""
-          :model-modifiers="{ lazy: true }"
-          :mask="Number"
-          :mask-options="MASK_OPTIONS"
-          :model-value="getModelValue(fixtureTwoAwayScore)"
-          @update:model-value="updateModelValue('update:fixture-two-away-score', $event)"
-        />
-      </div>
+      <template v-if="homeTeam && awayTeam">
+        <div class="match__score">
+          <AppMatchScoreInput
+            :model-value="homeScore"
+            @update:model-value="emit('update:home-score', $event)"
+          />
+          <AppMatchScoreInput
+            :model-value="awayScore"
+            @update:model-value="emit('update:away-score', $event)"
+          />
+        </div>
+        <div
+          v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
+          class="match__score"
+        >
+          <AppMatchScoreInput
+            :model-value="fixtureTwoHomeScore"
+            @update:model-value="emit('update:fixture-two-home-score', $event)"
+          />
+          <AppMatchScoreInput
+            :model-value="fixtureTwoAwayScore"
+            @update:model-value="emit('update:fixture-two-away-score', $event)"
+          />
+        </div>
+      </template>
     </div>
-    <div
+    <AppMatchTeam
       class="match__team"
       data-away
-    >
-      <img
-        class="match__team-emblem"
-        :src="awayTeam?.emblem.url"
-        :alt="`${awayTeam?.name}'s emblem`"
-      />
-      <span>{{ awayTeam?.name }}</span>
-    </div>
+      :team="awayTeam"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { MatchTeam } from '@/types/Match';
 import type { PropType } from 'vue';
-import BaseInput from './BaseInput.vue';
-
-const MASK_OPTIONS = { min: 0, max: 99 } as const;
+import AppMatchTeam from './AppMatchTeam.vue';
+import AppMatchScoreInput from './AppMatchScoreInput.vue';
 
 const emit = defineEmits([
   'update:home-score',
@@ -123,14 +89,6 @@ defineProps({
     default: null,
   },
 });
-
-function getModelValue(value: number | null) {
-  return (typeof value === 'number') ? String(value) : '';
-}
-
-function updateModelValue(event: Parameters<typeof emit>[0], value: string) {
-  emit(event, (value === '') ? null : +value);
-}
 </script>
 
 <style lang="scss" scoped>
@@ -153,26 +111,27 @@ function updateModelValue(event: Parameters<typeof emit>[0], value: string) {
       }
     }
   }
-  &__team {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: $color--text-strong;
-  }
-  &__team-emblem {
-    max-width: 1.5rem;
-    max-height: 1.5rem;
-  }
   &__scores {
     display: flex;
     &[data-direction="horizontal"] {
       flex-direction: column;
       gap: 0.125rem;
+      &[data-tbd="true"] {
+        &::after {
+          content: '-';
+          display: block;
+          width: 5rem;
+          height: 2rem;
+          font-weight: $font-weight--medium;
+          text-align: center;
+        }
+      }
     }
     &[data-direction="vertical"] {
       grid-column: 2 / 3;
       grid-row: 1 / 3;
       gap: 0.25rem;
+      height: 4.25rem;
       .match__score {
         flex-direction: column;
         &::before {
@@ -193,24 +152,6 @@ function updateModelValue(event: Parameters<typeof emit>[0], value: string) {
       content: '-';
       display: block;
       font-weight: $font-weight--medium;
-    }
-  }
-  &__score-input {
-    width: 2rem;
-    height: 2rem;
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-radius: inherit;
-    font-weight: $font-weight--medium;
-    text-align: center;
-    transition: border-color $transition--fastest linear;
-    &:hover,
-    &:focus {
-      border-color: $color--text-400;
-      outline: none;
-    }
-    &:first-child {
-      order: -1;
     }
   }
 }
