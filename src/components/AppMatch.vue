@@ -3,7 +3,7 @@
     class="match"
     :data-direction="direction"
   >
-    <AppMatchTeam
+    <BaseMatchTeam
       class="match__team"
       data-home
       :team="homeTeam"
@@ -15,11 +15,11 @@
     >
       <template v-if="homeTeam && awayTeam">
         <div class="match__score">
-          <AppMatchScoreInput
+          <BaseMatchScoreInput
             :model-value="homeScore"
             @update:model-value="emit('update:home-score', $event)"
           />
-          <AppMatchScoreInput
+          <BaseMatchScoreInput
             :model-value="awayScore"
             @update:model-value="emit('update:away-score', $event)"
           />
@@ -28,18 +28,18 @@
           v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
           class="match__score"
         >
-          <AppMatchScoreInput
-            :model-value="fixtureTwoHomeScore"
-            @update:model-value="emit('update:fixture-two-home-score', $event)"
-          />
-          <AppMatchScoreInput
+          <BaseMatchScoreInput
             :model-value="fixtureTwoAwayScore"
             @update:model-value="emit('update:fixture-two-away-score', $event)"
+          />
+          <BaseMatchScoreInput
+            :model-value="fixtureTwoHomeScore"
+            @update:model-value="emit('update:fixture-two-home-score', $event)"
           />
         </div>
       </template>
     </div>
-    <AppMatchTeam
+    <BaseMatchTeam
       class="match__team"
       data-away
       :team="awayTeam"
@@ -50,8 +50,8 @@
 <script lang="ts" setup>
 import type { MatchTeam } from '@/types/Match';
 import type { PropType } from 'vue';
-import AppMatchTeam from './AppMatchTeam.vue';
-import AppMatchScoreInput from './AppMatchScoreInput.vue';
+import BaseMatchTeam from './BaseMatchTeam.vue';
+import BaseMatchScoreInput from './BaseMatchScoreInput.vue';
 
 const emit = defineEmits([
   'update:home-score',
