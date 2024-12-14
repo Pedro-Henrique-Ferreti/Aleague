@@ -16,10 +16,12 @@
       <template v-if="homeTeam && awayTeam">
         <div class="match__score">
           <BaseMatchScoreInput
+            :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="homeScore"
             @update:model-value="emit('update:home-score', $event)"
           />
           <BaseMatchScoreInput
+            :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="awayScore"
             @update:model-value="emit('update:away-score', $event)"
           />
@@ -29,10 +31,12 @@
           class="match__score"
         >
           <BaseMatchScoreInput
+            :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="fixtureTwoAwayScore"
             @update:model-value="emit('update:fixture-two-away-score', $event)"
           />
           <BaseMatchScoreInput
+            :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="fixtureTwoHomeScore"
             @update:model-value="emit('update:fixture-two-home-score', $event)"
           />

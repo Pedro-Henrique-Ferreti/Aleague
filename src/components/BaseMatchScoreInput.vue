@@ -41,10 +41,16 @@ const inputValue = computed({
   font-weight: $font-weight--medium;
   text-align: center;
   transition: border-color $transition--fastest linear;
+  &::placeholder {
+    color: $color--text-400;
+  }
   &:hover,
   &:focus {
     border-color: $color--text-400;
     outline: none;
+  }
+  &:focus::placeholder {
+    opacity: 0;
   }
   &:first-child {
     order: -1;
