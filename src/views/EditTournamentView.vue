@@ -8,13 +8,29 @@
     />
     <div
       v-else-if="tournament"
-      class="container-small"
+      class="tournament | container-small"
     >
       <PageHeader
         title="Editar campeonato"
         :breadcrumb-items="BREADCRUMB_ITEMS"
       />
-      <EditTournamentSettings :tournament="tournament" />
+      <EditTournamentSettings
+        v-if="tournament.type === TournamentFormat.PLAYOFFS"
+        :tournament="tournament"
+      />
+      <div
+        v-else
+        class="tournament__content"
+      >
+        <AppTabPanel :items="Object.values(EditTournamentTab)">
+          <template #default="{ activeTabId }">
+            <EditTournamentSettings
+              v-if="activeTabId === EditTournamentTab.SETTINGS.id"
+              :tournament="tournament"
+            />
+          </template>
+        </AppTabPanel>
+      </div>
     </div>
   </TransitionFade>
 </template>
@@ -24,7 +40,9 @@ import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { Tournament } from '@/types/Tournament';
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { EditTournamentTab, TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
+import AppTabPanel from '@/components/AppTabPanel.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
@@ -68,5 +86,11 @@ const BREADCRUMB_ITEMS = computed<Breadcrumb[]>(() => ([
 </script>
 
 <style lang="scss" scoped>
-
+.tournament {
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 1.5rem;
+  }
+}
 </style>
