@@ -59,7 +59,6 @@ router.beforeEach(async (to) => {
 
 router.afterEach((to) => {
   if (to.meta.pageTitle) {
-    console.log(to.meta.pageTitle);
     useTitle(to.meta.pageTitle);
   }
 });
