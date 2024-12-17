@@ -14,7 +14,7 @@
       <img
         class="tournament-icon__button-image"
         alt="Selected icon"
-        :src="`/images/competition-icons/icon-${selectedIconId}.svg`"
+        :src="`/images/competition-icons/icon-${modelValue}.svg`"
       />
     </button>
     <template #popper="{ hide }">
@@ -27,11 +27,11 @@
           class="tournament-icon__item"
           type="button"
           :key="id"
-          :data-selected="selectedIconId === id"
-          @click="$emit('update:selectedIconId', id), hide()"
+          :data-selected="modelValue === id"
+          @click="$emit('update:modelValue', id), hide()"
         >
           <IconSuccess
-            v-if="selectedIconId === id"
+            v-if="modelValue === id"
             class="tournament-icon__item-check-icon"
           />
           <img
@@ -51,9 +51,9 @@ import { Dropdown } from 'floating-vue';
 import { NUMBER_OF_TOURNAMENT_ICONS } from '@/constants/tournament';
 import IconSuccess from '@/assets/icons/Success.svg';
 
-defineEmits(['update:selectedIconId']);
+defineEmits(['update:modelValue']);
 defineProps({
-  selectedIconId: {
+  modelValue: {
     type: Number,
     required: true,
   },

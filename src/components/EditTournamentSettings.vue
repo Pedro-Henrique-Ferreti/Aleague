@@ -7,7 +7,7 @@
       <AppCard title="Configurações">
         <div class="settings__form-fields">
           <div class="settings__form-row">
-            <NewTournamentSettingsFormIcon v-model:selected-icon-id="form.iconId" />
+            <TournamentSettingsIconInput v-model="form.iconId" />
             <AppInput
               v-model.trim="form.name"
               id="edit-tournament--name"
@@ -66,7 +66,7 @@ import AppButton from './AppButton.vue';
 import AppCard from './AppCard.vue';
 import AppInput from './AppInput.vue';
 import AppToggle from './AppToggle.vue';
-import NewTournamentSettingsFormIcon from './NewTournamentSettingsFormIcon.vue';
+import TournamentSettingsIconInput from './TournamentSettingsIconInput.vue';
 
 const props = defineProps({
   tournament: {

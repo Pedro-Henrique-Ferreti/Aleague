@@ -1,13 +1,19 @@
 <template>
   <div class="settings-form">
-    <NewTournamentSettingsFormIcon v-model:selected-icon-id="iconIdValue" />
+    <TournamentSettingsIconInput
+      :model-value="iconId"
+      @update:model-value="$emit('update:iconId', $event)"
+    />
     <div>
       <AppInput
         v-model.trim="tournamentNameValue"
         id="new-tournament--name"
         label="Nome do campeonato"
       />
-      <NewTournamentSettingsFormFormat v-model="formatValue" />
+      <NewTournamentSettingsFormFormat
+        :model-value="format"
+        @update:model-value="$emit('update:format', $event)"
+      />
     </div>
   </div>
 </template>
@@ -15,7 +21,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import AppInput from './AppInput.vue';
-import NewTournamentSettingsFormIcon from './NewTournamentSettingsFormIcon.vue';
+import TournamentSettingsIconInput from './TournamentSettingsIconInput.vue';
 import NewTournamentSettingsFormFormat from './NewTournamentSettingsFormFormat.vue';
 
 const emit = defineEmits(['update:tournamentName', 'update:iconId', 'update:format']);
@@ -38,18 +44,6 @@ const tournamentNameValue = computed({
   get: () => props.tournamentName,
   set(value) {
     emit('update:tournamentName', value);
-  },
-});
-const iconIdValue = computed({
-  get: () => props.iconId,
-  set(value) {
-    emit('update:iconId', value);
-  },
-});
-const formatValue = computed({
-  get: () => props.format,
-  set(value) {
-    emit('update:format', value);
   },
 });
 </script>
