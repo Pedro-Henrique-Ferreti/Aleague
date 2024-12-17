@@ -20,8 +20,9 @@
 
 <script lang="ts" setup>
 import type { Tournament } from '@/types/Tournament';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useTitle } from '@/composables/useTitle';
 import api from '@/api';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
@@ -53,4 +54,8 @@ async function getTournament() {
 }
 
 getTournament();
+
+// Page title
+const pageTitle = computed(() => tournament.value?.name);
+useTitle(pageTitle);
 </script>

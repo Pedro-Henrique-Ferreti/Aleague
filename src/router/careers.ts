@@ -8,6 +8,7 @@ export default [
     component: CareersView,
     meta: {
       requiresAuth: true,
+      pageTitle: 'Carreiras',
     },
   },
 ] as RouteRecordRaw[];

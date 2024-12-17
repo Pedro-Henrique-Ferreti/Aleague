@@ -9,5 +9,6 @@ declare module 'vue-router' {
     layout?: 'landing-page' | 'auth';
     requiresAuth?: boolean;
     headerPath?: 'teams' | 'careers' | 'tournaments';
+    pageTitle?: string;
   }
 }

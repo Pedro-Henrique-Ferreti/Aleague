@@ -11,6 +11,7 @@ export default [
     component: TournamentsView,
     meta: {
       requiresAuth: true,
+      pageTitle: 'Campeonatos',
     },
   },
   {
@@ -20,6 +21,7 @@ export default [
     meta: {
       requiresAuth: true,
       headerPath: 'tournaments',
+      pageTitle: 'Novo campeonato',
     },
   },
   {
@@ -38,6 +40,7 @@ export default [
     meta: {
       requiresAuth: true,
       headerPath: 'tournaments',
+      pageTitle: 'Editar campeonato',
     },
   },
 ] as RouteRecordRaw[];

@@ -31,6 +31,7 @@ import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamDetails } from '@/types/Team';
 import { computed, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { useTitle } from '@/composables/useTitle';
 import api from '@/api';
 import TransitionFade from '@/components/TransitionFade.vue';
 import ErrorState from '@/components/ErrorState.vue';
@@ -73,6 +74,10 @@ async function getTeam() {
 getTeam();
 
 watch(() => route.params.id, getTeam);
+
+// Page title
+const pageTitle = computed(() => team.value?.name);
+useTitle(pageTitle);
 </script>
 
 <style lang="scss" scoped>

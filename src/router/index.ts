@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
+import { useTitle } from '@/composables/useTitle';
 import LandingPageView from '@/views/LandingPageView.vue';
 import authRoutes from './auth';
 import careersRoutes from './careers';
@@ -31,7 +32,7 @@ const router = createRouter({
       path: '/',
       name: 'landing-page',
       component: LandingPageView,
-      meta: { layout: 'landing-page' },
+      meta: { layout: 'landing-page', pageTitle: 'A sua plataforma de campeonatos de futebol' },
       beforeEnter: notAuthenticatedGuard,
     },
   ],
@@ -54,6 +55,13 @@ router.beforeEach(async (to) => {
   }
 
   return redirect;
+});
+
+router.afterEach((to) => {
+  if (to.meta.pageTitle) {
+    console.log(to.meta.pageTitle);
+    useTitle(to.meta.pageTitle);
+  }
 });
 
 export default router;

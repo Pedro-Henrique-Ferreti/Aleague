@@ -13,6 +13,7 @@ export default [
     component: TeamsView,
     meta: {
       requiresAuth: true,
+      pageTitle: 'Equipes',
     },
   },
   {
@@ -22,6 +23,7 @@ export default [
     meta: {
       requiresAuth: true,
       headerPath: 'teams',
+      pageTitle: 'Adicionar equipe',
     },
   },
   {
@@ -31,6 +33,7 @@ export default [
     meta: {
       requiresAuth: true,
       headerPath: 'teams',
+      pageTitle: 'Nova equipe',
     },
   },
   {
@@ -40,6 +43,7 @@ export default [
     meta: {
       requiresAuth: true,
       headerPath: 'teams',
+      pageTitle: 'Listas de equipes',
     },
   },
   {
