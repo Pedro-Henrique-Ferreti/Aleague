@@ -24,7 +24,7 @@ export interface GroupsStageRules {
       numberOfTeams: number;
       fixedTeams: string[];
     } | null;
-  };
+  } | null;
 }
 
 export interface PlayoffsStageRules {
@@ -37,7 +37,7 @@ export interface PlayoffsStageRules {
       numberOfTeams: number;
       fixedTeams: [];
     } | null;
-  }
+  } | null;
 }
 
 export interface TournamentStageGameweek {
