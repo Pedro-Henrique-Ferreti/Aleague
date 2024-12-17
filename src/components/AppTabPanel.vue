@@ -2,28 +2,38 @@
   <div
     class="tab-panel | app-base-card"
     :class="$attrs.class"
+    :data-direction="direction"
   >
-    <label
-      v-for="tab in items"
-      :key="tab.id"
-      :for="tab.elementId || tab.id"
-    >
-      <input
-        v-model="inputValue"
-        :id="tab.elementId || tab.id"
-        class="tab-panel__input"
-        type="radio"
-        :name="tab.name"
-        :value="tab.id"
-        @keypress.enter="($event.target as HTMLInputElement).click()"
-      />
-      <span
-        class="tab-panel__tab"
-        :data-active="inputValue === tab.id"
+    <div class="tab-panel__tabs">
+      <swiper-container
+        ref="swiperContainerRef"
+        space-between="8"
+        slides-per-view="auto"
+        init="false"
       >
-        {{ tab.name }}
-      </span>
-    </label>
+        <swiper-slide
+          v-for="tab in items"
+          :key="tab.id"
+        >
+          <label :for="tab.elementId || tab.id">
+            <input
+              v-model="inputValue"
+              class="tab-panel__input"
+              type="radio"
+              :id="tab.elementId || tab.id"
+              :name="tab.name"
+              :value="tab.id"
+              @keypress.enter="($event.target as HTMLInputElement).click()"
+            />
+            <span
+              v-text="tab.name"
+              class="tab-panel__tab"
+              :data-active="inputValue === tab.id"
+            />
+          </label>
+        </swiper-slide>
+      </swiper-container>
+    </div>
   </div>
   <TransitionFade>
     <slot :active-tab-id="inputValue" />
@@ -31,8 +41,13 @@
 </template>
 
 <script lang="ts" setup>
+import type { SwiperOptions } from 'swiper/types';
+import type { SwiperElement } from '@/types/Swiper';
 import type { TabPanelTab } from '@/types/TabPanel';
-import { computed, ref, type PropType } from 'vue';
+import {
+  computed, onMounted, ref, watchEffect, type PropType,
+} from 'vue';
+import { Breakpoints } from '@/constants/breakpoints';
 import TransitionFade from './TransitionFade.vue';
 
 const emit = defineEmits(['update:modelValue']);
@@ -44,6 +59,10 @@ const props = defineProps({
   items: {
     type: Array as PropType<TabPanelTab[]>,
     required: true,
+  },
+  direction: {
+    type: String as PropType<'vertical' | 'horizontal'>,
+    default: 'horizontal',
   },
 });
 
@@ -58,15 +77,66 @@ const inputValue = computed({
     emit('update:modelValue', value);
   },
 });
+
+const swiperContainerRef = ref<SwiperElement | null>(null);
+
+watchEffect(() => {
+  const index = props.items.findIndex((item) => item.id === inputValue.value);
+
+  if (index !== -1) {
+    swiperContainerRef.value?.swiper.slideTo(index);
+  }
+});
+
+onMounted(() => {
+  if (!swiperContainerRef.value) return;
+
+  if (props.direction === 'vertical') {
+    Object.assign(swiperContainerRef.value, {
+      breakpoints: {
+        [Breakpoints.LARGE_TABLET_PORTRAIT_UP]: {
+          allowSlideNext: false,
+          allowSlidePrev: false,
+          spaceBetween: 0,
+        },
+      },
+      injectStyles: [`
+        @media (min-width: ${Breakpoints.LARGE_TABLET_PORTRAIT_UP}px) {
+          .swiper-wrapper {
+            display: grid;
+            gap: 0.25rem;
+            width: 100%;
+          }
+        }
+      `],
+    } as SwiperOptions);
+  }
+
+  (swiperContainerRef.value as any).initialize();
+});
 </script>
 
 <style lang="scss" scoped>
 .tab-panel {
   --base-card--padding: 0.75rem;
-  display: grid;
-  // grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
-  gap: 0.25rem;
+  display: flex;
+  justify-content: center;
   border-radius: 0.75rem;
+  &[data-direction="vertical"] {
+    @include for-large-tablet-portrait-up {
+      --slide-width: auto;
+      display: block;
+    }
+  }
+  &__tabs {
+    overflow-x: hidden;
+    swiper-slide {
+      width: var(--slide-width, max-content);
+      &:last-child {
+        margin-right: 0 !important;
+      }
+    }
+  }
   &__tab {
     display: flex;
     align-items: center;
@@ -77,7 +147,7 @@ const inputValue = computed({
     cursor: pointer;
     &[data-active="true"] {
       background-color: $color--neutral-50;
-      color: $color--primary-800;
+      color: $color--blue-800;
     }
     transition:
       background-color $transition--fast,

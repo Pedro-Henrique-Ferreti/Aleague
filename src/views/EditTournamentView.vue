@@ -22,10 +22,14 @@
         v-else
         class="tournament__content"
       >
-        <AppTabPanel :items="Object.values(EditTournamentTab)">
+        <AppTabPanel
+          direction="vertical"
+          :items="Object.values(EditTournamentTab)"
+        >
           <template #default="{ activeTabId }">
             <EditTournamentSettings
               v-if="activeTabId === EditTournamentTab.SETTINGS.id"
+              class="tournament__tab"
               :tournament="tournament"
             />
           </template>
@@ -88,9 +92,16 @@ const BREADCRUMB_ITEMS = computed<Breadcrumb[]>(() => ([
 <style lang="scss" scoped>
 .tournament {
   &__content {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    gap: 1.5rem;
+    @include for-large-tablet-portrait-up {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr 5fr;
+    }
+  }
+  &__tab {
+    @include for-large-tablet-portrait-down {
+      margin-top: 1.5rem;
+    }
   }
 }
 </style>
