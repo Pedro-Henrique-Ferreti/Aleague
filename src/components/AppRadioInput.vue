@@ -9,10 +9,12 @@
     <input
       v-model="inputValue"
       class="app-radio__input"
-      type="radio"
+      ref="input"
+      :type="type"
       :value="value"
       :id="id"
       :disabled="disabled"
+      @keypress.enter="($refs.input as HTMLInputElement).click()"
     />
     <slot>
       <span>{{ text }}</span>
@@ -33,7 +35,7 @@ import { type PropType, computed } from 'vue';
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
   modelValue: {
-    type: [String, Number, Boolean],
+    type: [String, Number, Boolean, Array],
     default: '',
   },
   id: {
@@ -56,6 +58,10 @@ const props = defineProps({
     type: String as PropType<keyof typeof Sizes>,
     default: Sizes.medium,
   },
+  type: {
+    type: String as PropType<'checkbox' | 'radio'>,
+    default: 'radio',
+  },
 });
 
 const inputValue = computed({
@@ -65,7 +71,11 @@ const inputValue = computed({
   },
 });
 
-const isChecked = computed(() => inputValue.value === props.value);
+const isChecked = computed(() => (
+  (typeof inputValue.value === 'object')
+    ? inputValue.value.includes(props.value)
+    : inputValue.value === props.value
+));
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +94,9 @@ const isChecked = computed(() => inputValue.value === props.value);
   &:not([data-checked="true"], [data-disabled="true"]):hover {
     border-color: $color--text-300;
     transition: border-color $transition--fastest linear;
+    cursor: pointer;
+  }
+  &:has(input[type="checkbox"]) {
     cursor: pointer;
   }
   &:has(input:focus-visible) {
