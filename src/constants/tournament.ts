@@ -36,3 +36,7 @@ export const EditTournamentTab: TabPanel = {
     name: 'Partidas',
   },
 } as const;
+
+export const STANDINGS_SUBTITLE_COLORS = [
+  '#008F62', '#0069CC', '#FCA311', '#E73737', '#ADADAD', '#AF52DE',
+] as const;

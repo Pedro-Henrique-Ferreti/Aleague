@@ -120,6 +120,7 @@ const form = ref({
   }
   &__buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-top: 2rem;
   }
