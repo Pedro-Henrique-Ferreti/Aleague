@@ -3,7 +3,10 @@
     <PageHeader :breadcrumb-items="BREADCRUMB_ITEMS" />
     <div class="tournament__header">
       <TournamentProfileCard :tournament="tournament" />
-      <AppButton @click="saveTournamentChanges">
+      <AppButton
+        v-tooltip="'Shift+S'"
+        @click="saveTournamentChanges"
+      >
         Salvar alterações
       </AppButton>
     </div>
@@ -40,7 +43,10 @@
 <script lang="ts" setup>
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import { TournamentStageType, type Tournament } from '@/types/Tournament';
-import { onMounted, ref, type PropType } from 'vue';
+import {
+  nextTick, onMounted, ref, type PropType,
+} from 'vue';
+import { useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useToast } from '@/composables/toast';
 import { TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
@@ -54,6 +60,8 @@ import TournamentPagePlayoffs from './TournamentPagePlayoffs.vue';
 import TournamentPageStageControl from './TournamentPageStageControl.vue';
 
 const toast = useToast();
+const activeElement = useActiveElement();
+const keys = useMagicKeys();
 
 const props = defineProps({
   tournament: {
@@ -84,6 +92,8 @@ onMounted(() => {
 const isSaving = ref(false);
 
 async function saveTournamentChanges() {
+  if (isSaving.value) return;
+
   isSaving.value = true;
 
   try {
@@ -99,6 +109,25 @@ async function saveTournamentChanges() {
     isSaving.value = false;
   }
 }
+
+// Keyboard shortcuts
+whenever(keys.shift_S, async () => {
+  if (isSaving.value) return;
+
+  if (activeElement.value?.tagName !== 'INPUT') {
+    saveTournamentChanges();
+    return;
+  }
+
+  const element = activeElement.value;
+
+  activeElement.value.blur();
+
+  await nextTick();
+  await saveTournamentChanges();
+
+  element.focus();
+});
 </script>
 
 <style lang="scss" scoped>
