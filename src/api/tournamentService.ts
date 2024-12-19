@@ -1,8 +1,10 @@
-import type {
-  ApiCreateAllPlayAllTournamentPayload,
-  ApiCreatePlayoffsTournamentPayload,
-  ApiGetAllTournamentsResponse,
-  Tournament,
+import {
+  TournamentStageType,
+  type ApiCreateAllPlayAllTournamentPayload,
+  type ApiCreatePlayoffsTournamentPayload,
+  type ApiGetAllTournamentsResponse,
+  type Tournament,
+  type TournamentStage,
 } from '@/types/Tournament';
 import { axiosInstance } from '@/helpers/axios';
 
@@ -39,6 +41,34 @@ export default class TournamentService {
   ) {
     return axiosInstance.post(`/competitions/${payload.id}/add-participants`, {
       stages: payload.stages,
+    });
+  }
+
+  static updateTournamentStages(payload: { id: string; stages: TournamentStage[] }) {
+    return axiosInstance.patch(`/competitions/${payload.id}/stages`, {
+      stages: payload.stages.map((stage) => ({
+        id: stage.id,
+        name: stage.name,
+        rounds: ((stage.type === TournamentStageType.PLAYOFFS)
+          ? stage.rounds.map((round) => ({
+            id: round.id,
+            name: round.name,
+            matchups: round.matchups.map((matchup) => ({
+              id: matchup.id,
+              firstTeamId: matchup.firstTeam?.id || null,
+              secondTeamId: matchup.secondTeam?.id || null,
+              games: matchup.games.map((game) => ({
+                id: game.id,
+                homeTeamId: game.homeTeam?.id || null,
+                awayTeamId: game.awayTeam?.id || null,
+                homeTeamScore: game.homeTeamScore,
+                awayTeamScore: game.awayTeamScore,
+              })),
+            })),
+          }))
+          : null
+        ),
+      })),
     });
   }
 }

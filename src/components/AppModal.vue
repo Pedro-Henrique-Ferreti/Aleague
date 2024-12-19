@@ -32,6 +32,7 @@
                 class="modal-card__title"
               />
               <AppRemoveButton
+                v-if="showCloseButton"
                 class="modal-card__close-button"
                 aria-label="Close modal"
                 @click="$emit('close')"
@@ -114,6 +115,10 @@ const props = defineProps({
     default: Format.modal,
   },
   showFooter: {
+    type: Boolean,
+    default: true,
+  },
+  showCloseButton: {
     type: Boolean,
     default: true,
   },
