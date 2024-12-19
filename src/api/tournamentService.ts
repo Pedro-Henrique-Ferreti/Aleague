@@ -66,7 +66,15 @@ export default class TournamentService {
               })),
             })),
           }))
-          : null
+          : undefined
+        ),
+        games: ((stage.type === TournamentStageType.GROUPS)
+          ? stage.gameweeks.flatMap((gameweek) => gameweek.matches.flatMap((game) => ({
+            id: game.id,
+            homeTeamScore: game.homeTeamScore,
+            awayTeamScore: game.awayTeamScore,
+          })))
+          : undefined
         ),
       })),
     });
