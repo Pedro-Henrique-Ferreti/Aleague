@@ -37,6 +37,11 @@
               class="tournament__tab"
               :tournament="tournament"
             />
+            <EditTournamentFixtures
+              v-else-if="activeTabId === EditTournamentTab.FIXTURES.id"
+              class="tournament__tab"
+              :tournament="tournament"
+            />
           </template>
         </AppTabPanel>
       </div>
@@ -58,6 +63,7 @@ import TransitionFade from '@/components/TransitionFade.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import EditTournamentSettings from '@/components/EditTournamentSettings.vue';
 import EditTournamentSubtitles from '@/components/EditTournamentSubtitles.vue';
+import EditTournamentFixtures from '@/components/EditTournamentFixtures.vue';
 
 const route = useRoute();
 
