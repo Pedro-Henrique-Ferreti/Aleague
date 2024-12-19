@@ -26,8 +26,14 @@
       v-if="title"
       class="page-header__content"
     >
-      <h1 class="h1">
+      <h1 class="page-header__title | h1">
         {{ title }}
+        <AppChip
+          v-if="chipText"
+          class="page-header__title-chip"
+          color="blue"
+          :text="String(chipText)"
+        />
       </h1>
       <slot />
     </div>
@@ -38,9 +44,14 @@
 import type { PropType } from 'vue';
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import IconChevron from '@/assets/icons/Chevron.svg';
+import AppChip from './AppChip.vue';
 
 defineProps({
   title: {
+    type: String,
+    default: '',
+  },
+  chipText: {
     type: String,
     default: '',
   },
@@ -86,6 +97,14 @@ defineProps({
     justify-content: space-between;
     align-items: center;
     gap: 1.5rem;
+  }
+  &__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  &__title-chip {
+    transform: translateY(-0.125rem);
   }
 }
 </style>

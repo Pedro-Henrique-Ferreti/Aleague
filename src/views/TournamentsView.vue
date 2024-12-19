@@ -1,6 +1,9 @@
 <template>
   <main class="tournaments">
-    <PageHeader title="Campeonatos">
+    <PageHeader
+      title="Campeonatos"
+      :chip-text="tournaments.length ? String(tournaments.length) : ''"
+    >
       <AppButton
         :icon-left="IconPlus"
         :to="{ name: 'new-tournament' }"

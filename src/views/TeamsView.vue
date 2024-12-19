@@ -1,6 +1,9 @@
 <template>
   <main class="teams">
-    <PageHeader title="Equipes">
+    <PageHeader
+      title="Equipes"
+      :chip-text="teams.length ? String(teams.length) : ''"
+    >
       <AppButton
         :to="{ name: 'new-team' }"
         :icon-left="IconPlus"
