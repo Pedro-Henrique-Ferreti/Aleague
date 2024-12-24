@@ -50,9 +50,9 @@ export interface TournamentStageStandings {
   position: number;
   points: number;
   gamesPlayed: number;
-  gamesWon: number;
-  gamesDrawn: number;
-  gamesLost: number;
+  wins: number;
+  ties: number;
+  loses: number;
   goalsFor: number;
   goalsAgainst: number;
   team: MatchTeam;

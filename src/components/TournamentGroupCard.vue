@@ -70,9 +70,9 @@
                 {{ row.points }}
               </td>
               <td>{{ row.gamesPlayed }}</td>
-              <td>{{ row.gamesWon }}</td>
-              <td>{{ row.gamesDrawn }}</td>
-              <td>{{ row.gamesLost }}</td>
+              <td>{{ row.wins }}</td>
+              <td>{{ row.ties }}</td>
+              <td>{{ row.loses }}</td>
               <td>{{ row.goalsFor }}</td>
               <td>{{ row.goalsAgainst }}</td>
               <td>{{ row.goalsFor - row.goalsAgainst }}</td>
