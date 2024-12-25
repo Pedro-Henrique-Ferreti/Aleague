@@ -102,6 +102,16 @@ async function saveTournamentChanges() {
       stages: form.value.tournament.stages,
     });
 
+    const { data } = await api.tournamentService.getTournamentStandings(props.tournament.id);
+
+    data.forEach((item) => {
+      const stage = props.tournament.stages.find(({ id }) => id === item.id);
+
+      if (stage && stage.type === TournamentStageType.GROUPS) {
+        stage.groups = item.groups;
+      }
+    });
+
     toast.success('Alterações salvas com sucesso!');
   } catch (error) {
     toast.error('Não foi possível salvar as alterações. Por favor, tente novamente.');

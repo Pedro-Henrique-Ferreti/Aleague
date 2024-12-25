@@ -91,6 +91,8 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
   }[];
 }
 
+export type TournamentGroupsStagePreview = Pick<TournamentGroupsStage, 'id' | 'groups'>;
+
 export interface TournamentPlayoffsStage extends BaseTournamentStage {
   type: TournamentStageType.PLAYOFFS;
   rules: PlayoffsStageRules;

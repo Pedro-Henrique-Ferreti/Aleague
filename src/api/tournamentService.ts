@@ -4,6 +4,7 @@ import {
   type ApiCreatePlayoffsTournamentPayload,
   type ApiGetAllTournamentsResponse,
   type Tournament,
+  type TournamentGroupsStagePreview,
   type TournamentStage,
 } from '@/types/Tournament';
 import { axiosInstance } from '@/helpers/axios';
@@ -15,6 +16,10 @@ export default class TournamentService {
 
   static getTournamentById(id: string) {
     return axiosInstance.get<Tournament>(`/competitions/${id}`);
+  }
+
+  static getTournamentStandings(id: string) {
+    return axiosInstance.get<TournamentGroupsStagePreview[]>(`/competitions/${id}/stages/standings`);
   }
 
   static createAllPlayAllTournament(payload: ApiCreateAllPlayAllTournamentPayload) {
