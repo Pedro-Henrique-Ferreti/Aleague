@@ -45,7 +45,7 @@ export default class TournamentService {
   }
 
   static updateTournamentStages(payload: { id: string; stages: TournamentStage[] }) {
-    return axiosInstance.patch(`/competitions/${payload.id}/stages`, {
+    return axiosInstance.patch(`/competitions/${payload.id}/stages/results`, {
       stages: payload.stages.map((stage) => ({
         id: stage.id,
         name: stage.name,
