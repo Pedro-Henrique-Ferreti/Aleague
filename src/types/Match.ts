@@ -1,3 +1,5 @@
+import type { Day } from 'date-fns';
+
 export interface MatchTeam {
   id: string;
   name: string;
@@ -13,6 +15,20 @@ export interface Match {
   awayTeam: MatchTeam | null;
   awayTeamScore: number | null;
   homeTeamScore: number | null;
-  weekDay: '0' | '1' | '2' | '3' | '4' | '5' | '6';
-  hour: string;
+  weekDay: Day;
+  time: string;
+}
+
+export interface FinishedMatch extends Match {
+  homeTeam: MatchTeam;
+  awayTeam: MatchTeam;
+  awayTeamScore: number;
+  homeTeamScore: number;
+}
+
+export interface FinishedMatch extends Match {
+  homeTeam: MatchTeam;
+  awayTeam: MatchTeam;
+  awayTeamScore: number;
+  homeTeamScore: number;
 }

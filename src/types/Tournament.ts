@@ -1,6 +1,6 @@
 import { TournamentFormat, TournamentStageConfrontation } from '@/constants/tournament';
 import type { ValueOf } from './Auth';
-import type { Match, MatchTeam } from './Match';
+import type { FinishedMatch, Match, MatchTeam } from './Match';
 
 export enum TournamentStageType {
   GROUPS = 'groups',
@@ -56,6 +56,7 @@ export interface TournamentStageStandings {
   goalsFor: number;
   goalsAgainst: number;
   team: MatchTeam;
+  recentGames: FinishedMatch[];
 }
 
 export interface TournamentStageRoundMatchup {

@@ -91,6 +91,31 @@
   }
 }
 
+// Match tooltip
+.v-popper--theme-match-tooltip {
+  &.v-popper__popper--show-from .v-popper__wrapper {
+    opacity: 0;
+  }
+  &.v-popper__popper--show-to .v-popper__wrapper {
+    transition: opacity 0.12s cubic-bezier(0, 0, 0.2, 1);
+  }
+  .v-popper__wrapper {
+    background-color: $color--white;
+    border: 1px solid $color--neutral-300;
+    border-radius: $radius--small;
+  }
+  .v-popper__inner {
+    padding: 0.5rem;
+  }
+  .v-popper__arrow-outer {
+    border-color: $color--neutral-300;
+  }
+  .v-popper__arrow-inner {
+    visibility: visible;
+    border-color: $color--white;
+  }
+}
+
 // Context menu
 .v-popper--theme-context-menu {
   &.v-popper__popper--show-from .v-popper__wrapper {

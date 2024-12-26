@@ -11,8 +11,11 @@
         ref="tableWrapperRef"
       >
         <table class="group-card__table">
-          <tbody>
-            <tr class="group-card__table-header">
+          <TransitionTournamentStandings tag="tbody">
+            <tr
+              class="group-card__table-header"
+              key="header"
+            >
               <th
                 class="header-placeholder"
                 aria-hidden="true"
@@ -39,7 +42,9 @@
               <th>
                 <span v-tooltip="'Aproveitamento'">%</span>
               </th>
-              <th>Recentes</th>
+              <th class="recent-matches">
+                Recentes
+              </th>
               <th />
             </tr>
             <tr
@@ -81,8 +86,14 @@
                   (row.gamesPlayed === 0) ? 0 : Math.round(row.points / (row.gamesPlayed * 3) * 100)
                 }}%
               </td>
+              <td>
+                <TournamentTeamRecentMatches
+                  :recent-games="row.recentGames"
+                  :team="row.team"
+                />
+              </td>
             </tr>
-          </tbody>
+          </TransitionTournamentStandings>
         </table>
       </div>
     </div>
@@ -95,6 +106,8 @@ import type { TournamentStageStandings } from '@/types/Tournament';
 import { computed, ref, type PropType } from 'vue';
 import { useScroll } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
+import TransitionTournamentStandings from './TransitionTournamentStandings.vue';
+import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 
 defineProps({
   title: {
@@ -208,6 +221,9 @@ function onResizeObserver(entries: Parameters<ResizeObserverCallback>[0]) {
       }
       &.points {
         font-weight: $font-weight--semibold;
+      }
+      &.recent-matches {
+        width: 6.5rem;
       }
     }
   }

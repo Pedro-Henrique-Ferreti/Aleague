@@ -2,6 +2,7 @@
   <div
     class="match-team"
     :data-tbd="!team"
+    :data-alignment="alignment"
   >
     <template v-if="team">
       <img
@@ -28,6 +29,10 @@ defineProps({
     type: Object as PropType<MatchTeam | null>,
     default: null,
   },
+  alignment: {
+    type: String as PropType<'right' | 'left'>,
+    default: 'left',
+  },
 });
 </script>
 
@@ -38,6 +43,10 @@ defineProps({
   gap: 0.5rem;
   &[data-tbd="false"] {
     color: $color--text-strong;
+  }
+  &[data-alignment="right"] {
+    flex-direction: row-reverse;
+    text-align: right;
   }
   &__emblem {
     max-width: 1.5rem;

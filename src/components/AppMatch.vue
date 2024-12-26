@@ -5,8 +5,8 @@
   >
     <BaseMatchTeam
       class="match__team"
-      data-home
       :team="homeTeam"
+      :alignment="(direction === 'horizontal') ? 'right' : undefined"
     />
     <div
       class="match__scores"

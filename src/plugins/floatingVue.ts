@@ -41,5 +41,16 @@ export default {
       $resetCss: true,
       distance: 8,
     },
+    'match-tooltip': {
+      $extend: 'menu',
+      $resetCss: true,
+      arrowOverflow: false,
+      distance: 8,
+      placement: 'top-end',
+      arrowPadding: 12,
+      delay: {
+        hide: 0,
+      },
+    },
   },
 };
