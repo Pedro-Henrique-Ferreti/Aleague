@@ -57,7 +57,13 @@ const gameweeksInput = computed({
   set: (value) => emit('update:gameweeks', value),
 });
 
-const currentGameweek = ref(props.gameweeks[0].gameweek);
+const currentGameweek = ref(
+  props.gameweeks.find(({ matches }) => (
+    matches.some((match) => (
+      match.homeTeamScore === null || match.awayTeamScore === null
+    ))
+  ))?.gameweek || props.gameweeks[0].gameweek,
+);
 
 const disablePreviousButton = computed(() => currentGameweek.value === 1);
 const disableNextButton = computed(() => currentGameweek.value === props.gameweeks.length);
