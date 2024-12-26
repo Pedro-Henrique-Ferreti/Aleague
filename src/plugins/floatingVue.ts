@@ -48,6 +48,7 @@ export default {
       distance: 8,
       placement: 'top-end',
       arrowPadding: 12,
+      triggers: ['hover', 'focus'],
       delay: {
         hide: 0,
       },

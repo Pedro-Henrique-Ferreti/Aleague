@@ -4,11 +4,15 @@
       v-for="match in displayedGames"
       class="recent-matches__item"
       theme="match-tooltip"
-      auto-hide
+      :auto-hide="false"
       :key="match.id"
       :data-status="match.status"
     >
-      <Component :is="getIcon(match.status)" />
+      <Component
+        class="recent-matches__item-icon"
+        tabindex="0"
+        :is="getIcon(match.status)"
+      />
       <template #popper>
         <div class="recent-matches__item-menu">
           <span class="recent-matches__item-fixture">
@@ -115,10 +119,16 @@ function getIcon(status: RecentGameStatus) {
     &[data-status="lost"] {
       --color: #{$color--danger};
     }
-    &:last-child svg {
-      outline: 2px solid var(--color);
-      outline-offset: 1px;
-      border-radius: $radius--full;
+    &:last-child > .recent-matches__item-icon:not(:focus) {
+      outline-color: var(--color);
+    }
+  }
+  &__item-icon {
+    border-radius: $radius--full;
+    outline: 2px solid transparent;
+    outline-offset: 1px;
+    &:focus {
+      outline-color: $color--black;
     }
   }
   &__item-menu {
