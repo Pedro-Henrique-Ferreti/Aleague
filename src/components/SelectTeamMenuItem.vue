@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import type { SelectTeamMenuOption } from '@/types/SelectTeamMenu';
-import { computed, type PropType } from 'vue';
+import { computed, type PropType, useId } from 'vue';
 import IconRadioControl from './IconRadioControl.vue';
 import AppChip from './AppChip.vue';
 
@@ -59,7 +59,7 @@ const inputValue = computed({
     emit('update:modelValue', value);
   },
 });
-const elementId = computed(() => `select-team-list-item--${props.item.id}`);
+const elementId = useId();
 </script>
 
 <style lang="scss" scoped>

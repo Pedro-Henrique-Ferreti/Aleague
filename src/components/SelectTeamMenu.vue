@@ -10,7 +10,6 @@
     <template #before-content>
       <AppSearchInput
         v-model="form.searchValue"
-        id="select-team-menu-search-input"
         size="small"
         ref="searchInputRef"
       />
