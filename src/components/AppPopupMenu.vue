@@ -2,6 +2,7 @@
   <Dropdown
     theme="popup-menu"
     auto-hide
+    @apply-show="$emit('apply-show')"
   >
     <slot />
     <template #popper>
@@ -43,7 +44,7 @@
 import { Dropdown } from 'floating-vue';
 import AppButton from './AppButton.vue';
 
-defineEmits(['confirm']);
+defineEmits(['confirm', 'apply-show']);
 defineProps({
   title: {
     type: String,
