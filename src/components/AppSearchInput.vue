@@ -10,13 +10,14 @@
       type="text"
       placeholder="Pesquisar"
       aria-label="Pesquisar"
+      ref="inputRef"
       :id="id"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue';
+import { computed, useTemplateRef, type PropType } from 'vue';
 import IconSearch from '@/assets/icons/Search.svg';
 
 const emit = defineEmits(['update:modelValue']);
@@ -38,6 +39,18 @@ const props = defineProps({
 const inputValue = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value),
+});
+
+// Input ref
+const inputRef = useTemplateRef('inputRef');
+
+function focus() {
+  inputRef.value?.focus();
+}
+
+// Exposed values
+defineExpose({
+  focus,
 });
 </script>
 
