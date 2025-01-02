@@ -2,7 +2,7 @@
   <label
     class="selection-card"
     tabindex="0"
-    :for="id"
+    :for="elementId"
     :data-checked="inputValue === value"
     @keypress.enter="inputValue = value"
   >
@@ -17,7 +17,7 @@
       class="selection-card__input"
       type="radio"
       tabindex="-1"
-      :id="id"
+      :id="elementId"
       :value="value"
     />
     {{ text }}
@@ -25,18 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { useId } from 'vue';
 
-const emit = defineEmits(['update:modelValue']);
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: '',
-  },
-  id: {
-    type: String,
-    required: true,
-  },
+const elementId = useId();
+
+defineProps({
   value: {
     type: String,
     default: '',
@@ -51,12 +44,7 @@ const props = defineProps({
   },
 });
 
-const inputValue = computed({
-  get: () => props.modelValue,
-  set(value) {
-    emit('update:modelValue', value);
-  },
-});
+const inputValue = defineModel('modelValue', { type: String, default: '' });
 </script>
 
 <style lang="scss" scoped>

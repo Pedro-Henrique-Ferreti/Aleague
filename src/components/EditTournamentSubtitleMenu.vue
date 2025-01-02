@@ -16,7 +16,6 @@
           </span>
           <AppColorPicker
             v-model="form.color"
-            id="subtitle-form--color"
             :color-options="STANDINGS_SUBTITLE_COLORS"
           />
         </div>
@@ -31,7 +30,6 @@
               class="subtitle-form__position"
               type="checkbox"
               size="small"
-              :id="`subtitle-form--position-${n}`"
               :key="n"
               :value="n"
               :text="`${n}º`"

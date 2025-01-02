@@ -1,51 +1,65 @@
 <template>
   <div class="settings-form">
-    <TournamentSettingsIconInput
-      :model-value="iconId"
-      @update:model-value="$emit('update:iconId', $event)"
-    />
+    <TournamentSettingsIconInput v-model="iconId" />
     <div>
       <AppInput
-        v-model.trim="tournamentNameValue"
+        v-model.trim="tournamentName"
         id="new-tournament--name"
         label="Nome do campeonato"
       />
-      <NewTournamentSettingsFormFormat
-        :model-value="format"
-        @update:model-value="$emit('update:format', $event)"
-      />
+      <div class="settings-form__format">
+        <span class="settings-form__label">
+          Formato do campeonato
+        </span>
+        <div class="settings-form__format-cards">
+          <AppSelectionCard
+            v-model="format"
+            text="Pontos corridos"
+            :icon="IconMedal"
+            :value="TournamentFormat.ALL_PLAY_ALL"
+          />
+          <AppSelectionCard
+            v-model="format"
+            text="Eliminatórias"
+            :icon="IconPlayoff"
+            :value="TournamentFormat.PLAYOFFS"
+          />
+          <AppSelectionCard
+            v-model="format"
+            text="Customizado"
+            :icon="IconTrophy"
+            :value="TournamentFormat.CUSTOM"
+          />
+          <p v-if="format === TournamentFormat.ALL_PLAY_ALL">
+            Cada um dos competidores enfrenta todos os demais. Ao final, aquele que obtiver mais
+            pontos é o campeão. Pode ser disputado em turno único ou em
+            dois turnos (turno e returno).
+          </p>
+          <p v-else-if="format === TournamentFormat.PLAYOFFS">
+            Cada equipe competidora disputa um certo número de partidas, até ser promovida à
+            próxima fase. A equipe perdedora de cada disputa é eliminada da competição.
+          </p>
+          <p v-else-if="format === TournamentFormat.CUSTOM">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { TournamentFormat } from '@/constants/tournament';
+import IconMedal from '@/assets/icons/Medal.svg';
+import IconPlayoff from '@/assets/icons/Playoff.svg';
+import IconTrophy from '@/assets/icons/Trophy.svg';
 import AppInput from './AppInput.vue';
+import AppSelectionCard from './AppSelectionCard.vue';
 import TournamentSettingsIconInput from './TournamentSettingsIconInput.vue';
-import NewTournamentSettingsFormFormat from './NewTournamentSettingsFormFormat.vue';
 
-const emit = defineEmits(['update:tournamentName', 'update:iconId', 'update:format']);
-const props = defineProps({
-  tournamentName: {
-    type: String,
-    required: true,
-  },
-  iconId: {
-    type: Number,
-    required: true,
-  },
-  format: {
-    type: String,
-    required: true,
-  },
-});
-
-const tournamentNameValue = computed({
-  get: () => props.tournamentName,
-  set(value) {
-    emit('update:tournamentName', value);
-  },
-});
+const tournamentName = defineModel('tournamentName', { type: String, required: true });
+const iconId = defineModel('iconId', { type: Number, required: true });
+const format = defineModel('format', { type: String, required: true });
 </script>
 
 <style lang="scss" scoped>
@@ -54,6 +68,20 @@ const tournamentNameValue = computed({
   gap: 1.5rem;
   @include for-tablet-portrait-up {
     grid-template-columns: auto 1fr;
+  }
+  &__format {
+    margin-top: 1.5rem;
+  }
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: $color--text-strong;
+    font-size: 0.875rem;
+  }
+  &__format-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 }
 </style>

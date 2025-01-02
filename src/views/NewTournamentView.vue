@@ -13,7 +13,7 @@
           <NewTournamentAllPlayAllForm
             v-if="settingsForm.format === TournamentFormat.ALL_PLAY_ALL"
             v-model:participants="allPlayAllForm.participants"
-            v-model:has-two-legs="allPlayAllForm.hasTwoLegs"
+            v-model:is-double-legged="allPlayAllForm.isDoubleLegged"
           />
           <NewTournamentPlayoffsForm
             v-else-if="settingsForm.format === TournamentFormat.PLAYOFFS"
@@ -114,7 +114,7 @@ const isCreatingTournament = ref(false);
 // All-play-all form
 const allPlayAllForm = ref({
   participants: ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
-  hasTwoLegs: false,
+  isDoubleLegged: false,
 });
 
 // Playoffs form
@@ -150,7 +150,7 @@ async function submitForm() {
         name: settingsForm.value.name,
         icon: settingsForm.value.iconId,
         numberOfTeams: allPlayAllForm.value.participants,
-        hasTwoLegs: allPlayAllForm.value.hasTwoLegs,
+        isDoubleLegged: allPlayAllForm.value.isDoubleLegged,
       });
       id = data.id;
     } else if (settingsForm.value.format === TournamentFormat.PLAYOFFS) {

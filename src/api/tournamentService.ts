@@ -27,7 +27,7 @@ export default class TournamentService {
       name: payload.name,
       icon: payload.icon,
       numberOfTeams: payload.numberOfTeams,
-      hasTwoLegs: payload.hasTwoLegs,
+      hasTwoLegs: payload.isDoubleLegged,
     });
   }
 

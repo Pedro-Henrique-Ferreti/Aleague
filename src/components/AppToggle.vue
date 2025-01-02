@@ -1,7 +1,7 @@
 <template>
   <label
     class="toggle"
-    :for="id"
+    :for="elementId"
     :data-checked="modelValue"
   >
     <span
@@ -13,10 +13,10 @@
       <input
         v-bind="$attrs"
         v-model="inputValue"
-        :id="id"
         ref="toggle"
         class="toggle__input"
         type="checkbox"
+        :id="elementId"
         :disabled="disabled"
         @keypress.enter="($refs.toggle as HTMLInputElement).click()"
       />
@@ -43,20 +43,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { useId } from 'vue';
 import IconCheck from '@/assets/icons/Check.svg';
 import IconSpinner from './icons/IconSpinner.vue';
 
-const emit = defineEmits(['update:modelValue']);
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
-  id: {
-    type: String,
-    required: true,
-  },
+const elementId = useId();
+
+defineProps({
   disabled: {
     type: Boolean,
     default: false,
@@ -79,12 +72,7 @@ const props = defineProps({
   },
 });
 
-const inputValue = computed({
-  get: () => props.modelValue,
-  set() {
-    emit('update:modelValue', !props.modelValue);
-  },
-});
+const inputValue = defineModel({ type: Boolean, default: false });
 </script>
 
 <style lang="scss" scoped>

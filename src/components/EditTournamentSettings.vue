@@ -15,11 +15,9 @@
             />
           </div>
           <AppToggle
-            id="edit-tournament--show-team-emblems"
             text="Exibir escudos das equipes"
           />
           <AppToggle
-            id="edit-tournament--show-team-country"
             text="Exibir nacionalidades das equipes"
           />
         </div>

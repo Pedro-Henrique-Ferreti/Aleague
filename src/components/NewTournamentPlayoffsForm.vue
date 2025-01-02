@@ -6,11 +6,10 @@
     </p>
     <div class="form__counter-wrapper">
       <AppCounter
+        v-model="rounds"
         label="Número de rodadas"
         :min="PLAYOFFS_MIN_NUMBER_OF_ROUNDS"
         :max="PLAYOFFS_MAX_NUMBER_OF_ROUNDS"
-        :model-value="rounds"
-        @update:model-value="emit('update:rounds', $event)"
       />
       <AppCounter
         readonly
@@ -20,16 +19,12 @@
     </div>
     <div class="form__toggles">
       <AppToggle
-        id="playoffs--two-legged-rounds"
+        v-model="isDoubleLegged"
         text="Partidas de ida e volta"
-        :model-value="isDoubleLegged"
-        @update:model-value="emit('update:is-double-legged', $event)"
       />
       <AppToggle
-        id="playoffs--two-legged-final"
+        v-model="finalRoundIsDoubleLegged"
         text="Final em duas partidas"
-        :model-value="finalRoundIsDoubleLegged"
-        @update:model-value="emit('update:final-round-is-double-legged', $event)"
       />
     </div>
   </div>
@@ -42,24 +37,11 @@ import {
 import AppCounter from './AppCounter.vue';
 import AppToggle from './AppToggle.vue';
 
-const emit = defineEmits([
-  'update:rounds',
-  'update:is-double-legged',
-  'update:final-round-is-double-legged',
-]);
-defineProps({
-  rounds: {
-    type: Number,
-    required: true,
-  },
-  isDoubleLegged: {
-    type: Boolean,
-    required: true,
-  },
-  finalRoundIsDoubleLegged: {
-    type: Boolean,
-    required: true,
-  },
+const rounds = defineModel('rounds', { type: Number, required: true });
+const isDoubleLegged = defineModel('isDoubleLegged', { type: Boolean, required: true });
+const finalRoundIsDoubleLegged = defineModel('finalRoundIsDoubleLegged', {
+  type: Boolean,
+  required: true,
 });
 </script>
 

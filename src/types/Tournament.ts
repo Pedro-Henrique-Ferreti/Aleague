@@ -133,7 +133,7 @@ export interface ApiCreateAllPlayAllTournamentPayload {
   name: string;
   icon: number;
   numberOfTeams: number;
-  hasTwoLegs: boolean;
+  isDoubleLegged: boolean;
 }
 
 export interface ApiCreatePlayoffsTournamentPayload {

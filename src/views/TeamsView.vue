@@ -22,13 +22,11 @@
       <div class="teams__search-bar-radio">
         <AppRadioInput
           v-model="form.showFavorites"
-          id="search-bar-radio-favorites--false"
           text="Todos"
           :value="false"
         />
         <AppRadioInput
           v-model="form.showFavorites"
-          id="search-bar-radio-favorites--true"
           text="Favoritos"
           :value="true"
         />

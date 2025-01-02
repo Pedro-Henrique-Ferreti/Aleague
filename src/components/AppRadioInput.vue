@@ -1,7 +1,7 @@
 <template>
   <label
     class="app-radio"
-    :for="id"
+    :for="elementId"
     :data-disabled="disabled"
     :data-size="size"
     :data-checked="isChecked"
@@ -10,9 +10,9 @@
       v-model="inputValue"
       class="app-radio__input"
       ref="input"
+      :id="elementId"
       :type="type"
       :value="value"
-      :id="id"
       :disabled="disabled"
       @keypress.enter="($refs.input as HTMLInputElement).click()"
     />
@@ -30,17 +30,15 @@ enum Sizes {
 </script>
 
 <script lang="ts" setup>
-import { type PropType, computed } from 'vue';
+import { type PropType, computed, useId } from 'vue';
+
+const elementId = useId();
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
   modelValue: {
     type: [String, Number, Boolean, Array],
     default: '',
-  },
-  id: {
-    type: String,
-    required: true,
   },
   value: {
     type: [String, Number, Boolean],

@@ -3,7 +3,7 @@
     <label
       v-for="(color, index) in colorOptions"
       class="color-picker__option"
-      :for="`${id}-${index}`"
+      :for="`${elementId}-${index}`"
       :key="index"
       :style="`--option-color: ${color}`"
       :data-checked="inputValue === color"
@@ -16,7 +16,7 @@
         v-model="inputValue"
         class="color-picker__option-input"
         type="radio"
-        :id="`${id}-${index}`"
+        :id="`${elementId}-${index}`"
         :value="color"
       />
     </label>
@@ -24,29 +24,18 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, type PropType } from 'vue';
+import { useId, type PropType } from 'vue';
 import IconCheck from '@/assets/icons/Check.svg';
 
-const emit = defineEmits(['update:modelValue']);
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: '',
-  },
+const elementId = useId();
+defineProps({
   colorOptions: {
     type: Array as PropType<readonly String[]>,
     default: () => ([]),
   },
-  id: {
-    type: String,
-    required: true,
-  },
 });
 
-const inputValue = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value),
-});
+const inputValue = defineModel({ type: String, default: '' });
 </script>
 
 <style lang="scss" scoped>

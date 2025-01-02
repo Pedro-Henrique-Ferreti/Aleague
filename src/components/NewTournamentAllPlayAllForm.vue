@@ -5,7 +5,7 @@
       de turnos e equipes participantes.
     </p>
     <AppCounter
-      v-model="participantsValue"
+      v-model="participants"
       class="form__counter"
       label="Quantidade de equipes participantes"
       :step="2"
@@ -13,15 +13,13 @@
       :max="ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS"
     />
     <AppToggle
-      v-model="hasTwoLegsValue"
-      id="all-play-all--two-legs"
+      v-model="isDoubleLegged"
       text="Campeonato em dois turnos"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
 import {
   ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
   ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS,
@@ -29,26 +27,8 @@ import {
 import AppCounter from './AppCounter.vue';
 import AppToggle from './AppToggle.vue';
 
-const emit = defineEmits(['update:participants', 'update:hasTwoLegs']);
-const props = defineProps({
-  participants: {
-    type: Number,
-    required: true,
-  },
-  hasTwoLegs: {
-    type: Boolean,
-    required: true,
-  },
-});
-
-const participantsValue = computed({
-  get: () => props.participants,
-  set: (value) => emit('update:participants', value),
-});
-const hasTwoLegsValue = computed({
-  get: () => props.hasTwoLegs,
-  set: (value) => emit('update:hasTwoLegs', value),
-});
+const participants = defineModel('participants', { type: Number, required: true });
+const isDoubleLegged = defineModel('isDoubleLegged', { type: Boolean, required: true });
 </script>
 
 <style lang="scss" scoped>

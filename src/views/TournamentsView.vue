@@ -15,19 +15,16 @@
       <div class="tournaments__search-bar-radio">
         <AppRadioInput
           v-model="form.filterType"
-          id="search-bar-radio--all"
           text="Todos"
           :value="FilterType.ALL"
         />
         <AppRadioInput
           v-model="form.filterType"
-          id="search-bar-radio--in-progress"
           text="Em andamento"
           :value="FilterType.IN_PROGRESS"
         />
         <AppRadioInput
           v-model="form.filterType"
-          id="search-bar-radio--completed"
           text="Finalizados"
           :value="FilterType.COMPLETED"
         />
