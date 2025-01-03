@@ -5,7 +5,7 @@
       de turnos e equipes participantes.
     </p>
     <AppCounter
-      v-model="participants"
+      v-model="form.participants"
       class="form__counter"
       label="Quantidade de equipes participantes"
       :step="2"
@@ -13,22 +13,39 @@
       :max="ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS"
     />
     <AppToggle
-      v-model="isDoubleLegged"
+      v-model="form.isDoubleLegged"
       text="Campeonato em dois turnos"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import {
   ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
   ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS,
 } from '@/constants/tournament';
+import api from '@/api';
 import AppCounter from './AppCounter.vue';
 import AppToggle from './AppToggle.vue';
 
-const participants = defineModel('participants', { type: Number, required: true });
-const isDoubleLegged = defineModel('isDoubleLegged', { type: Boolean, required: true });
+// Form
+const form = ref({
+  participants: ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
+  isDoubleLegged: false,
+});
+
+function createTournament(tournament: { name: string; iconId: number }) {
+  return api.tournamentService.createAllPlayAllTournament({
+    name: tournament.name,
+    icon: tournament.iconId,
+    numberOfTeams: form.value.participants,
+    isDoubleLegged: form.value.isDoubleLegged,
+  });
+}
+
+// Exposed values
+defineExpose({ createTournament });
 </script>
 
 <style lang="scss" scoped>

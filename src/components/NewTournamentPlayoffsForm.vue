@@ -6,7 +6,7 @@
     </p>
     <div class="form__counter-wrapper">
       <AppCounter
-        v-model="rounds"
+        v-model="form.rounds"
         label="Número de rodadas"
         :min="PLAYOFFS_MIN_NUMBER_OF_ROUNDS"
         :max="PLAYOFFS_MAX_NUMBER_OF_ROUNDS"
@@ -14,16 +14,16 @@
       <AppCounter
         readonly
         label="Equipes participantes"
-        :model-value="2 ** rounds"
+        :model-value="2 ** form.rounds"
       />
     </div>
     <div class="form__toggles">
       <AppToggle
-        v-model="isDoubleLegged"
+        v-model="form.isDoubleLegged"
         text="Partidas de ida e volta"
       />
       <AppToggle
-        v-model="finalRoundIsDoubleLegged"
+        v-model="form.finalRoundIsDoubleLegged"
         text="Final em duas partidas"
       />
     </div>
@@ -31,18 +31,33 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import {
   PLAYOFFS_MIN_NUMBER_OF_ROUNDS, PLAYOFFS_MAX_NUMBER_OF_ROUNDS,
 } from '@/constants/tournament';
+import api from '@/api';
 import AppCounter from './AppCounter.vue';
 import AppToggle from './AppToggle.vue';
 
-const rounds = defineModel('rounds', { type: Number, required: true });
-const isDoubleLegged = defineModel('isDoubleLegged', { type: Boolean, required: true });
-const finalRoundIsDoubleLegged = defineModel('finalRoundIsDoubleLegged', {
-  type: Boolean,
-  required: true,
+// Form
+const form = ref({
+  rounds: PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
+  isDoubleLegged: false,
+  finalRoundIsDoubleLegged: false,
 });
+
+function createTournament(tournament: { name: string; iconId: number }) {
+  return api.tournamentService.createPlayoffsTournament({
+    name: tournament.name,
+    icon: tournament.iconId,
+    numberOfTeams: 2 ** form.value.rounds,
+    isDoubleLegged: form.value.isDoubleLegged,
+    finalRoundIsDoubleLegged: form.value.finalRoundIsDoubleLegged,
+  });
+}
+
+// Exposed values
+defineExpose({ createTournament });
 </script>
 
 <style lang="scss" scoped>

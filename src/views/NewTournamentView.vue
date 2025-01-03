@@ -12,14 +12,11 @@
         <template v-if="activeStepId === FormStep.RULES">
           <NewTournamentAllPlayAllForm
             v-if="settingsForm.format === TournamentFormat.ALL_PLAY_ALL"
-            v-model:participants="allPlayAllForm.participants"
-            v-model:is-double-legged="allPlayAllForm.isDoubleLegged"
+            ref="allPlayAllForm"
           />
           <NewTournamentPlayoffsForm
             v-else-if="settingsForm.format === TournamentFormat.PLAYOFFS"
-            v-model:rounds="playoffsForm.rounds"
-            v-model:is-double-legged="playoffsForm.isDoubleLegged"
-            v-model:final-round-is-double-legged="playoffsForm.finalRoundIsDoubleLegged"
+            ref="playoffsForm"
           />
           <div
             v-else-if="settingsForm.format === TournamentFormat.CUSTOM"
@@ -77,16 +74,12 @@
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { ProgressStepperStep } from '@/types/ProgressStepper';
 import type { TypeTournamentFormat } from '@/types/Tournament';
-import { computed, ref, watch } from 'vue';
+import {
+  computed, ref, useTemplateRef, watch,
+} from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from '@/composables/toast';
-import {
-  ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
-  NEW_TOURNAMENT_DEFAULT_ICON_ID,
-  PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
-  TournamentFormat,
-} from '@/constants/tournament';
-import api from '@/api';
+import { NEW_TOURNAMENT_DEFAULT_ICON_ID, TournamentFormat } from '@/constants/tournament';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import IconSearch from '@/assets/icons/Search.svg';
 import AppButton from '@/components/AppButton.vue';
@@ -128,21 +121,6 @@ const settingsForm = ref({
   format: TournamentFormat.ALL_PLAY_ALL as TypeTournamentFormat,
 });
 
-const isCreatingTournament = ref(false);
-
-// All-play-all form
-const allPlayAllForm = ref({
-  participants: ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
-  isDoubleLegged: false,
-});
-
-// Playoffs form
-const playoffsForm = ref({
-  rounds: PLAYOFFS_MIN_NUMBER_OF_ROUNDS,
-  isDoubleLegged: false,
-  finalRoundIsDoubleLegged: false,
-});
-
 // Page title
 const pageTitle = ref('');
 
@@ -153,6 +131,10 @@ watch(() => activeStepId.value, (currentStepId, previousStepId) => {
 }, { immediate: true });
 
 // Submit form
+const allPlayAllFormRef = useTemplateRef('allPlayAllForm');
+const playoffsFormRef = useTemplateRef('playoffsForm');
+const isCreatingTournament = ref(false);
+
 async function submitForm() {
   if (activeStepId.value === FormStep.FORMAT) {
     activeStepId.value = FormStep.RULES;
@@ -164,22 +146,19 @@ async function submitForm() {
   try {
     let id = '';
 
-    if (settingsForm.value.format === TournamentFormat.ALL_PLAY_ALL) {
-      const { data } = await api.tournamentService.createAllPlayAllTournament({
+    if (settingsForm.value.format === TournamentFormat.ALL_PLAY_ALL && allPlayAllFormRef.value) {
+      const { data } = await allPlayAllFormRef.value.createTournament({
         name: settingsForm.value.name,
-        icon: settingsForm.value.iconId,
-        numberOfTeams: allPlayAllForm.value.participants,
-        isDoubleLegged: allPlayAllForm.value.isDoubleLegged,
+        iconId: settingsForm.value.iconId,
       });
+
       id = data.id;
-    } else if (settingsForm.value.format === TournamentFormat.PLAYOFFS) {
-      const { data } = await api.tournamentService.createPlayoffsTournament({
+    } else if (settingsForm.value.format === TournamentFormat.PLAYOFFS && playoffsFormRef.value) {
+      const { data } = await playoffsFormRef.value.createTournament({
         name: settingsForm.value.name,
-        icon: settingsForm.value.iconId,
-        numberOfTeams: 2 ** playoffsForm.value.rounds,
-        isDoubleLegged: playoffsForm.value.isDoubleLegged,
-        finalRoundIsDoubleLegged: playoffsForm.value.finalRoundIsDoubleLegged,
+        iconId: settingsForm.value.iconId,
       });
+
       id = data.id;
     }
 
