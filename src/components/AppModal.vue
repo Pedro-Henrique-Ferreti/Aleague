@@ -183,6 +183,8 @@ watchEffect(() => {
   }
 }
 .modal-card {
+  --card-padding: 1.5rem;
+  --header-margin-bottom: 1.5rem;
   &[data-size="small"] {
     --max-width: 30rem;
   }
@@ -193,14 +195,14 @@ watchEffect(() => {
   flex-direction: column;
   width: 100%;
   max-width: var(--max-width);
-  padding: 1.5rem;
+  padding: var(--card-padding);
   background-color: $color--white;
   border-radius: 0.75rem;
   box-shadow: $shadow--modal;
   position: relative;
   &__header {
     padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--header-margin-bottom);
     border-bottom: 1px solid $color--neutral-300;
   }
   &__title {
@@ -258,18 +260,28 @@ watchEffect(() => {
   }
 }
 .modal-card[data-format="drawer"] {
-  min-height: 100vh;
+  height: 100vh;
   border-radius: 0;
   .modal-card__title {
     text-align: center;
   }
+  .modal-card__header {
+    margin-bottom: 0;
+  }
   .modal-card__content {
-    padding: 0 0.5rem;
+    @include scrollbar;
+    padding-top: var(--header-margin-bottom);
     padding-bottom: 2.5rem;
+    padding-left: 0.5rem;
+    padding-right: calc(var(--card-padding) + 0.5rem);
+    margin-right: calc(var(--card-padding) * -1);
+    overflow-y: auto;
   }
   .modal-card__footer {
-    padding-top: 1.5rem;
-    margin-top: auto;
+    padding: 1.5rem var(--card-padding);
+    padding-bottom: 0;
+    margin: auto calc(var(--card-padding) * -1);
+    margin-bottom: 0;
     border-top: 1px solid $color--neutral-300;
   }
 }
