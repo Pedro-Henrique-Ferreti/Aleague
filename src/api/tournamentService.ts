@@ -1,12 +1,11 @@
 import {
   TournamentStageType,
-  type ApiCreateAllPlayAllTournamentPayload,
-  type ApiCreatePlayoffsTournamentPayload,
   type ApiGetAllTournamentsResponse,
   type Tournament,
   type TournamentGroupsStagePreview,
   type TournamentStage,
 } from '@/types/Tournament';
+import type { ApiCreateTournamentPayload } from '@/types/NewTournamentForm';
 import { axiosInstance } from '@/helpers/axios';
 
 export default class TournamentService {
@@ -22,23 +21,8 @@ export default class TournamentService {
     return axiosInstance.get<TournamentGroupsStagePreview[]>(`/competitions/${id}/stages/standings`);
   }
 
-  static createAllPlayAllTournament(payload: ApiCreateAllPlayAllTournamentPayload) {
-    return axiosInstance.post<{ id: string }>('/competitions/all-play-all', {
-      name: payload.name,
-      icon: payload.icon,
-      numberOfTeams: payload.numberOfTeams,
-      hasTwoLegs: payload.isDoubleLegged,
-    });
-  }
-
-  static createPlayoffsTournament(payload: ApiCreatePlayoffsTournamentPayload) {
-    return axiosInstance.post<{ id: string }>('/competitions/playoffs', {
-      name: payload.name,
-      icon: payload.icon,
-      numberOfTeams: payload.numberOfTeams,
-      isDoubleLegged: payload.isDoubleLegged,
-      finalRoundIsDoubleLegged: payload.finalRoundIsDoubleLegged,
-    });
+  static createTournament(payload: ApiCreateTournamentPayload) {
+    return axiosInstance.post<{ id: string }>('/competitions', payload);
   }
 
   static addTournamentParticipants(

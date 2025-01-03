@@ -33,8 +33,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import {
-  PLAYOFFS_MIN_NUMBER_OF_ROUNDS, PLAYOFFS_MAX_NUMBER_OF_ROUNDS,
+  PLAYOFFS_MIN_NUMBER_OF_ROUNDS, PLAYOFFS_MAX_NUMBER_OF_ROUNDS, TournamentFormat,
 } from '@/constants/tournament';
+import { TournamentStageType } from '@/types/Tournament';
 import api from '@/api';
 import AppCounter from './AppCounter.vue';
 import AppToggle from './AppToggle.vue';
@@ -47,12 +48,19 @@ const form = ref({
 });
 
 function createTournament(tournament: { name: string; iconId: number }) {
-  return api.tournamentService.createPlayoffsTournament({
+  return api.tournamentService.createTournament({
     name: tournament.name,
     icon: tournament.iconId,
-    numberOfTeams: 2 ** form.value.rounds,
-    isDoubleLegged: form.value.isDoubleLegged,
-    finalRoundIsDoubleLegged: form.value.finalRoundIsDoubleLegged,
+    type: TournamentFormat.PLAYOFFS,
+    stages: [{
+      type: TournamentStageType.PLAYOFFS,
+      name: null,
+      sequence: 1,
+      numberOfTeams: 2 ** form.value.rounds,
+      numberOfRounds: form.value.rounds,
+      isDoubleLegged: form.value.isDoubleLegged,
+      finalRoundIsDoubleLegged: form.value.finalRoundIsDoubleLegged,
+    }],
   });
 }
 

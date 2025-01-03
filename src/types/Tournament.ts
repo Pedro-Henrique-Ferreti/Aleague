@@ -128,18 +128,3 @@ export type ApiGetAllTournamentsResponse = {
   numberOfTeams: number;
   progress: number;
 }[];
-
-export interface ApiCreateAllPlayAllTournamentPayload {
-  name: string;
-  icon: number;
-  numberOfTeams: number;
-  isDoubleLegged: boolean;
-}
-
-export interface ApiCreatePlayoffsTournamentPayload {
-  name: string;
-  icon: number;
-  numberOfTeams: number;
-  isDoubleLegged: boolean;
-  finalRoundIsDoubleLegged: boolean;
-}

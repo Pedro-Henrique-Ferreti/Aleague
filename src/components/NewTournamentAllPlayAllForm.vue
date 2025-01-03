@@ -24,7 +24,10 @@ import { ref } from 'vue';
 import {
   ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS,
   ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS,
+  TournamentFormat,
+  TournamentStageConfrontation,
 } from '@/constants/tournament';
+import { TournamentStageType } from '@/types/Tournament';
 import api from '@/api';
 import AppCounter from './AppCounter.vue';
 import AppToggle from './AppToggle.vue';
@@ -36,11 +39,19 @@ const form = ref({
 });
 
 function createTournament(tournament: { name: string; iconId: number }) {
-  return api.tournamentService.createAllPlayAllTournament({
+  return api.tournamentService.createTournament({
     name: tournament.name,
     icon: tournament.iconId,
-    numberOfTeams: form.value.participants,
-    isDoubleLegged: form.value.isDoubleLegged,
+    type: TournamentFormat.ALL_PLAY_ALL,
+    stages: [{
+      type: TournamentStageType.GROUPS,
+      name: null,
+      sequence: 1,
+      confrontationType: TournamentStageConfrontation.ALL_AGAINST_ALL,
+      numberOfTeams: form.value.participants,
+      numberOfGroups: 1,
+      numberOfLegs: (form.value.isDoubleLegged) ? 2 : 1,
+    }],
   });
 }
 
