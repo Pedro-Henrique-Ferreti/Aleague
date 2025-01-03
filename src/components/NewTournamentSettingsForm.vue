@@ -40,7 +40,7 @@
             próxima fase. A equipe perdedora de cada disputa é eliminada da competição.
           </p>
           <p v-else-if="format === TournamentFormat.CUSTOM">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Você pode combinar fase de grupos e eliminações para criar um campeonato customizado.
           </p>
         </div>
       </div>

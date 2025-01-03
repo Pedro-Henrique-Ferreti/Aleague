@@ -21,6 +21,19 @@
             v-model:is-double-legged="playoffsForm.isDoubleLegged"
             v-model:final-round-is-double-legged="playoffsForm.finalRoundIsDoubleLegged"
           />
+          <div
+            v-else-if="settingsForm.format === TournamentFormat.CUSTOM"
+            class="new-tournament__custom-form-description"
+          >
+            <p>
+              Você deve adicionar fases para o seu campeonato. Uma fase pode ter o formato em
+              grupos ou eliminatório. Você também pode explorar a galeria de modelos e utilizar
+              configurações dos campeonatos mais famosos.
+            </p>
+            <AppTextButton :icon-left="IconSearch">
+              Explorar modelos
+            </AppTextButton>
+          </div>
         </template>
         <NewTournamentSettingsForm
           v-else
@@ -29,6 +42,9 @@
           v-model:format="settingsForm.format"
         />
       </AppCard>
+      <NewTournamentCustomForm
+        v-if="activeStepId === FormStep.RULES && settingsForm.format === TournamentFormat.CUSTOM"
+      />
       <div class="new-tournament__controls">
         <template v-if="activeStepId === FormStep.RULES">
           <AppButton
@@ -72,13 +88,16 @@ import {
 } from '@/constants/tournament';
 import api from '@/api';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
+import IconSearch from '@/assets/icons/Search.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppCard from '@/components/AppCard.vue';
 import AppProgressStepper from '@/components/AppProgressStepper.vue';
+import AppTextButton from '@/components/AppTextButton.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import NewTournamentSettingsForm from '@/components/NewTournamentSettingsForm.vue';
 import NewTournamentAllPlayAllForm from '@/components/NewTournamentAllPlayAllForm.vue';
 import NewTournamentPlayoffsForm from '@/components/NewTournamentPlayoffsForm.vue';
+import NewTournamentCustomForm from '@/components/NewTournamentCustomForm.vue';
 
 const router = useRouter();
 const toast = useToast();
@@ -177,6 +196,12 @@ async function submitForm() {
 
 <style lang="scss" scoped>
 .new-tournament {
+  &__custom-form-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
   &__controls {
     display: flex;
     justify-content: flex-end;
