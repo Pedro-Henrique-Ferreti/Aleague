@@ -1,7 +1,6 @@
 <template>
   <AppModal
     format="dialog"
-    :id="id"
     :title="title"
     :show="show"
     @close="$emit('close')"
@@ -44,10 +43,6 @@ defineEmits(['close', 'confirm']);
 defineProps({
   show: {
     type: Boolean,
-    required: true,
-  },
-  id: {
-    type: String,
     required: true,
   },
   title: {

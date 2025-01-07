@@ -27,7 +27,6 @@
       :selected-round-id="form.selectedRoundId"
     />
     <AppModal
-      id="save-changes-modal"
       title="Salvando alterações"
       format="dialog"
       :show-footer="false"

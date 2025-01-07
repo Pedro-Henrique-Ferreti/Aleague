@@ -1,6 +1,5 @@
 <template>
   <AppModal
-    id="team-list-modal"
     format="drawer"
     :title="teamList?.name || ''"
     :show="!!teamList"

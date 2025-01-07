@@ -15,7 +15,7 @@
             class="modal-card"
             aria-modal="true"
             role="dialog"
-            :aria-labelledby="`${id}--title`"
+            :aria-labelledby="`${elementId}--title`"
             :data-size="size"
             :data-format="format"
           >
@@ -28,7 +28,7 @@
               </div>
               <span
                 v-text="title"
-                :id="`${id}--title`"
+                :id="`${elementId}--title`"
                 class="modal-card__title"
               />
               <AppRemoveButton
@@ -85,21 +85,19 @@ enum Format {
 </script>
 
 <script lang="ts" setup>
-import { watchEffect, type PropType } from 'vue';
+import { useId, watchEffect, type PropType } from 'vue';
 import TransitionOverlayFade from './TransitionOverlayFade.vue';
 import TransitionDrawer from './TransitionDrawer.vue';
 import TransitionDialog from './TransitionDialog.vue';
 import AppButton from './AppButton.vue';
 import AppRemoveButton from './AppRemoveButton.vue';
 
+const elementId = useId();
+
 const emit = defineEmits(['close', 'confirm']);
 const props = defineProps({
   show: {
     type: Boolean,
-    required: true,
-  },
-  id: {
-    type: String,
     required: true,
   },
   title: {

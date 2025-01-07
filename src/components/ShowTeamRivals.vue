@@ -29,7 +29,6 @@
     </div>
     <AppModal
       title="Adicionar rival"
-      id="add-rival-modal"
       confirm-button-text="Adicionar"
       :show="addRivalModalIsOpen"
       :confirm-button-is-loading="isAddingRival"
@@ -46,7 +45,6 @@
     </AppModal>
     <AppModal
       title="Remover rival"
-      id="remove-rival-modal"
       format="dialog"
       :show="!!rivalToRemove"
       :confirm-button-is-loading="isRemovingRival"

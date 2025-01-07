@@ -19,7 +19,6 @@
     </AppButton>
   </div>
   <AppDeleteModal
-    id="delete-team-modal"
     title="Excluir equipe"
     :show="showDeleteModal"
     @close="showDeleteModal = false"
