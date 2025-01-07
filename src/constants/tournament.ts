@@ -1,3 +1,4 @@
+import type { DropdownOption } from '@/types/Dropdown';
 import type { TabPanel } from '@/types/TabPanel';
 
 export const NUMBER_OF_TOURNAMENT_ICONS = 40;
@@ -11,10 +12,16 @@ export const TournamentFormat = {
 } as const;
 
 export const TournamentStageConfrontation = {
-  AGAINST_TEAMS_FROM_SAME_GROUP: 'against-teams-from-same-group',
-  AGAINST_TEAMS_FROM_OTHER_GROUPS: 'against-teams-from-other-groups',
+  SAME_GROUP: 'against-teams-from-same-group',
+  OTHER_GROUPS: 'against-teams-from-other-groups',
   ALL_AGAINST_ALL: 'all-against-all',
 } as const;
+
+export const TOURNAMENT_STAGE_CONFRONTATION_OPTIONS: DropdownOption[] = [
+  { id: TournamentStageConfrontation.SAME_GROUP, text: 'Apenas contra equipes do grupo' },
+  { id: TournamentStageConfrontation.OTHER_GROUPS, text: 'Apenas contra equipes de outros grupos' },
+  { id: TournamentStageConfrontation.ALL_AGAINST_ALL, text: 'Todos contra todos' },
+];
 
 export const ALL_PLAY_ALL_MIN_NUMBER_OF_PARTICIPANTS = 2;
 export const ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS = 24;

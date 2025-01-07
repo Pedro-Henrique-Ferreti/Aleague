@@ -1,13 +1,21 @@
 <template>
   <div class="form">
-    <AppButton>
+    <AppButton @click="showModal = true">
       Adicionar fase
     </AppButton>
+    <NewTournamentStageModal
+      :show="showModal"
+      @close="showModal = false"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import AppButton from './AppButton.vue';
+import NewTournamentStageModal from './NewTournamentStageModal.vue';
+
+const showModal = ref(false);
 </script>
 
 <style lang="scss" scoped>

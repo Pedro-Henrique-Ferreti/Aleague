@@ -1,4 +1,4 @@
-import type { TournamentStageType, TypeStageConfrontationType, TypeTournamentFormat } from './Tournament';
+import type { TournamentStageType, TypeStageConfrontation, TypeTournamentFormat } from './Tournament';
 
 interface BaseFormStage {
   name: string | null;
@@ -9,7 +9,7 @@ interface BaseFormStage {
 
 interface FormGroupsStage extends BaseFormStage {
   type: TournamentStageType.GROUPS;
-  confrontationType: TypeStageConfrontationType;
+  confrontationType: TypeStageConfrontation;
   numberOfGroups: number;
   numberOfLegs: number;
 } 

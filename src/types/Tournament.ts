@@ -8,14 +8,14 @@ export enum TournamentStageType {
 }
 
 export type TypeTournamentFormat = ValueOf<typeof TournamentFormat>;
-export type TypeStageConfrontationType = ValueOf<typeof TournamentStageConfrontation>;
+export type TypeStageConfrontation = ValueOf<typeof TournamentStageConfrontation>;
 
 export interface GroupsStageRules {
   numberOfTeams: number;
   numberOfGroups: number;
   numberOfTeamsPerGroup: number;
   numberOfLegs: number;
-  confrontationType: TypeStageConfrontationType,
+  confrontationType: TypeStageConfrontation,
   qualification: {
     fromPreviousStages: {
       numberOfTeams: number;
