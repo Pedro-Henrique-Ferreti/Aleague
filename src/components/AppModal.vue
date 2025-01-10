@@ -58,6 +58,7 @@
                   <AppButton
                     :block="format === Format.dialog"
                     :is-loading="confirmButtonIsLoading"
+                    :disabled="confirmButtonIsDisabled"
                     @click="$emit('confirm')"
                   >
                     {{ confirmButtonText }}
@@ -129,6 +130,10 @@ const props = defineProps({
     default: 'Cancelar',
   },
   confirmButtonIsLoading: {
+    type: Boolean,
+    default: false,
+  },
+  confirmButtonIsDisabled: {
     type: Boolean,
     default: false,
   },
