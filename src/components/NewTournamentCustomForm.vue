@@ -6,14 +6,21 @@
     <NewTournamentStageModal
       :show="showModal"
       @close="showModal = false"
+      @add-stage="form.stages.push($event)"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { TournamentFormStage } from '@/types/NewTournamentForm';
 import { ref } from 'vue';
 import AppButton from './AppButton.vue';
 import NewTournamentStageModal from './NewTournamentStageModal.vue';
+
+// Form
+const form = ref({
+  stages: [] as TournamentFormStage[],
+});
 
 const showModal = ref(false);
 </script>

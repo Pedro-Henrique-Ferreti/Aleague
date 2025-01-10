@@ -4,6 +4,8 @@
     title="Nova fase"
     confirm-button-text="Salvar alterações"
     :show="show"
+    :confirm-button-is-disabled="!form.name"
+    @confirm="addStage"
     @close="$emit('close')"
   >
     <template #header-icon>
@@ -28,7 +30,7 @@
     </div>
     <div class="stage-modal__fields">
       <AppInput
-        v-model="form.name"
+        v-model.trim="form.name"
         id="new-tournament--name"
         label="Nome"
       />
@@ -74,7 +76,7 @@
         <AppCounter
           readonly
           label="Total de equipes"
-          :model-value="form.numberOfGroups * form.numberOfTeamsPerGroup"
+          :model-value="numberOfGroupStageTeams"
         />
       </div>
     </template>
@@ -101,8 +103,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import type { TournamentFormStage } from '@/types/NewTournamentForm';
 import { TournamentStageType, type TypeStageConfrontation } from '@/types/Tournament';
+import { computed, ref } from 'vue';
 import {
   TOURNAMENT_STAGE_CONFRONTATION_OPTIONS,
   TournamentStageConfrontation,
@@ -115,7 +118,10 @@ import AppDropdown from './AppDropdown.vue';
 import AppToggle from './AppToggle.vue';
 import AppCounter from './AppCounter.vue';
 
-defineEmits(['close']);
+const emit = defineEmits<{
+  (e: 'close'): void;
+  (e: 'add-stage', value: TournamentFormStage): void;
+}>();
 defineProps({
   show: {
     type: Boolean,
@@ -145,6 +151,37 @@ const numberOfPlayoffRounds = computed(() => {
 
   return count;
 });
+
+const numberOfGroupStageTeams = computed(() => (
+  form.value.numberOfGroups * form.value.numberOfTeamsPerGroup
+));
+
+// Add stage
+function addStage() {
+  if (form.value.type === TournamentStageType.GROUPS) {
+    emit('add-stage', {
+      id: new Date().getTime(),
+      name: form.value.name,
+      numberOfTeams: numberOfGroupStageTeams.value,
+      type: TournamentStageType.GROUPS,
+      confrontationType: form.value.confrontationType,
+      numberOfGroups: form.value.numberOfGroups,
+      numberOfLegs: (form.value.doubleLegged) ? 2 : 1,
+    });
+  } else {
+    emit('add-stage', {
+      id: new Date().getTime(),
+      name: form.value.name,
+      numberOfTeams: form.value.numberOfTeams,
+      type: TournamentStageType.PLAYOFFS,
+      numberOfRounds: numberOfPlayoffRounds.value,
+      isDoubleLegged: form.value.doubleLegged,
+      finalRoundIsDoubleLegged: form.value.lastRoundIsDoubleLegged,
+    });
+  }
+
+  emit('close');
+}
 </script>
 
 <style lang="scss" scoped>

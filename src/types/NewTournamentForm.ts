@@ -1,8 +1,9 @@
 import type { TournamentStageType, TypeStageConfrontation, TypeTournamentFormat } from './Tournament';
 
 interface BaseFormStage {
+  id?: number;
   name: string | null;
-  sequence: number;
+  sequence?: number;
   numberOfTeams: number;
   type: TournamentStageType;
 }
