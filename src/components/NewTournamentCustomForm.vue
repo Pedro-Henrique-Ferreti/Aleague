@@ -1,5 +1,11 @@
 <template>
   <div class="form">
+    <NewTournamentStageCard
+      v-for="(stage, index) in form.stages"
+      :key="stage.id"
+      :stage="stage"
+      :order="index + 1"
+    />
     <AppButton @click="showModal = true">
       Adicionar fase
     </AppButton>
@@ -16,6 +22,7 @@ import type { TournamentFormStage } from '@/types/NewTournamentForm';
 import { ref } from 'vue';
 import AppButton from './AppButton.vue';
 import NewTournamentStageModal from './NewTournamentStageModal.vue';
+import NewTournamentStageCard from './NewTournamentStageCard.vue';
 
 // Form
 const form = ref({
