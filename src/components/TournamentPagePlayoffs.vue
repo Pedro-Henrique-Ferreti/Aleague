@@ -38,12 +38,10 @@ type UpdateRoundMatchupsPayload = {
 import type { TournamentPlayoffsStage } from '@/types/Tournament';
 import type { MatchTeam } from '@/types/Match';
 import { computed, type PropType } from 'vue';
-import { useBreakpoints } from '@vueuse/core';
-import { Breakpoints } from '@/constants/breakpoints';
+import { useBreakpoints } from '@/composables/useBreakpoints';
 import TournamentPlayoffRound from './TournamentPlayoffRound.vue';
 
 const breakpoints = useBreakpoints({
-  ...Breakpoints,
   LARGE_DESKTOP_UP: 1500,
 });
 
