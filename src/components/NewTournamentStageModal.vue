@@ -1,11 +1,11 @@
 <template>
   <AppModal
     format="drawer"
-    title="Nova fase"
     confirm-button-text="Salvar alterações"
+    :title="(stage ? 'Editar fase' : 'Nova fase')"
     :show="show"
     :confirm-button-is-disabled="!form.name"
-    @confirm="addStage"
+    @confirm="submitForm"
     @close="$emit('close')"
   >
     <template #header-icon>
@@ -105,7 +105,9 @@
 <script lang="ts" setup>
 import type { TournamentFormStage } from '@/types/NewTournamentForm';
 import { TournamentStageType, type TypeStageConfrontation } from '@/types/Tournament';
-import { computed, ref } from 'vue';
+import {
+  computed, ref, watch, type PropType,
+} from 'vue';
 import {
   TOURNAMENT_STAGE_CONFRONTATION_OPTIONS,
   TournamentStageConfrontation,
@@ -122,13 +124,18 @@ const emit = defineEmits<{
   (e: 'close'): void;
   (e: 'add-stage', value: TournamentFormStage): void;
 }>();
-defineProps({
+const props = defineProps({
   show: {
     type: Boolean,
     required: true,
   },
+  stage: {
+    type: Object as PropType<TournamentFormStage | null>,
+    default: null,
+  },
 });
 
+// Form
 const form = ref({
   type: TournamentStageType.GROUPS,
   name: '',
@@ -138,6 +145,32 @@ const form = ref({
   numberOfGroups: 1,
   numberOfTeamsPerGroup: 2,
   numberOfTeams: 2,
+});
+
+watch(() => props.show, () => {
+  if (!props.show) return;
+
+  form.value.type = props.stage?.type ?? TournamentStageType.GROUPS;
+  form.value.name = props.stage?.name ?? '';
+  form.value.confrontationType = TournamentStageConfrontation.SAME_GROUP;
+  form.value.doubleLegged = false;
+  form.value.lastRoundIsDoubleLegged = false;
+  form.value.numberOfGroups = 1;
+  form.value.numberOfTeamsPerGroup = 2;
+  form.value.numberOfTeams = props.stage?.numberOfTeams ?? 2;
+
+  if (props.stage?.type === TournamentStageType.GROUPS) {
+    form.value.confrontationType = props.stage.confrontationType;
+    form.value.numberOfGroups = props.stage.numberOfGroups;
+    form.value.doubleLegged = props.stage.numberOfLegs > 1;
+    form.value.numberOfTeamsPerGroup = props.stage.numberOfTeams / props.stage.numberOfGroups;
+    return;
+  }
+
+  if (props.stage?.type === TournamentStageType.PLAYOFFS) {
+    form.value.lastRoundIsDoubleLegged = props.stage.finalRoundIsDoubleLegged;
+    form.value.doubleLegged = props.stage.isDoubleLegged;
+  }
 });
 
 const numberOfPlayoffRounds = computed(() => {
@@ -156,11 +189,11 @@ const numberOfGroupStageTeams = computed(() => (
   form.value.numberOfGroups * form.value.numberOfTeamsPerGroup
 ));
 
-// Add stage
-function addStage() {
+// Submit form
+function submitForm() {
   if (form.value.type === TournamentStageType.GROUPS) {
     emit('add-stage', {
-      id: new Date().getTime(),
+      id: (props.stage?.id || new Date().getTime()),
       name: form.value.name,
       numberOfTeams: numberOfGroupStageTeams.value,
       type: TournamentStageType.GROUPS,
@@ -170,7 +203,7 @@ function addStage() {
     });
   } else {
     emit('add-stage', {
-      id: new Date().getTime(),
+      id: (props.stage?.id || new Date().getTime()),
       name: form.value.name,
       numberOfTeams: form.value.numberOfTeams,
       type: TournamentStageType.PLAYOFFS,

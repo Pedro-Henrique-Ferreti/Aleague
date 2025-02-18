@@ -14,6 +14,7 @@
           size="small"
           aria-label="Adicionar fase"
           :icon="IconPlus"
+          @click="stageListIndex = index"
         />
         <IconDashedLine
           class="form__dashed-line"
@@ -23,6 +24,8 @@
       <NewTournamentStageCard
         :stage="stage"
         :order="index + 1"
+        @edit="selectedStage = stage"
+        @delete="form.stages.splice(index, 1)"
       />
     </template>
     <div class="form__button-wrapper">
@@ -31,14 +34,15 @@
         class="form__dashed-line"
         viewBox="0 0 4 48"
       />
-      <AppButton @click="showModal = true">
+      <AppButton @click="stageListIndex = form.stages.length">
         Adicionar fase
       </AppButton>
     </div>
     <NewTournamentStageModal
-      :show="showModal"
-      @close="showModal = false"
-      @add-stage="form.stages.push($event)"
+      :show="stageListIndex !== null || !!selectedStage"
+      :stage="selectedStage"
+      @close="closeStageModal"
+      @add-stage="updateStageList"
     />
   </div>
 </template>
@@ -57,8 +61,31 @@ import NewTournamentStageCard from './NewTournamentStageCard.vue';
 const form = ref({
   stages: [] as TournamentFormStage[],
 });
+const selectedStage = ref<TournamentFormStage | null>(null);
 
-const showModal = ref(false);
+// Stage modal
+const stageListIndex = ref<number | null>(null);
+
+function closeStageModal() {
+  selectedStage.value = null;
+  stageListIndex.value = null;
+}
+
+function updateStageList(stage: TournamentFormStage) {
+  if (stageListIndex.value !== null) {
+    const items = form.value.stages.splice(stageListIndex.value);
+
+    form.value.stages = [...form.value.stages, stage, ...items];
+
+    return;
+  }
+
+  const index = form.value.stages.findIndex(({ id }) => id === selectedStage.value?.id);
+
+  if (index !== -1) {
+    form.value.stages[index] = stage;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
