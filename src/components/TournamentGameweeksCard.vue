@@ -72,6 +72,8 @@ const disableNextButton = computed(() => currentGameweek.value === props.gamewee
 <style lang="scss" scoped>
 .gameweeks-card {
   --base-card--padding: 1.25rem 1rem;
+  position: sticky;
+  top: 1.5rem;
   &__header {
     display: flex;
     justify-content: space-between;
