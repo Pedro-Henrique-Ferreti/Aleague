@@ -50,6 +50,8 @@
 <script lang="ts" setup>
 import type { TournamentFormStage } from '@/types/NewTournamentForm';
 import { ref } from 'vue';
+import { TournamentFormat } from '@/constants/tournament';
+import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
 import IconDashedLine from '@/assets/icons/DashedLine.svg';
 import AppButton from './AppButton.vue';
@@ -86,6 +88,27 @@ function updateStageList(stage: TournamentFormStage) {
     form.value.stages[index] = stage;
   }
 }
+
+// Create tournament
+function createTournament(tournament: { name: string; iconId: number }) {
+  if (form.value.stages.length === 0) {
+    throw new Error('Você deve adicione ao menos uma fase para prosseguir.');
+  }
+
+  return api.tournamentService.createTournament({
+    name: tournament.name,
+    icon: tournament.iconId,
+    type: TournamentFormat.CUSTOM,
+    stages: form.value.stages.map((stage, index) => {
+      const item = { ...stage, sequence: index + 1 };
+      delete item.id;
+      return item;
+    }),
+  });
+}
+
+// Exposed values
+defineExpose({ createTournament });
 </script>
 
 <style lang="scss" scoped>

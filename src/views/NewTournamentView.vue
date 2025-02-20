@@ -41,6 +41,7 @@
       </AppCard>
       <NewTournamentCustomForm
         v-if="activeStepId === FormStep.RULES && settingsForm.format === TournamentFormat.CUSTOM"
+        ref="customForm"
       />
       <div class="new-tournament__controls">
         <template v-if="activeStepId === FormStep.RULES">
@@ -133,6 +134,7 @@ watch(() => activeStepId.value, (currentStepId, previousStepId) => {
 // Submit form
 const allPlayAllFormRef = useTemplateRef('allPlayAllForm');
 const playoffsFormRef = useTemplateRef('playoffsForm');
+const customFormRef = useTemplateRef('customForm');
 const isCreatingTournament = ref(false);
 
 async function submitForm() {
@@ -160,13 +162,24 @@ async function submitForm() {
       });
 
       id = data.id;
+    } else if (settingsForm.value.format === TournamentFormat.CUSTOM && customFormRef.value) {
+      const { data } = await customFormRef.value.createTournament({
+        name: settingsForm.value.name,
+        iconId: settingsForm.value.iconId,
+      });
+
+      id = data.id;
     }
 
     toast.success('Campeonato criado com sucesso!');
 
     router.push({ name: 'show-tournament', params: { id } });
   } catch (error: any) {
-    toast.error('Algo deu errado e não foi possível criar o campeonato. Por favor, tente novamente.');
+    toast.error(
+      (error.name !== 'AxiosError')
+        ? error.message
+        : 'Algo deu errado e não foi possível criar o campeonato. Por favor, tente novamente.',
+    );
   } finally {
     isCreatingTournament.value = false;
   }
