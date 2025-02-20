@@ -30,8 +30,6 @@
             :key="group.id"
             :name="group.name"
             :team-options="teamOptions"
-            :number-of-slots="form.stages[index].slotsPerParticipantsGroup"
-            :number-of-groups="form.stages[index].participantsGroups.length"
             :stages="form.stages"
             :show-team-option-label="tournament.type !== TournamentFormat.ALL_PLAY_ALL"
           />
@@ -53,12 +51,12 @@
 interface ParticipantsGroup {
   id: number;
   name: string;
-  teams: TeamPreview[];
+  teams: ParticipantSlot[];
 }
 
 export interface FormStage {
   stageId: string;
-  slotsPerParticipantsGroup: number;
+  slotsPerGroup: number;
   participantsGroups: ParticipantsGroup[];
 }
 </script>
@@ -67,6 +65,7 @@ export interface FormStage {
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import type { TeamPreview } from '@/types/Team';
 import { TournamentStageType, type Tournament, type TournamentStage } from '@/types/Tournament';
+import type { ParticipantSlot } from '@/types/TournamentParticipant';
 import { computed, ref, type PropType } from 'vue';
 import { useToast } from '@/composables/toast';
 import { TournamentFormat } from '@/constants/tournament';
@@ -108,11 +107,18 @@ function mapTournamentStage(stage: TournamentStage): FormStage {
       ? stage.rules.numberOfGroups
       : stage.rules.numberOfTeams / 2
   );
+  const slotsPerGroup = (
+    stage.type === TournamentStageType.GROUPS ? stage.rules.numberOfTeamsPerGroup : 2
+  );
 
   for (let i = 1; i <= numberOfGroups; i += 1) {
+    const teams: ParticipantSlot[] = [];
+
+    teams[slotsPerGroup - 1] = null;
+
     participantsGroups.push({
       id: i,
-      teams: [],
+      teams: teams.fill(null),
       name: (
         props.tournament.type === TournamentFormat.ALL_PLAY_ALL
           ? 'Equipes'
@@ -121,13 +127,7 @@ function mapTournamentStage(stage: TournamentStage): FormStage {
     });
   }
 
-  return {
-    stageId: stage.id,
-    participantsGroups,
-    slotsPerParticipantsGroup: (
-      stage.type === TournamentStageType.GROUPS ? stage.rules.numberOfTeamsPerGroup : 2
-    ),
-  };
+  return { stageId: stage.id, participantsGroups, slotsPerGroup };
 }
 
 // Form
@@ -164,7 +164,7 @@ function shuffleStageTeams(stageIndex: number) {
   teams.sort(() => Math.random() - 0.5);
 
   for (let i = 0; i < stage.participantsGroups.length; i += 1) {
-    stage.participantsGroups[i].teams = teams.splice(0, stage.slotsPerParticipantsGroup);
+    stage.participantsGroups[i].teams = teams.splice(0, stage.slotsPerGroup);
   }
 }
 
@@ -173,11 +173,11 @@ function fillStageTeams(stageIndex: number) {
   const stage = form.value.stages[stageIndex];
 
   stage.participantsGroups.forEach((group, groupIndex) => {
-    for (let slot = 0; slot < stage.slotsPerParticipantsGroup; slot += 1) {
+    for (let slot = 0; slot < stage.slotsPerGroup; slot += 1) {
       if (!group.teams[slot]) {
         const allSelectedTeams = form.value.stages.flatMap(
           (stage) => stage.participantsGroups.flatMap((group) => group.teams),
-        ).map(({ id }) => id);
+        ).filter(Boolean).map((team) => team?.id);
 
         const availableTeams = teamOptions.value.filter(
           (team) => !allSelectedTeams.includes(team.id),
@@ -208,13 +208,16 @@ function getStageCardTitle(stage: TournamentStage, index: number) {
   return ` ${name} - ${stage.rules.numberOfTeams} equipes`;
 }
 
-// Submit participants
-const submitButtonIsDisabled = computed(() => form.value.stages.some((stage) => (
-  stage.participantsGroups.some(
-    ({ teams }) => teams.filter((i) => !!i).length !== stage.slotsPerParticipantsGroup,
-  )
-)));
+// Submit button
+const submitButtonIsDisabled = computed(() => (
+  form.value.stages.some((stage, index) => (
+    (index > 0)
+      ? false
+      : stage.participantsGroups.some(({ teams }) => teams.some((i) => i === null))
+  ))
+));
 
+// Submit participants
 const isLoading = ref(false);
 
 async function submitParticipants() {
@@ -225,7 +228,9 @@ async function submitParticipants() {
       id: props.tournament.id,
       stages: form.value.stages.map((stage) => ({
         id: stage.stageId,
-        teams: stage.participantsGroups.flatMap((group) => group.teams).map((team) => team.id),
+        teams: stage.participantsGroups.flatMap((group) => group.teams).map((team) => (
+          (team) ? team.id : null
+        )),
       })),
     });
 

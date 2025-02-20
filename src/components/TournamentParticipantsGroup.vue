@@ -5,21 +5,21 @@
       color="blue"
       :text="name"
     />
-    <template v-for="slot in numberOfSlots">
+    <template v-for="(participant, index) in teams">
       <div
-        v-if="teams[slot - 1]"
+        v-if="!!participant"
         class="group__team"
-        :key="teams[slot - 1].id"
+        :key="participant.id"
       >
         <img
           class="group__team-emblem"
-          :src="teams[slot - 1].emblem.url"
-          :alt="`${teams[slot - 1].name}'s emblem'`"
+          :src="participant.emblem.url"
+          :alt="`${participant.name}'s emblem'`"
         />
-        <span>{{ teams[slot - 1].name }}</span>
+        <span>{{ participant.name }}</span>
         <AppRemoveButton
           aria-label="Remover equipe"
-          @click="() => delete teamsValue[slot - 1]"
+          @click="teams[index] = null"
         />
       </div>
       <SelectTeamMenu
@@ -27,8 +27,8 @@
         title="Adicionar equipe"
         confirm-button-text="Adicionar"
         :team-options="selectTeamMenuOptions"
-        :key="slot"
-        @select-team="teamsValue[slot - 1] = $event"
+        :key="index"
+        @select-team="teams[index] = $event"
       >
         <button
           class="group__empty-slot-button"
@@ -45,32 +45,20 @@
 <script lang="ts" setup>
 import type { TeamPreview } from '@/types/Team';
 import type { FormStage } from '@/components/TournamentParticipants.vue';
+import type { ParticipantSlot } from '@/types/TournamentParticipant';
 import { computed, type PropType } from 'vue';
 import IconPlus from '@/assets/icons/Plus.svg';
 import AppChip from './AppChip.vue';
 import AppRemoveButton from './AppRemoveButton.vue';
 import SelectTeamMenu from './SelectTeamMenu.vue';
 
-const emit = defineEmits(['update:teams']);
 const props = defineProps({
   name: {
     type: String,
     required: true,
   },
-  teams: {
-    type: Array as PropType<TeamPreview[]>,
-    required: true,
-  },
   teamOptions: {
     type: Array as PropType<TeamPreview[]>,
-    required: true,
-  },
-  numberOfSlots: {
-    type: Number,
-    required: true,
-  },
-  numberOfGroups: {
-    type: Number,
     required: true,
   },
   stages: {
@@ -82,10 +70,9 @@ const props = defineProps({
     default: true,
   },
 });
-
-const teamsValue = computed({
-  get: () => props.teams,
-  set: (value) => emit('update:teams', value),
+const teams = defineModel('teams', {
+  type: Array as PropType<ParticipantSlot[]>,
+  required: true,
 });
 
 const selectTeamMenuOptions = computed(() => props.teamOptions.map((team) => {
