@@ -16,16 +16,21 @@
       class="tournament__stage-control"
       :stages="tournament.stages"
     />
-    <TournamentPageGroups
-      v-if="form.tournament.stages[0].type === TournamentStageType.GROUPS"
-      v-model:stage="form.tournament.stages[0]"
-    />
-    <TournamentPagePlayoffs
-      v-else
-      v-model:stage="form.tournament.stages[0]"
-      is-last-stage
-      :selected-round-id="form.selectedRoundId"
-    />
+    <template
+      v-for="stage in form.tournament.stages"
+      :key="stage.id"
+    >
+      <TournamentPageGroups
+        v-if="stage.type === TournamentStageType.GROUPS && stage.id === selectedStageId"
+        :stage="stage"
+      />
+      <TournamentPagePlayoffs
+        v-else-if="stage.type === TournamentStageType.PLAYOFFS && stage.id === selectedStageId"
+        :stage="stage"
+        :is-last-stage="stage.id === tournament.stages[tournament.stages.length - 1].id"
+        :selected-round-id="form.selectedRoundId"
+      />
+    </template>
     <AppModal
       title="Salvando alterações"
       format="dialog"
@@ -43,7 +48,7 @@
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import { TournamentStageType, type Tournament } from '@/types/Tournament';
 import {
-  nextTick, onMounted, ref, type PropType,
+  computed, nextTick, ref, type PropType,
 } from 'vue';
 import { useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useToast } from '@/composables/toast';
@@ -78,14 +83,20 @@ const BREADCRUMB_ITEMS: Breadcrumb[] = [
 // Form
 const form = ref({
   tournament: props.tournament,
-  selectedRoundId: '',
+  selectedRoundId: (
+    (props.tournament.stages[0].type === TournamentStageType.PLAYOFFS)
+      ? props.tournament.stages[0].rounds[0].id
+      : props.tournament.stages[0].id
+  ),
 });
 
-onMounted(() => {
-  if (props.tournament.stages[0].type === TournamentStageType.PLAYOFFS) {
-    form.value.selectedRoundId = props.tournament.stages[0].rounds[0].id;
-  }
-});
+const selectedStageId = computed(() => (
+  form.value.tournament.stages.find((stage) => (
+    (stage.type === TournamentStageType.GROUPS)
+      ? stage.id === form.value.selectedRoundId
+      : stage.rounds.some((round) => round.id === form.value.selectedRoundId)
+  ))?.id
+));
 
 // Save changes
 const isSaving = ref(false);

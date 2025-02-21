@@ -23,7 +23,7 @@
           <button
             class="stage-control__round-button"
             type="button"
-            :data-active="modelValue === option.id"
+            :data-active="model === option.id"
             @click="slideTo(index)"
           >
             {{ option.name }}
@@ -61,17 +61,13 @@ import IconChevronRight from '@/assets/icons/ChevronRight.svg';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppIconButton from './AppIconButton.vue';
 
-const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
-  modelValue: {
-    type: String,
-    default: '',
-  },
   stages: {
     type: Array as PropType<TournamentStage[]>,
     required: true,
   },
 });
+const model = defineModel({ type: String, required: true });
 
 const roundOptions = computed<RoundOption[]>(() => props.stages.flatMap((stage) => {
   if (stage.type === TournamentStageType.GROUPS) {
@@ -85,13 +81,13 @@ const roundOptions = computed<RoundOption[]>(() => props.stages.flatMap((stage) 
 }));
 
 const selectedOptionIndex = computed(() => (
-  roundOptions.value.findIndex((option) => option.id === props.modelValue)
+  roundOptions.value.findIndex((option) => option.id === model.value)
 ));
 
 const swiperContainerRef = ref<SwiperElement | null>(null);
 
 function slideTo(index: number) {
-  emit('update:modelValue', roundOptions.value[index].id);
+  model.value = roundOptions.value[index].id;
   swiperContainerRef.value?.swiper.slideTo(index);
 }
 
