@@ -1,7 +1,7 @@
 <template>
   <div class="playoff-round">
     <BaseInput
-      v-model.trim.lazy="nameInput"
+      v-model.lazy="nameInput"
       class="playoff-round__name-input"
       id=""
       type="text"
