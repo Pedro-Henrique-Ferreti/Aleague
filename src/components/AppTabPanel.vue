@@ -1,8 +1,10 @@
 <template>
   <div
-    class="tab-panel | app-base-card"
+    class="tab-panel"
     :class="$attrs.class"
+    :data-theme="theme"
     :data-direction="direction"
+    :data-justify="justify"
   >
     <div class="tab-panel__tabs">
       <swiper-container
@@ -60,9 +62,17 @@ const props = defineProps({
     type: Array as PropType<TabPanelTab[]>,
     required: true,
   },
+  theme: {
+    type: String as PropType<'light' | 'dark'>,
+    default: 'light',
+  },
   direction: {
     type: String as PropType<'vertical' | 'horizontal'>,
     default: 'horizontal',
+  },
+  justify: {
+    type: String as PropType<'center' | 'stretch'>,
+    default: 'stretch',
   },
 });
 
@@ -104,7 +114,7 @@ onMounted(() => {
         @media (min-width: ${Breakpoints.LARGE_TABLET_PORTRAIT_UP}px) {
           .swiper-wrapper {
             display: grid;
-            gap: 0.25rem;
+            gap: 0.5rem;
             width: 100%;
           }
         }
@@ -118,14 +128,31 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .tab-panel {
-  --base-card--padding: 0.75rem;
   display: flex;
   justify-content: center;
-  border-radius: 0.75rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  &[data-theme="light"] {
+    --tab-active-bg-color: #{$color--neutral-100};
+    background-color: $color--white;
+    box-shadow: $shadow--card;
+  }
+  &[data-theme="dark"] {
+    --tab-active-bg-color: #{$color--white};
+    --tab-active-shadow: 0 0 1px 0 rgba(122, 122, 122, 0.25);
+    background-color: $color--neutral-100;
+  }
   &[data-direction="vertical"] {
     @include for-large-tablet-portrait-up {
       --slide-width: auto;
       display: block;
+      padding: 0.75rem;
+    }
+  }
+  &[data-justify="center"] {
+    @include for-large-tablet-portrait-up {
+      margin: 0 auto;
+      max-width: fit-content;
     }
   }
   &__tabs {
@@ -143,17 +170,20 @@ onMounted(() => {
     height: 2.5rem;
     padding: 0 0.75rem;
     border-radius: 0.375rem;
+    color: $color--text;
     font-weight: $font-weight--medium;
-    cursor: pointer;
-    &[data-active="true"] {
-      background-color: $color--neutral-50;
-      color: $color--blue-800;
-    }
     transition:
       background-color $transition--fast,
       color $transition--1;
+    cursor: pointer;
     &:hover:not([data-active="true"]) {
-      background-color: $color--neutral-50;
+      background-color: var(--tab-active-bg-color);
+      box-shadow: var(--tab-active-shadow, none);
+    }
+    &[data-active="true"] {
+      background-color: var(--tab-active-bg-color);
+      color: $color--text-strong;
+      box-shadow: var(--tab-active-shadow, none);
     }
   }
   &__input {
@@ -164,6 +194,7 @@ onMounted(() => {
     &:focus-visible {
       + .tab-panel__tab {
         outline: 2px solid $color--black;
+        outline-offset: -0.125rem;
       }
     }
   }
