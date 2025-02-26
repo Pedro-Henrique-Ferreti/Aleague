@@ -29,17 +29,14 @@
           <template #default="{ activeTabId }">
             <EditTournamentSettings
               v-if="activeTabId === EditTournamentTab.SETTINGS.id"
-              class="tournament__tab"
               :tournament="tournament"
             />
             <EditTournamentSubtitles
               v-else-if="activeTabId === EditTournamentTab.SUBTITLES.id"
-              class="tournament__tab"
               :tournament="tournament"
             />
             <EditTournamentFixtures
               v-else-if="activeTabId === EditTournamentTab.FIXTURES.id"
-              class="tournament__tab"
               :tournament="tournament"
             />
           </template>
@@ -108,11 +105,12 @@ const BREADCRUMB_ITEMS = computed<Breadcrumb[]>(() => ([
       display: grid;
       gap: 1.5rem;
       grid-template-columns: 1fr 5fr;
+      align-items: flex-start;
     }
-  }
-  &__tab {
-    @include for-large-tablet-portrait-down {
-      margin-top: 1.5rem;
+    >:nth-child(2) {
+      @include for-large-tablet-portrait-down {
+        margin-top: 1.5rem;
+      }
     }
   }
 }
