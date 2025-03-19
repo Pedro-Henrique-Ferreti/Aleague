@@ -84,7 +84,7 @@ const isChecked = computed(() => (
   padding: 0.625rem 1rem;
   background-color: $color--white;
   border: 1px solid $color--neutral-300;
-  border-radius: 0.625rem;
+  border-radius: $radius--full;
   color: $color--text;
   font-size: 1rem;
   font-weight: $font-weight--medium;

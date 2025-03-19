@@ -50,7 +50,7 @@ const inputValue = computed({
   padding: 1rem 1.25rem;
   margin-bottom: 2rem;
   background-color: $color--white;
-  border-radius: $radius--medium;
+  border-radius: $radius--extra-large;
   box-shadow: $shadow--card;
   @include for-tablet-landscape-up {
     grid-template-columns: 1fr auto;
