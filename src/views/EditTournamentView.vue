@@ -12,7 +12,7 @@
     >
       <PageHeader
         title="Editar campeonato"
-        :breadcrumb-items="BREADCRUMB_ITEMS"
+        :breadcrumb-items="breadcrumbItems"
       />
       <EditTournamentSettings
         v-if="tournament.type === TournamentFormat.PLAYOFFS"
@@ -47,12 +47,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Breadcrumb } from '@/types/Breadcrumb';
-import type { Tournament } from '@/types/Tournament';
-import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useTournament } from '@/composables/useTournament';
 import { EditTournamentTab, TournamentFormat } from '@/constants/tournament';
-import api from '@/api';
 import AppTabPanel from '@/components/AppTabPanel.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
@@ -62,40 +58,9 @@ import EditTournamentSettings from '@/components/EditTournamentSettings.vue';
 import EditTournamentSubtitles from '@/components/EditTournamentSubtitles.vue';
 import EditTournamentFixtures from '@/components/EditTournamentFixtures.vue';
 
-const route = useRoute();
-
-const tournament = ref<Tournament | null>(null);
-
-// Get tournament
-const isLoading = ref(true);
-const errorMessage = ref('');
-
-async function getTournament() {
-  isLoading.value = true;
-  errorMessage.value = '';
-  tournament.value = null;
-
-  try {
-    const { data } = await api.tournamentService.getTournamentById(route.params.id as string);
-    tournament.value = data;
-  } catch (error: any) {
-    errorMessage.value = 'Algo deu errado e não foi possível carregar o campeonato.';
-  } finally {
-    isLoading.value = false;
-  }
-}
-
-getTournament();
-
-// Breadcrumb items
-const BREADCRUMB_ITEMS = computed<Breadcrumb[]>(() => ([
-  { title: 'Campeonatos', to: { name: 'tournaments' } },
-  {
-    title: tournament.value?.name || '',
-    to: { name: 'show-tournament', params: { id: tournament.value?.id } },
-  },
-  'Editar',
-]));
+const {
+  tournament, isLoading, errorMessage, getTournament, breadcrumbItems,
+} = useTournament({ currentPageName: 'Editar' });
 </script>
 
 <style lang="scss" scoped>
