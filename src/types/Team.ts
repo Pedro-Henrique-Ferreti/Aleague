@@ -55,8 +55,10 @@ export interface TeamPreview {
   name: string;
   country: TypeCountry;
   isFavorite: boolean;
+  isNational: boolean;
+  isSystemTeam: boolean;
   emblem: {
-    id: string;
+    id: string | null;
     url: string;
   };
 }

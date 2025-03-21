@@ -8,6 +8,14 @@ export default class TeamService {
     return axiosInstance.get<TeamPreview[]>('/teams');
   }
 
+  static getTeams(
+    payload?: { page?: number; search?: string; country?: string; showFavorites?: boolean },
+  ) {
+    return axiosInstance.get<{ data: TeamPreview[] }>('/teams', {
+      params: payload,
+    });
+  }
+
   static getTeamLists() {
     return axiosInstance.get<TeamList[]>('/teams/team-packs');
   }

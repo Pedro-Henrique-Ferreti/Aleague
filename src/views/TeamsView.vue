@@ -1,9 +1,6 @@
 <template>
   <main class="teams">
-    <PageHeader
-      title="Equipes"
-      :chip-text="teams.length ? String(teams.length) : ''"
-    >
+    <PageHeader title="Equipes">
       <AppButton
         :to="{ name: 'new-team' }"
         :icon-left="IconPlus"
@@ -11,7 +8,7 @@
         Nova equipe
       </AppButton>
     </PageHeader>
-    <AppToolbar v-model="form.searchValue">
+    <AppToolbar v-model="form.search">
       <AppDropdown
         v-model="form.country"
         class="teams__search-bar-dropdown"
@@ -37,53 +34,49 @@
       <ErrorState
         v-else-if="errorMessage"
         :message="errorMessage"
-        @reload="getTeams"
       />
-      <EmptyState v-else-if="teams.length === 0">
-        Parece que você ainda não adicionou nenhuma equipe.
-        <template #controls>
-          <AppButton
-            color="secondary"
-            :to="{ name: 'new-team' }"
-            :icon-left="IconPlus"
-          >
-            Nova equipe
-          </AppButton>
-        </template>
-      </EmptyState>
       <EmptySearchState
-        v-else-if="displayedTeams.length === 0"
+        v-else-if="teams.length === 0"
         @clear-filters="clearSearchFilters"
       />
       <div
         v-else
-        class="team-grid"
+        class="teams__content"
       >
-        <RouterLink
-          v-for="team in displayedTeams"
-          :key="team.id"
-          class="team-card"
-          :to="{ name: 'show-team', params: { id: team.id } }"
-        >
-          <div class="team-card__header">
-            <div class="team-card__emblem">
-              <img
-                class="team-card__emblem-image"
-                :src="team.emblem.url"
-                :alt="`${team.name}'s emblem`"
-              />
-            </div>
-            <AppChip :text="t(`countryAbbreviations.${team.country}`)">
-              <template #icon-left>
+        <div class="teams__grid">
+          <RouterLink
+            v-for="team in teams"
+            :key="team.id"
+            class="team-card"
+            :to="{ name: 'show-team', params: { id: team.id } }"
+          >
+            <div class="team-card__header">
+              <div class="team-card__emblem">
                 <img
-                  :src="`/images/country-flag/${team.country}.svg`"
-                  alt="Team country flag"
+                  class="team-card__emblem-image"
+                  :src="team.emblem.url"
+                  :alt="`${team.name}'s emblem`"
                 />
-              </template>
-            </AppChip>
-          </div>
-          <span>{{ team.name }}</span>
-        </RouterLink>
+              </div>
+              <AppChip :text="t(`countryAbbreviations.${team.country}`)">
+                <template #icon-left>
+                  <img
+                    :src="`/images/country-flag/${team.country}.svg`"
+                    alt="Team country flag"
+                  />
+                </template>
+              </AppChip>
+            </div>
+            <span>{{ team.name }}</span>
+          </RouterLink>
+        </div>
+        <AppButton
+          color="secondary"
+          :is-loading="isAppendingTeams"
+          @click="form.page += 1"
+        >
+          Carregar mais equipes
+        </AppButton>
       </div>
     </TransitionFade>
   </main>
@@ -91,7 +84,7 @@
 
 <script lang="ts" setup>
 import type { TeamPreview } from '@/types/Team';
-import { computed, ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ALL_COUNTRIES_OPTIONS } from '@/constants/country';
 import api from '@/api';
@@ -101,7 +94,6 @@ import AppRadioInput from '@/components/AppRadioInput.vue';
 import AppDropdown from '@/components/AppDropdown.vue';
 import AppChip from '@/components/AppChip.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
-import EmptyState from '@/components/EmptyState.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import PageHeader from '@/components/PageHeader.vue';
@@ -110,51 +102,53 @@ import EmptySearchState from '@/components/EmptySearchState.vue';
 
 const { t } = useI18n();
 
-// Search bar
+const teams = ref<TeamPreview[]>([]);
 const form = ref({
-  searchValue: '',
+  page: 1,
+  search: '',
   showFavorites: false,
   country: '',
 });
 
-const teams = ref<TeamPreview[]>([]);
-
-const displayedTeams = computed(() => teams.value.filter((team) => {
-  if (form.value.country && team.country !== form.value.country) return false;
-  if (form.value.showFavorites && !team.isFavorite) return false;
-  if (
-    form.value.searchValue
-    && !team.name.toLocaleLowerCase().includes(form.value.searchValue.toLocaleLowerCase())
-  ) return false;
-
-  return true;
-}));
-
-// Clear search filters
-function clearSearchFilters() {
-  form.value.searchValue = '';
-  form.value.showFavorites = false;
-}
-
-// Get teams
-const isLoading = ref(true);
+const isLoading = ref(false);
+const isAppendingTeams = ref(false);
 const errorMessage = ref('');
 
-async function getTeams() {
-  isLoading.value = true;
+async function getTeams(append = false) {
   errorMessage.value = '';
+  if (append) {
+    isAppendingTeams.value = true;
+  } else {
+    isLoading.value = true;
+  }
 
   try {
-    const { data } = await api.teamService.getAllTeams();
-    teams.value = data;
+    const { data: { data } } = await api.teamService.getTeams(form.value);
+
+    if (append) {
+      teams.value = [...teams.value, ...data];
+    } else {
+      teams.value = data;
+    }
   } catch (error: any) {
-    errorMessage.value = 'Algo deu errado e não foi possível listar suas equipes.';
+    errorMessage.value = 'Algo deu errado e não foi possível listar as equipes.';
   } finally {
     isLoading.value = false;
+    isAppendingTeams.value = false;
   }
 }
 
-getTeams();
+watch(() => form.value.page, () => getTeams(true));
+
+// Clear search filters
+function clearSearchFilters() {
+  form.value.page = 1;
+  form.value.search = '';
+  form.value.country = '';
+  form.value.showFavorites = false;
+
+  getTeams();
+}
 </script>
 
 <style lang="scss" scoped>
@@ -166,11 +160,18 @@ getTeams();
   &__search-bar-dropdown {
     min-width: 15.5rem;
   }
-}
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-  gap: 1rem;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 1rem;
+    width: 100%;
+  }
 }
 .team-card {
   padding: 0.75rem;
