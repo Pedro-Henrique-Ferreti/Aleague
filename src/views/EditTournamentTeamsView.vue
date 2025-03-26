@@ -25,18 +25,29 @@
       />
       <AppCard>
         <template #header>
-          <AppIconButton
-            v-tooltip="'Preencher participantes'"
-            color="secondary"
-            aria-label="Preencher participantes"
-            :icon="IconMagicWand"
-          />
-          <AppIconButton
-            v-tooltip="'Embaralhar equipes'"
-            color="secondary"
-            aria-label="Embaralhar equipes"
-            :icon="IconShuffle"
-          />
+          <div class="tournament__card-header">
+            <TeamSearchInput placeholder="Adicionar equipe" />
+            <div class="tournament__card-controls">
+              <AppIconButton
+                v-tooltip="'Limpar participantes'"
+                color="secondary"
+                aria-label="Limpar participantes"
+                :icon="IconEraserOutline"
+              />
+              <AppIconButton
+                v-tooltip="'Preencher participantes'"
+                color="secondary"
+                aria-label="Preencher participantes"
+                :icon="IconMagicWand"
+              />
+              <AppIconButton
+                v-tooltip="'Embaralhar equipes'"
+                color="secondary"
+                aria-label="Embaralhar equipes"
+                :icon="IconShuffle"
+              />
+            </div>
+          </div>
         </template>
         <div class="tournament__card-groups">
           <TournamentParticipantsGroup
@@ -72,6 +83,7 @@ import { computed, ref, watch } from 'vue';
 import { useTournament } from '@/composables/useTournament';
 import IconMagicWand from '@/assets/icons/MagicWand.svg';
 import IconShuffle from '@/assets/icons/Shuffle.svg';
+import IconEraserOutline from '@/assets/icons/EraserOutline.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppCard from '@/components/AppCard.vue';
 import AppIconButton from '@/components/AppIconButton.vue';
@@ -82,6 +94,7 @@ import TransitionFade from '@/components/TransitionFade.vue';
 import { TournamentFormat } from '@/constants/tournament';
 import TournamentParticipantsGroup from '@/components/TournamentParticipantsGroup.vue';
 import TournamentPageStageControl from '@/components/TournamentPageStageControl.vue';
+import TeamSearchInput from '@/components/TeamSearchInput.vue';
 
 // Form
 const form = ref({
@@ -143,10 +156,16 @@ watch(() => tournament.value, () => {
     margin-bottom: 1.5rem;
   }
   &__card-header {
+    display: grid;
+    gap: 1rem;
+    @include for-large-tablet-portrait-up {
+      grid-template-columns: minmax(22rem, 50%) auto;
+    }
+  }
+  &__card-controls {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 0.75rem;
   }
   &__card-groups {
     display: grid;

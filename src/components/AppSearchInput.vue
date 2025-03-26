@@ -6,11 +6,11 @@
     <IconSearch class="search-input__icon" />
     <input
       v-model.trim="inputValue"
+      ref="inputRef"
       class="search-input__input"
       type="text"
-      placeholder="Pesquisar"
       aria-label="Pesquisar"
-      ref="inputRef"
+      :placeholder="placeholder"
       :id="elementId"
     />
   </div>
@@ -30,6 +30,10 @@ const props = defineProps({
   },
   size: {
     type: String as PropType<'small'>,
+    default: '',
+  },
+  placeholder: {
+    type: String,
     default: '',
   },
 });
@@ -56,8 +60,8 @@ defineExpose({
 
 <style lang="scss" scoped>
 .search-input {
-    --input-padding: 1rem;
-    position: relative;
+  --input-padding: 3.125rem;
+  position: relative;
   &[data-size="small"] {
     --input-height: 2.25rem;
     --input-padding: 0.75rem;
@@ -66,9 +70,10 @@ defineExpose({
   &__input {
     width: 100%;
     height: var(--input-height, 2.75rem);
-    padding: var(--input-padding);
+    padding: 0 var(--input-padding);
     color: $color--text;
-    border: 1px solid $color--neutral-300;
+    background-color: $color--neutral-100;
+    border: 1px solid transparent;
     border-radius: $radius--full;
     font-size: var(--input-font-size, 1rem);
     transition: border-color $transition--fastest ease-in;
@@ -80,11 +85,11 @@ defineExpose({
     }
   }
   &__icon {
-    max-width: 1rem;
-    fill: $color--text-400;
+    max-width: 1.25rem;
+    fill: $color--text-strong;
     position: absolute;
     top: 50%;
-    right: var(--input-padding);
+    left: 1rem;
     transform: translateY(-50%);
     pointer-events: none;
   }
