@@ -66,11 +66,15 @@ const props = defineProps({
     type: Array as PropType<TournamentStage[]>,
     required: true,
   },
+  displayPlayoffRounds: {
+    type: Boolean,
+    default: true,
+  },
 });
 const model = defineModel({ type: String, required: true });
 
 const roundOptions = computed<RoundOption[]>(() => props.stages.flatMap((stage) => {
-  if (stage.type === TournamentStageType.GROUPS) {
+  if (stage.type === TournamentStageType.GROUPS || !props.displayPlayoffRounds) {
     return { id: stage.id, name: stage.name || '' };
   }
 
