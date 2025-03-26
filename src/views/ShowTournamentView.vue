@@ -6,11 +6,6 @@
       :message="errorMessage"
       @reload="getTournament"
     />
-    <TournamentParticipants
-      v-else-if="tournament && !tournament.startedAt"
-      :tournament="tournament"
-      @participants-submitted="getTournament"
-    />
     <TournamentPage
       v-else-if="tournament"
       :tournament="tournament"
@@ -27,7 +22,6 @@ import api from '@/api';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import ErrorState from '@/components/ErrorState.vue';
-import TournamentParticipants from '@/components/TournamentParticipants.vue';
 import TournamentPage from '@/components/TournamentPage.vue';
 
 const route = useRoute();

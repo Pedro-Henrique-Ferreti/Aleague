@@ -3,6 +3,7 @@ import TournamentsView from '@/views/TournamentsView.vue';
 import NewTournamentView from '@/views/NewTournamentView.vue';
 import ShowTournamentView from '@/views/ShowTournamentView.vue';
 import EditTournamentView from '@/views/EditTournamentView.vue';
+import EditTournamentTeamsView from '@/views/EditTournamentTeamsView.vue';
 
 export default [
   {
@@ -41,6 +42,16 @@ export default [
       requiresAuth: true,
       headerPath: 'tournaments',
       pageTitle: 'Editar campeonato',
+    },
+  },
+  {
+    path: '/campeonatos/:id/equipes',
+    name: 'edit-tournament-teams',
+    component: EditTournamentTeamsView,
+    meta: {
+      requiresAuth: true,
+      headerPath: 'tournaments',
+      pageTitle: 'Editar equipes',
     },
   },
 ] as RouteRecordRaw[];
