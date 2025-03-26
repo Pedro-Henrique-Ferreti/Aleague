@@ -6,6 +6,7 @@
       id=""
       type="text"
       headless
+      name="Nome da fase"
     />
     <div class="playoff-round__matchups">
       <TournamentPlayoffRoundMatchup

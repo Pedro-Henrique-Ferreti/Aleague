@@ -3,6 +3,7 @@
     class="empty-slot-button"
     :data-size="size"
     :data-active="isActive"
+    :data-theme="theme"
   >
     <IconPlus />
     <span>Adicionar</span>
@@ -19,6 +20,10 @@ defineProps({
     type: String as PropType<'small'>,
     default: null,
   },
+  theme: {
+    type: String as PropType<'light'>,
+    default: null,
+  },
   isActive: {
     type: Boolean,
     default: false,
@@ -30,6 +35,8 @@ defineProps({
 .empty-slot-button {
   &[data-size="small"] {
     height: 2rem;
+  }
+  &[data-theme="light"] {
     background-color: $color--white;
   }
   &[data-active="true"] {

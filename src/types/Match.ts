@@ -8,22 +8,20 @@ export interface MatchTeam {
   };
 }
 
+export interface MatchPlaceholderTeam {
+  id: null;
+  name: string;
+}
+
 export interface Match {
   id: string;
   gameweek: number;
-  homeTeam: MatchTeam | null;
-  awayTeam: MatchTeam | null;
+  homeTeam: MatchTeam | MatchPlaceholderTeam | null;
+  awayTeam: MatchTeam | MatchPlaceholderTeam | null;
   awayTeamScore: number | null;
   homeTeamScore: number | null;
   weekDay: Day;
   time: string;
-}
-
-export interface FinishedMatch extends Match {
-  homeTeam: MatchTeam;
-  awayTeam: MatchTeam;
-  awayTeamScore: number;
-  homeTeamScore: number;
 }
 
 export interface FinishedMatch extends Match {

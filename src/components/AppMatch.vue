@@ -2,18 +2,26 @@
   <div
     class="match"
     :data-direction="direction"
+    :data-tbd="!homeTeam?.id || !awayTeam?.id"
   >
     <BaseMatchTeam
       class="match__team"
       :team="homeTeam"
       :alignment="(direction === 'horizontal') ? 'right' : undefined"
-    />
+    >
+      <EmptySlotButton
+        v-if="allowEmptySlotPlaceholder && homeTeam && !homeTeam.id"
+        size="small"
+        :to="emptySlotRouteLocation"
+        @click="emit('empty-slot-click')"
+      />
+    </BaseMatchTeam>
     <div
       class="match__scores"
       :data-direction="direction"
-      :data-tbd="!homeTeam || !awayTeam"
+      :data-tbd="!homeTeam?.id || !awayTeam?.id"
     >
-      <template v-if="homeTeam && awayTeam">
+      <template v-if="homeTeam?.id && awayTeam?.id">
         <div class="match__score">
           <BaseMatchScoreInput
             :placeholder="direction === 'vertical' ? '-' : null"
@@ -47,21 +55,31 @@
       class="match__team"
       data-away
       :team="awayTeam"
-    />
+    >
+      <EmptySlotButton
+        v-if="allowEmptySlotPlaceholder && awayTeam && !awayTeam.id"
+        size="small"
+        :to="emptySlotRouteLocation"
+        @click="emit('empty-slot-click')"
+      />
+    </BaseMatchTeam>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { MatchTeam } from '@/types/Match';
+import type { MatchPlaceholderTeam, MatchTeam } from '@/types/Match';
 import type { PropType } from 'vue';
+import type { RouteLocationRaw } from 'vue-router';
 import BaseMatchTeam from './BaseMatchTeam.vue';
 import BaseMatchScoreInput from './BaseMatchScoreInput.vue';
+import EmptySlotButton from './EmptySlotButton.vue';
 
 const emit = defineEmits([
   'update:home-score',
   'update:away-score',
   'update:fixture-two-home-score',
   'update:fixture-two-away-score',
+  'empty-slot-click',
 ]);
 defineProps({
   homeScore: {
@@ -85,12 +103,20 @@ defineProps({
     default: 'horizontal',
   },
   homeTeam: {
-    type: Object as PropType<MatchTeam | null>,
+    type: Object as PropType<MatchTeam | MatchPlaceholderTeam | null>,
     default: null,
   },
   awayTeam: {
-    type: Object as PropType<MatchTeam | null>,
+    type: Object as PropType<MatchTeam | MatchPlaceholderTeam | null>,
     default: null,
+  },
+  allowEmptySlotPlaceholder: {
+    type: Boolean,
+    default: false,
+  },
+  emptySlotRouteLocation: {
+    type: [String, Object] as PropType<RouteLocationRaw>,
+    default: '',
   },
 });
 </script>
@@ -101,8 +127,11 @@ defineProps({
   width: 100%;
   &[data-direction="vertical"] {
     grid-template-columns: 1fr auto;
-    place-items: center start;
-    column-gap: 0.75rem;
+    place-items: center normal;
+    row-gap: 0.375rem;
+    &[data-tbd="false"] {
+      column-gap: 0.75rem;
+    }
   }
   &[data-direction="horizontal"] {
     grid-template-columns: 1fr auto 1fr;

@@ -63,35 +63,53 @@
                     {{ row.position }}
                   </div>
                   <div class="team__movement" />
-                  <img
-                    class="team__emblem"
-                    :src="row.team.emblem.url"
-                    :alt="`${row.team.name}'s emblem`"
-                  />
-                  <span>{{ row.team.name }}</span>
+                  <template v-if="row.team.id">
+                    <img
+                      class="team__emblem"
+                      :src="row.team.emblem.url"
+                      :alt="`${row.team.name}'s emblem`"
+                    />
+                    <span>{{ row.team.name }}</span>
+                  </template>
+                  <template v-else>
+                    <IconTeamBadge class="team__emblem team__emblem--default" />
+                    <EmptySlotButton
+                      class="team__empty-slot-button"
+                      theme="light"
+                      size="small"
+                      :to="{ name: 'edit-tournament-teams', params: { id: tournament?.id } }"
+                    />
+                  </template>
                 </div>
               </td>
-              <td class="points">
-                {{ row.points }}
-              </td>
-              <td>{{ row.gamesPlayed }}</td>
-              <td>{{ row.wins }}</td>
-              <td>{{ row.ties }}</td>
-              <td>{{ row.loses }}</td>
-              <td>{{ row.goalsFor }}</td>
-              <td>{{ row.goalsAgainst }}</td>
-              <td>{{ row.goalsFor - row.goalsAgainst }}</td>
-              <td>
-                {{
-                  (row.gamesPlayed === 0) ? 0 : Math.round(row.points / (row.gamesPlayed * 3) * 100)
-                }}%
-              </td>
-              <td>
-                <TournamentTeamRecentMatches
-                  :recent-games="row.recentGames"
-                  :team="row.team"
-                />
-              </td>
+              <template v-if="row.team.id">
+                <td class="points">
+                  {{ row.points }}
+                </td>
+                <td>{{ row.gamesPlayed }}</td>
+                <td>{{ row.wins }}</td>
+                <td>{{ row.ties }}</td>
+                <td>{{ row.loses }}</td>
+                <td>{{ row.goalsFor }}</td>
+                <td>{{ row.goalsAgainst }}</td>
+                <td>{{ row.goalsFor - row.goalsAgainst }}</td>
+                <td>
+                  {{ (row.gamesPlayed === 0)
+                    ? 0
+                    : Math.round(row.points / (row.gamesPlayed * 3) * 100)
+                  }}%
+                </td>
+                <td>
+                  <TournamentTeamRecentMatches
+                    :recent-games="row.recentGames"
+                    :team="row.team"
+                  />
+                </td>
+              </template>
+              <td
+                v-else
+                colspan="10"
+              />
             </tr>
           </TransitionTournamentStandings>
         </table>
@@ -103,9 +121,14 @@
 <script lang="ts" setup>
 import type { ResizeObserverCallback } from '@vueuse/core';
 import type { TournamentStageStandings } from '@/types/Tournament';
-import { computed, ref, type PropType } from 'vue';
+import {
+  computed, inject, ref, type PropType,
+} from 'vue';
 import { useScroll } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
+import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
+import IconTeamBadge from '@/assets/icons/TeamBadge.svg';
+import EmptySlotButton from './EmptySlotButton.vue';
 import TransitionTournamentStandings from './TransitionTournamentStandings.vue';
 import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 
@@ -119,6 +142,9 @@ defineProps({
     required: true,
   },
 });
+
+// Injected values
+const tournament = inject(KEY_TOURNAMENT);
 
 const tableWrapperRef = ref<HTMLElement | null>(null);
 const tableScroll = useScroll(tableWrapperRef);
@@ -275,6 +301,13 @@ function onResizeObserver(entries: Parameters<ResizeObserverCallback>[0]) {
     width: 1.5rem;
     height: 1.5rem;
     margin-right: 0.75rem;
+    flex-shrink: 0;
+    &--default {
+      color: $color--text-300;
+    }
+  }
+  &__empty-slot-button {
+    max-width: 20rem;
   }
 }
 </style>

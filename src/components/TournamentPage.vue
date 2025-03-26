@@ -48,10 +48,11 @@
 import type { Breadcrumb } from '@/types/Breadcrumb';
 import { TournamentStageType, type Tournament } from '@/types/Tournament';
 import {
-  computed, nextTick, ref, type PropType,
+  computed, nextTick, provide, ref, type PropType,
 } from 'vue';
 import { useActiveElement, useMagicKeys, whenever } from '@vueuse/core';
 import { useToast } from '@/composables/toast';
+import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
 import { TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
 import AppButton from './AppButton.vue';
@@ -148,6 +149,9 @@ whenever(keys.shift_S, async () => {
 
   element.focus();
 });
+
+// Provided values
+provide(KEY_TOURNAMENT, props.tournament);
 </script>
 
 <style lang="scss" scoped>

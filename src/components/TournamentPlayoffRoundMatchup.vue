@@ -3,11 +3,13 @@
     <AppMatch
       v-model:home-score="matchupInput.games[0].homeTeamScore"
       v-model:away-score="matchupInput.games[0].awayTeamScore"
+      allow-empty-slot-placeholder
       direction="vertical"
       :home-team="matchup.games[0].homeTeam"
       :away-team="matchup.games[0].awayTeam"
       :fixture-two-home-score="matchup.games[1]?.homeTeamScore"
       :fixture-two-away-score="matchup.games[1]?.awayTeamScore"
+      :empty-slot-route-location="{ name: 'edit-tournament-teams', params: { id: tournament?.id } }"
       @update:fixture-two-home-score="(
         (matchupInput.games[1]) ? matchupInput.games[1].homeTeamScore = $event : null
       )"
@@ -27,7 +29,10 @@
 <script lang="ts" setup>
 import type { TournamentStageRoundMatchup } from '@/types/Tournament';
 import type { MatchTeam } from '@/types/Match';
-import { computed, watch, type PropType } from 'vue';
+import {
+  computed, inject, watch, type PropType,
+} from 'vue';
+import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
 import AppMatch from './AppMatch.vue';
 import AppChip from './AppChip.vue';
 
@@ -48,6 +53,9 @@ const props = defineProps({
     default: false,
   },
 });
+
+// Injected values
+const tournament = inject(KEY_TOURNAMENT);
 
 const matchupInput = computed({
   get: () => props.matchup,

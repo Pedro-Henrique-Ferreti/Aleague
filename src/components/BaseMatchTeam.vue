@@ -4,7 +4,7 @@
     :data-tbd="!team"
     :data-alignment="alignment"
   >
-    <template v-if="team">
+    <template v-if="team && team.id">
       <img
         class="match-team__emblem"
         :src="team.emblem.url"
@@ -14,19 +14,21 @@
     </template>
     <template v-else>
       <IconTeamBadge class="match-team__emblem" />
-      <span>A definir</span>
+      <slot>
+        <span>A definir {{ team?.id === null ? team.name.split('_')[1] : '' }}</span>
+      </slot>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { MatchTeam } from '@/types/Match';
+import type { MatchPlaceholderTeam, MatchTeam } from '@/types/Match';
 import type { PropType } from 'vue';
 import IconTeamBadge from '@/assets/icons/TeamBadge.svg';
 
 defineProps({
   team: {
-    type: Object as PropType<MatchTeam | null>,
+    type: Object as PropType<MatchTeam | MatchPlaceholderTeam | null>,
     default: null,
   },
   alignment: {
@@ -51,6 +53,7 @@ defineProps({
   &__emblem {
     max-width: 1.5rem;
     max-height: 1.5rem;
+    flex-shrink: 0;
     color: $color--text-300;
   }
 }
