@@ -21,10 +21,6 @@
           name="Campeonatos"
           :to="{ name: 'tournaments' }"
         />
-        <TheHeaderNavItem
-          name="Carreiras"
-          :to="{ name: 'careers' }"
-        />
       </ul>
     </nav>
     <div class="header__controls">

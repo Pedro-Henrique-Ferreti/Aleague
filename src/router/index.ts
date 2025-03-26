@@ -3,7 +3,6 @@ import { useAuthStore } from '@/stores/auth';
 import { useTitle } from '@/composables/useTitle';
 import LandingPageView from '@/views/LandingPageView.vue';
 import authRoutes from './auth';
-import careersRoutes from './careers';
 import teamsRoutes from './teams';
 import tournamentsRoutes from './tournaments';
 
@@ -26,7 +25,6 @@ const router = createRouter({
   routes: [
     ...authRoutes,
     ...teamsRoutes,
-    ...careersRoutes,
     ...tournamentsRoutes,
     {
       path: '/',
