@@ -1,5 +1,5 @@
 import type {
-  TeamPreview, ApiTeamToBeCreated, RivalTeam, TeamDetails, TeamEmblem, TeamList,
+  TeamPreview, ApiTeamToBeCreated, RivalTeam, TeamDetails, TeamEmblem,
 } from '@/types/Team';
 import { axiosInstance } from '@/helpers/axios';
 
@@ -14,14 +14,6 @@ export default class TeamService {
     return axiosInstance.get<{ data: TeamPreview[] }>('/teams', {
       params: payload,
     });
-  }
-
-  static getTeamLists() {
-    return axiosInstance.get<TeamList[]>('/teams/team-packs');
-  }
-
-  static applyTeamList(listId: string) {
-    return axiosInstance.post(`/teams/team-packs/${listId}/apply`);
   }
 
   static async getTeamEmblems() {

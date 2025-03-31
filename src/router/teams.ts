@@ -1,7 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import TeamsView from '@/views/TeamsView.vue';
 import NewTeamView from '@/views/NewTeamView.vue';
-import TeamListView from '@/views/TeamListView.vue';
 import CreateTeamsView from '@/views/CreateTeamsView.vue';
 import ShowTeamView from '@/views/ShowTeamView.vue';
 import EditTeamView from '@/views/EditTeamView.vue';
@@ -34,16 +33,6 @@ export default [
       requiresAuth: true,
       headerPath: 'teams',
       pageTitle: 'Nova equipe',
-    },
-  },
-  {
-    path: '/equipes/listas',
-    name: 'team-list',
-    component: TeamListView,
-    meta: {
-      requiresAuth: true,
-      headerPath: 'teams',
-      pageTitle: 'Listas de equipes',
     },
   },
   {

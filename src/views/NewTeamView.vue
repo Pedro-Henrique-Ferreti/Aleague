@@ -11,16 +11,6 @@
       <div class="card__links">
         <RouterLink
           class="card__link"
-          data-theme="blue"
-          :to="{ name: 'team-list' }"
-        >
-          <div class="card__link-icon-wrapper">
-            <IconListSearch />
-          </div>
-          <p>Procurar equipes na lista</p>
-        </RouterLink>
-        <RouterLink
-          class="card__link"
           :to="{ name: 'create-teams' }"
         >
           <div class="card__link-icon-wrapper">
@@ -34,7 +24,6 @@
 </template>
 
 <script lang="ts" setup>
-import IconListSearch from '@/assets/icons/ListSearch.svg';
 import IconCreateMultiple from '@/assets/icons/CreateMultiple.svg';
 import PageHeader from '@/components/PageHeader.vue';
 </script>
