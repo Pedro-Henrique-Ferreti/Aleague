@@ -8,9 +8,7 @@ export default class TeamService {
     return axiosInstance.get<TeamPreview[]>('/teams');
   }
 
-  static getTeams(
-    payload?: { page?: number; search?: string; country?: string; showFavorites?: boolean },
-  ) {
+  static getTeams(payload?: { page?: number; type?: string; name?: string; }) {
     return axiosInstance.get<{ data: TeamPreview[] }>('/teams', {
       params: payload,
     });
