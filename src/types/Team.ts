@@ -1,5 +1,11 @@
 import type { TypeCountry } from './Country';
 
+export enum TeamType {
+  CLUB = 'club',
+  NATIONAL = 'national-team',
+  CUSTOM = 'custom',
+}
+
 export interface TeamEmblem {
   id: string;
   url: string;

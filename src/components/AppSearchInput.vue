@@ -1,16 +1,17 @@
 <template>
   <div
     class="search-input"
+    :class="$attrs.class"
     :data-size="size"
   >
     <IconSearch class="search-input__icon" />
     <input
       v-model.trim="inputValue"
+      v-bind="$attrs"
       ref="inputRef"
       class="search-input__input"
       type="text"
       aria-label="Pesquisar"
-      :placeholder="placeholder"
       :id="elementId"
     />
   </div>
@@ -22,6 +23,7 @@ import {
 } from 'vue';
 import IconSearch from '@/assets/icons/Search.svg';
 
+defineOptions({ inheritAttrs: false });
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
   modelValue: {
@@ -30,10 +32,6 @@ const props = defineProps({
   },
   size: {
     type: String as PropType<'small'>,
-    default: '',
-  },
-  placeholder: {
-    type: String,
     default: '',
   },
 });
