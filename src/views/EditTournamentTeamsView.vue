@@ -14,7 +14,9 @@
         title="Editar equipes"
         :breadcrumb-items="breadcrumbItems"
       >
-        <AppButton>Salvar alterações</AppButton>
+        <AppButton @click="submitParticipants">
+          Salvar alterações
+        </AppButton>
       </PageHeader>
       <TournamentPageStageControl
         v-if="tournament.type === TournamentFormat.CUSTOM"
@@ -26,7 +28,10 @@
       <AppCard>
         <template #header>
           <div class="tournament__card-header">
-            <TeamSearchInput placeholder="Adicionar equipe" />
+            <TeamSearchInput
+              placeholder="Adicionar equipe"
+              @team-selected="onTeamSelected"
+            />
             <div class="tournament__card-controls">
               <AppIconButton
                 v-tooltip="'Limpar participantes'"
@@ -79,8 +84,11 @@ export interface FormStage {
 <script lang="ts" setup>
 import { TournamentStageType } from '@/types/Tournament';
 import type { ParticipantSlot } from '@/types/TournamentParticipant';
+import type { TeamPreview } from '@/types/Team';
 import { computed, ref, watch } from 'vue';
+import { useToast } from '@/composables/toast';
 import { useTournament } from '@/composables/useTournament';
+import api from '@/api';
 import IconMagicWand from '@/assets/icons/MagicWand.svg';
 import IconShuffle from '@/assets/icons/Shuffle.svg';
 import IconEraserOutline from '@/assets/icons/EraserOutline.svg';
@@ -95,6 +103,8 @@ import { TournamentFormat } from '@/constants/tournament';
 import TournamentParticipantsGroup from '@/components/TournamentParticipantsGroup.vue';
 import TournamentPageStageControl from '@/components/TournamentPageStageControl.vue';
 import TeamSearchInput from '@/components/TeamSearchInput.vue';
+
+const toast = useToast();
 
 // Form
 const form = ref({
@@ -146,7 +156,122 @@ watch(() => tournament.value, () => {
 
   form.value.selectedStageId = tournament.value.stages[0].id;
 });
+
+// On team selected
+function onTeamSelected(team: TeamPreview) {
+  const stage = form.value.stages[selectedStageIndex.value];
+  const index = stage.participantsGroups.findIndex((group) => group.teams.includes(null));
+  const slotIndex = stage.participantsGroups[index].teams.findIndex(
+    (teamSlot) => teamSlot === null,
+  );
+
+  stage.participantsGroups[index].teams[slotIndex] = team;
+}
+
+// Submit participants
+const isSubmitting = ref(false);
+
+async function submitParticipants() {
+  isSubmitting.value = true;
+
+  try {
+    await api.tournamentService.addStageParticipants({
+      stageId: form.value.stages[selectedStageIndex.value].stageId,
+      teams: form.value.stages[selectedStageIndex.value].participantsGroups.flatMap(
+        (group) => (group.teams.map((team) => team)
+        ),
+      ).map((team, index) => ({ teamId: team?.id || '', tbdId: `TBD_${index + 1}` })),
+    });
+  } catch (error: any) {
+    toast.error('Não foi possivel iniciar o campeonato. Por favor, tente novamente.');
+  } finally {
+    isSubmitting.value = false;
+  }
+}
 </script>
+
+<!-- <script lang="ts" setup>
+import type { TeamPreview } from '@/types/Team';
+import { TournamentStageType, type Tournament, type TournamentStage } from '@/types/Tournament';
+import type { ParticipantSlot } from '@/types/TournamentParticipant';
+import { computed, ref, type PropType } from 'vue';
+import { useToast } from '@/composables/toast';
+import { TournamentFormat } from '@/constants/tournament';
+import api from '@/api';
+
+const toast = useToast();
+
+// Shuffle teams
+function shuffleStageTeams(stageIndex: number) {
+  const stage = form.value.stages[stageIndex];
+  const teams = stage.participantsGroups.flatMap((group) => group.teams);
+
+  teams.sort(() => Math.random() - 0.5);
+
+  for (let i = 0; i < stage.participantsGroups.length; i += 1) {
+    stage.participantsGroups[i].teams = teams.splice(0, stage.slotsPerGroup);
+  }
+}
+
+// Fill teams
+function fillStageTeams(stageIndex: number) {
+  const stage = form.value.stages[stageIndex];
+
+  stage.participantsGroups.forEach((group, groupIndex) => {
+    for (let slot = 0; slot < stage.slotsPerGroup; slot += 1) {
+      if (!group.teams[slot]) {
+        const allSelectedTeams = form.value.stages.flatMap(
+          (stage) => stage.participantsGroups.flatMap((group) => group.teams),
+        ).filter(Boolean).map((team) => team?.id);
+
+        const availableTeams = teamOptions.value.filter(
+          (team) => !allSelectedTeams.includes(team.id),
+        );
+
+        if (availableTeams.length > 0) {
+          form.value.stages[stageIndex].participantsGroups[groupIndex].teams[slot] = (
+            availableTeams[Math.floor(Math.random() * availableTeams.length)]
+          );
+        }
+      }
+    }
+  });
+}
+
+// Submit button
+const submitButtonIsDisabled = computed(() => (
+  form.value.stages.some((stage, index) => (
+    (index > 0)
+      ? false
+      : stage.participantsGroups.some(({ teams }) => teams.some((i) => i === null))
+  ))
+));
+
+// Submit participants
+const isLoading = ref(false);
+
+async function submitParticipants() {
+  isLoading.value = true;
+
+  try {
+    await api.tournamentService.addTournamentParticipants({
+      id: props.tournament.id,
+      stages: form.value.stages.map((stage) => ({
+        id: stage.stageId,
+        teams: stage.participantsGroups.flatMap((group) => group.teams).map((team) => (
+          (team) ? team.id : null
+        )),
+      })),
+    });
+
+    emit('participants-submitted');
+  } catch (error: any) {
+    toast.error('Não foi possivel iniciar o campeonato. Por favor, tente novamente.');
+  } finally {
+    isLoading.value = false;
+  }
+}
+</script> -->
 
 <style lang="scss" scoped>
 .tournament {

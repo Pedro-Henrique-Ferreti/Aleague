@@ -71,7 +71,7 @@ import AppRadioInput from './AppRadioInput.vue';
 import TeamSearchInputOption from './TeamSearchInputOption.vue';
 
 const emit = defineEmits<{
-  (e: 'select-team', team: TeamPreview): void;
+  (e: 'team-selected', team: TeamPreview): void;
 }>();
 defineProps({
   placeholder: {
@@ -144,7 +144,7 @@ watch(() => menuIsOpen.value, () => {
 });
 
 function onSelectTeam(team: TeamPreview) {
-  emit('select-team', team);
+  emit('team-selected', team);
 }
 
 function onEnterKeypress() {
