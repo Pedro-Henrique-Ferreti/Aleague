@@ -38,7 +38,7 @@
   }
   .v-popper__inner {
     @include scrollbar;
-    max-height: 11rem;
+    max-height: var(--v-popper-dropdown--max-height, 11rem);
   }
   .v-popper__arrow-container {
     display: none;
