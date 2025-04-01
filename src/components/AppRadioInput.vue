@@ -103,7 +103,6 @@ const isChecked = computed(() => (
   }
   &[data-size="small"] {
     padding: 0.375rem 0.75rem;
-    border-radius: 0.5rem;
     font-size: 0.875rem;
   }
   &[data-checked="true"] {
