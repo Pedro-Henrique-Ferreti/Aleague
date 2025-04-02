@@ -46,15 +46,25 @@
           />
         </div>
         <div class="popper__content">
-          <ul class="popper__list">
-            <TeamSearchInputOption
-              v-for="(opt, index) in teams"
-              :key="opt.id"
-              :team="opt"
-              :is-focused="index === focusCursor"
-              @select="onSelectTeam(opt)"
+          <TransitionFade>
+            <IconSpinner
+              v-if="isLoading"
+              class="popper__loader"
+              size="32"
             />
-          </ul>
+            <ul
+              v-else
+              class="popper__list"
+            >
+              <TeamSearchInputOption
+                v-for="(opt, index) in teams"
+                :key="opt.id"
+                :team="opt"
+                :is-focused="index === focusCursor"
+                @select="onSelectTeam(opt)"
+              />
+            </ul>
+          </TransitionFade>
         </div>
       </div>
     </template>
@@ -67,8 +77,10 @@ import { ref, useTemplateRef, watch } from 'vue';
 import { Dropdown } from 'floating-vue';
 import { onClickOutside, useDebounceFn } from '@vueuse/core';
 import api from '@/api';
+import IconSpinner from './IconSpinner.vue';
 import AppSearchInput from './AppSearchInput.vue';
 import AppRadioInput from './AppRadioInput.vue';
+import TransitionFade from './TransitionFade.vue';
 import TeamSearchInputOption from './TeamSearchInputOption.vue';
 
 const emit = defineEmits<{
@@ -93,7 +105,7 @@ const menuIsOpen = ref(false);
 const teams = ref<TeamPreview[]>([]);
 const isLoading = ref(false);
 
-const getTeams = useDebounceFn(async () => {
+async function getTeams() {
   teams.value = [];
 
   if (!form.value.search) return;
@@ -111,9 +123,11 @@ const getTeams = useDebounceFn(async () => {
   } finally {
     isLoading.value = false;
   }
-}, 500);
+}
 
-watch(() => form.value.search, getTeams);
+const debouncedGetTeams = useDebounceFn(getTeams, 500);
+
+watch(() => form.value.search, debouncedGetTeams);
 watch(() => form.value.teamType, getTeams);
 
 // Focus cursor
@@ -181,6 +195,12 @@ onClickOutside(searchInputRef, () => {
     margin-right: calc(var(--content-padding) * -1);
     padding-right: var(--content-padding);
     overflow-y: auto;
+  }
+  &__loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
   }
 }
 </style>
