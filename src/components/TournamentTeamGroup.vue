@@ -6,19 +6,19 @@
       :text="name"
     />
     <template
-      v-for="(participant, index) in teams"
+      v-for="(slot, index) in teams"
       :key="index"
     >
       <div
-        v-if="!!participant"
+        v-if="!!slot"
         class="group__team"
       >
         <img
           class="group__team-emblem"
-          :src="participant.emblem.url"
-          :alt="`${participant.name}'s emblem'`"
+          :src="slot.emblem.url"
+          :alt="`${slot.name}'s emblem'`"
         />
-        <span>{{ participant.name }}</span>
+        <span>{{ slot.name }}</span>
         <AppRemoveButton
           aria-label="Remover equipe"
           @click="teams[index] = null"
@@ -30,8 +30,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { ParticipantSlot } from '@/types/TournamentParticipant';
 import type { PropType } from 'vue';
+import type { TeamSlot } from '@/views/EditTournamentTeamsView.vue';
 import AppChip from './AppChip.vue';
 import AppRemoveButton from './AppRemoveButton.vue';
 import EmptySlotButton from './EmptySlotButton.vue';
@@ -43,7 +43,7 @@ defineProps({
   },
 });
 const teams = defineModel('teams', {
-  type: Array as PropType<ParticipantSlot[]>,
+  type: Array as PropType<TeamSlot[]>,
   required: true,
 });
 </script>
