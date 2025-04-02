@@ -205,10 +205,10 @@ function getTournamentTypeText(type: TypeTournamentFormat) {
     display: grid;
     grid-template-columns: repeat(var(--columns), 1fr);
     gap: 1.5rem;
-    @include for-tablet-landscape-up {
+    @include for-large-tablet-landscape-up {
       --columns: 2;
     }
-    @include for-desktop-up {
+    @media (min-width: 1600px) {
       --columns: 3;
     }
   }
