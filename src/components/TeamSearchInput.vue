@@ -4,13 +4,14 @@
     theme="app-dropdown"
     auto-size="min"
     popper-class="team-input-popper"
-    :triggers="['click']"
-    @apply-show="focusSearchInput"
+    :triggers="[]"
+    :auto-hide="false"
   >
     <AppSearchInput
       v-model="form.search"
       ref="searchInputRef"
       :placeholder="placeholder"
+      @click="menuIsOpen = true"
       @keypress.enter.prevent="onEnterKeypress"
       @keyup.esc="menuIsOpen = false"
       @keyup.up="moveFocusCursor(-1)"
@@ -64,7 +65,7 @@
 import { TeamType, type TeamPreview } from '@/types/Team';
 import { ref, useTemplateRef, watch } from 'vue';
 import { Dropdown } from 'floating-vue';
-import { useDebounceFn } from '@vueuse/core';
+import { onClickOutside, useDebounceFn } from '@vueuse/core';
 import api from '@/api';
 import AppSearchInput from './AppSearchInput.vue';
 import AppRadioInput from './AppRadioInput.vue';
@@ -85,9 +86,11 @@ const form = ref({
   teamType: TeamType.CLUB as TeamType | '',
 });
 
-const teams = ref<TeamPreview[]>([]);
+// Show/hide menu
+const menuIsOpen = ref(false);
 
-// Get teams
+// Teams
+const teams = ref<TeamPreview[]>([]);
 const isLoading = ref(false);
 
 const getTeams = useDebounceFn(async () => {
@@ -96,6 +99,7 @@ const getTeams = useDebounceFn(async () => {
   if (!form.value.search) return;
 
   isLoading.value = true;
+  menuIsOpen.value = true;
 
   try {
     const { data: { data } } = await api.teamService.getTeams({
@@ -111,16 +115,6 @@ const getTeams = useDebounceFn(async () => {
 
 watch(() => form.value.search, getTeams);
 watch(() => form.value.teamType, getTeams);
-
-// Show/hide menu
-const menuIsOpen = ref(false);
-
-// Search input
-const searchInputRef = useTemplateRef('searchInputRef');
-
-function focusSearchInput() {
-  setTimeout(() => searchInputRef.value?.focus(), 20);
-}
 
 // Focus cursor
 const focusCursor = ref(-1);
@@ -143,8 +137,12 @@ watch(() => menuIsOpen.value, () => {
   focusCursor.value = -1;
 });
 
+// Event listeners
+const searchInputRef = useTemplateRef<HTMLElement>('searchInputRef');
+
 function onSelectTeam(team: TeamPreview) {
   emit('team-selected', team);
+  menuIsOpen.value = false;
 }
 
 function onEnterKeypress() {
@@ -157,6 +155,10 @@ function onEnterKeypress() {
     onSelectTeam(teams.value[focusCursor.value]);
   }
 }
+
+onClickOutside(searchInputRef, () => {
+  menuIsOpen.value = false;
+}, { ignore: ['.team-input-popper'] });
 </script>
 
 <style lang="scss" scoped>
