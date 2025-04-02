@@ -285,7 +285,8 @@ function onResizeObserver(entries: Parameters<ResizeObserverCallback>[0]) {
   padding-left: 0.625rem;
   background-color: $color--white;
   border-bottom: 1px solid $color--neutral-300;
-  border-left: 3px solid #008F62;
+  // border-left: 3px solid #008F62;
+  border-left: 3px solid transparent;
   text-align: left;
   &__position {
     width: 1.625rem;
