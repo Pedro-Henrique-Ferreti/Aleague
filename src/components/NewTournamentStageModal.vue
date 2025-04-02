@@ -120,6 +120,11 @@ import AppDropdown from './AppDropdown.vue';
 import AppToggle from './AppToggle.vue';
 import AppCounter from './AppCounter.vue';
 
+const DefaultStageName = {
+  GROUPS: 'Fase de grupos',
+  PLAYOFFS: 'Playoffs',
+} as const;
+
 const emit = defineEmits<{
   (e: 'close'): void;
   (e: 'add-stage', value: TournamentFormStage): void;
@@ -138,7 +143,7 @@ const props = defineProps({
 // Form
 const form = ref({
   type: TournamentStageType.GROUPS,
-  name: '',
+  name: DefaultStageName.GROUPS as string,
   confrontationType: TournamentStageConfrontation.SAME_GROUP as TypeStageConfrontation,
   doubleLegged: false,
   lastRoundIsDoubleLegged: false,
@@ -147,11 +152,21 @@ const form = ref({
   numberOfTeams: 2,
 });
 
+watch(() => form.value.type, (type) => {
+  if (type === TournamentStageType.GROUPS && form.value.name === DefaultStageName.PLAYOFFS) {
+    form.value.name = DefaultStageName.GROUPS;
+  }
+
+  if (type === TournamentStageType.PLAYOFFS && form.value.name === DefaultStageName.GROUPS) {
+    form.value.name = DefaultStageName.PLAYOFFS;
+  }
+});
+
 watch(() => props.show, () => {
   if (!props.show) return;
 
   form.value.type = props.stage?.type ?? TournamentStageType.GROUPS;
-  form.value.name = props.stage?.name ?? '';
+  form.value.name = props.stage?.name ?? DefaultStageName.GROUPS;
   form.value.confrontationType = TournamentStageConfrontation.SAME_GROUP;
   form.value.doubleLegged = false;
   form.value.lastRoundIsDoubleLegged = false;
