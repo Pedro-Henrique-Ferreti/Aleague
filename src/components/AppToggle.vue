@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { useId } from 'vue';
 import IconCheck from '@/assets/icons/Check.svg';
-import IconSpinner from './icons/IconSpinner.vue';
+import IconSpinner from './IconSpinner.vue';
 
 const elementId = useId();
 

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import IconSpinner from './icons/IconSpinner.vue';
+import IconSpinner from './IconSpinner.vue';
 </script>
 
 <style lang="scss" scoped>

@@ -44,7 +44,7 @@ const Sizes = {
 import type { PropType } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
 import type { ValueOf } from '@/types/Auth';
-import IconSpinner from './icons/IconSpinner.vue';
+import IconSpinner from './IconSpinner.vue';
 import BaseButton from './BaseButton.vue';
 
 const emit = defineEmits(['click']);
