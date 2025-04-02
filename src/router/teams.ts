@@ -1,30 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router';
-import TeamsView from '@/views/TeamsView.vue';
-import NewTeamView from '@/views/NewTeamView.vue';
 import CreateTeamsView from '@/views/CreateTeamsView.vue';
 import ShowTeamView from '@/views/ShowTeamView.vue';
 import EditTeamView from '@/views/EditTeamView.vue';
 
 export default [
-  {
-    path: '/equipes',
-    name: 'teams',
-    component: TeamsView,
-    meta: {
-      requiresAuth: true,
-      pageTitle: 'Equipes',
-    },
-  },
-  {
-    path: '/equipes/novo',
-    name: 'new-team',
-    component: NewTeamView,
-    meta: {
-      requiresAuth: true,
-      headerPath: 'teams',
-      pageTitle: 'Adicionar equipe',
-    },
-  },
   {
     path: '/equipes/criar-equipes',
     name: 'create-teams',

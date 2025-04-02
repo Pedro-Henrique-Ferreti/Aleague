@@ -16,7 +16,7 @@ async function notAuthenticatedGuard() {
   const { userIsAuthenticated } = useAuthStore();
 
   if (userIsAuthenticated) {
-    return { name: 'teams' };
+    return { name: 'tournaments' };
   }
 }
 
@@ -62,7 +62,7 @@ export default [
       const { user } = useAuthStore();
 
       if (user?.emailVerifiedAt) {
-        return { name: 'teams' };
+        return { name: 'tournaments' };
       }
     },
   },

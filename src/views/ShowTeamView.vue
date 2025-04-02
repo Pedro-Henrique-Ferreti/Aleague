@@ -47,7 +47,7 @@ const team = ref<TeamDetails | null>(null);
 
 // Breadcrumb items
 const breadcrumbItems = computed<Breadcrumb[]>(() => ([
-  { title: 'Equipes', to: { name: 'teams' } },
+  'Equipes',
   team.value?.name || '',
 ]));
 

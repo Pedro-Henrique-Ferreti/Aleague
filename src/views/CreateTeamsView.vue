@@ -110,8 +110,7 @@ const toast = useToast();
 
 // Breadcrumb items
 const BREADCRUMB_ITEMS: Breadcrumb[] = [
-  { title: 'Equipes', to: { name: 'teams' } },
-  { title: 'Adicionar equipe', to: { name: 'new-team' } },
+  'Equipes',
   'Criar nova equipe',
 ];
 

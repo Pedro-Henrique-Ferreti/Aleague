@@ -16,7 +16,7 @@ async function notAuthenticatedGuard() {
   const { userIsAuthenticated } = useAuthStore();
 
   if (userIsAuthenticated) {
-    return { name: 'teams' };
+    return { name: 'tournaments' };
   }
 }
 

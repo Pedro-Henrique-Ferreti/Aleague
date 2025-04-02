@@ -64,7 +64,7 @@ async function deleteTeam() {
 
     toast.success('Equipe excluída com sucesso.');
 
-    router.push({ name: 'teams' });
+    router.push({ name: 'tournaments' });
   } catch (error: any) {
     toast.error('Algo deu errado e não foi possível excluir a equipe.');
   } finally {

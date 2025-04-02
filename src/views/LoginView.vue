@@ -110,7 +110,7 @@ async function submitForm() {
 
   try {
     await authStore.login(form.value);
-    router.push({ name: 'teams' });
+    router.push({ name: 'tournaments' });
   } catch (error: any) {
     errorMessage.value = (error.response)
       ? (error.response as ApiError).data.message

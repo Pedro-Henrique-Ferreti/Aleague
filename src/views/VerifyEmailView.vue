@@ -75,7 +75,7 @@ async function submitForm() {
       user,
     });
 
-    router.push({ name: 'teams' });
+    router.push({ name: 'tournaments' });
   } catch (error: any) {
     errorMessage.value = (error.response)
       ? (error.response as ApiError).data.message

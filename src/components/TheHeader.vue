@@ -1,28 +1,24 @@
 <template>
   <header class="header | container">
     <div class="header__logo-wrapper">
-      <TheHeaderMenuButton
+      <!-- <TheHeaderMenuButton
         :menu-is-open="menuIsOpen"
         @click="menuIsOpen = !menuIsOpen"
-      />
+      /> -->
       <AppLogo class="header__logo" />
     </div>
-    <nav
+    <!-- <nav
       class="header__nav"
       id="header-nav"
       :data-open="menuIsOpen"
     >
       <ul class="header__nav-list">
         <TheHeaderNavItem
-          name="Equipes"
-          :to="{ name: 'teams' }"
-        />
-        <TheHeaderNavItem
           name="Campeonatos"
           :to="{ name: 'tournaments' }"
         />
       </ul>
-    </nav>
+    </nav> -->
     <div class="header__controls">
       <TheHeaderButtonSettings />
       <TheHeaderButtonNotifications />
@@ -32,23 +28,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+// import { ref, watch } from 'vue';
+// import { useRoute } from 'vue-router';
 import AppLogo from './AppLogo.vue';
 import TheHeaderUserMenu from './TheHeaderUserMenu.vue';
 import TheHeaderButtonSettings from './TheHeaderButtonSettings.vue';
 import TheHeaderButtonNotifications from './TheHeaderButtonNotifications.vue';
-import TheHeaderNavItem from './TheHeaderNavItem.vue';
-import TheHeaderMenuButton from './TheHeaderMenuButton.vue';
+// import TheHeaderNavItem from './TheHeaderNavItem.vue';
+// import TheHeaderMenuButton from './TheHeaderMenuButton.vue';
 
-const route = useRoute();
+// const route = useRoute();
 
 // Menu
-const menuIsOpen = ref(false);
+// const menuIsOpen = ref(false);
 
-watch(() => route.name, () => {
-  menuIsOpen.value = false;
-});
+// watch(() => route.name, () => {
+//   menuIsOpen.value = false;
+// });
 </script>
 
 <style lang="scss" scoped>
