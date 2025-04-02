@@ -34,6 +34,7 @@
                 color="secondary"
                 aria-label="Limpar participantes"
                 :icon="IconEraserOutline"
+                @click="resetTeamGroups"
               />
               <AppIconButton
                 v-tooltip="'Preencher participantes'"
@@ -46,6 +47,7 @@
                 color="secondary"
                 aria-label="Embaralhar equipes"
                 :icon="IconShuffle"
+                @click="shuffleTeams"
               />
               <AppButton
                 :disabled="submitButtonIsDisabled"
@@ -173,6 +175,25 @@ function onTeamSelected(team: TeamPreview) {
   group.teams[emptySlotIndex] = team;
 }
 
+// Reset team groups
+function resetTeamGroups() {
+  form.value.stages[activeStageIndex.value].groups.forEach((group) => {
+    group.teams.fill(null);
+  });
+}
+
+// Shuffle teams
+function shuffleTeams() {
+  const stage = form.value.stages[activeStageIndex.value];
+  const teams = stage.groups.flatMap((group) => group.teams);
+
+  teams.sort(() => Math.random() - 0.5);
+
+  for (let i = 0; i < stage.groups.length; i += 1) {
+    stage.groups[i].teams = teams.splice(0, stage.slotsPerGroup);
+  }
+}
+
 // Submit teams
 const isSubmitting = ref(false);
 const submitButtonIsDisabled = computed(() => (
@@ -199,20 +220,6 @@ async function submitTeams() {
   }
 }
 </script>
-
-<!-- <script lang="ts" setup>
-// Shuffle teams
-function shuffleStageTeams(stageIndex: number) {
-  const stage = form.value.stages[stageIndex];
-  const teams = stage.participantsGroups.flatMap((group) => group.teams);
-
-  teams.sort(() => Math.random() - 0.5);
-
-  for (let i = 0; i < stage.participantsGroups.length; i += 1) {
-    stage.participantsGroups[i].teams = teams.splice(0, stage.slotsPerGroup);
-  }
-}
-</script> -->
 
 <style lang="scss" scoped>
 .tournament {
