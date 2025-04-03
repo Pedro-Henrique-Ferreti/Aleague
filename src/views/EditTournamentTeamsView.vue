@@ -171,7 +171,10 @@ watch(() => tournament.value, () => {
         teams = stage.groups[i - 1].standings.map(({ team }) => (team.id === null ? null : team));
       } else {
         const { firstTeam, secondTeam } = stage.rounds[0].matchups[i - 1];
-        teams = [firstTeam, secondTeam];
+        teams = [
+          firstTeam?.id === null ? null : firstTeam,
+          secondTeam?.id === null ? null : secondTeam,
+        ];
       }
 
       teamGroups.push({
