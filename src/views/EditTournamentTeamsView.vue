@@ -22,7 +22,10 @@
         :stages="tournament.stages"
       />
       <AppCard>
-        <template #header>
+        <template
+          v-if="!form.stages[activeStageIndex].disabled"
+          #header
+        >
           <div class="tournament__card-header">
             <TeamSearchInput
               placeholder="Adicionar equipe"
@@ -64,6 +67,7 @@
             v-model:teams="form.stages[activeStageIndex].groups[i].teams"
             :key="group.id"
             :name="group.name"
+            :disabled="form.stages[activeStageIndex].disabled"
           />
         </div>
       </AppCard>
@@ -72,7 +76,7 @@
 </template>
 
 <script lang="ts">
-export type TeamSlot = TeamPreview | null;
+export type TeamSlot = TeamPreview | MatchTeam | null;
 
 interface TeamGroup {
   id: number;
@@ -82,6 +86,7 @@ interface TeamGroup {
 
 export interface FormStage {
   stageId: string;
+  disabled: boolean;
   slotsPerGroup: number;
   groups: TeamGroup[];
 }
@@ -90,6 +95,7 @@ export interface FormStage {
 <script lang="ts" setup>
 import { TournamentStageType } from '@/types/Tournament';
 import type { TeamPreview } from '@/types/Team';
+import type { MatchTeam } from '@/types/Match';
 import { computed, ref, watch } from 'vue';
 import { useToast } from '@/composables/toast';
 import { useTournament } from '@/composables/useTournament';
@@ -141,13 +147,18 @@ watch(() => tournament.value, () => {
     );
 
     for (let i = 1; i <= numberOfGroups; i += 1) {
-      const teams: TeamSlot[] = [];
+      let teams: TeamSlot[] = [];
 
-      teams[slotsPerGroup - 1] = null;
+      if (stage.type === TournamentStageType.GROUPS) {
+        teams = stage.groups[i - 1].standings.map(({ team }) => (team.id === null ? null : team));
+      } else {
+        const { firstTeam, secondTeam } = stage.rounds[0].matchups[i - 1];
+        teams = [firstTeam, secondTeam];
+      }
 
       teamGroups.push({
         id: i,
-        teams: teams.fill(null),
+        teams,
         name: (
           tournament.value?.type === TournamentFormat.ALL_PLAY_ALL
             ? 'Equipes'
@@ -156,7 +167,12 @@ watch(() => tournament.value, () => {
       });
     }
 
-    return { stageId: stage.id, groups: teamGroups, slotsPerGroup };
+    return {
+      stageId: stage.id,
+      disabled: teamGroups.every((group) => group.teams.every((team) => team !== null)),
+      groups: teamGroups,
+      slotsPerGroup,
+    };
   });
 
   form.value.selectedStageId = tournament.value.stages[0].id;
@@ -243,6 +259,7 @@ async function submitTeams() {
   &__card-groups {
     display: grid;
     gap: 1.5rem 1rem;
+    margin-top: 0.625rem;
     @include for-tablet-portrait-up {
       grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     }

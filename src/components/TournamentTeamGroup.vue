@@ -20,6 +20,7 @@
         />
         <span>{{ slot.name }}</span>
         <AppRemoveButton
+          v-if="!disabled"
           aria-label="Remover equipe"
           @click="teams[index] = null"
         />
@@ -40,6 +41,10 @@ defineProps({
   name: {
     type: String,
     required: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 const teams = defineModel('teams', {
