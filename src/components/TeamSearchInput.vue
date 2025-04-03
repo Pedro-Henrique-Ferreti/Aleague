@@ -90,8 +90,7 @@ type DisabledTeam = { id: string; label: string };
 <script lang="ts" setup>
 import { TeamType, type TeamPreview } from '@/types/Team';
 import {
-  computed,
-  ref, useTemplateRef, watch, type PropType,
+  computed, ref, useTemplateRef, watch, type PropType,
 } from 'vue';
 import { Dropdown } from 'floating-vue';
 import { onClickOutside, useDebounceFn } from '@vueuse/core';
@@ -105,6 +104,7 @@ import AppChip from './AppChip.vue';
 
 const emit = defineEmits<{
   (e: 'team-selected', team: TeamPreview): void;
+  (e: 'close-menu'): void;
 }>();
 const props = defineProps({
   placeholder: {
@@ -125,6 +125,9 @@ const form = ref({
 // Show/hide menu
 const menuIsOpen = ref(false);
 
+watch(() => menuIsOpen.value, (value) => {
+  if (!value) emit('close-menu');
+});
 // Teams
 const teams = ref<TeamPreview[]>([]);
 const isLoading = ref(false);
@@ -202,6 +205,15 @@ function onEnterKeypress() {
 onClickOutside(searchInputRef, () => {
   menuIsOpen.value = false;
 }, { ignore: ['.team-input-popper'] });
+
+function focusSearchInput() {
+  searchInputRef.value?.focus();
+}
+
+// Exposed values
+defineExpose({
+  focus: focusSearchInput,
+});
 </script>
 
 <style lang="scss" scoped>

@@ -28,9 +28,11 @@
         >
           <div class="tournament__card-header">
             <TeamSearchInput
+              ref="teamSearchInputRef"
               placeholder="Adicionar equipe"
               :disabled-teams="selectedTeams"
               @team-selected="onTeamSelected"
+              @close-menu="onSelectTeamSlot(null, null)"
             />
             <div class="tournament__card-controls">
               <AppIconButton
@@ -66,9 +68,12 @@
           <TournamentTeamGroup
             v-for="(group, i) in form.stages[activeStageIndex].groups"
             v-model:teams="form.stages[activeStageIndex].groups[i].teams"
+            :selected-team-slot="form.selectedTeamSlot"
+            :group-is-selected="form.selectedGroupIndex === i"
             :key="group.id"
             :name="group.name"
             :disabled="form.stages[activeStageIndex].disabled"
+            @empty-slot-click="onSelectTeamSlot($event, i)"
           />
         </div>
       </AppCard>
@@ -97,7 +102,9 @@ export interface FormStage {
 import { TournamentStageType } from '@/types/Tournament';
 import type { TeamPreview } from '@/types/Team';
 import type { MatchTeam } from '@/types/Match';
-import { computed, ref, watch } from 'vue';
+import {
+  computed, ref, useTemplateRef, watch,
+} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from '@/composables/toast';
 import { useTournament } from '@/composables/useTournament';
@@ -124,6 +131,8 @@ const toast = useToast();
 // Form
 const form = ref({
   stages: [] as FormStage[],
+  selectedGroupIndex: null as number | null,
+  selectedTeamSlot: null as number | null,
 });
 
 // Selected teams
@@ -199,9 +208,18 @@ const activeStageIndex = computed(() => form.value.stages.findIndex(
 
 // On team selected
 function onTeamSelected(team: TeamPreview) {
-  const group = form.value.stages[activeStageIndex.value]?.groups.find(
-    (group) => group.teams.includes(null),
-  );
+  const { selectedGroupIndex, selectedTeamSlot } = form.value;
+  const stage = form.value.stages[activeStageIndex.value];
+
+  if (selectedGroupIndex !== null && selectedTeamSlot !== null) {
+    stage.groups[selectedGroupIndex].teams[selectedTeamSlot] = team;
+
+    form.value.selectedGroupIndex = null;
+    form.value.selectedTeamSlot = null;
+    return;
+  }
+
+  const group = stage.groups.find((group) => group.teams.includes(null));
 
   if (!group) return;
 
@@ -252,6 +270,23 @@ async function submitTeams() {
     toast.error('Não foi possivel adicionar as equipes. Por favor, tente novamente.');
   } finally {
     isSubmitting.value = false;
+  }
+}
+
+// Team search input ref
+const teamSearchInputRef = useTemplateRef('teamSearchInputRef');
+
+function focusTeamSearchInput() {
+  teamSearchInputRef.value?.focus();
+}
+
+// Select team slot
+function onSelectTeamSlot(slotIndex: number | null, groupIndex: number | null) {
+  form.value.selectedTeamSlot = slotIndex;
+  form.value.selectedGroupIndex = groupIndex;
+
+  if (slotIndex !== null && groupIndex !== null) {
+    focusTeamSearchInput();
   }
 }
 </script>

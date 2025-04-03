@@ -25,7 +25,11 @@
           @click="teams[index] = null"
         />
       </div>
-      <EmptySlotButton v-else />
+      <EmptySlotButton
+        v-else
+        :is-active="groupIsSelected && selectedTeamSlot === index"
+        @click="$emit('empty-slot-click', selectedTeamSlot === index ? null : index)"
+      />
     </template>
   </div>
 </template>
@@ -37,12 +41,21 @@ import AppChip from './AppChip.vue';
 import AppRemoveButton from './AppRemoveButton.vue';
 import EmptySlotButton from './EmptySlotButton.vue';
 
+defineEmits(['empty-slot-click']);
 defineProps({
   name: {
     type: String,
     required: true,
   },
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  selectedTeamSlot: {
+    type: Number as PropType<number | null>,
+    default: null,
+  },
+  groupIsSelected: {
     type: Boolean,
     default: false,
   },
