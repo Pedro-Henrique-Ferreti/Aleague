@@ -1,6 +1,9 @@
 <template>
   <div class="card | app-base-card">
-    <div class="card__header">
+    <div
+      v-if="$slots.header"
+      class="card__header"
+    >
       <slot name="header">
         <h2 class="card__title">
           {{ title }}
