@@ -16,7 +16,7 @@
       />
       <TournamentPageStageControl
         v-if="tournament.type === TournamentFormat.CUSTOM"
-        v-model="form.selectedStageId"
+        v-model="selectedStageId"
         class="tournament__stage-control"
         :display-playoff-rounds="false"
         :stages="tournament.stages"
@@ -97,6 +97,7 @@ import { TournamentStageType } from '@/types/Tournament';
 import type { TeamPreview } from '@/types/Team';
 import type { MatchTeam } from '@/types/Match';
 import { computed, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useToast } from '@/composables/toast';
 import { useTournament } from '@/composables/useTournament';
 import api from '@/api';
@@ -115,17 +116,14 @@ import TournamentTeamGroup from '@/components/TournamentTeamGroup.vue';
 import TournamentPageStageControl from '@/components/TournamentPageStageControl.vue';
 import TeamSearchInput from '@/components/TeamSearchInput.vue';
 
+const route = useRoute();
+const router = useRouter();
 const toast = useToast();
 
 // Form
 const form = ref({
   stages: [] as FormStage[],
-  selectedStageId: '',
 });
-
-const activeStageIndex = computed(() => form.value.stages.findIndex(
-  ({ stageId }) => stageId === form.value.selectedStageId,
-));
 
 // Tournament
 const {
@@ -174,9 +172,19 @@ watch(() => tournament.value, () => {
       slotsPerGroup,
     };
   });
-
-  form.value.selectedStageId = tournament.value.stages[0].id;
 });
+
+// Selected stage
+const selectedStageId = computed({
+  get: () => (
+    route.query.stageId as string || tournament.value?.stages[0].id || ''
+  ),
+  set: (stageId) => (router.replace({ query: { stageId } })),
+});
+
+const activeStageIndex = computed(() => form.value.stages.findIndex(
+  ({ stageId }) => stageId === selectedStageId.value,
+));
 
 // On team selected
 function onTeamSelected(team: TeamPreview) {

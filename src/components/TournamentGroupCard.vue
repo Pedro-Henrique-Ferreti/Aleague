@@ -77,7 +77,11 @@
                       class="team__empty-slot-button"
                       theme="light"
                       size="small"
-                      :to="{ name: 'edit-tournament-teams', params: { id: tournament?.id } }"
+                      :to="{
+                        name: 'edit-tournament-teams',
+                        params: { id: tournament?.id },
+                        query: { stageId: stage.id },
+                      }"
                     />
                   </template>
                 </div>
@@ -120,7 +124,7 @@
 
 <script lang="ts" setup>
 import type { ResizeObserverCallback } from '@vueuse/core';
-import type { TournamentStageStandings } from '@/types/Tournament';
+import type { TournamentGroupsStage, TournamentStageStandings } from '@/types/Tournament';
 import {
   computed, inject, ref, type PropType,
 } from 'vue';
@@ -139,6 +143,10 @@ defineProps({
   },
   standings: {
     type: Object as PropType<TournamentStageStandings[]>,
+    required: true,
+  },
+  stage: {
+    type: Object as PropType<TournamentGroupsStage>,
     required: true,
   },
 });

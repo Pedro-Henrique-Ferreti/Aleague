@@ -9,7 +9,9 @@
       :away-team="matchup.games[0].awayTeam"
       :fixture-two-home-score="matchup.games[1]?.homeTeamScore"
       :fixture-two-away-score="matchup.games[1]?.awayTeamScore"
-      :empty-slot-route-location="{ name: 'edit-tournament-teams', params: { id: tournament?.id } }"
+      :empty-slot-route-location="{
+        name: 'edit-tournament-teams', params: { id: tournament?.id }, query: { stageId: stage?.id },
+      }"
       @update:fixture-two-home-score="(
         (matchupInput.games[1]) ? matchupInput.games[1].homeTeamScore = $event : null
       )"
@@ -32,7 +34,7 @@ import type { MatchTeam } from '@/types/Match';
 import {
   computed, inject, watch, type PropType,
 } from 'vue';
-import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
+import { KEY_TOURNAMENT, KEY_TOURNAMENT_STAGE } from '@/constants/injectionKeys';
 import AppMatch from './AppMatch.vue';
 import AppChip from './AppChip.vue';
 
@@ -56,6 +58,7 @@ const props = defineProps({
 
 // Injected values
 const tournament = inject(KEY_TOURNAMENT);
+const stage = inject(KEY_TOURNAMENT_STAGE);
 
 const matchupInput = computed({
   get: () => props.matchup,

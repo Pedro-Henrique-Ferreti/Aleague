@@ -6,6 +6,7 @@
         :key="group.number"
         :title="(stage.groups.length === 1) ? 'Classificação' : `Grupo ${group.number}`"
         :standings="group.standings"
+        :stage="stage"
       />
     </div>
     <TournamentGameweeksCard v-model:gameweeks="stageValue.gameweeks" />

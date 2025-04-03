@@ -37,8 +37,9 @@ type UpdateRoundMatchupsPayload = {
 <script lang="ts" setup>
 import type { TournamentPlayoffsStage } from '@/types/Tournament';
 import type { MatchTeam } from '@/types/Match';
-import { computed, type PropType } from 'vue';
+import { computed, provide, type PropType } from 'vue';
 import { useBreakpoints } from '@/composables/useBreakpoints';
+import { KEY_TOURNAMENT_STAGE } from '@/constants/injectionKeys';
 import TournamentPlayoffRound from './TournamentPlayoffRound.vue';
 
 const breakpoints = useBreakpoints({
@@ -140,6 +141,9 @@ function updateRoundMatchups(payload: UpdateRoundMatchupsPayload) {
     updateMatchupSecondTeam(nextRoundIndex, matchupIndex, payload.team);
   }
 }
+
+// Provided values
+provide(KEY_TOURNAMENT_STAGE, props.stage);
 </script>
 
 <style lang="scss" scoped>
