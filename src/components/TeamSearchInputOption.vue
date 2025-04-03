@@ -1,8 +1,10 @@
 <template>
-  <li
+  <button
     class="team-option"
+    type="button"
     tabindex="-1"
-    :data-focused="isFocused"
+    :disabled="disabled"
+    :data-focused="focused"
     @click="$emit('select')"
     @keypress.enter.prevent="$emit('select')"
   >
@@ -13,6 +15,7 @@
         :src="team.emblem.url"
       />
       <span>{{ team.name }}</span>
+      <slot name="left-chip" />
     </div>
     <AppChip :text="t(`countryAbbreviations.${team.country}`)">
       <template #icon-left>
@@ -22,7 +25,7 @@
         />
       </template>
     </AppChip>
-  </li>
+  </button>
 </template>
 
 <script lang="ts" setup>
@@ -39,7 +42,11 @@ defineProps({
     type: Object as PropType<TeamPreview>,
     required: true,
   },
-  isFocused: {
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  focused: {
     type: Boolean,
     default: false,
   },
@@ -52,17 +59,21 @@ defineProps({
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
   height: 2rem;
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   transition:
     background-color $transition--fastest linear,
     color $transition--fastest linear;
-  cursor: pointer;
-  &:hover,
+  &:hover:not(:disabled),
   &[data-focused="true"] {
     background-color: $color--neutral-200;
     color: $color--text-strong;
+  }
+  &:disabled .team-option__content > span {
+    color: $color--text-400;
+    text-decoration: line-through;
   }
   &__content {
     display: flex;

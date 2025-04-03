@@ -84,7 +84,8 @@ defineProps({
     padding: 0 0.125rem;
     font-size: 0.75rem;
   }
-  &[data-rounded="false"] {
+  &[data-rounded="false"],
+  &[data-size="small"] {
     --border-radius: #{$radius--small};
   }
   &[data-color="primary"] {

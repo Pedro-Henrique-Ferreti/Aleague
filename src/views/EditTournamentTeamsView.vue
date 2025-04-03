@@ -29,6 +29,7 @@
           <div class="tournament__card-header">
             <TeamSearchInput
               placeholder="Adicionar equipe"
+              :disabled-teams="selectedTeams"
               @team-selected="onTeamSelected"
             />
             <div class="tournament__card-controls">
@@ -124,6 +125,16 @@ const toast = useToast();
 const form = ref({
   stages: [] as FormStage[],
 });
+
+// Selected teams
+const selectedTeams = computed(() => (
+  form.value.stages[activeStageIndex.value].groups.flatMap((group) => (
+    group.teams.filter((team) => team !== null).map((team) => ({
+      id: team.id,
+      label: group.name,
+    }))
+  ))
+));
 
 // Tournament
 const {

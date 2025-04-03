@@ -52,18 +52,30 @@
               class="popper__loader"
               size="32"
             />
-            <ul
+            <div
               v-else
               class="popper__list"
             >
               <TeamSearchInputOption
-                v-for="(opt, index) in teams"
+                v-for="(opt, index) in teamOptions"
                 :key="opt.id"
                 :team="opt"
-                :is-focused="index === focusCursor"
+                :focused="index === focusCursor"
+                :disabled="opt.disabled"
                 @select="onSelectTeam(opt)"
-              />
-            </ul>
+              >
+                <template
+                  v-if="opt.disabled"
+                  #left-chip
+                >
+                  <AppChip
+                    color="blue"
+                    size="small"
+                    :text="disabledTeams.find((team) => team.id === opt.id)?.label"
+                  />
+                </template>
+              </TeamSearchInputOption>
+            </div>
           </TransitionFade>
         </div>
       </div>
@@ -71,9 +83,16 @@
   </Dropdown>
 </template>
 
+<script lang="ts">
+type DisabledTeam = { id: string; label: string };
+</script>
+
 <script lang="ts" setup>
 import { TeamType, type TeamPreview } from '@/types/Team';
-import { ref, useTemplateRef, watch } from 'vue';
+import {
+  computed,
+  ref, useTemplateRef, watch, type PropType,
+} from 'vue';
 import { Dropdown } from 'floating-vue';
 import { onClickOutside, useDebounceFn } from '@vueuse/core';
 import api from '@/api';
@@ -82,14 +101,19 @@ import AppSearchInput from './AppSearchInput.vue';
 import AppRadioInput from './AppRadioInput.vue';
 import TransitionFade from './TransitionFade.vue';
 import TeamSearchInputOption from './TeamSearchInputOption.vue';
+import AppChip from './AppChip.vue';
 
 const emit = defineEmits<{
   (e: 'team-selected', team: TeamPreview): void;
 }>();
-defineProps({
+const props = defineProps({
   placeholder: {
     type: String,
     default: '',
+  },
+  disabledTeams: {
+    type: Array as PropType<DisabledTeam[]>,
+    default: () => ([]),
   },
 });
 
@@ -104,6 +128,11 @@ const menuIsOpen = ref(false);
 // Teams
 const teams = ref<TeamPreview[]>([]);
 const isLoading = ref(false);
+
+const teamOptions = computed(() => (teams.value.map((team) => ({
+  ...team,
+  disabled: !!props.disabledTeams.find(({ id }) => id === team.id),
+}))));
 
 async function getTeams() {
   teams.value = [];
