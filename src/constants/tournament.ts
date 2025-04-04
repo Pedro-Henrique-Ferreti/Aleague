@@ -1,5 +1,4 @@
 import type { DropdownOption } from '@/types/Dropdown';
-import type { TabPanel } from '@/types/TabPanel';
 
 export const NUMBER_OF_TOURNAMENT_ICONS = 40;
 
@@ -28,21 +27,6 @@ export const ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS = 24;
 
 export const PLAYOFFS_MIN_NUMBER_OF_ROUNDS = 1;
 export const PLAYOFFS_MAX_NUMBER_OF_ROUNDS = 7;
-
-export const EditTournamentTab: TabPanel = {
-  SETTINGS: {
-    id: 'edit-tournament-tab-settings',
-    name: 'Geral',
-  },
-  SUBTITLES: {
-    id: 'edit-tournament-tab-subtitles',
-    name: 'Legendas',
-  },
-  FIXTURES: {
-    id: 'edit-tournament-tab-fixtures',
-    name: 'Partidas',
-  },
-} as const;
 
 export const STANDINGS_SUBTITLE_COLORS = [
   '#008F62', '#0069CC', '#FCA311', '#E73737', '#ADADAD', '#AF52DE',
