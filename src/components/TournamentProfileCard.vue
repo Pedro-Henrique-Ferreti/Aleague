@@ -28,11 +28,6 @@
     </div>
     <div class="tournament-card__controls">
       <AppIconButton
-        v-tooltip="'Duplicar campeonato'"
-        color="secondary"
-        :icon="IconCopy"
-      />
-      <AppIconButton
         v-tooltip="'Editar campeonato'"
         color="secondary"
         :icon="IconPencil"
@@ -49,7 +44,6 @@ import { formatDate } from '@/utils';
 import IconCalendarAdd from '@/assets/icons/CalendarAdd.svg';
 import IconShield from '@/assets/icons/Shield.svg';
 import IconPencil from '@/assets/icons/Pencil.svg';
-import IconCopy from '@/assets/icons/Copy.svg';
 import AppChip from './AppChip.vue';
 import AppIconButton from './AppIconButton.vue';
 
