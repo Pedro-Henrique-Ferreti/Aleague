@@ -57,6 +57,7 @@
                 @click="shuffleTeams"
               />
               <AppButton
+                :is-loading="isSubmitting"
                 :disabled="submitButtonIsDisabled"
                 @click="submitTeams"
               >
@@ -274,6 +275,10 @@ async function submitTeams() {
         ),
       ).map((team, index) => ({ teamId: team?.id || '', tbdId: `TBD_${index + 1}` })),
     });
+
+    toast.success('Equipes adicionadas com sucesso!');
+
+    router.push({ name: 'show-tournament', params: { id: tournament.value?.id } });
   } catch (error: any) {
     toast.error('Não foi possivel adicionar as equipes. Por favor, tente novamente.');
   } finally {
