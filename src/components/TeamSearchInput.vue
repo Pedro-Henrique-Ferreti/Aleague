@@ -141,6 +141,11 @@ const menuIsOpen = ref(false);
 watch(() => menuIsOpen.value, (value) => {
   if (!value) emit('close-menu');
 });
+
+function openMenu() {
+  menuIsOpen.value = true;
+}
+
 // Teams
 const teams = ref<TeamPreview[]>([]);
 const isLoading = ref(false);
@@ -227,6 +232,7 @@ function focusSearchInput() {
 
 // Exposed values
 defineExpose({
+  openMenu,
   focus: focusSearchInput,
 });
 </script>

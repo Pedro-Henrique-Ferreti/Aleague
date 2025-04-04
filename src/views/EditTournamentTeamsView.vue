@@ -286,6 +286,7 @@ const teamSearchInputRef = useTemplateRef('teamSearchInputRef');
 
 function focusTeamSearchInput() {
   teamSearchInputRef.value?.focus();
+  teamSearchInputRef.value?.openMenu();
 }
 
 // Select team slot
