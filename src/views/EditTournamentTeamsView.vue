@@ -31,6 +31,7 @@
               ref="teamSearchInputRef"
               placeholder="Adicionar equipe"
               :disabled-teams="selectedTeams"
+              :tournament-stages="previousTournamentStages"
               @team-selected="onTeamSelected"
               @close-menu="onSelectTeamSlot(null, null)"
             />
@@ -209,8 +210,12 @@ const activeStageIndex = computed(() => form.value.stages.findIndex(
   ({ stageId }) => stageId === selectedStageId.value,
 ));
 
+const previousTournamentStages = computed(() => (
+  tournament.value?.stages.slice(0, activeStageIndex.value)
+) || []);
+
 // On team selected
-function onTeamSelected(team: TeamPreview) {
+function onTeamSelected(team: TeamSlot) {
   const { selectedGroupIndex, selectedTeamSlot } = form.value;
   const stage = form.value.stages[activeStageIndex.value];
 

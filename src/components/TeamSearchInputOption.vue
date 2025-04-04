@@ -12,16 +12,23 @@
       <img
         class="team-option__emblem"
         alt="Team emblem"
-        :src="team.emblem.url"
+        :src="team?.emblem.url"
       />
-      <span>{{ team.name }}</span>
-      <slot name="left-chip" />
+      <span class="team-option__name">
+        {{ team?.name }}
+      </span>
+      <AppChip
+        v-if="leftChipText"
+        color="blue"
+        size="small"
+        :text="leftChipText"
+      />
     </div>
-    <AppChip :text="t(`countryAbbreviations.${team.country}`)">
+    <AppChip :text="t(`countryAbbreviations.${team?.country}`)">
       <template #icon-left>
         <img
-          :src="`/images/country-flag/${team.country}.svg`"
           alt="Team country flag"
+          :src="`/images/country-flag/${team?.country}.svg`"
         />
       </template>
     </AppChip>
@@ -29,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TeamPreview } from '@/types/Team';
+import type { TeamSlot } from '@/views/EditTournamentTeamsView.vue';
 import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppChip from './AppChip.vue';
@@ -39,7 +46,7 @@ const { t } = useI18n();
 defineEmits(['select']);
 defineProps({
   team: {
-    type: Object as PropType<TeamPreview>,
+    type: Object as PropType<TeamSlot>,
     required: true,
   },
   disabled: {
@@ -49,6 +56,10 @@ defineProps({
   focused: {
     type: Boolean,
     default: false,
+  },
+  leftChipText: {
+    type: String,
+    default: '',
   },
 });
 </script>
@@ -71,7 +82,7 @@ defineProps({
     background-color: $color--neutral-200;
     color: $color--text-strong;
   }
-  &:disabled .team-option__content > span {
+  &:disabled .team-option__content > .team-option__name {
     color: $color--text-400;
     text-decoration: line-through;
   }

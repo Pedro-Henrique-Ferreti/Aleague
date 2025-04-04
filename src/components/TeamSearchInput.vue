@@ -39,6 +39,7 @@
             :value="TeamType.CUSTOM"
           />
           <AppRadioInput
+            v-if="tournamentStages?.length"
             v-model="form.teamType"
             size="small"
             text="Campeonato"
@@ -53,7 +54,7 @@
               size="32"
             />
             <div
-              v-else
+              v-else-if="form.teamType"
               class="popper__list"
             >
               <TeamSearchInputOption
@@ -62,20 +63,26 @@
                 :team="opt"
                 :focused="index === focusCursor"
                 :disabled="opt.disabled"
+                :left-chip-text="disabledTeams.find((team) => team.id === opt.id)?.label"
                 @select="onSelectTeam(opt)"
-              >
-                <template
-                  v-if="opt.disabled"
-                  #left-chip
-                >
-                  <AppChip
-                    color="blue"
-                    size="small"
-                    :text="disabledTeams.find((team) => team.id === opt.id)?.label"
-                  />
-                </template>
-              </TeamSearchInputOption>
+              />
             </div>
+            <TeamSearchInputStages
+              v-else-if="tournamentStages"
+              :stages="tournamentStages"
+            >
+              <template #default="{ teams: stageTeams }">
+                <TeamSearchInputOption
+                  v-for="(opt, index) in stageTeams"
+                  :key="opt.id"
+                  :team="opt"
+                  :focused="index === focusCursor"
+                  :disabled="!!disabledTeams.find((team) => team.id === opt.id)"
+                  :left-chip-text="disabledTeams.find((team) => team.id === opt.id)?.label"
+                  @select="onSelectTeam(opt)"
+                />
+              </template>
+            </TeamSearchInputStages>
           </TransitionFade>
         </div>
       </div>
@@ -89,6 +96,8 @@ type DisabledTeam = { id: string; label: string };
 
 <script lang="ts" setup>
 import { TeamType, type TeamPreview } from '@/types/Team';
+import type { TournamentStage } from '@/types/Tournament';
+import type { TeamSlot } from '@/views/EditTournamentTeamsView.vue';
 import {
   computed, ref, useTemplateRef, watch, type PropType,
 } from 'vue';
@@ -100,10 +109,10 @@ import AppSearchInput from './AppSearchInput.vue';
 import AppRadioInput from './AppRadioInput.vue';
 import TransitionFade from './TransitionFade.vue';
 import TeamSearchInputOption from './TeamSearchInputOption.vue';
-import AppChip from './AppChip.vue';
+import TeamSearchInputStages from './TeamSearchInputStages.vue';
 
 const emit = defineEmits<{
-  (e: 'team-selected', team: TeamPreview): void;
+  (e: 'team-selected', team: TeamSlot): void;
   (e: 'close-menu'): void;
 }>();
 const props = defineProps({
@@ -114,6 +123,10 @@ const props = defineProps({
   disabledTeams: {
     type: Array as PropType<DisabledTeam[]>,
     default: () => ([]),
+  },
+  tournamentStages: {
+    type: Array as PropType<TournamentStage[]>,
+    default: null,
   },
 });
 
@@ -138,6 +151,8 @@ const teamOptions = computed(() => (teams.value.map((team) => ({
 }))));
 
 async function getTeams() {
+  if (!form.value.teamType) return;
+
   teams.value = [];
 
   if (!form.value.search) return;
@@ -179,14 +194,14 @@ function moveFocusCursor(step: number) {
   focusCursor.value = newIndex;
 }
 
-watch(() => menuIsOpen.value, () => {
+watch([() => menuIsOpen.value, () => form.value.teamType], () => {
   focusCursor.value = -1;
 });
 
 // Event listeners
 const searchInputRef = useTemplateRef<HTMLElement>('searchInputRef');
 
-function onSelectTeam(team: TeamPreview) {
+function onSelectTeam(team: TeamSlot) {
   emit('team-selected', team);
   menuIsOpen.value = false;
 }
