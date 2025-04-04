@@ -3,6 +3,7 @@ import type { Day } from 'date-fns';
 export interface MatchTeam {
   id: string;
   name: string;
+  country: string;
   emblem: {
     url: string;
   };
