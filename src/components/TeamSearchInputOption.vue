@@ -24,11 +24,11 @@
         :text="leftChipText"
       />
     </div>
-    <AppChip :text="t(`countryAbbreviations.${team?.country}`)">
+    <AppChip :text="team?.isNational ? 'INT' : t(`countryAbbreviations.${team?.country}`)">
       <template #icon-left>
         <img
           alt="Team country flag"
-          :src="`/images/country-flag/${team?.country}.svg`"
+          :src="`/images/country-flag/${team?.isNational ? 'INT.png' : `${team?.country}.svg`}`"
         />
       </template>
     </AppChip>

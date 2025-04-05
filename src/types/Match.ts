@@ -4,6 +4,7 @@ export interface MatchTeam {
   id: string;
   name: string;
   country: string;
+  isNational?: boolean;
   emblem: {
     url: string;
   };
