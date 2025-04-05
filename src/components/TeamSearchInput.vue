@@ -209,6 +209,7 @@ const searchInputRef = useTemplateRef<HTMLElement>('searchInputRef');
 function onSelectTeam(team: TeamSlot) {
   emit('team-selected', team);
   menuIsOpen.value = false;
+  form.value.search = '';
 }
 
 function onEnterKeypress() {
