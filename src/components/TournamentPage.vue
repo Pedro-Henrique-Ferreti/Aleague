@@ -11,7 +11,7 @@
       </AppButton>
     </div>
     <TournamentPageStageControl
-      v-if="tournament.type !== TournamentFormat.ALL_PLAY_ALL"
+      v-if="showTournamentStageControl"
       v-model="form.selectedRoundId"
       class="tournament__stage-control"
       :stages="tournament.stages"
@@ -98,6 +98,16 @@ const selectedStageId = computed(() => (
       : stage.rounds.some((round) => round.id === form.value.selectedRoundId)
   ))?.id
 ));
+
+const showTournamentStageControl = computed(() => {
+  if (props.tournament.type === TournamentFormat.CUSTOM) {
+    return (
+      props.tournament.stages.length > 1
+      || props.tournament.stages[0].type === TournamentStageType.PLAYOFFS
+    );
+  }
+  return props.tournament.type === TournamentFormat.PLAYOFFS;
+});
 
 // Save changes
 const isSaving = ref(false);
