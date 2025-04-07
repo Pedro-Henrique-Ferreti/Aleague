@@ -83,10 +83,6 @@
           <AppProgressBar :value="tournament.progress" />
           <div class="tournament-card__stats">
             <AppChip
-              :icon-left="IconShield"
-              :text="`${tournament.numberOfTeams} equipes`"
-            />
-            <AppChip
               :icon-left="IconCalendarAdd"
               :text="formatDate(tournament.createdAt, 'd MMM yyyy')"
             />
@@ -109,7 +105,6 @@ import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
 import IconCalendarAdd from '@/assets/icons/CalendarAdd.svg';
 import IconPencil from '@/assets/icons/Pencil.svg';
-import IconShield from '@/assets/icons/Shield.svg';
 import AppChip from '@/components/AppChip.vue';
 import AppButton from '@/components/AppButton.vue';
 import AppProgressBar from '@/components/AppProgressBar.vue';
