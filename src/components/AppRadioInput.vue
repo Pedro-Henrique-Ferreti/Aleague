@@ -79,6 +79,7 @@ const isChecked = computed(() => (
 <style lang="scss" scoped>
 .app-radio {
   display: flex;
+  justify-content: center;
   width: fit-content;
   height: fit-content;
   padding: 0.625rem 1rem;

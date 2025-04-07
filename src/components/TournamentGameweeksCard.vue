@@ -10,9 +10,17 @@
         :disabled="disablePreviousButton"
         @click="currentGameweek -= 1"
       />
-      <h3 class="gameweeks-card__title">
-        Rodada {{ currentGameweek }}
-      </h3>
+      <TournamentGameweeksCardDropdown
+        v-model:gameweek="currentGameweek"
+        :gameweek-count="gameweeks.length"
+      >
+        <button
+          class="gameweeks-card__title"
+          type="button"
+        >
+          Rodada {{ currentGameweek }}
+        </button>
+      </TournamentGameweeksCardDropdown>
       <AppIconButton
         v-tooltip="'Próxima rodada'"
         color="secondary"
@@ -43,6 +51,7 @@ import IconChevronRight from '@/assets/icons/ChevronRight.svg';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppIconButton from './AppIconButton.vue';
 import AppMatch from './AppMatch.vue';
+import TournamentGameweeksCardDropdown from './TournamentGameweeksCardDropdown.vue';
 
 const emit = defineEmits(['update:gameweeks']);
 const props = defineProps({
@@ -85,6 +94,9 @@ const disableNextButton = computed(() => currentGameweek.value === props.gamewee
   &__title {
     color: $color--text-strong;
     font-weight: $font-weight--medium;
+    &:hover {
+      text-decoration: underline;
+    }
   }
   &__matches {
     display: grid;
