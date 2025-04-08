@@ -57,6 +57,14 @@ export default class TournamentService {
           }))
           : undefined
         ),
+        positionColors: ((stage.type === TournamentStageType.GROUPS)
+          ? stage.groups.flatMap((group) => group.standings.map((standing) => ({
+            groupNumber: group.number,
+            position: standing.position,
+            color: standing.positionColor,
+          }))).filter((standing) => !!standing.color)
+          : undefined
+        ),
         games: ((stage.type === TournamentStageType.GROUPS)
           ? stage.gameweeks.flatMap((gameweek) => gameweek.matches.flatMap((game) => ({
             id: game.id,
