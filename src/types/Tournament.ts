@@ -1,4 +1,4 @@
-import { TournamentFormat, TournamentStageConfrontation } from '@/constants/tournament';
+import { PositionColor, TournamentFormat, TournamentStageConfrontation } from '@/constants/tournament';
 import type { ValueOf } from './Auth';
 import type {
   FinishedMatch, Match, MatchPlaceholderTeam, MatchTeam,
@@ -58,6 +58,7 @@ export interface TournamentStageStandings {
   goalsFor: number;
   goalsAgainst: number;
   team: MatchTeam | MatchPlaceholderTeam;
+  positionColor: PositionColor;
   recentGames: FinishedMatch[];
 }
 

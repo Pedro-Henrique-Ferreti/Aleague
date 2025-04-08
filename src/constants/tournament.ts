@@ -28,6 +28,20 @@ export const ALL_PLAY_ALL_MAX_NUMBER_OF_PARTICIPANTS = 24;
 export const PLAYOFFS_MIN_NUMBER_OF_ROUNDS = 1;
 export const PLAYOFFS_MAX_NUMBER_OF_ROUNDS = 7;
 
-export const STANDINGS_SUBTITLE_COLORS = [
-  '#008F62', '#0069CC', '#FCA311', '#E73737', '#ADADAD', '#AF52DE',
+export enum PositionColor {
+  GREEN = '#008F62',
+  BLUE = '#0069CC',
+  YELLOW = '#FCA311',
+  RED = '#E73737',
+  PURPLE = '#AF52DE',
+  GRAY = '#ADADAD',
+}
+
+export const STANDINGS_POSITION_COLORS = [
+  PositionColor.GREEN,
+  PositionColor.BLUE,
+  PositionColor.YELLOW,
+  PositionColor.RED,
+  PositionColor.PURPLE,
+  PositionColor.GRAY,
 ] as const;

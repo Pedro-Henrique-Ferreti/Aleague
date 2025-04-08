@@ -58,10 +58,18 @@
                 aria-hidden="true"
               />
               <td class="position">
-                <div class="team">
-                  <div class="team__position">
+                <div
+                  class="team"
+                  :style="`--position-color: ${row.positionColor || 'transparent'};`"
+                >
+                  <button
+                    v-tooltip="'Trocar legenda'"
+                    class="team__position"
+                    type="button"
+                    @click="updatePositionColor(row)"
+                  >
                     {{ row.position }}
-                  </div>
+                  </button>
                   <div class="team__movement" />
                   <template v-if="row.team.id">
                     <img
@@ -131,12 +139,16 @@ import {
 import { useScroll } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
 import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
+import { PositionColor, STANDINGS_POSITION_COLORS } from '@/constants/tournament';
 import IconTeamBadge from '@/assets/icons/TeamBadge.svg';
 import EmptySlotButton from './EmptySlotButton.vue';
 import TransitionTournamentStandings from './TransitionTournamentStandings.vue';
 import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 
-defineProps({
+const emit = defineEmits<{
+  (e: 'update:position-color', payload: { rowIndex: number; color: PositionColor }): void;
+}>();
+const props = defineProps({
   title: {
     type: String,
     default: '',
@@ -174,6 +186,16 @@ const teamDataWidth = ref('0px');
 
 function onResizeObserver(entries: Parameters<ResizeObserverCallback>[0]) {
   teamDataWidth.value = `${entries[0].contentRect.width}px`;
+}
+
+// Update position color
+function updatePositionColor(row: TournamentStageStandings) {
+  const index = STANDINGS_POSITION_COLORS.indexOf(row.positionColor);
+
+  emit('update:position-color', {
+    rowIndex: props.standings.findIndex((standing) => standing.id === row.id),
+    color: STANDINGS_POSITION_COLORS[index + 1] || '',
+  });
 }
 </script>
 
@@ -290,14 +312,21 @@ function onResizeObserver(entries: Parameters<ResizeObserverCallback>[0]) {
   display: flex;
   align-items: center;
   height: inherit;
-  padding-left: 0.625rem;
   background-color: $color--white;
   border-bottom: 1px solid $color--neutral-300;
-  // border-left: 3px solid #008F62;
-  border-left: 3px solid transparent;
+  border-left: 3px solid;
+  border-left-color: var(--position-color, transparent);
   text-align: left;
   &__position {
-    width: 1.625rem;
+    width: 2.25rem;
+    height: 100%;
+    padding-left: 0.625rem;
+    border-radius: $radius--small;
+    text-align: left;
+    transition: background-color $transition--fast ease-in;
+    &:hover {
+      background-color: $color--neutral-100;
+    }
   }
   &__movement {
     width: 0.25rem;
