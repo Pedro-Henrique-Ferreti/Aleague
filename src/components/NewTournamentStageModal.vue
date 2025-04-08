@@ -93,9 +93,10 @@
           :min="2"
         />
         <AppCounter
-          readonly
+          v-model="form.numberOfRounds"
           label="Número de rodadas"
-          :model-value="numberOfPlayoffRounds"
+          :min="1"
+          :max="maxPlayoffRounds"
         />
       </div>
     </template>
@@ -150,6 +151,7 @@ const form = ref({
   numberOfGroups: 1,
   numberOfTeamsPerGroup: 2,
   numberOfTeams: 2,
+  numberOfRounds: 1,
 });
 
 watch(() => form.value.type, (type) => {
@@ -185,10 +187,11 @@ watch(() => props.show, () => {
   if (props.stage?.type === TournamentStageType.PLAYOFFS) {
     form.value.lastRoundIsDoubleLegged = props.stage.finalRoundIsDoubleLegged;
     form.value.doubleLegged = props.stage.isDoubleLegged;
+    form.value.numberOfRounds = props.stage.numberOfRounds;
   }
 });
 
-const numberOfPlayoffRounds = computed(() => {
+const maxPlayoffRounds = computed(() => {
   let teams = form.value.numberOfTeams;
   let count = 0;
 
@@ -198,6 +201,12 @@ const numberOfPlayoffRounds = computed(() => {
   }
 
   return count;
+});
+
+watch(() => maxPlayoffRounds.value, () => {
+  if (form.value.numberOfRounds > maxPlayoffRounds.value) {
+    form.value.numberOfRounds = maxPlayoffRounds.value;
+  }
 });
 
 const numberOfGroupStageTeams = computed(() => (
@@ -222,7 +231,7 @@ function submitForm() {
       name: form.value.name,
       numberOfTeams: form.value.numberOfTeams,
       type: TournamentStageType.PLAYOFFS,
-      numberOfRounds: numberOfPlayoffRounds.value,
+      numberOfRounds: form.value.numberOfRounds,
       isDoubleLegged: form.value.doubleLegged,
       finalRoundIsDoubleLegged: form.value.lastRoundIsDoubleLegged,
     });
