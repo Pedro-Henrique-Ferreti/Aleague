@@ -60,7 +60,7 @@ const displayedStages = computed<StagePreview[]>(() => ([...props.stages].revers
       teams: group.standings.map(({ team }) => team).filter((team) => team.id !== null),
     }));
   } else {
-    const round = stage.rounds[0];
+    const round = stage.rounds[stage.rounds.length - 1];
 
     groups = round.matchups.filter(
       (matchup) => (matchup.firstTeam && matchup.secondTeam),
