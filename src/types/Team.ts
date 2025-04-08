@@ -6,20 +6,6 @@ export enum TeamType {
   CUSTOM = 'custom',
 }
 
-export interface TeamEmblem {
-  id: string;
-  url: string;
-  createdAt: string;
-  isSystemEmblem: boolean;
-  isDefaultEmblem: boolean;
-}
-
-export interface TeamToBeCreated {
-  name: string;
-  country: TypeCountry;
-  emblem: TeamEmblem;
-}
-
 export interface RivalTeam {
   id: string;
   name: string;
@@ -55,12 +41,4 @@ export interface TeamPreview {
     id: string | null;
     url: string;
   };
-}
-
-// Api types
-export interface ApiTeamToBeCreated {
-  id: number;
-  name: string;
-  country: TypeCountry;
-  emblem: TeamEmblem;
 }

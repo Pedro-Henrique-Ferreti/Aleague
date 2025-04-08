@@ -3,7 +3,6 @@ import { useAuthStore } from '@/stores/auth';
 import { useTitle } from '@/composables/useTitle';
 import LandingPageView from '@/views/LandingPageView.vue';
 import authRoutes from './auth';
-import teamsRoutes from './teams';
 import tournamentsRoutes from './tournaments';
 
 async function reloadUser() {
@@ -24,7 +23,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     ...authRoutes,
-    ...teamsRoutes,
     ...tournamentsRoutes,
     {
       path: '/',
