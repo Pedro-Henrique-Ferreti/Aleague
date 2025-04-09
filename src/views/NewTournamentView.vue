@@ -24,12 +24,8 @@
           >
             <p>
               Você deve adicionar fases para o seu campeonato. Uma fase pode ter o formato em
-              grupos ou eliminatório. Você também pode explorar a galeria de modelos e utilizar
-              configurações dos campeonatos mais famosos.
+              grupos ou eliminatório.
             </p>
-            <AppTextButton :icon-left="IconSearch">
-              Explorar modelos
-            </AppTextButton>
           </div>
         </template>
         <NewTournamentSettingsForm
@@ -82,11 +78,9 @@ import { useRouter } from 'vue-router';
 import { useToast } from '@/composables/toast';
 import { NEW_TOURNAMENT_DEFAULT_ICON_ID, TournamentFormat } from '@/constants/tournament';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
-import IconSearch from '@/assets/icons/Search.svg';
 import AppButton from '@/components/AppButton.vue';
 import AppCard from '@/components/AppCard.vue';
 import AppProgressStepper from '@/components/AppProgressStepper.vue';
-import AppTextButton from '@/components/AppTextButton.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import NewTournamentSettingsForm from '@/components/NewTournamentSettingsForm.vue';
 import NewTournamentAllPlayAllForm from '@/components/NewTournamentAllPlayAllForm.vue';

@@ -1,43 +1,34 @@
 <template>
-  <div
-    class="form"
-    :data-empty-list="form.stages.length === 0"
-  >
-    <template
-      v-for="(stage, index) in form.stages"
-      :key="stage.id"
-    >
-      <div class="form__button-wrapper">
-        <AppIconButton
-          v-tooltip="'Adicionar fase'"
-          class="form__icon-button"
-          size="small"
-          aria-label="Adicionar fase"
-          :icon="IconPlus"
-          @click="stageListIndex = index"
+  <div class="form">
+    <div class="form__grid">
+      <template
+        v-for="(stage, index) in form.stages"
+        :key="stage.id"
+      >
+        <div
+          v-if="index !== 0"
+          class="form__button-wrapper"
+        >
+          <AppIconButton
+            v-tooltip="'Adicionar fase'"
+            class="form__icon-button"
+            size="small"
+            aria-label="Adicionar fase"
+            :icon="IconPlus"
+            @click="stageListIndex = index"
+          />
+        </div>
+        <NewTournamentStageCard
+          :stage="stage"
+          :order="index + 1"
+          @edit="selectedStage = stage"
+          @delete="form.stages.splice(index, 1)"
         />
-        <IconDashedLine
-          class="form__dashed-line"
-          :viewBox="index === 0 ? '0 0 4 48' : null"
-        />
-      </div>
-      <NewTournamentStageCard
-        :stage="stage"
-        :order="index + 1"
-        @edit="selectedStage = stage"
-        @delete="form.stages.splice(index, 1)"
-      />
-    </template>
-    <div class="form__button-wrapper">
-      <IconDashedLine
-        v-if="form.stages.length > 0"
-        class="form__dashed-line"
-        viewBox="0 0 4 48"
-      />
-      <AppButton @click="stageListIndex = form.stages.length">
-        Adicionar fase
-      </AppButton>
+      </template>
     </div>
+    <AppButton @click="stageListIndex = form.stages.length">
+      Adicionar fase
+    </AppButton>
     <NewTournamentStageModal
       :show="stageListIndex !== null || !!selectedStage"
       :stage="selectedStage"
@@ -53,7 +44,6 @@ import { ref } from 'vue';
 import { TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
-import IconDashedLine from '@/assets/icons/DashedLine.svg';
 import AppButton from './AppButton.vue';
 import AppIconButton from './AppIconButton.vue';
 import NewTournamentStageModal from './NewTournamentStageModal.vue';
@@ -113,41 +103,40 @@ defineExpose({ createTournament });
 
 <style lang="scss" scoped>
 .form {
-  @include scrollbar;
-  &[data-empty-list="true"] {
-    justify-content: center;
-  }
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 30rem;
-  padding: 1.25rem;
-  margin-top: 1.5rem;
-  border: 1px solid $color--neutral-300;
-  border-radius: 1rem;
-  background-image: url('/images/dotted-background.svg');
-  background-position: center 7%;
-  overflow-y: auto;
+  &__grid {
+    display: grid;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 34rem;
+    padding: 0 2rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
   &__button-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    &:first-child .form__icon-button {
-      position: relative;
+    &:hover::after {
+      background-color: $color--text-300;
     }
-    &:first-child .form__dashed-line,
-    &:last-child .form__dashed-line {
-      height: 3rem;
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 0.125rem;
+      background-color: $color--neutral-300;
+      transition: background-color $transition--fastest;
     }
   }
   &__icon-button {
-    flex-shrink: 0;
     position: absolute;
-  }
-  &__dashed-line {
-    flex-shrink: 0;
+    left: 0;
+    transform: translateX(-100%);
   }
 }
 </style>

@@ -88,25 +88,23 @@ const doubleLeggedText = computed(() => (
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 0.75rem 1rem;
-  width: 100%;
-  max-width: 25.5rem;
   padding: 0.75rem;
   &__image {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 5rem;
-    height: 5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     background-color: $color--neutral-50;
     border-radius: $radius--medium;
   }
   &__icon {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
   }
   &__title {
     color: $color--text-strong;
-    font-size: 1.1875rem;
+    font-size: 1.125rem;
     font-weight: $font-weight--medium;
   }
   &__subtitle {
@@ -117,7 +115,6 @@ const doubleLeggedText = computed(() => (
   }
   &__buttons {
     display: flex;
-    flex-direction: column;
     gap: 0.75rem;
   }
   &__chip-group {
