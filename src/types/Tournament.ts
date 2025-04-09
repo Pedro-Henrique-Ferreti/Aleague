@@ -119,8 +119,7 @@ export interface Tournament {
   stages: TournamentStage[];
 }
 
-// API types
-export type ApiGetAllTournamentsResponse = {
+export interface TorunamentPreview {
   id: string;
   name: string;
   type: TypeTournamentFormat;
@@ -130,4 +129,4 @@ export type ApiGetAllTournamentsResponse = {
   updatedAt: string;
   numberOfTeams: number;
   progress: number;
-}[];
+}
