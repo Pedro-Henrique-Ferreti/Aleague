@@ -11,25 +11,6 @@
         Novo campeonato
       </AppButton>
     </PageHeader>
-    <AppToolbar v-model="form.searchValue">
-      <div class="tournaments__search-bar-radio">
-        <AppRadioInput
-          v-model="form.filterType"
-          text="Todos"
-          :value="FilterType.ALL"
-        />
-        <AppRadioInput
-          v-model="form.filterType"
-          text="Em andamento"
-          :value="FilterType.IN_PROGRESS"
-        />
-        <AppRadioInput
-          v-model="form.filterType"
-          text="Finalizados"
-          :value="FilterType.COMPLETED"
-        />
-      </div>
-    </AppToolbar>
     <TransitionFade>
       <LoadingIndicator v-if="isLoading" />
       <ErrorState
@@ -49,16 +30,12 @@
           </AppButton>
         </template>
       </EmptyState>
-      <EmptySearchState
-        v-else-if="displayedTournaments.length === 0"
-        @clear-filters="clearSearchFilters"
-      />
       <div
         v-else
         class="tournaments__grid"
       >
         <RouterLink
-          v-for="tournament in displayedTournaments"
+          v-for="tournament in tournaments"
           class="tournament-card"
           :key="tournament.id"
           :to="{ name: 'show-tournament', params: { id: tournament.id } }"
@@ -98,9 +75,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ApiGetAllTournamentsResponse, TypeTournamentFormat } from '@/types/Tournament';
-import { computed, ref } from 'vue';
+import type { TorunamentPreview, TypeTournamentFormat } from '@/types/Tournament';
+import { ref } from 'vue';
 import { formatDate } from '@/utils';
+import { TournamentFormat } from '@/constants/tournament';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
 import IconCalendarAdd from '@/assets/icons/CalendarAdd.svg';
@@ -108,51 +86,14 @@ import IconPencil from '@/assets/icons/Pencil.svg';
 import AppChip from '@/components/AppChip.vue';
 import AppButton from '@/components/AppButton.vue';
 import AppProgressBar from '@/components/AppProgressBar.vue';
-import AppRadioInput from '@/components/AppRadioInput.vue';
 import PageHeader from '@/components/PageHeader.vue';
-import AppToolbar from '@/components/AppToolbar.vue';
 import TransitionFade from '@/components/TransitionFade.vue';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import EmptyState from '@/components/EmptyState.vue';
-import EmptySearchState from '@/components/EmptySearchState.vue';
-import { TournamentFormat } from '@/constants/tournament';
-
-enum FilterType {
-  ALL = 0,
-  IN_PROGRESS = 1,
-  COMPLETED = 2,
-}
-
-// Search bar
-const form = ref({
-  searchValue: '',
-  filterType: FilterType.ALL,
-});
-
-function clearSearchFilters() {}
 
 // Tournaments
-const tournaments = ref<ApiGetAllTournamentsResponse>([]);
-
-const displayedTournaments = computed(() => tournaments.value.filter((tournament) => {
-  if (
-    form.value.filterType === FilterType.IN_PROGRESS
-    && (!tournament.startedAt || tournament.progress === 100)
-  ) return false;
-
-  if (
-    form.value.filterType === FilterType.COMPLETED
-    && (!tournament.startedAt || tournament.progress < 100)
-  ) return false;
-
-  if (
-    form.value.searchValue
-    && !tournament.name.toLocaleLowerCase().includes(form.value.searchValue.toLocaleLowerCase())
-  ) return false;
-
-  return true;
-}));
+const tournaments = ref<TorunamentPreview[]>([]);
 
 // Get tournaments
 const isLoading = ref(true);
@@ -222,11 +163,11 @@ function getTournamentTypeText(type: TypeTournamentFormat) {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 0.875rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
   &__icon {
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
   }
   &__icon-image {
     max-width: 100%;
@@ -238,13 +179,12 @@ function getTournamentTypeText(type: TypeTournamentFormat) {
   }
   &__title {
     display: block;
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.5rem;
     color: $color--text-strong;
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: $font-weight--medium;
   }
   &__type {
-    margin-top: auto;
     font-size: 0.875rem;
   }
   &__stats {

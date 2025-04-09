@@ -1,7 +1,7 @@
 <template>
   <div class="empty-state">
     <span class="h2">
-      Nenhuma equipe ainda
+      Nenhum campeonato ainda
     </span>
     <p class="empty-state__text">
       <slot />
