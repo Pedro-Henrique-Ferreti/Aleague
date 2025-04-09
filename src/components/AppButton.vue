@@ -119,7 +119,7 @@ function handleClick(event: Event) {
   justify-content: center;
   width: fit-content;
   height: var(--height);
-  padding: 0 1.5rem;
+  padding: 0 1.25rem;
   background-color: var(--bg-color);
   color: var(--text-color);
   border-radius: $radius--full;
