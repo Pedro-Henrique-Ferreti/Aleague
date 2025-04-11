@@ -74,7 +74,7 @@
                   <template v-if="row.team.id">
                     <img
                       class="team__emblem"
-                      :src="row.team.emblem.url"
+                      :src="row.team.emblemUrl"
                       :alt="`${row.team.name}'s emblem`"
                     />
                     <span>{{ row.team.name }}</span>

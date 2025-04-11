@@ -5,9 +5,7 @@ export interface MatchTeam {
   name: string;
   country: string;
   isNational?: boolean;
-  emblem: {
-    url: string;
-  };
+  emblemUrl: string;
 }
 
 export interface MatchPlaceholderTeam {

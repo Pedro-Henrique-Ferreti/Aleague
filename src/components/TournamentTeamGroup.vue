@@ -15,7 +15,7 @@
       >
         <img
           class="group__team-emblem"
-          :src="slot.emblem.url"
+          :src="slot.emblemUrl"
           :alt="`${slot.name}'s emblem'`"
         />
         <span>{{ slot.name }}</span>

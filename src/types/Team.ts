@@ -10,10 +10,7 @@ export interface RivalTeam {
   id: string;
   name: string;
   country: TypeCountry;
-  emblem: {
-    id: string;
-    url: string;
-  };
+  emblemUrl: string;
 }
 
 export interface TeamDetails {
@@ -23,10 +20,7 @@ export interface TeamDetails {
   country: TypeCountry;
   createdAt: string;
   updatedAt: string;
-  emblem: {
-    id: string;
-    url: string;
-  };
+  emblemUrl: string;
   rivals: RivalTeam[];
 }
 
@@ -37,8 +31,5 @@ export interface TeamPreview {
   isFavorite: boolean;
   isNational: boolean;
   isSystemTeam: boolean;
-  emblem: {
-    id: string | null;
-    url: string;
-  };
+  emblemUrl: string;
 }

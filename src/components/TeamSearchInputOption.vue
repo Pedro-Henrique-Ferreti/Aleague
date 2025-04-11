@@ -12,7 +12,7 @@
       <img
         class="team-option__emblem"
         alt="Team emblem"
-        :src="team?.emblem.url"
+        :src="team?.emblemUrl"
       />
       <span class="team-option__name">
         {{ team?.name }}
