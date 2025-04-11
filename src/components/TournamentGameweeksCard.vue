@@ -32,50 +32,60 @@
       />
     </header>
     <div class="gameweeks-card__matches">
-      <AppMatch
-        v-for="match in gameweeksInput[currentGameweek - 1].matches"
-        v-model:home-score="match.homeTeamScore"
-        v-model:away-score="match.awayTeamScore"
+      <template
+        v-for="(match, index) in gameweeks[currentGameweek - 1].matches"
         :key="match.id"
-        :home-team="match.homeTeam"
-        :away-team="match.awayTeam"
-      />
+      >
+        <span
+          v-if="showMatchDates[index]"
+          class="gameweeks-card__match-date"
+        >
+          {{ WEEKDAYS[match.weekDay].split('-')[0] }} • {{ match.time }}
+        </span>
+        <AppMatch
+          v-model:home-score="match.homeTeamScore"
+          v-model:away-score="match.awayTeamScore"
+          class="gameweeks-card__match"
+          :home-team="match.homeTeam"
+          :away-team="match.awayTeam"
+        />
+      </template>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
 import type { TournamentStageGameweek } from '@/types/Tournament';
-import { computed, ref, type PropType } from 'vue';
+import { computed, ref } from 'vue';
+import { WEEKDAYS } from '@/constants/weekDays';
 import IconChevronRight from '@/assets/icons/ChevronRight.svg';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppIconButton from './AppIconButton.vue';
 import AppMatch from './AppMatch.vue';
 import TournamentGameweeksCardDropdown from './TournamentGameweeksCardDropdown.vue';
 
-const emit = defineEmits(['update:gameweeks']);
-const props = defineProps({
-  gameweeks: {
-    type: Array as PropType<TournamentStageGameweek[]>,
-    required: true,
-  },
-});
-
-const gameweeksInput = computed({
-  get: () => props.gameweeks,
-  set: (value) => emit('update:gameweeks', value),
-});
+const gameweeks = defineModel<TournamentStageGameweek[]>('gameweeks', { required: true });
 
 const currentGameweek = ref(
-  props.gameweeks.find(({ matches }) => (
+  gameweeks.value.find(({ matches }) => (
     matches.some((match) => (
       match.homeTeamScore === null || match.awayTeamScore === null
     ))
-  ))?.gameweek || props.gameweeks[0].gameweek,
+  ))?.gameweek || gameweeks.value[0].gameweek,
 );
 
 const disablePreviousButton = computed(() => currentGameweek.value === 1);
-const disableNextButton = computed(() => currentGameweek.value === props.gameweeks.length);
+const disableNextButton = computed(() => currentGameweek.value === gameweeks.value.length);
+
+const showMatchDates = computed(() => (
+  gameweeks.value[currentGameweek.value - 1].matches.map((match, index) => {
+    const previousMatch = gameweeks.value[currentGameweek.value - 1].matches[index - 1];
+
+    if (!previousMatch) return true;
+
+    return previousMatch.weekDay !== match.weekDay || previousMatch.time !== match.time;
+  })
+));
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +110,18 @@ const disableNextButton = computed(() => currentGameweek.value === props.gamewee
   }
   &__matches {
     display: grid;
-    gap: 0.75rem;
+    gap: 0.5rem;
+  }
+  &__match {
+    &:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
+  }
+  &__match-date {
+    color: $color--text-strong;
+    font-size: 0.875rem;
+    font-weight: $font-weight--medium;
+    text-align: center;
   }
 }
 </style>
