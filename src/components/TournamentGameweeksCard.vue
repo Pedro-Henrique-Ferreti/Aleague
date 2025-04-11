@@ -10,9 +10,9 @@
         :disabled="disablePreviousButton"
         @click="currentGameweek -= 1"
       />
-      <TournamentGameweeksCardDropdown
-        v-model:gameweek="currentGameweek"
-        :gameweek-count="gameweeks.length"
+      <AppDropdown
+        v-model="currentGameweek"
+        :options="gameweekOptions"
       >
         <button
           class="gameweeks-card__title"
@@ -20,7 +20,7 @@
         >
           Rodada {{ currentGameweek }}
         </button>
-      </TournamentGameweeksCardDropdown>
+      </AppDropdown>
       <AppIconButton
         v-tooltip="'Próxima rodada'"
         color="secondary"
@@ -56,15 +56,21 @@
 
 <script lang="ts" setup>
 import type { TournamentStageGameweek } from '@/types/Tournament';
+import type { DropdownOption } from '@/types/Dropdown';
 import { computed, ref } from 'vue';
 import { WEEKDAYS } from '@/constants/weekDays';
 import IconChevronRight from '@/assets/icons/ChevronRight.svg';
 import IconChevronLeft from '@/assets/icons/ChevronLeft.svg';
 import AppIconButton from './AppIconButton.vue';
 import AppMatch from './AppMatch.vue';
-import TournamentGameweeksCardDropdown from './TournamentGameweeksCardDropdown.vue';
+import AppDropdown from './AppDropdown.vue';
 
 const gameweeks = defineModel<TournamentStageGameweek[]>('gameweeks', { required: true });
+
+const gameweekOptions = computed<DropdownOption[]>(() => gameweeks.value.map((i) => ({
+  id: i.gameweek,
+  text: `Rodada ${i.gameweek}`,
+})));
 
 const currentGameweek = ref(
   gameweeks.value.find(({ matches }) => (
@@ -102,10 +108,14 @@ const showMatchDates = computed(() => (
     border-bottom: 1px solid $color--neutral-300;
   }
   &__title {
+    height: 2.25rem;
+    padding: 0 0.5rem;
+    border-radius: $radius--medium;
     color: $color--text-strong;
     font-weight: $font-weight--medium;
+    transition: background-color $transition--fastest ease-in;
     &:hover {
-      text-decoration: underline;
+      background-color: $color--neutral-200;
     }
   }
   &__matches {

@@ -20,32 +20,34 @@
         v-text="label"
         class="app-dropdown__label"
       />
-      <div
-        :id="id"
-        ref="input"
-        class="app-dropdown__input"
-        tabindex="0"
-        :data-rounded="rounded"
-        @keypress.enter.prevent="menuIsOpen ? closeMenu() : openMenu()"
-        @keydown.tab="closeMenu"
-      >
-        <img
-          v-if="selectedOption?.icon"
-          class="app-dropdown__input-icon"
-          alt="Option icon"
-          :src="selectedOption.icon"
-        />
-        <span
-          v-text="selectedOption?.text || ''"
-          role="combobox"
-          aria-haspopup="listbox"
-          :aria-expanded="menuIsOpen"
-          :aria-disabled="disabled"
-          :aria-controls="`${id}-list`"
-          :aria-label="selectedOption?.text || ''"
-        />
-        <IconChevron class="app-dropdown__arrow-icon" />
-      </div>
+      <slot>
+        <div
+          :id="elementId"
+          ref="input"
+          class="app-dropdown__input"
+          tabindex="0"
+          :data-rounded="rounded"
+          @keypress.enter.prevent="menuIsOpen ? closeMenu() : openMenu()"
+          @keydown.tab="closeMenu"
+        >
+          <img
+            v-if="selectedOption?.icon"
+            class="app-dropdown__input-icon"
+            alt="Option icon"
+            :src="selectedOption.icon"
+          />
+          <span
+            v-text="selectedOption?.text || ''"
+            role="combobox"
+            aria-haspopup="listbox"
+            :aria-expanded="menuIsOpen"
+            :aria-disabled="disabled"
+            :aria-controls="`${elementId}-list`"
+            :aria-label="selectedOption?.text || ''"
+          />
+          <IconChevron class="app-dropdown__arrow-icon" />
+        </div>
+      </slot>
       <small
         v-if="validationMessage"
         v-text="validationMessage"
@@ -57,7 +59,7 @@
     </div>
     <template #popper>
       <ul
-        :id="`${id}-list`"
+        :id="`${elementId}-list`"
         class="app-dropdown__list"
         role="listbox"
         ref="dropdownList"
@@ -89,20 +91,18 @@
 <script lang="ts" setup>
 import type { DropdownOption } from '@/types/Dropdown';
 import {
-  computed, ref, type PropType, type Ref,
+  computed, ref, useId, type PropType, type Ref,
 } from 'vue';
 import { Dropdown } from 'floating-vue';
 import IconChevron from '@/assets/icons/Chevron.svg';
+
+const elementId = useId();
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
   modelValue: {
     type: [String, Number] as PropType<number | string | null>,
     default: '',
-  },
-  id: {
-    type: String,
-    required: true,
   },
   label: {
     type: String,
