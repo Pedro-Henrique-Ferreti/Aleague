@@ -76,4 +76,8 @@ export default class TournamentService {
       })),
     });
   }
+
+  static createTournamentGroup(payload: { name: string; competitions: string[] }) {
+    return axiosInstance.post('/competitions/groups', payload);
+  }
 }

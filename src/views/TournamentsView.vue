@@ -35,19 +35,19 @@
         class="tournaments__grid"
       >
         <TournamentPreviewCard
-          v-for="tournament in tournaments"
+          v-for="tournament in nonGroupedTournaments"
           :key="tournament.id"
           :tournament="tournament"
         />
       </div>
     </TransitionFade>
-    <TournamentGroups :tournaments="tournaments" />
+    <TournamentGroups :tournaments="nonGroupedTournaments" />
   </main>
 </template>
 
 <script lang="ts" setup>
 import type { TournamentPreview } from '@/types/Tournament';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
 import AppButton from '@/components/AppButton.vue';
@@ -61,6 +61,10 @@ import TournamentGroups from '@/components/TournamentGroups.vue';
 
 // Tournaments
 const tournaments = ref<TournamentPreview[]>([]);
+
+const nonGroupedTournaments = computed(() => (
+  tournaments.value.filter((tournament) => !tournament.group)
+));
 
 // Get tournaments
 const isLoading = ref(true);

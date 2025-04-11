@@ -129,4 +129,8 @@ export interface TournamentPreview {
   updatedAt: string;
   numberOfTeams: number;
   progress: number;
+  group: {
+    id: string;
+    name: string;
+  } | null;
 }
