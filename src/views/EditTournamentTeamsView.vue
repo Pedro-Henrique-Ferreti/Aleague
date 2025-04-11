@@ -141,7 +141,7 @@ const form = ref({
 const selectedTeams = computed(() => (
   form.value.stages[activeStageIndex.value].groups.flatMap((group) => (
     group.teams.filter((team) => team !== null).map((team) => ({
-      id: team.id,
+      id: team!.id,
       label: group.name,
     }))
   ))

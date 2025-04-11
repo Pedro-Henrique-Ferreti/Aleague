@@ -4,7 +4,7 @@
       <div class="team-profile__emblem">
         <img
           class="team-profile__emblem-img"
-          :src="team.emblem.url"
+          :src="team.emblemUrl"
           :alt="`${team.name}'s emblem`"
         />
       </div>
@@ -56,7 +56,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { useToast } from '@/composables/toast';
 import { COUNTRY_OPTIONS } from '@/constants/country';
-import api from '@/api';
+// import api from '@/api';
 import IconCalendarAdd from '@/assets/icons/CalendarAdd.svg';
 import IconGraphLine from '@/assets/icons/GraphLine.svg';
 import IconPencil from '@/assets/icons/Pencil.svg';
@@ -88,7 +88,7 @@ async function toggleTeamFavoriteStatus() {
   isUpdatingTeamFavoriteStatus.value = true;
 
   try {
-    await api.teamService.toggleTeamFavoriteStatus(props.team.id);
+    // await api.teamService.toggleTeamFavoriteStatus(props.team.id);
 
     toast.success('Status da equipe atualizado com sucesso!');
 

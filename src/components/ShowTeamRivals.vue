@@ -117,7 +117,7 @@ const rivalTeamOptions = computed<DropdownOption[]>(() => (
   )).map((team) => ({
     id: team.id,
     text: team.name,
-    icon: team.emblem.url,
+    icon: team.emblemUrl,
   }))
 ));
 

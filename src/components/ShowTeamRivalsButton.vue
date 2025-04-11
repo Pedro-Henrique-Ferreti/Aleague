@@ -7,7 +7,7 @@
     >
       <img
         class="rival-team__emblem"
-        :src="team.emblem.url"
+        :src="team.emblemUrl"
         :alt="`${team.name}'s emblem'`"
       />
     </button>

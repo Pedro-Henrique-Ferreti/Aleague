@@ -57,7 +57,9 @@ const displayedStages = computed<StagePreview[]>(() => ([...props.stages].revers
   if (stage.type === TournamentStageType.GROUPS) {
     groups = stage.groups.map((group) => ({
       name: `Grupo ${group.number}`,
-      teams: group.standings.map(({ team }) => team).filter((team) => team.id !== null),
+      teams: group.standings.map(
+        ({ team }) => team,
+      ).filter((team) => team.id !== null) as MatchTeam[],
     }));
   } else {
     const round = stage.rounds[stage.rounds.length - 1];

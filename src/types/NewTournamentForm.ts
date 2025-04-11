@@ -13,7 +13,7 @@ interface FormGroupsStage extends BaseFormStage {
   confrontationType: TypeStageConfrontation;
   numberOfGroups: number;
   numberOfLegs: number;
-} 
+}
 
 interface FormPlayoffsStage extends BaseFormStage {
   type: TournamentStageType.PLAYOFFS;
