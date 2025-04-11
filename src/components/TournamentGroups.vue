@@ -1,6 +1,9 @@
 <template>
   <section class="groups">
-    <header class="groups__header">
+    <header
+      v-if="nonGroupedTournaments.length > 0"
+      class="groups__header"
+    >
       <h2 class="groups__title">
         Grupos
       </h2>
