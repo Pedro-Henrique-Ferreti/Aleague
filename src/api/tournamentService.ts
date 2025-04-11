@@ -1,6 +1,6 @@
 import {
   TournamentStageType,
-  type TorunamentPreview,
+  type TournamentPreview,
   type Tournament,
   type TournamentGroupsStagePreview,
   type TournamentStage,
@@ -10,7 +10,7 @@ import { axiosInstance } from '@/helpers/axios';
 
 export default class TournamentService {
   static getAllTournaments() {
-    return axiosInstance.get<TorunamentPreview[]>('/competitions');
+    return axiosInstance.get<TournamentPreview[]>('/competitions');
   }
 
   static getTournamentById(id: string) {

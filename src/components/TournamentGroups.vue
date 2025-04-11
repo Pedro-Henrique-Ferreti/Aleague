@@ -17,12 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { TorunamentPreview } from '@/types/Tournament';
+import type { TournamentPreview } from '@/types/Tournament';
 import IconPlus from '@/assets/icons/Plus.svg';
 import AppButton from './AppButton.vue';
 
 defineProps<{
-  tournaments: TorunamentPreview[];
+  tournaments: TournamentPreview[];
 }>();
 
 </script>

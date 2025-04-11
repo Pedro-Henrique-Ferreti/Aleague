@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TorunamentPreview } from '@/types/Tournament';
+import type { TournamentPreview } from '@/types/Tournament';
 import { computed } from 'vue';
 import { TournamentFormat } from '@/constants/tournament';
 import { formatDate } from '@/utils';
@@ -45,7 +45,7 @@ import AppChip from '@/components/AppChip.vue';
 import AppProgressBar from '@/components/AppProgressBar.vue';
 
 const props = defineProps<{
-  tournament: TorunamentPreview,
+  tournament: TournamentPreview,
 }>();
 
 const tournamentTypeText = computed(() => {

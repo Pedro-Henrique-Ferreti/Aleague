@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { TorunamentPreview } from '@/types/Tournament';
+import type { TournamentPreview } from '@/types/Tournament';
 import { ref } from 'vue';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
@@ -60,7 +60,7 @@ import TournamentPreviewCard from '@/components/TournamentPreviewCard.vue';
 import TournamentGroups from '@/components/TournamentGroups.vue';
 
 // Tournaments
-const tournaments = ref<TorunamentPreview[]>([]);
+const tournaments = ref<TournamentPreview[]>([]);
 
 // Get tournaments
 const isLoading = ref(true);

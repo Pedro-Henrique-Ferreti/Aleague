@@ -119,7 +119,7 @@ export interface Tournament {
   stages: TournamentStage[];
 }
 
-export interface TorunamentPreview {
+export interface TournamentPreview {
   id: string;
   name: string;
   type: TypeTournamentFormat;
