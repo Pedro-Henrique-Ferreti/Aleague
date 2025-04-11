@@ -26,10 +26,22 @@
               <th class="points">
                 Pontos
               </th>
-              <th>Jogos</th>
-              <th>Vitórias</th>
-              <th>Empates</th>
-              <th>Derrotas</th>
+              <th>
+                <span class="mobile">J</span>
+                <span class="desktop">Jogos</span>
+              </th>
+              <th>
+                <span class="mobile">V</span>
+                <span class="desktop">Vitórias</span>
+              </th>
+              <th>
+                <span class="mobile">E</span>
+                <span class="desktop">Empates</span>
+              </th>
+              <th>
+                <span class="mobile">D</span>
+                <span class="desktop">Derrotas</span>
+              </th>
               <th>
                 <span v-tooltip="'Gols Pró'">GP</span>
               </th>
@@ -281,12 +293,23 @@ function updatePositionColor(row: TournamentStageStandings) {
       &.recent-matches {
         width: 6.5rem;
       }
+      span.mobile {
+        @include for-desktop-up {
+          display: none;
+        }
+      }
+      span.desktop {
+        @include for-desktop-down {
+          display: none;
+        }
+      }
     }
   }
   &__table-row {
     border: 1px solid $color--neutral-300;
     border-width: 1px 0 1px 0;
     td {
+      min-width: 3rem;
       height: 2.9375rem;
       padding: 0 0.75rem;
       text-align: center;
