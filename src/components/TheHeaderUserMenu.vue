@@ -23,22 +23,6 @@
       </span>
       <ul class="user-menu__popup-list">
         <li class="user-menu__popup-item">
-          <router-link
-            class="user-menu__popup-link"
-            to="#"
-          >
-            Meu perfil
-          </router-link>
-        </li>
-        <li class="user-menu__popup-item">
-          <router-link
-            class="user-menu__popup-link"
-            to="#"
-          >
-            Preferências
-          </router-link>
-        </li>
-        <li class="user-menu__popup-item">
           <button
             class="user-menu__popup-link"
             type="button"
@@ -95,7 +79,7 @@ const authStore = useAuthStore();
   &__popup-list {
     display: grid;
     gap: 0.75rem;
-    margin-top: 1rem;
+    margin-top: 2.5rem;
     font-size: 0.875rem;
   }
   &__popup-item:last-child {
