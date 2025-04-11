@@ -1,11 +1,11 @@
 <template>
-  <div class="accordion | app-base-card">
+  <div class="accordion">
     <button
       class="accordion__header"
       type="button"
       @click="isOpen = !isOpen"
     >
-      <span class="accordion__title | h3">
+      <span class="accordion__title">
         {{ title }}
       </span>
       <IconChevron
@@ -16,7 +16,6 @@
     <TransitionPanel>
       <div v-show="isOpen">
         <div class="accordion__body">
-          <hr class="accordion__divider" />
           <slot />
         </div>
       </div>
@@ -45,15 +44,20 @@ const isOpen = ref(props.initialOpen);
 
 <style lang="scss" scoped>
 .accordion {
-  --base-card--padding: 0;
-  --accordion--padding: 1.25rem;
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
     width: 100%;
-    padding: var(--accordion--padding);
+    padding: 0.875rem 1.25rem;
+    background-color: $color--white;
+    border: 1px solid $color--neutral-300;
+    border-radius: $radius--large;
+  }
+  &__title {
+    color: $color--text-strong;
+    font-weight: $font-weight--medium;
   }
   &__icon {
     width: 1rem;
@@ -64,11 +68,7 @@ const isOpen = ref(props.initialOpen);
     }
   }
   &__body {
-    padding: var(--accordion--padding);
-    padding-top: 0;
-  }
-  &__divider {
-    margin-bottom: 1.5rem;
+    padding-top: 1rem;
   }
 }
 </style>

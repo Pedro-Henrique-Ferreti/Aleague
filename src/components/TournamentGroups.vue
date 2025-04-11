@@ -12,7 +12,19 @@
       </AppButton>
     </header>
     <div class="groups__list">
-      list
+      <AppAccordion
+        v-for="group in tournamentGroups"
+        :title="group.name"
+        :key="group.id"
+      >
+        <div class="groups__card-grid">
+          <TournamentPreviewCard
+            v-for="tournament in group.tournaments"
+            :key="tournament.id"
+            :tournament="tournament"
+          />
+        </div>
+      </AppAccordion>
     </div>
     <AppModal
       title="Novo grupo"
@@ -32,7 +44,7 @@
       </span>
       <div class="groups__modal-list">
         <AppToggle
-          v-for="tournament in tournaments"
+          v-for="tournament in nonGroupedTournaments"
           :model-value="form.tournaments.includes(tournament.id)"
           :key="tournament.id"
           :value="tournament.id"
@@ -44,9 +56,16 @@
   </section>
 </template>
 
+<script lang="ts">
+interface TournamentGroup extends TournamentPreviewGroup {
+  tournaments: TournamentPreview[];
+}
+</script>
+
 <script lang="ts" setup>
-import type { TournamentPreview } from '@/types/Tournament';
-import { ref, watch } from 'vue';
+import type { TournamentPreview, TournamentPreviewGroup } from '@/types/Tournament';
+import { computed, ref, watch } from 'vue';
+import { isBefore } from 'date-fns';
 import { useToast } from '@/composables/toast';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
@@ -54,12 +73,36 @@ import AppButton from './AppButton.vue';
 import AppModal from './AppModal.vue';
 import AppInput from './AppInput.vue';
 import AppToggle from './AppToggle.vue';
+import TournamentPreviewCard from './TournamentPreviewCard.vue';
+import AppAccordion from './AppAccordion.vue';
 
 const toast = useToast();
 
-defineProps<{
+const props = defineProps<{
   tournaments: TournamentPreview[];
+  nonGroupedTournaments: TournamentPreview[];
 }>();
+
+// Tournament groups
+const tournamentGroups = computed<TournamentGroup[]>(() => {
+  const groups: TournamentGroup[] = [];
+
+  props.tournaments.filter(({ group }) => !!group).forEach((tournament) => {
+    const groupIndex = groups.findIndex((group) => group.id === tournament.group!.id);
+
+    if (groupIndex === -1) {
+      groups.push({ ...tournament.group!, tournaments: [tournament] });
+    } else {
+      groups[groupIndex].tournaments.push(tournament);
+    }
+  });
+
+  return groups.sort((a, b) => {
+    if (isBefore(new Date(a.createdAt), new Date(b.createdAt))) return 1;
+    if (!isBefore(new Date(a.createdAt), new Date(b.createdAt))) return -1;
+    return 0;
+  });
+});
 
 // Group form
 const form = ref({
@@ -111,7 +154,7 @@ async function submitForm() {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
   &__title {
     color: $color--text-strong;
@@ -120,7 +163,7 @@ async function submitForm() {
   }
   &__list {
     display: grid;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   &__modal-label {
     display: block;
@@ -132,6 +175,18 @@ async function submitForm() {
     display: grid;
     gap: 0.75rem;
     margin-top: 1rem;
+  }
+  &__card-grid {
+    --columns: 1;
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    gap: 0.75rem;
+    @include for-large-tablet-portrait-up {
+      --columns: 2;
+    }
+    @media (min-width: 1400px) {
+      --columns: 3;
+    }
   }
 }
 </style>

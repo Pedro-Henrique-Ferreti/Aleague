@@ -119,6 +119,12 @@ export interface Tournament {
   stages: TournamentStage[];
 }
 
+export interface TournamentPreviewGroup {
+  id: string;
+  name: string;
+  createdAt: string;
+}
+
 export interface TournamentPreview {
   id: string;
   name: string;
@@ -129,8 +135,5 @@ export interface TournamentPreview {
   updatedAt: string;
   numberOfTeams: number;
   progress: number;
-  group: {
-    id: string;
-    name: string;
-  } | null;
+  group: TournamentPreviewGroup | null;
 }

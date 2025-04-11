@@ -41,7 +41,10 @@
         />
       </div>
     </TransitionFade>
-    <TournamentGroups :tournaments="nonGroupedTournaments" />
+    <TournamentGroups
+      :tournaments="tournaments"
+      :non-grouped-tournaments="nonGroupedTournaments"
+    />
   </main>
 </template>
 
