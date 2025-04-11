@@ -129,10 +129,11 @@
                     :team="row.team"
                   />
                 </td>
+                <td />
               </template>
               <td
                 v-else
-                colspan="10"
+                colspan="11"
               />
             </tr>
           </TransitionTournamentStandings>
@@ -306,10 +307,15 @@ function updatePositionColor(row: TournamentStageStandings) {
     }
   }
   &__table-row {
+    --row-bg-color: #{$color--white};
+    background-color: var(--row-bg-color);
     border: 1px solid $color--neutral-300;
     border-width: 1px 0 1px 0;
+    transition: background-color $transition--fastest ease-in;
+    &:hover {
+      --row-bg-color: #{$color--neutral-200};
+    }
     td {
-      min-width: 3rem;
       height: 2.9375rem;
       padding: 0 0.75rem;
       text-align: center;
@@ -335,11 +341,12 @@ function updatePositionColor(row: TournamentStageStandings) {
   display: flex;
   align-items: center;
   height: inherit;
-  background-color: $color--white;
+  background-color: var(--row-bg-color);
   border-bottom: 1px solid $color--neutral-300;
   border-left: 3px solid;
   border-left-color: var(--position-color, transparent);
   text-align: left;
+  transition: background-color $transition--fastest ease-in;
   &__position {
     width: 2.25rem;
     height: 100%;
