@@ -32,6 +32,7 @@
 const Colors = {
   PRIMARY: 'primary',
   BLUE: 'blue',
+  DARK: 'dark',
 } as const;
 </script>
 
@@ -84,6 +85,10 @@ function handleClick(event: Event) {
   &[data-color="blue"] {
     --text-color: #{$color--blue-800};
     --loader-indicator-color: #{$color--blue-800};
+  }
+  &[data-color="dark"] {
+    --text-color: #{$color--text-strong};
+    --loader-indicator-color: #{$color--text-strong};
   }
 
   display: inline-flex;

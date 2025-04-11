@@ -17,6 +17,21 @@
         :title="group.name"
         :key="group.id"
       >
+        <div class="groups__card-header">
+          <AppTextButton
+            color="dark"
+            :icon-left="IconPencil"
+            @click="selectedGroup = group, showGroupForm = true"
+          >
+            Editar
+          </AppTextButton>
+          <AppTextButton
+            color="dark"
+            :icon-left="IconGraphLine"
+          >
+            Ver estatísticas
+          </AppTextButton>
+        </div>
         <div class="groups__card-grid">
           <TournamentPreviewCard
             v-for="tournament in group.tournaments"
@@ -27,11 +42,11 @@
       </AppAccordion>
     </div>
     <AppModal
-      title="Novo grupo"
-      confirm-button-text="Adicionar"
+      confirm-button-text="Salvar"
+      :title="isEditingGroup ? 'Editar grupo' : 'Novo grupo'"
       :show="showGroupForm"
       :confirm-button-is-loading="isSaving"
-      :confirm-button-is-disabled="!form.groupName || !form.tournaments.length"
+      :confirm-button-is-disabled="!form.groupName || (!isEditingGroup && !form.tournaments.length)"
       @close="showGroupForm = false"
       @confirm="submitForm"
     >
@@ -44,7 +59,7 @@
       </span>
       <div class="groups__modal-list">
         <AppToggle
-          v-for="tournament in nonGroupedTournaments"
+          v-for="tournament in selectedGroup?.tournaments || nonGroupedTournaments"
           :model-value="form.tournaments.includes(tournament.id)"
           :key="tournament.id"
           :value="tournament.id"
@@ -69,25 +84,28 @@ import { isBefore } from 'date-fns';
 import { useToast } from '@/composables/toast';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
+import IconPencil from '@/assets/icons/Pencil.svg';
+import IconGraphLine from '@/assets/icons/GraphLine.svg';
 import AppButton from './AppButton.vue';
 import AppModal from './AppModal.vue';
 import AppInput from './AppInput.vue';
 import AppToggle from './AppToggle.vue';
-import TournamentPreviewCard from './TournamentPreviewCard.vue';
 import AppAccordion from './AppAccordion.vue';
+import AppTextButton from './AppTextButton.vue';
+import TournamentPreviewCard from './TournamentPreviewCard.vue';
 
 const toast = useToast();
 
-const props = defineProps<{
-  tournaments: TournamentPreview[];
+defineProps<{
   nonGroupedTournaments: TournamentPreview[];
 }>();
+const tournaments = defineModel<TournamentPreview[]>('tournaments', { required: true });
 
 // Tournament groups
 const tournamentGroups = computed<TournamentGroup[]>(() => {
   const groups: TournamentGroup[] = [];
 
-  props.tournaments.filter(({ group }) => !!group).forEach((tournament) => {
+  tournaments.value.filter(({ group }) => !!group).forEach((tournament) => {
     const groupIndex = groups.findIndex((group) => group.id === tournament.group!.id);
 
     if (groupIndex === -1) {
@@ -109,12 +127,23 @@ const form = ref({
   groupName: '',
   tournaments: [] as string[],
 });
+
+const selectedGroup = ref<TournamentGroup | null>(null);
 const showGroupForm = ref(false);
+const isEditingGroup = computed(() => !!selectedGroup.value);
 
 watch(() => showGroupForm.value, (value) => {
   if (!value) {
     form.value.groupName = '';
     form.value.tournaments = [];
+    selectedGroup.value = null;
+  }
+});
+
+watch(() => selectedGroup.value, (group) => {
+  if (group) {
+    form.value.groupName = group.name;
+    form.value.tournaments = group.tournaments.map(({ id }) => id);
   }
 });
 
@@ -133,12 +162,23 @@ async function submitForm() {
   isSaving.value = true;
 
   try {
-    await api.tournamentService.createTournamentGroup({
-      name: form.value.groupName,
-      competitions: form.value.tournaments,
-    });
+    if (isEditingGroup.value) {
+      await api.tournamentService.updateTournamentGroup({
+        id: selectedGroup.value!.id,
+        name: form.value.groupName,
+        competitions: form.value.tournaments,
+      });
+    } else {
+      await api.tournamentService.createTournamentGroup({
+        name: form.value.groupName,
+        competitions: form.value.tournaments,
+      });
+    }
+
+    const { data } = await api.tournamentService.getAllTournaments();
 
     showGroupForm.value = false;
+    tournaments.value = data;
   } catch (error: any) {
     toast.error('Nao foi possivel criar o grupo. Por favor, tente novamente.');
   } finally {
@@ -175,6 +215,11 @@ async function submitForm() {
     display: grid;
     gap: 0.75rem;
     margin-top: 1rem;
+  }
+  &__card-header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.25rem;
   }
   &__card-grid {
     --columns: 1;

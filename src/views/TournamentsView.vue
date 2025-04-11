@@ -42,7 +42,7 @@
       </div>
     </TransitionFade>
     <TournamentGroups
-      :tournaments="tournaments"
+      v-model:tournaments="tournaments"
       :non-grouped-tournaments="nonGroupedTournaments"
     />
   </main>
