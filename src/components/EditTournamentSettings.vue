@@ -10,7 +10,6 @@
             <TournamentSettingsIconInput v-model="form.iconId" />
             <AppInput
               v-model.trim="form.name"
-              id="edit-tournament--name"
               label="Nome do campeonato"
             />
           </div>

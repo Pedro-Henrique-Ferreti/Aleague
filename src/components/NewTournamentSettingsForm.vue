@@ -4,7 +4,6 @@
     <div>
       <AppInput
         v-model.trim="tournamentName"
-        id="new-tournament--name"
         label="Nome do campeonato"
       />
       <div class="settings-form__format">

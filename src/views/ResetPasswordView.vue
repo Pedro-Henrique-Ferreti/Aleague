@@ -53,7 +53,6 @@
       <template #form-fields>
         <AppInput
           v-model.lazy="form.password"
-          id="register--password"
           label="Senha"
           type="password"
           :dirty="v$.password.$dirty"
@@ -61,7 +60,6 @@
         />
         <AppInput
           v-model.lazy="form.passwordConfirmation"
-          id="register--password-confirmation"
           type="password"
           label="Repitir senha"
           :dirty="v$.passwordConfirmation.$dirty"

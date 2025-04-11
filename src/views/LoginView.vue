@@ -12,14 +12,12 @@
     <template #form-fields>
       <AppInput
         v-model.lazy="form.email"
-        id="login--email"
         label="Email"
         :dirty="v$.email.$dirty"
         :error-message="v$.email.$errors[0]?.$message"
       />
       <AppInput
         v-model.lazy="form.password"
-        id="login--password"
         type="password"
         label="Senha"
         :dirty="v$.password.$dirty"

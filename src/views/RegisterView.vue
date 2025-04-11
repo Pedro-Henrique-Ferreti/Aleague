@@ -12,21 +12,18 @@
     <template #form-fields>
       <AppInput
         v-model.lazy="form.username"
-        id="register--username"
         label="Nome de usuário"
         :dirty="v$.username.$dirty"
         :error-message="v$.username.$errors[0]?.$message"
       />
       <AppInput
         v-model.lazy="form.email"
-        id="register--email"
         label="Email"
         :dirty="v$.email.$dirty"
         :error-message="v$.email.$errors[0]?.$message"
       />
       <AppInput
         v-model.lazy="form.password"
-        id="register--password"
         label="Senha"
         type="password"
         :dirty="v$.password.$dirty"
@@ -34,7 +31,6 @@
       />
       <AppInput
         v-model.lazy="form.passwordConfirmation"
-        id="register--password-confirmation"
         type="password"
         label="Repita a senha"
         :dirty="v$.passwordConfirmation.$dirty"

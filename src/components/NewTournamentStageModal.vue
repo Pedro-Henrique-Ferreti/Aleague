@@ -31,7 +31,6 @@
     <div class="stage-modal__fields">
       <AppInput
         v-model.trim="form.name"
-        id="new-tournament--name"
         label="Nome"
       />
       <AppDropdown

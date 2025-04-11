@@ -31,7 +31,6 @@
       <template #form-fields>
         <AppInput
           v-model.lazy="form.email"
-          id="recover-password--email"
           label="Email"
           :dirty="v$.email.$dirty"
           :error-message="v$.email.$errors[0]?.$message"

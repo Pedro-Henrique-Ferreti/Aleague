@@ -11,7 +11,7 @@
       v-if="label"
       v-text="label"
       class="app-input__label"
-      :for="id"
+      :for="elementId"
     />
     <div class="app-input__content">
       <BaseInput
@@ -19,7 +19,7 @@
         v-bind="$attrs"
         ref="input"
         class="app-input__input"
-        :id="id"
+        :id="elementId"
         :type="inputType"
         :disabled="disabled"
         :aria-label="label ? null : ariaLabel"
@@ -63,14 +63,13 @@
 
 <script lang="ts" setup>
 import {
-  type Ref,
-  type PropType,
-  ref,
-  computed,
+  type Ref, type PropType, ref, computed, useId,
 } from 'vue';
 // import IconEyeClosed from './icons/IconEyeClosed.vue';
 // import IconEyeOpen from './icons/IconEyeOpen.vue';
 import BaseInput from './BaseInput.vue';
+
+const elementId = useId();
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
@@ -81,10 +80,6 @@ const props = defineProps({
   modelModifiers: {
     type: Object,
     default: () => ({}),
-  },
-  id: {
-    type: String,
-    required: true,
   },
   type: {
     type: String,
