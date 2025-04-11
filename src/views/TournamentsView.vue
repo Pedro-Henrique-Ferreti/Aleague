@@ -41,6 +41,7 @@
         />
       </div>
     </TransitionFade>
+    <TournamentGroups :tournaments="tournaments" />
   </main>
 </template>
 
@@ -56,6 +57,7 @@ import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import ErrorState from '@/components/ErrorState.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import TournamentPreviewCard from '@/components/TournamentPreviewCard.vue';
+import TournamentGroups from '@/components/TournamentGroups.vue';
 
 // Tournaments
 const tournaments = ref<TorunamentPreview[]>([]);
