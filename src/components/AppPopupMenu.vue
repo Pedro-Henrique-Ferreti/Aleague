@@ -1,7 +1,8 @@
 <template>
   <Dropdown
+    v-model:shown="menuIsOpen"
     theme="popup-menu"
-    auto-hide
+    :auto-hide="autoHide"
     @apply-show="$emit('apply-show')"
   >
     <slot />
@@ -28,6 +29,12 @@
       </div>
       <div class="menu__footer">
         <slot name="footer">
+          <AppTextButton
+            v-if="!autoHide"
+            @click="menuIsOpen = false"
+          >
+            Fechar
+          </AppTextButton>
           <AppButton
             :disabled="confirmButtonIsDisabled"
             @click="$emit('confirm')"
@@ -41,8 +48,10 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { Dropdown } from 'floating-vue';
 import AppButton from './AppButton.vue';
+import AppTextButton from './AppTextButton.vue';
 
 defineEmits(['confirm', 'apply-show']);
 defineProps({
@@ -58,7 +67,13 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  autoHide: {
+    type: Boolean,
+    default: true,
+  },
 });
+
+const menuIsOpen = ref(false);
 </script>
 
 <style lang="scss" scoped>

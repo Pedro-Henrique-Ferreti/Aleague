@@ -43,12 +43,14 @@
                 :icon="IconEraserOutline"
                 @click="resetTeamGroups"
               />
-              <AppIconButton
-                v-tooltip="'Preencher participantes'"
-                color="secondary"
-                aria-label="Preencher participantes"
-                :icon="IconMagicWand"
-              />
+              <EditTournamentTeamsMenu @select-teams="fillTeamSlots">
+                <AppIconButton
+                  v-tooltip="'Preencher participantes'"
+                  color="secondary"
+                  aria-label="Preencher participantes"
+                  :icon="IconMagicWand"
+                />
+              </EditTournamentTeamsMenu>
               <AppIconButton
                 v-tooltip="'Embaralhar equipes'"
                 color="secondary"
@@ -125,6 +127,7 @@ import { TournamentFormat } from '@/constants/tournament';
 import TournamentTeamGroup from '@/components/TournamentTeamGroup.vue';
 import TournamentPageStageControl from '@/components/TournamentPageStageControl.vue';
 import TeamSearchInput from '@/components/TeamSearchInput.vue';
+import EditTournamentTeamsMenu from '@/components/EditTournamentTeamsMenu.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -254,6 +257,21 @@ function shuffleTeams() {
   for (let i = 0; i < stage.groups.length; i += 1) {
     stage.groups[i].teams = teams.splice(0, stage.slotsPerGroup);
   }
+}
+
+// Fill team slots
+function fillTeamSlots(teams: MatchTeam[]) {
+  const stage = form.value.stages[activeStageIndex.value];
+
+  stage.groups.forEach((group, index) => {
+    const { length } = stage.groups[index].teams;
+
+    stage.groups[index].teams = [...teams.splice(0, group.teams.length)];
+
+    while (stage.groups[index].teams.length < length) {
+      stage.groups[index].teams.push(null);
+    }
+  });
 }
 
 // Submit teams
