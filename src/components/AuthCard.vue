@@ -3,7 +3,7 @@
     <header class="auth-card__header">
       <RouterLink
         aria-label="Go to the Home page"
-        :to="{ name: 'landing-page' }"
+        :to="{ name: 'login' }"
       >
         <AppLogo class="auth-card__logo" />
       </RouterLink>
