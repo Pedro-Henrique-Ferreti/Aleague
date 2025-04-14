@@ -14,6 +14,10 @@ const router = createRouter({
   routes: [
     ...authRoutes,
     ...tournamentsRoutes,
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: { name: 'tournaments', params: {} },
+    },
   ],
 });
 

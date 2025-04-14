@@ -66,8 +66,4 @@ export default [
       }
     },
   },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: { name: 'tournaments' },
-  },
 ] as RouteRecordRaw[];
