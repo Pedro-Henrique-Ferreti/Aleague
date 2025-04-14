@@ -84,4 +84,8 @@ export default class TournamentService {
   static updateTournamentGroup(payload: { id: string; name: string; competitions: string[] }) {
     return axiosInstance.patch(`/competitions/groups/${payload.id}`, payload);
   }
+
+  static copyTournamentGroup(payload: { id: string; name: string }) {
+    return axiosInstance.post(`/competitions/groups/${payload.id}/copy`, payload);
+  }
 }

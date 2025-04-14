@@ -9,7 +9,7 @@
       </h2>
       <AppButton
         :icon-left="IconPlus"
-        @click="showGroupForm = true"
+        @click="shouldCreateGroup = true"
       >
         Novo Grupo
       </AppButton>
@@ -23,8 +23,15 @@
         <div class="groups__card-header">
           <AppTextButton
             color="dark"
+            :icon-left="IconCopy"
+            @click="groupToCopy = group"
+          >
+            Copiar
+          </AppTextButton>
+          <AppTextButton
+            color="dark"
             :icon-left="IconPencil"
-            @click="selectedGroup = group, showGroupForm = true"
+            @click="groupToEdit = group"
           >
             Editar
           </AppTextButton>
@@ -46,30 +53,32 @@
     </div>
     <AppModal
       confirm-button-text="Salvar"
-      :title="isEditingGroup ? 'Editar grupo' : 'Novo grupo'"
-      :show="showGroupForm"
+      :title="modalTitle"
+      :show="modalIsOpen"
       :confirm-button-is-loading="isSaving"
-      :confirm-button-is-disabled="!form.groupName || (!isEditingGroup && !form.tournaments.length)"
-      @close="showGroupForm = false"
+      :confirm-button-is-disabled="modalSubmitIsDisabled"
+      @close="closeModal"
       @confirm="submitForm"
     >
       <AppInput
         v-model="form.groupName"
         label="Nome do grupo"
       />
-      <span class="groups__modal-label">
-        Campeonatos
-      </span>
-      <div class="groups__modal-list">
-        <AppToggle
-          v-for="tournament in selectedGroup?.tournaments || nonGroupedTournaments"
-          :model-value="form.tournaments.includes(tournament.id)"
-          :key="tournament.id"
-          :value="tournament.id"
-          :text="tournament.name"
-          @update:model-value="onUpdateTournaments(tournament.id)"
-        />
-      </div>
+      <template v-if="!groupToCopy">
+        <span class="groups__modal-label">
+          Campeonatos
+        </span>
+        <div class="groups__modal-list">
+          <AppToggle
+            v-for="tournament in groupToEdit?.tournaments || nonGroupedTournaments"
+            :model-value="form.tournaments.includes(tournament.id)"
+            :key="tournament.id"
+            :value="tournament.id"
+            :text="tournament.name"
+            @update:model-value="onUpdateTournaments(tournament.id)"
+          />
+        </div>
+      </template>
     </AppModal>
   </section>
 </template>
@@ -88,6 +97,7 @@ import { useToast } from '@/composables/toast';
 import api from '@/api';
 import IconPlus from '@/assets/icons/Plus.svg';
 import IconPencil from '@/assets/icons/Pencil.svg';
+import IconCopy from '@/assets/icons/Copy.svg';
 import IconGraphLine from '@/assets/icons/GraphLine.svg';
 import AppButton from './AppButton.vue';
 import AppModal from './AppModal.vue';
@@ -131,19 +141,10 @@ const form = ref({
   tournaments: [] as string[],
 });
 
-const selectedGroup = ref<TournamentGroup | null>(null);
-const showGroupForm = ref(false);
-const isEditingGroup = computed(() => !!selectedGroup.value);
+const groupToEdit = ref<TournamentGroup | null>(null);
+const groupToCopy = ref<TournamentGroup | null>(null);
 
-watch(() => showGroupForm.value, (value) => {
-  if (!value) {
-    form.value.groupName = '';
-    form.value.tournaments = [];
-    selectedGroup.value = null;
-  }
-});
-
-watch(() => selectedGroup.value, (group) => {
+watch(() => groupToEdit.value, (group) => {
   if (group) {
     form.value.groupName = group.name;
     form.value.tournaments = group.tournaments.map(({ id }) => id);
@@ -158,6 +159,35 @@ function onUpdateTournaments(tournamentId: string) {
   }
 }
 
+// Modal
+const shouldCreateGroup = ref(false);
+const modalIsOpen = computed(() => (
+  !!groupToEdit.value || !!groupToCopy.value || shouldCreateGroup.value
+));
+
+const modalTitle = computed(() => {
+  if (groupToCopy.value) return 'Copiar grupo';
+  return groupToEdit.value ? 'Editar grupo' : 'Novo grupo';
+});
+
+const modalSubmitIsDisabled = computed(() => (
+  !form.value.groupName || (shouldCreateGroup.value && !form.value.tournaments.length)
+));
+
+watch(() => modalIsOpen.value, (value) => {
+  if (!value) {
+    form.value.groupName = '';
+    form.value.tournaments = [];
+    groupToEdit.value = null;
+  }
+});
+
+function closeModal() {
+  groupToEdit.value = null;
+  groupToCopy.value = null;
+  shouldCreateGroup.value = false;
+}
+
 // Submit form
 const isSaving = ref(false);
 
@@ -165,9 +195,14 @@ async function submitForm() {
   isSaving.value = true;
 
   try {
-    if (isEditingGroup.value) {
+    if (groupToCopy.value) {
+      await api.tournamentService.copyTournamentGroup({
+        id: groupToCopy.value.id,
+        name: form.value.groupName,
+      });
+    } else if (groupToEdit.value) {
       await api.tournamentService.updateTournamentGroup({
-        id: selectedGroup.value!.id,
+        id: groupToEdit.value!.id,
         name: form.value.groupName,
         competitions: form.value.tournaments,
       });
@@ -180,10 +215,10 @@ async function submitForm() {
 
     const { data } = await api.tournamentService.getAllTournaments();
 
-    showGroupForm.value = false;
+    closeModal();
     tournaments.value = data;
   } catch (error: any) {
-    toast.error('Nao foi possivel criar o grupo. Por favor, tente novamente.');
+    toast.error('Não foi possível salvar. Por favor, tente novamente.');
   } finally {
     isSaving.value = false;
   }
@@ -223,6 +258,7 @@ async function submitForm() {
     display: flex;
     justify-content: flex-end;
     gap: 1.25rem;
+    margin-bottom: 1rem;
   }
   &__card-grid {
     --columns: 1;
