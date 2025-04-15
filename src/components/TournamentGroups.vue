@@ -16,9 +16,10 @@
     </header>
     <div class="groups__list">
       <AppAccordion
-        v-for="group in tournamentGroups"
+        v-for="(group, index) in tournamentGroups"
         :title="group.name"
         :key="group.id"
+        :initial-open="index === tournamentGroups.length - 1"
       >
         <div class="groups__card-header">
           <AppTextButton
