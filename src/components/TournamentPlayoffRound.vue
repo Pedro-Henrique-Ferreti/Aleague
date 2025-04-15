@@ -69,6 +69,8 @@ const matchupsInput = computed({
 
 <style lang="scss" scoped>
 .playoff-round {
+  display: flex;
+  flex-direction: column;
   & + .playoff-round {
     --brackets-display: block;
   }
