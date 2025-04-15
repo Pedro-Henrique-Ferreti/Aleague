@@ -5,14 +5,16 @@
       :data-display-max-rounds="displayedRoundsId.length - maxDisplayedRounds === 0"
     >
       <template
-        v-for="(round, index) in stageValue.rounds"
+        v-for="(round, index) in stage.rounds"
         :key="round.id"
       >
         <TournamentPlayoffRound
           v-if="displayedRoundsId.includes(round.id)"
           v-model:name="round.name"
           v-model:matchups="round.matchups"
-          :is-last-round="isLastStage && stageValue.rounds.length - 1 === index"
+          :is-last-round="(
+            isLastStage && stage.rounds.length - 1 === index && round.matchups.length === 1
+          )"
           @update-next-round="updateRoundMatchups({
             roundIndex: index,
             team: $event.team,
@@ -37,7 +39,7 @@ type UpdateRoundMatchupsPayload = {
 <script lang="ts" setup>
 import type { TournamentPlayoffsStage } from '@/types/Tournament';
 import type { MatchTeam } from '@/types/Match';
-import { computed, provide, type PropType } from 'vue';
+import { computed, provide } from 'vue';
 import { useBreakpoints } from '@/composables/useBreakpoints';
 import { KEY_TOURNAMENT_STAGE } from '@/constants/injectionKeys';
 import TournamentPlayoffRound from './TournamentPlayoffRound.vue';
@@ -46,29 +48,15 @@ const breakpoints = useBreakpoints({
   LARGE_DESKTOP_UP: 1500,
 });
 
-const emit = defineEmits(['update:stage']);
-const props = defineProps({
-  stage: {
-    type: Object as PropType<TournamentPlayoffsStage>,
-    required: true,
-  },
-  selectedRoundId: {
-    type: String,
-    default: '',
-  },
-  isLastStage: {
-    type: Boolean,
-    default: false,
-  },
-});
+const props = defineProps<{
+  selectedRoundId: string;
+  isLastStage?: boolean;
+}>();
 
-const stageValue = computed({
-  get: () => props.stage,
-  set: (stage) => emit('update:stage', stage),
-});
+const stage = defineModel<TournamentPlayoffsStage>('stage', { required: true });
 
 const selectedRoundIndex = computed(() => (
-  props.stage.rounds.findIndex((round) => round.id === props.selectedRoundId)
+  stage.value.rounds.findIndex((round) => round.id === props.selectedRoundId)
 ));
 
 const maxDisplayedRounds = computed(() => {
@@ -78,14 +66,14 @@ const maxDisplayedRounds = computed(() => {
   return 1;
 });
 
-const displayedRoundsId = computed(() => props.stage.rounds.slice(
+const displayedRoundsId = computed(() => stage.value.rounds.slice(
   selectedRoundIndex.value,
   selectedRoundIndex.value + maxDisplayedRounds.value,
 ).map((round) => round.id));
 
 // Update round matchups
 function updateMatchupFirstTeam(roundIndex: number, matchupIndex: number, team: MatchTeam | null) {
-  const matchup = stageValue.value.rounds[roundIndex].matchups[matchupIndex];
+  const matchup = stage.value.rounds[roundIndex].matchups[matchupIndex];
 
   matchup.firstTeam = team;
   matchup.games[0].homeTeam = team;
@@ -100,7 +88,7 @@ function updateMatchupFirstTeam(roundIndex: number, matchupIndex: number, team: 
 }
 
 function updateMatchupSecondTeam(roundIndex: number, matchupIndex: number, team: MatchTeam | null) {
-  const matchup = stageValue.value.rounds[roundIndex].matchups[matchupIndex];
+  const matchup = stage.value.rounds[roundIndex].matchups[matchupIndex];
 
   matchup.secondTeam = team;
   matchup.games[0].awayTeam = team;
@@ -116,7 +104,7 @@ function updateMatchupSecondTeam(roundIndex: number, matchupIndex: number, team:
 
 function updateRoundMatchups(payload: UpdateRoundMatchupsPayload) {
   const nextRoundIndex = payload.roundIndex + 1;
-  const nextRound = stageValue.value.rounds[nextRoundIndex];
+  const nextRound = stage.value.rounds[nextRoundIndex];
 
   if (!nextRound) return;
 
@@ -143,7 +131,7 @@ function updateRoundMatchups(payload: UpdateRoundMatchupsPayload) {
 }
 
 // Provided values
-provide(KEY_TOURNAMENT_STAGE, props.stage);
+provide(KEY_TOURNAMENT_STAGE, stage.value);
 </script>
 
 <style lang="scss" scoped>
