@@ -311,7 +311,9 @@ function updatePositionColor(row: TournamentStageStandings) {
     background-color: var(--row-bg-color);
     border: 1px solid $color--neutral-300;
     border-width: 1px 0 1px 0;
-    transition: background-color $transition--fastest ease-in;
+    &:not(.tournament-standings-move) {
+      transition: background-color $transition--fastest ease-in;
+    }
     &:hover {
       --row-bg-color: #{$color--neutral-200};
     }
