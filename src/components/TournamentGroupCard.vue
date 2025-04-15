@@ -63,6 +63,12 @@
               v-for="row in standings"
               class="group-card__table-row"
               :key="row.id"
+              :data-empty="!row.team.id"
+              @click="(!row.team.id) ? $router.push({
+                name: 'edit-tournament-teams',
+                params: { id: tournament?.id },
+                query: { stageId: stage.id },
+              }) : null"
             >
               <td
                 v-resize-observer="onResizeObserver"
@@ -93,16 +99,10 @@
                   </template>
                   <template v-else>
                     <IconTeamBadge class="team__emblem team__emblem--default" />
-                    <EmptySlotButton
-                      class="team__empty-slot-button"
-                      theme="light"
-                      size="small"
-                      :to="{
-                        name: 'edit-tournament-teams',
-                        params: { id: tournament?.id },
-                        query: { stageId: stage.id },
-                      }"
-                    />
+                    <div class="team__empty-slot">
+                      <IconPlus />
+                      <span>Adicionar</span>
+                    </div>
                   </template>
                 </div>
               </td>
@@ -154,7 +154,7 @@ import { vResizeObserver } from '@vueuse/components';
 import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
 import { PositionColor, STANDINGS_POSITION_COLORS } from '@/constants/tournament';
 import IconTeamBadge from '@/assets/icons/TeamBadge.svg';
-import EmptySlotButton from './EmptySlotButton.vue';
+import IconPlus from '@/assets/icons/Plus.svg';
 import TransitionTournamentStandings from './TransitionTournamentStandings.vue';
 import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 
@@ -307,6 +307,9 @@ function updatePositionColor(row: TournamentStageStandings) {
     }
   }
   &__table-row {
+    &[data-empty="true"] {
+      cursor: pointer;
+    }
     --row-bg-color: #{$color--white};
     background-color: var(--row-bg-color);
     border: 1px solid $color--neutral-300;
@@ -376,8 +379,18 @@ function updatePositionColor(row: TournamentStageStandings) {
       color: $color--text-300;
     }
   }
-  &__empty-slot-button {
-    max-width: 20rem;
+  &__empty-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 15rem;
+    font-size: 0.875rem;
+    svg {
+      width: 0.625rem;
+      height: 0.625rem;
+    }
   }
 }
 </style>
