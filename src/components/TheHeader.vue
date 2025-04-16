@@ -21,7 +21,7 @@
     </nav> -->
     <div class="header__controls">
       <TheHeaderButtonSettings />
-      <TheHeaderButtonNotifications />
+      <!-- <TheHeaderButtonNotifications /> -->
       <TheHeaderUserMenu />
     </div>
   </header>
@@ -33,7 +33,6 @@
 import AppLogo from './AppLogo.vue';
 import TheHeaderUserMenu from './TheHeaderUserMenu.vue';
 import TheHeaderButtonSettings from './TheHeaderButtonSettings.vue';
-import TheHeaderButtonNotifications from './TheHeaderButtonNotifications.vue';
 // import TheHeaderNavItem from './TheHeaderNavItem.vue';
 // import TheHeaderMenuButton from './TheHeaderMenuButton.vue';
 
