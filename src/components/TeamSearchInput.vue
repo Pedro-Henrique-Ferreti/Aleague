@@ -79,7 +79,7 @@
                   :focused="index === focusCursor"
                   :disabled="!!disabledTeams.find((team) => team.id === opt.id)"
                   :left-chip-text="disabledTeams.find((team) => team.id === opt.id)?.label"
-                  @select="onSelectTeam(opt)"
+                  @select="onSelectTeam(opt, false)"
                 />
               </template>
             </TeamSearchInputStages>
@@ -206,9 +206,9 @@ watch([() => menuIsOpen.value, () => form.value.teamType], () => {
 // Event listeners
 const searchInputRef = useTemplateRef<HTMLElement>('searchInputRef');
 
-function onSelectTeam(team: TeamSlot) {
+function onSelectTeam(team: TeamSlot, closeMenu = true) {
   emit('team-selected', team);
-  menuIsOpen.value = false;
+  menuIsOpen.value = !closeMenu;
   form.value.search = '';
 }
 
