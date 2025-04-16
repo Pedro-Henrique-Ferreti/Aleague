@@ -263,13 +263,23 @@ function shuffleTeams() {
 function fillTeamSlots(teams: MatchTeam[]) {
   const stage = form.value.stages[activeStageIndex.value];
 
-  stage.groups.forEach((group, index) => {
-    const { length } = stage.groups[index].teams;
+  stage.groups.forEach((group, groupIndex) => {
+    for (let slot = 0; slot < stage.slotsPerGroup; slot += 1) {
+      if (!group.teams[slot]) {
+        const allSelectedTeams = form.value.stages.flatMap(
+          (stage) => stage.groups.flatMap((group) => group.teams),
+        ).filter(Boolean).map((team) => team?.id);
 
-    stage.groups[index].teams = [...teams.splice(0, group.teams.length)];
+        const availableTeams = teams.filter(
+          (team) => !allSelectedTeams.includes(team.id),
+        );
 
-    while (stage.groups[index].teams.length < length) {
-      stage.groups[index].teams.push(null);
+        if (availableTeams.length > 0) {
+          stage.groups[groupIndex].teams[slot] = (
+            availableTeams[Math.floor(Math.random() * availableTeams.length)]
+          );
+        }
+      }
     }
   });
 }
