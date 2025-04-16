@@ -38,7 +38,7 @@ const stage = defineModel('stage', {
     grid-template-columns: 2.25fr minmax(25rem, 1fr);
   }
   @include for-large-desktop-up {
-    grid-template-columns: 3fr minmax(25rem, 1fr);
+    grid-template-columns: 3fr minmax(29rem, 1fr);
   }
   &__groups {
     display: grid;
