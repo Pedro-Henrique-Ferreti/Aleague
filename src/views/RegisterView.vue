@@ -126,7 +126,7 @@ async function submitForm() {
 
   try {
     await authStore.register(form.value);
-    router.push({ name: 'verify-email' });
+    router.push({ name: 'tournaments' });
   } catch (error: any) {
     errorMessage.value = 'Ocorreu um erro inesperado. Por favor, tente novamente.';
   } finally {

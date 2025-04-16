@@ -11,9 +11,7 @@ export interface User {
   avatar: string;
   createdAt: string;
   email: string;
-  emailVerifiedAt: string | null;
   id: string;
-  lastLoginAt: string;
   updatedAt: string;
   username: string;
 }
