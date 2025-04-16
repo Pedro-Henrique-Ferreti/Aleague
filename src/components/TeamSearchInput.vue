@@ -78,7 +78,9 @@
                   :team="opt"
                   :focused="index === focusCursor"
                   :disabled="!!disabledTeams.find((team) => team.id === opt.id)"
-                  :left-chip-text="disabledTeams.find((team) => team.id === opt.id)?.label"
+                  :left-chip-text="(
+                    disabledTeams.find((team) => team.id === opt.id)?.label || `${index + 1}º lugar`
+                  )"
                   @select="onSelectTeam(opt, false)"
                 />
               </template>
