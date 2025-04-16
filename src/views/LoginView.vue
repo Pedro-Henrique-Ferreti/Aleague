@@ -22,13 +22,7 @@
         label="Senha"
         :dirty="v$.password.$dirty"
         :error-message="v$.password.$errors[0]?.$message"
-      >
-        <template #support-text>
-          <AppTextButton :to="{ name: 'recover-password' }">
-            Recuperar senha
-          </AppTextButton>
-        </template>
-      </AppInput>
+      />
     </template>
     <template #form-footer>
       <AppButton
@@ -39,29 +33,6 @@
         Fazer login
       </AppButton>
     </template>
-    <template #footer>
-      <div class="login__divider">
-        <span>Ou entrar com</span>
-      </div>
-      <AppButton
-        outline
-        block
-      >
-        <template #icon-left>
-          <IconGoogle class="login__button-icon" />
-        </template>
-        Google
-      </AppButton>
-      <p class="login__register">
-        Não possui uma conta?
-        <RouterLink
-          class="app-link"
-          :to="{ name: 'register' }"
-        >
-          Cadastre-se
-        </RouterLink>
-      </p>
-    </template>
   </AuthCard>
 </template>
 
@@ -71,11 +42,9 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { useAuthStore } from '@/stores/auth';
-import { emailValidator, requiredValidator } from '@/helpers/validators';
-import IconGoogle from '@/assets/icons/Google.svg';
+import { requiredValidator } from '@/helpers/validators';
 import AppButton from '@/components/AppButton.vue';
 import AppInput from '@/components/AppInput.vue';
-import AppTextButton from '@/components/AppTextButton.vue';
 import AuthCard from '@/components/AuthCard.vue';
 
 const router = useRouter();
@@ -90,7 +59,6 @@ const form = ref({
 const v$ = useVuelidate({
   email: {
     required: requiredValidator,
-    email: emailValidator,
   },
   password: { required: requiredValidator },
 }, form, { $autoDirty: true });
@@ -143,10 +111,6 @@ async function submitForm() {
   }
   &__button-icon {
     height: 1.5rem !important;
-  }
-  &__register {
-    margin-top: 3rem;
-    text-align: center;
   }
 }
 </style>
