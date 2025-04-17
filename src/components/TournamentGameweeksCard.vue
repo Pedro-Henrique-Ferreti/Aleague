@@ -47,6 +47,12 @@
           v-model:away-score="match.awayTeamScore"
           :home-team="match.homeTeam"
           :away-team="match.awayTeam"
+          @input-focus="(
+            (match.homeTeam?.id && match.awayTeam?.id)
+              ? highlightedTeamsId = [match.homeTeam.id, match.awayTeam.id]
+              : null
+          )"
+          @input-blur="highlightedTeamsId = []"
         />
       </template>
     </div>
@@ -65,6 +71,7 @@ import AppMatch from './AppMatch.vue';
 import AppDropdown from './AppDropdown.vue';
 
 const gameweeks = defineModel<TournamentStageGameweek[]>('gameweeks', { required: true });
+const highlightedTeamsId = defineModel<string[]>('highlightedTeamsId', { required: true });
 
 const gameweekOptions = computed<DropdownOption[]>(() => gameweeks.value.map((i) => ({
   id: i.gameweek,

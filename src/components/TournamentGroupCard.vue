@@ -64,6 +64,7 @@
               class="group-card__table-row"
               :key="row.id"
               :data-empty="!row.team.id"
+              :data-highlight="row.team.id && highlightedTeamsId.includes(row.team.id)"
               @click="(!row.team.id) ? $router.push({
                 name: 'edit-tournament-teams',
                 params: { id: tournament?.id },
@@ -146,9 +147,7 @@
 <script lang="ts" setup>
 import type { ResizeObserverCallback } from '@vueuse/core';
 import type { TournamentGroupsStage, TournamentStageStandings } from '@/types/Tournament';
-import {
-  computed, inject, ref, type PropType,
-} from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useScroll } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
 import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
@@ -161,20 +160,12 @@ import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 const emit = defineEmits<{
   (e: 'update:position-color', payload: { rowIndex: number; color: PositionColor }): void;
 }>();
-const props = defineProps({
-  title: {
-    type: String,
-    default: '',
-  },
-  standings: {
-    type: Object as PropType<TournamentStageStandings[]>,
-    required: true,
-  },
-  stage: {
-    type: Object as PropType<TournamentGroupsStage>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  title: string;
+  standings: TournamentStageStandings[];
+  stage: TournamentGroupsStage;
+  highlightedTeamsId: string[];
+}>();
 
 // Injected values
 const tournament = inject(KEY_TOURNAMENT);
@@ -319,6 +310,9 @@ function updatePositionColor(row: TournamentStageStandings) {
     }
     &:hover {
       --row-bg-color: #{$color--neutral-200};
+    }
+    &[data-highlight="true"] {
+      --row-bg-color: #{$color--neutral-100};
     }
     td {
       height: 2.9375rem;

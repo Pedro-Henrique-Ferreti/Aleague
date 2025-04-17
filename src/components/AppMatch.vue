@@ -27,11 +27,15 @@
             :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="homeScore"
             @update:model-value="emit('update:home-score', $event)"
+            @focus="$emit('input-focus')"
+            @blur="$emit('input-blur')"
           />
           <BaseMatchScoreInput
             :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="awayScore"
             @update:model-value="emit('update:away-score', $event)"
+            @focus="$emit('input-focus')"
+            @blur="$emit('input-blur')"
           />
         </div>
         <div
@@ -42,11 +46,15 @@
             :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="fixtureTwoAwayScore"
             @update:model-value="emit('update:fixture-two-away-score', $event)"
+            @focus="$emit('input-focus')"
+            @blur="$emit('input-blur')"
           />
           <BaseMatchScoreInput
             :placeholder="direction === 'vertical' ? '-' : null"
             :model-value="fixtureTwoHomeScore"
             @update:model-value="emit('update:fixture-two-home-score', $event)"
+            @focus="$emit('input-focus')"
+            @blur="$emit('input-blur')"
           />
         </div>
       </template>
@@ -80,6 +88,8 @@ const emit = defineEmits([
   'update:fixture-two-home-score',
   'update:fixture-two-away-score',
   'empty-slot-click',
+  'input-focus',
+  'input-blur',
 ]);
 defineProps({
   homeScore: {

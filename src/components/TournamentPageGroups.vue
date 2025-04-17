@@ -7,18 +7,22 @@
         :title="(stage.groups.length === 1) ? 'Classificação' : `Grupo ${group.number}`"
         :standings="group.standings"
         :stage="stage"
+        :highlighted-teams-id="highlightedTeamsId"
         @update:position-color="(
           stage.groups[index].standings[$event.rowIndex].positionColor = $event.color
         )"
       />
     </div>
-    <TournamentGameweeksCard v-model:gameweeks="stage.gameweeks" />
+    <TournamentGameweeksCard
+      v-model:gameweeks="stage.gameweeks"
+      v-model:highlighted-teams-id="highlightedTeamsId"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { TournamentGroupsStage } from '@/types/Tournament';
-import type { PropType } from 'vue';
+import { ref, type PropType } from 'vue';
 import TournamentGameweeksCard from './TournamentGameweeksCard.vue';
 import TournamentGroupCard from './TournamentGroupCard.vue';
 
@@ -26,6 +30,8 @@ const stage = defineModel('stage', {
   type: Object as PropType<TournamentGroupsStage>,
   required: true,
 });
+
+const highlightedTeamsId = ref<string[]>([]);
 </script>
 
 <style lang="scss" scoped>
