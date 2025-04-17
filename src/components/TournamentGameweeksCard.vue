@@ -45,7 +45,6 @@
         <AppMatch
           v-model:home-score="match.homeTeamScore"
           v-model:away-score="match.awayTeamScore"
-          class="gameweeks-card__match"
           :home-team="match.homeTeam"
           :away-team="match.awayTeam"
         />
@@ -121,17 +120,17 @@ const showMatchDates = computed(() => (
   &__matches {
     display: grid;
     gap: 0.5rem;
-  }
-  &__match {
-    &:not(:last-child) {
-      margin-bottom: 0.25rem;
-    }
+    line-height: 1.4;
   }
   &__match-date {
+    display: block;
     color: $color--text-strong;
     font-size: 0.875rem;
     font-weight: $font-weight--medium;
     text-align: center;
+    &:not(:first-child) {
+      margin-top: 0.5rem;
+    }
   }
 }
 </style>
