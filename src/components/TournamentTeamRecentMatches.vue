@@ -107,6 +107,7 @@ function getIcon(status: RecentGameStatus) {
 .recent-matches {
   display: flex;
   gap: 0.375rem;
+  cursor: default;
   &__item {
     display: flex;
     color: var(--color);
