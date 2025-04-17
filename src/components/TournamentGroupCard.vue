@@ -210,6 +210,7 @@ function updatePositionColor(row: TournamentStageStandings) {
   pointer-events: none;
 }
 .group-card {
+  --base-card--padding: 1rem 1.125rem;
   --fixed-column-min-width: 15rem;
   overflow: hidden;
   @include for-tablet-portrait-up {
@@ -217,12 +218,11 @@ function updatePositionColor(row: TournamentStageStandings) {
   }
   &__header {
     padding-bottom: 0.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     border-bottom: 1px solid $color--neutral-300;
   }
   &__title {
     color: $color--text-strong;
-    font-size: 1.25rem;
     font-weight: $font-weight--medium;
   }
   &__table-container {
