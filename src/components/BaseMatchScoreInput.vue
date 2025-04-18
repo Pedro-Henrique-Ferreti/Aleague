@@ -13,7 +13,7 @@
 import { computed, type PropType } from 'vue';
 import BaseInput from './BaseInput.vue';
 
-const MASK_OPTIONS = { min: 0, max: 99 } as const;
+const MASK_OPTIONS = { min: 0, max: 99, scale: 0 } as const;
 
 const emit = defineEmits(['update:modelValue']);
 const props = defineProps({
