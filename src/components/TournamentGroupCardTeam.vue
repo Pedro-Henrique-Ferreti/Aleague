@@ -7,7 +7,7 @@
       v-tooltip="'Trocar legenda'"
       class="team__position"
       type="button"
-      @click="$emit('update-position-color')"
+      @click.stop="$emit('update-position-color')"
     >
       {{ row.position }}
     </button>
@@ -57,7 +57,7 @@ defineProps<{
     width: 2.25rem;
     height: 100%;
     padding-left: 0.625rem;
-    border-radius: $radius--small;
+    border-radius: 0 $radius--small $radius--small 0;
     text-align: left;
     transition: background-color $transition--fast ease-in;
     &:hover {
