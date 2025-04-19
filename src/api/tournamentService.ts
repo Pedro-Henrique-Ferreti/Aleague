@@ -4,6 +4,7 @@ import {
   type Tournament,
   type TournamentGroupsStagePreview,
   type TournamentStage,
+  type TeamStagePerformance,
 } from '@/types/Tournament';
 import type { ApiCreateTournamentPayload } from '@/types/NewTournamentForm';
 import { axiosInstance } from '@/helpers/axios';
@@ -87,5 +88,11 @@ export default class TournamentService {
 
   static copyTournamentGroup(payload: { id: string; name: string }) {
     return axiosInstance.post(`/competitions/groups/${payload.id}/copy`, payload);
+  }
+
+  static getTournamentTeamPerformance(payload: { tournamentId: string; teamId: string }) {
+    return axiosInstance.get<TeamStagePerformance[]>(
+      `/competitions/${payload.tournamentId}/performance/teams/${payload.teamId}`,
+    );
   }
 }

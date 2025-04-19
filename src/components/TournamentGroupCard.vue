@@ -59,16 +59,15 @@
               </th>
               <th />
             </tr>
-            <tr
+            <component
               v-for="row in standings"
               class="group-card__table-row"
+              :is="row.team.id ? TournamentTeamPerformance : 'tr'"
+              :role="(row.team.id) ? 'row' : null"
               :key="row.id"
+              :team="(row.team.id) ? row.team : null"
               :data-highlight="row.team.id && highlightedTeamsId.includes(row.team.id)"
-              @click="(!row.team.id) ? $router.push({
-                name: 'edit-tournament-teams',
-                params: { id: tournament?.id },
-                query: { stageId: stage.id },
-              }) : null"
+              @click="onRowClick(row)"
             >
               <td
                 v-resize-observer="onResizeObserver"
@@ -98,7 +97,9 @@
                 <td>{{ row.goalsAgainst }}</td>
                 <td>{{ row.goalsFor - row.goalsAgainst }}</td>
                 <td>
-                  {{ row.gamesPlayed ? Math.round(row.points / (row.gamesPlayed * 3) * 100) : 0 }}%
+                  {{
+                    row.gamesPlayed ? Math.round(row.points / (row.gamesPlayed * 3) * 100) : 0
+                  }}%
                 </td>
                 <td>
                   <TournamentTeamRecentMatches
@@ -108,7 +109,7 @@
                 </td>
                 <td />
               </template>
-            </tr>
+            </component>
           </TransitionTournamentStandings>
         </table>
       </div>
@@ -120,6 +121,7 @@
 import type { ResizeObserverCallback } from '@vueuse/core';
 import type { TournamentGroupsStage, TournamentStageStandings } from '@/types/Tournament';
 import { computed, inject, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useScroll } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
 import { KEY_TOURNAMENT } from '@/constants/injectionKeys';
@@ -127,6 +129,9 @@ import { PositionColor, STANDINGS_POSITION_COLORS } from '@/constants/tournament
 import TransitionTournamentStandings from './TransitionTournamentStandings.vue';
 import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 import TournamentGroupCardTeam from './TournamentGroupCardTeam.vue';
+import TournamentTeamPerformance from './TournamentTeamPerformance.vue';
+
+const router = useRouter();
 
 const emit = defineEmits<{
   (e: 'update:position-color', payload: { rowIndex: number; color: PositionColor }): void;
@@ -170,6 +175,16 @@ function updatePositionColor(row: TournamentStageStandings) {
   emit('update:position-color', {
     rowIndex: props.standings.findIndex((standing) => standing.id === row.id),
     color: STANDINGS_POSITION_COLORS[index + 1] || '',
+  });
+}
+
+function onRowClick(row: TournamentStageStandings) {
+  if (row.team.id) return;
+
+  router.push({
+    name: 'edit-tournament-teams',
+    params: { id: tournament?.id },
+    query: { stageId: props.stage.id },
   });
 }
 </script>
@@ -270,6 +285,8 @@ function updatePositionColor(row: TournamentStageStandings) {
   }
   &__table-row {
     --row-bg-color: #{$color--white};
+    display: table-row;
+    vertical-align: inherit;
     background-color: var(--row-bg-color);
     border: 1px solid $color--neutral-300;
     border-width: 1px 0 1px 0;

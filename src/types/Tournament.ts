@@ -137,3 +137,30 @@ export interface TournamentPreview {
   progress: number;
   group: TournamentPreviewGroup | null;
 }
+
+export interface TeamStagePerformance {
+  awayGames: {
+    played: number;
+    won: number;
+    tied: number;
+    lost: number;
+  };
+  homeGames: {
+    played: number;
+    won: number;
+    tied: number;
+    lost: number;
+  };
+  positionHistory: {
+    gameweek: number;
+    groupNumber: number;
+    points: number;
+    position: number;
+  }[];
+  stage: {
+    id: string;
+    name: string | null;
+    sequence: number;
+  };
+  games: Match[];
+}

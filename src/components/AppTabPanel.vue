@@ -5,6 +5,7 @@
     :data-theme="theme"
     :data-direction="direction"
     :data-justify="justify"
+    :data-size="size"
   >
     <div class="tab-panel__tabs">
       <swiper-container
@@ -74,6 +75,10 @@ const props = defineProps({
     type: String as PropType<'center' | 'stretch'>,
     default: 'stretch',
   },
+  size: {
+    type: String as PropType<'small'>,
+    default: '',
+  },
 });
 
 const activeTabId = ref(props.items[0].id);
@@ -132,6 +137,10 @@ onMounted(() => {
   justify-content: center;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  &[data-size="small"] {
+    --tab-button-height: 2rem;
+    --tab-button-fnt-size: 0.875rem;
+  }
   &[data-theme="light"] {
     --tab-active-bg-color: #{$color--neutral-100};
     background-color: $color--white;
@@ -167,10 +176,11 @@ onMounted(() => {
   &__tab {
     display: flex;
     align-items: center;
-    height: 2.5rem;
+    height: var(--tab-button-height, 2.5rem);
     padding: 0 0.75rem;
     border-radius: 0.375rem;
     color: $color--text;
+    font-size: var(--tab-button-fnt-size, 1rem);
     font-weight: $font-weight--medium;
     transition:
       background-color $transition--fast,
