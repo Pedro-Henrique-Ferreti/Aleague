@@ -41,24 +41,102 @@
         :team="team"
       />
     </div>
+    <AppChart
+      v-if="stagePerformance?.positionHistory?.length"
+      :config="chartConfig"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { ChartConfiguration } from 'chart.js';
 import type { TeamStagePerformance } from '@/types/Tournament';
-import type { MatchTeam } from '@/types/Match';
+import { MatchOutcome, type MatchTeam } from '@/types/Match';
+import { computed } from 'vue';
+import { getMatchOutcome } from '@/helpers/match';
+import AppChart from './AppChart.vue';
 import TournamentTeamRecentMatches from './TournamentTeamRecentMatches.vue';
 
-defineProps<{
+const props = defineProps<{
   stagePerformance: TeamStagePerformance;
   team: MatchTeam;
+  numberOfTeamsPerGroup?: number;
 }>();
+
+const pointBackgroundColors = computed(() => props.stagePerformance.games.map((_, index) => {
+  const outcome = getMatchOutcome(props.team.id, props.stagePerformance.games[index]);
+  switch (outcome) {
+    case MatchOutcome.WIN:
+      return '#008F62';
+    case MatchOutcome.DRAW:
+      return '#CCCCCC';
+    case MatchOutcome.LOSS:
+      return '#E73737';
+    default:
+      return '#FFF';
+  }
+}));
+
+const chartConfig = computed<ChartConfiguration>(() => ({
+  type: 'line',
+  data: {
+    labels: props.stagePerformance.positionHistory.map(({ gameweek }) => gameweek),
+    datasets: [{
+      data: props.stagePerformance.positionHistory.map(({ position }) => position),
+      borderColor: '#ADADAD',
+      borderWidth: 2,
+      tension: 0.1,
+      pointRadius: 6,
+      pointBackgroundColor: pointBackgroundColors.value,
+      pointBorderColor: '#FFF',
+      pointHoverRadius: 6,
+    }],
+  },
+  options: {
+    responsive: true,
+    clip: false,
+    aspectRatio: 6.5 / 2,
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        title: {
+          display: true,
+          text: 'Partidas',
+          color: '#757575',
+        },
+      },
+      y: {
+        reverse: true,
+        position: 'left',
+        min: 1,
+        max: props.numberOfTeamsPerGroup,
+        grid: { drawTicks: false },
+        ticks: { padding: 12, stepSize: 5 },
+        border: { display: false },
+      },
+    },
+    plugins: {
+      tooltip: {
+        displayColors: false,
+        callbacks: {
+          title: (tooltips) => tooltips.map(({ label }) => `Rodada ${label}`),
+          label: (tooltip) => `Pos: ${tooltip.formattedValue}`,
+        },
+      },
+    },
+  },
+}));
 </script>
 
 <style lang="scss" scoped>
 .performance {
   display: grid;
-  gap: 1rem;
+  gap: 0.75rem;
   &__list-wrapper {
     display: grid;
     gap: 0.25rem 0.75rem;

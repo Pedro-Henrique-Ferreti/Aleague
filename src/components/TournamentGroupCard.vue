@@ -66,6 +66,7 @@
               :role="(row.team.id) ? 'row' : null"
               :key="row.id"
               :team="(row.team.id) ? row.team : null"
+              :stage-rules="stage.rules"
               :data-highlight="row.team.id && highlightedTeamsId.includes(row.team.id)"
               @click="onRowClick(row)"
             >

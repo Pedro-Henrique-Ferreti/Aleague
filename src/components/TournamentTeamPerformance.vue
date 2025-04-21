@@ -37,6 +37,7 @@
               v-if="stagePerformance"
               :stage-performance="stagePerformance"
               :team="team"
+              :number-of-teams-per-group="stageRules?.numberOfTeamsPerGroup"
             />
           </div>
         </TransitionFade>
@@ -49,7 +50,7 @@
 import type { DropdownOption } from '@/types/Dropdown';
 import type { TabPanelTab } from '@/types/TabPanel';
 import type { MatchTeam } from '@/types/Match';
-import type { TeamStagePerformance } from '@/types/Tournament';
+import type { GroupsStageRules, TeamStagePerformance } from '@/types/Tournament';
 import {
   computed, ref, watch, watchEffect,
 } from 'vue';
@@ -67,6 +68,7 @@ const tournamentStore = useTournamentStore();
 
 const props = defineProps<{
   team: MatchTeam;
+  stageRules?: GroupsStageRules;
 }>();
 
 const form = ref({
@@ -154,7 +156,7 @@ watch(() => stageTabItems.value, () => {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
   &__name {
     color: $color--text-strong;
