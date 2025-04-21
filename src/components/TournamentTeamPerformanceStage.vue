@@ -77,6 +77,14 @@ const pointBackgroundColors = computed(() => props.stagePerformance.games.map((_
   }
 }));
 
+const chartStepSize = computed(() => {
+  if (!props.numberOfTeamsPerGroup || props.numberOfTeamsPerGroup <= 8) {
+    return 1;
+  }
+  if (props.numberOfTeamsPerGroup === 20) return 5;
+  return 2;
+});
+
 const chartConfig = computed<ChartConfiguration>(() => ({
   type: 'line',
   data: {
@@ -116,7 +124,7 @@ const chartConfig = computed<ChartConfiguration>(() => ({
         min: 1,
         max: props.numberOfTeamsPerGroup,
         grid: { drawTicks: false },
-        ticks: { padding: 12, stepSize: 5 },
+        ticks: { padding: 12, stepSize: chartStepSize.value },
         border: { display: false },
       },
     },
