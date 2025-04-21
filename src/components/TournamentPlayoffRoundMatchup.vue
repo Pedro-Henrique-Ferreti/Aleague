@@ -78,8 +78,11 @@ const matchupWinner = computed<MatchTeam | null>(() => {
 
   const firstTeamScore = matchOne.homeTeamScore + (matchTwo?.awayTeamScore || 0);
   const secondTeamScore = matchOne.awayTeamScore + (matchTwo?.homeTeamScore || 0);
+  const winner = (firstTeamScore > secondTeamScore)
+    ? props.matchup.firstTeam
+    : props.matchup.secondTeam;
 
-  return (firstTeamScore > secondTeamScore) ? props.matchup.firstTeam : props.matchup.secondTeam;
+  return (winner?.id === null) ? null : winner;
 });
 
 watch(matchupWinner, (winner, previousWinner) => {

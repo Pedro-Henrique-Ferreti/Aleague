@@ -144,14 +144,14 @@ function submitForm() {
       'select-teams',
       stage.rounds[0].matchups.flatMap(
         (matchup) => ([matchup.firstTeam, matchup.secondTeam]),
-      ).filter((team) => !!team && team.id !== null),
+      ).filter((team) => !!team && team.id !== null) as MatchTeam[],
     );
   } else {
     emit(
       'select-teams',
       stage.groups.flatMap(
         (group) => group.standings.map((standing) => standing.team),
-      ).filter((team) => team.id !== null),
+      ).filter((team) => team.id !== null) as MatchTeam[],
     );
   }
 }
