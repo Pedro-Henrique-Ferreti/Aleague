@@ -11,6 +11,7 @@
     <div
       class="app-dropdown"
       :data-disabled="disabled"
+      :data-size="size"
       :data-valid="showValidState"
       :data-invalid="showInvalidState"
       :data-float-label="floatLabel"
@@ -140,6 +141,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  size: {
+    type: String as PropType<'small'>,
+    default: null,
+  },
 });
 
 const inputValue = computed({
@@ -200,6 +205,11 @@ const validationMessage = computed(() => {
 .app-dropdown {
   --success-color: #{$color--success-600};
   --invalid-color: #{$color--danger};
+  &[data-size="small"] {
+    --min-height: 2.25rem;
+    --border-radius: #{$radius--medium};
+    font-size: 0.875rem;
+  }
   // &[data-disabled="true"] {
   //   --label-color: #{$color--fds-neutral-600};
   //   --icon-color: #{$color--fds-neutral-600};
@@ -236,13 +246,13 @@ const validationMessage = computed(() => {
     place-items: center start;
     gap: 0.5rem;
     width: 100%;
-    min-height: 2.75rem;
+    min-height: var(--min-height, 2.75rem);
     padding-left: 0.75rem;
     padding-right: 2.25rem;
     background-color: $color--white;
     color: $color--text;
     border: 1px solid $color--neutral-300;
-    border-radius: $radius--large;
+    border-radius: var(--border-radius, #{$radius--large});
     position: relative;
     cursor: pointer;
     transition: border-color $transition--fastest ease-in;

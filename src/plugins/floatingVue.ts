@@ -6,6 +6,7 @@ export default {
       arrowOverflow: false,
       placement: 'bottom-end',
       distance: 16,
+      overflowPadding: 12,
     },
     'app-dropdown': {
       $extend: 'dropdown',
@@ -13,6 +14,7 @@ export default {
       arrowOverflow: false,
       placement: 'bottom-start',
       distance: 2,
+      overflowPadding: 12,
     },
     'app-popup-large': {
       $extend: 'dropdown',
@@ -21,6 +23,7 @@ export default {
       placement: 'bottom-start',
       distance: 12,
       skidding: -12,
+      overflowPadding: 12,
     },
     'context-menu': {
       $extend: 'dropdown',
@@ -28,6 +31,7 @@ export default {
       arrowOverflow: false,
       placement: 'right-start',
       distance: 8,
+      overflowPadding: 12,
     },
     'popup-menu': {
       $extend: 'dropdown',
@@ -36,10 +40,12 @@ export default {
       placement: 'right-start',
       distance: 8,
       skidding: -102,
+      overflowPadding: 12,
     },
     tooltip: {
       $resetCss: true,
       distance: 8,
+      overflowPadding: 12,
     },
     'match-tooltip': {
       $extend: 'menu',

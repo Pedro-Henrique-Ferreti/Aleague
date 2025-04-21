@@ -3,19 +3,27 @@
     v-model:shown="menuIsOpen"
     v-bind="$attrs"
     theme="team-performance"
-    auto-hide
+    :auto-hide="false"
     :triggers="['click']"
   >
     <slot />
     <template #popper>
       <div class="team-menu">
         <div class="team-menu__header">
-          <img
-            class="team-menu__logo"
-            alt=""
-            :src="team.emblemUrl"
+          <div class="team-menu__logo">
+            <img
+              class="team-menu__logo-img"
+              alt=""
+              :src="team.emblemUrl"
+            />
+            <span>{{ team.name }}</span>
+          </div>
+          <AppDropdown
+            v-if="tournamentOptions.length > 1"
+            v-model="form.tournamentId"
+            size="small"
+            :options="tournamentOptions"
           />
-          <span class="team-menu__name">{{ team.name }}</span>
         </div>
         <TransitionFade>
           <IconSpinner
@@ -60,6 +68,7 @@ import { useTournamentStore } from '@/stores/tournament';
 import api from '@/api';
 import IconSpinner from './IconSpinner.vue';
 import AppTabPanel from './AppTabPanel.vue';
+import AppDropdown from './AppDropdown.vue';
 import TransitionFade from './TransitionFade.vue';
 import TournamentTeamPerformanceStage from './TournamentTeamPerformanceStage.vue';
 
@@ -154,15 +163,19 @@ watch(() => stageTabItems.value, () => {
   padding: 0.75rem;
   &__header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 0.75rem;
   }
-  &__name {
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     color: $color--text-strong;
     font-weight: $font-weight--medium;
   }
-  &__logo {
+  &__logo-img {
     width: 2rem;
   }
   &__content {
