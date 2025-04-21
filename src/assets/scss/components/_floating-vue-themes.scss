@@ -45,6 +45,15 @@
   }
 }
 
+// Team performance
+.v-popper--theme-team-performance {
+  width: 100%;
+  max-width: 38rem;
+  .v-popper__inner {
+    max-height: 16rem;
+  }
+}
+
 // Popup large
 .v-popper--theme-app-popup-large {
   &.v-popper__popper {

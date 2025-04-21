@@ -40,41 +40,41 @@ enum RecentGameStatus {
   WON = 'won',
   DRAWN = 'drawn',
   LOST = 'lost',
+  NOT_PLAYED = 'not-played',
 }
 
-interface RecentGame extends FinishedMatch {
+interface RecentGame extends Match {
   status: RecentGameStatus;
 }
 </script>
 
 <script lang="ts" setup>
-import type { FinishedMatch, MatchTeam } from '@/types/Match';
-import { computed, type PropType } from 'vue';
+import type { Match, MatchTeam } from '@/types/Match';
+import { computed } from 'vue';
 import { Dropdown } from 'floating-vue';
 import { WEEKDAYS } from '@/constants/weekDays';
 import IconCheckCircle from '@/assets/icons/CheckCircle.svg';
 import IconCircleMinus from '@/assets/icons/CircleMinus.svg';
 import IconErrorCicle from '@/assets/icons/ErrorCircle.svg';
+import IconEmptyCircle from '@/assets/icons/EmptyCircle.svg';
 import BaseMatchTeam from './BaseMatchTeam.vue';
 
-const props = defineProps({
-  recentGames: {
-    type: Array as PropType<FinishedMatch[]>,
-    required: true,
-  },
-  team: {
-    type: Object as PropType<MatchTeam>,
-    required: true,
-  },
-});
+const props = defineProps<{
+  recentGames: Match[];
+  team: MatchTeam;
+}>();
 
-function getStatus(game: FinishedMatch): RecentGameStatus {
+function getStatus(game: Match): RecentGameStatus {
+  if (game.homeTeamScore === null || game.awayTeamScore === null) {
+    return RecentGameStatus.NOT_PLAYED;
+  }
+
   if (game.homeTeamScore === game.awayTeamScore) {
     return RecentGameStatus.DRAWN;
   }
 
   const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-  const isHomeTeam = game.homeTeam.id === props.team.id;
+  const isHomeTeam = game.homeTeam?.id === props.team.id;
 
   if ((homeTeamWon && isHomeTeam) || (!homeTeamWon && !isHomeTeam)) {
     return RecentGameStatus.WON;
@@ -96,6 +96,8 @@ function getIcon(status: RecentGameStatus) {
       return IconCheckCircle;
     case RecentGameStatus.DRAWN:
       return IconCircleMinus;
+    case RecentGameStatus.NOT_PLAYED:
+      return IconEmptyCircle;
     case RecentGameStatus.LOST:
     default:
       return IconErrorCicle;
@@ -114,13 +116,14 @@ function getIcon(status: RecentGameStatus) {
     &[data-status="won"] {
       --color: #{$color--success-600};
     }
-    &[data-status="drawn"] {
+    &[data-status="drawn"],
+    &[data-status="not-played"] {
       --color: #{$color--text-300};
     }
     &[data-status="lost"] {
       --color: #{$color--danger};
     }
-    &:last-child > .recent-matches__item-icon:not(:focus) {
+    &:last-child:not([data-status="not-played"]) > .recent-matches__item-icon:not(:focus) {
       outline-color: var(--color);
     }
   }

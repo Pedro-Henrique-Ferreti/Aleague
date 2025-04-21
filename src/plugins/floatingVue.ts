@@ -53,5 +53,8 @@ export default {
         hide: 0,
       },
     },
+    'team-performance': {
+      $extend: 'app-dropdown',
+    },
   },
 };

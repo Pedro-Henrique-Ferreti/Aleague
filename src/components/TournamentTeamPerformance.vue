@@ -2,9 +2,8 @@
   <Dropdown
     v-model:shown="menuIsOpen"
     v-bind="$attrs"
-    theme="app-dropdown"
+    theme="team-performance"
     auto-hide
-    auto-size
     :triggers="['click']"
   >
     <slot />
@@ -16,7 +15,7 @@
             alt=""
             :src="team.emblemUrl"
           />
-          <span>{{ team.name }}</span>
+          <span class="team-menu__name">{{ team.name }}</span>
         </div>
         <TransitionFade>
           <IconSpinner
@@ -34,32 +33,11 @@
               justify="center"
               :items="stageTabItems"
             />
-            <div class="team-menu__performance">
-              <span data-type="matches">
-                <b>{{ stagePerformance?.homeGames.played }}</b> Jogos mandante
-              </span>
-              <span data-type="wins">
-                <b>{{ stagePerformance?.homeGames.won }}</b> Vitórias
-              </span>
-              <span data-type="draws">
-                <b>{{ stagePerformance?.homeGames.tied }}</b> Empates
-              </span>
-              <span data-type="losses">
-                <b>{{ stagePerformance?.homeGames.lost }}</b> Derrotas
-              </span>
-              <span data-type="matches">
-                <b>{{ stagePerformance?.awayGames.played }}</b> Jogos visitante
-              </span>
-              <span data-type="wins">
-                <b>{{ stagePerformance?.awayGames.won }}</b> Vitórias
-              </span>
-              <span data-type="draws">
-                <b>{{ stagePerformance?.awayGames.tied }}</b> Empates
-              </span>
-              <span data-type="losses">
-                <b>{{ stagePerformance?.awayGames.lost }}</b> Derrotas
-              </span>
-            </div>
+            <TournamentTeamPerformanceStage
+              v-if="stagePerformance"
+              :stage-performance="stagePerformance"
+              :team="team"
+            />
           </div>
         </TransitionFade>
       </div>
@@ -82,6 +60,7 @@ import api from '@/api';
 import IconSpinner from './IconSpinner.vue';
 import AppTabPanel from './AppTabPanel.vue';
 import TransitionFade from './TransitionFade.vue';
+import TournamentTeamPerformanceStage from './TournamentTeamPerformanceStage.vue';
 
 const route = useRoute();
 const tournamentStore = useTournamentStore();
@@ -169,16 +148,17 @@ watch(() => stageTabItems.value, () => {
 
 <style lang="scss" scoped>
 .team-menu {
+  width: 100%;
   padding: 0.75rem;
   &__header {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1rem;
-    span {
-      color: $color--text-strong;
-      font-weight: $font-weight--medium;
-    }
+  }
+  &__name {
+    color: $color--text-strong;
+    font-weight: $font-weight--medium;
   }
   &__logo {
     width: 2rem;
@@ -186,38 +166,6 @@ watch(() => stageTabItems.value, () => {
   &__content {
     display: grid;
     gap: 1rem;
-  }
-  &__performance {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.25rem 0.75rem;
-    font-size: 0.875rem;
-    @include for-tablet-portrait-up {
-      grid-template-columns: repeat(4, max-content);
-    }
-    > span {
-      &[data-type="matches"] {
-        --color: #{$color--text-strong};
-      }
-      &[data-type="wins"] {
-        --color: #{$color--success-600};
-      }
-      &[data-type="draws"] {
-        --color: #{$color--blue-800};
-      }
-      &[data-type="losses"] {
-        --color: #{$color--danger};
-      }
-      > b {
-        color: var(--color);
-        font-weight: $font-weight--medium;
-      }
-    }
-  }
-  td {
-    padding: 1rem 3.75rem;
-    background-color: $color--white;
-    position: relative;
   }
 }
 </style>
