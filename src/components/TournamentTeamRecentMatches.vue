@@ -1,17 +1,17 @@
 <template>
   <div class="recent-matches">
     <Dropdown
-      v-for="match in displayedGames"
+      v-for="match in displayedMatches"
       class="recent-matches__item"
       theme="match-tooltip"
       :auto-hide="false"
       :key="match.id"
-      :data-status="match.status"
+      :data-outcome="match.outcome"
     >
       <Component
         class="recent-matches__item-icon"
         tabindex="0"
-        :is="getIcon(match.status)"
+        :is="getIcon(match.outcome)"
       />
       <template #popper>
         <div class="recent-matches__item-menu">
@@ -36,23 +36,17 @@
 </template>
 
 <script lang="ts">
-enum RecentGameStatus {
-  WON = 'won',
-  DRAWN = 'drawn',
-  LOST = 'lost',
-  NOT_PLAYED = 'not-played',
-}
-
-interface RecentGame extends Match {
-  status: RecentGameStatus;
+interface RecentMatch extends Match {
+  outcome: MatchOutcome;
 }
 </script>
 
 <script lang="ts" setup>
-import type { Match, MatchTeam } from '@/types/Match';
+import { type Match, MatchOutcome, type MatchTeam } from '@/types/Match';
 import { computed } from 'vue';
 import { Dropdown } from 'floating-vue';
 import { WEEKDAYS } from '@/constants/weekDays';
+import { getMatchOutcome } from '@/helpers/match';
 import IconCheckCircle from '@/assets/icons/CheckCircle.svg';
 import IconCircleMinus from '@/assets/icons/CircleMinus.svg';
 import IconErrorCicle from '@/assets/icons/ErrorCircle.svg';
@@ -64,43 +58,24 @@ const props = defineProps<{
   team: MatchTeam;
 }>();
 
-function getStatus(game: Match): RecentGameStatus {
-  if (game.homeTeamScore === null || game.awayTeamScore === null) {
-    return RecentGameStatus.NOT_PLAYED;
-  }
-
-  if (game.homeTeamScore === game.awayTeamScore) {
-    return RecentGameStatus.DRAWN;
-  }
-
-  const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-  const isHomeTeam = game.homeTeam?.id === props.team.id;
-
-  if ((homeTeamWon && isHomeTeam) || (!homeTeamWon && !isHomeTeam)) {
-    return RecentGameStatus.WON;
-  }
-
-  return RecentGameStatus.LOST;
-}
-
-const displayedGames = computed<RecentGame[]>(() => (
+const displayedMatches = computed<RecentMatch[]>(() => (
   props.recentGames.map((game) => ({
     ...game,
-    status: getStatus(game),
+    outcome: getMatchOutcome(props.team.id, game),
   }))
 ));
 
-function getIcon(status: RecentGameStatus) {
-  switch (status) {
-    case RecentGameStatus.WON:
+function getIcon(outcome: MatchOutcome) {
+  switch (outcome) {
+    case MatchOutcome.WIN:
       return IconCheckCircle;
-    case RecentGameStatus.DRAWN:
+    case MatchOutcome.DRAW:
       return IconCircleMinus;
-    case RecentGameStatus.NOT_PLAYED:
-      return IconEmptyCircle;
-    case RecentGameStatus.LOST:
-    default:
+    case MatchOutcome.LOSS:
       return IconErrorCicle;
+    case MatchOutcome.NOT_PLAYED:
+    default:
+      return IconEmptyCircle;
   }
 }
 </script>
@@ -113,17 +88,17 @@ function getIcon(status: RecentGameStatus) {
   &__item {
     display: flex;
     color: var(--color);
-    &[data-status="won"] {
+    &[data-outcome="win"] {
       --color: #{$color--success-600};
     }
-    &[data-status="drawn"],
-    &[data-status="not-played"] {
+    &[data-outcome="draw"],
+    &[data-outcome="not-played"] {
       --color: #{$color--text-300};
     }
-    &[data-status="lost"] {
+    &[data-outcome="loss"] {
       --color: #{$color--danger};
     }
-    &:last-child:not([data-status="not-played"]) > .recent-matches__item-icon:not(:focus) {
+    &:last-child:not([data-outcome="not-played"]) > .recent-matches__item-icon:not(:focus) {
       outline-color: var(--color);
     }
   }

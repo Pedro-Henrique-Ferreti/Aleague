@@ -30,3 +30,10 @@ export interface FinishedMatch extends Match {
   awayTeamScore: number;
   homeTeamScore: number;
 }
+
+export enum MatchOutcome {
+  WIN = 'win',
+  DRAW = 'draw',
+  LOSS = 'loss',
+  NOT_PLAYED = 'not-played',
+}
