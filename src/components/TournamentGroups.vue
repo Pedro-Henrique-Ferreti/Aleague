@@ -71,7 +71,7 @@
         </span>
         <div class="groups__modal-list">
           <AppToggle
-            v-for="tournament in groupToEdit?.tournaments || nonGroupedTournaments"
+            v-for="tournament in [...nonGroupedTournaments, ...(groupToEdit?.tournaments || [])]"
             :model-value="form.tournaments.includes(tournament.id)"
             :key="tournament.id"
             :value="tournament.id"
