@@ -201,6 +201,9 @@ function onRowClick(row: TournamentStageStandings) {
   --fixed-column-min-width: 15rem;
   overflow: hidden;
   @include for-tablet-portrait-up {
+    --fixed-column-min-width: 16rem;
+  }
+  @include for-large-desktop-up {
     --fixed-column-min-width: 18rem;
   }
   &__header {
