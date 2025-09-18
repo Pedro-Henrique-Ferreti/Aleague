@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/eslint": "^1.9.0",
     "@nuxt/icon": "^2.0.0",
+    "@tabler/icons-vue": "^3.35.0",
     "@tailwindcss/vite": "^4.1.13",
     "eslint": "^9.35.0",
     "nuxt": "^4.1.2",
