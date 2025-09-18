@@ -1,4 +1,12 @@
+@import "./_reset.css";
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: emerald --default;
+}
+
+@theme {
+  --spacing: 1rem;
+
+  --font-primary: 'Inter', ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

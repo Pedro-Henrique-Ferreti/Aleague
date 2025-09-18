@@ -1,0 +1,7 @@
+body {
+  @apply min-h-screen font-primary;
+}
+
+#__nuxt {
+  @apply min-h-screen;
+}
