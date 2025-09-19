@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt'],
   imports: {
-    dirs: ['types', 'constants'],
+    dirs: ['types', 'constants', 'utils'],
   },
   app: {
     head: {
