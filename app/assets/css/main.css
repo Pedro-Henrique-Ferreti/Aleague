@@ -21,4 +21,12 @@
   --breakpoint-tablet-xl: 62rem; /* 992px */
   --breakpoint-desktop: 75rem; /* 1200px */
   --breakpoint-desktop-xl: 112.5rem; /* 1800px */
+
+  --container-*: initial;
+}
+
+@layer components {
+  .container-lg {
+    @apply px-1.5 tablet-lg:px-3 desktop:px-4;
+  }
 }
