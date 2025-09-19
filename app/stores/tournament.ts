@@ -18,5 +18,15 @@ export const useTournamentStore = defineStore('tournament', {
 
       return tournament;
     },
+    exportTournament(id: Tournament['id']) {
+      const tournament = this.tournaments.find((tournament) => tournament.id === id);
+
+      if (!tournament) throw new Error('Tournament not found');
+
+      downloadFile(
+        new Blob([JSON.stringify(tournament)], { type: 'application/json' }),
+        `${tournament.name.replace(/[^a-zA-Z0-9]/g, '_')}.json`,
+      );
+    },
   },
 });

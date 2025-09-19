@@ -17,12 +17,15 @@
       class="btn-primary"
       label="Exportar"
       :icon-left="IconFileArrowRight"
+      @click="tournamentStore.exportTournament(tournament.id)"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import { IconCalendarPlus, IconFileArrowRight, IconPencil } from '@tabler/icons-vue';
+
+const tournamentStore = useTournamentStore();
 
 defineProps<{
   tournament: Tournament;
