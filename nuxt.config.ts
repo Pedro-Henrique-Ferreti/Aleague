@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt'],
+  imports: {
+    dirs: ['types', 'constants'],
+  },
   app: {
     head: {
       title: 'Aleague',

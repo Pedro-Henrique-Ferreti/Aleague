@@ -30,8 +30,6 @@
 
 <script lang="ts" setup>
 import { IconFileArrowLeft } from '@tabler/icons-vue';
-import type { Tournament } from '~/types/Tournament';
-import type { TournamentForm } from '~/types/TournamentStore';
 
 const tournamentStore = useTournamentStore();
 
