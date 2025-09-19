@@ -7,9 +7,11 @@ export const useTournamentStore = defineStore('tournament', {
   }),
   actions: {
     createTournament(payload: TournamentForm) {
-      const tournament = {
+      const tournament: Tournament = {
         ...payload,
         id: new Date().getTime(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
 
       this.tournaments.push(tournament);

@@ -7,5 +7,7 @@ export enum TournamentFormat {
 export interface Tournament {
   id: number;
   name: string;
+  createdAt: string;
+  updatedAt: string;
   format: TournamentFormat;
 }
