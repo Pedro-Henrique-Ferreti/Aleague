@@ -19,6 +19,11 @@
       label="Nome do campeonato"
       name="name"
     />
+    <AppSelect
+      v-model="form.format"
+      label="Formato"
+      :options="TOURNAMENT_FORMAT_OPTIONS"
+    />
     <AppButton
       class="btn-secondary btn-block mt-2"
       label="Criar campeonato"
@@ -39,6 +44,7 @@ const emit = defineEmits<{
 
 const newForm = (): TournamentForm => ({
   name: '',
+  format: TournamentFormat.ALL_PLAY_ALL,
 });
 
 const form = ref<TournamentForm>(newForm());
