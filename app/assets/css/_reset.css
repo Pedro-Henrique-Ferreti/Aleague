@@ -1,5 +1,22 @@
+:root {
+  --spacing-screen-padding: 1rem;
+  --container-base-size: 1;
+
+  @media (min-width: 600px) {
+    --spacing-screen-padding: 1.5rem;
+  }
+
+  @media (min-width: 1200px) {
+    --spacing-screen-padding: 2rem;
+  }
+
+  @media (min-width: 1800px) {
+    --container-base-size: 1.15;
+  }
+}
+
 body {
-  @apply min-h-screen font-primary;
+  @apply min-h-screen font-primary text-sm;
 }
 
 #__nuxt {

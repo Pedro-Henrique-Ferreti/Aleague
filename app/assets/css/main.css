@@ -22,11 +22,16 @@
   --breakpoint-desktop: 75rem; /* 1200px */
   --breakpoint-desktop-xl: 112.5rem; /* 1800px */
 
+  /* Container */
   --container-*: initial;
+  --container-lg: 90rem; /* 1440px */
+  --container-md: 81rem; /* 1296px */
+  --container-sm: 60rem; /* 960px */
+  --container-xs: 37.5rem; /* 600px */
+  --container-base: none;
 }
 
-@layer components {
-  .container-lg {
-    @apply px-1.5 tablet-lg:px-3 desktop:px-4;
-  }
+@utility container-* {
+  @apply w-full px-(--spacing-screen-padding) mx-auto;
+  max-width: calc((var(--spacing-screen-padding) * 2 + --value(--container-*) * var(--container-base-size)));
 }
