@@ -35,3 +35,9 @@
   @apply w-full px-(--spacing-screen-padding) mx-auto;
   max-width: calc((var(--spacing-screen-padding) * 2 + --value(--container-*) * var(--container-base-size)));
 }
+
+@layer components {
+  .badge-container {
+    @apply flex items-center gap-0.5;
+  }
+}

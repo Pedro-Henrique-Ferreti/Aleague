@@ -14,7 +14,7 @@
         v-if="activeTab === tournament.id"
         class="tab-content tablet-lg:px-4 pt-4 border-b-0 border-l-0 border-r-0 rounded-none border-base-300"
       >
-        {{ tournament.name }}
+        <TournamentPage :tournament="tournament" />
       </div>
     </template>
     <AppTab
