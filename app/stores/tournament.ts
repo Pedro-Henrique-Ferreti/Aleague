@@ -4,6 +4,7 @@ import type { StoreState, TournamentForm } from '~/types/TournamentStore';
 export const useTournamentStore = defineStore('tournament', {
   state: (): StoreState => ({
     tournaments: [],
+    activeTournamentId: null,
   }),
   actions: {
     createTournament(payload: TournamentForm) {

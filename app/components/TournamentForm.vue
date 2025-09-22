@@ -4,11 +4,7 @@
       <h1 class="text-3xl font-medium mb-0.5">Novo campeonato</h1>
       <p>Nome, formato e participantes</p>
     </div>
-    <AppButton
-      class="btn-primary"
-      label="Importar"
-      :icon-left="IconFileArrowLeft"
-    />
+    <TournamentFormImportButton />
   </div>
   <form
     class="max-w-20 mx-auto"
@@ -34,13 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconFileArrowLeft } from '@tabler/icons-vue';
-
 const tournamentStore = useTournamentStore();
-
-const emit = defineEmits<{
-  (e: 'created', value: Tournament): void;
-}>();
 
 const newForm = (): TournamentForm => ({
   name: '',
@@ -56,6 +46,6 @@ function submitForm() {
 
   form.value = newForm();
   
-  emit('created', tournament);
+  tournamentStore.activeTournamentId = tournament.id;
 }
 </script>
