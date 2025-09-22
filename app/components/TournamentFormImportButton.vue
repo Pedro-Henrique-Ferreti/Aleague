@@ -14,25 +14,27 @@ const tournamentStore = useTournamentStore();
 
 const { open, onChange } = useFileDialog({
   accept: '.json',
-  multiple: false,
+  multiple: true,
 });
 
 onChange((files) => {
-  if (!files || !files[0]) return;
+  if (!files) return;
 
-  const reader = new FileReader();
-
-  reader.onload = () => {
-    const tournament = JSON.parse(reader.result as string) as Tournament;
-
-    if (tournamentStore.tournaments.find((i) => i.id === tournament.id)) {
-      throw new Error('Campeonato já importado');
-    }
-
-    tournamentStore.tournaments.push(tournament);
-    tournamentStore.activeTournamentId = tournament.id;
-  };
-
-  reader.readAsText(files[0]);
+  for (const file of files) {
+    const reader = new FileReader();
+  
+    reader.onload = () => {
+      const tournament = JSON.parse(reader.result as string) as Tournament;
+  
+      if (tournamentStore.tournaments.find((i) => i.id === tournament.id)) {
+        throw new Error('Campeonato já importado');
+      }
+  
+      tournamentStore.tournaments.push(tournament);
+      tournamentStore.activeTournamentId = tournament.id;
+    };
+  
+    reader.readAsText(file);
+  }
 });
 </script>
