@@ -5,6 +5,7 @@
       v-model="model"
       type="text"
       class="input"
+      :class="inputClass"
       :name="name"
     />
   </fieldset>
@@ -14,6 +15,7 @@
 defineProps<{
   label: string;
   name: string;
+  inputClass?: string;
 }>();
 
 const model = defineModel<string>();
