@@ -2,7 +2,7 @@
   <fieldset class="fieldset">
     <legend class="fieldset-legend">{{ label }}</legend>
     <input
-      v-model="model"
+      v-model.trim="model"
       type="text"
       class="input"
       :class="inputClass"
