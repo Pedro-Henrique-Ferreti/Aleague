@@ -1,6 +1,6 @@
 <template>
   <AppButton
-    class="btn-primary"
+    class="btn-primary btn-outline"
     label="Importar"
     :icon-left="IconFileArrowLeft"
     @click="open"
