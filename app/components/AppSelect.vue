@@ -8,6 +8,7 @@
     <select
       v-model="model"
       class="select"
+      :class="inputClass"
     >
       <option
         v-for="option in options"
@@ -24,6 +25,7 @@
 defineProps<{
   label?: string;
   options: SelectOptionList<T>;
+  inputClass?: string;
 }>();
 
 const model = defineModel<T>();
