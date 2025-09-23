@@ -18,6 +18,16 @@ export const useTournamentStore = defineStore('tournament', {
 
       return tournament;
     },
+    updateTournament(id: Tournament['id'], payload: TournamentForm) {
+      const index = this.tournaments.findIndex((i) => i.id === id);
+
+      if (index === -1) throw new Error('Tournament not found');
+
+      this.tournaments[index] = {
+        ...this.tournaments[index] as Tournament,
+        ...payload,
+      };
+    },
     exportTournament(id: Tournament['id']) {
       const tournament = this.tournaments.find((tournament) => tournament.id === id);
 
