@@ -11,9 +11,12 @@
     :id="id"
   >
     <div class="modal-box">
-      <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-1 top-1">✕</button>
-      </form>
+      <button
+        v-text="'✕'"
+        type="button"
+        class="btn btn-sm btn-circle btn-ghost absolute right-1 top-1"
+        @click="closeModal"
+      />
       <h3
         v-if="title"
         v-text="title"
