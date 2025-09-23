@@ -3,6 +3,7 @@
     <header class="flex w-full justify-end gap-1 mb-2">
       <ExportTournamentButton class="mr-auto" />
       <ImportTournamentButton />
+      <CreateTournamentButton />
     </header>
     <TournamentList />
   </div>
