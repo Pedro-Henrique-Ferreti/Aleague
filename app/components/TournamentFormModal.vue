@@ -2,7 +2,7 @@
   <AppModal
     ref="modalRef"
     :title="title"
-    @close="onCloseModal"
+    @open="onOpenModal"
   >
     <template #trigger="{ open }">
       <slot :open="open" />
@@ -38,8 +38,8 @@ function closeModal() {
   modal.value?.close();
 }
 
-function onCloseModal() {
-  form.value = newForm();
+function onOpenModal() {
+  form.value = props.initialForm ?? newForm();
 }
 
 // Form
@@ -47,7 +47,7 @@ const newForm = (): TournamentForm => ({
   name: '',
 });
 
-const form = ref<TournamentForm>(props.initialForm ?? newForm());
+const form = ref<TournamentForm>(newForm());
 
 const submitIsDisabled = computed(() => !form.value.name);
 
