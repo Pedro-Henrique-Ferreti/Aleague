@@ -24,7 +24,7 @@
       />
       <div
         v-if="tournamentStore.activeTournamentId === tournament.id"
-        class="tab-content tablet-lg:px-4 pt-4 border-b-0 border-l-0 border-r-0 rounded-none border-base-300"
+        class="tab-content pt-3 border-b-0 border-l-0 border-r-0 rounded-none border-base-300"
       >
         <TournamentPage :tournament="tournament" />
       </div>
