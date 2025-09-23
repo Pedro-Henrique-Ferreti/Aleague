@@ -23,6 +23,8 @@ export const useTournamentStore = defineStore('tournament', {
 
       if (!tournament) throw new Error('Tournament not found');
 
+      tournament.updatedAt = new Date().toISOString();
+
       downloadFile(
         new Blob([JSON.stringify(tournament)], { type: 'application/json' }),
         `${tournament.name.replace(/[^a-zA-Z0-9]/g, '_')}.json`,
