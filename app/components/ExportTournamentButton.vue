@@ -1,6 +1,6 @@
 <template>
   <AppButton
-    class="btn-primary btn-outline"
+    class="btn-primary"
     label="Exportar"
     :icon-left="IconFileArrowRight"
     @click="tournamentStore.exportTournament(tournamentStore.activeTournamentId!)"
