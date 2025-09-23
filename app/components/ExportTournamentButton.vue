@@ -1,10 +1,9 @@
 <template>
   <AppButton
-    v-if="tournamentStore.activeTournamentId"
     class="btn-primary btn-outline"
     label="Exportar"
     :icon-left="IconFileArrowRight"
-    @click="tournamentStore.exportTournament(tournamentStore.activeTournamentId)"
+    @click="tournamentStore.exportTournament(tournamentStore.activeTournamentId!)"
   />
 </template>
 
