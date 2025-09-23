@@ -5,8 +5,10 @@
         <CloseTournamentButton class="mr-auto" />
         <ExportTournamentButton />
       </template>
-      <ImportTournamentButton />
-      <CreateTournamentButton />
+      <template v-if="tournamentStore.tournaments.length > 0">
+        <ImportTournamentButton />
+        <CreateTournamentButton />
+      </template>
     </header>
     <TournamentList />
   </div>
