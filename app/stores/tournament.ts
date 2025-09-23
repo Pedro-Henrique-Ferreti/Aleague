@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import type { StoreState, TournamentForm } from '~/types/TournamentStore';
 
 export const useTournamentStore = defineStore('tournament', {
   state: (): StoreState => ({
@@ -28,6 +27,13 @@ export const useTournamentStore = defineStore('tournament', {
         new Blob([JSON.stringify(tournament)], { type: 'application/json' }),
         `${tournament.name.replace(/[^a-zA-Z0-9]/g, '_')}.json`,
       );
+    },
+    closeActiveTournament() {
+      const index = this.tournaments.findIndex((i) => i.id === this.activeTournamentId);
+
+      this.tournaments.splice(index, 1);
+
+      this.activeTournamentId = this.tournaments[index]?.id || this.tournaments[this.tournaments.length - 1]?.id || null;
     },
   },
 });
