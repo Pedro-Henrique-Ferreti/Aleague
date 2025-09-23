@@ -13,12 +13,6 @@
         </div>
       </div>
     </div>
-    <AppButton
-      class="btn-primary"
-      label="Exportar"
-      :icon-left="IconFileArrowRight"
-      @click="tournamentStore.exportTournament(tournament.id)"
-    />
   </div>
 </template>
 
