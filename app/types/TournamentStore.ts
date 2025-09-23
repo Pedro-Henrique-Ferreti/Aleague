@@ -1,6 +1,6 @@
 import type { Tournament } from "./Tournament";
 
-export type TournamentForm = Pick<Tournament, 'name'>;
+export type TournamentForm = Pick<Tournament, 'name' | 'iconId'>;
 
 export interface StoreState {
   tournaments: Tournament[];

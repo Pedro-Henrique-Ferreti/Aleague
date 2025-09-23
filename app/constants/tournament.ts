@@ -1,5 +1,9 @@
-export const TOURNAMENT_FORMAT_OPTIONS: SelectOptionList<TournamentFormat> = [
-  { label: 'Pontos corridos', value: TournamentFormat.ALL_PLAY_ALL },
-  { label: 'Eliminatórias', value: TournamentFormat.PLAYOFFS },
-  { label: 'Personalizado', value: TournamentFormat.CUSTOM },
-];
+const TOURNAMENT_NUMBER_OF_ICONS = 40;
+
+export const TOURNAMENT_ICONS_OPTIONS: SelectOptionList<number> = Array.from(
+  { length: TOURNAMENT_NUMBER_OF_ICONS },
+  (_, index) => ({
+    label: `Avatar ${index + 1}`,
+    value: index + 1,
+  }),
+);

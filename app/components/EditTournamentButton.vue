@@ -3,7 +3,7 @@
     v-slot="{ open }"
     title="Editar Campeonato"
     :key="tournament?.id"
-    :initial-form="{ name: tournament?.name || '' }"
+    :initial-form="{ name: tournament?.name || '', iconId: tournament?.iconId || 0 }"
     :submit-fn="(form) => tournamentStore.updateTournament(tournament?.id!, form)"
   >
     <AppButton
