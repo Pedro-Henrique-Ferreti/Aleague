@@ -8,6 +8,7 @@
       <AppButton
         class="btn-primary btn-outline"
         label="Criar"
+        :class="$attrs.class"
         :icon-left="IconPlus"
         @click="open"
       />

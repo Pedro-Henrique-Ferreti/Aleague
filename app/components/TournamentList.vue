@@ -1,5 +1,18 @@
 <template>
-  <div role="tablist" class="tabs tabs-lift">
+  <div
+    v-if="tournamentStore.tournaments.length === 0"
+    class="flex flex-col items-center justify-center min-h-15 pt-4"
+  >
+    <h1 class="text-3xl font-semibold mb-0.5">Bem-vindo ao Alegue</h1>
+    <p>Para começar, importe um campeonato ou crie um novo.</p>
+    <ImportTournamentButton class="btn-wide mt-2 mb-1" />
+    <CreateTournamentButton class="btn-wide" />
+  </div>
+  <div
+    v-else
+    role="tablist"
+    class="tabs tabs-lift"
+  >
     <template
       v-for="tournament in tournamentStore.tournaments"
       :key="tournament.id"
