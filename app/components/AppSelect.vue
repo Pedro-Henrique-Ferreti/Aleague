@@ -1,14 +1,9 @@
 <template>
-  <fieldset class="fieldset">
-    <legend
-      v-if="label"
-      v-text="label"
-      class="fieldset-legend"
-    />
+  <AppFieldset :label="label">
     <select
       v-model="model"
-      class="select"
-      :class="inputClass"
+      class="select w-full"
+      :id="id"
     >
       <option
         v-for="option in options"
@@ -18,14 +13,15 @@
         :disabled="option.disabled"
       />
     </select>
-  </fieldset>
+  </AppFieldset>
 </template>
 
 <script setup lang="ts" generic="T extends SelectOptionValue">
+const id = useId();
+
 defineProps<{
-  label?: string;
+  label: string;
   options: SelectOptionList<T>;
-  inputClass?: string;
 }>();
 
 const model = defineModel<T>();
