@@ -48,5 +48,16 @@ export const useTournamentStore = defineStore('tournament', {
 
       this.activeTournamentId = this.tournaments[index]?.id || this.tournaments[this.tournaments.length - 1]?.id || null;
     },
+    addStage(id: Tournament['id'], stage: TournamentStageForm) {
+      const tournament = this.tournaments.find((tournament) => tournament.id === id);
+
+      if (!tournament) throw new Error('Tournament not found');
+
+      tournament.stages.push({
+        ...stage,
+        id: new Date().getTime(),
+        sequence: (tournament.stages[tournament.stages.length - 1]?.sequence || 0) + 1,
+      });
+    }
   },
 });
