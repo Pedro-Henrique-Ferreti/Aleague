@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-border card-side mb-2 tablet-lg:w-2/3 desktop:w-1/2">
+  <div class="card card-border card-side">
     <div class="flex justify-center items-center w-5.5 h-5.5 m-1 mr-0">
       <img
         class="w-auto h-full"

@@ -1,5 +1,5 @@
 <template>
-  <TournamentPageHeader :tournament="tournament" />
+  <TournamentProfileCard :tournament="tournament" />
 </template>
 
 <script setup lang="ts">
