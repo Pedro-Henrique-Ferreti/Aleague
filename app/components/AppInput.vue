@@ -18,5 +18,5 @@ defineProps<{
   inputClass?: string;
 }>();
 
-const model = defineModel<string>();
+const model = defineModel<string | null>();
 </script>
