@@ -13,14 +13,12 @@
       v-model="form.name"
       label="Nome"
       name="name"
-      input-class="w-full"
     />
     <div class="flex w-full gap-2 mt-1">
       <AppSelect
         v-model="form.iconId"
         label="Avatar"
         class="w-full"
-        input-class="w-full"
         :options="TOURNAMENT_ICONS_OPTIONS"
       />
       <div class="w-5 h-5">

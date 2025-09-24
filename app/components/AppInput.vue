@@ -1,22 +1,19 @@
 <template>
-  <fieldset class="fieldset">
-    <legend class="fieldset-legend">{{ label }}</legend>
-    <input
-      v-model.trim="model"
-      type="text"
-      class="input"
-      :class="inputClass"
+  <AppFieldset :label="label">
+    <BaseInput
+      v-model="model"
       :name="name"
     />
-  </fieldset>
+  </AppFieldset>
 </template>
 
 <script lang="ts" setup>
+import type { BaseInputModel } from './BaseInput.vue';
+
 defineProps<{
   label: string;
   name: string;
-  inputClass?: string;
 }>();
 
-const model = defineModel<string | null>();
+const model = defineModel<BaseInputModel>();
 </script>
