@@ -48,16 +48,42 @@ export const useTournamentStore = defineStore('tournament', {
 
       this.activeTournamentId = this.tournaments[index]?.id || this.tournaments[this.tournaments.length - 1]?.id || null;
     },
-    addStage(id: Tournament['id'], stage: TournamentStageForm) {
+    addStage(id: Tournament['id'], stageForm: TournamentStageForm) {
       const tournament = this.tournaments.find((tournament) => tournament.id === id);
 
       if (!tournament) throw new Error('Tournament not found');
 
-      tournament.stages.push({
-        ...stage,
+      let stage: BaseTournamentStage = {
         id: new Date().getTime(),
         sequence: (tournament.stages[tournament.stages.length - 1]?.sequence || 0) + 1,
-      });
-    }
+        name: stageForm.name,
+        type: stageForm.type,
+        teams: stageForm.teams,
+      };
+
+      if (stage.type === TournamentStageType.GROUPS) {
+        const newStage: TournamentGroupsStage = {
+          ...stage,
+          type: stage.type,
+          rules: {
+            format: stageForm.format,
+            groups: stageForm.groups,
+            teamsPerGroup: stageForm.teamsPerGroup,
+            rounds: stageForm.groupsRounds,
+          },
+        };
+
+        tournament.stages.push(newStage);
+        return;
+      }
+
+      const newStage: TournamentPlayoffsStage = {
+        ...stage,
+        type: stage.type,
+        rounds: [],
+      };
+
+      tournament.stages.push(newStage);
+    },
   },
 });
