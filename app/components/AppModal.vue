@@ -12,6 +12,7 @@
   >
     <div class="modal-box">
       <button
+        v-if="showCloseIcon"
         v-text="'✕'"
         type="button"
         class="btn btn-sm btn-circle btn-ghost absolute right-1 top-1"
@@ -24,12 +25,19 @@
       />
       <slot />
       <div class="modal-action">
-        <AppButton
-          class="btn-ghost"
-          label="Cancelar"
-          @click="closeModal"
-        />
-        <slot name="actions" />
+        <slot name="actions">
+          <AppButton
+            class="btn-ghost"
+            label="Cancelar"
+            @click="closeModal"
+          />
+          <AppButton
+            class="btn-primary"
+            :label="submitButtonLabel"
+            :disabled="submitButtonDisabled"
+            @click="$emit('submit')"
+          />
+        </slot>
       </div>
     </div>
   </dialog>
@@ -41,10 +49,17 @@ const id = useId();
 const emit = defineEmits<{
   (e: 'open'): void;
   (e: 'close'): void;
+  (e: 'submit'): void;
 }>();
-defineProps<{
+withDefaults(defineProps<{
   title?: string;
-}>();
+  showCloseIcon?: boolean;
+  submitButtonLabel?: string;
+  submitButtonDisabled?: boolean;
+}>(), {
+  showCloseIcon: true,
+  submitButtonLabel: 'Salvar',
+});
 
 const dialogRef = ref<HTMLDialogElement | null>(null);
 

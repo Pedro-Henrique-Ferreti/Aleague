@@ -2,7 +2,9 @@
   <AppModal
     ref="modalRef"
     :title="title"
+    :submit-button-disabled="submitIsDisabled"
     @open="onOpenModal"
+    @submit="submitForm"
   >
     <template #trigger="{ open }">
       <slot :open="open" />
@@ -29,14 +31,6 @@
         />
       </div>
     </div>
-    <template #actions>
-      <AppButton
-        class="btn-primary"
-        label="Salvar"
-        :disabled="submitIsDisabled"
-        @click="submitForm"
-      />
-    </template>
   </AppModal>  
 </template>
 
