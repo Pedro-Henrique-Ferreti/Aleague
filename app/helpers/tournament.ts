@@ -16,7 +16,6 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     type: TournamentStageType.GROUPS,
     rules: {
       format: stageForm.format,
-      groups: stageForm.groups,
       teamsPerGroup: stageForm.teamsPerGroup,
       rounds: stageForm.groupsRounds,
     },

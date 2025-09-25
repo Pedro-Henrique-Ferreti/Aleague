@@ -10,7 +10,6 @@ export enum TournamentGroupFormat {
 }
 
 export interface GroupsStageRules {
-  groups: number;
   teamsPerGroup: number;
   rounds: number;
   format: TournamentGroupFormat;
