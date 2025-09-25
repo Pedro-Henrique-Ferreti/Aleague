@@ -11,26 +11,22 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     teams: stageForm.teams,
   };
 
-  if (baseStage.type === TournamentStageType.GROUPS) {
-    const stage: TournamentGroupsStage = {
-      ...baseStage,
-      type: baseStage.type,
-      rules: {
-        format: stageForm.format,
-        groups: stageForm.groups,
-        teamsPerGroup: stageForm.teamsPerGroup,
-        rounds: stageForm.groupsRounds,
-      },
-    };
-
-    return stage;
-  }
-
-  const stage: TournamentPlayoffsStage = {
+  const groupStage = (): TournamentGroupsStage => ({
     ...baseStage,
-    type: baseStage.type,
-    rounds: [],
-  };
+    type: TournamentStageType.GROUPS,
+    rules: {
+      format: stageForm.format,
+      groups: stageForm.groups,
+      teamsPerGroup: stageForm.teamsPerGroup,
+      rounds: stageForm.groupsRounds,
+    },
+  });
 
-  return stage;
+  const playoffStage = (): TournamentPlayoffsStage => ({
+    ...baseStage,
+    type: TournamentStageType.PLAYOFFS,
+    rounds: [],
+  });
+
+  return stageForm.type === TournamentStageType.GROUPS ? groupStage() : playoffStage();
 }
