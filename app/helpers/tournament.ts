@@ -20,6 +20,9 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
       teamsPerGroup: stageForm.teamsPerGroup,
       rounds: stageForm.groupsRounds,
     },
+    groups: Array.from({ length: stageForm.groups }, (_, index) => ({
+      order: index + 1,
+    })),
   });
 
   const playoffStage = (): TournamentPlayoffsStage => ({

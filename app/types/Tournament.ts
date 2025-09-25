@@ -27,6 +27,9 @@ export interface BaseTournamentStage {
 export interface TournamentGroupsStage extends BaseTournamentStage {
   type: TournamentStageType.GROUPS;
   rules: GroupsStageRules;
+  groups: {
+    order: number;
+  }[];
 }
 
 export interface TournamentPlayoffsStage extends BaseTournamentStage {
