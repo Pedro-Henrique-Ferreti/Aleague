@@ -7,6 +7,13 @@ export const useTournamentStore = defineStore('tournament', {
     activeTournamentId: null,
   }),
   actions: {
+    getTournament(id: Tournament['id']): Tournament {
+      const tournament = this.tournaments.find((tournament) => tournament.id === id);
+
+      if (!tournament) throw new Error('Tournament not found');
+
+      return tournament;
+    },
     createTournament(payload: TournamentForm) {
       const tournament: Tournament = {
         ...payload,
@@ -31,9 +38,7 @@ export const useTournamentStore = defineStore('tournament', {
       };
     },
     exportTournament(id: Tournament['id']) {
-      const tournament = this.tournaments.find((tournament) => tournament.id === id);
-
-      if (!tournament) throw new Error('Tournament not found');
+      const tournament = this.getTournament(id);
 
       tournament.updatedAt = new Date().toISOString();
 
@@ -50,16 +55,12 @@ export const useTournamentStore = defineStore('tournament', {
       this.activeTournamentId = this.tournaments[index]?.id || this.tournaments[this.tournaments.length - 1]?.id || null;
     },
     addStage(id: Tournament['id'], stageForm: TournamentStageForm) {
-      const tournament = this.tournaments.find((tournament) => tournament.id === id);
-
-      if (!tournament) throw new Error('Tournament not found');
+      const tournament = this.getTournament(id);
 
       tournament.stages.push(createStage(tournament, stageForm));
     },
     removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
-      const tournament = this.tournaments.find((tournament) => tournament.id === id);
-
-      if (!tournament) throw new Error('Tournament not found');
+      const tournament = this.getTournament(id);
 
       tournament.stages = tournament.stages.filter((stage) => stage.id !== stageId);
     },
