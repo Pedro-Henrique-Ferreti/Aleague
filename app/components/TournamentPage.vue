@@ -5,10 +5,27 @@
       <TournamentStageModal :tournament="tournament" />
     </div>
   </header>
+  <TournamentStageControls
+    v-if="showStageControls"
+    v-model="roundId"
+    :stages="tournament.stages"
+  />
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   tournament: Tournament;
 }>();
+
+const roundId = ref(props.tournament.stages[0]?.id);
+
+watch(() => props.tournament.stages.length, (length) => {
+  if (length === 1) {
+    roundId.value = props.tournament.stages[0]?.id;
+  }
+});
+
+const showStageControls = computed(() => (
+  props.tournament.stages.length > 1 || props.tournament.stages[0]?.type === TournamentStageType.PLAYOFFS
+));
 </script>
