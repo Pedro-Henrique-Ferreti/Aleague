@@ -10,6 +10,16 @@
     v-model="roundId"
     :stages="tournament.stages"
   />
+  <template v-for="stage in tournament.stages">
+    <TournamentGroups
+      v-if="stage.type === TournamentStageType.GROUPS && stage.id === roundId"
+      :model-value="stage"
+    />
+    <TournamentPlayoffs
+      v-else-if="stage.type === TournamentStageType.PLAYOFFS && stage.id === roundId"
+      :model-value="stage"
+    />
+  </template>
 </template>
 
 <script setup lang="ts">
