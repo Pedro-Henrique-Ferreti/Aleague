@@ -85,5 +85,12 @@ export const useTournamentStore = defineStore('tournament', {
 
       tournament.stages.push(newStage);
     },
+    removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
+      const tournament = this.tournaments.find((tournament) => tournament.id === id);
+
+      if (!tournament) throw new Error('Tournament not found');
+
+      tournament.stages = tournament.stages.filter((stage) => stage.id !== stageId);
+    },
   },
 });

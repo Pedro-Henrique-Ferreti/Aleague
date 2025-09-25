@@ -10,7 +10,7 @@
       <AppButton
         class="btn-primary btn-soft"
         :class="$attrs.class"
-        label="Adicionar fase"
+        label="Adicionar"
         :icon-left="IconPlus"
         @click="open"
       />

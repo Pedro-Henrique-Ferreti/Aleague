@@ -2,10 +2,11 @@
   <header class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr] desktop:grid-cols-2">
     <TournamentProfileCard :tournament="tournament" />
     <div
-      v-if="tournament.stages.length > 0"
-      class="flex justify-end"
+      v-if="tournament.stages.length > 0 && roundId !== undefined"
+      class="flex justify-end gap-1"
     >
       <TournamentStageModal :tournament="tournament" />
+      <DeleteStageButton :stage-id="roundId" />
     </div>
   </header>
   <div
@@ -46,9 +47,12 @@ const props = defineProps<{
 const roundId = ref(props.tournament.stages[0]?.id);
 
 watch(() => props.tournament.stages.length, (length) => {
-  if (length === 1) {
-    roundId.value = props.tournament.stages[0]?.id;
+  if (length === 0) {
+    roundId.value = undefined;
+    return;
   }
+
+  roundId.value = props.tournament.stages[props.tournament.stages.length - 1]?.id;
 });
 
 const showStageControls = computed(() => (
