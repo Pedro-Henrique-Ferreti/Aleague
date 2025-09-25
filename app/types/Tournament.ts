@@ -28,6 +28,7 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
   rules: GroupsStageRules;
   groups: {
     order: number;
+    standings: StandingsEntry[];
   }[];
 }
 

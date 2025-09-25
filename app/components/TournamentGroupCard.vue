@@ -9,5 +9,6 @@
 <script lang="ts" setup>
 defineProps<{
   title: string;
+  standings: StandingsEntry[];
 }>();
 </script>

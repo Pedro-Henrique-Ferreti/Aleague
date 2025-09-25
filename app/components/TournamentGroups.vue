@@ -5,6 +5,7 @@
         v-for="group in stage.groups"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
+        :standings="group.standings"
       />
     </div>
   </section>
