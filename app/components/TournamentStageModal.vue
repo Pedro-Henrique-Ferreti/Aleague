@@ -9,6 +9,7 @@
     <template #trigger="{ open }">
       <AppButton
         class="btn-primary btn-soft"
+        :class="$attrs.class"
         label="Adicionar fase"
         :icon-left="IconPlus"
         @click="open"

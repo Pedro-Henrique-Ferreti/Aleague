@@ -1,24 +1,40 @@
 <template>
   <header class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr] desktop:grid-cols-2">
     <TournamentProfileCard :tournament="tournament" />
-    <div class="flex justify-end">
+    <div
+      v-if="tournament.stages.length > 0"
+      class="flex justify-end"
+    >
       <TournamentStageModal :tournament="tournament" />
     </div>
   </header>
-  <TournamentStageControls
-    v-if="showStageControls"
-    v-model="roundId"
-    :stages="tournament.stages"
-  />
-  <template v-for="stage in tournament.stages">
-    <TournamentGroups
-      v-if="stage.type === TournamentStageType.GROUPS && stage.id === roundId"
-      :model-value="stage"
+  <div
+    v-if="tournament.stages.length === 0"
+    class="flex flex-col items-center justify-center min-h-10 pt-4"
+  >
+    <h1 class="text-xl font-semibold mb-0.5">Nenhuma fase</h1>
+    <p>Adicione uma fase ao campeonato clicando no botão abaixo.</p>
+    <TournamentStageModal
+      class="btn-wide mt-2"
+      :tournament="tournament"
     />
-    <TournamentPlayoffs
-      v-else-if="stage.type === TournamentStageType.PLAYOFFS && stage.id === roundId"
-      :model-value="stage"
+  </div>
+  <template v-else>
+    <TournamentStageControls
+      v-if="showStageControls"
+      v-model="roundId"
+      :stages="tournament.stages"
     />
+    <template v-for="stage in tournament.stages">
+      <TournamentGroups
+        v-if="stage.type === TournamentStageType.GROUPS && stage.id === roundId"
+        :model-value="stage"
+      />
+      <TournamentPlayoffs
+        v-else-if="stage.type === TournamentStageType.PLAYOFFS && stage.id === roundId"
+        :model-value="stage"
+      />
+    </template>
   </template>
 </template>
 
