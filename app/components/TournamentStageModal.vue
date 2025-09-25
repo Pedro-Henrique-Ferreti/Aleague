@@ -2,6 +2,7 @@
   <AppModal
     ref="modalRef"
     title="Adicionar fase"
+    :submit-button-disabled="submitIsDisabled"
     @open="onOpenModal"
     @submit="submitForm"
   >
@@ -148,6 +149,8 @@ watch(() => maxPlayoffRounds.value, () => {
 });
 
 // Submit form
+const submitIsDisabled = computed(() => !form.value.name);
+
 function submitForm() {
   tournamentStore.addStage(props.tournament.id, form.value);
 
