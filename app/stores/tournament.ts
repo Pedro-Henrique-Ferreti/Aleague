@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { createStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', {
   state: (): StoreState => ({
@@ -53,37 +54,7 @@ export const useTournamentStore = defineStore('tournament', {
 
       if (!tournament) throw new Error('Tournament not found');
 
-      let stage: BaseTournamentStage = {
-        id: new Date().getTime(),
-        sequence: (tournament.stages[tournament.stages.length - 1]?.sequence || 0) + 1,
-        name: stageForm.name,
-        type: stageForm.type,
-        teams: stageForm.teams,
-      };
-
-      if (stage.type === TournamentStageType.GROUPS) {
-        const newStage: TournamentGroupsStage = {
-          ...stage,
-          type: stage.type,
-          rules: {
-            format: stageForm.format,
-            groups: stageForm.groups,
-            teamsPerGroup: stageForm.teamsPerGroup,
-            rounds: stageForm.groupsRounds,
-          },
-        };
-
-        tournament.stages.push(newStage);
-        return;
-      }
-
-      const newStage: TournamentPlayoffsStage = {
-        ...stage,
-        type: stage.type,
-        rounds: [],
-      };
-
-      tournament.stages.push(newStage);
+      tournament.stages.push(createStage(tournament, stageForm));
     },
     removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
       const tournament = this.tournaments.find((tournament) => tournament.id === id);
