@@ -7,7 +7,7 @@
       :id="id"
       :name="name"
       :value="value"
-    />
+    >
     <span class="text-sm">
       <slot>{{ label }}</slot>
     </span>

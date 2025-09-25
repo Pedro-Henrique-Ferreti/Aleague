@@ -10,7 +10,7 @@
       :name="name"
       :id="id"
       :readonly="readonly"
-    />
+    >
   </label>
 </template>
 
