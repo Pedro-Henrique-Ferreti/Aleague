@@ -1,11 +1,12 @@
 <template>
-  <section class="grid">
+  <section class="grid gap-2 tablet-lg:grid-cols-[2fr_1fr]">
     <div class="grid gap-1.5">
       <TournamentGroupCard
-        v-for="group in stage.groups"
+        v-for="(group, index) in stage.groups"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
         :standings="group.standings"
+        :show-filters="index === 0"
       />
     </div>
   </section>
