@@ -61,7 +61,7 @@
           :max="MAX_TEAMS_PER_GROUP"
         />
         <AppCounter
-          v-model="form.groupsRounds"
+          v-model="form.groupRounds"
           label="Turnos"
           name="rounds"
           :min="MIN_ROUNDS"
@@ -124,7 +124,7 @@ const newForm = (): TournamentStageForm => ({
   teams: MIN_TEAMS,
   groups: MIN_GROUPS,
   teamsPerGroup: MIN_TEAMS_PER_GROUP,
-  groupsRounds: MIN_ROUNDS,
+  groupRounds: MIN_ROUNDS,
   playoffRounds: MIN_ROUNDS,
 });
 

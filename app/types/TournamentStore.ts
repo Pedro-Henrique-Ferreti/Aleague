@@ -5,7 +5,7 @@ export type TournamentStageForm = (
   & Pick<BaseTournamentStage, 'name' | 'type' | 'teams'>
   & {
     groups: number;
-    groupsRounds: number;
+    groupRounds: number;
     playoffRounds: number;
   }
 );
