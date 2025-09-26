@@ -29,6 +29,9 @@
   --container-sm: 60rem; /* 960px */
   --container-xs: 37.5rem; /* 600px */
   --container-base: none;
+
+  /* Colors */
+  --color-gray-1: #faf9fa;
 }
 
 @utility container-* {
