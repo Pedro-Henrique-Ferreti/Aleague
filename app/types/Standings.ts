@@ -8,4 +8,7 @@ export interface StandingsEntry {
   lost: number;
   goalsFor: number;
   goalsAgainst: number;
+  // team: MatchTeam | MatchPlaceholderTeam;
+  // positionColor: PositionColor;
+  // recentGames: FinishedMatch[];
 }
