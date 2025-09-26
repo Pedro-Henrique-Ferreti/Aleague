@@ -62,7 +62,7 @@
         />
         <AppCounter
           v-model="form.groupsRounds"
-          label="Rodadas"
+          label="Turnos"
           name="rounds"
           :min="MIN_ROUNDS"
           :max="3"
