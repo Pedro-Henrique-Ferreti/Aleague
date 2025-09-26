@@ -1,24 +1,14 @@
 <template>
   <AppFieldset :label="label">
-    <select
+    <BaseSelect
       v-model="model"
-      class="select w-full"
-      :id="id"
-    >
-      <option
-        v-for="option in options"
-        v-text="option.label"
-        :key="JSON.stringify(option.value)"
-        :value="option.value"
-        :disabled="option.disabled"
-      />
-    </select>
+      class="w-full"
+      :options="options"
+    />
   </AppFieldset>
 </template>
 
 <script setup lang="ts" generic="T extends SelectOptionValue">
-const id = useId();
-
 defineProps<{
   label: string;
   options: SelectOptionList<T>;
