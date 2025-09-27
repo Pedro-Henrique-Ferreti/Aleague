@@ -13,7 +13,23 @@
         @click="open"
       />
     </template>
-    <input type="text">
+    <div class="flex gap-1 mb-2 justify-center relative">
+      <EditStageTeamsInput />
+      <div class="absolute flex gap-0.75 right-2">
+        <div class="tooltip" data-tip="Preencher participantes">
+          <AppButton
+            class="btn-square btn-accent btn-soft"
+            :icon-left="IconWand"
+          />
+        </div>
+        <div class="tooltip" data-tip="Embaralhar equipes">
+          <AppButton
+            class="btn-square btn-accent btn-soft"
+            :icon-left="IconArrowsShuffle"
+          />
+        </div>
+      </div>
+    </div>
     <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
       <div
         v-for="group in form"
@@ -40,7 +56,7 @@ interface FormGroup {
 </script>
 
 <script lang="ts" setup>
-import { IconUsersGroup } from '@tabler/icons-vue';
+import { IconArrowsShuffle, IconUsersGroup, IconWand } from '@tabler/icons-vue';
 
 defineOptions({ inheritAttrs: false });
 

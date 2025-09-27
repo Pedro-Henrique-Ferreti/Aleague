@@ -4,7 +4,7 @@
       <div class="text-center">
         <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
         <p>Adicione todas as equipes antes de gerar as partidas.</p>
-        <EditStageTeamsModal
+        <EditStageTeams
           class="btn-wide mt-2"
           :stage="stage"
         />
