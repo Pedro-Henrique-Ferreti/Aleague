@@ -3,7 +3,8 @@ export interface TeamDetails {
   name: string;
   country: string;
   badge: string;
-  custom: boolean;
+  custom?: boolean;
+  national?: boolean;
 }
 
 export type Team = Pick<TeamDetails, 'id' | 'name'>;
