@@ -7,10 +7,13 @@
   />
   <dialog
     ref="dialogRef"
-    class="modal"
+    class="modal text-left"
     :id="id"
   >
-    <div class="modal-box">
+    <div
+      class="modal-box"
+      :class="{ 'max-w-48': size === 'lg', 'max-w-80': size === 'xl' }"
+    >
       <button
         v-if="showCloseIcon"
         v-text="'✕'"
@@ -56,6 +59,7 @@ withDefaults(defineProps<{
   showCloseIcon?: boolean;
   submitButtonLabel?: string;
   submitButtonDisabled?: boolean;
+  size?: 'lg' | 'xl';
 }>(), {
   showCloseIcon: true,
   submitButtonLabel: 'Salvar',
