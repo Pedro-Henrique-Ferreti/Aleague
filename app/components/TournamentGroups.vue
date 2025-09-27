@@ -9,7 +9,7 @@
         :show-filters="index === 0"
       />
     </div>
-    <TournamentMatchweekCard />
+    <TournamentMatchweekCard :model-value="stage" />
   </section>
 </template>
 
