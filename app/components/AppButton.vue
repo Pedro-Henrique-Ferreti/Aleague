@@ -1,6 +1,6 @@
 <template>
   <BaseButton
-    :class="['btn relative', isLoading ? 'cursor-default' : '' ]"
+    :class="['btn relative', isLoading ? 'cursor-default' : '', (label || $slots.default) ? '[--icon-size:1.25em]': '[--icon-size:1.5em]' ]"
     :to="to"
     :type="type"
     :disabled="disabled"
@@ -16,17 +16,16 @@
     >
       <component
         v-if="iconLeft"
-        class="w-[1.25em] h-[1.25em]"
+        class="w-(--icon-size) h-(--icon-size)"
         :is="iconLeft"
       />
       <slot>{{ label }}</slot>
       <component
         v-if="iconRight"
-        class="w-[1.25em] h-[1.25em]"
+        class="w-(--icon-size) h-(--icon-size)"
         :is="iconRight"
       />
     </div>
-    
   </BaseButton>
 </template>
 
