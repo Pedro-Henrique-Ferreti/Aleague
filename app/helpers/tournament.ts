@@ -31,6 +31,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
         lost: 0,
         goalsFor: 0,
         goalsAgainst: 0,
+        team: null,
       })),
     })),
   });
