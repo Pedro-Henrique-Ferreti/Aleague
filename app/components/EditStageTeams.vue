@@ -29,6 +29,7 @@
           <AppButton
             class="btn-square btn-accent btn-soft"
             :icon-left="IconArrowsShuffle"
+            @click="shuffleTeams"
           />
         </div>
       </div>
@@ -95,5 +96,16 @@ function onSelectTeam(team: Team) {
   const slotIndex = group.teams.findIndex((slot) => slot === null);
 
   group.teams[slotIndex] = team;
+}
+
+// Shuffle teams
+function shuffleTeams() {
+  const teams = form.value.groups.flatMap((group) => group.teams);
+
+  teams.sort(() => Math.random() - 0.5);
+
+  for (let i = 0; i < form.value.groups.length; i += 1) {
+    form.value.groups[i]!.teams = teams.splice(0, form.value.groups[i]!.teams.length);
+  }
 }
 </script>
