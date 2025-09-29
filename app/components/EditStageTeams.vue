@@ -14,7 +14,10 @@
       />
     </template>
     <div class="flex gap-1 mb-2 justify-center relative">
-      <EditStageTeamsInput />
+      <EditStageTeamsInput
+        :selected-teams="selectedTeams"
+        @select="onSelectTeam"
+      />
       <div class="absolute flex gap-0.75 right-2">
         <div class="tooltip" data-tip="Preencher participantes">
           <AppButton
@@ -32,7 +35,7 @@
     </div>
     <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
       <div
-        v-for="group in form"
+        v-for="group in form.groups"
         class="card card-border relative"
         :key="group.order"
       >
@@ -40,6 +43,11 @@
           <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2">
             Grupo {{ group.order }}
           </div>
+          <EditStageTeamsSlot
+            v-for="team, index in group.teams"
+            :key="index"
+            :team="team"
+          />
         </div>
       </div>
     </div>
@@ -47,11 +55,9 @@
 </template>
 
 <script lang="ts">
-type TeamSlot = Team | null;
-
-interface FormGroup {
+interface FormStageGroup {
   order: number;
-  teams: TeamSlot[];
+  teams: StandingsEntry['team'][];
 }
 </script>
 
@@ -64,12 +70,30 @@ const props = defineProps<{
   stage: TournamentGroupsStage;
 }>();
 
-const form = ref<FormGroup[]>([]);
+// Form
+const form = ref<{ groups: FormStageGroup[] }>({
+  groups: [],
+});
 
 function onOpenModal() {
-  form.value = props.stage.groups.map((group) => ({
+  form.value.groups = props.stage.groups.map((group) => ({
     order: group.order,
     teams: group.standings.map((entry) => entry.team),
   }));
+}
+
+// Team selection
+const selectedTeams = computed(() => (
+  form.value.groups.flatMap((i) => i.teams.filter((team) => team !== null)).map((t) => t.id)
+));
+
+function onSelectTeam(team: Team) {
+  const group = form.value.groups.find((i) => i.teams.includes(null));
+
+  if (!group) return;
+
+  const slotIndex = group.teams.findIndex((slot) => slot === null);
+
+  group.teams[slotIndex] = team;
 }
 </script>

@@ -2,7 +2,12 @@
   <div class="card card-border rounded-lg flex-row items-center">
     <label class="input input-ghost max-w-14">
       <IconSearch class="h-[1em] opacity-50" />
-      <input type="search" class="grow" placeholder="Search" />
+      <input
+        class="grow"
+        type="search"
+        placeholder="Search"
+        @keypress.enter="onSelectTeam"
+      />
     </label>
     <div class="divider divider-horizontal m-0" />
     <BaseSelect
@@ -30,7 +35,31 @@ const TEAM_FILTER_OPTIONS: SelectOptionList<TeamFilter> = [
   { label: 'Personalizado', value: TeamFilter.CUSTOM },
 ];
 
-const form = ref<{ filter: TeamFilter}>({
+const { teamList } = useTeamStore();
+
+const emit = defineEmits<{
+  (e: 'select', team: Team): void;
+}>();
+const props = defineProps<{
+  selectedTeams: Array<Team['id']>;
+}>();
+
+const form = ref<{ filter: TeamFilter }>({
   filter: TeamFilter.ALL,
 });
+
+const teamOptions = computed(() => teamList.filter((t) => (
+  !props.selectedTeams.includes(t.id)
+  && (form.value.filter === TeamFilter.ALL
+    || (form.value.filter === TeamFilter.NATIONAL && t.national)
+    || (form.value.filter === TeamFilter.CUSTOM && t.custom)
+  )
+)));
+
+function onSelectTeam() {
+  emit('select', {
+    id: teamOptions.value[0]!.id,
+    name: teamOptions.value[0]!.name,
+  });
+}
 </script>
