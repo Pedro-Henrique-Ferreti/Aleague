@@ -21,7 +21,7 @@
         class="w-full"
         :options="TOURNAMENT_ICONS_OPTIONS"
       />
-      <div class="w-5 h-5">
+      <div class="size-5">
         <img
           class="h-5"
           alt="Icon preview"

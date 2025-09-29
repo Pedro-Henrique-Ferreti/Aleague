@@ -5,7 +5,7 @@
     </template>
     <template v-else>
       <img
-        class="max-w-1.5 max-h-1.5"
+        class="size-1.5"
         alt="Team badge"
         :src="getTeamById(team.id)?.badge || ''"
       />

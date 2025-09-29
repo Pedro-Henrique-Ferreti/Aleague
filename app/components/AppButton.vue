@@ -16,13 +16,13 @@
     >
       <component
         v-if="iconLeft"
-        class="w-(--icon-size) h-(--icon-size)"
+        class="size-(--icon-size)"
         :is="iconLeft"
       />
       <slot>{{ label }}</slot>
       <component
         v-if="iconRight"
-        class="w-(--icon-size) h-(--icon-size)"
+        class="size-(--icon-size)"
         :is="iconRight"
       />
     </div>
