@@ -1,8 +1,11 @@
 <template>
   <div class="flex gap-0.5 w-full h-2.5 p-0.5 border border-dashed border-base-200 rounded-lg">
-    <template v-if="!team">
+    <span
+      v-if="!team"
+      class="opacity-60"
+    >
       Em aberto
-    </template>
+    </span>
     <template v-else>
       <img
         class="size-1.5"
@@ -10,6 +13,12 @@
         :src="getTeamById(team.id)?.badge || ''"
       />
       <span>{{ team.name }}</span>
+      <button
+        v-text="'✕'"
+        type="button"
+        class="btn btn-xs btn-circle btn-ghost ml-auto"
+        @click="$emit('remove')"
+      />
     </template>
   </div>
 </template>
@@ -17,6 +26,9 @@
 <script lang="ts" setup>
 const { getTeamById } = useTeamStore();
 
+defineEmits<{
+  (e: 'remove'): void;
+}>();
 defineProps<{
   team: Team | null;
 }>();

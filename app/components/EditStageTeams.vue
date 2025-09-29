@@ -48,6 +48,7 @@
             v-for="team, index in group.teams"
             :key="index"
             :team="team"
+            @remove="group.teams[index] = null"
           />
         </div>
       </div>
