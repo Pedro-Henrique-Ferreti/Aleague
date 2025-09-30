@@ -62,24 +62,36 @@
               </tr>
               <tr
                 v-for="entry in standings"
-                class="bg-white hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
+                class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :key="entry.id"
               >
                 <td
                   v-resize-observer="onResizeObserver"
                   class="resize-observer p-0!"
                 />
-                <td class="position bg-inherit">Palmeiras</td>
-                <td class="font-semibold">20</td>
-                <td>{{ entry.played }}</td>
-                <td>{{ entry.won }}</td>
-                <td>{{ entry.drawn }}</td>
-                <td>{{ entry.lost }}</td>
-                <td>{{ entry.goalsFor }}</td>
-                <td>{{ entry.goalsAgainst }}</td>
-                <td>{{ entry.goalsFor - entry.goalsAgainst }}</td>
-                <td>{{ entry.played ? Math.round(entry.points / (entry.played * 3) * 100) : 0 }}%</td>
-                <td />
+                <td
+                  v-if="!entry.team"
+                  class="h-3"
+                  colspan="11"
+                />
+                <template v-else>
+                  <td class="position bg-inherit h-[2.875rem] py-0">
+                    <StandingsCardTeam
+                      :position="entry.position"
+                      :team="entry.team"
+                    />
+                  </td>
+                  <td class="font-semibold">{{ entry.points }}</td>
+                  <td>{{ entry.played }}</td>
+                  <td>{{ entry.won }}</td>
+                  <td>{{ entry.drawn }}</td>
+                  <td>{{ entry.lost }}</td>
+                  <td>{{ entry.goalsFor }}</td>
+                  <td>{{ entry.goalsAgainst }}</td>
+                  <td>{{ entry.goalsFor - entry.goalsAgainst }}</td>
+                  <td>{{ entry.played ? Math.round(entry.points / (entry.played * 3) * 100) : 0 }}%</td>
+                  <td />
+                </template>
                 <td />
               </tr>
             </tbody>
