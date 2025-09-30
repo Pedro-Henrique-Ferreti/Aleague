@@ -1,10 +1,15 @@
+export enum TeamType {
+  CLUB,
+  NATIONAL,
+  CUSTOM,
+}
+
 export interface TeamDetails {
   id: number;
   name: string;
   country: string;
   badge: string;
-  custom?: boolean;
-  national?: boolean;
+  type: TeamType;
 }
 
 export type Team = Pick<TeamDetails, 'id' | 'name'>;
