@@ -1,8 +1,10 @@
 <template>
   <AppModal
+    ref="modalRef"
     title="Editar equipes"
     size="xl"
     @open="onOpenModal"
+    @submit="submitForm"
   >
     <template #trigger="{ open }">
       <AppButton
@@ -66,7 +68,7 @@
 </template>
 
 <script lang="ts">
-interface FormStageGroup {
+export interface FormStageGroup {
   order: number;
   teams: StandingsEntry['team'][];
 }
@@ -75,9 +77,12 @@ interface FormStageGroup {
 <script lang="ts" setup>
 import { IconArrowsShuffle, IconRefresh, IconUsersGroup, IconWand } from '@tabler/icons-vue';
 
+const { updateStageTeams } = useTournamentStore();
+
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps<{
+  tournamentId: Tournament['id'];
   stage: TournamentGroupsStage;
 }>();
 
@@ -87,6 +92,9 @@ const teamsInputRef = useTemplateRef('teamsInputRef');
 const form = ref<{ groups: FormStageGroup[] }>({
   groups: [],
 });
+
+// Modal
+const modalRef = useTemplateRef('modalRef');
 
 function onOpenModal() {
   form.value.groups = props.stage.groups.map((group) => ({
@@ -145,5 +153,16 @@ function resetSlots() {
       form.value.groups[index]!.teams[slotIndex] = null;
     });
   });
+}
+
+// Submit form
+function submitForm() {
+  updateStageTeams({
+    id: props.tournamentId,
+    stageId: props.stage.id,
+    form: form.value.groups,
+  });
+
+  modalRef.value?.close();
 }
 </script>
