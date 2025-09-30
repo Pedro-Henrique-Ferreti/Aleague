@@ -44,14 +44,26 @@
     <div class="divider divider-horizontal m-0" />
     <BaseSelect
       v-model="form.filter"
-      class="w-8 select-sm select-ghost"
+      class="w-7.5 select-sm select-ghost px-0.5"
       :options="TEAM_TYPE_OPTIONS"
+    />
+    <div class="divider divider-horizontal m-0" />
+    <BaseSelect
+      v-model="form.country"
+      class="w-8 select-sm select-ghost px-0.5"
+      :options="COUNTRY_OPTIONS"
     />
   </div>
 </template>
 
 <script lang="ts">
-type TeamFilter = TeamType | '';
+type TeamTypeFilter = TeamType | '';
+
+interface Form {
+  search: string;
+  filter: TeamTypeFilter;
+  country: string;
+}
 </script>
 
 <script lang="ts" setup>
@@ -59,7 +71,7 @@ import { IconSearch } from '@tabler/icons-vue';
 
 const popoverId = useId();
 
-const TEAM_TYPE_OPTIONS: SelectOptionList<TeamFilter> = [
+const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
   { label: 'Todos', value: '' },
   { label: 'Clube', value: TeamType.CLUB },
   { label: 'Seleção', value: TeamType.NATIONAL },
@@ -75,16 +87,19 @@ const props = defineProps<{
   selectedTeams: Array<Team['id']>;
 }>();
 
-const form = ref<{ search: string; filter: TeamFilter }>({
+const form = ref<Form>({
   search: '',
   filter: '',
+  country: '',
 });
 
 const teamOptions = computed<TeamDetails[]>(() => teamList.filter((t) => (
   !props.selectedTeams.includes(t.id) && (
     form.value.search === ''
     || normalizeString(t.name).toLowerCase().includes(normalizeString(form.value.search).toLowerCase())
-  ) && (form.value.filter === '' || form.value.filter === t.type)
+  ) && (form.value.filter === '' || form.value.filter === t.type) && (
+    form.value.country === '' || t.country === form.value.country
+  )
 )));
 
 // Popover
