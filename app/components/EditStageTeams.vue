@@ -49,7 +49,7 @@
         class="card card-border relative"
         :key="group.order"
       >
-        <div class="card-body p-1 grid gap-0.5">
+        <div class="card-body p-1 grid gap-0.5 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]">
           <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2">
             Grupo {{ group.order }}
           </div>
