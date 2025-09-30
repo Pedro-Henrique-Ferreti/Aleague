@@ -15,6 +15,7 @@
     </template>
     <div class="flex gap-1 mb-2 justify-center relative">
       <EditStageTeamsInput
+        ref="teamsInputRef"
         :selected-teams="selectedTeams"
         @select="onSelectTeam"
       />
@@ -23,6 +24,7 @@
           <AppButton
             class="btn-square btn-accent btn-soft"
             :icon-left="IconWand"
+            @click="fillSlots"
           />
         </div>
         <div class="tooltip" data-tip="Embaralhar equipes">
@@ -72,6 +74,8 @@ const props = defineProps<{
   stage: TournamentGroupsStage;
 }>();
 
+const teamsInputRef = useTemplateRef('teamsInputRef');
+
 // Form
 const form = ref<{ groups: FormStageGroup[] }>({
   groups: [],
@@ -108,5 +112,20 @@ function shuffleTeams() {
   for (let i = 0; i < form.value.groups.length; i += 1) {
     form.value.groups[i]!.teams = teams.splice(0, form.value.groups[i]!.teams.length);
   }
+}
+
+// Fill slots
+function fillSlots() {
+  const options = Object.assign([], teamsInputRef.value?.teamOptions || []) as TeamDetails[];
+
+  form.value.groups.forEach((group, index) => {
+    group.teams.forEach((slot, slotIndex) => {
+      if (slot !== null || options.length === 0) return;
+
+      const [team] = options.splice(Math.floor(Math.random() * options.length), 1);
+
+      form.value.groups[index]!.teams[slotIndex] = team || null;
+    });
+  });
 }
 </script>

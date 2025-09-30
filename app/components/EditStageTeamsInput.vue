@@ -80,7 +80,7 @@ const form = ref<{ search: string; filter: TeamFilter }>({
   filter: '',
 });
 
-const teamOptions = computed(() => teamList.filter((t) => (
+const teamOptions = computed<TeamDetails[]>(() => teamList.filter((t) => (
   !props.selectedTeams.includes(t.id) && (
     form.value.search === ''
     || normalizeString(t.name).toLowerCase().includes(normalizeString(form.value.search).toLowerCase())
@@ -93,4 +93,7 @@ const popoverRef = useTemplateRef<HTMLElement>('popoverRef');
 function showPopover() {
   popoverRef.value?.showPopover();
 }
+
+// Exposed values
+defineExpose({ teamOptions });
 </script>
