@@ -131,7 +131,9 @@ function fillSlots() {
 
       const [team] = options.splice(Math.floor(Math.random() * options.length), 1);
 
-      form.value.groups[index]!.teams[slotIndex] = team || null;
+      form.value.groups[index]!.teams[slotIndex] = (
+        team ? { id: team.id, name: team.name } : null
+      );
     });
   });
 }

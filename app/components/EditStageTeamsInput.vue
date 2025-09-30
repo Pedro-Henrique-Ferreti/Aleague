@@ -29,7 +29,7 @@
           <button
             class="cursor-pointer py-0.5 px-0.75 rounded-lg transition-colors duration-200 hover:bg-base-200 focus:bg-base-200"
             type="button"
-            @click="$emit('select', team)"
+            @click="$emit('select', { id: team.id, name: team.name })"
           >
             <img
               class="size-1.25"
