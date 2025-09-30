@@ -10,7 +10,7 @@
           @click="filtersVisible = !filtersVisible"
         />
       </header>
-      <TournamentGroupCardFilters
+      <StandingsFilters
         v-if="showFilters"
         v-show="filtersVisible"
       />
