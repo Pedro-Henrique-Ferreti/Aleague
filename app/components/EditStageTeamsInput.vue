@@ -45,17 +45,13 @@
     <BaseSelect
       v-model="form.filter"
       class="w-8 select-sm select-ghost"
-      :options="TEAM_FILTER_OPTIONS"
+      :options="TEAM_TYPE_OPTIONS"
     />
   </div>
 </template>
 
 <script lang="ts">
-enum TeamFilter {
-  ALL,
-  NATIONAL,
-  CUSTOM,
-}
+type TeamFilter = TeamType | '';
 </script>
 
 <script lang="ts" setup>
@@ -63,10 +59,11 @@ import { IconSearch } from '@tabler/icons-vue';
 
 const popoverId = useId();
 
-const TEAM_FILTER_OPTIONS: SelectOptionList<TeamFilter> = [
-  { label: 'Todos', value: TeamFilter.ALL },
-  { label: 'Seleção', value: TeamFilter.NATIONAL },
-  { label: 'Personalizado', value: TeamFilter.CUSTOM },
+const TEAM_TYPE_OPTIONS: SelectOptionList<TeamFilter> = [
+  { label: 'Todos', value: '' },
+  { label: 'Clube', value: TeamType.CLUB },
+  { label: 'Seleção', value: TeamType.NATIONAL },
+  { label: 'Personalizado', value: TeamType.CUSTOM },
 ];
 
 const { teamList, getTeamById } = useTeamStore();
@@ -80,18 +77,14 @@ const props = defineProps<{
 
 const form = ref<{ search: string; filter: TeamFilter }>({
   search: '',
-  filter: TeamFilter.ALL,
+  filter: '',
 });
 
 const teamOptions = computed(() => teamList.filter((t) => (
-  !props.selectedTeams.includes(t.id)
-  && (
+  !props.selectedTeams.includes(t.id) && (
     form.value.search === ''
     || normalizeString(t.name).toLowerCase().includes(normalizeString(form.value.search).toLowerCase())
-  )  && (form.value.filter === TeamFilter.ALL
-    || (form.value.filter === TeamFilter.NATIONAL && t.national)
-    || (form.value.filter === TeamFilter.CUSTOM && t.custom)
-  )
+  ) && (form.value.filter === '' || form.value.filter === t.type)
 )));
 
 // Popover
