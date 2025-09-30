@@ -3,6 +3,7 @@
     <label class="input input-ghost max-w-14 [anchor-name:--teams-input]">
       <IconSearch class="h-[1em] opacity-50" />
       <input
+        v-model.trim="form.search"
         class="grow"
         type="search"
         placeholder="Search"
@@ -77,13 +78,17 @@ const props = defineProps<{
   selectedTeams: Array<Team['id']>;
 }>();
 
-const form = ref<{ filter: TeamFilter }>({
+const form = ref<{ search: string; filter: TeamFilter }>({
+  search: '',
   filter: TeamFilter.ALL,
 });
 
 const teamOptions = computed(() => teamList.filter((t) => (
   !props.selectedTeams.includes(t.id)
-  && (form.value.filter === TeamFilter.ALL
+  && (
+    form.value.search === ''
+    || normalizeString(t.name).toLowerCase().includes(normalizeString(form.value.search).toLowerCase())
+  )  && (form.value.filter === TeamFilter.ALL
     || (form.value.filter === TeamFilter.NATIONAL && t.national)
     || (form.value.filter === TeamFilter.CUSTOM && t.custom)
   )

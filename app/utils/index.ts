@@ -15,3 +15,7 @@ export function downloadFile(blob: Blob, fileName: string) {
 
   URL.revokeObjectURL(url);
 }
+
+export function normalizeString(str: string) {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
