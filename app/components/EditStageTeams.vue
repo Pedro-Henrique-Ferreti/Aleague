@@ -34,6 +34,13 @@
             @click="shuffleTeams"
           />
         </div>
+        <div class="tooltip" data-tip="Limpar participantes">
+          <AppButton
+            class="btn-square btn-accent btn-soft"
+            :icon-left="IconRefresh"
+            @click="resetSlots"
+          />
+        </div>
       </div>
     </div>
     <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
@@ -66,7 +73,7 @@ interface FormStageGroup {
 </script>
 
 <script lang="ts" setup>
-import { IconArrowsShuffle, IconUsersGroup, IconWand } from '@tabler/icons-vue';
+import { IconArrowsShuffle, IconRefresh, IconUsersGroup, IconWand } from '@tabler/icons-vue';
 
 defineOptions({ inheritAttrs: false });
 
@@ -125,6 +132,15 @@ function fillSlots() {
       const [team] = options.splice(Math.floor(Math.random() * options.length), 1);
 
       form.value.groups[index]!.teams[slotIndex] = team || null;
+    });
+  });
+}
+
+// Reset slots
+function resetSlots() {
+  form.value.groups.forEach((group, index) => {
+    group.teams.forEach((_, slotIndex) => {
+      form.value.groups[index]!.teams[slotIndex] = null;
     });
   });
 }
