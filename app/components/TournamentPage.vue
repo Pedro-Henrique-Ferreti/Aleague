@@ -55,7 +55,4 @@ watch(() => props.tournament.stages.length, (length) => {
 const showStageControls = computed(() => (
   props.tournament.stages.length > 1 || props.tournament.stages[0]?.type === TournamentStageType.PLAYOFFS
 ));
-
-// Provided values
-provide(TOURNAMENT_KEY, props.tournament);
 </script>
