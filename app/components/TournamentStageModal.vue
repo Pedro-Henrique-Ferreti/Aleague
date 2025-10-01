@@ -111,10 +111,6 @@ const MAX_GROUPS = 32;
 
 const tournamentStore = useTournamentStore();
 
-const props = defineProps<{
-  tournament: Tournament;
-}>();
-
 const modalRef = useTemplateRef('modalRef');
 
 const newForm = (): TournamentStageForm => ({
@@ -153,7 +149,7 @@ watch(() => maxPlayoffRounds.value, () => {
 const submitIsDisabled = computed(() => !form.value.name);
 
 function submitForm() {
-  tournamentStore.addStage(props.tournament.id, form.value);
+  tournamentStore.addStage(tournamentStore.activeTournamentId!, form.value);
 
   modalRef.value?.close();
 }

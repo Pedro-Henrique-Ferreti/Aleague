@@ -5,7 +5,7 @@
       v-if="tournament.stages.length > 0 && roundId !== undefined"
       class="flex justify-end gap-1"
     >
-      <TournamentStageModal :tournament="tournament" />
+      <TournamentStageModal />
       <DeleteStageButton :stage-id="roundId" />
     </div>
   </header>
@@ -15,10 +15,7 @@
   >
     <h1 class="text-xl font-semibold mb-0.5">Nenhuma fase</h1>
     <p>Adicione uma fase ao campeonato clicando no botão abaixo.</p>
-    <TournamentStageModal
-      class="btn-wide mt-2"
-      :tournament="tournament"
-    />
+    <TournamentStageModal class="btn-wide mt-2" />
   </div>
   <template v-else>
     <TournamentStageControls

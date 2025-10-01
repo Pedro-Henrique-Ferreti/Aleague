@@ -77,12 +77,11 @@ export interface FormStageGroup {
 <script lang="ts" setup>
 import { IconArrowsShuffle, IconRefresh, IconUsersGroup, IconWand } from '@tabler/icons-vue';
 
-const { updateStageTeams } = useTournamentStore();
+const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
 
 defineOptions({ inheritAttrs: false });
 
 const props = defineProps<{
-  tournamentId: Tournament['id'];
   stage: TournamentGroupsStage;
 }>();
 
@@ -158,7 +157,7 @@ function resetSlots() {
 // Submit form
 function submitForm() {
   updateStageTeams({
-    id: props.tournamentId,
+    id: tournamentId!,
     stageId: props.stage.id,
     form: form.value.groups,
   });
