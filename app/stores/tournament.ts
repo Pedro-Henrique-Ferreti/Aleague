@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { FormStageGroup } from '~/components/EditStageTeams.vue';
-import { createStage } from '~/helpers/tournament';
+import { createMatchweeks, createStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', {
   state: (): StoreState => ({
@@ -79,6 +79,15 @@ export const useTournamentStore = defineStore('tournament', {
           stageGroup.standings[index]!.team = team;
         });
       });
+    },
+    createStageMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
+      const stage = this.getTournament(id).stages.find((s) => s.id === stageId);
+
+      if (!stage) throw new Error('Stage not found');
+
+      if (stage.type === TournamentStageType.GROUPS) {
+        stage.matchweeks = createMatchweeks(stage);
+      };
     },
   },
 });

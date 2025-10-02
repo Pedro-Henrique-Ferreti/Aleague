@@ -2,6 +2,7 @@
   <div class="card card-border h-fit">
     <div class="card-body">
       <MatchweekCardEmptyState
+        v-if="stage.matchweeks.length === 0"
         :stage="stage"
       />
     </div>

@@ -8,6 +8,7 @@
         label="Gerar partidas"
         :class="$attrs.class"
         :icon-left="IconRefresh"
+        @click="createStageMatchweeks(activeTournamentId!, stage.id)"
       />
     </template>
     <template v-else>
@@ -23,6 +24,8 @@
 <script lang="ts" setup>
 import { IconRefresh } from '@tabler/icons-vue';
 import { allTeamsAssigned } from '~/helpers/stage';
+
+const { createStageMatchweeks, activeTournamentId } = useTournamentStore();
 
 const props = defineProps<{
   stage: TournamentGroupsStage;

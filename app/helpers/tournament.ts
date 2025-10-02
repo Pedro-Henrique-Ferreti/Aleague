@@ -45,3 +45,9 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
 
   return stageForm.type === TournamentStageType.GROUPS ? groupStage() : playoffStage();
 }
+
+export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroupsStage['matchweeks'] {
+  return [
+    { week: 1, matches: [] },
+  ];
+}
