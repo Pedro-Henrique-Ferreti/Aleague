@@ -30,6 +30,7 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
     order: number;
     standings: StandingsEntry[];
   }[];
+  matchweeks: Matchweek[];
 }
 
 export interface TournamentPlayoffsStage extends BaseTournamentStage {

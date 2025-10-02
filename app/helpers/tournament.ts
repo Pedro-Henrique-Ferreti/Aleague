@@ -34,6 +34,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
         team: null,
       })),
     })),
+    matchweeks: [],
   });
 
   const playoffStage = (): TournamentPlayoffsStage => ({
