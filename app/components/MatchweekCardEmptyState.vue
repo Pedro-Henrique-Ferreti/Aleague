@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
-    <template v-if="stageHasAllTeams">
+    <template v-if="allowCreateMatchweeks">
       <p>Clique no botão abaixo para gerar as partidas.</p>
       <AppButton
         class="btn-accent btn-wide mt-2"
@@ -22,12 +22,11 @@
 
 <script lang="ts" setup>
 import { IconRefresh } from '@tabler/icons-vue';
+import { allTeamsAssigned } from '~/helpers/stage';
 
 const props = defineProps<{
   stage: TournamentGroupsStage;
 }>();
 
-const stageHasAllTeams = computed(() => (
-  props.stage.groups.every((g) => g.standings.every((s) => s.team !== null))
-));
+const allowCreateMatchweeks = computed(() => allTeamsAssigned(props.stage));
 </script>
