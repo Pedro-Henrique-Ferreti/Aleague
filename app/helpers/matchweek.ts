@@ -1,0 +1,57 @@
+export function getMatchweeksPerRound(groups: TournamentGroupsStage['groups'], format: TournamentGroupFormat): number {
+  const numberOfGroups = groups.length;
+  const teamsPerGroup = groups[0]!.standings.length;
+
+  if (format === TournamentGroupFormat.ROUND_ROBIN) {
+    return teamsPerGroup - 1;
+  }
+
+  return (teamsPerGroup * numberOfGroups) - 1;
+}
+
+export function createMatchweekFromTeamList(list: Array<TeamDetails['id']>): Array<Match[]> {
+  const teamList = [...list.sort(() => Math.random() - 0.5)];
+
+  const teams1 = teamList.slice(0, teamList.length / 2);
+  const teams2 = teamList.slice(teamList.length / 2, teamList.length);
+  const weeks: Array<Match[]> = [];
+  let rounds = teamList.length - 1;
+
+  while (rounds > 0) {
+    const week: Match[] = [];
+
+    for (let i = 0; i < teams1.length; i += 1) {
+      const teamA = teams1[i]!;
+      const teamB = teams2[i]!;
+      const prevWeek = weeks[weeks.length - 1];
+      const teamAPlayedAtHome = prevWeek?.find((m) => m.homeTeam.id === teamA);
+      const teamBPlayedAtHome = prevWeek?.find((m) => m.homeTeam.id === teamB);
+
+      let homeTeam = teamA;
+      let awayTeam = teamB;
+
+      if (prevWeek && teamAPlayedAtHome && !teamBPlayedAtHome) {
+        homeTeam = teamB;
+        awayTeam = teamA;
+      }
+
+      week.push({
+        id: i,
+        homeTeam: { id: homeTeam, score: null },
+        awayTeam: { id: awayTeam, score: null },
+      });
+    }
+
+    weeks.push(week.sort(() => Math.random() - 0.5));
+
+    teams2.push(teams1.pop()!);
+
+    const item = teams1.shift()!;
+    
+    teams1.unshift(item, teams2.shift()!);
+
+    rounds -= 1;
+  }
+
+  return weeks;
+}
