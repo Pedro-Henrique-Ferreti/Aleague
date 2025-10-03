@@ -1,14 +1,3 @@
-export function getMatchweeksPerRound(groups: TournamentGroupsStage['groups'], format: TournamentGroupFormat): number {
-  const numberOfGroups = groups.length;
-  const teamsPerGroup = groups[0]!.standings.length;
-
-  if (format === TournamentGroupFormat.ROUND_ROBIN) {
-    return teamsPerGroup - 1;
-  }
-
-  return (teamsPerGroup * numberOfGroups) - 1;
-}
-
 export function createMatchListFromTeamList(
   list: Array<TeamDetails['id']>,
   excludeGroups?: Array<TeamDetails['id'][]>,
