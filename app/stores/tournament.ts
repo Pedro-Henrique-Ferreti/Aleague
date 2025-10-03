@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { allTeamsAssigned } from '~/helpers/stage';
 import { createMatchweeks, createStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', {
@@ -93,6 +94,8 @@ export const useTournamentStore = defineStore('tournament', {
       if (!stage) throw new Error('Stage not found');
 
       if (stage.type === TournamentStageType.GROUPS) {
+        if (!allTeamsAssigned(stage)) throw new Error('All teams must be assigned');
+
         stage.matchweeks = createMatchweeks(stage);
       };
     },
