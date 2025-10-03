@@ -5,7 +5,7 @@
         class="btn btn-soft join-item"
         type="button"
         aria-label="Remover"
-        :disabled="inputValue <= min"
+        :disabled="disabled || inputValue <= min"
         @click="inputValue -= step"
       >
         <IconMinus class="w-1" />
@@ -16,13 +16,14 @@
           class="join-item [&_input]:text-center [&_input]:cursor-default"
           readonly
           :name="name"
+          :disabled="disabled"
         />
       </div>
       <button
         class="btn btn-soft join-item"
         type="button"
         aria-label="Adicionar"
-        :disabled="inputValue >= max"
+        :disabled="disabled || inputValue >= max"
         @click="inputValue += step"
       >
         <IconPlus class="w-1" />
@@ -40,6 +41,7 @@ const props = withDefaults(defineProps<{
   min?: number;
   max?: number;
   step?: number;
+  disabled?: boolean;
 }>(), {
   step: 1,
   min: 0,

@@ -7,6 +7,7 @@
       :id="id"
       :name="name"
       :value="value"
+      :disabled="disabled"
     >
     <span class="text-sm">
       <slot>{{ label }}</slot>
@@ -21,6 +22,7 @@ defineProps<{
   name: string;
   value: T;
   label?: string;
+  disabled?: boolean;
 }>();
 
 const model = defineModel<T>();

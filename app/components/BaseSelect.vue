@@ -3,6 +3,7 @@
     v-model="model"
     class="select"
     :id="id"
+    :disabled="disabled"
   >
     <option
       v-for="option in options"
@@ -14,12 +15,17 @@
   </select>
 </template>
 
+<script lang="ts">
+export interface BaseSelectProps<T extends SelectOptionValue> {
+  options: SelectOptionList<T>;
+  disabled?: boolean;
+}
+</script>
+
 <script setup lang="ts" generic="T extends SelectOptionValue">
 const id = useId();
 
-defineProps<{
-  options: SelectOptionList<T>;
-}>();
+defineProps<BaseSelectProps<T>>();
 
 const model = defineModel<T>();
 </script>

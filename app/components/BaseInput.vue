@@ -9,7 +9,8 @@
       class="grow"
       :name="name"
       :id="id"
-      :readonly="readonly"
+      :readonly="!!readonly"
+      :disabled="disabled"
     >
   </label>
 </template>
@@ -24,6 +25,7 @@ const id = useId();
 defineProps<{
   name: string;
   readonly?: boolean;
+  disabled?: boolean;
 }>();
 
 const model = defineModel<BaseInputModel>();

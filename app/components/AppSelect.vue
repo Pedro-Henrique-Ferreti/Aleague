@@ -4,14 +4,16 @@
       v-model="model"
       class="w-full"
       :options="options"
+      :disabled="disabled"
     />
   </AppFieldset>
 </template>
 
 <script setup lang="ts" generic="T extends SelectOptionValue">
-defineProps<{
+import type { BaseSelectProps } from './BaseSelect.vue';
+
+defineProps<BaseSelectProps<T> & {
   label: string;
-  options: SelectOptionList<T>;
 }>();
 
 const model = defineModel<T>();
