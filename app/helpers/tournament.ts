@@ -16,7 +16,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     ...baseStage,
     type: TournamentStageType.GROUPS,
     format: stageForm.format,
-    roundRobins: stageForm.groupRounds,
+    roundRobins: stageForm.groupRoundRobins,
     groups: Array.from({ length: stageForm.groups }, (_, index) => ({
       order: index + 1,
       standings: Array.from({ length: stageForm.teamsPerGroup }, (_, index) => ({

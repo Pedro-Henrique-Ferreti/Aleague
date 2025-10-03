@@ -66,7 +66,7 @@
           :disabled="isEditingForm"
         />
         <AppCounter
-          v-model="form.groupRounds"
+          v-model="form.groupRoundRobins"
           label="Turnos"
           name="rounds"
           :min="MIN_ROUNDS"
@@ -150,7 +150,7 @@ const newForm = (): TournamentStageForm => ({
   teamsPerGroup: (
     props.stage?.type === TournamentStageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
   ),
-  groupRounds: (
+  groupRoundRobins: (
     props.stage?.type === TournamentStageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
   ),
   playoffRounds: MIN_ROUNDS,

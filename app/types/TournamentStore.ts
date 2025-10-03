@@ -9,7 +9,7 @@ export type TournamentStageForm = (
     teams: number;
     teamsPerGroup: number;
     groups: number;
-    groupRounds: number;
+    groupRoundRobins: number;
     playoffRounds: number;
   }
 );
