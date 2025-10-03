@@ -9,22 +9,17 @@ export enum TournamentGroupFormat {
   ALL_PLAY_ALL,
 }
 
-export interface GroupsStageRules {
-  rounds: number;
-  format: TournamentGroupFormat;
-}
-
 export interface BaseTournamentStage {
   id: number;
   name: string | null;
   sequence: number;
-  teams: number;
   type: TournamentStageType;
 }
 
 export interface TournamentGroupsStage extends BaseTournamentStage {
   type: TournamentStageType.GROUPS;
-  rules: GroupsStageRules;
+  roundRobins: number;
+  format: TournamentGroupFormat;
   groups: {
     order: number;
     standings: StandingsEntry[];

@@ -3,9 +3,10 @@ import type { FormStageGroup } from "~/components/EditStageTeams.vue";
 export type TournamentForm = Pick<Tournament, 'name' | 'iconId'>;
 
 export type TournamentStageForm = (
-  Pick<GroupsStageRules, 'format'>
-  & Pick<BaseTournamentStage, 'name' | 'type' | 'teams'>
+  Pick<BaseTournamentStage, 'name' | 'type'>
+  & Pick<TournamentGroupsStage, 'format'>
   & {
+    teams: number;
     teamsPerGroup: number;
     groups: number;
     groupRounds: number;

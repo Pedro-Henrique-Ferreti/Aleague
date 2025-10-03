@@ -141,7 +141,7 @@ const newForm = (): TournamentStageForm => ({
   name: props.stage?.name ?? null,
   type: props.stage?.type ?? TournamentStageType.GROUPS,
   format: (
-    props.stage?.type === TournamentStageType.GROUPS ? props.stage.rules.format : TournamentGroupFormat.ROUND_ROBIN
+    props.stage?.type === TournamentStageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
   ),
   teams: MIN_TEAMS,
   groups: MIN_GROUPS,
