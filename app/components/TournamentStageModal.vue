@@ -144,9 +144,15 @@ const newForm = (): TournamentStageForm => ({
     props.stage?.type === TournamentStageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
   ),
   teams: MIN_TEAMS,
-  groups: MIN_GROUPS,
-  teamsPerGroup: MIN_TEAMS_PER_GROUP,
-  groupRounds: MIN_ROUNDS,
+  groups: (
+    props.stage?.type === TournamentStageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
+  ),
+  teamsPerGroup: (
+    props.stage?.type === TournamentStageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
+  ),
+  groupRounds: (
+    props.stage?.type === TournamentStageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
+  ),
   playoffRounds: MIN_ROUNDS,
 });
 
