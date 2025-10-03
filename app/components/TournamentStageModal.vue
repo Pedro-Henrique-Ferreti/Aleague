@@ -1,7 +1,7 @@
 <template>
   <AppModal
     ref="modalRef"
-    title="Adicionar fase"
+    :title="isEditingForm ? 'Editar fase' : 'Adicionar fase'"
     :submit-button-disabled="submitIsDisabled"
     @open="onOpenModal"
     @submit="submitForm"
@@ -10,8 +10,8 @@
       <AppButton
         class="btn-primary btn-soft"
         :class="$attrs.class"
-        label="Adicionar"
-        :icon-left="IconPlus"
+        :label="isEditingForm ? 'Editar' : 'Adicionar'"
+        :icon-left="isEditingForm ? IconEdit : IconPlus"
         @click="open"
       />
     </template>
@@ -27,12 +27,14 @@
           name="type"
           label="Grupos"
           :value="TournamentStageType.GROUPS"
+          :disabled="isEditingForm"
         />
         <AppRadio
           v-model="form.type"
           name="type"
           label="Eliminatórias"
           :value="TournamentStageType.PLAYOFFS"
+          :disabled="isEditingForm"
         />
       </div>
     </AppFieldset>
@@ -43,6 +45,7 @@
         class="max-w-20"
         label="Disputa de partidas"
         :options="TOURNAMENT_GROUP_FORMAT_OPTIONS"
+        :disabled="isEditingForm"
       />
       <div class="grid grid-cols-2 gap-x-1">
         <AppCounter
@@ -51,6 +54,7 @@
           name="groups"
           :min="MIN_GROUPS"
           :max="MAX_GROUPS"
+          :disabled="isEditingForm"
         />
         <AppCounter
           v-model="form.teamsPerGroup"
@@ -59,6 +63,7 @@
           :step="2"
           :min="MIN_TEAMS_PER_GROUP"
           :max="MAX_TEAMS_PER_GROUP"
+          :disabled="isEditingForm"
         />
         <AppCounter
           v-model="form.groupRounds"
@@ -66,6 +71,7 @@
           name="rounds"
           :min="MIN_ROUNDS"
           :max="3"
+          :disabled="isEditingForm"
         />
         <AppFieldset
           class="text-center"
@@ -85,6 +91,7 @@
           name="teams"
           :step="2"
           :min="MIN_TEAMS"
+          :disabled="isEditingForm"
         />
         <AppCounter
           v-model="form.playoffRounds"
@@ -93,6 +100,7 @@
           :step="1"
           :min="MIN_ROUNDS"
           :max="maxPlayoffRounds"
+          :disabled="isEditingForm"
         />
       </div>
     </template>
@@ -100,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconPlus } from '@tabler/icons-vue';
+import { IconPlus, IconEdit } from '@tabler/icons-vue';
 
 const MIN_TEAMS = 2;
 const MIN_TEAMS_PER_GROUP = 2;
@@ -111,12 +119,16 @@ const MAX_GROUPS = 32;
 
 const tournamentStore = useTournamentStore();
 
+const props = defineProps<{ stage?: TournamentStage }>();
+
 const modalRef = useTemplateRef('modalRef');
 
 const newForm = (): TournamentStageForm => ({
-  name: null,
-  type: TournamentStageType.GROUPS,
-  format: TournamentGroupFormat.ROUND_ROBIN,
+  name: props.stage?.name ?? null,
+  type: props.stage?.type ?? TournamentStageType.GROUPS,
+  format: (
+    props.stage?.type === TournamentStageType.GROUPS ? props.stage.rules.format : TournamentGroupFormat.ROUND_ROBIN
+  ),
   teams: MIN_TEAMS,
   groups: MIN_GROUPS,
   teamsPerGroup: MIN_TEAMS_PER_GROUP,
@@ -125,6 +137,8 @@ const newForm = (): TournamentStageForm => ({
 });
 
 const form = ref(newForm());
+
+const isEditingForm = computed(() => !!props.stage);
 
 // Max allowed number of playoff rounds
 const maxPlayoffRounds = computed(() => {
@@ -149,7 +163,15 @@ watch(() => maxPlayoffRounds.value, () => {
 const submitIsDisabled = computed(() => !form.value.name);
 
 function submitForm() {
-  tournamentStore.addStage(tournamentStore.activeTournamentId!, form.value);
+  if (isEditingForm.value) {
+    tournamentStore.editStage({
+      id: tournamentStore.activeTournamentId!,
+      stageId: props.stage!.id,
+      stageForm: form.value,
+    });
+  } else {
+    tournamentStore.addStage(tournamentStore.activeTournamentId!, form.value);
+  }
 
   modalRef.value?.close();
 }

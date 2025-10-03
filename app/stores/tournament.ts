@@ -60,6 +60,14 @@ export const useTournamentStore = defineStore('tournament', {
 
       tournament.stages.push(createStage(tournament, stageForm));
     },
+    editStage(payload: EditStageStorePayload) {
+      const tournament = this.getTournament(payload.id);
+      const stage = tournament.stages.find((stage) => stage.id === payload.stageId);
+
+      if (!stage) throw new Error('Stage not found');
+      
+      stage.name = payload.stageForm.name;
+    },
     removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
       const tournament = this.getTournament(id);
 
