@@ -13,3 +13,5 @@ export const TOURNAMENT_GROUP_FORMAT_OPTIONS: SelectOptionList<TournamentGroupFo
   { label: 'Apenas equipes de outros grupos', value: TournamentGroupFormat.OTHER_GROUPS_ROUND_ROBIN },
   { label: 'Todos contra todos', value: TournamentGroupFormat.ALL_PLAY_ALL },
 ];
+
+export const PLAYOFF_ROUND_NAMES = ['Oitavas de final', 'Quartas de final', 'Semifinal', 'Final'];

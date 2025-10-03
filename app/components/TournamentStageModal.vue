@@ -102,13 +102,27 @@
           :max="maxPlayoffRounds"
           :disabled="isEditingForm"
         />
+        <div class="alert col-span-2 mt-1 text-xs font-semibold">
+          <IconInfoCircle class="text-primary shrink-0" />
+          <div class="flex flex-wrap gap-x-0.25">
+            <span
+              v-for="name in getPlayoffRoundNames(form.playoffRounds, form.teams)"
+              class="last:[&_svg]:hidden"
+              :key="name"
+            >
+              {{ name }}
+              <IconArrowBadgeRightFilled class="inline size-1 -translate-y-px" />
+            </span>
+          </div>
+        </div>
       </div>
     </template>
   </AppModal>
 </template>
 
 <script setup lang="ts">
-import { IconPlus, IconEdit } from '@tabler/icons-vue';
+import { IconPlus, IconEdit, IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
+import { getPlayoffRoundNames } from '~/helpers/playoffs';
 
 const MIN_TEAMS = 2;
 const MIN_TEAMS_PER_GROUP = 2;
