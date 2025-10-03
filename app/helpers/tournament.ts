@@ -48,7 +48,7 @@ export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroups
   let matchList: Match[][] = [];
 
   const teamsFromGroup = (g: TournamentGroupsStage['groups'][number]) => (
-    g.standings.map((i) => i.team!.id)
+    g.standings.map((i) => i.team!)
   );
 
   if (stage.format === TournamentGroupFormat.ROUND_ROBIN) {

@@ -10,19 +10,21 @@
     <img
       class="size-1.5 mr-0.75"
       alt="Team badge"
-      :src="getTeamById(team.id)?.badge || ''"
+      :src="team?.badge || ''"
     />
-    <span>{{ team.name }}</span>
+    <span>{{ team?.name }}</span>
   </div>
 </template>
 
 <script lang="ts" setup>
 const { getTeamById } = useTeamStore();
 
-defineProps<{
+const props = defineProps<{
   position: number;
-  team: Team;
+  teamId: TeamDetails['id'];
 }>();
+
+const team = computed(() => getTeamById(props.teamId));
 </script>
 
 <style scoped>

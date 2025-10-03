@@ -58,7 +58,7 @@
           <EditStageTeamsSlot
             v-for="team, index in group.teams"
             :key="index"
-            :team="team"
+            :team-id="team"
             @remove="group.teams[index] = null"
           />
         </div>
@@ -104,7 +104,7 @@ function onOpenModal() {
 
 // Team selection
 const selectedTeams = computed(() => (
-  form.value.groups.flatMap((i) => i.teams.filter((team) => team !== null)).map((t) => t.id)
+  form.value.groups.flatMap((i) => i.teams.filter((team) => team !== null))
 ));
 
 function onSelectTeam(team: Team) {
@@ -114,7 +114,7 @@ function onSelectTeam(team: Team) {
 
   const slotIndex = group.teams.findIndex((slot) => slot === null);
 
-  group.teams[slotIndex] = team;
+  group.teams[slotIndex] = team.id;
 }
 
 // Shuffle teams
@@ -138,9 +138,7 @@ function fillSlots() {
 
       const [team] = options.splice(Math.floor(Math.random() * options.length), 1);
 
-      form.value.groups[index]!.teams[slotIndex] = (
-        team ? { id: team.id, name: team.name } : null
-      );
+      form.value.groups[index]!.teams[slotIndex] = team?.id || null;
     });
   });
 }

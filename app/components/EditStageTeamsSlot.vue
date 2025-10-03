@@ -10,7 +10,7 @@
       <img
         class="size-1.5"
         alt="Team badge"
-        :src="getTeamById(team.id)?.badge || ''"
+        :src="team?.badge || ''"
       />
       <span>{{ team.name }}</span>
       <button
@@ -29,7 +29,9 @@ const { getTeamById } = useTeamStore();
 defineEmits<{
   (e: 'remove'): void;
 }>();
-defineProps<{
-  team: Team | null;
+const props = defineProps<{
+  teamId: Team['id'] | null;
 }>();
+
+const team = computed(() => props.teamId ? getTeamById(props.teamId) : null);
 </script>
