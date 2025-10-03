@@ -9,7 +9,10 @@ export function getMatchweeksPerRound(groups: TournamentGroupsStage['groups'], f
   return (teamsPerGroup * numberOfGroups) - 1;
 }
 
-export function createMatchweekFromTeamList(list: Array<TeamDetails['id']>): Array<Match[]> {
+export function createMatchListFromTeamList(
+  list: Array<TeamDetails['id']>,
+  excludeGroups?: Array<TeamDetails['id'][]>,
+): Array<Match[]> {
   const teamList = [...list.sort(() => Math.random() - 0.5)];
 
   const teams1 = teamList.slice(0, teamList.length / 2);
@@ -23,6 +26,9 @@ export function createMatchweekFromTeamList(list: Array<TeamDetails['id']>): Arr
     for (let i = 0; i < teams1.length; i += 1) {
       const teamA = teams1[i]!;
       const teamB = teams2[i]!;
+
+      if (excludeGroups?.some((group) => group.includes(teamA) && group.includes(teamB))) continue;
+
       const prevWeek = weeks[weeks.length - 1];
       const teamAPlayedAtHome = prevWeek?.find((m) => m.homeTeam.id === teamA);
       const teamBPlayedAtHome = prevWeek?.find((m) => m.homeTeam.id === teamB);
@@ -53,5 +59,6 @@ export function createMatchweekFromTeamList(list: Array<TeamDetails['id']>): Arr
     rounds -= 1;
   }
 
-  return weeks;
+  // In case exclude groups generated weeks with no matches
+  return weeks.filter((week) => week.length > 0);
 }

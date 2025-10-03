@@ -1,4 +1,4 @@
-import { createMatchweekFromTeamList, getMatchweeksPerRound } from './matchweek';
+import { createMatchListFromTeamList, getMatchweeksPerRound } from './matchweek';
 
 export function getTournamentIcon(id: Tournament['iconId']) {
   return `/images/icons/tournament/icon-${id}.svg`;
@@ -51,47 +51,29 @@ export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroups
   const { format } = stage.rules;
   const matchweeksPerRound = getMatchweeksPerRound(stage.groups, format);
 
-  let matchweeks: Matchweek[] = Array.from({ length: matchweeksPerRound }, (_, index) => ({
-    week: index + 1,
-    matches: [],
-  }));
+  let matchList: Array<Match[]> = Array.from({ length: matchweeksPerRound }, () => ([]));
 
-  const addToMatchweeks = (items: Array<Match[]>) => {
-    items.forEach((item, index) => {
-      matchweeks[index]!.matches.push(...item);
-    });
-  };
+  const teamsFromGroup = (g: TournamentGroupsStage['groups'][number]) => (
+    g.standings.map((i) => i.team!.id)
+  );
 
   if (format === TournamentGroupFormat.ROUND_ROBIN) {
     stage.groups.forEach((group) => (
-      addToMatchweeks(createMatchweekFromTeamList(group.standings.map((i) => i.team!.id)))
+      createMatchListFromTeamList(teamsFromGroup(group)).forEach((item, index) => {
+        matchList[index]!.push(...item);
+      })
     ));
+  } else if (format === TournamentGroupFormat.OTHER_GROUPS_ROUND_ROBIN) {
+    matchList = createMatchListFromTeamList(
+      stage.groups.flatMap((g) => teamsFromGroup(g)),
+      stage.groups.map((g) => teamsFromGroup(g)),
+    );
   } else {
-    const items = createMatchweekFromTeamList(stage.groups.flatMap((g) => g.standings.map((i) => i.team!.id)));
-
-    if (format === TournamentGroupFormat.OTHER_GROUPS_ROUND_ROBIN) {
-      // Remove matches where both teams are from the same group
-      items.forEach((week, index) => {
-        items[index] = week.filter((match) => {
-          const bothTeamFromSameGroup = stage.groups.find((g) => {
-            const teams = g.standings.map((s) => s.team?.id);
-            
-            return teams.includes(match.homeTeam.id) && teams.includes(match.awayTeam.id);
-          });
-
-          return !bothTeamFromSameGroup;
-        });
-      });
-    }
-
-    addToMatchweeks(items);
+    matchList = createMatchListFromTeamList(stage.groups.flatMap((g) => teamsFromGroup(g)));
   }
 
-  // Remove matchweeks without matches
-  matchweeks = matchweeks.filter((matchweek) => matchweek.matches.length > 0).map((matchweek, index) => ({
-    ...matchweek,
+  return matchList.map((list, index) => ({
     week: index + 1,
+    matches: list,
   }));
-
-  return matchweeks;
 }
