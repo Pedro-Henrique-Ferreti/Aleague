@@ -1,3 +1,5 @@
+import type { FormStageGroup } from "~/components/EditStageTeams.vue";
+
 export type TournamentForm = Pick<Tournament, 'name' | 'iconId'>;
 
 export type TournamentStageForm = (
@@ -20,4 +22,10 @@ export interface EditStageStorePayload {
   id: Tournament['id'];
   stageId: TournamentStage['id'];
   stageForm: TournamentStageForm;
+}
+
+export interface UpdateStageTeamsStorePayload {
+  id: Tournament['id'];
+  stageId: TournamentStage['id'];
+  form: FormStageGroup[];
 }
