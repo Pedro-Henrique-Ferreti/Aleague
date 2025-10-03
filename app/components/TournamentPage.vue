@@ -11,11 +11,13 @@
   </header>
   <div
     v-if="tournament.stages.length === 0"
-    class="flex flex-col items-center justify-center min-h-10 pt-4"
+    class="max-w-44 min-h-10 mt-4 mx-auto card card-border"
   >
-    <h1 class="text-xl font-semibold mb-0.5">Nenhuma fase</h1>
-    <p>Adicione uma fase ao campeonato clicando no botão abaixo.</p>
-    <TournamentStageModal class="btn-wide mt-2" />
+    <div class="card-body text-center">
+      <h1 class="text-xl font-semibold mb-0.5">Nenhuma fase</h1>
+      <p>Adicione uma fase ao campeonato clicando no botão abaixo.</p>
+      <TournamentStageModal class="btn-wide mt-2 mx-auto" />
+    </div>
   </div>
   <template v-else>
     <TournamentStageControls
