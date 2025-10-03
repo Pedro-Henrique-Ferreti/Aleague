@@ -7,6 +7,10 @@
     >
       <TournamentStageModal />
       <TournamentStageModal :stage="activeStage" />
+      <EditStageTeams
+        v-if="activeStage.type === TournamentStageType.GROUPS && allTeamsAssigned(activeStage)"
+        :stage="activeStage"
+      />
       <DeleteStageButton :stage-id="activeStage.id" />
     </div>
   </header>
@@ -40,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+import { allTeamsAssigned } from '~/helpers/stage';
+
 const props = defineProps<{
   tournament: Tournament;
 }>();
