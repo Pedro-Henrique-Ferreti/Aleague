@@ -45,7 +45,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
 }
 
 export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroupsStage['matchweeks'] {
-  let matchList: Array<Match[]> = [];
+  let matchList: Match[][] = [];
 
   const teamsFromGroup = (g: TournamentGroupsStage['groups'][number]) => (
     g.standings.map((i) => i.team!.id)
@@ -53,7 +53,7 @@ export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroups
 
   if (stage.format === TournamentGroupFormat.ROUND_ROBIN) {
     stage.groups.forEach((group) => {
-      createMatchListFromTeamList(teamsFromGroup(group)).forEach((item, i) => {
+      createMatchListFromTeamList(teamsFromGroup(group), stage.roundRobins).forEach((item, i) => {
         if (!matchList[i]) {
           matchList[i] = [];
         }
@@ -63,10 +63,11 @@ export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroups
   } else if (stage.format === TournamentGroupFormat.OTHER_GROUPS_ROUND_ROBIN) {
     matchList = createMatchListFromTeamList(
       stage.groups.flatMap((g) => teamsFromGroup(g)),
+      stage.roundRobins,
       stage.groups.map((g) => teamsFromGroup(g)),
     );
   } else {
-    matchList = createMatchListFromTeamList(stage.groups.flatMap((g) => teamsFromGroup(g)));
+    matchList = createMatchListFromTeamList(stage.groups.flatMap((g) => teamsFromGroup(g)), stage.roundRobins);
   }
 
   return matchList.map((list, index) => ({
