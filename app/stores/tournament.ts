@@ -15,6 +15,13 @@ export const useTournamentStore = defineStore('tournament', {
 
       return tournament;
     },
+    getStage(id: Tournament['id'], stageId: TournamentStage['id']): TournamentStage {
+      const stage = this.getTournament(id).stages.find((stage) => stage.id === stageId);
+
+      if (!stage) throw new Error('Stage not found');
+
+      return stage;
+    },
     createTournament(payload: TournamentForm) {
       const tournament: Tournament = {
         ...payload,
@@ -61,11 +68,8 @@ export const useTournamentStore = defineStore('tournament', {
       tournament.stages.push(createStage(tournament, stageForm));
     },
     editStage(payload: EditStageStorePayload) {
-      const tournament = this.getTournament(payload.id);
-      const stage = tournament.stages.find((stage) => stage.id === payload.stageId);
+      const stage = this.getStage(payload.id, payload.stageId);
 
-      if (!stage) throw new Error('Stage not found');
-      
       stage.name = payload.stageForm.name;
     },
     removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
@@ -74,9 +78,9 @@ export const useTournamentStore = defineStore('tournament', {
       tournament.stages = tournament.stages.filter((stage) => stage.id !== stageId);
     },
     updateStageTeams(payload: UpdateStageTeamsStorePayload) {
-      const stage = this.getTournament(payload.id).stages.find((stage) => stage.id === payload.stageId);
+      const stage = this.getStage(payload.id, payload.stageId);
 
-      if (!stage || stage.type !== TournamentStageType.GROUPS) throw new Error('Stage not found');
+      if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
       
       payload.form.forEach((group) => {
         const stageGroup = stage.groups.find((g) => g.order === group.order);
@@ -89,12 +93,10 @@ export const useTournamentStore = defineStore('tournament', {
       });
     },
     createStageMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
-      const stage = this.getTournament(id).stages.find((s) => s.id === stageId);
+      const stage = this.getStage(id, stageId);
 
-      if (!stage) throw new Error('Stage not found');
-
-      if (stage.type === TournamentStageType.GROUPS) {
-        if (!allTeamsAssigned(stage)) throw new Error('All teams must be assigned');
+      if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
+      if (!allTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
         stage.matchweeks = createMatchweeks(stage);
       };
