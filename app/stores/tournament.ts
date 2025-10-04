@@ -82,15 +82,27 @@ export const useTournamentStore = defineStore('tournament', {
 
       if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
       
+      const queries: ReplaceTeamsInMatchweeksParams['queries'] = [];
+
       payload.form.forEach((group) => {
         const stageGroup = stage.groups.find((g) => g.order === group.order);
 
         if (!stageGroup) throw new Error('Group not found');
 
         group.teams.forEach((team, index) => {
+          const replacedTeam = stageGroup.standings[index]!.team;
+
           stageGroup.standings[index]!.team = team;
+
+          if (team && replacedTeam) {
+            queries.push({ search: replacedTeam, replace: team });
+          }
         });
       });
+
+      if (queries.length) {
+        this.replaceTeamsInMatchweeks({id: payload.id, stageId: payload.stageId, queries });
+      }
     },
     createStageMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
       const stage = this.getStage(id, stageId);
@@ -98,8 +110,35 @@ export const useTournamentStore = defineStore('tournament', {
       if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
       if (!allTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
-        stage.matchweeks = createMatchweeks(stage);
-      };
+      stage.matchweeks = createMatchweeks(stage);
+    },
+    replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
+      const stage = this.getTournament(payload.id).stages.find((stage) => stage.id === payload.stageId);
+
+      if (!stage || stage.type !== TournamentStageType.GROUPS) throw new Error('Stage not found');
+
+      if (stage.matchweeks.length === 0) throw new Error('No matchweeks to update');
+
+      stage.matchweeks.forEach((matchweek) => {
+        matchweek.matches.forEach((match) => {
+          const { homeTeam, awayTeam } = match;
+
+          let homeIsUpdated = false;
+          let awayIsUpdated = false;
+
+          payload.queries.filter((i) => i.search === homeTeam.id || i.search === awayTeam.id).forEach((query) => {
+            if (query.search === homeTeam.id && !homeIsUpdated) {
+              homeTeam.id = query.replace;
+              homeIsUpdated = true;
+            }
+            
+            if (query.search === awayTeam.id && !awayIsUpdated) {
+              awayTeam.id = query.replace;
+              awayIsUpdated = true;
+            }
+          });
+        });
+      });
     },
   },
 });

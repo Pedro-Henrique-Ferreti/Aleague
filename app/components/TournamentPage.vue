@@ -9,6 +9,7 @@
       <TournamentStageModal :stage="activeStage" />
       <EditStageTeams
         v-if="activeStage.type === TournamentStageType.GROUPS && allTeamsAssigned(activeStage)"
+        :allow-empty-slots="activeStage.matchweeks.length === 0"
         :stage="activeStage"
       />
       <DeleteStageButton :stage-id="activeStage.id" />

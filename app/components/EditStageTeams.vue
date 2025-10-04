@@ -3,6 +3,7 @@
     ref="modalRef"
     title="Editar equipes"
     size="xl"
+    :submit-button-disabled="submitButtonDisabled"
     @open="onOpenModal"
     @submit="submitForm"
   >
@@ -81,9 +82,12 @@ const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStor
 
 defineOptions({ inheritAttrs: false });
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   stage: TournamentGroupsStage;
-}>();
+  allowEmptySlots?: boolean;
+}>(), {
+  allowEmptySlots: true,
+});
 
 const teamsInputRef = useTemplateRef('teamsInputRef');
 
@@ -153,6 +157,11 @@ function resetSlots() {
 }
 
 // Submit form
+const submitButtonDisabled = computed(() => (
+  !props.allowEmptySlots
+  && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
+));
+
 function submitForm() {
   updateStageTeams({
     id: tournamentId!,

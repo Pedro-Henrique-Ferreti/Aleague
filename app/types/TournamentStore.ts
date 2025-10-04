@@ -30,3 +30,12 @@ export interface UpdateStageTeamsStorePayload {
   stageId: TournamentStage['id'];
   form: FormStageGroup[];
 }
+
+export interface ReplaceTeamsInMatchweeksParams {
+  id: Tournament['id'];
+  stageId: TournamentStage['id'];
+  queries: {
+    search: TeamDetails['id'];
+    replace: TeamDetails['id'];
+  }[];
+}
