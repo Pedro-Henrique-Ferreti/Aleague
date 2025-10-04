@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export function createMatchListFromTeamList(
   list: TeamDetails['id'][], roundRobins = 1, excludeGroups?: TeamDetails['id'][][],
 ): Match[][] {
@@ -30,7 +32,7 @@ export function createMatchListFromTeamList(
       }
 
       week.push({
-        id: i,
+        id: uuidv4(),
         homeTeam: { id: homeTeam, score: null },
         awayTeam: { id: awayTeam, score: null },
       });
@@ -54,7 +56,7 @@ export function createMatchListFromTeamList(
   while (completedRobins < roundRobins) {
     weeks.push(
       ...weeks.slice(-1 * robinLength).map((week) => week.map((match): Match => ({
-        id: match.id,
+        id: uuidv4(),
         homeTeam: match.awayTeam,
         awayTeam: match.homeTeam,
       }))),
