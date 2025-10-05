@@ -3,9 +3,9 @@
     <div class="grid gap-1.5 h-fit">
       <StandingsCard
         v-for="(group, index) in stage.groups"
+        v-model="stage.groups[index]!"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
-        :standings="group.standings"
         :show-filters="index === 0"
       />
     </div>

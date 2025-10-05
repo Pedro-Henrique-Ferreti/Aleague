@@ -61,7 +61,7 @@
                 <th />
               </tr>
               <tr
-                v-for="entry in standings"
+                v-for="entry, index in group.standings"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :key="entry.id"
               >
@@ -77,6 +77,7 @@
                 <template v-else>
                   <td class="position bg-inherit h-[2.875rem] py-0">
                     <StandingsCardTeam
+                      v-model:qualification="group.qualification[index]!"
                       :position="entry.position"
                       :team-id="entry.team"
                     />
@@ -109,9 +110,10 @@ import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
 
 defineProps<{
   title: string;
-  standings: StandingsEntry[];
   showFilters?: boolean;
 }>();
+
+const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
 
 const filtersVisible = ref(false);
 
