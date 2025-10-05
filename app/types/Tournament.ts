@@ -23,6 +23,7 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
   groups: {
     order: number;
     standings: StandingsEntry[];
+    qualification: Qualification[];
   }[];
   matchweeks: Matchweek[];
 }

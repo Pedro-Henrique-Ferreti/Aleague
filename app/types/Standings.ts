@@ -1,3 +1,11 @@
+export enum Qualification {
+  NONE,
+  GREEN,
+  BLUE,
+  ORANGE,
+  RED,
+}
+
 export interface StandingsEntry {
   id: number;
   position: number;
@@ -9,6 +17,5 @@ export interface StandingsEntry {
   goalsFor: number;
   goalsAgainst: number;
   team: Team['id'] | null;
-  // positionColor: PositionColor;
   // recentGames: FinishedMatch[];
 }
