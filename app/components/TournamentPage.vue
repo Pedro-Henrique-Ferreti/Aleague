@@ -31,10 +31,10 @@
       v-model="roundId"
       :stages="tournament.stages"
     />
-    <template v-for="stage in tournament.stages">
+    <template v-for="(stage, index) in tournament.stages">
       <TournamentGroups
         v-if="stage.type === TournamentStageType.GROUPS && stage.id === roundId"
-        :model-value="stage"
+        v-model="(tournament.stages[index] as TournamentGroupsStage)"
       />
       <TournamentPlayoffs
         v-else-if="stage.type === TournamentStageType.PLAYOFFS && stage.id === roundId"
@@ -47,26 +47,24 @@
 <script setup lang="ts">
 import { allTeamsAssigned } from '~/helpers/stage';
 
-const props = defineProps<{
-  tournament: Tournament;
-}>();
+const tournament = defineModel<Tournament>({ required: true });
 
-const roundId = ref(props.tournament.stages[0]?.id);
+const roundId = ref(tournament.value.stages[0]?.id);
 
 const activeStage = computed(() => (
-  props.tournament.stages.find((stage) => stage.id === roundId.value)
+  tournament.value.stages.find((stage) => stage.id === roundId.value)
 ));
 
-watch(() => props.tournament.stages.length, (length) => {
+watch(() => tournament.value.stages.length, (length) => {
   if (length === 0) {
     roundId.value = undefined;
     return;
   }
 
-  roundId.value = props.tournament.stages[props.tournament.stages.length - 1]?.id;
+  roundId.value = tournament.value.stages[tournament.value.stages.length - 1]?.id;
 });
 
 const showStageControls = computed(() => (
-  props.tournament.stages.length > 1 || props.tournament.stages[0]?.type === TournamentStageType.PLAYOFFS
+  tournament.value.stages.length > 1 || tournament.value.stages[0]?.type === TournamentStageType.PLAYOFFS
 ));
 </script>

@@ -14,7 +14,7 @@
     class="tabs tabs-lift"
   >
     <template
-      v-for="tournament in tournamentStore.tournaments"
+      v-for="(tournament, index) in tournamentStore.tournaments"
       :key="tournament.id"
     >
       <AppTab
@@ -26,7 +26,7 @@
         v-if="tournamentStore.activeTournamentId === tournament.id"
         class="tab-content pt-3 border-b-0 border-l-0 border-r-0 rounded-none border-base-300"
       >
-        <TournamentPage :tournament="tournament" />
+        <TournamentPage v-model="tournamentStore.tournaments[index]!" />
       </div>
     </template>
   </div>
