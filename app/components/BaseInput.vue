@@ -23,7 +23,7 @@ interface BaseInputProps {
   disabled?: boolean;
   type?: InputTypeHTMLAttribute;
   modelValue?: BaseInputModel;
-  modelModifiers?: { lazy?: boolean; trim?: boolean };
+  modelModifiers?: { lazy?: boolean; trim?: boolean; number?: boolean };
   mask?: string | RegExp | (() => void);
   maskOptions?: Record<string, unknown>;
 }
@@ -45,9 +45,13 @@ const props = withDefaults(defineProps<BaseInputProps>(), {
 const model = computed({
   get: () => props.modelValue,
   set: (value: BaseInputModel) => {
-    emit('update:modelValue', (
-      props.modelModifiers?.trim && value && typeof value === 'string' ? value?.trim() : value
-    ));
+    if (props.modelModifiers?.trim && value && typeof value === 'string') {
+      emit('update:modelValue', value?.trim());
+    } else if (props.modelModifiers?.number && value !== null) {
+      emit('update:modelValue', +value);
+    } else {
+      emit('update:modelValue', value);
+    }
   },
 });
 
@@ -79,7 +83,7 @@ function setupIMask() {
 
   if (!props.modelModifiers?.lazy) {
     imaskInstance.value.on('accept', () => {
-      emit('update:modelValue', imaskInstance.value?.unmaskedValue || null);
+      model.value = imaskInstance.value?.unmaskedValue || null;
     });
   }
 }
@@ -89,7 +93,7 @@ onMounted(setupIMask);
 // Update IMask value when prop modelValue changes
 function resetImaskValue() {
   if (imaskInstance.value) {
-    imaskInstance.value.unmaskedValue = String(props.modelValue || '');
+    imaskInstance.value.unmaskedValue = String(props.modelValue ?? '');
   }
 }
 
