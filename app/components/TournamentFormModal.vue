@@ -12,7 +12,6 @@
     <AppInput
       v-model="form.name"
       label="Nome"
-      name="name"
     />
     <div class="flex w-full gap-2 mt-1">
       <AppSelect

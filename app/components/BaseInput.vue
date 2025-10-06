@@ -1,18 +1,12 @@
 <template>
-  <label
-    class="input w-full"
-    :for="id"
+  <input
+    v-model.trim="model"
+    type="text"
+    :name="name"
+    :id="id || defaultId"
+    :readonly="!!readonly"
+    :disabled="disabled"
   >
-    <input
-      v-model.trim="model"
-      type="text"
-      class="grow"
-      :name="name"
-      :id="id"
-      :readonly="!!readonly"
-      :disabled="disabled"
-    >
-  </label>
 </template>
 
 <script lang="ts">
@@ -20,10 +14,11 @@ export type BaseInputModel = string | number | null;
 </script>
 
 <script lang="ts" setup>
-const id = useId();
+const defaultId = useId();
 
 defineProps<{
-  name: string;
+  name?: string;
+  id?: string;
   readonly?: boolean;
   disabled?: boolean;
 }>();

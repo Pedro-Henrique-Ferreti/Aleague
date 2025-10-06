@@ -18,7 +18,6 @@
     <AppInput
       v-model="form.name"
       label="Nome"
-      name="name"
     />
     <AppFieldset label="Formato">
       <div class="flex gap-1">
@@ -51,7 +50,6 @@
         <AppCounter
           v-model="form.groups"
           label="Quantidade de grupos"
-          name="groups"
           :min="MIN_GROUPS"
           :max="MAX_GROUPS"
           :disabled="isEditingForm"
@@ -59,7 +57,6 @@
         <AppCounter
           v-model="form.teamsPerGroup"
           label="Equipes em cada grupo"
-          name="teams-per-group"
           :step="2"
           :min="MIN_TEAMS_PER_GROUP"
           :max="MAX_TEAMS_PER_GROUP"
@@ -68,7 +65,6 @@
         <AppCounter
           v-model="form.groupRoundRobins"
           label="Turnos"
-          name="rounds"
           :min="MIN_ROUNDS"
           :max="3"
           :disabled="isEditingForm"
@@ -88,7 +84,6 @@
         <AppCounter
           v-model="form.teams"
           label="Equipes participantes"
-          name="teams"
           :step="2"
           :min="MIN_TEAMS"
           :disabled="isEditingForm"
@@ -96,7 +91,6 @@
         <AppCounter
           v-model="form.playoffRounds"
           label="Número de rodadas"
-          name="rounds"
           :step="1"
           :min="MIN_ROUNDS"
           :max="maxPlayoffRounds"

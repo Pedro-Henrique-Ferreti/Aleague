@@ -11,13 +11,18 @@
         <IconMinus class="w-1" />
       </button>
       <div>
-        <BaseInput
-          v-model="inputValue"
-          class="join-item [&_input]:text-center [&_input]:cursor-default"
-          readonly
-          :name="name"
-          :disabled="disabled"
-        />
+        <label
+          class="join-item input w-full"
+          :for="id"
+        >
+          <BaseInput
+            v-model="inputValue"
+            class="text-center cursor-default grow"
+            readonly
+            :id="id"
+            :disabled="disabled"
+          />
+        </label>
       </div>
       <button
         class="btn btn-soft join-item"
@@ -35,9 +40,10 @@
 <script lang="ts" setup>
 import { IconMinus, IconPlus } from '@tabler/icons-vue';
 
+const id = useId();
+
 const props = withDefaults(defineProps<{
   label: string;
-  name: string;
   min?: number;
   max?: number;
   step?: number;
