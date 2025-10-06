@@ -9,7 +9,7 @@
         :show-filters="index === 0"
       />
     </div>
-    <MatchweekCard :model-value="stage" />
+    <MatchweekCard v-model="stage" />
   </section>
 </template>
 
