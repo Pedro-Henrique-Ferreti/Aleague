@@ -33,30 +33,15 @@
                 <th class="position bg-inherit">
                   Posição
                 </th>
-                <th class="points">
-                  <span class="desktop:hidden">Pts</span>
-                  <span class="max-desktop:hidden">Pontos</span>
-                </th>
-                <th>
-                  <span class="desktop:hidden">J</span>
-                  <span class="max-desktop:hidden">Jogos</span>
-                </th>
-                <th>
-                  <span class="desktop:hidden">V</span>
-                  <span class="max-desktop:hidden">Vitórias</span>
-                </th>
-                <th>
-                  <span class="desktop:hidden">E</span>
-                  <span class="max-desktop:hidden">Empates</span>
-                </th>
-                <th>
-                  <span class="desktop:hidden">D</span>
-                  <span class="max-desktop:hidden">Derrotas</span>
-                </th>
-                <th>GP</th>
-                <th>GC</th>
-                <th>SG</th>
-                <th>%</th>
+                <th class="min-w-3">Pts</th>
+                <th class="min-w-3">J</th>
+                <th class="min-w-3">V</th>
+                <th class="min-w-3">E</th>
+                <th class="min-w-3">D</th>
+                <th class="min-w-3">GP</th>
+                <th class="min-w-3">GC</th>
+                <th class="min-w-3">SG</th>
+                <th class="min-w-3">%</th>
                 <th>Recentes</th>
                 <th />
               </tr>
