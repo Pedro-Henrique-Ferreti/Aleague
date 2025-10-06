@@ -9,7 +9,7 @@ export const useTeamStore = defineStore('team', {
     teamList: DETAILED_TEAM_LIST,
   }),
   actions: {
-    getTeamById(id: number): TeamDetails | undefined {
+    getTeamById(id?: TeamDetails['id'] | null): TeamDetails | undefined {
       return this.teamList.find((team) => team.id === id);
     },
   },
