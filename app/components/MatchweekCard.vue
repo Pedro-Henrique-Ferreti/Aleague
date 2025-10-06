@@ -1,12 +1,12 @@
 <template>
   <section class="card card-border h-fit">
-    <div class="card-body">
+    <div class="card-body gap-0">
       <MatchweekCardEmptyState
         v-if="stage.matchweeks.length === 0"
         :stage="stage"
       />
       <template v-else>
-        <header class="flex justify-between items-center">
+        <header class="flex justify-between items-center mb-1.5">
           <div class="tooltip" data-tip="Rodada anterior">
             <AppButton
               class="btn-square btn-sm btn-ghost"
