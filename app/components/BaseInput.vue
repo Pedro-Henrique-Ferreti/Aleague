@@ -1,7 +1,7 @@
 <template>
   <input
     v-model.trim="model"
-    type="text"
+    :type="type"
     :name="name"
     :id="id || defaultId"
     :readonly="!!readonly"
@@ -11,17 +11,24 @@
 
 <script lang="ts">
 export type BaseInputModel = string | number | null;
-</script>
 
-<script lang="ts" setup>
-const defaultId = useId();
-
-defineProps<{
+interface BaseInputProps {
   name?: string;
   id?: string;
   readonly?: boolean;
   disabled?: boolean;
-}>();
+  type?: InputTypeHTMLAttribute;
+}
+</script>
+
+<script lang="ts" setup>
+import type { InputTypeHTMLAttribute } from 'vue';
+
+const defaultId = useId();
+
+withDefaults(defineProps<BaseInputProps>(), {
+  type: 'text',
+});
 
 const model = defineModel<BaseInputModel>();
 </script>
