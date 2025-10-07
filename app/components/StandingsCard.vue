@@ -41,7 +41,7 @@
                 <th class="min-w-3">GP</th>
                 <th class="min-w-3">GC</th>
                 <th class="min-w-3">SG</th>
-                <th class="min-w-3">%</th>
+                <th class="min-w-4">%</th>
                 <th>Recentes</th>
                 <th />
               </tr>
