@@ -27,14 +27,35 @@
   </div>
 </template>
 
+<script lang="ts">
+export interface MatchWithOldScore extends Match {
+  oldScore: {
+    home: Match['homeTeam']['score'];
+    away: Match['awayTeam']['score'];
+  }
+}
+export interface MatchCardEmits {
+  'match-updated': [MatchWithOldScore];
+}
+</script>
+
 <script lang="ts" setup>
-defineProps<{
+const props = defineProps<{
   match: Match;
   layout?: 'vertical';
 }>();
+
+const emit = defineEmits<MatchCardEmits>();
 
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
 const awayScore = defineModel<Match['awayTeam']['score']>('away-score');
 const fixtureTwoHomeScore = defineModel<Match['homeTeam']['score']>('fixture-two-home-score');
 const fixtureTwoAwayScore = defineModel<Match['awayTeam']['score']>('fixture-two-away-score');
+
+watch(() => [props.match.homeTeam.score, props.match.awayTeam.score], (_, oldScore) => {
+  emit('match-updated', {
+    ...props.match,
+    oldScore: { home: oldScore[0] ?? null, away: oldScore[1] ?? null },
+  });
+});
 </script>

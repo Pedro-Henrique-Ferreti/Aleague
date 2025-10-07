@@ -34,6 +34,7 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
+              @match-updated="$emit('match-updated', $event)"
             />
           </template>
         </div>
@@ -44,6 +45,9 @@
 
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
+import type { MatchCardEmits } from './MatchCard.vue';
+
+defineEmits<Pick<MatchCardEmits, 'match-updated'>>();
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
