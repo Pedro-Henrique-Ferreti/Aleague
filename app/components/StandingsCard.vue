@@ -80,27 +80,86 @@
   </section>
 </template>
 
+<script lang="ts">
+type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData;
+</script>
+
 <script lang="ts" setup>
 import type { ResizeObserverCallback } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
 
-defineProps<{
+const props = withDefaults(defineProps<{
   title: string;
-}>();
+  filters?: StandingsFilters;
+}>(), {
+  filters: () => ({
+    ordering: OrderingCriteria.POINTS,
+    type: StandingsType.OVERALL,
+  }),
+});
 
 const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
 
-const standings = computed(() => group.value.standings.map((entry) => ({
-  id: entry.id,
-  team: entry.team,
-  points: entry.home.points + entry.away.points,
-  played: entry.home.played + entry.away.played,
-  won: entry.home.won + entry.away.won,
-  drawn: entry.home.drawn + entry.away.drawn,
-  lost: entry.home.lost + entry.away.lost,
-  goalsFor: entry.home.goalsFor + entry.away.goalsFor,
-  goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
-})));
+function getTableEntries(entry: StandingsEntry): TableEntry {
+  let data: StandingsData = {
+    points: entry.home.points + entry.away.points,
+    played: entry.home.played + entry.away.played,
+    won: entry.home.won + entry.away.won,
+    drawn: entry.home.drawn + entry.away.drawn,
+    lost: entry.home.lost + entry.away.lost,
+    goalsFor: entry.home.goalsFor + entry.away.goalsFor,
+    goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
+  };
+
+  if (props.filters.type === StandingsType.HOME) {
+    data = entry.home;
+  } else if (props.filters.type === StandingsType.AWAY) {
+    data = entry.away;
+  }
+
+  return {
+    id: entry.id,
+    team: entry.team,
+    ...data,
+  };
+}
+
+function sortTableEntries(a: TableEntry, b: TableEntry) {
+  switch (props.filters.ordering) {
+    case OrderingCriteria.POINTS:
+      return b.points - a.points;
+    case OrderingCriteria.WON:
+      return b.won - a.won;
+    case OrderingCriteria.LOST:
+      return a.lost - b.lost;
+    case OrderingCriteria.GOALS_FOR:
+      return b.goalsFor - a.goalsFor;
+    case OrderingCriteria.GOALS_AGAINST:
+      return a.goalsAgainst - b.goalsAgainst;
+    case OrderingCriteria.GOALS_DIFFERENCE:
+      return b.goalsFor - a.goalsFor;
+  }
+}
+
+const standings = computed<TableEntry[]>(() => (
+  group.value.standings.map(getTableEntries).sort((a, b) => {
+    const result = sortTableEntries(a, b);
+    
+    if (result !== 0) return result;
+
+    const wonDiff = b.won - a.won;
+
+    if (wonDiff !== 0) return wonDiff;
+
+    const goalDiff = (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst);
+
+    if (goalDiff !== 0) return goalDiff;
+  
+    if (a.played === 0 && b.played === 0) return 0;
+
+    return Math.random() > 0.5 ? 1 : -1;
+  })
+));
 
 // Position size
 const positionSize = ref('0px');

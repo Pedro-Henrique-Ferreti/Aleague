@@ -4,6 +4,7 @@
       <StandingsCard
         v-for="(group, index) in stage.groups"
         v-model="stage.groups[index]!"
+        :filters="filters"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
       >
