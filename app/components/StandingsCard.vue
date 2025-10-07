@@ -46,7 +46,7 @@
                 <th />
               </tr>
               <tr
-                v-for="entry, index in group.standings"
+                v-for="entry, index in standings"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :key="entry.id"
               >
@@ -99,6 +99,18 @@ defineProps<{
 }>();
 
 const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
+
+const standings = computed(() => group.value.standings.map((entry) => ({
+  id: entry.id,
+  team: entry.team,
+  points: entry.home.points + entry.away.points,
+  played: entry.home.played + entry.away.played,
+  won: entry.home.won + entry.away.won,
+  drawn: entry.home.drawn + entry.away.drawn,
+  lost: entry.home.lost + entry.away.lost,
+  goalsFor: entry.home.goalsFor + entry.away.goalsFor,
+  goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
+})));
 
 const filtersVisible = ref(false);
 

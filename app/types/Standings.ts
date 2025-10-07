@@ -6,8 +6,7 @@ export enum Qualification {
   RED,
 }
 
-export interface StandingsEntry {
-  id: number;
+export interface StandingsData {
   points: number;
   played: number;
   won: number;
@@ -15,6 +14,12 @@ export interface StandingsEntry {
   lost: number;
   goalsFor: number;
   goalsAgainst: number;
+}
+
+export interface StandingsEntry {
+  id: number;
   team: Team['id'] | null;
+  home: StandingsData;
+  away: StandingsData;
   // recentGames: FinishedMatch[];
 }
