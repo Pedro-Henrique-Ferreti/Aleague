@@ -13,7 +13,10 @@
           class="overflow-x-auto"
         >
           <table class="table static">
-            <tbody>
+            <TransitionGroup
+              name="table-entries"
+              tag="tbody"
+            >
               <tr
                 class="text-xs text-gray-500 bg-gray-1 [&_th]:p-0.75 [&_th]:text-center"
                 key="header"
@@ -72,7 +75,7 @@
                 </template>
                 <td />
               </tr>
-            </tbody>
+            </TransitionGroup>
           </table>
         </div>
       </div>
@@ -196,5 +199,18 @@ const rightBorderSize = computed(() => {
 .position {
   width: v-bind(positionSize);
   @apply text-left absolute left-0;
+}
+
+.table-entries-move,
+.table-entries-enter-active,
+.table-entries-leave-active {
+  @apply transition-all duration-300 ease-out;
+}
+.table-entries-enter-from,
+.table-entries-leave-to {
+  @apply translate-x-2;
+}
+.table-entries-leave-active {
+  @apply absolute;
 }
 </style>
