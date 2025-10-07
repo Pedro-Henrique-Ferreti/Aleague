@@ -8,7 +8,6 @@ export enum Qualification {
 
 export interface StandingsEntry {
   id: number;
-  position: number;
   points: number;
   played: number;
   won: number;

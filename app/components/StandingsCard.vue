@@ -63,7 +63,7 @@
                   <td class="position bg-inherit h-[2.875rem] py-0">
                     <StandingsCardTeam
                       v-model:qualification="group.qualification[index]!"
-                      :position="entry.position"
+                      :position="index + 1"
                       :team-id="entry.team"
                     />
                   </td>
