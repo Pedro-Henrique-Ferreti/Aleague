@@ -6,8 +6,11 @@
         :stage="stage"
       />
       <template v-else>
-        <header class="flex justify-between gap-1 items-center mb-1.5 border-b-gray-200 border-b pb-1">
-          <div class="flex gap-0.5">
+        <header class="grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b pb-1">
+          <div class="flex gap-0.75">
+            <EditMatchweekKickoff :stage-id="stage.id" />
+          </div>
+          <div class="flex gap-0.5 flex-1 justify-center">
             <div class="tooltip" data-tip="Rodada anterior">
               <AppButton
                 class="btn-square btn-sm btn-ghost"
@@ -30,7 +33,9 @@
               />
             </div>
           </div>
-          <DeleteMatchweeksButton :stage-id="stage.id" />
+          <div class="flex gap-0.75 justify-end">
+            <DeleteMatchweeksButton :stage-id="stage.id" />
+          </div>
         </header>
         <div class="grid gap-1">
           <template
