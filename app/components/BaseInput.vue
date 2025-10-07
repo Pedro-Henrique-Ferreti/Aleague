@@ -79,7 +79,7 @@ function setupIMask() {
     ...props.maskOptions,
   });
 
-  imaskInstance.value.value = String(props.modelValue || '');
+  imaskInstance.value.value = String(props.modelValue ?? '');
 
   if (!props.modelModifiers?.lazy) {
     imaskInstance.value.on('accept', () => {
