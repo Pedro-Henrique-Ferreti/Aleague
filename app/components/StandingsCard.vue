@@ -75,7 +75,7 @@
                   <td>{{ entry.goalsFor }}</td>
                   <td>{{ entry.goalsAgainst }}</td>
                   <td>{{ entry.goalsFor - entry.goalsAgainst }}</td>
-                  <td>{{ entry.played ? Math.round(entry.points / (entry.played * 3) * 100) : 0 }}%</td>
+                  <td>{{ entry.played ? Math.round(entry.points / (entry.played * POINTS_PER_WIN) * 100) : 0 }}%</td>
                   <td />
                 </template>
                 <td />

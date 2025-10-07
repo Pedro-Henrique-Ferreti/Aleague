@@ -11,4 +11,8 @@ export const STANDINGS_SORTING_OPTIONS: SelectOptionList<string> = [
   { label: 'Saldo', value: 'goalDifference' },
   { label: 'Melhor ataque', value: 'goalsScored' },
   { label: 'Melhor defesa', value: 'goalsReceived' },
-]
+];
+
+export const POINTS_PER_WIN = 3;
+export const POINTS_PER_DRAW = 1;
+export const POINTS_PER_LOSE = 0;
