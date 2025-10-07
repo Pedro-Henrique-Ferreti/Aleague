@@ -6,8 +6,23 @@
         v-model="stage.groups[index]!"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
-        :show-filters="index === 0"
-      />
+      >
+        <template #header>
+          <AppButton
+            v-if="index === 0"
+            class="btn-square btn-ghost w-2 h-2"
+            aria-label="Filters"
+            :icon-left="IconAdjustmentsHorizontal"
+            @click="showFilters = !showFilters"
+          />
+        </template>
+        <StandingsFilters
+          v-if="index === 0"
+          v-show="showFilters"
+          v-model="filters"
+          @reset="filters = newFilters()"
+        />
+      </StandingsCard>
     </div>
     <MatchweekCard
       v-model="stage"
@@ -19,9 +34,19 @@
 <script lang="ts" setup>
 import { getStandingsDataFromScore } from '~/helpers/standings';
 import type { MatchWithOldScore } from './MatchCard.vue';
+import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
+const newFilters = (): StandingsFilters => ({
+  type: StandingsType.OVERALL,
+  ordering: OrderingCriteria.POINTS,
+}); 
+
+const filters = ref<StandingsFilters>(newFilters());
+const showFilters = ref(false);
+
+// Update standings
 function updateStandings(match: MatchWithOldScore) {
   const { homeTeam, awayTeam, oldScore } = match;
   const prevFinished = oldScore.home !== null && oldScore.away !== null;

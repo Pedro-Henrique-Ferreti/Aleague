@@ -3,17 +3,9 @@
     <div class="card-body gap-0 p-1.25">
       <header class="flex justify-between">
         <div class="text-lg font-medium">{{ title }}</div>
-        <AppButton
-          v-if="showFilters"
-          class="btn-square btn-ghost w-2 h-2"
-          :icon-left="IconAdjustmentsHorizontal"
-          @click="filtersVisible = !filtersVisible"
-        />
+        <slot name="header" />
       </header>
-      <StandingsFilters
-        v-if="showFilters"
-        v-show="filtersVisible"
-      />
+      <slot />
       <div class="divider mt-0.5 -mb-[7px]" />
       <div class="table-container">
         <div
@@ -91,11 +83,9 @@
 <script lang="ts" setup>
 import type { ResizeObserverCallback } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
-import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
 
 defineProps<{
   title: string;
-  showFilters?: boolean;
 }>();
 
 const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
@@ -111,8 +101,6 @@ const standings = computed(() => group.value.standings.map((entry) => ({
   goalsFor: entry.home.goalsFor + entry.away.goalsFor,
   goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
 })));
-
-const filtersVisible = ref(false);
 
 // Position size
 const positionSize = ref('0px');

@@ -1,16 +1,16 @@
-export const STANDINGS_TYPE_OPTIONS: SelectOptionList<string> = [
-  { label: 'Casa & Fora', value: '' },
-  { label: 'Casa', value: 'home' },
-  { label: 'Fora', value: 'away' },
+export const STANDINGS_TYPE_OPTIONS: SelectOptionList<StandingsType> = [
+  { label: 'Casa & Fora', value: StandingsType.OVERALL },
+  { label: 'Casa', value: StandingsType.HOME },
+  { label: 'Fora', value: StandingsType.AWAY },
 ];
 
-export const STANDINGS_SORTING_OPTIONS: SelectOptionList<string> = [
-  { label: 'Pontos', value: '' },
-  { label: 'Vitórias', value: 'won' },
-  { label: 'Derrotas', value: 'lost' },
-  { label: 'Saldo', value: 'goalDifference' },
-  { label: 'Melhor ataque', value: 'goalsScored' },
-  { label: 'Melhor defesa', value: 'goalsReceived' },
+export const STANDINGS_ORDERING_OPTIONS: SelectOptionList<OrderingCriteria> = [
+  { label: 'Pontos', value: OrderingCriteria.POINTS },
+  { label: 'Vitórias', value: OrderingCriteria.WON },
+  { label: 'Derrotas', value: OrderingCriteria.LOST },
+  { label: 'Saldo', value: OrderingCriteria.GOALS_DIFFERENCE },
+  { label: 'Melhor ataque', value: OrderingCriteria.GOALS_FOR },
+  { label: 'Melhor defesa', value: OrderingCriteria.GOALS_AGAINST },
 ];
 
 export const POINTS_PER_WIN = 3;

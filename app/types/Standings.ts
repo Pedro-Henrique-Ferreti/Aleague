@@ -6,6 +6,26 @@ export enum Qualification {
   RED,
 }
 
+export enum OrderingCriteria {
+  POINTS,
+  WON,
+  LOST,
+  GOALS_FOR,
+  GOALS_AGAINST,
+  GOALS_DIFFERENCE,
+}
+
+export enum StandingsType {
+  OVERALL,
+  HOME,
+  AWAY,
+}
+
+export interface StandingsFilters {
+  type: StandingsType;
+  ordering: OrderingCriteria;
+}
+
 export interface StandingsData {
   points: number;
   played: number;
