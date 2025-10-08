@@ -46,7 +46,7 @@
       >
         <div class="card-body p-1 flex gap-0.5">
           <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2 capitalize">
-            {{ formatDate(group.time, 'EEEEEE kk\'h\'mm').replace('sab', 'sáb') }}
+            {{ getKickoffDisplayText(group.time) }}
           </div>
           <MatchCard
             v-for="match in group.matches"
@@ -70,6 +70,7 @@ interface KickoffGroup {
 
 <script lang="ts" setup>
 import { IconCalendarWeek, IconRefresh, IconWand } from '@tabler/icons-vue';
+import { getKickoffDisplayText } from '~/helpers/match';
 
 const emit = defineEmits<{
   'kickoffs-updated': [value: Matchweek['matches']];

@@ -42,9 +42,14 @@
         </header>
         <div class="grid gap-1">
           <template
-            v-for="match in stage.matchweeks[currentMatchweek - 1]!.matches"
+            v-for="(match, index) in stage.matchweeks[currentMatchweek - 1]!.matches.toSorted(sortMatches)"
             :key="match.id"
           >
+            <span
+              v-if="match.kickoff && showMatchKickoff[index]"
+              v-text="getKickoffDisplayText(match.kickoff, 'EEEEEE \'•\' kk\'h\'mm')"
+              class="text-xs text-center font-semibold capitalize -mb-0.75"
+            />
             <MatchCard
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
@@ -61,6 +66,8 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 import type { MatchCardEmits } from './MatchCard.vue';
+import { isBefore } from 'date-fns';
+import { getKickoffDisplayText } from '~/helpers/match';
 
 defineEmits<Pick<MatchCardEmits, 'match-updated'>>();
 
@@ -76,4 +83,20 @@ const matchweeksOptions = computed<SelectOptionList<number>>(() => stage.value.m
   label: `Rodada ${i.week}`,
   value: i.week,
 })));
+
+function sortMatches(a: Match, b: Match) {
+  if (a.kickoff && !b.kickoff) return 1;
+  if (!a.kickoff && b.kickoff) return -1;
+  if (a.kickoff === b.kickoff) return 0;
+
+  return isBefore(a.kickoff!, b.kickoff!) ? -1 : 1;
+}
+
+const showMatchKickoff = computed(() => {
+  const matches = stage.value.matchweeks[currentMatchweek.value - 1]!.matches.toSorted(sortMatches);
+
+  return matches.map((match, i) => (
+    !matches[i - 1] || matches[i - 1]!.kickoff !== match.kickoff
+  ));
+});
 </script>
