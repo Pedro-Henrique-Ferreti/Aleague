@@ -58,8 +58,8 @@ export function createMatchListFromTeamList(
     weeks.push(
       ...weeks.slice(-1 * robinLength).map((week) => week.map((match): Match => ({
         id: uuidv4(),
-        homeTeam: match.awayTeam,
-        awayTeam: match.homeTeam,
+        homeTeam: Object.assign({}, match.awayTeam),
+        awayTeam: Object.assign({}, match.homeTeam),
         kickoff: null,
       }))),
     );
