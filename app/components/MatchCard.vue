@@ -11,17 +11,25 @@
       class="flex items-stretch gap-0.5 h-full"
       :class="{ 'row-span-2': layout === 'vertical' }"
     >
-      <MatchCardScore
-        v-model:home-score="homeScore"
-        v-model:away-score="awayScore"
-        :layout="layout"
-      />
-      <MatchCardScore
-        v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
-        v-model:home-score="fixtureTwoHomeScore"
-        v-model:away-score="fixtureTwoAwayScore"
-        :layout="layout"
-      />
+      <span
+        v-if="homeScore === undefined && awayScore === undefined"
+        class="flex items-center font-semibold text-gray-600"
+      >
+        ✕
+      </span>
+      <template v-else>
+        <MatchCardScore
+          v-model:home-score="homeScore"
+          v-model:away-score="awayScore"
+          :layout="layout"
+        />
+        <MatchCardScore
+          v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
+          v-model:home-score="fixtureTwoHomeScore"
+          v-model:away-score="fixtureTwoAwayScore"
+          :layout="layout"
+        />
+      </template>
     </div>
     <MatchCardTeam :team="match.awayTeam.id" />
   </div>
