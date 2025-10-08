@@ -8,7 +8,10 @@
       <template v-else>
         <header class="grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b pb-1">
           <div class="flex gap-0.75">
-            <EditMatchweekKickoff :stage-id="stage.id" />
+            <EditMatchweekKickoff 
+              :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
+              @kickoffs-updated="stage.matchweeks[currentMatchweek - 1]!.matches = $event"
+            />
           </div>
           <div class="flex gap-0.5 flex-1 justify-center">
             <div class="tooltip" data-tip="Rodada anterior">
