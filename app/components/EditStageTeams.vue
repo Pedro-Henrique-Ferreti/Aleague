@@ -37,7 +37,7 @@
             @click="shuffleTeams"
           />
         </div>
-        <div class="tooltip" data-tip="Limpar participantes">
+        <div class="tooltip" data-tip="Remover equipes">
           <AppButton
             class="btn-square btn-accent btn-soft"
             :icon-left="IconRefresh"
