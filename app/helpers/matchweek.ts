@@ -35,6 +35,7 @@ export function createMatchListFromTeamList(
         id: uuidv4(),
         homeTeam: { id: homeTeam, score: null },
         awayTeam: { id: awayTeam, score: null },
+        kickoff: null,
       });
     }
 
@@ -59,6 +60,7 @@ export function createMatchListFromTeamList(
         id: uuidv4(),
         homeTeam: match.awayTeam,
         awayTeam: match.homeTeam,
+        kickoff: null,
       }))),
     );
     

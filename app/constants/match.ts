@@ -1,10 +1,10 @@
 import { type Day, setDay } from 'date-fns';
 
-function kickoffTime(weekDay: Weekday, hours: number, minutes: number, weekStartsOn: Day = 0): string {
+function kickoffTime(weekDay: Weekday, hours: number, minutes: number, weekStartsOn: Day = 0): MatchKickoff {
   return setDay(new Date(2025, 10, 8, hours, minutes), weekDay, { weekStartsOn }).toISOString();
 }
 
-export const KICKOFF_TIMES: Record<MatchweekKickoff, string[]> = {
+export const KICKOFF_TIMES: Record<MatchweekKickoff, MatchKickoff[]> = {
   [MatchweekKickoff.WEEKDAY]: [
     kickoffTime(Weekday.TUESDAY, 21, 0),
     kickoffTime(Weekday.WEDNESDAY, 17, 0),

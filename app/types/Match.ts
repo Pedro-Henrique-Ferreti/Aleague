@@ -13,6 +13,8 @@ export enum Weekday {
   SATURDAY,
 }
 
+export type MatchKickoff = string;
+
 export interface MatchTeam {
   id: Team['id'];
   score: number | null;
@@ -22,6 +24,7 @@ export interface Match {
   id: string;
   homeTeam: MatchTeam;
   awayTeam: MatchTeam;
+  kickoff: MatchKickoff | null;
 }
 
 export interface Matchweek {
