@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex items-center gap-0.5"
-    :class="{ 'flex-row-reverse': align === 'right' }"
+    :class="{ 'flex-row-reverse text-right': align === 'right' }"
   >
     <template v-if="teamDetails">
       <img
