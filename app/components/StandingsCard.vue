@@ -41,7 +41,7 @@
                 <th />
               </tr>
               <tr
-                v-for="entry, index in standings"
+                v-for="entry, index in tableEntries"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :key="entry.id"
               >
@@ -84,84 +84,33 @@
 </template>
 
 <script lang="ts">
-type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData;
+interface Props {
+  title: string;
+  filters?: StandingsFilters;
+  matchweeks?: TournamentGroupsStage['matchweeks'];
+}
 </script>
 
 <script lang="ts" setup>
 import type { ResizeObserverCallback } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
+import { getTableEntry, sortTableEntries } from '~/helpers/standings';
 
-const props = withDefaults(defineProps<{
-  title: string;
-  filters?: StandingsFilters;
-}>(), {
+const props = withDefaults(defineProps<Props>(), {
   filters: () => ({
-    ordering: OrderingCriteria.POINTS,
-    type: StandingsType.OVERALL,
+    sortType: TableEntrySortType.POINTS,
+    entryType: TableEntryType.OVERALL,
   }),
 });
 
 const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
 
-function getTableEntries(entry: StandingsEntry): TableEntry {
-  let data: StandingsData = {
-    points: entry.home.points + entry.away.points,
-    played: entry.home.played + entry.away.played,
-    won: entry.home.won + entry.away.won,
-    drawn: entry.home.drawn + entry.away.drawn,
-    lost: entry.home.lost + entry.away.lost,
-    goalsFor: entry.home.goalsFor + entry.away.goalsFor,
-    goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
-  };
-
-  if (props.filters.type === StandingsType.HOME) {
-    data = entry.home;
-  } else if (props.filters.type === StandingsType.AWAY) {
-    data = entry.away;
-  }
-
-  return {
-    id: entry.id,
-    team: entry.team,
-    ...data,
-  };
-}
-
-function sortTableEntries(a: TableEntry, b: TableEntry) {
-  switch (props.filters.ordering) {
-    case OrderingCriteria.POINTS:
-      return b.points - a.points;
-    case OrderingCriteria.WON:
-      return b.won - a.won;
-    case OrderingCriteria.LOST:
-      return a.lost - b.lost;
-    case OrderingCriteria.GOALS_FOR:
-      return b.goalsFor - a.goalsFor;
-    case OrderingCriteria.GOALS_AGAINST:
-      return a.goalsAgainst - b.goalsAgainst;
-    case OrderingCriteria.GOALS_DIFFERENCE:
-      return b.goalsFor - a.goalsFor;
-  }
-}
-
-const standings = computed<TableEntry[]>(() => (
-  group.value.standings.map(getTableEntries).sort((a, b) => {
-    const result = sortTableEntries(a, b);
-    
-    if (result !== 0) return result;
-
-    const wonDiff = b.won - a.won;
-
-    if (wonDiff !== 0) return wonDiff;
-
-    const goalDiff = (b.goalsFor - b.goalsAgainst) - (a.goalsFor - a.goalsAgainst);
-
-    if (goalDiff !== 0) return goalDiff;
-  
-    if (a.played === 0 && b.played === 0) return 0;
-
-    return Math.random() > 0.5 ? 1 : -1;
-  })
+const tableEntries = computed<TableEntry[]>(() => (
+  group.value.standings.map(
+    (i) => getTableEntry(i, props.filters.entryType),
+  ).sort(
+    (a, b) => sortTableEntries(a, b, props.filters.sortType),
+  )
 ));
 
 // Position size

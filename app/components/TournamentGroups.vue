@@ -40,8 +40,8 @@ import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
 const newFilters = (): StandingsFilters => ({
-  type: StandingsType.OVERALL,
-  ordering: OrderingCriteria.POINTS,
+  entryType: TableEntryType.OVERALL,
+  sortType: TableEntrySortType.POINTS,
 }); 
 
 const filters = ref<StandingsFilters>(newFilters());

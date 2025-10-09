@@ -1,16 +1,16 @@
-export const STANDINGS_TYPE_OPTIONS: SelectOptionList<StandingsType> = [
-  { label: 'Casa & Fora', value: StandingsType.OVERALL },
-  { label: 'Casa', value: StandingsType.HOME },
-  { label: 'Fora', value: StandingsType.AWAY },
+export const TABLE_ENTRY_TYPE_OPTIONS: SelectOptionList<TableEntryType> = [
+  { label: 'Casa & Fora', value: TableEntryType.OVERALL },
+  { label: 'Casa', value: TableEntryType.HOME },
+  { label: 'Fora', value: TableEntryType.AWAY },
 ];
 
-export const STANDINGS_ORDERING_OPTIONS: SelectOptionList<OrderingCriteria> = [
-  { label: 'Pontos', value: OrderingCriteria.POINTS },
-  { label: 'Vitórias', value: OrderingCriteria.WON },
-  { label: 'Derrotas', value: OrderingCriteria.LOST },
-  { label: 'Saldo', value: OrderingCriteria.GOALS_DIFFERENCE },
-  { label: 'Melhor ataque', value: OrderingCriteria.GOALS_FOR },
-  { label: 'Melhor defesa', value: OrderingCriteria.GOALS_AGAINST },
+export const TABLE_ENTRY_SORT_TYPE_OPTIONS: SelectOptionList<TableEntrySortType> = [
+  { label: 'Pontos', value: TableEntrySortType.POINTS },
+  { label: 'Vitórias', value: TableEntrySortType.WON },
+  { label: 'Derrotas', value: TableEntrySortType.LOST },
+  { label: 'Saldo', value: TableEntrySortType.GOALS_DIFFERENCE },
+  { label: 'Melhor ataque', value: TableEntrySortType.GOALS_FOR },
+  { label: 'Melhor defesa', value: TableEntrySortType.GOALS_AGAINST },
 ];
 
 export const POINTS_PER_WIN = 3;

@@ -1,14 +1,14 @@
 <template>
   <div class="flex gap-0.5 flex-wrap mt-1">
     <BaseSelect
-      v-model="form.type"
+      v-model="form.entryType"
       class="select-sm max-w-7"
-      :options="STANDINGS_TYPE_OPTIONS"
+      :options="TABLE_ENTRY_TYPE_OPTIONS"
     />
     <BaseSelect
-      v-model="form.ordering"
+      v-model="form.sortType"
       class="select-sm max-w-8"
-      :options="STANDINGS_ORDERING_OPTIONS"
+      :options="TABLE_ENTRY_SORT_TYPE_OPTIONS"
     />
     <!-- <BaseSelect
       class="select-sm max-w-8"

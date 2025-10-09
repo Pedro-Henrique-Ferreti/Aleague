@@ -6,7 +6,7 @@ export enum Qualification {
   RED,
 }
 
-export enum OrderingCriteria {
+export enum TableEntrySortType {
   POINTS,
   WON,
   LOST,
@@ -15,15 +15,15 @@ export enum OrderingCriteria {
   GOALS_DIFFERENCE,
 }
 
-export enum StandingsType {
+export enum TableEntryType {
   OVERALL,
   HOME,
   AWAY,
 }
 
 export interface StandingsFilters {
-  type: StandingsType;
-  ordering: OrderingCriteria;
+  entryType: TableEntryType;
+  sortType: TableEntrySortType;
 }
 
 export interface StandingsData {
@@ -41,5 +41,7 @@ export interface StandingsEntry {
   team: Team['id'] | null;
   home: StandingsData;
   away: StandingsData;
-  // recentGames: FinishedMatch[];
 }
+
+export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData;
+
