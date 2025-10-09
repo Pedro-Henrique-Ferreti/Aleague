@@ -62,14 +62,26 @@
                       :team-id="entry.team"
                     />
                   </td>
-                  <td class="font-semibold">{{ entry.points }}</td>
+                  <td :class="{ 'font-semibold': filters.sortType === TableEntrySortType.POINTS }">
+                    {{ entry.points }}
+                  </td>
                   <td>{{ entry.played }}</td>
-                  <td>{{ entry.won }}</td>
+                  <td :class="{ 'font-semibold': filters.sortType === TableEntrySortType.WON }">
+                    {{ entry.won }}
+                  </td>
                   <td>{{ entry.drawn }}</td>
-                  <td>{{ entry.lost }}</td>
-                  <td>{{ entry.goalsFor }}</td>
-                  <td>{{ entry.goalsAgainst }}</td>
-                  <td>{{ entry.goalsFor - entry.goalsAgainst }}</td>
+                  <td :class="{ 'font-semibold': filters.sortType === TableEntrySortType.LOST }">
+                    {{ entry.lost }}
+                  </td>
+                  <td :class="{ 'font-semibold': filters.sortType === TableEntrySortType.GOALS_FOR }">
+                    {{ entry.goalsFor }}
+                  </td>
+                  <td :class="{ 'font-semibold': filters.sortType === TableEntrySortType.GOALS_AGAINST }">
+                    {{ entry.goalsAgainst }}
+                  </td>
+                  <td :class="{ 'font-semibold': filters.sortType === TableEntrySortType.GOALS_DIFFERENCE }">
+                    {{ entry.goalsFor - entry.goalsAgainst }}
+                  </td>
                   <td>{{ entry.played ? Math.round(entry.points / (entry.played * POINTS_PER_WIN) * 100) : 0 }}%</td>
                   <td />
                 </template>
