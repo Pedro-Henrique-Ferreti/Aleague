@@ -37,7 +37,7 @@
                 <th class="min-w-3">GC</th>
                 <th class="min-w-3">SG</th>
                 <th class="min-w-4">%</th>
-                <th>Recentes</th>
+                <th v-if="matchweeks?.length">Recentes</th>
                 <th />
               </tr>
               <tr
@@ -52,7 +52,7 @@
                 <td
                   v-if="!entry.team"
                   class="h-3"
-                  colspan="11"
+                  colspan="10"
                 />
                 <template v-else>
                   <td class="position bg-inherit h-[2.875rem] py-0">
@@ -83,7 +83,12 @@
                     {{ entry.goalsFor - entry.goalsAgainst }}
                   </td>
                   <td>{{ entry.played ? Math.round(entry.points / (entry.played * POINTS_PER_WIN) * 100) : 0 }}%</td>
-                  <td />
+                  <td v-if="matchweeks?.length">
+                    <StandingsCardForm
+                      :form="entry.form.slice(-5)"
+                      :auto-fill="5"
+                    />
+                  </td>
                 </template>
                 <td />
               </tr>

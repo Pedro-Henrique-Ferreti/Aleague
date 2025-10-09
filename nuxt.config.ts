@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt', '@vueuse/nuxt'],
+  modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-svgo'],
   imports: {
     dirs: ['types', 'constants', 'utils'],
   },
@@ -25,5 +25,8 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ],
+  },
+  svgo: {
+    defaultImport: 'component',
   },
 })
