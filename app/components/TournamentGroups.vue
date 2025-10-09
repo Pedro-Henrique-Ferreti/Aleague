@@ -28,6 +28,7 @@
     </div>
     <MatchweekCard
       v-model="stage"
+      class="sticky top-2 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden"
       @match-updated="updateStandings"
     />
   </section>

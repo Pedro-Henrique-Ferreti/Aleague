@@ -6,7 +6,7 @@
         :stage="stage"
       />
       <template v-else>
-        <header class="grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b pb-1">
+        <header class="grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b -mt-1.25 pt-1.25 pb-1 sticky top-0 bg-white">
           <div class="flex gap-0.75">
             <EditMatchweekKickoff 
               :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
