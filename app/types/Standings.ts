@@ -43,5 +43,7 @@ export interface StandingsEntry {
   away: StandingsData;
 }
 
-export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData;
+export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData & {
+  form: MatchResult[];
+};
 

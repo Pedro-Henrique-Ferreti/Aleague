@@ -1,3 +1,5 @@
+import { getMatchResult } from './match';
+
 export function getStandingsDataFromScore(homeScore: number, awayScore: number, isHomeTeam: boolean) {
   const goalsFor = isHomeTeam ? homeScore : awayScore;
   const goalsAgainst = isHomeTeam ? awayScore : homeScore;
@@ -52,7 +54,19 @@ export function sortTableEntries(a: TableEntry, b: TableEntry, sortType: TableEn
   return Math.random() > 0.5 ? 1 : -1;
 }
 
-export function getTableEntry(entry: StandingsEntry, type: TableEntryType): TableEntry {
+export function getTableEntryForm(matchList: Match[], teamId: StandingsEntry['team']): MatchResult[] {
+  if (!teamId) return [];
+
+  return matchList.filter((m) => (
+    (m.homeTeam.id === teamId || m.awayTeam.id === teamId)
+    && m.homeTeam.score !== null
+    && m.awayTeam.score !== null
+  )).map((match) => (
+    getMatchResult(match.homeTeam.score!, match.awayTeam.score!, match.homeTeam.id === teamId)
+  ));
+}
+
+export function getTableEntry(entry: StandingsEntry, type: TableEntryType, matchList: Match[] = []): TableEntry {
   let data: StandingsData = {
     points: entry.home.points + entry.away.points,
     played: entry.home.played + entry.away.played,
@@ -72,6 +86,7 @@ export function getTableEntry(entry: StandingsEntry, type: TableEntryType): Tabl
   return {
     id: entry.id,
     team: entry.team,
+    form: getTableEntryForm(matchList, entry.team),
     ...data,
   };
 }

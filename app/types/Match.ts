@@ -13,6 +13,12 @@ export enum Weekday {
   SATURDAY,
 }
 
+export enum MatchResult {
+  WON,
+  DRAW,
+  LOST,
+}
+
 export type MatchKickoff = string;
 
 export interface MatchTeam {

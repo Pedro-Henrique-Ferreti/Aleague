@@ -119,7 +119,7 @@ const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: t
 
 const tableEntries = computed<TableEntry[]>(() => (
   group.value.standings.map(
-    (i) => getTableEntry(i, props.filters.entryType),
+    (i) => getTableEntry(i, props.filters.entryType, props.matchweeks?.flatMap((i) => i.matches) ?? []),
   ).sort(
     (a, b) => sortTableEntries(a, b, props.filters.sortType),
   )

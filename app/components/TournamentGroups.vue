@@ -7,6 +7,7 @@
         :filters="filters"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
+        :matchweeks="stage.matchweeks"
       >
         <template #header>
           <AppButton
