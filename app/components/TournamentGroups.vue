@@ -3,12 +3,14 @@
     <div class="grid gap-1.5 h-fit">
       <StandingsCard
         v-for="(group, index) in displayedGroups"
-        :model-value="group"
+        :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallQualifier : group.qualifier"
+        :standings="group.standings"
         :entry-type="filtersForm.entryType"
         :sort-type="filtersForm.sortType"
         :key="group.order"
         :title="getCardTitle(group.order)"
         :matchweeks="stage.matchweeks"
+        @update:qualifier="onUpdateGroupQualifier($event, index)"
       >
         <template #header>
           <AppButton
@@ -61,6 +63,15 @@ const displayedGroups = computed<TournamentGroupsStage['groups']>(() => (
     standings: stage.value.groups.flatMap((group) => group.standings),
   }]
 ));
+
+function onUpdateGroupQualifier(value: Qualifier[], groupIndex: number) {
+  if (filtersForm.value.view === TableEntryView.OVERALL) {
+    stage.value.overallQualifier = value;
+    return;
+  }
+
+  stage.value.groups[groupIndex]!.qualifier = value;
+}
 
 // Card title
 function getCardTitle(order: TournamentGroupsStage['groups'][number]['order']) {

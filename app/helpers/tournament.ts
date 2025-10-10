@@ -28,6 +28,11 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
         away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
       })),
     })),
+    overallQualifier: (
+      stageForm.groups > 1
+        ? Array.from({ length: stageForm.teamsPerGroup * stageForm.groups }, () => Qualifier.NONE)
+        : []
+    ),
     matchweeks: [],
   });
 

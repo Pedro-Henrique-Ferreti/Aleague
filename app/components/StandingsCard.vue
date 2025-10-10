@@ -57,7 +57,7 @@
                 <template v-else>
                   <td class="position bg-inherit h-[2.875rem] py-0">
                     <StandingsCardTeam
-                      v-model:qualifier="group.qualifier[index]!"
+                      v-model:qualifier="qualifier[index]!"
                       :position="index + 1"
                       :team-id="entry.team"
                     />
@@ -103,6 +103,7 @@
 <script lang="ts">
 interface Props {
   title: string;
+  standings: TournamentGroupsStage['groups'][number]['standings'];
   entryType?: TableEntryType;
   sortType?: TableEntrySortType;
   matchweeks?: TournamentGroupsStage['matchweeks'];
@@ -119,11 +120,11 @@ const props = withDefaults(defineProps<Props>(), {
   entryType: TableEntryType.OVERALL,
 });
 
-const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
+const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 const matches = computed(() => props.matchweeks?.flatMap((i) => i.matches) ?? []);
 
 const tableEntries = computed<TableEntry[]>(() => (
-  group.value.standings.map((i) => getTableEntry(i, props.entryType, matches.value))
+  props.standings.map((i) => getTableEntry(i, props.entryType, matches.value))
 ));
 const tableEntriesSorted = computed(() => (
   tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))
