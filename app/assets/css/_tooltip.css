@@ -1,0 +1,13 @@
+.v-popper--theme-tooltip.v-popper__popper--show-from .v-popper__wrapper {
+  opacity: 0;
+  transform: translateY(0.375rem);
+}
+.v-popper--theme-tooltip.v-popper__popper--show-to .v-popper__wrapper {
+  transition: opacity .15s cubic-bezier(.4, 0, .2, 1), transform .15s cubic-bezier(.4, 0, .2, 1);
+}
+.v-popper--theme-tooltip .v-popper__inner {
+  @apply rounded-lg! text-neutral-content! bg-neutral! py-0.25! px-0.5!;
+}
+.v-popper--theme-tooltip .v-popper__arrow-outer {
+  @apply border-neutral!;
+}

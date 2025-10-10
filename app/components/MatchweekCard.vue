@@ -14,27 +14,25 @@
             />
           </div>
           <div class="flex gap-0.5 flex-1 justify-center">
-            <div class="tooltip" data-tip="Rodada anterior">
-              <AppButton
-                class="btn-square btn-sm btn-ghost"
-                :icon-left="IconChevronLeft"
-                :disabled="currentMatchweek <= 1"
-                @click="currentMatchweek -= 1"
-              />
-            </div>
+            <AppButton
+              v-tooltip="'Rodada anterior'"
+              class="btn-square btn-sm btn-ghost"
+              :icon-left="IconChevronLeft"
+              :disabled="currentMatchweek <= 1"
+              @click="currentMatchweek -= 1"
+            />
             <BaseSelect
               v-model="currentMatchweek"
               class="select-ghost w-7 p-0 justify-center h-2 bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
               :options="matchweeksOptions"
             />
-            <div class="tooltip" data-tip="Próxima rodada">
-              <AppButton
-                class="btn-square btn-sm btn-ghost"
-                :icon-left="IconChevronRight"
-                :disabled="currentMatchweek >= stage.matchweeks.length"
-                @click="currentMatchweek += 1"
-              />
-            </div>
+            <AppButton
+              v-tooltip="'Próxima rodada'"
+              class="btn-square btn-sm btn-ghost"
+              :icon-left="IconChevronRight"
+              :disabled="currentMatchweek >= stage.matchweeks.length"
+              @click="currentMatchweek += 1"
+            />
           </div>
           <div class="flex gap-0.75 justify-end">
             <DeleteMatchweeksButton :stage-id="stage.id" />

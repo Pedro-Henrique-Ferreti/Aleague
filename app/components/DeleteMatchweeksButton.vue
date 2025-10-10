@@ -4,13 +4,12 @@
     message="Deseja realmente excluir todas as partidas? Essa ação não poderá ser desfeita."
     @confirm="tournamentStore.deleteMatchweeks(tournamentStore.activeTournamentId!, stageId)"
   >
-    <div class="tooltip" data-tip="Excluir partidas">
-      <AppButton
-        class="btn-error btn-soft btn-sm btn-square"
-        :icon-left="IconTrash"
-        @click="open"
-      />
-    </div>
+    <AppButton
+      v-tooltip="'Rodada anterior'"
+      class="btn-error btn-soft btn-sm btn-square"
+      :icon-left="IconTrash"
+      @click="open"
+    />
   </AppDialog>
 </template>
 

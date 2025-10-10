@@ -7,13 +7,12 @@
     @submit="assignKickoffs"
   >
     <template #trigger="{ open }">
-      <div class="tooltip" data-tip="Editar horários">
-        <AppButton
-          class="btn-sm btn-square"
-          :icon-left="IconCalendarWeek"
-          @click="open"
-        />
-      </div>
+      <AppButton
+        v-tooltip="'Editar horários'"
+        class="btn-sm btn-square"
+        :icon-left="IconCalendarWeek"
+        @click="open"
+      />
     </template>
     <div class="flex gap-1 mb-2 justify-center relative">
       <BaseSelect

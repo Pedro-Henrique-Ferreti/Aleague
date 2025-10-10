@@ -1,4 +1,5 @@
 @import "./_reset.css";
+@import "./_tooltip.css";
 @import "tailwindcss";
 
 @plugin "daisyui" {
