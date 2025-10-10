@@ -29,11 +29,19 @@
   </div>
 </template>
 
+<script lang="ts">
+export interface FiltersForm {
+  entryType: TableEntryType;
+  sortType: TableEntrySortType;
+  view: TableEntryView;
+}
+</script>
+
 <script setup lang="ts">
 import { IconRestore } from '@tabler/icons-vue';
 
 defineEmits<{ 'reset': [] }>();
 
-const form = defineModel<StandingsFilters>({ required: true });
+const form = defineModel<FiltersForm>({ required: true });
 </script>
 

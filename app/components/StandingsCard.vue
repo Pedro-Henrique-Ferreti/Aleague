@@ -62,24 +62,24 @@
                       :team-id="entry.team"
                     />
                   </td>
-                  <td :class="{ 'font-bold': filters.sortType === TableEntrySortType.POINTS }">
+                  <td :class="{ 'font-bold': sortType === TableEntrySortType.POINTS }">
                     {{ entry.points }}
                   </td>
                   <td>{{ entry.played }}</td>
-                  <td :class="{ 'font-bold': filters.sortType === TableEntrySortType.WON }">
+                  <td :class="{ 'font-bold': sortType === TableEntrySortType.WON }">
                     {{ entry.won }}
                   </td>
                   <td>{{ entry.drawn }}</td>
-                  <td :class="{ 'font-bold': filters.sortType === TableEntrySortType.LOST }">
+                  <td :class="{ 'font-bold': sortType === TableEntrySortType.LOST }">
                     {{ entry.lost }}
                   </td>
-                  <td :class="{ 'font-bold': filters.sortType === TableEntrySortType.GOALS_FOR }">
+                  <td :class="{ 'font-bold': sortType === TableEntrySortType.GOALS_FOR }">
                     {{ entry.goalsFor }}
                   </td>
-                  <td :class="{ 'font-bold': filters.sortType === TableEntrySortType.GOALS_AGAINST }">
+                  <td :class="{ 'font-bold': sortType === TableEntrySortType.GOALS_AGAINST }">
                     {{ entry.goalsAgainst }}
                   </td>
-                  <td :class="{ 'font-bold': filters.sortType === TableEntrySortType.GOALS_DIFFERENCE }">
+                  <td :class="{ 'font-bold': sortType === TableEntrySortType.GOALS_DIFFERENCE }">
                     {{ entry.goalsFor - entry.goalsAgainst }}
                   </td>
                   <td>{{ entry.played ? Math.round(entry.points / (entry.played * POINTS_PER_WIN) * 100) : 0 }}%</td>
@@ -103,7 +103,8 @@
 <script lang="ts">
 interface Props {
   title: string;
-  filters?: StandingsFilters;
+  entryType?: TableEntryType;
+  sortType?: TableEntrySortType;
   matchweeks?: TournamentGroupsStage['matchweeks'];
 }
 </script>
@@ -114,20 +115,18 @@ import { vResizeObserver } from '@vueuse/components';
 import { getTableEntry, sortTableEntries } from '~/helpers/standings';
 
 const props = withDefaults(defineProps<Props>(), {
-  filters: () => ({
-    sortType: TableEntrySortType.POINTS,
-    entryType: TableEntryType.OVERALL,
-  }),
+  sortType: TableEntrySortType.POINTS,
+  entryType: TableEntryType.OVERALL,
 });
 
 const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
 const matches = computed(() => props.matchweeks?.flatMap((i) => i.matches) ?? []);
 
 const tableEntries = computed<TableEntry[]>(() => (
-  group.value.standings.map((i) => getTableEntry(i, props.filters.entryType, matches.value))
+  group.value.standings.map((i) => getTableEntry(i, props.entryType, matches.value))
 ));
 const tableEntriesSorted = computed(() => (
-  tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.filters.sortType))
+  tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))
 ));
 
 // Position size

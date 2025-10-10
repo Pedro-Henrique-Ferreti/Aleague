@@ -4,7 +4,8 @@
       <StandingsCard
         v-for="(group, index) in stage.groups"
         v-model="stage.groups[index]!"
-        :filters="filters"
+        :entry-type="filtersForm.entryType"
+        :sort-type="filtersForm.sortType"
         :key="group.order"
         :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
         :matchweeks="stage.matchweeks"
@@ -21,8 +22,8 @@
         <StandingsFilters
           v-if="index === 0"
           v-show="showFilters"
-          v-model="filters"
-          @reset="filters = newFilters()"
+          v-model="filtersForm"
+          @reset="filtersForm = newFiltersForm()"
         />
       </StandingsCard>
     </div>
@@ -38,15 +39,16 @@
 import { getStandingsDataFromScore } from '~/helpers/standings';
 import type { MatchWithOldScore } from './MatchCard.vue';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
+import type { FiltersForm } from './StandingsFilters.vue';
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
-const newFilters = (): StandingsFilters => ({
+const newFiltersForm = (): FiltersForm => ({
   entryType: TableEntryType.OVERALL,
   sortType: TableEntrySortType.POINTS,
 }); 
 
-const filters = ref<StandingsFilters>(newFilters());
+const filtersForm = ref<FiltersForm>(newFiltersForm());
 const showFilters = ref(false);
 
 // Update standings

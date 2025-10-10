@@ -21,11 +21,6 @@ export enum TableEntryType {
   AWAY,
 }
 
-export interface StandingsFilters {
-  entryType: TableEntryType;
-  sortType: TableEntrySortType;
-}
-
 export interface StandingsData {
   points: number;
   played: number;
