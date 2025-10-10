@@ -1,12 +1,13 @@
 <template>
   <div class="card card-border rounded-lg flex-row items-center">
     <label class="input input-ghost max-w-14 [anchor-name:--teams-input]">
-      <IconSearch class="h-[1em] opacity-50" />
+      <IconSearch class="w-auto h-[1em] opacity-50 shrink-0" />
       <input
         v-model.trim="form.search"
         class="grow"
         type="search"
         placeholder="Search"
+        :id="inputId"
         @click="showPopover"
         @keypress.enter="showPopover"
       />
@@ -69,6 +70,7 @@ interface Form {
 <script lang="ts" setup>
 import { IconSearch } from '@tabler/icons-vue';
 
+const inputId = useId();
 const popoverId = useId();
 
 const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [

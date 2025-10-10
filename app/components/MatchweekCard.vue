@@ -17,6 +17,7 @@
             <AppButton
               v-tooltip="'Rodada anterior'"
               class="btn-square btn-sm btn-ghost"
+              aria-label="Show previous matchweek"
               :icon-left="IconChevronLeft"
               :disabled="currentMatchweek <= 1"
               @click="currentMatchweek -= 1"
@@ -29,6 +30,7 @@
             <AppButton
               v-tooltip="'Próxima rodada'"
               class="btn-square btn-sm btn-ghost"
+              aria-label="Show next matchweek"
               :icon-left="IconChevronRight"
               :disabled="currentMatchweek >= stage.matchweeks.length"
               @click="currentMatchweek += 1"

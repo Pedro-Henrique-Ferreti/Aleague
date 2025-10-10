@@ -19,6 +19,7 @@
         v-text="'✕'"
         type="button"
         class="btn btn-sm btn-circle btn-ghost absolute right-1 top-1"
+        aria-label="Close modal"
         @click="closeModal"
       />
       <h3

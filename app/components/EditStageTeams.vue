@@ -22,10 +22,11 @@
         :selected-teams="selectedTeams"
         @select="onSelectTeam"
       />
-      <div class="absolute flex gap-0.75 right-2">
+      <div class="absolute flex gap-0.75 right-0">
         <div class="tooltip" data-tip="Preencher participantes">
           <AppButton
             class="btn-square btn-accent btn-soft"
+            aria-label="Fill slots"
             :icon-left="IconWand"
             @click="fillSlots"
           />
@@ -33,13 +34,15 @@
         <div class="tooltip" data-tip="Embaralhar equipes">
           <AppButton
             class="btn-square btn-accent btn-soft"
+            aria-label="Shuffle teams"
             :icon-left="IconArrowsShuffle"
             @click="shuffleTeams"
           />
         </div>
-        <div class="tooltip" data-tip="Remover equipes">
+        <div class="tooltip tooltip-left" data-tip="Remover equipes">
           <AppButton
             class="btn-square btn-accent btn-soft"
+            aria-label="Remove teams"
             :icon-left="IconRefresh"
             @click="resetSlots"
           />

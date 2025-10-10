@@ -5,8 +5,9 @@
     @confirm="tournamentStore.deleteMatchweeks(tournamentStore.activeTournamentId!, stageId)"
   >
     <AppButton
-      v-tooltip="'Rodada anterior'"
+      v-tooltip="'Excluir partidas'"
       class="btn-error btn-soft btn-sm btn-square"
+      aria-label="Delete matchweeks"
       :icon-left="IconTrash"
       @click="open"
     />

@@ -10,6 +10,7 @@
       <AppButton
         v-tooltip="'Editar horários'"
         class="btn-sm btn-square"
+        aria-label="Edit matchweek kickoff"
         :icon-left="IconCalendarWeek"
         @click="open"
       />

@@ -17,6 +17,7 @@
         v-text="'✕'"
         type="button"
         class="btn btn-xs btn-circle btn-ghost ml-auto"
+        aria-label="Remove team"
         @click="$emit('remove')"
       />
     </template>
