@@ -8,6 +8,7 @@
       type="button"
       :style="`anchor-name:--team-button-${popoverId}`"
       :popovertarget="popoverId"
+      @click.stop
     >
       {{ position }}
     </button>
@@ -22,7 +23,7 @@
         class="flex items-center justify-center size-1.75 cursor-pointer"
         aria-label="Select qualifier color"
         :key="color"
-        @click="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
+        @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
       >
         <component
           :style="`fill:${getColor(color)}`"
