@@ -20,7 +20,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     roundRobins: stageForm.groupRoundRobins,
     groups: Array.from({ length: stageForm.groups }, (_, index) => ({
       order: index + 1,
-      qualification: Array.from({ length: stageForm.teamsPerGroup }, () => Qualification.NONE),
+      qualifier: Array.from({ length: stageForm.teamsPerGroup }, () => Qualifier.NONE),
       standings: Array.from({ length: stageForm.teamsPerGroup }, () => ({
         id: uuidv4(),
         team: null,

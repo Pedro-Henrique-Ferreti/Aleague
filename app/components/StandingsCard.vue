@@ -57,7 +57,7 @@
                 <template v-else>
                   <td class="position bg-inherit h-[2.875rem] py-0">
                     <StandingsCardTeam
-                      v-model:qualification="group.qualification[index]!"
+                      v-model:qualifier="group.qualifier[index]!"
                       :position="index + 1"
                       :team-id="entry.team"
                     />

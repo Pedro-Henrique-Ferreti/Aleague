@@ -1,7 +1,7 @@
 <template>
   <div
     class="standings-team flex items-center h-full"
-    :style="`--clr:${getColor(qualification)};`"
+    :style="`--clr:${getColor(qualifier)};`"
   >
     <button
       class="font-medium text-[1rem] size-1.5 btn btn-ghost p-0"
@@ -18,15 +18,15 @@
       :style="`position-anchor:--team-button-${popoverId}`"
     >
       <button
-        v-for="color in [Qualification.GREEN, Qualification.BLUE, Qualification.RED, Qualification.ORANGE]"
+        v-for="color in QUALIFIER_COLORS"
         class="flex items-center justify-center size-1.75 cursor-pointer"
-        aria-label="Select qualification color"
+        aria-label="Select qualifier color"
         :key="color"
-        @click="qualification === color ? qualification = Qualification.NONE : qualification = color"
+        @click="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
       >
         <component
           :style="`fill:${getColor(color)}`"
-          :is="color === qualification ? IconCircleDotFilled : IconCircleFilled"
+          :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
         />
       </button>
     </div>
@@ -43,6 +43,13 @@
 <script lang="ts" setup>
 import { IconCircleDotFilled, IconCircleFilled } from '@tabler/icons-vue';
 
+const QUALIFIER_COLORS = [
+  Qualifier.GREEN,
+  Qualifier.BLUE,
+  Qualifier.RED,
+  Qualifier.ORANGE
+];
+
 const popoverId = useId();
 
 const { getTeamById } = useTeamStore();
@@ -52,21 +59,21 @@ const props = defineProps<{
   teamId: TeamDetails['id'];
 }>();
 
-const qualification = defineModel<Qualification>('qualification', { required: true });
+const qualifier = defineModel<Qualifier>('qualifier', { required: true });
 
 const team = computed(() => getTeamById(props.teamId));
 
-function getColor(value: Qualification) {
+function getColor(value: Qualifier) {
   switch (value) {
-    case Qualification.GREEN:
+    case Qualifier.GREEN:
       return '#00a63e';
-    case Qualification.BLUE:
+    case Qualifier.BLUE:
       return '#2b7fff';
-    case Qualification.RED:
+    case Qualifier.RED:
       return '#fb2c36';
-    case Qualification.ORANGE:
+    case Qualifier.ORANGE:
       return '#ff6900';
-    case Qualification.NONE:
+    case Qualifier.NONE:
     default:
       return 'transparent';
   }

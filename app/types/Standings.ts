@@ -1,4 +1,4 @@
-export enum Qualification {
+export enum Qualifier {
   NONE,
   GREEN,
   BLUE,

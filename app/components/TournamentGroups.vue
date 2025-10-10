@@ -57,7 +57,7 @@ const showFilters = ref(false);
 const displayedGroups = computed<TournamentGroupsStage['groups']>(() => (
   filtersForm.value.view === TableEntryView.PER_GROUP ? stage.value.groups : [{
     order: -1,
-    qualification: [],
+    qualifier: [],
     standings: stage.value.groups.flatMap((group) => group.standings),
   }]
 ));
