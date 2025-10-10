@@ -2,12 +2,12 @@
   <section class="grid gap-2 tablet-lg:grid-cols-[2fr_1fr]">
     <div class="grid gap-1.5 h-fit">
       <StandingsCard
-        v-for="(group, index) in stage.groups"
-        v-model="stage.groups[index]!"
+        v-for="(group, index) in displayedGroups"
+        :model-value="group"
         :entry-type="filtersForm.entryType"
         :sort-type="filtersForm.sortType"
         :key="group.order"
-        :title="stage.groups.length === 1 ? 'Classificação' : `Grupo ${group.order}`"
+        :title="getCardTitle(group.order)"
         :matchweeks="stage.matchweeks"
       >
         <template #header>
@@ -52,6 +52,24 @@ const newFiltersForm = (): FiltersForm => ({
 
 const filtersForm = ref<FiltersForm>(newFiltersForm());
 const showFilters = ref(false);
+
+// Displayed groups
+const displayedGroups = computed<TournamentGroupsStage['groups']>(() => (
+  filtersForm.value.view === TableEntryView.PER_GROUP ? stage.value.groups : [{
+    order: -1,
+    qualification: [],
+    standings: stage.value.groups.flatMap((group) => group.standings),
+  }]
+));
+
+// Card title
+function getCardTitle(order: TournamentGroupsStage['groups'][number]['order']) {
+  if (stage.value.groups.length === 1) return 'Classificação';
+
+  if (filtersForm.value.view === TableEntryView.OVERALL) return 'Classificação geral';
+
+  return `Grupo ${order}`;
+}
 
 // Update standings
 function updateStandings(match: MatchWithOldScore) {
