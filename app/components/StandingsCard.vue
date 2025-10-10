@@ -41,7 +41,7 @@
                 <th />
               </tr>
               <tr
-                v-for="entry, index in tableEntries"
+                v-for="entry, index in tableEntriesSorted"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :key="entry.id"
               >
@@ -121,13 +121,13 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const group = defineModel<TournamentGroupsStage['groups'][number]>({ required: true });
+const matches = computed(() => props.matchweeks?.flatMap((i) => i.matches) ?? []);
 
 const tableEntries = computed<TableEntry[]>(() => (
-  group.value.standings.map(
-    (i) => getTableEntry(i, props.filters.entryType, props.matchweeks?.flatMap((i) => i.matches) ?? []),
-  ).sort(
-    (a, b) => sortTableEntries(a, b, props.filters.sortType),
-  )
+  group.value.standings.map((i) => getTableEntry(i, props.filters.entryType, matches.value))
+));
+const tableEntriesSorted = computed(() => (
+  tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.filters.sortType))
 ));
 
 // Position size
