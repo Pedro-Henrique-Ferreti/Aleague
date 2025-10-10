@@ -28,7 +28,10 @@
         class="text-lg font-semibold mb-1"
       />
       <slot />
-      <div class="modal-action">
+      <div
+        v-if="showActions"
+        class="modal-action"
+      >
         <slot name="actions">
           <AppButton
             class="btn-ghost"
@@ -61,9 +64,11 @@ withDefaults(defineProps<{
   submitButtonLabel?: string;
   submitButtonDisabled?: boolean;
   size?: 'lg' | 'xl';
+  showActions?: boolean;
 }>(), {
   showCloseIcon: true,
   submitButtonLabel: 'Salvar',
+  showActions: true,
 });
 
 const dialogRef = ref<HTMLDialogElement | null>(null);
