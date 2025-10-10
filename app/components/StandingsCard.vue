@@ -43,7 +43,10 @@
               <tr
                 v-for="entry, index in tableEntriesSorted"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
+                :class="{ 'cursor-pointer': renderFormModal }"
+                :tabindex="renderFormModal ? 0 : -1"
                 :key="entry.id"
+                @click="onTableEntryClick(entry)"
               >
                 <td
                   v-resize-observer="onResizeObserver"
@@ -59,7 +62,7 @@
                     <StandingsCardTeam
                       v-model:qualifier="qualifier[index]!"
                       :position="index + 1"
-                      :team-id="entry.team"
+                      :team-id="entry.team" 
                     />
                   </td>
                   <td :class="{ 'font-bold': sortType === TableEntrySortType.POINTS }">
@@ -97,6 +100,7 @@
         </div>
       </div>
     </div>
+    <StandingsFormModal :entry="selectedTableEntry" />
   </section>
 </template>
 
@@ -129,6 +133,18 @@ const tableEntries = computed<TableEntry[]>(() => (
 const tableEntriesSorted = computed(() => (
   tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))
 ));
+
+// Form modal
+const selectedTableEntry = ref<TableEntry | null>(null);
+const renderFormModal = computed(() => !!props.matchweeks?.length);
+
+async function onTableEntryClick(entry: TableEntry) {
+  if (!renderFormModal.value) return;
+  
+  selectedTableEntry.value = null;
+  await nextTick();
+  selectedTableEntry.value = entry;
+}
 
 // Position size
 const positionSize = ref('0px');
