@@ -21,6 +21,11 @@ export enum TableEntryType {
   AWAY,
 }
 
+export enum TableEntryView {
+  PER_GROUP,
+  OVERALL,
+}
+
 export interface StandingsData {
   points: number;
   played: number;

@@ -23,6 +23,7 @@
           v-if="index === 0"
           v-show="showFilters"
           v-model="filtersForm"
+          :show-view-input="stage.groups.length > 1"
           @reset="filtersForm = newFiltersForm()"
         />
       </StandingsCard>
@@ -46,6 +47,7 @@ const stage = defineModel<TournamentGroupsStage>({ required: true });
 const newFiltersForm = (): FiltersForm => ({
   entryType: TableEntryType.OVERALL,
   sortType: TableEntrySortType.POINTS,
+  view: TableEntryView.PER_GROUP,
 }); 
 
 const filtersForm = ref<FiltersForm>(newFiltersForm());

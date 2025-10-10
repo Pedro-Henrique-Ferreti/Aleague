@@ -13,6 +13,11 @@ export const TABLE_ENTRY_SORT_TYPE_OPTIONS: SelectOptionList<TableEntrySortType>
   { label: 'Melhor defesa', value: TableEntrySortType.GOALS_AGAINST },
 ];
 
+export const TABLE_ENTRY_VIEW_OPTIONS: SelectOptionList<TableEntryView> = [
+  { label: 'Por grupo', value: TableEntryView.PER_GROUP },
+  { label: 'Geral', value: TableEntryView.OVERALL },
+];
+
 export const POINTS_PER_WIN = 3;
 export const POINTS_PER_DRAW = 1;
 export const POINTS_PER_LOSE = 0;

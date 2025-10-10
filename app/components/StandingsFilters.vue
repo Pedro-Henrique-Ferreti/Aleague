@@ -14,12 +14,13 @@
       class="select-sm max-w-8"
       model-value=""
       :options="[{ label: 'Todas rodadas', value: '' }]"
-    />
-    <BaseSelect
-      class="select-sm max-w-8"
-      model-value=""
-      :options="[{ label: 'Por grupo', value: '' }, { label: 'Geral', value: '' }]"
     /> -->
+    <BaseSelect
+      v-if="showViewInput"
+      v-model="form.view"
+      class="select-sm max-w-8"
+      :options="TABLE_ENTRY_VIEW_OPTIONS"
+    />
     <AppButton
       class="btn-sm"
       label="Reiniciar"
@@ -41,6 +42,9 @@ export interface FiltersForm {
 import { IconRestore } from '@tabler/icons-vue';
 
 defineEmits<{ 'reset': [] }>();
+defineProps<{
+  showViewInput: boolean;
+}>();
 
 const form = defineModel<FiltersForm>({ required: true });
 </script>
