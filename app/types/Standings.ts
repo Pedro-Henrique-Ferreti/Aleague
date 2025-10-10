@@ -37,7 +37,7 @@ export interface StandingsData {
 }
 
 export interface StandingsEntry {
-  id: number;
+  id: string;
   team: Team['id'] | null;
   home: StandingsData;
   away: StandingsData;

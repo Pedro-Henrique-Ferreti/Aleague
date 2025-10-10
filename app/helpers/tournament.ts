@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { createMatchListFromTeamList } from './matchweek';
 
 export function getTournamentIcon(id: Tournament['iconId']) {
@@ -20,8 +21,8 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     groups: Array.from({ length: stageForm.groups }, (_, index) => ({
       order: index + 1,
       qualification: Array.from({ length: stageForm.teamsPerGroup }, () => Qualification.NONE),
-      standings: Array.from({ length: stageForm.teamsPerGroup }, (_, index) => ({
-        id: index,
+      standings: Array.from({ length: stageForm.teamsPerGroup }, () => ({
+        id: uuidv4(),
         team: null,
         home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
         away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
