@@ -124,6 +124,8 @@ const MAX_TEAMS_PER_GROUP = 32;
 const MIN_ROUNDS = 1;
 const MIN_GROUPS = 1;
 const MAX_GROUPS = 32;
+const DEFAULT_GROUPS_STAGE_NAME = 'Fase de Liga';
+const DEFAULT_PLAYOFFS_STAGE_NAME = 'Playoffs';
 
 const tournamentStore = useTournamentStore();
 
@@ -132,7 +134,7 @@ const props = defineProps<{ stage?: TournamentStage }>();
 const modalRef = useTemplateRef('modalRef');
 
 const newForm = (): TournamentStageForm => ({
-  name: props.stage?.name ?? '',
+  name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
   type: props.stage?.type ?? TournamentStageType.GROUPS,
   format: (
     props.stage?.type === TournamentStageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
@@ -153,6 +155,12 @@ const newForm = (): TournamentStageForm => ({
 const form = ref(newForm());
 
 const isEditingForm = computed(() => !!props.stage);
+
+watch(() => form.value.type, () => {
+  form.value.name = (
+    form.value.type === TournamentStageType.GROUPS ? DEFAULT_GROUPS_STAGE_NAME : DEFAULT_PLAYOFFS_STAGE_NAME
+  );
+})
 
 // Max allowed number of playoff rounds
 const maxPlayoffRounds = computed(() => {
