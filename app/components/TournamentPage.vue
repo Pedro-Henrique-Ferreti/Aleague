@@ -27,18 +27,17 @@
   </div>
   <template v-else>
     <TournamentStageControls
-      v-if="showStageControls"
-      v-model="roundId"
+      ref="controlsRef"
       :stages="tournament.stages"
     />
-    <template v-for="(stage, index) in tournament.stages">
+    <template v-for="stage, index in tournament.stages">
       <TournamentGroups
-        v-if="stage.type === TournamentStageType.GROUPS && stage.id === roundId"
+        v-if="stage.type === TournamentStageType.GROUPS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentGroupsStage)"
       />
       <TournamentPlayoffs
-        v-else-if="stage.type === TournamentStageType.PLAYOFFS && stage.id === roundId"
-        :model-value="stage"
+        v-else-if="stage.type === TournamentStageType.PLAYOFFS && activeStage?.id === stage.id"
+        v-model="(tournament.stages[index] as TournamentPlayoffsStage)"
       />
     </template>
   </template>
@@ -46,25 +45,15 @@
 
 <script setup lang="ts">
 import { allTeamsAssigned } from '~/helpers/stage';
+import TournamentStageControls from './TournamentStageControls.vue';
 
 const tournament = defineModel<Tournament>({ required: true });
 
-const roundId = ref(tournament.value.stages[0]?.id);
+const controls = useTemplateRef<typeof TournamentStageControls>('controlsRef');
 
-const activeStage = computed(() => (
-  tournament.value.stages.find((stage) => stage.id === roundId.value)
-));
-
-watch(() => tournament.value.stages.length, (length) => {
-  if (length === 0) {
-    roundId.value = undefined;
-    return;
-  }
-
-  roundId.value = tournament.value.stages[tournament.value.stages.length - 1]?.id;
-});
-
-const showStageControls = computed(() => (
-  tournament.value.stages.length > 1 || tournament.value.stages[0]?.type === TournamentStageType.PLAYOFFS
-));
+const activeStage = computed(() => tournament.value.stages.find((stage) => (
+  stage.id === controls.value?.roundId || (
+    stage.type === TournamentStageType.PLAYOFFS && stage.rounds.find((round) => round.id === controls.value?.roundId)
+  )
+)));
 </script>

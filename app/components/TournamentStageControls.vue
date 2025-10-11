@@ -1,22 +1,56 @@
 <template>
-  <div role="tablist" class="tabs tabs-border mb-1.5">
+  <div
+    v-if="showControls"
+    role="tablist"
+    class="tabs tabs-border mb-1.5"
+  >
     <button
-      v-for="stage in stages"
-      v-text="stage.name"
+      v-for="option in roundOptions"
+      v-text="option.name"
       class="tab basis-1/2 tablet-lg:basis-1/6"
       type="button"
       role="tab"
-      :class="{ 'tab-active': active === stage.id }"
-      :key="stage.id"
-      @click="active = stage.id"
+      :class="{ 'tab-active': roundId === option.id }"
+      :key="option.id"
+      @click="roundId = option.id"
     />
   </div>
 </template>
 
+<script lang="ts">
+interface RoundOption {
+  id: TournamentGroupsStage['id'] | PlayoffRound['id'];
+  name: string;
+}
+</script>
+
 <script lang="ts" setup>
-defineProps<{
+const props = defineProps<{
   stages: TournamentStage[];
 }>();
 
-const active = defineModel<number>();
+const showControls = computed(() => (
+  props.stages.length > 1 || props.stages[0]?.type === TournamentStageType.PLAYOFFS
+));
+
+const roundOptions = computed(() => props.stages.flatMap((stage): RoundOption[] => {
+  if (stage.type === TournamentStageType.GROUPS) {
+    return [{ id: stage.id, name: stage.name }];
+  }
+
+  return stage.rounds.map((round) => ({ id: round.id, name: round.name }));
+}));
+
+const roundId = ref<RoundOption['id'] | undefined>(roundOptions.value[0]?.id);
+
+watch(() => roundOptions.value.length, (length) => {
+  if (length === 0) {
+    roundId.value = undefined;
+    return;
+  }
+
+  roundId.value = roundOptions.value[roundOptions.value.length - 1]?.id;
+});
+
+defineExpose({ roundId });
 </script>
