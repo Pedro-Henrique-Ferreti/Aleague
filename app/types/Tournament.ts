@@ -11,7 +11,7 @@ export enum TournamentGroupFormat {
 
 export interface BaseTournamentStage {
   id: number;
-  name: string | null;
+  name: string;
   sequence: number;
   type: TournamentStageType;
 }

@@ -132,7 +132,7 @@ const props = defineProps<{ stage?: TournamentStage }>();
 const modalRef = useTemplateRef('modalRef');
 
 const newForm = (): TournamentStageForm => ({
-  name: props.stage?.name ?? null,
+  name: props.stage?.name ?? '',
   type: props.stage?.type ?? TournamentStageType.GROUPS,
   format: (
     props.stage?.type === TournamentStageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
