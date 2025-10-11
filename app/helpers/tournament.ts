@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { createMatchListFromTeamList } from './matchweek';
+import { getPlayoffRoundNames } from './playoffs';
 
 export function getTournamentIcon(id: Tournament['iconId']) {
   return `/images/icons/tournament/icon-${id}.svg`;
@@ -39,7 +40,11 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
   const playoffStage = (): TournamentPlayoffsStage => ({
     ...baseStage,
     type: TournamentStageType.PLAYOFFS,
-    rounds: [],
+    rounds: Array.from({ length: stageForm.playoffRounds }, (_, index) => ({
+      id: uuidv4(),
+      order: index,
+      name: getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams)[index]!,
+    })),
   });
 
   return stageForm.type === TournamentStageType.GROUPS ? groupStage() : playoffStage();
