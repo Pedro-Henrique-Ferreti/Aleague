@@ -47,12 +47,12 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
       slots: Array.from({ length: stageForm.teams / 2 ** (index + 1) }, (_, order) => ({
         id: uuidv4(),
         order,
-        matches: [{
+        legs: [{
           id: uuidv4(),
           homeTeam: { id: null, score: null },
           awayTeam: { id: null, score: null },
           kickoff: null,
-        } as PlayoffRoundSlot['matches'][number]],
+        } as PlayoffRoundSlot['legs'][number]],
       })),
     })),
   });

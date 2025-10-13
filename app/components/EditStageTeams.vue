@@ -109,7 +109,7 @@ function onOpenModal() {
       teams: group.standings.map((entry) => entry.team),
     }));
   } else {
-    form.value.groups = props.stage.rounds[0]!.slots.map(({ matches: [match] }, index) => ({
+    form.value.groups = props.stage.rounds[0]!.slots.map(({ legs: [match] }, index) => ({
       order: index + 1,
       teams: [match.homeTeam.id, match.awayTeam.id],
     }));
