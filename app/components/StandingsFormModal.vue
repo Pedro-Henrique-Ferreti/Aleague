@@ -6,6 +6,7 @@
   >
     <StandingsCardForm
       v-if="entry"
+      class="grid grid-cols-[repeat(20,min-content)]"
       :form="entry.form"
     />
   </AppModal>
