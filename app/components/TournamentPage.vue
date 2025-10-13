@@ -38,6 +38,7 @@
       <TournamentPlayoffs
         v-else-if="stage.type === TournamentStageType.PLAYOFFS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentPlayoffsStage)"
+        :active-round-id="controls?.roundId"
       />
     </template>
   </template>
