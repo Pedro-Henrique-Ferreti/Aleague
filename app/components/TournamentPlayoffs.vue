@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-center gap-1.5">
+    <div class="grid grid-cols-4 justify-center gap-2">
       <PlayoffRound
         v-for="round in stage.rounds.filter((r) => displayedRoundsId.includes(r.id))"
         v-model:name="round.name"
@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts" setup>
-const DISPLAYED_ROUNDS_MAX = 3;
+const DISPLAYED_ROUNDS_MAX = 4;
 
 const props = defineProps<{
   activeRoundId: PlayoffRound['id'];
