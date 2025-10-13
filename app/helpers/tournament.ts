@@ -44,6 +44,11 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
       id: uuidv4(),
       order: index,
       name: getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams)[index]!,
+      slots: Array.from({ length: stageForm.teams / 2 ** (index + 1) }, (_, order) => ({
+        id: uuidv4(),
+        order,
+        matches: [],
+      })),
     })),
   });
 
