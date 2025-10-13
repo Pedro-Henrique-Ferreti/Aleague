@@ -7,19 +7,13 @@
       :id="inputId"
     >
     <div class="flex flex-col gap-0.75">
-      <div
-        v-for="slot in slots"
-        class="bracket flex h-full items-center even:not-last:mb-1"
+      <PlayoffRoundCard
+        v-for="(slot, index) in slots"
+        class="bracket even:not-last:mb-1"
+        :slot="slot"
         :key="slot.id"
-      >
-        <MatchCard
-          v-model:home-score="slot.matches[0].homeTeam.score"
-          v-model:away-score="slot.matches[0].awayTeam.score"
-          layout="vertical"
-          class="card card-border p-0.75 order-1"
-          :match="slot.matches[0]"
-        />
-      </div>
+        @update:slot="slots[index] = $event"
+      />
     </div>
   </div>
 </template>
