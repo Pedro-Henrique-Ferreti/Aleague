@@ -12,6 +12,13 @@
               :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
               @kickoffs-updated="stage.matchweeks[currentMatchweek - 1]!.matches = $event"
             />
+            <AppButton
+              v-tooltip="'Sortear resultados'"
+              aria-label="Sortear resultados"
+              class="btn-secondary btn-square btn-soft btn-sm"
+              :icon-left="IconDice5"
+              @click="getRandomMatchweekResults"
+            />
           </div>
           <div class="flex gap-0.5 flex-1 justify-center">
             <AppButton
@@ -64,10 +71,10 @@
 </template>
 
 <script lang="ts" setup>
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
+import { IconChevronLeft, IconChevronRight, IconDice5 } from '@tabler/icons-vue';
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
-import { getKickoffDisplayText } from '~/helpers/match';
+import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
 
 defineEmits<Pick<MatchCardEmits, 'match-updated'>>();
 
@@ -99,4 +106,11 @@ const showMatchKickoff = computed(() => {
     !matches[i - 1] || matches[i - 1]!.kickoff !== match.kickoff
   ));
 });
+
+function getRandomMatchweekResults() {
+  for (const match of stage.value.matchweeks[currentMatchweek.value - 1]!.matches) {
+    match.homeTeam.score = getRandomScore();
+    match.awayTeam.score = getRandomScore();
+  }
+}
 </script>
