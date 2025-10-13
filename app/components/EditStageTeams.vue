@@ -57,7 +57,7 @@
       >
         <div class="card-body p-1 grid gap-0.5 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]">
           <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2">
-            Grupo {{ group.order }}
+            {{ stage.type === TournamentStageType.GROUPS ? 'Grupo' : 'Partida' }} {{ group.order }}
           </div>
           <EditStageTeamsSlot
             v-for="team, index in group.teams"
@@ -86,7 +86,7 @@ const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStor
 defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<{
-  stage: TournamentGroupsStage;
+  stage: TournamentStage;
   allowEmptySlots?: boolean;
 }>(), {
   allowEmptySlots: true,
@@ -103,10 +103,17 @@ const form = ref<{ groups: FormStageGroup[] }>({
 const modalRef = useTemplateRef('modalRef');
 
 function onOpenModal() {
-  form.value.groups = props.stage.groups.map((group) => ({
-    order: group.order,
-    teams: group.standings.map((entry) => entry.team),
-  }));
+  if (props.stage.type === TournamentStageType.GROUPS) {
+    form.value.groups = props.stage.groups.map((group) => ({
+      order: group.order,
+      teams: group.standings.map((entry) => entry.team),
+    }));
+  } else {
+    form.value.groups = props.stage.rounds[0]!.slots.map(({ matches: [match] }, index) => ({
+      order: index + 1,
+      teams: [match.homeTeam.id, match.awayTeam.id],
+    }));
+  }
 }
 
 // Team selection

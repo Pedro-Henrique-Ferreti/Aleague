@@ -80,8 +80,19 @@ export const useTournamentStore = defineStore('tournament', {
     updateStageTeams(payload: UpdateStageTeamsStorePayload) {
       const stage = this.getStage(payload.id, payload.stageId);
 
-      if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
-      
+      if (stage.type === TournamentStageType.PLAYOFFS) {
+        payload.form.forEach((group, index) => {
+          const [home, away] = group.teams as [Team['id'], Team['id']];
+          const { matches } = stage.rounds[0].slots[index]!;
+
+          matches.forEach((_, index) => {
+            matches[index]!.homeTeam.id = (index % 2 === 0) ? home : away;
+            matches[index]!.awayTeam.id = (index % 2 === 0) ? away : home;
+          });
+        });
+        return;
+      }
+
       const queries: ReplaceTeamsInMatchweeksParams['queries'] = [];
 
       payload.form.forEach((group) => {
@@ -101,7 +112,7 @@ export const useTournamentStore = defineStore('tournament', {
       });
 
       if (queries.length) {
-        this.replaceTeamsInMatchweeks({id: payload.id, stageId: payload.stageId, queries });
+        this.replaceTeamsInMatchweeks({ id: payload.id, stageId: payload.stageId, queries });
       }
     },
     createStageMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {

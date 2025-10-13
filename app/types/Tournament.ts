@@ -31,7 +31,7 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
 
 export interface TournamentPlayoffsStage extends BaseTournamentStage {
   type: TournamentStageType.PLAYOFFS;
-  rounds: PlayoffRound[];
+  rounds: [PlayoffRound] | PlayoffRound[];
 }
 
 export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;

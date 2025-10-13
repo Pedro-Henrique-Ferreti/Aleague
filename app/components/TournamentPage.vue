@@ -8,8 +8,8 @@
       <TournamentStageModal />
       <TournamentStageModal :stage="activeStage" />
       <EditStageTeams
-        v-if="activeStage.type === TournamentStageType.GROUPS && allTeamsAssigned(activeStage)"
-        :allow-empty-slots="activeStage.matchweeks.length === 0"
+        v-if="showEditTeamsModal"
+        :allow-empty-slots="allowEmptySlots"
         :stage="activeStage"
       />
       <DeleteStageButton :stage-id="activeStage.id" />
@@ -57,4 +57,14 @@ const activeStage = computed(() => tournament.value.stages.find((stage) => (
     stage.type === TournamentStageType.PLAYOFFS && stage.rounds.find((round) => round.id === controls.value?.roundId)
   )
 )));
+
+const showEditTeamsModal = computed(() => (
+  activeStage.value?.type === TournamentStageType.PLAYOFFS || (
+    activeStage.value?.type === TournamentStageType.GROUPS && allTeamsAssigned(activeStage.value)
+  )
+));
+
+const allowEmptySlots = computed(() => (
+  activeStage.value?.type === TournamentStageType.GROUPS && activeStage.value.matchweeks.length === 0
+));
 </script>
