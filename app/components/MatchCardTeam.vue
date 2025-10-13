@@ -28,5 +28,5 @@ const props = defineProps<{
   align?: 'right';
 }>();
 
-const teamDetails = computed(() => getTeamById(props.team));
+const teamDetails = computed(() => props.team ? getTeamById(props.team) : undefined);
 </script>

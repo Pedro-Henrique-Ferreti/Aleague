@@ -22,7 +22,7 @@ export enum MatchResult {
 export type MatchKickoff = string;
 
 export interface MatchTeam {
-  id: Team['id'];
+  id: Team['id'] | null;
   score: number | null;
 }
 
