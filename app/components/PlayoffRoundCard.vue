@@ -33,11 +33,11 @@ function addMatchToSlot() {
     id: uuidv4(),
     kickoff: null,
     homeTeam: {
-      id: slot.value.matches[0].homeTeam.id,
+      id: slot.value.matches[0].awayTeam.id,
       score: null,
     },
     awayTeam: {
-      id: slot.value.matches[0].awayTeam.id,
+      id: slot.value.matches[0].homeTeam.id,
       score: null,
     },
   });
