@@ -80,7 +80,7 @@ export const useTournamentStore = defineStore('tournament', {
     updateStageTeams(payload: UpdateStageTeamsStorePayload) {
       const stage = this.getStage(payload.id, payload.stageId);
 
-      if (stage.type === TournamentStageType.PLAYOFFS) {
+      if (stage.type === StageType.PLAYOFFS) {
         payload.form.forEach((group, index) => {
           const [home, away] = group.teams as [Team['id'], Team['id']];
           const { legs } = stage.rounds[0].slots[index]!;
@@ -118,7 +118,7 @@ export const useTournamentStore = defineStore('tournament', {
     createStageMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
       const stage = this.getStage(id, stageId);
 
-      if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
+      if (stage.type !== StageType.GROUPS) throw new Error('Stage type not supported');
       if (!allTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
       stage.matchweeks = createMatchweeks(stage);
@@ -126,7 +126,7 @@ export const useTournamentStore = defineStore('tournament', {
     replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
       const stage = this.getTournament(payload.id).stages.find((stage) => stage.id === payload.stageId);
 
-      if (!stage || stage.type !== TournamentStageType.GROUPS) throw new Error('Stage not found');
+      if (!stage || stage.type !== StageType.GROUPS) throw new Error('Stage not found');
 
       if (stage.matchweeks.length === 0) throw new Error('No matchweeks to update');
 
@@ -154,7 +154,7 @@ export const useTournamentStore = defineStore('tournament', {
     deleteMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
       const stage = this.getStage(id, stageId);
 
-      if (stage.type !== TournamentStageType.GROUPS) throw new Error('Stage type not supported');
+      if (stage.type !== StageType.GROUPS) throw new Error('Stage type not supported');
 
       stage.matchweeks = [];
 

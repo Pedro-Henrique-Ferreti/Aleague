@@ -57,7 +57,7 @@
       >
         <div class="card-body p-1 grid gap-0.5 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]">
           <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2">
-            {{ stage.type === TournamentStageType.GROUPS ? 'Grupo' : 'Partida' }} {{ group.order }}
+            {{ stage.type === StageType.GROUPS ? 'Grupo' : 'Partida' }} {{ group.order }}
           </div>
           <EditStageTeamsSlot
             v-for="team, index in group.teams"
@@ -103,7 +103,7 @@ const form = ref<{ groups: FormStageGroup[] }>({
 const modalRef = useTemplateRef('modalRef');
 
 function onOpenModal() {
-  if (props.stage.type === TournamentStageType.GROUPS) {
+  if (props.stage.type === StageType.GROUPS) {
     form.value.groups = props.stage.groups.map((group) => ({
       order: group.order,
       teams: group.standings.map((entry) => entry.team),

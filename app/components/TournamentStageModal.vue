@@ -25,20 +25,20 @@
           v-model="form.type"
           name="type"
           label="Grupos"
-          :value="TournamentStageType.GROUPS"
+          :value="StageType.GROUPS"
           :disabled="isEditingForm"
         />
         <AppRadio
           v-model="form.type"
           name="type"
           label="Eliminatórias"
-          :value="TournamentStageType.PLAYOFFS"
+          :value="StageType.PLAYOFFS"
           :disabled="isEditingForm"
         />
       </div>
     </AppFieldset>
     <div class="divider" />
-    <template v-if="form.type === TournamentStageType.GROUPS">
+    <template v-if="form.type === StageType.GROUPS">
       <AppSelect
         v-model="form.format"
         class="max-w-20"
@@ -135,19 +135,19 @@ const modalRef = useTemplateRef('modalRef');
 
 const newForm = (): TournamentStageForm => ({
   name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
-  type: props.stage?.type ?? TournamentStageType.GROUPS,
+  type: props.stage?.type ?? StageType.GROUPS,
   format: (
-    props.stage?.type === TournamentStageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
+    props.stage?.type === StageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
   ),
   teams: MIN_TEAMS,
   groups: (
-    props.stage?.type === TournamentStageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
+    props.stage?.type === StageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
   ),
   teamsPerGroup: (
-    props.stage?.type === TournamentStageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
+    props.stage?.type === StageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
   ),
   groupRoundRobins: (
-    props.stage?.type === TournamentStageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
+    props.stage?.type === StageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
   ),
   playoffRounds: MIN_ROUNDS,
 });
@@ -158,7 +158,7 @@ const isEditingForm = computed(() => !!props.stage);
 
 watch(() => form.value.type, () => {
   form.value.name = (
-    form.value.type === TournamentStageType.GROUPS ? DEFAULT_GROUPS_STAGE_NAME : DEFAULT_PLAYOFFS_STAGE_NAME
+    form.value.type === StageType.GROUPS ? DEFAULT_GROUPS_STAGE_NAME : DEFAULT_PLAYOFFS_STAGE_NAME
   );
 })
 

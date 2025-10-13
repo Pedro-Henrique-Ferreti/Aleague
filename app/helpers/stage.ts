@@ -1,5 +1,5 @@
 export function allTeamsAssigned(stage: TournamentStage) {
-  if (stage.type === TournamentStageType.PLAYOFFS) {
+  if (stage.type === StageType.PLAYOFFS) {
     return false;
   }
 

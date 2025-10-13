@@ -30,11 +30,11 @@ const props = defineProps<{
 }>();
 
 const showControls = computed(() => (
-  props.stages.length > 1 || props.stages[0]?.type === TournamentStageType.PLAYOFFS
+  props.stages.length > 1 || props.stages[0]?.type === StageType.PLAYOFFS
 ));
 
 const roundOptions = computed(() => props.stages.flatMap((stage): RoundOption[] => {
-  if (stage.type === TournamentStageType.GROUPS) {
+  if (stage.type === StageType.GROUPS) {
     return [{ id: stage.id, name: stage.name }];
   }
 

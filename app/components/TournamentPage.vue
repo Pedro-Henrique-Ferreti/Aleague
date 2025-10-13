@@ -32,11 +32,11 @@
     />
     <template v-for="stage, index in tournament.stages">
       <TournamentGroups
-        v-if="stage.type === TournamentStageType.GROUPS && activeStage?.id === stage.id"
+        v-if="stage.type === StageType.GROUPS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentGroupsStage)"
       />
       <TournamentPlayoffs
-        v-else-if="stage.type === TournamentStageType.PLAYOFFS && activeStage?.id === stage.id"
+        v-else-if="stage.type === StageType.PLAYOFFS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentPlayoffsStage)"
         :active-round-id="controls?.roundId"
       />
@@ -54,17 +54,17 @@ const controls = useTemplateRef<typeof TournamentStageControls>('controlsRef');
 
 const activeStage = computed(() => tournament.value.stages.find((stage) => (
   stage.id === controls.value?.roundId || (
-    stage.type === TournamentStageType.PLAYOFFS && stage.rounds.find((round) => round.id === controls.value?.roundId)
+    stage.type === StageType.PLAYOFFS && stage.rounds.find((round) => round.id === controls.value?.roundId)
   )
 )));
 
 const showEditTeamsModal = computed(() => (
-  activeStage.value?.type === TournamentStageType.PLAYOFFS || (
-    activeStage.value?.type === TournamentStageType.GROUPS && allTeamsAssigned(activeStage.value)
+  activeStage.value?.type === StageType.PLAYOFFS || (
+    activeStage.value?.type === StageType.GROUPS && allTeamsAssigned(activeStage.value)
   )
 ));
 
 const allowEmptySlots = computed(() => (
-  activeStage.value?.type === TournamentStageType.GROUPS && activeStage.value.matchweeks.length === 0
+  activeStage.value?.type === StageType.GROUPS && activeStage.value.matchweeks.length === 0
 ));
 </script>

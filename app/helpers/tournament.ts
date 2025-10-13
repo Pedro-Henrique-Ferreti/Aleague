@@ -16,7 +16,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
 
   const groupStage = (): TournamentGroupsStage => ({
     ...baseStage,
-    type: TournamentStageType.GROUPS,
+    type: StageType.GROUPS,
     format: stageForm.format,
     roundRobins: stageForm.groupRoundRobins,
     groups: Array.from({ length: stageForm.groups }, (_, index) => ({
@@ -39,7 +39,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
 
   const playoffStage = (): TournamentPlayoffsStage => ({
     ...baseStage,
-    type: TournamentStageType.PLAYOFFS,
+    type: StageType.PLAYOFFS,
     rounds: Array.from({ length: stageForm.playoffRounds }, (_, index) => ({
       id: uuidv4(),
       order: index,
@@ -57,7 +57,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     })),
   });
 
-  return stageForm.type === TournamentStageType.GROUPS ? groupStage() : playoffStage();
+  return stageForm.type === StageType.GROUPS ? groupStage() : playoffStage();
 }
 
 export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroupsStage['matchweeks'] {

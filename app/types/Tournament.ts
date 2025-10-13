@@ -1,4 +1,4 @@
-export enum TournamentStageType {
+export enum StageType {
   GROUPS,
   PLAYOFFS,
 }
@@ -13,11 +13,11 @@ export interface BaseTournamentStage {
   id: number;
   name: string;
   sequence: number;
-  type: TournamentStageType;
+  type: StageType;
 }
 
 export interface TournamentGroupsStage extends BaseTournamentStage {
-  type: TournamentStageType.GROUPS;
+  type: StageType.GROUPS;
   roundRobins: number;
   format: TournamentGroupFormat;
   groups: {
@@ -30,7 +30,7 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
 }
 
 export interface TournamentPlayoffsStage extends BaseTournamentStage {
-  type: TournamentStageType.PLAYOFFS;
+  type: StageType.PLAYOFFS;
   rounds: [PlayoffRound] | PlayoffRound[];
 }
 
