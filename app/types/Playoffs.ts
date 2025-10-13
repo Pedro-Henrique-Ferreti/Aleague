@@ -1,7 +1,7 @@
 export interface PlayoffRoundSlot {
   id: string;
   order: number;
-  matches: [] | [Match] | [Match, Match];
+  matches: [Match] | [Match, Match];
 }
 
 export interface PlayoffRound {

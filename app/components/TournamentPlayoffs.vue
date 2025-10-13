@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="flex justify-center">
+    <div class="flex justify-center gap-1.5">
       <PlayoffRound
         v-for="round in stage.rounds.filter((r) => displayedRoundsId.includes(r.id))"
         v-model:name="round.name"
+        v-model:slots="round.slots"
         :key="round.id"
       />
     </div>
