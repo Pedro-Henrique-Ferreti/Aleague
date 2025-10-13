@@ -11,3 +11,13 @@ export function getMatchResult(homeScore: number, awayScore: number, isHomeTeam:
 
   return MatchResult.DRAW;
 }
+
+export function getRandomScore() {
+  let num = Math.floor(Math.random() * 7);
+
+  if (num > 3 && Math.random() < 0.9) {
+    num = Math.floor(Math.random() * 7);
+  }
+
+  return num;
+}

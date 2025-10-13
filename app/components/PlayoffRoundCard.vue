@@ -13,7 +13,7 @@
         @update:fixture-two-home-score="slot.legs[1] ? slot.legs[1].homeTeam.score = $event as Match['homeTeam']['score'] : null"
         @update:fixture-two-away-score="slot.legs[1] ? slot.legs[1].awayTeam.score = $event as Match['awayTeam']['score'] : null"
       />
-      <div class="dropdown-content menu bg-base-100 w-9 rounded-box z-1 shadow-sm">
+      <div class="dropdown-content menu gap-0.5 bg-base-100 w-11 rounded-box z-1 shadow-sm">
         <AppButton
           v-if="slot.legs.length <= 1"
           class="btn-primary btn-soft btn-sm"
@@ -28,6 +28,13 @@
           :icon-left="IconTrash"
           @click="slot.legs.pop()"
         />
+        <AppButton
+          v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
+          class="btn-secondary btn-soft btn-sm"
+          label="Sortear resultado"
+          :icon-left="IconDice5"
+          @click="randomizeScore"
+        />
       </div>
     </div>
   </div>
@@ -35,7 +42,8 @@
 
 <script lang="ts" setup>
 import { v4 as uuidv4 } from 'uuid';
-import { IconPlus, IconTrash } from '@tabler/icons-vue';
+import { IconDice5, IconPlus, IconTrash } from '@tabler/icons-vue';
+import { getRandomScore } from '~/helpers/match';
 
 const slot = defineModel<PlayoffRound['slots'][number]>('slot', { required: true });
 
@@ -51,6 +59,13 @@ function addMatchToSlot() {
       id: slot.value.legs[0].homeTeam.id,
       score: null,
     },
+  });
+}
+
+function randomizeScore() {
+  slot.value.legs.forEach((_, index) => {
+    slot.value.legs[index]!.homeTeam.score = getRandomScore();
+    slot.value.legs[index]!.awayTeam.score = getRandomScore();
   });
 }
 </script>
