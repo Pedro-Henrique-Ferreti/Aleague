@@ -50,7 +50,17 @@ export function sortTableEntries(a: TableEntry, b: TableEntry, sortType: TableEn
 
   if (goalDiff !== 0) return goalDiff;
 
-  // Third tiebraker: random
+  // Third tiebraker: best defense
+  const gaDiff = b.goalsAgainst - a.goalsAgainst;
+
+  if (gaDiff !== 0) return gaDiff;
+
+  // Fourth tiebraker: best attck
+  const gfDiff = b.goalsFor - a.goalsFor;
+
+  if (gfDiff !== 0) return gfDiff;
+
+  // Fourth tiebreaker: random
   return Math.random() > 0.5 ? 1 : -1;
 }
 
