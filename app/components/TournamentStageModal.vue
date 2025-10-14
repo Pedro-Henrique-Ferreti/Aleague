@@ -139,7 +139,9 @@ const newForm = (): TournamentStageForm => ({
   format: (
     props.stage?.type === StageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
   ),
-  teams: MIN_TEAMS,
+  teams: (
+    props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
+  ),
   groups: (
     props.stage?.type === StageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
   ),
@@ -149,7 +151,9 @@ const newForm = (): TournamentStageForm => ({
   groupRoundRobins: (
     props.stage?.type === StageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
   ),
-  playoffRounds: MIN_ROUNDS,
+  playoffRounds: (
+    props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds.length : MIN_ROUNDS
+  ),
 });
 
 const form = ref(newForm());
