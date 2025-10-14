@@ -128,7 +128,7 @@ export const useTournamentStore = defineStore('tournament', {
 
       if (!stage || stage.type !== StageType.GROUPS) throw new Error('Stage not found');
 
-      if (stage.matchweeks.length === 0) throw new Error('No matchweeks to update');
+      if (stage.matchweeks.length === 0) return;
 
       stage.matchweeks.forEach((matchweek) => {
         matchweek.matches.forEach((match) => {
