@@ -7,7 +7,7 @@
     <button
       v-for="option in roundOptions"
       v-text="option.name"
-      class="tab basis-1/2 tablet-lg:basis-1/6"
+      class="tab basis-1/2 tablet-lg:basis-1/7"
       type="button"
       role="tab"
       :class="{ 'tab-active': roundId === option.id }"
