@@ -83,7 +83,7 @@ const stage = defineModel<TournamentGroupsStage>({ required: true });
 const currentMatchweek = ref(
   stage.value.matchweeks.find(
     (i) => i.matches.some((m) => m.homeTeam.score === null || m.awayTeam.score === null)
-  )?.week || 1,
+  )?.week || (stage.value.matchweeks[stage.value.matchweeks.length - 1]?.week ?? 1),
 );
 
 const matchweeksOptions = computed<SelectOptionList<number>>(() => stage.value.matchweeks.map((i) => ({
