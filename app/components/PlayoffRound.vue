@@ -13,6 +13,7 @@
         :slot="slot"
         :key="slot.id"
         @update:slot="slots[index] = $event"
+        @winner-updated="$emit('slot-winner-updated', { team: $event, slotIndex: index })"
       />
     </div>
   </div>
@@ -20,6 +21,10 @@
 
 <script lang="ts" setup>
 const inputId = useId();
+
+defineEmits<{
+  'slot-winner-updated': [{ team: PlayoffRoundWinner, slotIndex: number }];
+}>();
 
 const name = defineModel<PlayoffRound['name']>('name', { required: true });
 const slots = defineModel<PlayoffRound['slots']>('slots', { required: true });

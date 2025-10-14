@@ -45,6 +45,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { IconDice5, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { getRandomScore } from '~/helpers/match';
 
+const emit = defineEmits<{
+  'winner-updated': [PlayoffRoundWinner];
+}>();
 const slot = defineModel<PlayoffRound['slots'][number]>('slot', { required: true });
 
 function addMatchToSlot() {
@@ -68,4 +71,17 @@ function randomizeScore() {
     slot.value.legs[index]!.awayTeam.score = getRandomScore();
   });
 }
+
+const winner = computed<PlayoffRoundWinner>(() => {
+  if (slot.value.legs.some((m) => m.homeTeam.score === null || m.awayTeam.score === null)) return null;
+
+  const homeScore = slot.value.legs.reduce((sum, m) => m.homeTeam.score! + sum, 0);
+  const awayScore = slot.value.legs.reduce((sum, m) => m.awayTeam.score! + sum, 0);
+
+  if (homeScore > awayScore) return slot.value.legs[0].homeTeam.id;
+  if (homeScore < awayScore) return slot.value.legs[0].awayTeam.id;
+  return null;
+});
+
+watch(winner, () => emit('winner-updated', winner.value));
 </script>

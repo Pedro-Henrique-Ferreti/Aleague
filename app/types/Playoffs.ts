@@ -1,3 +1,5 @@
+export type PlayoffRoundWinner = Match['homeTeam']['id'] | null;
+
 export interface PlayoffRoundSlot {
   id: string;
   order: number;
