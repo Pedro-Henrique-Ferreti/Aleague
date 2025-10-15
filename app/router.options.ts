@@ -7,5 +7,10 @@ export default {
       path: '/',
       component: () => import('~/pages/Home.vue'),
     },
+    {
+      name: 'analytics',
+      path: '/estatisticas',
+      component: () => import('~/pages/Analytics.vue'),
+    },
   ],
 } satisfies RouterConfig
