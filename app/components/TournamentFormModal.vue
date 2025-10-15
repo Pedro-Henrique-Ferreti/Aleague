@@ -9,10 +9,13 @@
     <template #trigger="{ open }">
       <slot :open="open" />
     </template>
-    <AppInput
-      v-model="form.name"
-      label="Nome"
-    />
+    <div class="grid gap-0.75">
+      <AppInput
+        v-model="form.name"
+        label="Nome"
+      />
+      <TagInput v-model="form.tags" />
+    </div>
     <div class="grid grid-cols-[1fr_auto] gap-x-2 gap-y-0.75 mt-1">
       <AppSelect
         v-model="form.iconId"
@@ -77,6 +80,7 @@ function onOpenModal() {
 const newForm = (): TournamentForm => ({
   name: '',
   iconId: 1,
+  tags: [],
 });
 
 const form = ref<TournamentForm>(newForm());

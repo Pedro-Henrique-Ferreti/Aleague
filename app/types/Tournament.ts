@@ -43,4 +43,5 @@ export interface Tournament {
   createdAt: string;
   updatedAt: string;
   stages: TournamentStage[];
+  tags: string[];
 }
