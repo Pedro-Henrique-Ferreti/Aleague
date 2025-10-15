@@ -1,7 +1,7 @@
 <template>
   <AppModal
     ref="modalRef"
-    :title="title"
+    :title="tournament ? 'Editar campeonato' : 'Criar campeonato'"
     :submit-button-disabled="submitIsDisabled"
     @open="onOpenModal"
     @submit="submitForm"
@@ -49,9 +49,8 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 import { getTournamentIcon } from '~/helpers/tournament';
 
 const props = defineProps<{
-  title: string;
+  tournament?: Tournament;
   submitFn: (form: TournamentForm) => Promise<void> | void;
-  initialForm?: TournamentForm;
 }>();
 
 // Modal
@@ -62,7 +61,16 @@ function closeModal() {
 }
 
 function onOpenModal() {
-  form.value = props.initialForm ?? newForm();
+  if (props.tournament) {
+    form.value = {
+      iconId: props.tournament.iconId,
+      name: props.tournament.name,
+      tags: props.tournament.tags,
+    };
+    return;
+  }
+
+  form.value = newForm();
 }
 
 // Form

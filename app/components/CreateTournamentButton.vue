@@ -1,7 +1,6 @@
 <template>
   <TournamentFormModal
     v-slot="{ open }"
-    title="Criar Campeonato"
     :submit-fn="submitForm"
   >
     <AppButton

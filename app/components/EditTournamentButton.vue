@@ -1,9 +1,8 @@
 <template>
   <TournamentFormModal
     v-slot="{ open }"
-    title="Editar Campeonato"
     :key="tournament?.id"
-    :initial-form="{ name: tournament?.name || '', iconId: tournament?.iconId || 0 }"
+    :tournament="tournament"
     :submit-fn="(form) => tournamentStore.updateTournament(tournament?.id!, form)"
   >
     <AppButton
