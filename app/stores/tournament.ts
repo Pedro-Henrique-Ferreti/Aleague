@@ -29,7 +29,6 @@ export const useTournamentStore = defineStore('tournament', {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         stages: [],
-        analytics: null,
       };
 
       this.tournaments.push(tournament);
@@ -167,13 +166,6 @@ export const useTournamentStore = defineStore('tournament', {
           away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
         }));
       });
-    },
-    finalizeActiveTournament() {
-      const tournament = this.getTournament(this.activeTournamentId);
-
-      tournament.analytics = {
-        firstPlace: 1,
-      };
     },
   },
 });
