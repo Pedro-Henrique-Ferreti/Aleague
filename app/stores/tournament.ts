@@ -8,7 +8,7 @@ export const useTournamentStore = defineStore('tournament', {
     activeTournamentId: null,
   }),
   actions: {
-    getTournament(id: Tournament['id']): Tournament {
+    getTournament(id: Tournament['id'] | null): Tournament {
       const tournament = this.tournaments.find((tournament) => tournament.id === id);
 
       if (!tournament) throw new Error('Tournament not found');
@@ -167,6 +167,13 @@ export const useTournamentStore = defineStore('tournament', {
           away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
         }));
       });
+    },
+    finalizeActiveTournament() {
+      const tournament = this.getTournament(this.activeTournamentId);
+
+      tournament.analytics = {
+        firstPlace: 1,
+      };
     },
   },
 });

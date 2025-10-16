@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconEdit, IconFileArrowRight, IconSettings } from '@tabler/icons-vue';
+import { IconEdit, IconFileArrowRight, IconSettings, IconSquareRoundedCheck } from '@tabler/icons-vue';
 import type { MenuItem } from '~/components/AppMenu.vue';
 
 const tournamentStore = useTournamentStore();
@@ -37,16 +37,19 @@ const menuItems = computed<MenuItem[]>(() => ([
   {
     label: 'Editar',
     icon: IconEdit,
-    onClick() {
+    onClick: () => {
       tournamentModalRef.value?.open();
     },
   },
   {
+    label: 'Finalizar',
+    icon: IconSquareRoundedCheck,
+    onClick: tournamentStore.finalizeActiveTournament,
+  },
+  {
     label: 'Exportar',
     icon: IconFileArrowRight,
-    onClick: () => {
-      tournamentStore.exportTournament(tournamentStore.activeTournamentId!);
-    },
+    onClick: () => tournamentStore.exportTournament(tournamentStore.activeTournamentId!),
   },
 ]));
 </script>
