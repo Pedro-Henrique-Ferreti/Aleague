@@ -100,4 +100,8 @@ async function submitForm() {
 
   closeModal();
 }
+
+defineExpose({
+  open: () => modal.value?.open(),
+});
 </script>

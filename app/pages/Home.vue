@@ -4,13 +4,7 @@
       v-if="tournamentStore.tournaments.length > 0"
       #header
     >
-      <template v-if="tournamentStore.activeTournamentId">
-        <CloseTournamentButton />
-        <EditTournamentButton />
-        <ExportTournamentButton />
-      </template>
-      <ImportTournamentButton />
-      <CreateTournamentButton />
+      <HomeHeader />
     </template>
     <div
       v-if="tournamentStore.tournaments.length === 0"
