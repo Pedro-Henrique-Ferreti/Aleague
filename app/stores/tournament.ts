@@ -29,6 +29,7 @@ export const useTournamentStore = defineStore('tournament', {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         stages: [],
+        analytics: null,
       };
 
       this.tournaments.push(tournament);

@@ -36,6 +36,10 @@ export interface TournamentPlayoffsStage extends BaseTournamentStage {
 
 export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;
 
+export interface TournamentAnalytics {
+  firstPlace: TeamDetails['id'];
+}
+
 export interface Tournament {
   id: number;
   name: string;
@@ -44,4 +48,5 @@ export interface Tournament {
   updatedAt: string;
   stages: TournamentStage[];
   tags: string[];
+  analytics: TournamentAnalytics | null;
 }
