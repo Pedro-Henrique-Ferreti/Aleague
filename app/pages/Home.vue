@@ -14,7 +14,7 @@
     </template>
     <div
       v-if="tournamentStore.tournaments.length === 0"
-      class="flex flex-col items-center justify-center min-h-15 pt-2"
+      class="flex flex-col items-center pt-3"
     >
       <h1 class="text-3xl font-semibold mb-0.5">Bem-vindo ao Alegue</h1>
       <p>Para começar, importe um campeonato ou crie um novo.</p>
