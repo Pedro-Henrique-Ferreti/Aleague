@@ -8,7 +8,7 @@
     :icon-right="IconChevronDown"
   />
   <ul
-    class="dropdown menu w-12 rounded-box bg-base-100 shadow-sm [position-anchor:--tournament-settings]"
+    class="dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm [position-anchor:--tournament-settings]"
     popover
     :id="id"
   >
