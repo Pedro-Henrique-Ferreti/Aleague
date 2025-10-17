@@ -55,6 +55,16 @@ export const useTournamentStore = defineStore('tournament', {
         `${normalizeString(tournament.name).replace(/[^a-zA-Z0-9]/g, '_')}.json`,
       );
     },
+    duplicateTournament(id: Tournament['id']) {
+      const newId = new Date().getTime();
+  
+      this.tournaments.push({
+        ...clone(this.getTournament(id)),
+        id: newId,
+      });
+
+      this.activeTournamentId = newId;
+    },
     closeActiveTournament() {
       const index = this.tournaments.findIndex((i) => i.id === this.activeTournamentId);
 

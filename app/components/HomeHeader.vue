@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconEdit, IconFileArrowRight, IconSettings } from '@tabler/icons-vue';
+import { IconCopy, IconEdit, IconFileArrowRight, IconSettings } from '@tabler/icons-vue';
 import type { MenuItem } from '~/components/AppMenu.vue';
 
 const tournamentStore = useTournamentStore();
@@ -39,6 +39,13 @@ const menuItems = computed<MenuItem[]>(() => ([
     icon: IconEdit,
     onClick: () => {
       tournamentModalRef.value?.open();
+    },
+  },
+  {
+    label: 'Duplicar',
+    icon: IconCopy,
+    onClick: () => {
+      tournamentStore.duplicateTournament(tournamentStore.activeTournamentId!);
     },
   },
   {
