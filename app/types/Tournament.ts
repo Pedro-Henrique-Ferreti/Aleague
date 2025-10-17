@@ -44,4 +44,5 @@ export interface Tournament {
   updatedAt: string;
   stages: TournamentStage[];
   tags: string[];
+  showCountry: boolean;
 }

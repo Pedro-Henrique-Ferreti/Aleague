@@ -44,6 +44,10 @@
         />
       </div>
     </div>
+    <AppToggle
+      v-model="form.showCountry"
+      label="Mostrar legenda de país"
+    />
   </AppModal>  
 </template>
 
@@ -69,6 +73,7 @@ function onOpenModal() {
       iconId: props.tournament.iconId,
       name: props.tournament.name,
       tags: props.tournament.tags,
+      showCountry: props.tournament.showCountry,
     };
     return;
   }
@@ -81,6 +86,7 @@ const newForm = (): TournamentForm => ({
   name: '',
   iconId: 1,
   tags: [],
+  showCountry: false,
 });
 
 const form = ref<TournamentForm>(newForm());
