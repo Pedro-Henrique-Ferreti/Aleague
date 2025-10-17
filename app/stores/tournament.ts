@@ -7,6 +7,9 @@ export const useTournamentStore = defineStore('tournament', {
     tournaments: [],
     activeTournamentId: null,
   }),
+  getters: {
+    activeTournament: (state) => state.tournaments.find((t) => t.id === state.activeTournamentId),
+  },
   actions: {
     getTournament(id: Tournament['id'] | null): Tournament {
       const tournament = this.tournaments.find((tournament) => tournament.id === id);

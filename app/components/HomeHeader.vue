@@ -11,11 +11,11 @@
   <ImportTournamentButton />
   <CreateTournamentButton />
   <TournamentFormModal
-    v-if="tournament"
+    v-if="tournamentStore.activeTournament"
     ref="tournamentModalRef"
-    :key="tournament?.id"
-    :tournament="tournament"
-    :submit-fn="(form) => tournamentStore.updateTournament(tournament!.id, form)"
+    :key="tournamentStore.activeTournament.id"
+    :tournament="tournamentStore.activeTournament"
+    :submit-fn="(form) => tournamentStore.updateTournament(tournamentStore.activeTournament!.id, form)"
   />
 </template>
 
@@ -24,10 +24,6 @@ import { IconCopy, IconEdit, IconFileArrowRight, IconSettings } from '@tabler/ic
 import type { MenuItem } from '~/components/AppMenu.vue';
 
 const tournamentStore = useTournamentStore();
-
-const tournament = computed(() => (
-  tournamentStore.tournaments.find((i) => i.id === tournamentStore.activeTournamentId)
-));
 
 // Modal
 const tournamentModalRef = useTemplateRef('tournamentModalRef');
