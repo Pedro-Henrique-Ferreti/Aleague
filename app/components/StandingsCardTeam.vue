@@ -37,7 +37,14 @@
       alt="Team badge"
       :src="team?.badge || ''"
     />
-    <span>{{ team?.name }}</span>
+    <div>
+      {{ team?.name }}
+        <span
+          v-if="tournamentStore.activeTournament?.showCountry && team"
+          v-text="team.country"
+          class="badge badge-secondary badge-soft badge-xs inline-block ml-0.5"
+        />
+    </div>
   </div>
 </template>
 
@@ -53,6 +60,7 @@ const QUALIFIER_COLORS = [
 
 const popoverId = useId();
 
+const tournamentStore = useTournamentStore();
 const { getTeamById } = useTeamStore();
 
 const props = defineProps<{

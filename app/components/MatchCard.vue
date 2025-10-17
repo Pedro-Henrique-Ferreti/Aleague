@@ -6,6 +6,7 @@
     <MatchCardTeam
       :align="layout !== 'vertical' ? 'right' : undefined"
       :team="match.homeTeam.id"
+      :show-country="showCountry"  
     />
     <div
       class="flex items-stretch gap-0.5 h-full"
@@ -33,7 +34,10 @@
         />
       </template>
     </div>
-    <MatchCardTeam :team="match.awayTeam.id" />
+    <MatchCardTeam
+      :team="match.awayTeam.id"
+      :show-country="showCountry"  
+    />
   </div>
 </template>
 
@@ -53,6 +57,7 @@ export interface MatchCardEmits {
 const props = defineProps<{
   match: Match;
   layout?: 'vertical';
+  showCountry?: boolean;
 }>();
 
 const emit = defineEmits<MatchCardEmits>();

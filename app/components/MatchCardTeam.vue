@@ -10,6 +10,11 @@
         :src="teamDetails.badge"
       />
       <span>{{ teamDetails.name }}</span>
+      <span
+        v-if="showCountry && teamDetails"
+        v-text="teamDetails.country"
+        class="badge badge-secondary badge-soft badge-xs inline-block ml-0.25"
+      />
     </template>
     <template v-else>
       <IconShieldFilled class="size-1.5 shrink-0 fill-gray-300" />
@@ -26,6 +31,7 @@ const { getTeamById } = useTeamStore();
 const props = defineProps<{
   team?: TeamDetails['id'] | null;
   align?: 'right';
+  showCountry?: boolean;
 }>();
 
 const teamDetails = computed(() => props.team ? getTeamById(props.team) : undefined);

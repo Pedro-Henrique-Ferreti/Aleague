@@ -8,6 +8,7 @@
         tabindex="0"
         layout="vertical"
         :match="slot.legs[0]"
+        :show-country="tournamentStore.activeTournament?.showCountry"
         :fixture-two-home-score="slot.legs[1]?.homeTeam.score"
         :fixture-two-away-score="slot.legs[1]?.awayTeam.score"
         @update:fixture-two-home-score="slot.legs[1] ? slot.legs[1].homeTeam.score = $event as Match['homeTeam']['score'] : null"
@@ -44,6 +45,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IconDice5, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { getRandomScore } from '~/helpers/match';
+
+const tournamentStore = useTournamentStore();
 
 const emit = defineEmits<{
   'winner-updated': [PlayoffRoundWinner];
