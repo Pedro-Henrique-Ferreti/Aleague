@@ -43,7 +43,10 @@
               <tr
                 v-for="entry, index in tableEntriesSorted"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
-                :class="{ 'cursor-pointer': renderFormModal }"
+                :class="{
+                  'cursor-pointer': renderFormModal,
+                  'bg-gray-100!': entry.team && teamStore.focusedTeamId.includes(entry.team),
+                }"
                 :tabindex="renderFormModal ? 0 : -1"
                 :key="entry.id"
                 @click="onTableEntryClick(entry)"
@@ -118,6 +121,8 @@ interface Props {
 import type { ResizeObserverCallback } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
 import { getTableEntry, sortTableEntries } from '~/helpers/standings';
+
+const teamStore = useTeamStore();
 
 const props = withDefaults(defineProps<Props>(), {
   sortType: TableEntrySortType.POINTS,

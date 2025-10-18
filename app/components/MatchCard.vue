@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="matchCardRef"
     class="grid w-full gap-0.5"
     :class="[layout === 'vertical' ? 'grid-cols-[1fr_auto]' : 'grid-cols-[1fr_auto_1fr]']"
   >
@@ -50,17 +51,18 @@ export interface MatchWithOldScore extends Match {
 }
 export interface MatchCardEmits {
   'match-updated': [MatchWithOldScore];
+  'focus': [];
+  'blur': [];
 }
 </script>
 
 <script lang="ts" setup>
+const emit = defineEmits<MatchCardEmits>();
 const props = defineProps<{
   match: Match;
   layout?: 'vertical';
   showCountry?: boolean;
 }>();
-
-const emit = defineEmits<MatchCardEmits>();
 
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
 const awayScore = defineModel<Match['awayTeam']['score']>('away-score');
@@ -72,5 +74,15 @@ watch(() => [props.match.homeTeam.score, props.match.awayTeam.score], (_, oldSco
     ...props.match,
     oldScore: { home: oldScore[0] ?? null, away: oldScore[1] ?? null },
   });
+});
+
+// Focus within
+const matchCardRef = useTemplateRef<HTMLDivElement>('matchCardRef');
+
+const { focused } = useFocusWithin(matchCardRef);
+
+watch(focused, () => {
+  if (focused.value) emit('focus');
+  else emit('blur');
 });
 </script>

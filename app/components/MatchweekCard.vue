@@ -62,6 +62,8 @@
               v-model:away-score="match.awayTeam.score"
               :match="match"
               @match-updated="$emit('match-updated', $event)"
+              @focus="teamStore.focusMatchTeams(match)"
+              @blur="teamStore.blurMatchTeams(match)"
             />
           </template>
         </div>
@@ -75,6 +77,8 @@ import { IconChevronLeft, IconChevronRight, IconDice5 } from '@tabler/icons-vue'
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
+
+const teamStore = useTeamStore();
 
 defineEmits<Pick<MatchCardEmits, 'match-updated'>>();
 
