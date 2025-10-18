@@ -13,7 +13,7 @@
       {{ position }}
     </button>
     <div
-      class="dropdown menu p-0.5 flex flex-row rounded-md bg-base-100 shadow-sm"
+      class="dropdown menu p-0.5 flex flex-row rounded-md bg-base-100 shadow-sm dropdown-right"
       popover
       :id="popoverId"
       :style="`position-anchor:--team-button-${popoverId}`"
