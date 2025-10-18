@@ -23,6 +23,14 @@
         @select="onSelectTeam"
       />
       <div class="absolute flex gap-0.75 right-0">
+        <div class="tooltip" data-tip="Importar participantes">
+          <AppButton
+            class="btn-square btn-accent btn-soft"
+            aria-label="Fill slots"
+            :icon-left="IconFileArrowLeft"
+            @click="importTournament"
+          />
+        </div>
         <div class="tooltip" data-tip="Preencher participantes">
           <AppButton
             class="btn-square btn-accent btn-soft"
@@ -79,7 +87,7 @@ export interface FormStageGroup {
 </script>
 
 <script lang="ts" setup>
-import { IconArrowsShuffle, IconRefresh, IconUsersGroup, IconWand } from '@tabler/icons-vue';
+import { IconArrowsShuffle, IconFileArrowLeft, IconRefresh, IconUsersGroup, IconWand } from '@tabler/icons-vue';
 
 const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
 
@@ -165,6 +173,35 @@ function resetSlots() {
     });
   });
 }
+
+// Import teams
+const { start: importTournament } = useImportTournament((data: Tournament[]) => {
+  const [tournament] = data;
+
+  if (!tournament) return;
+
+  const teams = tournament.stages.flatMap((stage) => {
+    if (stage.type === StageType.GROUPS) {
+      return stage.groups.flatMap((g) => g.standings.map((s) => s.team));
+    }
+
+    return stage.rounds.flatMap((r) => (
+      r.slots.flatMap((s) => s.legs.flatMap((l) => [l.homeTeam.id, l.awayTeam.id]))
+    ));
+  });
+
+  const uniqueTeams = Array.from(
+    new Set(teams.filter((t) => !!t && !selectedTeams.value.includes(t))),
+  );
+
+  for (const group of form.value.groups) {
+    for (let index in group.teams) {
+      if (group.teams[index] === null) {
+        group.teams[index] = uniqueTeams.shift() ?? null;
+      }
+    }
+  }
+});
 
 // Submit form
 const submitButtonDisabled = computed(() => (
