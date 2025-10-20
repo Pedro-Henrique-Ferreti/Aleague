@@ -24,14 +24,14 @@
           v-model:home-score="homeScore"
           v-model:away-score="awayScore"
           :layout="layout"
-          :disabled="match.homeTeam.id === null || match.awayTeam.id === null"
+          :disabled="!!readonly || match.homeTeam.id === null || match.awayTeam.id === null"
         />
         <MatchCardScore
           v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
           v-model:home-score="fixtureTwoHomeScore"
           v-model:away-score="fixtureTwoAwayScore"
           :layout="layout"
-          :disabled="match.homeTeam.id === null || match.awayTeam.id === null"
+          :disabled="!!readonly || match.homeTeam.id === null || match.awayTeam.id === null"
         />
       </template>
     </div>
@@ -62,6 +62,8 @@ const props = defineProps<{
   match: Match;
   layout?: 'vertical';
   showCountry?: boolean;
+  readonly?: boolean;
+  size?: 'sm';
 }>();
 
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
