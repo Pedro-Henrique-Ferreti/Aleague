@@ -45,7 +45,7 @@
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :class="{
                   'cursor-pointer': renderFormModal,
-                  'bg-gray-100!': entry.team && teamStore.focusedTeamId.includes(entry.team),
+                  'bg-gray-200!': entry.team && teamStore.focusedTeamId.includes(entry.team),
                 }"
                 :tabindex="renderFormModal ? 0 : -1"
                 :key="entry.id"
