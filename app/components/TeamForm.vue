@@ -5,23 +5,24 @@
   />
   <Dropdown
     v-else
+    class="data-[ring=true]:[&_svg]:outline-2"
     theme="team-form"
     :auto-hide="false"
     :key="form.match.id"
   >
     <IconErrorCircle
       v-if="form.result === MatchResult.LOST"
-      class="size-1 text-[#E73737]"
+      class="size-1 text-[#E73737] rounded-full outline-offset-1 outline-current"
       tabindex="0"
     />
     <IconCheckCircle
       v-else-if="form.result === MatchResult.WON"
-      class="size-1 text-green-700"
+      class="size-1 text-green-700 rounded-full outline-offset-1 outline-current"
       tabindex="0"
     />
     <IconCircleMinus
       v-else-if="form.result === MatchResult.DRAW"
-      class="size-1 text-gray-400"
+      class="size-1 text-gray-400 rounded-full outline-offset-1 outline-current"
       tabindex="0"
     />
     <template #popper>
