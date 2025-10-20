@@ -88,7 +88,7 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
   return forms;
 }
 
-export function getTableEntry(entry: StandingsEntry, type: TableEntryType, matchweeks: Matchweek[] = []): TableEntry {
+export function getTableEntry(entry: StandingsEntry, type: TableEntryType): TableEntry {
   let data: StandingsData = {
     points: entry.home.points + entry.away.points,
     played: entry.home.played + entry.away.played,
@@ -97,6 +97,7 @@ export function getTableEntry(entry: StandingsEntry, type: TableEntryType, match
     lost: entry.home.lost + entry.away.lost,
     goalsFor: entry.home.goalsFor + entry.away.goalsFor,
     goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
+    form: [...entry.home.form ?? [], ...entry.away.form ?? []].sort((a, b) => a.week - b.week),
   };
 
   if (type === TableEntryType.HOME) {
@@ -108,7 +109,6 @@ export function getTableEntry(entry: StandingsEntry, type: TableEntryType, match
   return {
     id: entry.id,
     team: entry.team,
-    form: getTableEntryForm(matchweeks, entry.team),
     ...data,
   };
 }

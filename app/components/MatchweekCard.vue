@@ -61,7 +61,7 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
-              @match-updated="$emit('match-updated', $event)"
+              @match-updated="$emit('match-updated', $event, currentMatchweek)"
               @focus="teamStore.focusMatchTeams(match)"
               @blur="teamStore.blurMatchTeams(match)"
             />
@@ -80,7 +80,9 @@ import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
 
 const teamStore = useTeamStore();
 
-defineEmits<Pick<MatchCardEmits, 'match-updated'>>();
+defineEmits<{
+  'match-updated': [MatchCardEmits['match-updated'][number], Matchweek['week']]
+}>();
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 

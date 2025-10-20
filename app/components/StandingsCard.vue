@@ -132,7 +132,7 @@ const props = withDefaults(defineProps<Props>(), {
 const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 
 const tableEntries = computed<TableEntry[]>(() => (
-  props.standings.map((i) => getTableEntry(i, props.entryType, props.matchweeks ?? []))
+  props.standings.map((i) => getTableEntry(i, props.entryType))
 ));
 const tableEntriesSorted = computed(() => (
   tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))

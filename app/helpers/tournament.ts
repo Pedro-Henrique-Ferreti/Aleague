@@ -25,8 +25,8 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
       standings: Array.from({ length: stageForm.teamsPerGroup }, () => ({
         id: uuidv4(),
         team: null,
-        home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
-        away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
+        home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
+        away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
       })),
     })),
     overallQualifier: (

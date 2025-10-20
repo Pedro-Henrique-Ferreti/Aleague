@@ -34,6 +34,7 @@ export interface StandingsData {
   lost: number;
   goalsFor: number;
   goalsAgainst: number;
+  form: TableEntryForm[];
 }
 
 export interface StandingsEntry {
@@ -49,7 +50,5 @@ export interface TableEntryForm {
   week: Matchweek['week'];
 }
 
-export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData & {
-  form: TableEntryForm[];
-};
+export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData;
 

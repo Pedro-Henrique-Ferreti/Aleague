@@ -43,6 +43,7 @@ import { getStandingsDataFromScore } from '~/helpers/standings';
 import type { MatchWithOldScore } from './MatchCard.vue';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
 import type { FiltersForm } from './StandingsFilters.vue';
+import { getMatchResult } from '~/helpers/match';
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
@@ -83,7 +84,7 @@ function getCardTitle(order: TournamentGroupsStage['groups'][number]['order']) {
 }
 
 // Update standings
-function updateStandings(match: MatchWithOldScore) {
+function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
   const { homeTeam, awayTeam, oldScore } = match;
   const prevFinished = oldScore.home !== null && oldScore.away !== null;
   const newFinished = homeTeam.score !== null && awayTeam.score !== null;
@@ -113,6 +114,7 @@ function updateStandings(match: MatchWithOldScore) {
         entry[key].lost -= data.lost;
         entry[key].goalsFor -= data.goalsFor;
         entry[key].goalsAgainst -= data.goalsAgainst;
+        entry[key].form = entry[key].form.filter((f) => f.week !== week);
       }
 
       if (onlySum || subtractAndSum) {
@@ -125,6 +127,12 @@ function updateStandings(match: MatchWithOldScore) {
         entry[key].lost += data.lost;
         entry[key].goalsFor += data.goalsFor;
         entry[key].goalsAgainst += data.goalsAgainst;
+        entry[key].form.push({
+          week,
+          match,
+          result: getMatchResult(match.homeTeam.score!, match.awayTeam.score!, isHome),
+        });
+        entry[key].form.sort((a, b) => a.week - b.week);
       }
     });
   });
