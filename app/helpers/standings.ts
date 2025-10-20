@@ -64,19 +64,31 @@ export function sortTableEntries(a: TableEntry, b: TableEntry, sortType: TableEn
   return Math.random() > 0.5 ? 1 : -1;
 }
 
-export function getTableEntryForm(matchList: Match[], teamId: StandingsEntry['team']): MatchResult[] {
+export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntry['team']): TableEntry['form'] {
   if (!teamId) return [];
 
-  return matchList.filter((m) => (
-    (m.homeTeam.id === teamId || m.awayTeam.id === teamId)
-    && m.homeTeam.score !== null
-    && m.awayTeam.score !== null
-  )).map((match) => (
-    getMatchResult(match.homeTeam.score!, match.awayTeam.score!, match.homeTeam.id === teamId)
-  ));
+  const forms: TableEntry['form'] = [];
+
+  for (const week of matchweeks) {
+    const match = week.matches.find((m) => (
+      (m.homeTeam.id === teamId || m.awayTeam.id === teamId)
+      && m.homeTeam.score !== null
+      && m.awayTeam.score !== null
+    ));
+
+    if (match) {
+      forms.push({
+        match,
+        week: week.week,
+        result: getMatchResult(match.homeTeam.score!, match.awayTeam.score!, match.homeTeam.id === teamId),
+      });
+    }
+  }
+
+  return forms;
 }
 
-export function getTableEntry(entry: StandingsEntry, type: TableEntryType, matchList: Match[] = []): TableEntry {
+export function getTableEntry(entry: StandingsEntry, type: TableEntryType, matchweeks: Matchweek[] = []): TableEntry {
   let data: StandingsData = {
     points: entry.home.points + entry.away.points,
     played: entry.home.played + entry.away.played,
@@ -96,7 +108,7 @@ export function getTableEntry(entry: StandingsEntry, type: TableEntryType, match
   return {
     id: entry.id,
     team: entry.team,
-    form: getTableEntryForm(matchList, entry.team),
+    form: getTableEntryForm(matchweeks, entry.team),
     ...data,
   };
 }

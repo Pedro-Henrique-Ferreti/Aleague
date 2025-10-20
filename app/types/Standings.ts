@@ -43,7 +43,13 @@ export interface StandingsEntry {
   away: StandingsData;
 }
 
+export interface TableEntryForm {
+  result: MatchResult;
+  match: Match;
+  week: Matchweek['week'];
+}
+
 export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData & {
-  form: MatchResult[];
+  form: TableEntryForm[];
 };
 

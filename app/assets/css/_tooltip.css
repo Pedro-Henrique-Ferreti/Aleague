@@ -11,3 +11,17 @@
 .v-popper--theme-tooltip .v-popper__arrow-outer {
   @apply border-neutral!;
 }
+
+/* Team form */
+.v-popper--theme-team-form .v-popper__wrapper {
+  @apply shadow-sm rounded-lg bg-base-100;
+}
+.v-popper--theme-team-form .v-popper__inner {
+  @apply py-0.5 px-0.75;
+}
+.v-popper--theme-team-form .v-popper__arrow-outer {
+  @apply border-base-200;
+}
+.v-popper--theme-team-form .v-popper__arrow-inner {
+  @apply border-base-100 visible;
+}

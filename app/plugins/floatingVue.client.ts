@@ -9,6 +9,18 @@ export default defineNuxtPlugin((nuxtApp) => {
         distance: 8,
         overflowPadding: 12,
       },
+      'team-form': {
+        $extend: 'menu',
+        $resetCss: true,
+        arrowOverflow: false,
+        distance: 8,
+        placement: 'top-end',
+        arrowPadding: 12,
+        triggers: ['hover', 'focus'],
+        delay: {
+          hide: 0,
+        },
+      },
     },
   });
 });
