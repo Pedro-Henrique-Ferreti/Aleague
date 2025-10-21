@@ -1,11 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 import { getMatchResult } from './match';
 
+export const newStandingsEntryData = (week: StandingsEntryData['week']): StandingsEntryData => ({
+  week,
+  type: TableEntryType.HOME,
+  points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [],
+});
+
 export const newStandingsEntry = (id?: StandingsEntry['id'], team?: StandingsEntry['team']): StandingsEntry => ({
   id: id ?? uuidv4(),
   team: team ?? null,
-  home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
-  away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
+  data: [newStandingsEntryData(1)],
 });
 
 export function getStandingsDataFromScore(homeScore: number, awayScore: number, isHomeTeam: boolean) {
@@ -97,21 +102,28 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
 }
 
 export function getTableEntry(entry: StandingsEntry, type: TableEntryType): TableEntry {
-  let data: StandingsData = {
-    points: entry.home.points + entry.away.points,
-    played: entry.home.played + entry.away.played,
-    won: entry.home.won + entry.away.won,
-    drawn: entry.home.drawn + entry.away.drawn,
-    lost: entry.home.lost + entry.away.lost,
-    goalsFor: entry.home.goalsFor + entry.away.goalsFor,
-    goalsAgainst: entry.home.goalsAgainst + entry.away.goalsAgainst,
-    form: [...entry.home.form ?? [], ...entry.away.form ?? []].sort((a, b) => a.week - b.week),
+  const data: StandingsData = {
+    points: 0,
+    played: 0,
+    won: 0,
+    drawn: 0,
+    lost: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+    form: [],
   };
 
-  if (type === TableEntryType.HOME) {
-    data = entry.home;
-  } else if (type === TableEntryType.AWAY) {
-    data = entry.away;
+  for (const d of entry.data) {
+    if (type !== TableEntryType.OVERALL && d.type !== type) continue;
+
+    data.points += d.points;
+    data.played += d.played;
+    data.won += d.won;
+    data.drawn += d.drawn;
+    data.lost += d.lost;
+    data.goalsFor += d.goalsFor;
+    data.goalsAgainst += d.goalsAgainst;
+    data.form.push(...d.form);
   }
 
   return {

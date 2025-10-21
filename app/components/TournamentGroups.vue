@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getStandingsDataFromScore } from '~/helpers/standings';
+import { getStandingsDataFromScore, newStandingsEntryData } from '~/helpers/standings';
 import type { MatchWithOldScore } from './MatchCard.vue';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
 import type { FiltersForm } from './StandingsFilters.vue';
@@ -97,43 +97,52 @@ function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
 
   [homeTeam, awayTeam].forEach((team) => {
     stage.value.groups.forEach((group) => {
-      const entry = group.standings.find((s) => s.team === team.id);
+      const row = group.standings.find((s) => s.team === team.id);
 
-      if (!entry) return;
+      if (!row) return;
+
+      let entry = row.data.find((d) => d.week === week);
+
+      if (!entry) {
+        entry = newStandingsEntryData(week);
+        row.data.push(entry);
+      }
 
       const isHome = team.id === homeTeam.id;
-      const key: keyof typeof entry = isHome ? 'home' : 'away';
+      
+      entry.type = isHome ? TableEntryType.HOME : TableEntryType.AWAY;
 
       if (onlySubtract || subtractAndSum) {
         const data = getStandingsDataFromScore(oldScore.home!, oldScore.away!, isHome);
 
-        entry[key].played -= 1;
-        entry[key].points -= data.points;
-        entry[key].won -= data.won;
-        entry[key].drawn -= data.drawn;
-        entry[key].lost -= data.lost;
-        entry[key].goalsFor -= data.goalsFor;
-        entry[key].goalsAgainst -= data.goalsAgainst;
-        entry[key].form = entry[key].form.filter((f) => f.week !== week);
+        entry.played -= 1;
+        entry.points -= data.points;
+        entry.won -= data.won;
+        entry.drawn -= data.drawn;
+        entry.lost -= data.lost;
+        entry.goalsFor -= data.goalsFor;
+        entry.goalsAgainst -= data.goalsAgainst;
+        entry.form = entry.form.filter((f) => f.week !== week);
       }
 
       if (onlySum || subtractAndSum) {
         const data = getStandingsDataFromScore(homeTeam.score!, awayTeam.score!, isHome);
 
-        entry[key].played += 1;
-        entry[key].points += data.points;
-        entry[key].won += data.won;
-        entry[key].drawn += data.drawn;
-        entry[key].lost += data.lost;
-        entry[key].goalsFor += data.goalsFor;
-        entry[key].goalsAgainst += data.goalsAgainst;
-        entry[key].form.push({
+        entry.played += 1;
+        entry.points += data.points;
+        entry.won += data.won;
+        entry.drawn += data.drawn;
+        entry.lost += data.lost;
+        entry.goalsFor += data.goalsFor;
+        entry.goalsAgainst += data.goalsAgainst;
+        entry.form.push({
           week,
           match,
           result: getMatchResult(match.homeTeam.score!, match.awayTeam.score!, isHome),
         });
-        entry[key].form.sort((a, b) => a.week - b.week);
       }
+
+      row.data.sort((a, b) => a.week - b.week);
     });
   });
 }

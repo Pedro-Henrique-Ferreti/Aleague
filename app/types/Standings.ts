@@ -37,11 +37,15 @@ export interface StandingsData {
   form: TableEntryForm[];
 }
 
+export interface StandingsEntryData extends StandingsData {
+  week: Matchweek['week'];
+  type: TableEntryType;
+}
+
 export interface StandingsEntry {
   id: string;
   team: Team['id'] | null;
-  home: StandingsData;
-  away: StandingsData;
+  data: [StandingsEntryData, ...StandingsEntryData[]];
 }
 
 export interface TableEntryForm {
