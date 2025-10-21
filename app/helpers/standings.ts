@@ -101,7 +101,7 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
   return forms;
 }
 
-export function getTableEntry(entry: StandingsEntry, type: TableEntryType): TableEntry {
+export function getTableEntry(entry: StandingsEntry, type: TableEntryType, week?: Matchweek['week']): TableEntry {
   const data: StandingsData = {
     points: 0,
     played: 0,
@@ -114,7 +114,10 @@ export function getTableEntry(entry: StandingsEntry, type: TableEntryType): Tabl
   };
 
   for (const d of entry.data) {
-    if (type !== TableEntryType.OVERALL && d.type !== type) continue;
+    if (
+      (type !== TableEntryType.OVERALL && d.type !== type)
+      || (week && d.week > week)
+    ) continue;
 
     data.points += d.points;
     data.played += d.played;

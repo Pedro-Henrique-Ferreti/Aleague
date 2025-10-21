@@ -10,11 +10,12 @@
       class="select-sm max-w-8"
       :options="TABLE_ENTRY_SORT_TYPE_OPTIONS"
     />
-    <!-- <BaseSelect
+    <BaseSelect
+      v-if="matchweeks > 0"
+      v-model="form.week"
       class="select-sm max-w-8"
-      model-value=""
-      :options="[{ label: 'Todas rodadas', value: '' }]"
-    /> -->
+      :options="weekOptions"
+    />
     <BaseSelect
       v-if="showViewInput"
       v-model="form.view"
@@ -31,10 +32,16 @@
 </template>
 
 <script lang="ts">
+export const DEFAULT_WEEK_OPTION: SelectOption<FiltersForm['week']> = {
+  label: 'Todos',
+  value: -1,
+}
+
 export interface FiltersForm {
   entryType: TableEntryType;
   sortType: TableEntrySortType;
   view: TableEntryView;
+  week: Matchweek['week'];
 }
 </script>
 
@@ -42,10 +49,19 @@ export interface FiltersForm {
 import { IconRestore } from '@tabler/icons-vue';
 
 defineEmits<{ 'reset': [] }>();
-defineProps<{
+const props = defineProps<{
   showViewInput: boolean;
+  matchweeks: number;
 }>();
 
 const form = defineModel<FiltersForm>({ required: true });
+
+const weekOptions = computed<SelectOptionList<FiltersForm['week']>>(() => [
+  DEFAULT_WEEK_OPTION,
+  ...Array.from({ length: props.matchweeks }, (_, i) => ({
+    label: `Rodada ${i + 1}`,
+    value: i + 1,
+  })),
+]);
 </script>
 

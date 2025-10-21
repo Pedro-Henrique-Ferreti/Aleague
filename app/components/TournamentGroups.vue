@@ -10,6 +10,7 @@
         :key="group.order"
         :title="getCardTitle(group.order)"
         :matchweeks="stage.matchweeks"
+        :displayed-week="filtersForm.week === DEFAULT_WEEK_OPTION.value ? undefined : filtersForm.week"
         @update:qualifier="onUpdateGroupQualifier($event, index)"
       >
         <template #header>
@@ -26,6 +27,7 @@
           v-show="showFilters"
           v-model="filtersForm"
           :show-view-input="stage.groups.length > 1"
+          :matchweeks="stage.matchweeks.length"
           @reset="filtersForm = newFiltersForm()"
         />
       </StandingsCard>
@@ -42,7 +44,7 @@
 import { getStandingsDataFromScore, newStandingsEntryData } from '~/helpers/standings';
 import type { MatchWithOldScore } from './MatchCard.vue';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
-import type { FiltersForm } from './StandingsFilters.vue';
+import { DEFAULT_WEEK_OPTION, type FiltersForm } from './StandingsFilters.vue';
 import { getMatchResult } from '~/helpers/match';
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
@@ -51,6 +53,7 @@ const newFiltersForm = (): FiltersForm => ({
   entryType: TableEntryType.OVERALL,
   sortType: TableEntrySortType.POINTS,
   view: TableEntryView.PER_GROUP,
+  week: DEFAULT_WEEK_OPTION.value,
 }); 
 
 const filtersForm = ref<FiltersForm>(newFiltersForm());

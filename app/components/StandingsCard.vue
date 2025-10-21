@@ -114,6 +114,7 @@ interface Props {
   entryType?: TableEntryType;
   sortType?: TableEntrySortType;
   matchweeks?: TournamentGroupsStage['matchweeks'];
+  displayedWeek?: Matchweek['week'];
 }
 </script>
 
@@ -132,7 +133,7 @@ const props = withDefaults(defineProps<Props>(), {
 const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 
 const tableEntries = computed<TableEntry[]>(() => (
-  props.standings.map((i) => getTableEntry(i, props.entryType))
+  props.standings.map((i) => getTableEntry(i, props.entryType, props.displayedWeek))
 ));
 const tableEntriesSorted = computed(() => (
   tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))
