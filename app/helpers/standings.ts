@@ -1,4 +1,12 @@
+import { v4 as uuidv4 } from 'uuid';
 import { getMatchResult } from './match';
+
+export const newStandingsEntry = (id?: StandingsEntry['id'], team?: StandingsEntry['team']): StandingsEntry => ({
+  id: id ?? uuidv4(),
+  team: team ?? null,
+  home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
+  away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
+});
 
 export function getStandingsDataFromScore(homeScore: number, awayScore: number, isHomeTeam: boolean) {
   const goalsFor = isHomeTeam ? homeScore : awayScore;
