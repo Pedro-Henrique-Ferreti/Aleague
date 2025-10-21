@@ -175,8 +175,8 @@ export const useTournamentStore = defineStore('tournament', {
         stage.groups[index]!.standings = group.standings.map((s) => ({
           id: s.id,
           team: s.team,
-          home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
-          away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 },
+          home: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
+          away: { points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] },
         }));
       });
     },
