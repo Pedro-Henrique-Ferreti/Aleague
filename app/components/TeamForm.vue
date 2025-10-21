@@ -9,6 +9,7 @@
     theme="team-form"
     :auto-hide="false"
     :key="form.match.id"
+    :disabled="tooltipDisabled"
   >
     <IconErrorCircle
       v-if="form.result === MatchResult.LOST"
@@ -50,5 +51,6 @@ import { getKickoffDisplayText } from '~/helpers/match';
 
 defineProps<{
   form: TableEntryForm | null;
+  tooltipDisabled?: boolean;
 }>();
 </script>
