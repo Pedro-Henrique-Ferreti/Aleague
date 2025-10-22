@@ -113,10 +113,14 @@ const showMatchKickoff = computed(() => {
   ));
 });
 
-function getRandomMatchweekResults() {
+async function getRandomMatchweekResults() {
   for (const match of stage.value.matchweeks[currentMatchweek.value - 1]!.matches) {
-    match.homeTeam.score = getRandomScore();
-    match.awayTeam.score = getRandomScore();
+    await new Promise((resolve) => {
+      match.homeTeam.score = getRandomScore();
+      match.awayTeam.score = getRandomScore();
+
+      setTimeout(resolve);
+    });
   }
 }
 </script>
