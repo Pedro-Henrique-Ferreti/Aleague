@@ -46,7 +46,7 @@ export function sortTableEntryByType(a: TableEntry, b: TableEntry, sortType: Tab
   }
 }
 
-export function sortTableEntries(a: TableEntry, b: TableEntry, sortType: TableEntrySortType): number {
+export function sortTableEntries(a: TableEntry, b: TableEntry, sortType = TableEntrySortType.POINTS): number {
   const result = sortTableEntryByType(a, b, sortType);
   
   if (result !== 0) return result;
@@ -143,8 +143,6 @@ export function getTableEntriesByWeek(standings: StandingsEntry[], weeks?: numbe
 
   return Array.from({ length }, (_, index): TableEntriesByWeek[number] => ({
     week: index + 1,
-    entries: standings.map(
-      (i) => getTableEntry(i, undefined, index + 1),
-    ).sort((a, b) => sortTableEntries(a, b, TableEntrySortType.POINTS)),
+    entries: standings.map((i) => getTableEntry(i, undefined, index + 1)).sort(sortTableEntries),
   }));
 }
