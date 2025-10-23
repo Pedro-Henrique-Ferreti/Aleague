@@ -103,8 +103,11 @@
         </div>
       </div>
     </div>
-    <StandingsFormModal :entry="selectedTableEntry" />
   </section>
+  <StandingsFormModal
+    :standings="standings"
+    :entry="selectedTableEntry"
+  />
 </template>
 
 <script lang="ts">

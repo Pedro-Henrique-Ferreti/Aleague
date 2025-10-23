@@ -101,7 +101,7 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
   return forms;
 }
 
-export function getTableEntry(entry: StandingsEntry, type: TableEntryType, week?: Matchweek['week']): TableEntry {
+export function getTableEntry(entry: StandingsEntry, type = TableEntryType.OVERALL, week?: Matchweek['week']): TableEntry {
   const data: StandingsData = {
     points: 0,
     played: 0,
@@ -134,4 +134,17 @@ export function getTableEntry(entry: StandingsEntry, type: TableEntryType, week?
     team: entry.team,
     ...data,
   };
+}
+
+export function getTableEntriesByWeek(standings: StandingsEntry[], weeks?: number): TableEntriesByWeek {
+  const length = (
+    weeks ?? standings.toSorted((a, b) => b.data.length - a.data.length)[0]?.data.length ?? 0
+  );
+
+  return Array.from({ length }, (_, index): TableEntriesByWeek[number] => ({
+    week: index + 1,
+    entries: standings.map(
+      (i) => getTableEntry(i, undefined, index + 1),
+    ).sort((a, b) => sortTableEntries(a, b, TableEntrySortType.POINTS)),
+  }));
 }

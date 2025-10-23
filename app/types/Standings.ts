@@ -56,3 +56,4 @@ export interface TableEntryForm {
 
 export type TableEntry = Pick<StandingsEntry, 'id' | 'team'> & StandingsData;
 
+export type TableEntriesByWeek = { week: number; entries: TableEntry[] }[];
