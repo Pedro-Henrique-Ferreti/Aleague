@@ -71,6 +71,7 @@ withDefaults(defineProps<{
   showActions: true,
 });
 
+const isOpen = defineModel<boolean>('is-open');
 const dialogRef = ref<HTMLDialogElement | null>(null);
 
 function openModal() {
@@ -86,6 +87,10 @@ function closeModal() {
 function toggleModal() {
   (dialogRef.value?.open) ? dialogRef.value.close() : dialogRef.value?.showModal();
 }
+
+watchEffect(() => {
+  isOpen.value ? openModal() : closeModal();
+});
 
 defineExpose({
   open: openModal,

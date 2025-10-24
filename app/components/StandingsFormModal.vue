@@ -1,6 +1,6 @@
 <template>
   <AppModal
-    ref="modalRef"
+    v-model:is-open="isOpen"
     size="lg"
     :title="`Performance: ${getTeamById(entry?.team)?.name}`"
     :show-actions="false"
@@ -38,16 +38,14 @@ const props = defineProps<{
   entry: TableEntry | null;
 }>();
 
-const modalRef = useTemplateRef('modalRef');
+const isOpen = defineModel<boolean>('is-open');
 
 // Chart data
 const chartData = ref<ChartProps['data'] | null>(null);
 
 // Open modal
-watchEffect(() => {
-  if (!props.entry) return;
-
-  modalRef.value?.open();
+watch(isOpen, () => {
+  if (!isOpen.value) return;
 
   chartData.value = getTableEntriesByWeek(props.standings).flatMap((week) => {
     const index = week.entries.findIndex((i) => i.team === props.entry?.team);

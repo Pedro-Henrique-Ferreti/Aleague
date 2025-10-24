@@ -105,8 +105,10 @@
     </div>
   </section>
   <StandingsFormModal
+    :is-open="!!selectedTableEntry"
     :standings="standings"
     :entry="selectedTableEntry"
+    @update:is-open="selectedTableEntry = null"
   />
 </template>
 
