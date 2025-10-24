@@ -62,8 +62,8 @@
               v-model:away-score="match.awayTeam.score"
               :match="match"
               @match-updated="$emit('match-updated', $event, currentMatchweek)"
-              @focus="teamStore.focusMatchTeams(match)"
-              @blur="teamStore.blurMatchTeams(match)"
+              @focus="nextTick(() => teamStore.focusMatchTeams(match))"
+              @blur="nextTick(() => teamStore.blurMatchTeams(match))"
             />
           </template>
         </div>
