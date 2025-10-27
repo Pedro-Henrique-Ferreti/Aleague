@@ -6,7 +6,7 @@
         v-model:name="round.name"
         v-model:slots="round.slots"
         :key="round.id"
-        @slot-winner-updated="moveTeamToNextRound($event.team, $event.slotIndex,  index)"
+        @slot-winner-updated="moveTeamToNextRound($event.team, $event.slotIndex,  round.id)"
       />
     </div>
   </div>
@@ -29,7 +29,11 @@ const displayedRoundsId = computed(() => (
   stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + DISPLAYED_ROUNDS_MAX).map((i) => i.id)
 ));
 
-function moveTeamToNextRound(winner: PlayoffRoundWinner, slotIndex: number, roundIndex: number) {
+function moveTeamToNextRound(winner: PlayoffRoundWinner, slotIndex: number, roundId: PlayoffRound['id']) {
+  const roundIndex = stage.value.rounds.findIndex((round) => round.id === roundId);
+
+  if (roundIndex === -1) return;
+
   const round = stage.value.rounds[roundIndex + 1];
 
   if (!round) return;
