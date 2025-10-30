@@ -10,6 +10,9 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Aleague',
+      script: [
+        { src: 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js' },
+      ],
       link: [
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: '' },
@@ -22,6 +25,13 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/main.css'],
   vite: {
+    vue: {
+      template: {
+        compilerOptions: {
+          isCustomElement: tag => tag.startsWith('swiper'),
+        },
+      },
+    },
     plugins: [
       tailwindcss(),
     ],
