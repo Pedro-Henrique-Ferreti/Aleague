@@ -39,7 +39,7 @@ export enum Country {
   VENEZUELA = 'VEN',
 }
 
-export const COUNTRY_OPTIONS: SelectOptionList<Country | ''> = [
+export const COUNTRY_OPTIONS: Readonly<SelectOptionList<Country | ''>> = [
   { value: '', label: 'Qualquer país' },
   { value: Country.GERMANY, label: 'Alemanha' },
   { value: Country.ARGENTINA, label: 'Argentina' },

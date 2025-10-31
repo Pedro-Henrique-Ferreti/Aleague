@@ -1,10 +1,10 @@
-export const TABLE_ENTRY_TYPE_OPTIONS: SelectOptionList<TableEntryType> = [
+export const TABLE_ENTRY_TYPE_OPTIONS: Readonly<SelectOptionList<TableEntryType>> = [
   { label: 'Casa & Fora', value: TableEntryType.OVERALL },
   { label: 'Casa', value: TableEntryType.HOME },
   { label: 'Fora', value: TableEntryType.AWAY },
 ];
 
-export const TABLE_ENTRY_SORT_TYPE_OPTIONS: SelectOptionList<TableEntrySortType> = [
+export const TABLE_ENTRY_SORT_TYPE_OPTIONS: Readonly<SelectOptionList<TableEntrySortType>> = [
   { label: 'Pontos', value: TableEntrySortType.POINTS },
   { label: 'Vitórias', value: TableEntrySortType.WON },
   { label: 'Derrotas', value: TableEntrySortType.LOST },
@@ -13,7 +13,7 @@ export const TABLE_ENTRY_SORT_TYPE_OPTIONS: SelectOptionList<TableEntrySortType>
   { label: 'Melhor defesa', value: TableEntrySortType.GOALS_AGAINST },
 ];
 
-export const TABLE_ENTRY_VIEW_OPTIONS: SelectOptionList<TableEntryView> = [
+export const TABLE_ENTRY_VIEW_OPTIONS: Readonly<SelectOptionList<TableEntryView>> = [
   { label: 'Por grupo', value: TableEntryView.PER_GROUP },
   { label: 'Geral', value: TableEntryView.OVERALL },
 ];

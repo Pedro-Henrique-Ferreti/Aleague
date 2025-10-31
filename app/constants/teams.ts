@@ -1,4 +1,4 @@
-export const DETAILED_TEAM_LIST: TeamDetails[] = [
+export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
   {id: 1, name: "QPR", badge: "https://img.sofascore.com/api/v1/team/1/image", country: "ENG", type: TeamType.CLUB},
   {id: 2, name: "Portsmouth", badge: "https://img.sofascore.com/api/v1/team/2/image", country: "ENG", type: TeamType.CLUB},
   {id: 3, name: "Wolves", badge: "https://img.sofascore.com/api/v1/team/3/image", country: "ENG", type: TeamType.CLUB},

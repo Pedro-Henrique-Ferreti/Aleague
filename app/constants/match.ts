@@ -4,7 +4,7 @@ function kickoffTime(weekDay: Weekday, hours: number, minutes: number, weekStart
   return setDay(new Date(2025, 10, 8, hours, minutes), weekDay, { weekStartsOn }).toISOString();
 }
 
-export const KICKOFF_TIMES: Record<MatchweekKickoff, MatchKickoff[]> = {
+export const KICKOFF_TIMES: Readonly<Record<MatchweekKickoff, Readonly<MatchKickoff[]>>> = {
   [MatchweekKickoff.WEEKDAY]: [
     kickoffTime(Weekday.TUESDAY, 21, 0),
     kickoffTime(Weekday.WEDNESDAY, 17, 0),
@@ -24,7 +24,7 @@ export const KICKOFF_TIMES: Record<MatchweekKickoff, MatchKickoff[]> = {
   ],
 };
 
-export const MATCHWEEK_KICKOFF_OPTIONS: SelectOptionList<MatchweekKickoff> = [
+export const MATCHWEEK_KICKOFF_OPTIONS: Readonly<SelectOptionList<MatchweekKickoff>> = [
   { label: 'Durante a semana', value: MatchweekKickoff.WEEKDAY },
   { label: 'Fim de semana', value: MatchweekKickoff.WEEKEND },
 ];
