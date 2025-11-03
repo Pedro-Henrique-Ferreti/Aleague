@@ -17,7 +17,7 @@
 
 <script lang="ts">
 export interface BaseSelectProps<T extends SelectOptionValue> {
-  options: SelectOptionList<T>;
+  options: SelectOptionList<T> | Readonly<SelectOptionList<T>>;
   disabled?: boolean;
 }
 </script>
