@@ -11,6 +11,7 @@
         :title="getCardTitle(group.order)"
         :matchweeks="stage.matchweeks"
         :displayed-week="filtersForm.week === DEFAULT_WEEK_OPTION.value ? undefined : filtersForm.week"
+        :week-direction="filtersForm.weekDirection"
         @update:qualifier="onUpdateGroupQualifier($event, index)"
       >
         <template #header>
@@ -54,6 +55,7 @@ const newFiltersForm = (): FiltersForm => ({
   sortType: TableEntrySortType.POINTS,
   view: TableEntryView.PER_GROUP,
   week: DEFAULT_WEEK_OPTION.value,
+  weekDirection: WeekDirection.BEFORE,
 }); 
 
 const filtersForm = ref<FiltersForm>(newFiltersForm());

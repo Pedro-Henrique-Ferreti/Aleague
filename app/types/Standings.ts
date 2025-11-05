@@ -6,6 +6,11 @@ export enum Qualifier {
   RED,
 }
 
+export enum WeekDirection {
+  BEFORE,
+  AFTER
+}
+
 export enum TableEntrySortType {
   POINTS,
   WON,
