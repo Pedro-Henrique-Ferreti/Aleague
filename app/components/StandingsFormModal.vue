@@ -6,13 +6,13 @@
     :show-actions="false"
   >
     <StandingsFormList
-      :key="entry?.team || ''"
+      :key="`${entry?.team}-list`"
       :entry="entry"
     />
     <div class="font-semibold mt-2 mb-0.5">Posição por rodada</div>
     <StandingsFormChart
       v-if="chartData"
-      :key="entry?.team || ''"
+      :key="`${entry?.team}-chart`"
       :data="chartData"
       :lowest-y-point="standings.length"
     />
