@@ -7,7 +7,8 @@
   >
     <StandingsFormList
       :key="`${entry?.team}-list`"
-      :entry="entry"
+      :form="entry?.form || []"
+      :team-id="entry?.team || null"
     />
     <div class="font-semibold mt-2 mb-0.5">Posição por rodada</div>
     <StandingsFormChart
