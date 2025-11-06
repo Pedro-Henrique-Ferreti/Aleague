@@ -50,6 +50,26 @@
       />
     </swiper-slide>
   </swiper-container>
+  <div class="flex gap-1.5 mt-1 text-xs [&_b]:text-sm">
+    <p class="flex gap-0.5">
+      <span>Partidas: <b>{{ stats.home.played + stats.away.played }}</b></span>
+      <span>V: <b>{{ stats.home.won + stats.away.won }}</b></span>
+      <span>E: <b>{{ stats.home.drawn + stats.away.drawn }}</b></span>
+      <span>D: <b>{{ stats.home.lost + stats.away.lost }}</b></span>
+    </p>
+    <p class="flex gap-0.5">
+      <span>Casa: <b>{{ stats.home.played }}</b></span>
+      <span>V: <b>{{ stats.home.won }}</b></span>
+      <span>E: <b>{{ stats.home.drawn }}</b></span>
+      <span>D: <b>{{ stats.home.lost }}</b></span>
+    </p>
+    <p class="flex gap-0.5">
+      <span>Fora: <b>{{ stats.away.played }}</b></span>
+      <span>V: <b>{{ stats.away.won }}</b></span>
+      <span>E: <b>{{ stats.away.drawn }}</b></span>
+      <span>D: <b>{{ stats.away.lost }}</b></span>
+    </p>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -79,4 +99,30 @@ const displayedForm = computed(() => props.form.filter(({ match }) => (
   || selectedTeams.value.includes(match.homeTeam.id!)
   || selectedTeams.value.includes(match.awayTeam.id!)
 )));
+
+const stats = computed(() => {
+  const statistics = {
+    home: { played: 0, won: 0, drawn: 0, lost: 0 },
+    away: { played: 0, won: 0, drawn: 0, lost: 0 },
+  };
+
+  displayedForm.value.forEach(({ match, result }) => {
+    if (match.homeTeam.score === null || match.awayTeam.score === null) return;
+
+    const isHomeTeam = match.homeTeam.id === props.teamId;
+    const key: keyof typeof statistics = isHomeTeam ? 'home' : 'away';
+
+    statistics[key].played += 1;
+
+    if (result === MatchResult.WON) {
+      statistics[key].won += 1;
+    } else if (result === MatchResult.DRAW) {
+      statistics[key].drawn += 1;
+    } else if (result === MatchResult.LOST) {
+      statistics[key].lost += 1;
+    }
+  });
+
+  return statistics;
+});
 </script>
