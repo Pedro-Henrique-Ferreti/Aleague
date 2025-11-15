@@ -60,11 +60,15 @@ export const useTournamentStore = defineStore('tournament', {
       );
     },
     duplicateTournament(id: Tournament['id']) {
+      const tournament = clone(this.getTournament(id));
       const newId = new Date().getTime();
   
       this.tournaments.push({
-        ...clone(this.getTournament(id)),
+        ...tournament,
         id: newId,
+        name: `${tournament.name} (1)`,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       });
 
       this.activeTournamentId = newId;
