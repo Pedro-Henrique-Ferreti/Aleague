@@ -702,7 +702,7 @@ export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
   {id: 701, name: "Jardim Belém", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
   {id: 702, name: "Jardim Imperial", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
   {id: 703, name: "Jardim Limoeiro", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
-  {id: 704, name: "Jardim Primavera", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
+  {id: 704, name: "Jardim Alves", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
   {id: 705, name: "Jardim Turquesa", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
   {id: 706, name: "Lapa", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
   {id: 707, name: "Liberdade", badge: "/images/leagues/brazilian-league.png", type: TeamType.CUSTOM, country: "BRA"},
