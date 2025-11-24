@@ -14,11 +14,9 @@
       class="modal-box"
       :class="{ 'max-w-48': size === 'lg', 'max-w-80': size === 'xl' }"
     >
-      <button
+      <CloseButton
         v-if="showCloseIcon"
-        v-text="'✕'"
-        type="button"
-        class="btn btn-sm btn-circle btn-ghost absolute right-1 top-1"
+        class="absolute right-1 top-1"
         aria-label="Close modal"
         @click="closeModal"
       />

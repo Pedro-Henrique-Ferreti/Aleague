@@ -13,10 +13,8 @@
         :src="team?.badge || ''"
       />
       <span>{{ team.name }}</span>
-      <button
-        v-text="'✕'"
-        type="button"
-        class="btn btn-xs btn-circle btn-ghost ml-auto"
+      <CloseButton
+        class="btn-xs ml-auto"
         aria-label="Remove team"
         @click="$emit('remove')"
       />
