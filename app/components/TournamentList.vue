@@ -25,6 +25,7 @@
     <TournamentPage
       v-if="activeTournament"
       v-model="activeTournament"
+      :key="String(tournamentStore.activeTournamentId)"
     />
   </div>
   <AppDialog
