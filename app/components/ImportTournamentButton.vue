@@ -14,9 +14,9 @@ const { tournaments, activeTournamentId } = storeToRefs(useTournamentStore());
 
 function handleImportTournament(data: Tournament[]) {
   for (const tournament of data) {
-    if (tournaments.value.find((i) => i.id === tournament.id)) return;
-
-    tournaments.value.push(tournament);
+    if (!tournaments.value.find((i) => i.id === tournament.id)) {
+      tournaments.value.push(tournament);
+    }
   }
 
   activeTournamentId.value = tournaments.value[tournaments.value.length - 1]?.id || null;
