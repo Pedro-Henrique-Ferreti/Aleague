@@ -1,6 +1,5 @@
 <template>
   <template v-if="tournamentStore.activeTournamentId">
-    <CloseTournamentButton />
     <AppMenu
       class="btn-primary btn-outline"
       label="Gerenciar"

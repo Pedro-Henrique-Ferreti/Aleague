@@ -4,14 +4,22 @@
     class="tabs tabs-lift border-b border-b-base-300"
     ref="tablist"
   >
-  <AppTab
-    v-for="tournament in tournamentStore.tournaments"
-    class="-mb-px"
-    :key="tournament.id"
-    :label="tournament.name"
-    :is-active="tournamentStore.activeTournamentId === tournament.id"
-    @mousedown="tournamentStore.activeTournamentId = tournament.id"
-  />
+    <AppTab
+      v-for="tournament in tournamentStore.tournaments"
+      class="-mb-px cursor-default min-w-13!"
+      :key="tournament.id"
+      :label="tournament.name"
+      :is-active="tournamentStore.activeTournamentId === tournament.id"
+      @mousedown.self="tournamentStore.activeTournamentId = tournament.id"
+    >
+      <template #right>
+        <CloseButton
+          class="btn-xs ml-auto"
+          aria-label="Close tab"
+          @click="askToCloseTournament(tournament.id)"
+        />
+      </template>
+    </AppTab>
   </div>
   <div class="tab-content block pt-3 border-b-0 border-l-0 border-r-0">
     <TournamentPage
@@ -19,6 +27,11 @@
       v-model="activeTournament"
     />
   </div>
+  <AppDialog
+    v-model:is-open="showCloseModal"
+    message="Alterações não salvas serão perdidas. Deseja continuar?"
+    @confirm="tournamentStore.closeActiveTournament"
+  />
 </template>
 
 <script setup lang="ts">
@@ -37,6 +50,15 @@ const activeTournament = computed({
   },
 });
 
+// Close tournament modal
+const showCloseModal = ref(false);
+
+function askToCloseTournament(tournamentId: Tournament['id']) {
+  tournamentStore.activeTournamentId = tournamentId;
+  showCloseModal.value = true;
+}
+
+// Sortable tabs
 const tablistRef = useTemplateRef('tablist');
 
 onMounted(() => {
