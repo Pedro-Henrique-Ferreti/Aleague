@@ -1,25 +1,43 @@
 <template>
-  <button
+  <div
     role="tab"
-    type="button"
-    class="tab min-w-4.5 text-nowrap overflow-hidden relative after:absolute after:right-[calc(var(--tab-p)-1px)] after:hidden after:h-full after:w-0.5 after:bg-linear-to-r after:from-transparent after:to-white"
+    tabindex="0"
+    class="tab"
     :class="{ 'tab-active': isActive }"
   >
-    <span class="flex gap-0.5 items-center overflow-hidden">
+    <slot name="left">
       <component
-        v-if="icon"
+        v-if="iconLeft"
         class="shrink-0 size-1"
-        :is="icon"
+        :is="iconLeft"
       />
-      <slot>{{ label }}</slot>
-    </span>
-  </button>
+    </slot>
+    <slot>{{ label }}</slot>
+    <slot name="right">
+      <component
+        v-if="iconRight"
+        class="shrink-0 size-1"
+        :is="iconRight"
+      />
+    </slot>
+  </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
   isActive?: boolean;
   label?: string;
-  icon?: unknown;
+  iconLeft?: unknown;
+  iconRight?: unknown;
 }>();
 </script>
+
+<style scoped>
+@reference '@/assets/css/main.css';
+.tab {
+  @apply flex items-center gap-0.5 min-w-4.5 text-nowrap overflow-hidden relative;
+  &::after {
+    @apply absolute right-[calc(var(--tab-p)-1px)] hidden h-full w-0.5 bg-linear-to-r from-transparent to-white;
+  }
+}
+</style>
