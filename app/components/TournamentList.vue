@@ -1,12 +1,12 @@
 <template>
   <div
     role="tablist"
-    class="tabs tabs-lift border-b border-b-base-300"
+    class="tabs tabs-lift"
     ref="tablist"
   >
     <AppTab
       v-for="tournament in tournamentStore.tournaments"
-      class="-mb-px cursor-default min-w-13!"
+      class="tabs__tab"
       :key="tournament.id"
       :label="tournament.name"
       :is-active="tournamentStore.activeTournamentId === tournament.id"
@@ -69,3 +69,16 @@ onMounted(() => {
   });
 });
 </script>
+
+<style scoped>
+@reference '@/assets/css/main.css';
+.tabs {
+  @apply border-b border-b-base-300;
+}
+.tabs__tab {
+  @apply -mb-px cursor-default min-w-13! relative;
+}
+.tabs__tab:not(:first-of-type, .tab-active, .tab-active + .tabs__tab)::before {
+  @apply content-[''] absolute left-0 h-1.25 w-[2px] bg-gray-300;
+}
+</style>
