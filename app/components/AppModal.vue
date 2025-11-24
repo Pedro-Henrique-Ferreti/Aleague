@@ -74,11 +74,13 @@ const dialogRef = ref<HTMLDialogElement | null>(null);
 
 function openModal() {
   dialogRef.value?.showModal();
+  isOpen.value = true;
   emit('open');
 }
 
 function closeModal() {
   dialogRef.value?.close();
+  isOpen.value = false;
   emit('close');
 }
 

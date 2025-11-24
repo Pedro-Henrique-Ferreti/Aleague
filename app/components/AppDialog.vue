@@ -1,5 +1,6 @@
 <template>
   <AppModal
+    v-model:is-open="isOpen"
     ref="modalRef"
     submit-button-label="Confirmar"
     :title="title"
@@ -23,6 +24,8 @@ withDefaults(defineProps<{
 }>(), {
   title: 'Continuar',
 });
+
+const isOpen = defineModel<boolean>('is-open');
 
 const modal = useTemplateRef('modalRef');
 
