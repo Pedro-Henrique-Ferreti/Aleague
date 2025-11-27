@@ -19,6 +19,7 @@
     >
       <button
         type="button"
+        :class="{ 'text-error hover:bg-error/8 active:bg-error! active:text-error-content!': item.color === 'error' }"
         @click="item.onClick"
       >
         <Component
@@ -35,6 +36,7 @@
 export interface MenuItem {
   label: string;
   icon: Icon;
+  color?: 'error';
   onClick?: () => void;
 }
 
