@@ -1,19 +1,10 @@
 <template>
   <header class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr] desktop:grid-cols-2">
     <TournamentProfileCard :tournament="tournament" />
-    <div
+    <TournamentPageControls
       v-if="activeStage"
-      class="flex justify-end gap-1"
-    >
-      <TournamentStageModal />
-      <TournamentStageModal :stage="activeStage" />
-      <EditStageTeams
-        v-if="showEditTeamsModal"
-        :allow-empty-slots="allowEmptySlots"
-        :stage="activeStage"
-      />
-      <DeleteStageButton :stage-id="activeStage.id" />
-    </div>
+      :active-stage="activeStage"
+    />
   </header>
   <div
     v-if="tournament.stages.length === 0"
@@ -27,7 +18,7 @@
   </div>
   <template v-else>
     <TournamentStageControls
-      ref="controlsRef"
+      ref="controls"
       :stages="tournament.stages"
     />
     <template v-for="stage, index in tournament.stages">
@@ -38,33 +29,22 @@
       <TournamentPlayoffs
         v-else-if="stage.type === StageType.PLAYOFFS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentPlayoffsStage)"
-        :active-round-id="controls?.roundId"
+        :active-round-id="controlsRef?.roundId"
       />
     </template>
   </template>
 </template>
 
 <script setup lang="ts">
-import { allTeamsAssigned } from '~/helpers/stage';
 import TournamentStageControls from './TournamentStageControls.vue';
 
 const tournament = defineModel<Tournament>({ required: true });
 
-const controls = useTemplateRef<typeof TournamentStageControls>('controlsRef');
+const controlsRef = useTemplateRef<typeof TournamentStageControls>('controls');
 
 const activeStage = computed(() => tournament.value.stages.find((stage) => (
-  stage.id === controls.value?.roundId || (
-    stage.type === StageType.PLAYOFFS && stage.rounds.find((round) => round.id === controls.value?.roundId)
+  stage.id === controlsRef.value?.roundId || (
+    stage.type === StageType.PLAYOFFS && stage.rounds.find((round) => round.id === controlsRef.value?.roundId)
   )
 )));
-
-const showEditTeamsModal = computed(() => (
-  activeStage.value?.type === StageType.PLAYOFFS || (
-    activeStage.value?.type === StageType.GROUPS && allTeamsAssigned(activeStage.value)
-  )
-));
-
-const allowEmptySlots = computed(() => (
-  activeStage.value?.type === StageType.GROUPS && activeStage.value.matchweeks.length === 0
-));
 </script>
