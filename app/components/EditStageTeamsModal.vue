@@ -1,6 +1,6 @@
 <template>
   <AppModal
-    ref="modalRef"
+    v-model:is-open="modalIsOpen"
     title="Editar equipes"
     size="xl"
     :submit-button-disabled="submitButtonDisabled"
@@ -8,13 +8,7 @@
     @submit="submitForm"
   >
     <template #trigger="{ open }">
-      <AppButton
-        class="btn-primary btn-soft"
-        label="Equipes"
-        :class="$attrs.class"
-        :icon-left="IconUsersGroup"
-        @click="open"
-      />
+      <slot :open="open" />
     </template>
     <div class="flex gap-1 mb-2 justify-center relative">
       <EditStageTeamsInput
@@ -87,11 +81,9 @@ export interface FormStageGroup {
 </script>
 
 <script lang="ts" setup>
-import { IconArrowsShuffle, IconFileArrowLeft, IconRefresh, IconUsersGroup, IconWand } from '@tabler/icons-vue';
+import { IconArrowsShuffle, IconFileArrowLeft, IconRefresh, IconWand } from '@tabler/icons-vue';
 
 const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
-
-defineOptions({ inheritAttrs: false });
 
 const props = withDefaults(defineProps<{
   stage: TournamentStage;
@@ -99,6 +91,8 @@ const props = withDefaults(defineProps<{
 }>(), {
   allowEmptySlots: true,
 });
+
+const modalIsOpen = defineModel<boolean>('is-open');
 
 const teamsInputRef = useTemplateRef('teamsInputRef');
 
@@ -108,8 +102,6 @@ const form = ref<{ groups: FormStageGroup[] }>({
 });
 
 // Modal
-const modalRef = useTemplateRef('modalRef');
-
 function onOpenModal() {
   if (props.stage.type === StageType.GROUPS) {
     form.value.groups = props.stage.groups.map((group) => ({
@@ -216,6 +208,6 @@ function submitForm() {
     form: form.value.groups,
   });
 
-  modalRef.value?.close();
+  modalIsOpen.value = false;
 }
 </script>

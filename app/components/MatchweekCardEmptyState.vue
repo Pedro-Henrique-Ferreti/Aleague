@@ -13,16 +13,23 @@
     </template>
     <template v-else>
       <p>Adicione todas as equipes antes de gerar as partidas.</p>
-      <EditStageTeams
-        class="btn-wide mt-2"
+      <EditStageTeamsModal
+        v-slot="{ open }"
         :stage="stage"
-      />
+      >
+        <AppButton
+          class="btn-primary btn-soft btn-wide mt-2"
+          label="Equipes"
+          :icon-left="IconUsersGroup"
+          @click="open"
+        />
+      </EditStageTeamsModal>
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IconRefresh } from '@tabler/icons-vue';
+import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
 import { allTeamsAssigned } from '~/helpers/stage';
 
 const { createStageMatchweeks, activeTournamentId } = useTournamentStore();
