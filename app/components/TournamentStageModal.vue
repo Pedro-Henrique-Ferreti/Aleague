@@ -1,19 +1,13 @@
 <template>
   <AppModal
-    ref="modalRef"
+    v-model:is-open="modalIsOpen"
     :title="isEditingForm ? 'Editar fase' : 'Adicionar fase'"
     :submit-button-disabled="submitIsDisabled"
     @open="onOpenModal"
     @submit="submitForm"
   >
     <template #trigger="{ open }">
-      <AppButton
-        class="btn-primary btn-soft"
-        :class="$attrs.class"
-        :label="isEditingForm ? 'Editar' : 'Adicionar'"
-        :icon-left="isEditingForm ? IconEdit : IconPlus"
-        @click="open"
-      />
+      <slot :open="open" />
     </template>
     <AppInput
       v-model="form.name"
@@ -115,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconPlus, IconEdit, IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
+import { IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
 import { getPlayoffRoundNames } from '~/helpers/playoffs';
 
 const MIN_TEAMS = 2;
@@ -130,8 +124,7 @@ const DEFAULT_PLAYOFFS_STAGE_NAME = 'Playoffs';
 const tournamentStore = useTournamentStore();
 
 const props = defineProps<{ stage?: TournamentStage }>();
-
-const modalRef = useTemplateRef('modalRef');
+const modalIsOpen = defineModel<boolean>('is-open');
 
 const newForm = (): TournamentStageForm => ({
   name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
@@ -158,7 +151,7 @@ const newForm = (): TournamentStageForm => ({
 
 const form = ref(newForm());
 
-const isEditingForm = computed(() => !!props.stage);
+const isEditingForm = ref(false);
 
 watch(() => form.value.type, () => {
   form.value.name = (
@@ -199,10 +192,11 @@ function submitForm() {
     tournamentStore.addStage(tournamentStore.activeTournamentId!, form.value);
   }
 
-  modalRef.value?.close();
+  modalIsOpen.value = false;
 }
 
 function onOpenModal() {
   form.value = newForm();
+  isEditingForm.value = !!props.stage;
 }
 </script>

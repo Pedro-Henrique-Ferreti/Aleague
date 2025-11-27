@@ -13,7 +13,14 @@
     <div class="card-body text-center">
       <h1 class="text-xl font-semibold mb-0.5">Nenhuma fase</h1>
       <p>Adicione uma fase ao campeonato clicando no botão abaixo.</p>
-      <TournamentStageModal class="btn-wide mt-2 mx-auto" />
+      <TournamentStageModal v-slot="{ open }">
+        <AppButton
+          class="btn-primary btn-soft btn-wide mt-2 mx-auto"
+          label="Adicionar"
+          :icon-left="IconPlus"
+          @click="open"
+        />
+      </TournamentStageModal>
     </div>
   </div>
   <template v-else>
@@ -36,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import { IconPlus } from '@tabler/icons-vue';
 import TournamentStageControls from './TournamentStageControls.vue';
 
 const tournament = defineModel<Tournament>({ required: true });
