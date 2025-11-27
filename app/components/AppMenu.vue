@@ -5,7 +5,7 @@
     :class="$attrs.class"
     :popovertarget="id"
     :icon-left="icon"
-    :icon-right="IconChevronDown"
+    :icon-right="displayedIconRight"
   />
   <ul
     class="dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm"
@@ -44,9 +44,17 @@ import { IconChevronDown, type Icon } from '@tabler/icons-vue';
 
 const id = useId();
 
-defineProps<{
+const props = withDefaults(defineProps<{
   items: MenuItem[];
   label: string;
   icon?: Icon;
-}>();
+  iconRight?: Icon | boolean;
+}>(), {
+  iconRight: true,
+});
+
+const displayedIconRight = computed(() => {
+  if (props.iconRight === true || props.iconRight === undefined) return IconChevronDown;
+  if (!!props.iconRight) return props.iconRight;
+});
 </script>
