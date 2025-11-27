@@ -8,9 +8,9 @@
     :icon-right="displayedIconRight"
   />
   <ul
-    class="dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm"
     popover
     :id="id"
+    :class="['dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm', dropdownClass]"
     :style="`position-anchor: --menu-${id}`"
   >
     <li
@@ -37,6 +37,14 @@ export interface MenuItem {
   icon: Icon;
   onClick?: () => void;
 }
+
+export interface AppMenuProps {
+  items: MenuItem[];
+  label: string;
+  icon?: Icon;
+  iconRight?: Icon | boolean;
+  dropdownClass?: string;
+}
 </script>
 
 <script lang="ts" setup>
@@ -44,12 +52,7 @@ import { IconChevronDown, type Icon } from '@tabler/icons-vue';
 
 const id = useId();
 
-const props = withDefaults(defineProps<{
-  items: MenuItem[];
-  label: string;
-  icon?: Icon;
-  iconRight?: Icon | boolean;
-}>(), {
+const props = withDefaults(defineProps<AppMenuProps>(), {
   iconRight: true,
 });
 
