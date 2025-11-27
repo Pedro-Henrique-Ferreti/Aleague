@@ -1,6 +1,6 @@
 <template>
   <AppButton
-    class="[anchor-name:--tournament-settings]"
+    :style="`anchor-name: --menu-${id}`"
     :label="label"
     :class="$attrs.class"
     :popovertarget="id"
@@ -8,9 +8,10 @@
     :icon-right="IconChevronDown"
   />
   <ul
-    class="dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm [position-anchor:--tournament-settings]"
+    class="dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm"
     popover
     :id="id"
+    :style="`position-anchor: --menu-${id}`"
   >
     <li
       v-for="item, index in items"
