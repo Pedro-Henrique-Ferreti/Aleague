@@ -11,7 +11,7 @@
   <CreateTournamentButton />
   <TournamentFormModal
     v-if="tournamentStore.activeTournament"
-    ref="tournamentModalRef"
+    v-model:is-open="tournamentModalIsOpen"
     :key="tournamentStore.activeTournament.id"
     :tournament="tournamentStore.activeTournament"
     :submit-fn="(form) => tournamentStore.updateTournament(tournamentStore.activeTournament!.id, form)"
@@ -24,17 +24,15 @@ import type { MenuItem } from '~/components/AppMenu.vue';
 
 const tournamentStore = useTournamentStore();
 
-// Modal
-const tournamentModalRef = useTemplateRef('tournamentModalRef');
+// Tournament modal
+const tournamentModalIsOpen = ref(false);
 
 // Menu items
 const menuItems = computed<MenuItem[]>(() => ([
   {
     label: 'Editar',
     icon: IconEdit,
-    onClick: () => {
-      tournamentModalRef.value?.open();
-    },
+    onClick: () => tournamentModalIsOpen.value = true,
   },
   {
     label: 'Duplicar',

@@ -1,6 +1,6 @@
 <template>
   <AppModal
-    ref="modalRef"
+    v-model:is-open="modalIsOpen"
     :title="tournament ? 'Editar campeonato' : 'Criar campeonato'"
     :submit-button-disabled="submitIsDisabled"
     @open="onOpenModal"
@@ -60,12 +60,7 @@ const props = defineProps<{
   submitFn: (form: TournamentForm) => Promise<void> | void;
 }>();
 
-// Modal
-const modal = useTemplateRef('modalRef');
-
-function closeModal() {
-  modal.value?.close();
-}
+const modalIsOpen = defineModel<boolean>('is-open');
 
 function onOpenModal() {
   if (props.tournament) {
@@ -104,10 +99,6 @@ const submitIsDisabled = computed(() => !form.value.name);
 async function submitForm() {
   await props.submitFn(form.value);
 
-  closeModal();
+  modalIsOpen.value = false;
 }
-
-defineExpose({
-  open: () => modal.value?.open(),
-});
 </script>
