@@ -15,7 +15,10 @@
       <div class="flex mt-2 w-full items-center justify-center">
         <ImportTournamentButton class="w-full max-w-12" />
         <div class="divider divider-horizontal h-5!">ou</div>
-        <CreateTournamentButton class="w-full max-w-12" />
+        <CreateTournamentMenu
+          class="w-full max-w-12"
+          dropdown-class="w-full max-w-12"
+        />
       </div>
     </div>
     <TournamentList v-else />

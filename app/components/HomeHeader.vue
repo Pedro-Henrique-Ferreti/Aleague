@@ -3,12 +3,12 @@
     <AppMenu
       class="btn-primary btn-outline"
       label="Campeonato"
-      :icon="IconSettings"
+      :icon="IconBallFootball"
       :items="menuItems"
     />
   </template>
   <ImportTournamentButton />
-  <CreateTournamentButton />
+  <CreateTournamentMenu dropdown-class="dropdown-end" />
   <TournamentFormModal
     v-if="tournamentStore.activeTournament"
     v-model:is-open="tournamentModalIsOpen"
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconCopy, IconEdit, IconFileArrowRight, IconSettings } from '@tabler/icons-vue';
+import { IconCopy, IconEdit, IconFileArrowRight, IconBallFootball } from '@tabler/icons-vue';
 import type { MenuItem } from '~/components/AppMenu.vue';
 
 const tournamentStore = useTournamentStore();
@@ -37,9 +37,7 @@ const menuItems = computed<MenuItem[]>(() => ([
   {
     label: 'Duplicar',
     icon: IconCopy,
-    onClick: () => {
-      tournamentStore.duplicateTournament(tournamentStore.activeTournamentId!);
-    },
+    onClick: () => tournamentStore.duplicateTournament(tournamentStore.activeTournamentId!),
   },
   {
     label: 'Exportar',

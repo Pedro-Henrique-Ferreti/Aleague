@@ -6,9 +6,6 @@
     @open="onOpenModal"
     @submit="submitForm"
   >
-    <template #trigger="{ open }">
-      <slot :open="open" />
-    </template>
     <div class="grid gap-0.75">
       <AppInput
         v-model="form.name"
