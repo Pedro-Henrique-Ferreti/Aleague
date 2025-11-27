@@ -24,11 +24,13 @@
 </template>
 
 <script setup lang="ts">
+import type { Icon } from '@tabler/icons-vue';
+
 defineProps<{
   isActive?: boolean;
   label?: string;
-  iconLeft?: unknown;
-  iconRight?: unknown;
+  iconLeft?: Icon;
+  iconRight?: Icon;
 }>();
 </script>
 

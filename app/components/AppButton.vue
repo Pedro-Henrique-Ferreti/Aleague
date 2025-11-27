@@ -30,13 +30,14 @@
 </template>
 
 <script lang="ts" setup>
+import type { Icon } from '@tabler/icons-vue';
 import type { BaseButtonProps } from './BaseButton.vue';
 
 defineEmits(['click']);
 defineProps<BaseButtonProps & {
   isLoading?: boolean;
   label?: string;
-  iconLeft?: unknown;
-  iconRight?: unknown;
+  iconLeft?: Icon;
+  iconRight?: Icon;
 }>();
 </script>

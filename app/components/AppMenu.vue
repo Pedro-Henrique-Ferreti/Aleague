@@ -34,19 +34,19 @@
 <script lang="ts">
 export interface MenuItem {
   label: string;
-  icon: unknown;
+  icon: Icon;
   onClick?: () => void;
 }
 </script>
 
 <script lang="ts" setup>
-import { IconChevronDown } from '@tabler/icons-vue';
+import { IconChevronDown, type Icon } from '@tabler/icons-vue';
 
 const id = useId();
 
 defineProps<{
   items: MenuItem[];
   label: string;
-  icon?: unknown;
+  icon?: Icon;
 }>();
 </script>
