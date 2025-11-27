@@ -2,7 +2,7 @@
   <template v-if="tournamentStore.activeTournamentId">
     <AppMenu
       class="btn-primary btn-outline"
-      label="Gerenciar"
+      label="Campeonato"
       :icon="IconSettings"
       :items="menuItems"
     />
