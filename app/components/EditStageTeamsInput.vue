@@ -81,7 +81,7 @@ const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
   { label: 'Personalizado', value: TeamType.CUSTOM },
 ];
 
-const { teamList, getTeamById } = useTeamStore();
+const { getTeamById } = useTeamStore();
 
 const emit = defineEmits<{
   (e: 'select', team: Team): void;
@@ -96,7 +96,7 @@ const form = ref<Form>({
   country: '',
 });
 
-const teamOptions = computed<TeamDetails[]>(() => teamList.filter((t) => (
+const teamOptions = computed<TeamDetails[]>(() => DETAILED_TEAM_LIST.filter((t) => (
   !props.selectedTeams.includes(t.id) && (
     form.value.search === ''
     || normalizeString(t.name).toLowerCase().includes(normalizeString(form.value.search).toLowerCase())

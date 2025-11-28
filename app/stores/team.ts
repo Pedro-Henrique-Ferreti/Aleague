@@ -1,18 +1,16 @@
 import { defineStore } from 'pinia';
 
 interface StoreState {
-  teamList: TeamDetails[];
   focusedTeamId: TeamDetails['id'][];
 }
 
 export const useTeamStore = defineStore('team', {
   state: (): StoreState => ({
-    teamList: DETAILED_TEAM_LIST,
     focusedTeamId: [],
   }),
   actions: {
     getTeamById(id?: TeamDetails['id'] | null): TeamDetails | undefined {
-      return this.teamList.find((team) => team.id === id);
+      return DETAILED_TEAM_LIST.find((team) => team.id === id);
     },
     focusMatchTeams({ homeTeam, awayTeam }: Match) {
       for (const team of [homeTeam.id, awayTeam.id]) {
