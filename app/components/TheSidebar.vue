@@ -1,9 +1,6 @@
 <template>
-  <aside class="w-15 h-screen sticky top-0 border-r-1 border-base-200 py-1.5 px-1">
-    <CreateTournamentMenu
-      class="w-full"
-      dropdown-class="dropdown-end"
-    />
+  <aside class="w-16 h-screen py-1.5 pl-1 pr-0.25 border-r-1 border-base-200 overflow-y-auto sticky top-0 [scrollbar-gutter:stable]">
+    <CreateTournamentMenu class="w-full" />
     <ImportTournamentButton class="w-full mt-1 btn-soft" />
     <div class="mt-2 text-lg font-medium">Campeonatos</div>
     <ul class="menu gap-0.25 w-full mt-1 p-0">
