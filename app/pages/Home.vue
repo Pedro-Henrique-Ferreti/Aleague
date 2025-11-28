@@ -16,7 +16,8 @@
         <ImportTournamentButton class="w-full max-w-12" />
         <div class="divider divider-horizontal h-5!">ou</div>
         <CreateTournamentMenu
-          class="w-full max-w-12"
+          button-label="Criar"
+          class="w-full max-w-12 btn-outline"
           dropdown-class="w-full max-w-12"
         />
       </div>

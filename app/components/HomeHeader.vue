@@ -8,7 +8,6 @@
     />
   </template>
   <ImportTournamentButton />
-  <CreateTournamentMenu dropdown-class="dropdown-end" />
   <TournamentFormModal
     v-if="tournamentStore.activeTournament"
     v-model:is-open="tournamentModalIsOpen"

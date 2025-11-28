@@ -1,6 +1,11 @@
 <template>
-  <aside class="w-15 h-screen sticky top-0 border-r-1 border-base-200 p-1">
-    <ul class="menu gap-0.25 w-full p-0">
+  <aside class="w-15 h-screen sticky top-0 border-r-1 border-base-200 py-1.5 px-1">
+    <CreateTournamentMenu
+      class="w-full"
+      dropdown-class="dropdown-end"
+    />
+    <div class="mt-2 text-lg font-medium">Campeonatos</div>
+    <ul class="menu gap-0.25 w-full mt-1 p-0">
       <li
         v-for="tournament in tournamentStore.tournaments"
         :key="tournament.id"
