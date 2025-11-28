@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="default">
+  <NuxtLayout name="tournaments">
     <template
       v-if="tournamentStore.tournaments.length > 0"
       #header
@@ -21,12 +21,27 @@
         />
       </div>
     </div>
-    <TournamentList v-else />
+    <TournamentPage
+      v-else-if="activeTournament"
+      v-model="activeTournament"
+      :key="String(tournamentStore.activeTournamentId)"
+    />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 const tournamentStore = useTournamentStore();
+
+const activeTournament = computed({
+  get: () => tournamentStore.activeTournament,
+  set: (tournament) => {
+    const index = tournamentStore.tournaments.findIndex(t => t.id === tournament?.id);
+    
+    if (index > -1 && tournament) {
+      tournamentStore.tournaments[index] = tournament;
+    }
+  },
+});
 
 definePageMeta({
   layout: false,
