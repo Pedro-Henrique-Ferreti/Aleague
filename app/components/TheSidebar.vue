@@ -4,6 +4,7 @@
       class="w-full"
       dropdown-class="dropdown-end"
     />
+    <ImportTournamentButton class="w-full mt-1 btn-soft" />
     <div class="mt-2 text-lg font-medium">Campeonatos</div>
     <ul class="menu gap-0.25 w-full mt-1 p-0">
       <li

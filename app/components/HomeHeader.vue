@@ -7,7 +7,6 @@
       :items="menuItems"
     />
   </template>
-  <ImportTournamentButton />
   <TournamentFormModal
     v-if="tournamentStore.activeTournament"
     v-model:is-open="tournamentModalIsOpen"
