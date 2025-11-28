@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="tournaments">
+  <NuxtLayout :name="tournamentStore.tournaments.length > 0 ? 'tournaments' : 'default'">
     <template
       v-if="tournamentStore.tournaments.length > 0"
       #header
