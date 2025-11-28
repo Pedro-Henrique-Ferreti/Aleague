@@ -11,6 +11,10 @@
     v-model:is-open="tournamentModalIsOpen"
     :submit-fn="submitTournamentForm"
   />
+  <CollectionFormModal
+    v-model:is-open="collectionModalIsOpen"
+    :submit-fn="submitCollectionForm"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -35,11 +39,17 @@ function submitTournamentForm(form: TournamentForm) {
   tournamentStore.activeTournamentId = tournament.id;
 }
 
+// Collection modal
+const collectionModalIsOpen = ref(false);
+
+function submitCollectionForm() {}
+
 // Menu items
 const menuItems = computed<MenuItem[]>(() => ([
   {
     label: 'Coleção',
     icon: IconFolders,
+    onClick: () => collectionModalIsOpen.value = true,
   },
   {
     label: 'Campeonato',
