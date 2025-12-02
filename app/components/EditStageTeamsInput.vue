@@ -70,7 +70,7 @@ interface Form {
 <script lang="ts" setup>
 import { IconSearch } from '@tabler/icons-vue';
 
-const MAX_DISPLAYED_OPTIONS = 20;
+const MAX_DISPLAYED_OPTIONS = 40;
 const inputId = useId();
 const popoverId = useId();
 
