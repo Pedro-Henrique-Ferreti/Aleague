@@ -40,6 +40,12 @@
   max-width: calc((var(--spacing-screen-padding) * 2 + --value(--container-*) * var(--container-base-size)));
 }
 
+@utility scrollbar-on-hover {
+  &:not(:hover) {
+    scrollbar-color: transparent transparent;
+  }
+}
+
 @layer components {
   .badge-container {
     @apply flex items-center gap-0.5;
