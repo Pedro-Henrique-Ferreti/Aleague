@@ -58,7 +58,13 @@
 </template>
 
 <script lang="ts">
-type TeamTypeFilter = TeamType | '';
+enum TeamTypeFilter {
+  All = '',
+  CLUB = TeamType.CLUB,
+  NATIONAL = TeamType.NATIONAL,
+  CUSTOM = TeamType.CUSTOM,
+  TOURNAMENT = 'tournament',
+}
 
 interface Form {
   search: string;
@@ -71,39 +77,58 @@ interface Form {
 import { IconSearch } from '@tabler/icons-vue';
 
 const MAX_DISPLAYED_OPTIONS = 40;
+const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
+  { label: 'Todos', value: TeamTypeFilter.All },
+  { label: 'Clube', value: TeamTypeFilter.CLUB },
+  { label: 'Seleção', value: TeamTypeFilter.NATIONAL },
+  { label: 'Personalizado', value: TeamTypeFilter.CUSTOM },
+  { label: 'Campeonato', value: TeamTypeFilter.TOURNAMENT },
+];
+
 const inputId = useId();
 const popoverId = useId();
 
-const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
-  { label: 'Todos', value: '' },
-  { label: 'Clube', value: TeamType.CLUB },
-  { label: 'Seleção', value: TeamType.NATIONAL },
-  { label: 'Personalizado', value: TeamType.CUSTOM },
-];
-
+const tournamentStore = useTournamentStore(); 
 const { getTeamById } = useTeamStore();
 
 const emit = defineEmits<{
-  (e: 'select', team: Team): void;
+  select: [Team];
 }>();
 const props = defineProps<{
   selectedTeams: Array<Team['id']>;
+  stageId: TournamentStage['id'];
 }>();
 
 const form = ref<Form>({
   search: '',
-  filter: '',
+  filter: TeamTypeFilter.All,
   country: '',
 });
 
-const teamOptions = computed<TeamDetails[]>(() => DETAILED_TEAM_LIST.filter((t) => (
-  !props.selectedTeams.includes(t.id) && (
-    form.value.search === ''
-    || normalizeString(t.name).toLowerCase().includes(normalizeString(form.value.search).toLowerCase())
-  ) && (form.value.filter === '' || form.value.filter === t.type) && (
-    form.value.country === '' || t.country === form.value.country
-  )
-)));
+const teamsInTournament = computed(() => {
+  const stages = tournamentStore.activeTournament!.stages.filter((s) => s.id !== props.stageId);
+
+  return stages.flatMap((stage) => {
+    if (stage.type === StageType.GROUPS) {
+      return stage.groups.flatMap((group) => group.standings.map((entry) => entry.team));
+    } else {
+      return stage.rounds.flatMap((round) => round.slots.flatMap((slot) => slot.legs.flatMap((leg) => [leg.homeTeam.id, leg.awayTeam.id])));
+    }
+  });
+});
+
+const teamOptions = computed<TeamDetails[]>(() => DETAILED_TEAM_LIST.filter((team) => {
+  const parseName = (name: string) => normalizeString(name).toLowerCase();
+  const { search, filter, country } = form.value;
+
+  const isSearchValid = search === '' || parseName(team.name).includes(parseName(search));
+  const isCountryValid = country === '' || team.country === country;
+  const isTypeValid = filter === TeamTypeFilter.All || (
+    (filter === TeamTypeFilter.TOURNAMENT) ? teamsInTournament.value.includes(team.id) : (filter as unknown as TeamType) === team.type
+  );
+
+  return !props.selectedTeams.includes(team.id) && isSearchValid && isTypeValid && isCountryValid;
+}));
 
 // Popover
 const popoverRef = useTemplateRef<HTMLElement>('popoverRef');

@@ -13,6 +13,7 @@
     <div class="flex gap-1 mb-2 justify-center relative">
       <EditStageTeamsInput
         ref="teamsInputRef"
+        :stage-id="stage.id"
         :selected-teams="selectedTeams"
         @select="onSelectTeam"
       />
