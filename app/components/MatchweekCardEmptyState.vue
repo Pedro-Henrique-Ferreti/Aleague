@@ -13,7 +13,7 @@
     </template>
     <template v-else>
       <p>Adicione todas as equipes antes de gerar as partidas.</p>
-      <EditStageTeamsModal
+      <StageTeamsModal
         v-slot="{ open }"
         :stage="stage"
       >
@@ -23,7 +23,7 @@
           :icon-left="IconUsersGroup"
           @click="open"
         />
-      </EditStageTeamsModal>
+      </StageTeamsModal>
     </template>
   </div>
 </template>

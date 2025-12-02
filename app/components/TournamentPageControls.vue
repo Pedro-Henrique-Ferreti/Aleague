@@ -11,7 +11,7 @@
       v-model:is-open="stageModalIsOpen"
       :stage="isEditingStage ? activeStage : undefined"
     />
-    <EditStageTeamsModal
+    <StageTeamsModal
       v-model:is-open="editTeamModalIsOpen"
       :allow-empty-slots="allowEmptySlots"
       :stage="activeStage"

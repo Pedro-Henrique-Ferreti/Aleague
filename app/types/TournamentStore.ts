@@ -1,4 +1,4 @@
-import type { FormStageGroup } from "~/components/EditStageTeamsModal.vue";
+import type { StageTeamsFormGroup } from "@/components/StageTeamsModal.vue";
 
 export type TournamentForm = Pick<Tournament, 'name' | 'iconId' | 'tags' | 'showCountry'>;
 
@@ -28,7 +28,7 @@ export interface EditStageStorePayload {
 export interface UpdateStageTeamsStorePayload {
   id: Tournament['id'];
   stageId: TournamentStage['id'];
-  form: FormStageGroup[];
+  form: StageTeamsFormGroup[];
 }
 
 export interface ReplaceTeamsInMatchweeksParams {
