@@ -1,5 +1,8 @@
 <template>
-  <div class="card card-border relative">
+  <div
+    class="card card-border relative"
+    :class="{ 'border-error': isInvalid }"
+  >
     <div
       class="card-body"
       ref="cardRef"
@@ -25,6 +28,7 @@ import type { StageTeamsFormGroup } from './StageTeamsModal.vue';
 defineProps<{
   stageType: TournamentStage['type'];
   group: StageTeamsFormGroup;
+  isInvalid?: boolean;
 }>();
 
 const teams = defineModel<StageTeamsFormGroup['teams']>('teams', { required: true });
