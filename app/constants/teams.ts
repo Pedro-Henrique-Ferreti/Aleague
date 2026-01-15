@@ -816,5 +816,5 @@ export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
   {id: 815, name: "Vila Rúbia", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
   {id: 816, name: "Vila Hamburgo", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
   {id: 817, name: "Jardim Sierra", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
-  {id: 818, name: "Vila Ouro", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"}]
-
+  {id: 818, name: "Vila Ouro", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
+  {id: 819, name: "Velo Clube", badge: "https://img.sofascore.com/api/v1/team/88736/image", country: "BRA", type: TeamType.CLUB}]
