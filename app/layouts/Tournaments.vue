@@ -8,7 +8,7 @@
           <slot name="header" />
         </div>
       </header>
-      <main>
+      <main class="@container/main">
         <slot />
       </main>
     </div>

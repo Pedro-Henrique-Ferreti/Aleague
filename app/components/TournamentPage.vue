@@ -1,11 +1,11 @@
 <template>
-  <header class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr] desktop:grid-cols-2">
+  <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr] desktop:grid-cols-2">
     <TournamentProfileCard :tournament="tournament" />
     <TournamentPageControls
       v-if="activeStage"
       :active-stage="activeStage"
     />
-  </header>
+  </div>
   <div
     v-if="tournament.stages.length === 0"
     class="max-w-44 min-h-10 mt-4 mx-auto card card-border"
