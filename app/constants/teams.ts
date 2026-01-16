@@ -817,4 +817,12 @@ export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
   {id: 816, name: "Vila Hamburgo", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
   {id: 817, name: "Jardim Sierra", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
   {id: 818, name: "Vila Ouro", badge: "/images/leagues/bolivian-league.png", type: TeamType.CUSTOM, country: "BOL"},
-  {id: 819, name: "Velo Clube", badge: "https://img.sofascore.com/api/v1/team/88736/image", country: "BRA", type: TeamType.CLUB}]
+  {id: 819, name: "Velo Clube", badge: "https://img.sofascore.com/api/v1/team/88736/image", country: "BRA", type: TeamType.CLUB},
+  {id: 820, name: "Boavista", badge: "https://img.sofascore.com/api/v1/team/6977/image", country: "BRA", type: TeamType.CLUB},
+  {id: 821, name: "São Gonçalo", badge: "https://img.sofascore.com/api/v1/team/257252/image", country: "BRA", type: TeamType.CLUB},
+  {id: 822, name: "Americano", badge: "https://img.sofascore.com/api/v1/team/1992/image", country: "BRA", type: TeamType.CLUB},
+  {id: 823, name: "Araruama", badge: "https://img.sofascore.com/api/v1/team/289892/image", country: "BRA", type: TeamType.CLUB},
+  {id: 824, name: "America-RJ", badge: "https://img.sofascore.com/api/v1/team/6976/image", country: "BRA", type: TeamType.CLUB},
+  {id: 825, name: "Cabofriense", badge: "https://img.sofascore.com/api/v1/team/6978/image", country: "BRA", type: TeamType.CLUB},
+  {id: 826, name: "Resende", badge: "https://img.sofascore.com/api/v1/team/32878/image", country: "BRA", type: TeamType.CLUB},
+  {id: 827, name: "Audax-RJ", badge: "https://img.sofascore.com/api/v1/team/85341/image", country: "BRA", type: TeamType.CLUB}]
