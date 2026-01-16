@@ -30,14 +30,6 @@
         <StageTeamsResetButton v-model="form.groups" />
       </div>
     </div>
-    <AppAlert
-      v-if="!teamsAreEvenlyDistributed"
-      class="mb-2"
-      type="error"
-      soft
-      message="Todos os grupos devem conter o mesmo número de equipes."
-      :icon="IconInfoCircle"
-    />
     <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
       <StageTeamsGroup
         v-for="group, index in form.groups"
@@ -45,7 +37,6 @@
         :group="group"
         :stage-type="stage.type"
         :key="group.order"
-        :is-invalid="group.teams.length !== teamsPerGroup"
       />
     </div>
   </AppModal>
@@ -68,8 +59,6 @@ export interface StageTeamsForm {
 </script>
 
 <script lang="ts" setup>
-import { IconInfoCircle } from '@tabler/icons-vue';
-
 const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
 
 const props = withDefaults(defineProps<Props>(), {
@@ -85,8 +74,6 @@ const form = ref<StageTeamsForm>({
   groups: [],
 });
 
-const teamsPerGroup = ref(0);
-
 // Modal
 function onOpenModal() {
   if (props.stage.type === StageType.GROUPS) {
@@ -100,13 +87,11 @@ function onOpenModal() {
       teams: [match.homeTeam.id, match.awayTeam.id],
     }));
   }
-
-  teamsPerGroup.value = form.value.groups[0]!.teams.length;
 }
 
 // Team selection
 const selectedTeams = computed(() => (
-  form.value.groups.flatMap((i) => i.teams).filter((team) => team !== null)
+  form.value.groups.flatMap((i) => i.teams.filter((team) => team !== null))
 ));
 
 function onSelectTeam(team: Team) {
@@ -119,17 +104,11 @@ function onSelectTeam(team: Team) {
   group.teams[slotIndex] = team.id;
 }
 
-// Form validation
-const teamsAreEvenlyDistributed = computed(() => (
-  form.value.groups.every((g) => g.teams.length === teamsPerGroup.value)
-));
-
 // Submit form
-const submitButtonDisabled = computed(() => {
-  const hasEmptySlots = form.value.groups.some((g) => g.teams.includes(null));
-
-  return (!props.allowEmptySlots && hasEmptySlots) || !teamsAreEvenlyDistributed.value;
-});
+const submitButtonDisabled = computed(() => (
+  !props.allowEmptySlots
+  && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
+));
 
 function submitForm() {
   updateStageTeams({
