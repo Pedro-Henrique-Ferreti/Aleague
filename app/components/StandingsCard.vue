@@ -105,10 +105,8 @@
     </div>
   </section>
   <StandingsFormModal
-    :is-open="!!selectedTableEntry"
+    v-model:entry="selectedTableEntry"
     :standings="standings"
-    :entry="selectedTableEntry"
-    @update:is-open="selectedTableEntry = null"
   />
 </template>
 

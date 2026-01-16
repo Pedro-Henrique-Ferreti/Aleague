@@ -4,6 +4,7 @@
     size="lg"
     :title="`Performance: ${getTeamById(entry?.team)?.name}`"
     :show-actions="false"
+    @open="loadChartData"
   >
     <StandingsFormList
       :key="`${entry?.team}-list`"
@@ -28,20 +29,20 @@ const { getTeamById } = useTeamStore();
 
 const props = defineProps<{
   standings: TournamentGroupsStage['groups'][number]['standings'];
-  entry: TableEntry | null;
 }>();
 
-const isOpen = defineModel<boolean>('is-open');
+const entry = defineModel<TableEntry | null>('entry');
+
+const isOpen = ref(false);
+
+watch(entry, () => isOpen.value = !!entry.value);
 
 // Chart data
 const chartData = ref<ChartProps['data'] | null>(null);
 
-// Open modal
-watch(isOpen, () => {
-  if (!isOpen.value) return;
-
+function loadChartData() {
   chartData.value = getTableEntriesByWeek(props.standings).flatMap((week) => {
-    const index = week.entries.findIndex((i) => i.team === props.entry?.team);
+    const index = week.entries.findIndex((i) => i.team === entry.value?.team);
 
     if (index === -1) return [];
 
@@ -53,5 +54,5 @@ watch(isOpen, () => {
       result: teamEntry.form[teamEntry.form.length - 1]?.result ?? MatchResult.DRAW,
     };
   });
-});
+}
 </script>
