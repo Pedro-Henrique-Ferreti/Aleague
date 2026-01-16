@@ -33,8 +33,7 @@
     <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
       <StageTeamsGroup
         v-for="group, index in form.groups"
-        v-model:teams="form.groups[index]!.teams"
-        :group="group"
+        v-model="form.groups[index]!"
         :stage-type="stage.type"
         :key="group.order"
       />
