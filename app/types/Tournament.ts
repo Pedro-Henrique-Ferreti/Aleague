@@ -39,7 +39,7 @@ export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;
 export interface Tournament {
   id: number;
   name: string;
-  iconId: number;
+  icon: string;
   createdAt: string;
   updatedAt: string;
   stages: TournamentStage[];

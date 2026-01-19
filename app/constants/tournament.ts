@@ -1,12 +1,14 @@
 const TOURNAMENT_NUMBER_OF_ICONS = 40;
 
-export const TOURNAMENT_ICONS_OPTIONS: Readonly<SelectOptionList<number>> = Array.from(
-  { length: TOURNAMENT_NUMBER_OF_ICONS },
-  (_, index) => ({
-    label: `Avatar ${index + 1}`,
-    value: index + 1,
-  }),
-);
+export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
+  ...Array.from(
+    { length: TOURNAMENT_NUMBER_OF_ICONS },
+    (_, index) => ({
+      label: `Logo ${index + 1}`,
+      value: `/images/icons/tournament/icon-${index + 1}.svg`,
+    }),
+  ),
+];
 
 export const TOURNAMENT_GROUP_FORMAT_OPTIONS: Readonly<SelectOptionList<TournamentGroupFormat>> = [
   { label: 'Equipes do mesmo grupo', value: TournamentGroupFormat.ROUND_ROBIN },

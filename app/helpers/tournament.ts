@@ -3,10 +3,6 @@ import { createMatchListFromTeamList } from './matchweek';
 import { getPlayoffRoundNames } from './playoffs';
 import { newStandingsEntry } from './standings';
 
-export function getTournamentIcon(id: Tournament['iconId']) {
-  return `/images/icons/tournament/icon-${id}.svg`;
-}
-
 export function createStage(tournament: Tournament, stageForm: TournamentStageForm) {
   const baseStage: BaseTournamentStage = {
     id: new Date().getTime(),

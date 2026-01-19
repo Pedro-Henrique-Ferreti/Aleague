@@ -1,6 +1,6 @@
 import type { StageTeamsFormGroup } from "@/components/StageTeamsModal.vue";
 
-export type TournamentForm = Pick<Tournament, 'name' | 'iconId' | 'tags' | 'showCountry'>;
+export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry'>;
 
 export type TournamentStageForm = (
   Pick<BaseTournamentStage, 'name' | 'type'>

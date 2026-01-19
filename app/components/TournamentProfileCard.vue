@@ -4,7 +4,7 @@
       <img
         class="w-auto h-full"
         alt="Tournament icon"
-        :src="getTournamentIcon(tournament.iconId)"
+        :src="tournament.icon"
       />
     </div>
     <div class="card-body">
@@ -25,7 +25,6 @@
 
 <script setup lang="ts">
 import { IconCalendarPlus, IconPencil } from '@tabler/icons-vue';
-import { getTournamentIcon } from '~/helpers/tournament';
 
 defineProps<{
   tournament: Tournament;
