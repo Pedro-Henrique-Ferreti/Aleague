@@ -12,7 +12,7 @@
       />
       <div class="not-group-data-[open]:hidden">
         <CreateTournamentMenu class="w-full" />
-        <ImportTournamentButton class="w-full mt-1 btn-soft" />
+        <OpenFileButton class="w-full mt-1 btn-soft" />
       </div>
     </header>
     <div class="sidebar-content">

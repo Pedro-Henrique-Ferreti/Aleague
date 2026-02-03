@@ -3,7 +3,7 @@
     class="btn-primary btn-outline"
     label="Abrir"
     :icon-left="IconFolder"
-    @click="importTournaments"
+    @click="openFileExplorer"
   />
 </template>
 
@@ -12,7 +12,7 @@ import { IconFolder } from '@tabler/icons-vue';
 
 const { tournaments, activeTournamentId } = storeToRefs(useTournamentStore());
 
-function handleImportTournament(data: Tournament[]) {
+function handleFileSelected(data: Tournament[]) {
   for (const tournament of data) {
     if (!tournaments.value.find((i) => i.id === tournament.id)) {
       tournaments.value.push(tournament);
@@ -22,5 +22,5 @@ function handleImportTournament(data: Tournament[]) {
   activeTournamentId.value = tournaments.value[tournaments.value.length - 1]?.id || null;
 }
 
-const { start: importTournaments } = useImportTournament(handleImportTournament, { multiple: true });
+const { start: openFileExplorer } = useImportFile(handleFileSelected, { multiple: true });
 </script>

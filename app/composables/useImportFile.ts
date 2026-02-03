@@ -4,7 +4,7 @@ interface ImportOptions {
   multiple?: boolean;
 }
 
-export function useImportTournament(onImport: ImportHandler, options?: ImportOptions) {
+export function useImportFile(onImport: ImportHandler, options?: ImportOptions) {
   const { open, onChange } = useFileDialog({
     accept: '.json',
     multiple: options?.multiple || false,

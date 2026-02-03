@@ -13,7 +13,7 @@
       <h1 class="text-3xl font-semibold mb-0.5">Bem-vindo ao Alegue</h1>
       <p>Para começar, importe um campeonato ou crie um novo.</p>
       <div class="flex mt-2 w-full items-center justify-center">
-        <ImportTournamentButton class="w-full max-w-12" />
+        <OpenFileButton class="w-full max-w-12" />
         <div class="divider divider-horizontal h-5!">ou</div>
         <CreateTournamentMenu
           button-label="Criar"

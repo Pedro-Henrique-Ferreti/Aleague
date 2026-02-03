@@ -19,7 +19,7 @@ const props = defineProps<{
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 
-const { start: importTournament } = useImportTournament((data: Tournament[]) => {
+const { start: importTournament } = useImportFile((data: Tournament[]) => {
   const [tournament] = data;
 
   if (!tournament) return;
