@@ -5,5 +5,5 @@ export enum ExportableFileType {
 
 export interface ExportableFile {
   id: number;
-  type: ExportableFileType;
+  fileType: ExportableFileType;
 }

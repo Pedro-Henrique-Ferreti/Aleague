@@ -1,5 +1,4 @@
-export interface Collection {
-  id: ExportableFile['id'];
+export interface Collection extends ExportableFile {
   name: string;
   tournaments: Tournament[];
 }

@@ -32,6 +32,7 @@ export const useTournamentStore = defineStore('tournament', {
       const tournament: Tournament = {
         ...payload,
         id: getExportableFileId(),
+        fileType: ExportableFileType.TOURNAMENT,
         createdAt: timestamp,
         updatedAt: timestamp,
         stages: [],
