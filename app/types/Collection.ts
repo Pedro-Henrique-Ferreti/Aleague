@@ -1,5 +1,5 @@
 export interface Collection {
-  id: number;
+  id: ExportableFile['id'];
   name: string;
   tournaments: Tournament[];
 }
