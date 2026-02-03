@@ -1,6 +1,6 @@
 <template>
   <div class="card card-border card-side">
-    <div class="flex justify-center items-center size-5.5 m-1 mr-0">
+    <div class="flex justify-center items-center size-5.5 m-1 mr-0 shrink-0">
       <img
         class="w-auto h-full"
         alt="Tournament icon"
