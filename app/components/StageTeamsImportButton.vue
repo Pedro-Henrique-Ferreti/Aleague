@@ -4,7 +4,7 @@
       class="btn-square btn-accent btn-soft"
       aria-label="Fill slots"
       :icon-left="IconFileArrowLeft"
-      @click="importTournament"
+      @click="openFileExplorer"
     />
   </div>
 </template>
@@ -19,8 +19,8 @@ const props = defineProps<{
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 
-const { start: importTournament } = useImportFile((data: Tournament[]) => {
-  const [tournament] = data;
+function handleFileSelected(files: Tournament[]) {
+  const [tournament] = files;
 
   if (!tournament) return;
 
@@ -45,5 +45,7 @@ const { start: importTournament } = useImportFile((data: Tournament[]) => {
       }
     }
   }
-});
+}
+
+const { openFileExplorer } = useImportFile<Tournament>(handleFileSelected, { fileType: BaseFileType.TOURNAMENT });
 </script>

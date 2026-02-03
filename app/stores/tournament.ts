@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getExportableFileId, getTimestamp } from '~/helpers/file';
+import { getBaseFileId, getTimestamp } from '~/helpers/file';
 import { allTeamsAssigned } from '~/helpers/stage';
 import { newStandingsEntry } from '~/helpers/standings';
 import { createMatchweeks, createStage } from '~/helpers/tournament';
@@ -31,8 +31,8 @@ export const useTournamentStore = defineStore('tournament', {
       const timestamp = getTimestamp();
       const tournament: Tournament = {
         ...payload,
-        id: getExportableFileId(),
-        fileType: ExportableFileType.TOURNAMENT,
+        id: getBaseFileId(),
+        fileType: BaseFileType.TOURNAMENT,
         createdAt: timestamp,
         updatedAt: timestamp,
         stages: [],

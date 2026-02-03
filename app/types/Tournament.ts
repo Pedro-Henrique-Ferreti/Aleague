@@ -36,7 +36,7 @@ export interface TournamentPlayoffsStage extends BaseTournamentStage {
 
 export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;
 
-export interface Tournament extends ExportableFile {
+export interface Tournament extends BaseFile {
   name: string;
   icon: string;
   createdAt: string;

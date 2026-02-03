@@ -1,28 +1,35 @@
-type ImportHandler = (value: Tournament[]) => unknown;
+type ImportHandler<T> = (value: T[]) => unknown;
 
 interface ImportOptions {
   multiple?: boolean;
+  fileType?: BaseFile['fileType'];
 }
 
-export function useImportFile(onImport: ImportHandler, options?: ImportOptions) {
+export function useImportFile<ParsedFileType extends SourceFile = SourceFile>(
+  onImport: ImportHandler<ParsedFileType>,
+  options?: ImportOptions,
+) {
   const { open, onChange } = useFileDialog({
     accept: '.json',
     multiple: options?.multiple || false,
   });
 
-  onChange(async (files) => {
-    if (!files) return;
+  onChange(async (fileList) => {
+    if (!fileList) return;
 
-    const tournaments: Tournament[] = [];
+    const parsedFiles: ParsedFileType[] = [];
+    const promiseList: Promise<void>[] = [];
 
-    const promises: Promise<void>[] = [];
-
-    for (const file of files) {
-      promises.push(new Promise((resolve) => {
+    for (const file of fileList) {
+      promiseList.push(new Promise((resolve) => {
         const reader = new FileReader();
     
         reader.onload = () => {
-          tournaments.push(JSON.parse(reader.result as string) as Tournament);
+          const parsedFile = JSON.parse(reader.result as string) as SourceFile;
+
+          if (options?.fileType === undefined || parsedFile.fileType === options.fileType) {
+            parsedFiles.push(parsedFile as ParsedFileType);
+          }
 
           resolve();
         };
@@ -31,10 +38,10 @@ export function useImportFile(onImport: ImportHandler, options?: ImportOptions) 
       }));
     }
 
-    await Promise.all(promises);
+    await Promise.all(promiseList);
 
-    onImport(tournaments);
+    onImport(parsedFiles);
   });
 
-  return { start: open };
+  return { openFileExplorer: open };
 }

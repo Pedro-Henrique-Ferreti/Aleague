@@ -22,5 +22,8 @@ function handleFileSelected(data: Tournament[]) {
   activeTournamentId.value = tournaments.value[tournaments.value.length - 1]?.id || null;
 }
 
-const { start: openFileExplorer } = useImportFile(handleFileSelected, { multiple: true });
+const { openFileExplorer } = useImportFile<Tournament>(handleFileSelected, {
+  multiple: true,
+  fileType: BaseFileType.TOURNAMENT,
+});
 </script>

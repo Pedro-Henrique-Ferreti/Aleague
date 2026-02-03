@@ -1,9 +1,11 @@
-export enum ExportableFileType {
+export enum BaseFileType {
   COLLECTION,
   TOURNAMENT,
 }
 
-export interface ExportableFile {
+export interface BaseFile {
   id: number;
-  fileType: ExportableFileType;
+  fileType: BaseFileType;
 }
+
+export type SourceFile = Collection | Tournament;

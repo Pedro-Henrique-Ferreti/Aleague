@@ -1,4 +1,4 @@
-export interface Collection extends ExportableFile {
+export interface Collection extends BaseFile {
   name: string;
   tournaments: Tournament[];
 }
