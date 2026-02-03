@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { getExportableFileId, getTimestamp } from '~/helpers/file';
 import { allTeamsAssigned } from '~/helpers/stage';
 import { newStandingsEntry } from '~/helpers/standings';
 import { createMatchweeks, createStage } from '~/helpers/tournament';
@@ -27,11 +28,12 @@ export const useTournamentStore = defineStore('tournament', {
       return stage;
     },
     createTournament(payload: TournamentForm) {
+      const timestamp = getTimestamp();
       const tournament: Tournament = {
         ...payload,
-        id: new Date().getTime(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        id: getExportableFileId(),
+        createdAt: timestamp,
+        updatedAt: timestamp,
         stages: [],
       };
 
@@ -52,7 +54,7 @@ export const useTournamentStore = defineStore('tournament', {
     exportTournament(id: Tournament['id']) {
       const tournament = this.getTournament(id);
 
-      tournament.updatedAt = new Date().toISOString();
+      tournament.updatedAt = getTimestamp();
 
       downloadFile(
         new Blob([JSON.stringify(tournament)], { type: 'application/json' }),
@@ -65,13 +67,14 @@ export const useTournamentStore = defineStore('tournament', {
       const newId = new Date().getTime();
       const name = parse(tournament.name);
       const number = this.tournaments.filter((t) => parse(t.name).startsWith(name)).length + 1;
+      const timestamp = getTimestamp();
 
       this.tournaments.push({
         ...tournament,
         id: newId,
         name: `${name} (${number})`,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdAt: timestamp,
+        updatedAt: timestamp,
       });
 
       this.activeTournamentId = newId;
