@@ -1,14 +1,14 @@
 <template>
   <AppButton
     class="btn-primary btn-outline"
-    label="Importar"
-    :icon-left="IconFileArrowLeft"
+    label="Abrir"
+    :icon-left="IconFolder"
     @click="importTournaments"
   />
 </template>
 
 <script lang="ts" setup>
-import { IconFileArrowLeft } from '@tabler/icons-vue';
+import { IconFolder } from '@tabler/icons-vue';
 
 const { tournaments, activeTournamentId } = storeToRefs(useTournamentStore());
 
