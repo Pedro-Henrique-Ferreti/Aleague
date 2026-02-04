@@ -9,7 +9,7 @@
   />
   <TournamentFormModal
     v-model:is-open="tournamentModalIsOpen"
-    :submit-fn="submitTournamentForm"
+    :submit-fn="createTournament"
   />
   <CollectionFormModal v-model:is-open="collectionModalIsOpen" />
 </template>
@@ -30,9 +30,8 @@ withDefaults(defineProps<{
 // Tournament modal
 const tournamentModalIsOpen = ref(false);
 
-function submitTournamentForm(form: TournamentForm) {
+function createTournament(form: TournamentForm) {
   const tournament = tournamentStore.createTournament(form);
-  
   tournamentStore.activeTournamentId = tournament.id;
 }
 

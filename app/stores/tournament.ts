@@ -11,8 +11,24 @@ export const useTournamentStore = defineStore('tournament', {
   }),
   getters: {
     activeTournament: (state) => state.tournaments.find((t) => t.id === state.activeTournamentId),
+    nonCollectionTournaments: (state) => state.tournaments.filter((t) => !t.collectionId),
   },
   actions: {
+    createTournament(payload: TournamentForm) {
+      const timestamp = getTimestamp();
+      const tournament: Tournament = {
+        ...payload,
+        id: getBaseFileId(),
+        collectionId: null,
+        createdAt: timestamp,
+        updatedAt: timestamp,
+        stages: [],
+      };
+
+      this.tournaments.push(tournament);
+
+      return tournament;
+    },
     getTournament(id: Tournament['id'] | null): Tournament {
       const tournament = this.tournaments.find((tournament) => tournament.id === id);
 
@@ -26,21 +42,6 @@ export const useTournamentStore = defineStore('tournament', {
       if (!stage) throw new Error('Stage not found');
 
       return stage;
-    },
-    createTournament(payload: TournamentForm) {
-      const timestamp = getTimestamp();
-      const tournament: Tournament = {
-        ...payload,
-        id: getBaseFileId(),
-        fileType: SourceFileType.TOURNAMENT,
-        createdAt: timestamp,
-        updatedAt: timestamp,
-        stages: [],
-      };
-
-      this.tournaments.push(tournament);
-
-      return tournament;
     },
     updateTournament(id: Tournament['id'], payload: TournamentForm) {
       const index = this.tournaments.findIndex((i) => i.id === id);
