@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-const sourceFileStore = useSourceFileStore();
+const { createCollection } = useCollectionStore();
 
 const props = defineProps<{
   collection?: Collection;
@@ -41,7 +41,7 @@ const form = ref<CollectionForm>(newForm());
 const submitIsDisabled = computed(() => !form.value.name);
 
 async function submitForm() {
-  sourceFileStore.createCollection(form.value);
+  createCollection(form.value);
 
   modalIsOpen.value = false;
 }
