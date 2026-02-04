@@ -1,7 +1,6 @@
-export interface Collection extends BaseFile {
-  fileType: SourceFileType.COLLECTION;
+export type Collection = Pick<CollectionFile, 'id' | 'createdAt'> & {
   name: string;
-  tournaments: Tournament[];
+  tournaments: Tournament['id'][];
 }
 
 export type CollectionForm = Pick<Collection, 'name'>;

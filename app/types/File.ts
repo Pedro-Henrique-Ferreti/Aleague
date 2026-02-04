@@ -5,8 +5,20 @@ export enum SourceFileType {
 
 export interface BaseFile {
   id: number;
-  fileType: SourceFileType;
+  type: SourceFileType;
   createdAt: string;
 }
 
-export type SourceFile = Collection | Tournament;
+export interface CollectionFile extends BaseFile {
+  type: SourceFileType.COLLECTION;
+  data: Omit<Collection, 'tournaments'> & {
+    tournaments: Tournament[];
+  };
+}
+
+export interface TournamentFile extends BaseFile {
+  type: SourceFileType.TOURNAMENT;
+  data: Tournament;
+}
+
+export type SourceFile = CollectionFile | TournamentFile;
