@@ -16,30 +16,26 @@
       </div>
     </header>
     <div class="sidebar-content">
-      <div class="text-lg font-medium">Campeonatos</div>
-      <ul class="menu gap-0.25 w-full mt-1 p-0">
-        <li
-          v-for="tournament in tournamentStore.tournaments"
-          :key="tournament.id"
-        >
-          <button
-            type="button"
-            :class="{ 'menu-active': tournamentStore.activeTournamentId === tournament.id }"
-            @click="tournamentStore.activeTournamentId = tournament.id"
-          >
-            <IconFile class="h-1 w-1" />
-            {{ tournament.name }}
-          </button>
-        </li>
+      <ul class="menu gap-0.25 w-full p-0">
+        <TheSidebarCollection
+          v-for="file in sourceFileStore.files.filter((i) => i.fileType === SourceFileType.COLLECTION)"
+          :key="file.id"
+          :collection="file"
+        />
+        <TheSidebarFileItem
+          v-for="file in sourceFileStore.files.filter((i) => i.fileType === SourceFileType.TOURNAMENT)"
+          :key="file.id"
+          :tournament="file"
+        />
       </ul>
     </div>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { IconChevronLeft, IconChevronRight, IconFile } from '@tabler/icons-vue';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 
-const tournamentStore = useTournamentStore();
+const sourceFileStore = useSourceFileStore();
 
 const menuIsOpen = ref(true);
 </script>
