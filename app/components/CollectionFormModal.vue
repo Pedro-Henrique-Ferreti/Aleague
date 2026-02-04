@@ -14,35 +14,34 @@
 </template>
 
 <script setup lang="ts">
+const sourceFileStore = useSourceFileStore();
+
 const props = defineProps<{
   collection?: Collection;
-  submitFn: (form: CollectionForm) => Promise<void> | void;
 }>();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
 function onOpenModal() {
-  if (props.collection) {
-    form.value = {
-      name: props.collection.name,
-    };
+  if (!props.collection) {
+    form.value = newForm();
     return;
   }
 
-  form.value = newForm();
+  form.value = {
+    name: props.collection.name,
+  };
 }
 
 // Form
-const newForm = (): CollectionForm => ({
-  name: '',
-});
+const newForm = (): CollectionForm => ({ name: '' });
 
 const form = ref<CollectionForm>(newForm());
 
 const submitIsDisabled = computed(() => !form.value.name);
 
 async function submitForm() {
-  await props.submitFn(form.value);
+  sourceFileStore.createCollection(form.value);
 
   modalIsOpen.value = false;
 }

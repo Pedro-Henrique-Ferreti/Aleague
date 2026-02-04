@@ -6,6 +6,7 @@ export enum BaseFileType {
 export interface BaseFile {
   id: number;
   fileType: BaseFileType;
+  createdAt: string;
 }
 
 export type SourceFile = Collection | Tournament;
