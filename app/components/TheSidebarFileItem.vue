@@ -2,7 +2,8 @@
   <li>
     <button
       type="button"
-      :class="{ 'menu-active': false }"
+      :class="{ 'menu-active': tournamentStore.activeTournamentId === tournament.id }"
+      @click="tournamentStore.activeTournamentId = tournament.id"
     >
       <IconFileDescription class="h-1 w-1" />
       {{ tournament.name }}
@@ -12,6 +13,8 @@
 
 <script lang="ts" setup>
 import { IconFileDescription } from '@tabler/icons-vue';
+
+const tournamentStore = useTournamentStore();
 
 defineProps<{ tournament: Tournament }>();
 </script>

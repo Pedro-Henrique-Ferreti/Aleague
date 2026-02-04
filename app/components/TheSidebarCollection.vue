@@ -6,7 +6,7 @@
     </span>
     <ul>
       <TheSidebarFileItem
-        v-for="tournament in collection.tournaments"
+        v-for="tournament in tournaments"
         :key="tournament.id"
         :tournament="tournament"
       />
@@ -17,5 +17,9 @@
 <script lang="ts" setup>
 import { IconFolderOpen } from '@tabler/icons-vue';
 
-defineProps<{ collection: Collection }>();
+const tournamentStore = useTournamentStore();
+
+const props = defineProps<{ collection: Collection }>();
+
+const tournaments = computed(() => tournamentStore.tournaments.filter((t) => t.collectionId === props.collection.id));
 </script>

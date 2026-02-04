@@ -18,14 +18,14 @@
     <div class="sidebar-content">
       <ul class="menu gap-0.25 w-full p-0">
         <TheSidebarCollection
-          v-for="file in sourceFileStore.files.filter((i) => i.fileType === SourceFileType.COLLECTION)"
-          :key="file.id"
-          :collection="file"
+          v-for="collection in collectionStore.collections"
+          :key="collection.id"
+          :collection="collection"
         />
         <TheSidebarFileItem
-          v-for="file in sourceFileStore.files.filter((i) => i.fileType === SourceFileType.TOURNAMENT)"
-          :key="file.id"
-          :tournament="file"
+          v-for="tournament in tournamentStore.nonCollectionTournaments"
+          :key="tournament.id"
+          :tournament="tournament"
         />
       </ul>
     </div>
@@ -35,7 +35,8 @@
 <script setup lang="ts">
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 
-const sourceFileStore = useSourceFileStore();
+const collectionStore = useCollectionStore();
+const tournamentStore = useTournamentStore();
 
 const menuIsOpen = ref(true);
 </script>
