@@ -10,20 +10,25 @@
 <script lang="ts" setup>
 import { IconFolder } from '@tabler/icons-vue';
 
-const { tournaments, activeTournamentId } = storeToRefs(useTournamentStore());
+const collectionStore = useCollectionStore();
+const tournamentStore = useTournamentStore();
 
-function handleFileSelected(data: Tournament[]) {
-  for (const tournament of data) {
-    if (!tournaments.value.find((i) => i.id === tournament.id)) {
-      tournaments.value.push(tournament);
-    }
-  }
+function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFilesHandlerParams) {
+  collectionFiles.forEach((file) => {
+    collectionStore.collections.push({
+      id: file.id,
+      name: file.data.name,
+      createdAt: file.createdAt,
+      tournaments: file.data.tournaments.map((i) => i.id),
+    } satisfies Collection);
 
-  activeTournamentId.value = tournaments.value[tournaments.value.length - 1]?.id || null;
+    tournamentStore.tournaments.push(...file.data.tournaments);
+  });
+
+  tournamentFiles.forEach((file) => {
+    tournamentStore.tournaments.push(file.data);
+  });
 }
 
-const { openFileExplorer } = useImportFile<Tournament>(handleFileSelected, {
-  multiple: true,
-  fileType: BaseFileType.TOURNAMENT,
-});
+const { openFileExplorer } = useImportSourceFiles(onFilesImported, { multiple: true });
 </script>
