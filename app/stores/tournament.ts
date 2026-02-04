@@ -32,7 +32,7 @@ export const useTournamentStore = defineStore('tournament', {
       const tournament: Tournament = {
         ...payload,
         id: getBaseFileId(),
-        fileType: BaseFileType.TOURNAMENT,
+        fileType: SourceFileType.TOURNAMENT,
         createdAt: timestamp,
         updatedAt: timestamp,
         stages: [],

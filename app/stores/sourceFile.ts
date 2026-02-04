@@ -13,7 +13,7 @@ export const useSourceFileStore = defineStore('source-file', {
     createCollection(payload: CollectionForm) {
       this.files.push({
         id: getBaseFileId(),
-        fileType: BaseFileType.COLLECTION,
+        fileType: SourceFileType.COLLECTION,
         name: payload.name,
         tournaments: [],
         createdAt: getTimestamp(),

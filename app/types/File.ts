@@ -1,11 +1,11 @@
-export enum BaseFileType {
+export enum SourceFileType {
   COLLECTION,
   TOURNAMENT,
 }
 
 export interface BaseFile {
   id: number;
-  fileType: BaseFileType;
+  fileType: SourceFileType;
   createdAt: string;
 }
 

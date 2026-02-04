@@ -1,4 +1,5 @@
 export interface Collection extends BaseFile {
+  fileType: SourceFileType.COLLECTION;
   name: string;
   tournaments: Tournament[];
 }

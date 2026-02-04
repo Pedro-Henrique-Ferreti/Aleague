@@ -47,5 +47,5 @@ function handleFileSelected(files: Tournament[]) {
   }
 }
 
-const { openFileExplorer } = useImportFile<Tournament>(handleFileSelected, { fileType: BaseFileType.TOURNAMENT });
+const { openFileExplorer } = useImportFile<Tournament>(handleFileSelected, { fileType: SourceFileType.TOURNAMENT });
 </script>
