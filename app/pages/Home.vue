@@ -15,8 +15,7 @@
       <div class="flex mt-2 w-full items-center justify-center">
         <OpenFileButton class="w-full max-w-12" />
         <div class="divider divider-horizontal h-5!">ou</div>
-        <CreateTournamentMenu
-          button-label="Criar"
+        <CreateFileMenu
           class="w-full max-w-12 btn-outline"
           dropdown-class="w-full max-w-12"
         />

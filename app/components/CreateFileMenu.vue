@@ -1,6 +1,6 @@
 <template>
   <AppMenu
-    :label="buttonLabel"
+    label="Criar"
     :class="['btn-primary', $attrs.class]"
     :icon="IconPlus"
     :items="menuItems"
@@ -20,12 +20,9 @@ import type { AppMenuProps, MenuItem } from './AppMenu.vue';
 
 const tournamentStore = useTournamentStore();
 
-withDefaults(defineProps<{
+defineProps<{
   dropdownClass?: AppMenuProps['dropdownClass'];
-  buttonLabel?: string;
-}>(), {
-  buttonLabel: 'Criar novo',
-});
+}>();
 
 // Tournament modal
 const tournamentModalIsOpen = ref(false);

@@ -11,7 +11,7 @@
         @click="menuIsOpen = !menuIsOpen"
       />
       <div class="not-group-data-[open]:hidden">
-        <CreateTournamentMenu class="w-full" />
+        <CreateFileMenu class="w-full" />
         <OpenFileButton class="w-full mt-1 btn-soft" />
       </div>
     </header>
