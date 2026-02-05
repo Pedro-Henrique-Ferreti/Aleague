@@ -4,8 +4,8 @@
       <FileToolbar v-if="tournamentStore.activeTournamentId" />
     </template>
     <div
-      v-if="tournamentStore.tournaments.length === 0"
-      class="flex flex-col items-center mt-8"
+      v-if="!tournamentStore.activeTournamentId"
+      class="flex flex-col items-center mt-10"
     >
       <h1 class="text-3xl font-semibold mb-0.5">Bem-vindo ao Alegue</h1>
       <p>Para começar, importe um campeonato ou crie um novo.</p>
