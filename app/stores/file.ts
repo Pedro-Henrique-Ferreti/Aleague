@@ -30,7 +30,7 @@ export const useFileStore = defineStore('file', {
           id: collection.id,
           name: collection.name,
           createdAt: collection.createdAt,
-          tournaments: tournamentStore.tournaments.filter((t) => collection.tournaments.includes(t.id)),
+          tournaments: tournamentStore.tournaments.filter((t) => t.collectionId === collection.id),
         },
       };
     },

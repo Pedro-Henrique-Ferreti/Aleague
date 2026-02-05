@@ -19,7 +19,6 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
       id: file.id,
       name: file.data.name,
       createdAt: file.createdAt,
-      tournaments: file.data.tournaments.map((i) => i.id),
     } satisfies Collection);
 
     tournamentStore.tournaments.push(...file.data.tournaments);
