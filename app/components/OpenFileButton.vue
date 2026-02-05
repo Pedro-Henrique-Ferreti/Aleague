@@ -14,7 +14,17 @@ const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
 function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFilesHandlerParams) {
-  collectionFiles.forEach((file) => {
+  const tournaments = tournamentFiles.filter(
+    (file) => !tournamentStore.tournaments.find((i) => i.id === file.data.id)
+  ).map((file) => file.data);
+
+  tournamentStore.tournaments.push(...tournaments);
+
+  let id = tournaments.reverse()[0]?.id;
+
+  for (const file of collectionFiles) {
+    if (collectionStore.collections.find((i) => i.id === file.id)) return;
+
     collectionStore.collections.push({
       id: file.id,
       name: file.data.name,
@@ -22,11 +32,13 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
     } satisfies Collection);
 
     tournamentStore.tournaments.push(...file.data.tournaments);
-  });
 
-  tournamentFiles.forEach((file) => {
-    tournamentStore.tournaments.push(file.data);
-  });
+    id = file.data.tournaments[0]?.id ?? id;
+  }
+
+  if (id) {
+    tournamentStore.activeTournamentId = id;
+  }
 }
 
 const { openFileExplorer } = useImportSourceFiles(onFilesImported, { multiple: true });
