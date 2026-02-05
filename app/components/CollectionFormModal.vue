@@ -1,8 +1,9 @@
 <template>
   <AppModal
     v-model:is-open="modalIsOpen"
-    :title="collection ? 'Editar coleção' : 'Criar coleção'"
+    :title="isEditingCollection ? 'Editar coleção' : 'Criar coleção'"
     :submit-button-disabled="submitIsDisabled"
+    :submit-button-label="isEditingCollection ? undefined : 'Criar'"
     @open="onOpenModal"
     @submit="submitForm"
   >
@@ -37,6 +38,7 @@ function onOpenModal() {
 const newForm = (): CollectionForm => ({ name: '' });
 
 const form = ref<CollectionForm>(newForm());
+const isEditingCollection = computed(() => !!props.collection);
 
 const submitIsDisabled = computed(() => !form.value.name);
 

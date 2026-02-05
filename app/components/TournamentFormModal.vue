@@ -1,8 +1,9 @@
 <template>
   <AppModal
     v-model:is-open="modalIsOpen"
-    :title="tournament ? 'Editar campeonato' : 'Criar campeonato'"
+    :title="isEditingTournament ? 'Editar campeonato' : 'Criar campeonato'"
     :submit-button-disabled="submitIsDisabled"
+    :submit-button-label="isEditingTournament ? undefined : 'Criar'"
     @open="onOpenModal"
     @submit="submitForm"
   >
@@ -81,6 +82,7 @@ const newForm = (): TournamentForm => ({
 });
 
 const form = ref<TournamentForm>(newForm());
+const isEditingTournament = computed(() => !!props.tournament);
 
 const selectedIconIndex = computed(() => ICON_OPTIONS.findIndex(({ value }) => value === form.value.icon));
 
