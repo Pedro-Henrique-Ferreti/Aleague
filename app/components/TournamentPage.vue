@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr] desktop:grid-cols-2">
+  <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr]">
     <TournamentProfileCard :tournament="tournament" />
     <TournamentPageControls
       v-if="activeStage"
