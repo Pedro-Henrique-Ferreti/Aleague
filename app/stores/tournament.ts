@@ -53,16 +53,6 @@ export const useTournamentStore = defineStore('tournament', {
         ...payload,
       };
     },
-    exportTournament(id: Tournament['id']) {
-      const tournament = this.getTournament(id);
-
-      tournament.updatedAt = getTimestamp();
-
-      downloadFile(
-        new Blob([JSON.stringify(tournament)], { type: 'application/json' }),
-        `${normalizeString(tournament.name).replace(/[^a-zA-Z0-9]/g, '_')}.json`,
-      );
-    },
     duplicateTournament(id: Tournament['id']) {
       const parse = (str: string) => str.replace(/\(\d+\)/, '').trim();
       const tournament = clone(this.getTournament(id));

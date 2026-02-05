@@ -16,7 +16,7 @@
       class="btn-accent btn-soft ml-0.5"
       label="Salvar"
       :icon-left="IconDownload"
-      @click="tournamentStore.exportTournament(tournamentId)"
+      @click="downloadTournamentSourceFile(tournamentId)"
     />
   </div>
   <TournamentFormModal
@@ -31,6 +31,7 @@
 <script lang="ts" setup>
 import { IconLayersSubtract, IconEdit, IconDownload } from '@tabler/icons-vue';
 
+const { downloadTournamentSourceFile } = useFileStore();
 const tournamentStore = useTournamentStore();
 
 const tournamentId = computed(() => tournamentStore.activeTournamentId!);

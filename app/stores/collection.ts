@@ -10,6 +10,13 @@ export const useCollectionStore = defineStore('collection', {
     collections: [],
   }),
   actions: {
+    getCollection(id: Collection['id'] | null): Collection {
+      const collection = this.collections.find((i) => i.id === id);
+
+      if (!collection) throw new Error('Collection not found');
+
+      return collection;
+    },
     createCollection(payload: CollectionForm) {
       this.collections.push({
         id: getBaseFileId(),
