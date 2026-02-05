@@ -1,10 +1,10 @@
 <template>
-  <li>
+  <li class="gap-0.25">
     <span>
       <IconFolderOpen class="h-1 w-1" />
       {{ collection.name }}
     </span>
-    <ul>
+    <ul class="grid gap-0.25">
       <TheSidebarFileItem
         v-for="tournament in tournaments"
         :key="tournament.id"
