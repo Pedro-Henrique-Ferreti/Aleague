@@ -16,6 +16,24 @@
       </div>
     </header>
     <div class="sidebar-content">
+      <h2 class="text-gray-500 mb-0.5">Geral</h2>
+      <nav class="mb-1.5">
+        <ul class="menu gap-0.25 p-0 w-full">
+          <TheSidebarNavItem
+            label="Campeonatos"
+            :to="{ name: 'home' }"
+            :icon="IconTournament"
+            :is-active="$route.name === 'home'"
+          />
+          <TheSidebarNavItem
+            label="Estatísticas"
+            :to="{ name: 'analytics' }"
+            :icon="IconReportAnalytics"
+            :is-active="$route.name === 'analytics'"
+          />
+        </ul>
+      </nav>
+      <h2 class="text-gray-500 mb-0.5">Arquivos</h2>
       <ul class="menu gap-0.25 w-full p-0">
         <TheSidebarCollection
           v-for="collection in collectionStore.collections"
@@ -33,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
+import { IconChevronLeft, IconChevronRight, IconReportAnalytics, IconTournament } from '@tabler/icons-vue';
 
 const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
