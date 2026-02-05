@@ -1,10 +1,7 @@
 <template>
   <NuxtLayout>
-    <template
-      v-if="tournamentStore.tournaments.length > 0"
-      #header
-    >
-      <HomeHeader />
+    <template #header>
+      <FileToolbar v-if="tournamentStore.activeTournamentId" />
     </template>
     <div
       v-if="tournamentStore.tournaments.length === 0"
@@ -30,6 +27,8 @@
 </template>
 
 <script setup lang="ts">
+import FileToolbar from '~/components/FileToolbar.vue';
+
 const tournamentStore = useTournamentStore();
 
 const activeTournament = computed({
