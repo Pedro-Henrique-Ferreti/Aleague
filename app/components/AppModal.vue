@@ -37,7 +37,7 @@
             @click="closeModal"
           />
           <AppButton
-            class="btn-primary"
+            class="btn-primary min-w-5.5"
             :label="submitButtonLabel"
             :disabled="submitButtonDisabled"
             @click="$emit('submit')"
