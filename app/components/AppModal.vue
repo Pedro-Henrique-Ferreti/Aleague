@@ -36,12 +36,14 @@
             label="Cancelar"
             @click="closeModal"
           />
-          <AppButton
-            class="btn-primary min-w-5.5"
-            :label="submitButtonLabel"
-            :disabled="submitButtonDisabled"
-            @click="$emit('submit')"
-          />
+          <slot name="submit-button">
+            <AppButton
+              class="btn-primary min-w-5.5"
+              :label="submitButtonLabel"
+              :disabled="submitButtonDisabled"
+              @click="$emit('submit')"
+            />
+          </slot>
         </slot>
       </div>
     </div>
