@@ -14,6 +14,12 @@
     <div class="flex justify-end gap-0.5 ml-auto">
       <AppButton
         class="btn-ghost px-0.5 bg-transparent"
+        label="Mover"
+        :icon-left="IconFolderUp"
+        @click="moveTournamentModalIsOpen = true"
+      />
+      <AppButton
+        class="btn-ghost px-0.5 bg-transparent"
         label="Duplicar"
         :icon-left="IconLayersSubtract"
         @click="tournamentStore.duplicateTournament(tournamentId)"
@@ -39,10 +45,11 @@
     :tournament="tournamentStore.activeTournament"
     :submit-fn="(form) => tournamentStore.updateTournament(tournamentId, form)"
   />
+  <MoveTournamentModal v-model:is-open="moveTournamentModalIsOpen" />
 </template>
 
 <script lang="ts" setup>
-import { IconLayersSubtract, IconEdit, IconDownload, IconFolderOpen, IconFileDescription } from '@tabler/icons-vue';
+import { IconLayersSubtract, IconEdit, IconDownload, IconFolderOpen, IconFileDescription, IconFolderUp } from '@tabler/icons-vue';
 
 const { downloadTournamentSourceFile } = useFileStore();
 const tournamentStore = useTournamentStore();
@@ -50,6 +57,6 @@ const collectionStore = useCollectionStore();
 
 const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 
-// Tournament modal
 const tournamentModalIsOpen = ref(false);
+const moveTournamentModalIsOpen = ref(false);
 </script>

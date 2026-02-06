@@ -43,7 +43,7 @@ export const useTournamentStore = defineStore('tournament', {
 
       return stage;
     },
-    updateTournament(id: Tournament['id'], payload: TournamentForm) {
+    updateTournament(id: Tournament['id'] | null, payload: TournamentForm) {
       const index = this.tournaments.findIndex((i) => i.id === id);
 
       if (index === -1) throw new Error('Tournament not found');
