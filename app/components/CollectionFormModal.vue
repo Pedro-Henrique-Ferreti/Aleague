@@ -1,7 +1,7 @@
 <template>
   <AppModal
     v-model:is-open="modalIsOpen"
-    :title="isEditingCollection ? 'Editar coleção' : 'Criar coleção'"
+    :title="isEditingCollection ? 'Renomear coleção' : 'Criar coleção'"
     :submit-button-disabled="submitIsDisabled"
     :submit-button-label="isEditingCollection ? undefined : 'Criar'"
     @open="onOpenModal"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-const { createCollection } = useCollectionStore();
+const { createCollection, updateCollection } = useCollectionStore();
 
 const props = defineProps<{
   collection?: Collection;
@@ -43,7 +43,11 @@ const isEditingCollection = computed(() => !!props.collection);
 const submitIsDisabled = computed(() => !form.value.name);
 
 async function submitForm() {
-  createCollection(form.value);
+  if (isEditingCollection.value) {
+    updateCollection(props.collection!.id, form.value);
+  } else {
+    createCollection(form.value);
+  }
 
   modalIsOpen.value = false;
 }

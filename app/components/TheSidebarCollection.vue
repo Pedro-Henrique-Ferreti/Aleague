@@ -1,9 +1,13 @@
 <template>
   <li class="gap-0.25">
-    <span>
+    <BaseButton
+      class="group/collection"
+      @click="$emit('edit')"
+    >
       <IconFolderOpen class="h-1 w-1" />
       {{ collection.name }}
-    </span>
+      <IconEdit class="h-1 w-1 opacity-0 group-hover/collection:opacity-100" />
+    </BaseButton>
     <ul class="grid gap-0.25">
       <TheSidebarFileItem
         v-for="tournament in tournaments"
@@ -15,10 +19,11 @@
 </template>
 
 <script lang="ts" setup>
-import { IconFolderOpen } from '@tabler/icons-vue';
+import { IconEdit, IconFolderOpen } from '@tabler/icons-vue';
 
 const tournamentStore = useTournamentStore();
 
+defineEmits<{ 'edit': [] }>();
 const props = defineProps<{ collection: Collection }>();
 
 const tournaments = computed(() => tournamentStore.tournaments.filter((t) => t.collectionId === props.collection.id));
