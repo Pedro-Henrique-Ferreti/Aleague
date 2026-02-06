@@ -8,20 +8,35 @@
     @submit="onSubmit"
   >
     <template #trigger="{ open }">
-      <slot :open="open" />
+      <slot
+        name="trigger"
+        :open="open"
+      />
     </template>
-    <p>{{ message }}</p>
+    <slot>
+      <p>{{ message }}</p>
+    </slot>
+    <template #submit-button>
+      <AppButton
+        v-if="type === 'delete'"
+        class="btn-error"
+        label="Continuar"
+        @click="onSubmit"
+      />
+    </template>
   </AppModal>
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits<{
-  (e: 'confirm'): void;
-}>();
-withDefaults(defineProps<{
+interface Props {
   title?: string;
-  message: string;
-}>(), {
+  message?: string;
+  type?: 'delete';
+}
+
+const emit = defineEmits<{ confirm: [] }>();
+
+withDefaults(defineProps<Props>(), {
   title: 'Continuar',
 });
 
