@@ -13,19 +13,19 @@
     </BreadcrumbList>
     <div class="flex justify-end gap-0.5 ml-auto">
       <AppButton
-        class="btn-ghost px-0.5 bg-transparent"
+        class="toolbar-button"
         label="Mover"
         :icon-left="IconFolderUp"
         @click="moveTournamentModalIsOpen = true"
       />
       <AppButton
-        class="btn-ghost px-0.5 bg-transparent"
+        class="toolbar-button"
         label="Duplicar"
         :icon-left="IconLayersSubtract"
         @click="tournamentStore.duplicateTournament(tournamentId)"
       />
       <AppButton
-        class="btn-ghost px-0.5 bg-transparent"
+        class="toolbar-button"
         label="Editar"
         :icon-left="IconEdit"
         @click="tournamentModalIsOpen = true"
@@ -60,3 +60,11 @@ const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 const tournamentModalIsOpen = ref(false);
 const moveTournamentModalIsOpen = ref(false);
 </script>
+
+<style scoped>
+@reference '@/assets/css/main.css';
+
+.toolbar-button {
+  @apply px-0.5 bg-transparent border-0 hover:bg-base-200;
+}
+</style>
