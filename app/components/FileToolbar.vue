@@ -11,7 +11,13 @@
         :icon="IconFileDescription"
       />
     </BreadcrumbList>
-    <div class="flex justify-end gap-0.5 ml-auto">
+    <div class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5">
+      <AppButton
+        class="toolbar-delete-button"
+        label="Excluir"
+        :icon-left="IconTrash"
+        @click="deleteTournamentDialogIsOpen = true"
+      />
       <AppButton
         class="toolbar-button"
         label="Mover"
@@ -46,10 +52,21 @@
     :submit-fn="(form) => tournamentStore.updateTournament(tournamentId, form)"
   />
   <MoveTournamentModal v-model:is-open="moveTournamentModalIsOpen" />
+  <AppDialog
+    v-model:is-open="deleteTournamentDialogIsOpen"
+    type="delete"
+    title="Excluir campeonato"
+    @confirm="deleteTournament"
+  >
+    <p>
+      Você tem certeza que deseja excluir <b>{{ tournamentStore.activeTournament?.name }}</b>? Essa ação não poderá ser
+      desfeita e você não poderá recuperá-lo, a não ser que possua uma cópia salva.
+    </p>
+  </AppDialog>
 </template>
 
 <script lang="ts" setup>
-import { IconLayersSubtract, IconEdit, IconDownload, IconFolderOpen, IconFileDescription, IconFolderUp } from '@tabler/icons-vue';
+import { IconLayersSubtract, IconEdit, IconDownload, IconFolderOpen, IconFileDescription, IconFolderUp, IconTrash } from '@tabler/icons-vue';
 
 const { downloadTournamentSourceFile } = useFileStore();
 const tournamentStore = useTournamentStore();
@@ -59,6 +76,12 @@ const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 
 const tournamentModalIsOpen = ref(false);
 const moveTournamentModalIsOpen = ref(false);
+const deleteTournamentDialogIsOpen = ref(false);
+
+function deleteTournament() {
+  tournamentStore.deleteTournament(tournamentId.value);
+  deleteTournamentDialogIsOpen.value = false;
+}
 </script>
 
 <style scoped>
@@ -66,5 +89,9 @@ const moveTournamentModalIsOpen = ref(false);
 
 .toolbar-button {
   @apply px-0.5 bg-transparent border-0 hover:bg-base-200;
+}
+
+.toolbar-delete-button {
+  @apply text-error px-0.5 bg-transparent border-0 hover:bg-error/8;
 }
 </style>

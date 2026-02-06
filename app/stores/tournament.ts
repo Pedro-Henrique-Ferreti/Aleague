@@ -71,12 +71,12 @@ export const useTournamentStore = defineStore('tournament', {
 
       this.activeTournamentId = newId;
     },
-    closeActiveTournament() {
-      const index = this.tournaments.findIndex((i) => i.id === this.activeTournamentId);
+    deleteTournament(id: Tournament['id']) {
+      const index = this.tournaments.findIndex((i) => i.id === id);
 
       this.tournaments.splice(index, 1);
 
-      this.activeTournamentId = this.tournaments[index]?.id || this.tournaments[this.tournaments.length - 1]?.id || null;
+      this.activeTournamentId = this.tournaments[index]?.id || (this.tournaments[this.tournaments.length - 1]?.id || null);
     },
     addStage(id: Tournament['id'], stageForm: TournamentStageForm) {
       const tournament = this.getTournament(id);
