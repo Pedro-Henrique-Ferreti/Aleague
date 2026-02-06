@@ -9,6 +9,12 @@ export const useCollectionStore = defineStore('collection', {
   state: (): State => ({
     collections: [],
   }),
+  getters: {
+    activeCollection(state) {
+      const tournamentStore = useTournamentStore();
+      return state.collections.find((i) => i.id === tournamentStore.activeTournament?.collectionId);
+    },
+  },
   actions: {
     getCollection(id: Collection['id'] | null): Collection {
       const collection = this.collections.find((i) => i.id === id);

@@ -1,23 +1,36 @@
 <template>
-  <div class="flex justify-end gap-0.5">
-    <AppButton
-      class="btn-ghost px-0.5 bg-transparent"
-      label="Duplicar"
-      :icon-left="IconLayersSubtract"
-      @click="tournamentStore.duplicateTournament(tournamentId)"
-    />
-    <AppButton
-      class="btn-ghost px-0.5 bg-transparent"
-      label="Editar"
-      :icon-left="IconEdit"
-      @click="tournamentModalIsOpen = true"
-    />
-    <AppButton
-      class="btn-accent btn-soft ml-0.5"
-      label="Salvar"
-      :icon-left="IconDownload"
-      @click="downloadTournamentSourceFile(tournamentId)"
-    />
+  <div class="flex items-center w-full">
+    <BreadcrumbList>
+      <BreadcrumbItem
+        v-if="collectionStore.activeCollection"
+        :label="collectionStore.activeCollection.name"
+        :icon="IconFolderOpen"
+      />
+      <BreadcrumbItem
+        :label="tournamentStore.activeTournament?.name"
+        :icon="IconFileDescription"
+      />
+    </BreadcrumbList>
+    <div class="flex justify-end gap-0.5 ml-auto">
+      <AppButton
+        class="btn-ghost px-0.5 bg-transparent"
+        label="Duplicar"
+        :icon-left="IconLayersSubtract"
+        @click="tournamentStore.duplicateTournament(tournamentId)"
+      />
+      <AppButton
+        class="btn-ghost px-0.5 bg-transparent"
+        label="Editar"
+        :icon-left="IconEdit"
+        @click="tournamentModalIsOpen = true"
+      />
+      <AppButton
+        class="btn-accent btn-soft ml-0.5"
+        label="Salvar"
+        :icon-left="IconDownload"
+        @click="downloadTournamentSourceFile(tournamentId)"
+      />
+    </div>
   </div>
   <TournamentFormModal
     v-if="tournamentStore.activeTournament"
@@ -29,10 +42,11 @@
 </template>
 
 <script lang="ts" setup>
-import { IconLayersSubtract, IconEdit, IconDownload } from '@tabler/icons-vue';
+import { IconLayersSubtract, IconEdit, IconDownload, IconFolderOpen, IconFileDescription } from '@tabler/icons-vue';
 
 const { downloadTournamentSourceFile } = useFileStore();
 const tournamentStore = useTournamentStore();
+const collectionStore = useCollectionStore();
 
 const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 
