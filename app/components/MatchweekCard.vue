@@ -6,30 +6,11 @@
         :stage="stage"
       />
       <template v-else>
-        <header class="grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b -mt-1.25 pt-1.25 pb-1 sticky top-0 bg-white">
-          <div class="flex gap-0.5 col-start-2 flex-1 justify-center">
-            <AppButton
-              v-tooltip="'Rodada anterior'"
-              class="btn-square btn-sm btn-ghost"
-              aria-label="Show previous matchweek"
-              :icon-left="IconChevronLeft"
-              :disabled="currentMatchweek <= 1"
-              @click="currentMatchweek -= 1"
-            />
-            <BaseSelect
-              v-model="currentMatchweek"
-              class="select-ghost w-7 p-0 justify-center h-2 bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
-              :options="matchweeksOptions"
-            />
-            <AppButton
-              v-tooltip="'Próxima rodada'"
-              class="btn-square btn-sm btn-ghost"
-              aria-label="Show next matchweek"
-              :icon-left="IconChevronRight"
-              :disabled="currentMatchweek >= stage.matchweeks.length"
-              @click="currentMatchweek += 1"
-            />
-          </div>
+        <header class="matchweek-header">
+          <MatchweekCardControls
+            v-model:current-matchweek="currentMatchweek"
+            :matchweeks="stage.matchweeks"
+          />
           <MatchweekCardOptions
             @edit-kickoffs="matchweekKickoffModalIsOpen = true"
             @randomize-results="randomizeMatchweekResults"
@@ -44,7 +25,7 @@
             <span
               v-if="match.kickoff && showMatchKickoff[index]"
               v-text="getKickoffDisplayText(match.kickoff, 'EEEEEE \'•\' kk\'h\'mm')"
-              class="divider justify-self-center w-full max-w-2/3 mt-0.75 first:mt-0 -mb-0.5 text-xs font-semibold capitalize"
+              class="matchweek-kickoff"
             />
             <MatchCard
               v-model:home-score="match.homeTeam.score"
@@ -67,7 +48,6 @@
 </template>
 
 <script lang="ts" setup>
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
@@ -88,11 +68,6 @@ const currentMatchweek = ref(
     (i) => i.matches.some((m) => m.homeTeam.score === null || m.awayTeam.score === null)
   )?.week || (stage.value.matchweeks[stage.value.matchweeks.length - 1]?.week ?? 1),
 );
-
-const matchweeksOptions = computed<SelectOptionList<number>>(() => stage.value.matchweeks.map((i) => ({
-  label: `Rodada ${i.week}`,
-  value: i.week,
-})));
 
 function sortMatches(a: Match, b: Match) {
   if (a.kickoff && !b.kickoff) return 1;
@@ -121,3 +96,15 @@ async function randomizeMatchweekResults() {
   }
 }
 </script>
+
+<style scoped>
+@reference '@/assets/css/main.css';
+
+.matchweek-header {
+  @apply grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b -mt-1.25 pt-1.25 pb-1 sticky top-0 bg-white;
+}
+
+.matchweek-kickoff {
+  @apply divider justify-self-center w-full max-w-2/3 mt-0.75 first:mt-0 -mb-0.5 text-xs font-semibold capitalize;
+}
+</style>
