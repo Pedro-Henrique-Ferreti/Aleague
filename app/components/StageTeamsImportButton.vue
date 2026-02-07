@@ -19,8 +19,11 @@ const props = defineProps<{
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 
-function handleFileSelected(files: Tournament[]) {
-  const [tournament] = files;
+function onFileImported(files: UseImportSourceFilesHandlerParams) {
+  const [tournamentFile] = files.tournamentFiles;
+  const [collectionFile] = files.collectionFiles;
+
+  const tournament = tournamentFile?.data || collectionFile?.data.tournaments[0];
 
   if (!tournament) return;
 
@@ -47,5 +50,5 @@ function handleFileSelected(files: Tournament[]) {
   }
 }
 
-const { openFileExplorer } = useImportFile<Tournament>(handleFileSelected, { fileType: SourceFileType.TOURNAMENT });
+const { openFileExplorer } = useImportSourceFiles(onFileImported);
 </script>
