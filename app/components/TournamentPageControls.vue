@@ -5,8 +5,29 @@
       dropdown-class="dropdown-end"
       label="Fase"
       :icon="IconTournament"
-      :items="menuItems"
-    />
+    >
+      <AppMenuItem
+        label="Adicionar"
+        :icon="IconPlus"
+        @click="isCreatingStage = true"
+      />
+      <AppMenuItem
+        label="Editar"
+        :icon="IconEdit"
+        @click="isEditingStage = true"
+      />
+      <AppMenuItem
+        label="Equipes"
+        :icon="IconUsersGroup"
+        @click="editTeamModalIsOpen = true"
+      />
+      <AppMenuItem
+        type="error"
+        label="Excluir"
+        :icon="IconTrash"
+        @click="showDeleteStageDialog = true"
+      />
+    </AppMenu>
     <TournamentStageModal
       v-model:is-open="stageModalIsOpen"
       :stage="isEditingStage ? activeStage : undefined"
@@ -28,7 +49,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { MenuItem } from './AppMenu.vue';
 import { IconEdit, IconPlus, IconTournament, IconTrash, IconUsersGroup } from '@tabler/icons-vue';
 
 const tournamentStore = useTournamentStore();
@@ -43,11 +63,9 @@ const isEditingStage = ref(false);
 
 const stageModalIsOpen = computed({
   get: () => isCreatingStage.value || isEditingStage.value,
-  set: (value: boolean) => {
-    if (!value) {
-      isCreatingStage.value = false;
-      isEditingStage.value = false;
-    }
+  set: (value) => {
+    isCreatingStage.value = value;
+    isEditingStage.value = value;
   },
 });
 
@@ -60,29 +78,4 @@ const allowEmptySlots = computed(() => (
 
 // Delete stage
 const showDeleteStageDialog = ref(false);
-
-// Menu items
-const menuItems = computed<MenuItem[]>(() => ([
-  {
-    label: 'Adicionar',
-    icon: IconPlus,
-    onClick: () => isCreatingStage.value = true,
-  },
-  {
-    label: 'Editar',
-    icon: IconEdit,
-    onClick: () => isEditingStage.value = true,
-  },
-  {
-    label: 'Equipes',
-    icon: IconUsersGroup,
-    onClick: () => editTeamModalIsOpen.value = true,
-  },
-  {
-    label: 'Excluir',
-    icon: IconTrash,
-    color: 'error',
-    onClick: () => showDeleteStageDialog.value = true,
-  },
-]));
 </script>
