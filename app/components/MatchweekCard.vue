@@ -7,20 +7,7 @@
       />
       <template v-else>
         <header class="grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b -mt-1.25 pt-1.25 pb-1 sticky top-0 bg-white">
-          <div class="flex gap-0.75">
-            <EditMatchweekKickoff 
-              :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
-              @kickoffs-updated="stage.matchweeks[currentMatchweek - 1]!.matches = $event"
-            />
-            <AppButton
-              v-tooltip="'Sortear resultados'"
-              aria-label="Sortear resultados"
-              class="btn-secondary btn-square btn-soft btn-sm"
-              :icon-left="IconDice5"
-              @click="getRandomMatchweekResults"
-            />
-          </div>
-          <div class="flex gap-0.5 flex-1 justify-center">
+          <div class="flex gap-0.5 col-start-2 flex-1 justify-center">
             <AppButton
               v-tooltip="'Rodada anterior'"
               class="btn-square btn-sm btn-ghost"
@@ -43,9 +30,11 @@
               @click="currentMatchweek += 1"
             />
           </div>
-          <div class="flex gap-0.75 justify-end">
-            <DeleteMatchweeksButton :stage-id="stage.id" />
-          </div>
+          <MatchweekCardOptions
+            @edit-kickoffs="matchweekKickoffModalIsOpen = true"
+            @randomize-results="randomizeMatchweekResults"
+            @delete-matchweeks="tournamentStore.deleteMatchweeks(tournamentStore.activeTournamentId!, stage.id)"
+          />
         </header>
         <div class="grid gap-1">
           <template
@@ -67,22 +56,30 @@
             />
           </template>
         </div>
+        <MatchweekKickoffModal
+          v-model:is-open="matchweekKickoffModalIsOpen" 
+          :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
+          @kickoffs-updated="stage.matchweeks[currentMatchweek - 1]!.matches = $event"
+        />
       </template>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { IconChevronLeft, IconChevronRight, IconDice5 } from '@tabler/icons-vue';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
 
+const tournamentStore = useTournamentStore();
 const teamStore = useTeamStore();
 
 defineEmits<{
   'match-updated': [MatchCardEmits['match-updated'][number], Matchweek['week']]
 }>();
+
+const matchweekKickoffModalIsOpen = ref(false);
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
@@ -113,7 +110,7 @@ const showMatchKickoff = computed(() => {
   ));
 });
 
-async function getRandomMatchweekResults() {
+async function randomizeMatchweekResults() {
   for (const match of stage.value.matchweeks[currentMatchweek.value - 1]!.matches) {
     await new Promise((resolve) => {
       match.homeTeam.score = getRandomScore();

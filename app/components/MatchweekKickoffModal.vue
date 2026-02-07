@@ -1,20 +1,12 @@
 <template>
   <AppModal
+    v-model:is-open="isOpen"
     ref="modalRef"
-    title="Editar horários"
+    title="Editar datas"
     size="xl"
     @open="resetKickoffGroups"
     @submit="assignKickoffs"
   >
-    <template #trigger="{ open }">
-      <AppButton
-        v-tooltip="'Editar horários'"
-        class="btn-sm btn-square"
-        aria-label="Edit matchweek kickoff"
-        :icon-left="IconCalendarWeek"
-        @click="open"
-      />
-    </template>
     <div class="flex gap-1 mb-2 justify-center relative">
       <BaseSelect
         v-model="form.kickoffType"
@@ -78,6 +70,8 @@ const emit = defineEmits<{
 const props = defineProps<{
   matches: Match[];
 }>();
+
+const isOpen = defineModel<boolean>('is-open');
 
 const modalRef = useTemplateRef('modalRef');
 
