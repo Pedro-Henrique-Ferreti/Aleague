@@ -46,7 +46,18 @@
 import { IconPlus } from '@tabler/icons-vue';
 import TournamentStageControls from './TournamentStageControls.vue';
 
-const tournament = defineModel<Tournament>({ required: true });
+const tournamentStore = useTournamentStore();
+
+const tournament = computed({
+  get: () => tournamentStore.activeTournament!,
+  set: (value) => {
+    const index = tournamentStore.tournaments.findIndex(t => t.id === value?.id);
+    
+    if (index > -1 && value) {
+      tournamentStore.tournaments[index] = value;
+    }
+  },
+});
 
 const controlsRef = useTemplateRef<typeof TournamentStageControls>('controls');
 
