@@ -3,26 +3,23 @@
     <template #header>
       <FileToolbar v-if="tournamentStore.activeTournamentId" />
     </template>
-    <div
-      v-if="!tournamentStore.activeTournamentId"
-      class="flex flex-col items-center mt-10"
-    >
-      <h1 class="text-3xl font-semibold mb-0.5">Bem-vindo ao Alegue</h1>
-      <p>Para começar, importe um campeonato ou crie um novo.</p>
-      <div class="flex mt-2 w-full items-center justify-center">
-        <OpenFileButton class="w-full max-w-12" />
-        <div class="divider divider-horizontal h-5!">ou</div>
-        <CreateFileMenu
-          class="w-full max-w-12 btn-outline"
-          dropdown-class="w-full max-w-12"
-        />
-      </div>
-    </div>
     <TournamentPage
-      v-else-if="activeTournament"
+      v-if="tournamentStore.activeTournamentId"
       v-model="activeTournament"
       :key="String(tournamentStore.activeTournamentId)"
     />
+    <WelcomeMessage
+      v-else
+      class="mt-10"
+      title="Bem-vindo ao Alegue"
+      message="Para começar, abra uma coleção ou um campeonato. Você também pode criar um novo."
+    >
+      <div class="divider divider-horizontal h-5!">ou</div>
+      <CreateFileMenu
+        class="w-full max-w-12 btn-outline"
+        dropdown-class="w-full max-w-12"
+      />
+    </WelcomeMessage>
   </NuxtLayout>
 </template>
 
