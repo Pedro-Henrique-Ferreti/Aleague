@@ -1,14 +1,12 @@
 <template>
-  <div class="card card-border card-side w-fit min-w-2/3">
-    <div class="flex justify-center items-center size-5.5 m-1 mr-0 shrink-0">
-      <img
-        class="w-auto h-full"
-        alt="Tournament icon"
-        :src="tournament.icon"
-      />
-    </div>
-    <div class="card-body">
-      <h1 class="text-3xl font-medium">{{ tournament.name }}</h1>
+  <div class="flex items-center gap-1">
+    <img
+      class="w-auto h-5.5"
+      alt="Tournament icon"
+      :src="tournament.icon"
+    />
+    <div>
+      <h1 class="text-3xl font-medium mb-0.5">{{ tournament.name }}</h1>
       <div class="badge-container flex-wrap">
         <div class="badge badge-ghost">
           <IconCalendarPlus class="size-[1em]" />
