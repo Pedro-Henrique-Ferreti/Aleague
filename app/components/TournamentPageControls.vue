@@ -18,9 +18,12 @@
     />
     <AppDialog
       v-model:is-open="showDeleteStageDialog"
-      message="Deseja realmente excluir essa fase? Essa ação não poderá ser desfeita."
+      type="delete"
+      title="Excluir fase"
       @confirm="tournamentStore.removeStage(tournamentStore.activeTournamentId!, activeStage.id)"
-    />
+    >
+      <p>Você tem certeza que deseja excluir a fase <b>{{ activeStage.name }}</b>? Essa ação não poderá ser desfeita.</p>
+    </AppDialog>
   </div>
 </template>
 
