@@ -2,6 +2,7 @@
  <li>
     <button
       type="button"
+      class="whitespace-nowrap"
       :class="{ 'text-error hover:bg-error/8 active:bg-error! active:text-error-content!': type === 'error' }"
       @click="$emit('click')"
     >
