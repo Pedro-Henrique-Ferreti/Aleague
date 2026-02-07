@@ -11,7 +11,10 @@
         @click="menuIsOpen = !menuIsOpen"
       />
       <div class="not-group-data-[open]:hidden">
-        <CreateFileMenu class="w-full" />
+        <CreateFileMenu
+          class="w-full"
+          dropdown-class="min-w-14"
+        />
         <OpenFileButton class="w-full mt-1 btn-soft" />
       </div>
     </header>
