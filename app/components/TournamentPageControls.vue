@@ -4,7 +4,7 @@
       class="btn-primary btn-soft"
       dropdown-class="dropdown-end"
       label="Fase"
-      :icon="IconTournament"
+      :icon-left="IconTournament"
     >
       <AppMenuItem
         label="Adicionar"

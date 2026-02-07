@@ -4,7 +4,7 @@
     :label="label"
     :class="$attrs.class"
     :popovertarget="id"
-    :icon-left="icon"
+    :icon-left="iconLeft"
     :icon-right="displayedIconRight"
   />
   <ul
@@ -21,15 +21,17 @@
 import { IconChevronDown, type Icon } from '@tabler/icons-vue';
 
 export interface AppMenuProps {
-  label: string;
-  icon?: Icon;
+  label?: string;
+  iconLeft?: Icon;
   iconRight?: Icon | false;
   dropdownClass?: string;
 }
 
 const id = useId();
 
-const props = defineProps<AppMenuProps>();
+const props = withDefaults(defineProps<AppMenuProps>(), {
+  iconRight: undefined,
+});
 
 const displayedIconRight = computed(() => {
   if (props.iconRight !== false) {
