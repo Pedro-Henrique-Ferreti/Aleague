@@ -61,7 +61,7 @@
                   colspan="10"
                 />
                 <template v-else>
-                  <td class="position bg-inherit h-[2.875rem] py-0">
+                  <td class="position bg-inherit h-[2.875rem] py-0 border-0">
                     <StandingsCardTeam
                       v-model:qualifier="qualifier[index]!"
                       :position="index + 1"
