@@ -1,7 +1,7 @@
 <template>
-  <div class="flex items-center gap-1">
+  <div class="flex items-center gap-1.5">
     <img
-      class="w-auto h-5.5"
+      class="w-auto h-6"
       alt="Tournament icon"
       :src="tournament.icon"
     />
