@@ -76,7 +76,7 @@ interface Form {
 <script lang="ts" setup>
 import { IconSearch } from '@tabler/icons-vue';
 
-const MAX_DISPLAYED_OPTIONS = 40;
+const MAX_DISPLAYED_OPTIONS = 60;
 const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
   { label: 'Todos', value: TeamTypeFilter.All },
   { label: 'Clube', value: TeamTypeFilter.CLUB },
