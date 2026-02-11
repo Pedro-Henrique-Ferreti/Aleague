@@ -32,94 +32,28 @@
       </div>
     </AppFieldset>
     <div class="divider" />
-    <template v-if="form.type === StageType.GROUPS">
-      <AppSelect
-        v-model="form.format"
-        class="max-w-20"
-        label="Disputa de partidas"
-        :options="TOURNAMENT_GROUP_FORMAT_OPTIONS"
-        :disabled="isEditingForm"
-      />
-      <div class="grid grid-cols-2 gap-x-1">
-        <AppCounter
-          v-model="form.groups"
-          label="Quantidade de grupos"
-          :min="MIN_GROUPS"
-          :max="MAX_GROUPS"
-          :disabled="isEditingForm"
-        />
-        <AppCounter
-          v-model="form.teamsPerGroup"
-          label="Equipes em cada grupo"
-          :step="2"
-          :min="MIN_TEAMS_PER_GROUP"
-          :max="MAX_TEAMS_PER_GROUP"
-          :disabled="isEditingForm"
-        />
-        <AppCounter
-          v-model="form.groupRoundRobins"
-          label="Turnos"
-          :min="MIN_ROUNDS"
-          :max="3"
-          :disabled="isEditingForm"
-        />
-        <AppFieldset
-          class="text-center"
-          label="Total de equipes"
-        >
-          <span class="font-semibold text-2xl text-center">
-            {{ form.teamsPerGroup * form.groups }}
-          </span>
-        </AppFieldset>
-      </div>
-    </template>
-    <template v-else>
-      <div class="grid grid-cols-2 gap-x-1">
-        <AppCounter
-          v-model="form.teams"
-          label="Equipes participantes"
-          :step="2"
-          :min="MIN_TEAMS"
-          :disabled="isEditingForm"
-        />
-        <AppCounter
-          v-model="form.playoffRounds"
-          label="Número de rodadas"
-          :step="1"
-          :min="MIN_ROUNDS"
-          :max="maxPlayoffRounds"
-          :disabled="isEditingForm"
-        />
-        <div class="alert col-span-2 mt-1 text-xs font-semibold">
-          <IconInfoCircle class="text-primary shrink-0" />
-          <div class="flex flex-wrap gap-x-0.25">
-            <span
-              v-for="name in getPlayoffRoundNames(form.playoffRounds, form.teams)"
-              class="last:[&_svg]:hidden"
-              :key="name"
-            >
-              {{ name }}
-              <IconArrowBadgeRightFilled class="inline size-1 -translate-y-px" />
-            </span>
-          </div>
-        </div>
-      </div>
-    </template>
+    <TournamentStageModalGroupFields
+      v-if="form.type === StageType.GROUPS"
+      v-model:format="form.format"
+      v-model:groups="form.groups"
+      v-model:teams-per-group="form.teamsPerGroup"
+      v-model:group-round-robins="form.groupRoundRobins"
+      :disabled="isEditingForm"
+    />
+    <TournamentStageModalPlayoffsFields
+      v-else
+      v-model:teams="form.teams"
+      v-model:playoff-rounds="form.playoffRounds"
+      :disabled="isEditingForm"
+      :max-playoff-rounds="maxPlayoffRounds"
+    />
   </AppModal>
 </template>
 
 <script setup lang="ts">
-import { IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
-import { getPlayoffRoundNames } from '~/helpers/playoffs';
-
-const MIN_TEAMS = 2;
-const MIN_TEAMS_PER_GROUP = 2;
-const MAX_TEAMS_PER_GROUP = 32;
-const MIN_ROUNDS = 1;
-const MIN_GROUPS = 1;
-const MAX_GROUPS = 32;
 const DEFAULT_GROUPS_STAGE_NAME = 'Fase de Liga';
 const DEFAULT_PLAYOFFS_STAGE_NAME = 'Playoffs';
+const { MIN_TEAMS, MIN_GROUPS, MIN_TEAMS_PER_GROUP, MIN_ROUNDS } = StageConstants;
 
 const tournamentStore = useTournamentStore();
 
