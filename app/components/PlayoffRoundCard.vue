@@ -14,35 +14,34 @@
         @update:fixture-two-home-score="slot.legs[1] ? slot.legs[1].homeTeam.score = $event as Match['homeTeam']['score'] : null"
         @update:fixture-two-away-score="slot.legs[1] ? slot.legs[1].awayTeam.score = $event as Match['awayTeam']['score'] : null"
       />
-      <div class="dropdown-content menu gap-0.5 bg-base-100 w-11 rounded-box z-1 shadow-sm">
-        <AppButton
-          v-if="slot.legs.length <= 1"
-          class="btn-primary btn-soft btn-sm"
-          label="Jogo de volta"
-          :icon-left="IconPlus"
-          @click="addMatchToSlot"
-        />
-        <AppButton
-          v-else
-          class="btn-error btn-soft btn-sm"
-          label="Jogo de volta"
-          :icon-left="IconTrash"
-          @click="slot.legs.pop()"
-        />
-        <AppButton
+      <ul class="dropdown-content menu bg-base-100 w-14 rounded-box z-1 shadow-sm">
+        <AppMenuItem
           v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
-          class="btn-secondary btn-soft btn-sm"
-          label="Sortear resultado"
-          :icon-left="IconDice5"
+          label="Aleatorizar resultados"
+          :icon="IconPencilQuestion"
           @click="randomizeScore"
         />
-      </div>
+        <AppMenuItem
+          v-if="slot.legs.length <= 1"
+          type="primary"
+          label="Adicionar segundo jogo"
+          :icon="IconPlus"
+          @click="addMatchToSlot"
+        />
+        <AppMenuItem
+          v-else
+          type="error"
+          label="Excluir segundo jogo"
+          :icon="IconTrash"
+          @click="slot.legs.pop()"
+        />
+      </ul>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IconDice5, IconPlus, IconTrash } from '@tabler/icons-vue';
+import { IconPencilQuestion, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { getRandomScore, createMatch } from '~/helpers/match';
 
 const tournamentStore = useTournamentStore();
