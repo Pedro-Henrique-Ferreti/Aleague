@@ -42,9 +42,8 @@
 </template>
 
 <script lang="ts" setup>
-import { v4 as uuidv4 } from 'uuid';
 import { IconDice5, IconPlus, IconTrash } from '@tabler/icons-vue';
-import { getRandomScore } from '~/helpers/match';
+import { getRandomScore, createMatch } from '~/helpers/match';
 
 const tournamentStore = useTournamentStore();
 
@@ -54,18 +53,7 @@ const emit = defineEmits<{
 const slot = defineModel<PlayoffRound['slots'][number]>('slot', { required: true });
 
 function addMatchToSlot() {
-  slot.value.legs.push({
-    id: uuidv4(),
-    kickoff: null,
-    homeTeam: {
-      id: slot.value.legs[0].awayTeam.id,
-      score: null,
-    },
-    awayTeam: {
-      id: slot.value.legs[0].homeTeam.id,
-      score: null,
-    },
-  });
+  slot.value.legs.push(createMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
 }
 
 function randomizeScore() {

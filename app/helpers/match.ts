@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export function getKickoffDisplayText(value: MatchKickoff, formatStr = 'EEEEEE kk\'h\'mm'): string {
   return formatDate(value, formatStr).replace('sab', 'sáb');
 }
@@ -21,3 +23,13 @@ export function getRandomScore() {
 
   return num;
 }
+
+export const createMatch = (
+  homeTeamId: Match['homeTeam']['id'] = null,
+  awayTeamId: Match['awayTeam']['id'] = null,
+): Match => ({
+  id: uuidv4(),
+  homeTeam: { id: homeTeamId, score: null },
+  awayTeam: { id: awayTeamId, score: null },
+  kickoff: null,
+});

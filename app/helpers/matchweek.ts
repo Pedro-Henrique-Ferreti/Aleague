@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { createMatch } from './match';
 
 export function createMatchListFromTeamList(
   list: TeamDetails['id'][], roundRobins = 1, excludeGroups?: TeamDetails['id'][][],
@@ -31,12 +32,7 @@ export function createMatchListFromTeamList(
         awayTeam = teamA;
       }
 
-      week.push({
-        id: uuidv4(),
-        homeTeam: { id: homeTeam, score: null },
-        awayTeam: { id: awayTeam, score: null },
-        kickoff: null,
-      });
+      week.push(createMatch(homeTeam, awayTeam));
     }
 
     weeks.push(week.sort(() => Math.random() - 0.5));
