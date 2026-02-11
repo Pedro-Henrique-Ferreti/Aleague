@@ -1,5 +1,6 @@
 <template>
   <AppMenu
+    tooltip="Mais opções"
     class="btn-square btn-sm btn-ghost ml-auto"
     aria-label="Opções da rodada"
     dropdown-class="dropdown-end"

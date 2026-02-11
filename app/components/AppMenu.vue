@@ -1,5 +1,6 @@
 <template>
   <AppButton
+    v-tooltip="tooltip"
     :style="`anchor-name: --menu-${id}`"
     :label="label"
     :class="$attrs.class"
@@ -25,6 +26,7 @@ export interface AppMenuProps {
   iconLeft?: Icon;
   iconRight?: Icon | false;
   dropdownClass?: string;
+  tooltip?: string;
 }
 
 const id = useId();
