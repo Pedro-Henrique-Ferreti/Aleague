@@ -9,7 +9,8 @@
       <div class="divider mt-0.5 -mb-[7px]" />
       <div class="table-container">
         <div
-          ref="tableWrapperRef"
+          v-resize-observer="getFadedBorderSize"
+          ref="table-wrapper"
           class="overflow-x-auto"
         >
           <table class="table static">
@@ -162,16 +163,21 @@ const onResizeObserver: ResizeObserverCallback = (entries) => {
   positionSize.value = `${entries[0]?.contentRect.width || 0}px`;
 }
 
-const tableWrapperRef = useTemplateRef<HTMLDivElement>('tableWrapperRef');
+// Faded border size
+const tableWrapperRef = useTemplateRef('table-wrapper');
 const tableScroll = useScroll(tableWrapperRef);
 
-const rightBorderSize = computed(() => {
+const fadedBorderSize = ref('0px');
+
+function getFadedBorderSize() {
   const clientWidth = tableWrapperRef.value?.clientWidth || 0;
   const scrollWidth = tableWrapperRef.value?.scrollWidth || 0;
   const scrollSize = scrollWidth - clientWidth;
 
-  return `${scrollSize - tableScroll.x.value}px`;
-});
+  fadedBorderSize.value = `${scrollSize - tableScroll.x.value}px`;
+}
+
+watch(tableScroll.x, getFadedBorderSize, { immediate: true });
 </script>
 
 <style scoped>
@@ -181,7 +187,7 @@ const rightBorderSize = computed(() => {
   @apply relative;
 }
 .table-container::after {
-  width: v-bind(rightBorderSize);
+  width: v-bind(fadedBorderSize);
   @apply content-[''] max-w-[2.25rem] h-[calc(100%-1rem)] bg-gradient-to-l from-white to-transparent absolute right-0 top-0 pointer-events-none;
 }
 .resize-observer {
