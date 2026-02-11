@@ -29,25 +29,28 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     matchweeks: [],
   });
 
-  const playoffStage = (): TournamentPlayoffsStage => ({
-    ...baseStage,
-    type: StageType.PLAYOFFS,
-    rounds: Array.from({ length: stageForm.playoffRounds }, (_, index) => ({
-      id: uuidv4(),
-      order: index,
-      name: getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams)[index]!,
-      slots: Array.from({ length: stageForm.teams / 2 ** (index + 1) }, (_, order) => ({
+  const playoffStage = (): TournamentPlayoffsStage => {
+    const roundNames = getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams);
+    return {
+      ...baseStage,
+      type: StageType.PLAYOFFS,
+      rounds: Array.from({ length: stageForm.playoffRounds }, (_, index) => ({
         id: uuidv4(),
-        order,
-        legs: [{
+        order: index,
+        name: roundNames[index]!,
+        slots: Array.from({ length: stageForm.teams / 2 ** (index + 1) }, (_, order) => ({
           id: uuidv4(),
-          homeTeam: { id: null, score: null },
-          awayTeam: { id: null, score: null },
-          kickoff: null,
-        } as PlayoffRoundSlot['legs'][number]],
+          order,
+          legs: [{
+            id: uuidv4(),
+            homeTeam: { id: null, score: null },
+            awayTeam: { id: null, score: null },
+            kickoff: null,
+          } as PlayoffRoundSlot['legs'][number]],
+        })),
       })),
-    })),
-  });
+    }
+  };
 
   return stageForm.type === StageType.GROUPS ? groupStage() : playoffStage();
 }

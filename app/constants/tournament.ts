@@ -25,6 +25,19 @@ export const TOURNAMENT_GROUP_FORMAT_OPTIONS: Readonly<SelectOptionList<Tourname
 
 export const PLAYOFF_ROUND_NAMES: ReadonlyArray<string> = ['Oitavas de Final', 'Quartas de Final', 'Semifinal', 'Final'];
 
+export const PLAYOFF_ORDINAL_ROUND_NAMES: ReadonlyArray<string> = [
+  'Primeira Fase',
+  'Segunda Fase',
+  'Terceira Fase',
+  'Quarta Fase',
+  'Quinta Fase',
+  'Sexta Fase',
+  'Sétima Fase',
+  'Oitava Fase',
+  'Nona Fase',
+  'Décima Fase',
+];
+
 export const StageConstants = {
   MIN_TEAMS: 2,
   MIN_TEAMS_PER_GROUP: 2,
