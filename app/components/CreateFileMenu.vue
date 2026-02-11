@@ -2,7 +2,7 @@
   <AppMenu
     label="Criar"
     :class="['btn-primary', $attrs.class]"
-    :icon="IconPlus"
+    :icon-left="IconPlus"
     :icon-right="false"
     :dropdown-class="dropdownClass"
   >
