@@ -9,6 +9,7 @@
     ref="dialogRef"
     class="modal text-left"
     :id="id"
+    @close="closeModal"
   >
     <div
       class="modal-box"
