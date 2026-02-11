@@ -54,9 +54,9 @@
 const id = useId();
 
 const emit = defineEmits<{
-  (e: 'open'): void;
-  (e: 'close'): void;
-  (e: 'submit'): void;
+  open: [];
+  close: [];
+  submit: [];
 }>();
 withDefaults(defineProps<{
   title?: string;
@@ -76,13 +76,21 @@ const dialogRef = ref<HTMLDialogElement | null>(null);
 
 function openModal() {
   dialogRef.value?.showModal();
-  isOpen.value = true;
+
+  if (!isOpen.value) {
+    isOpen.value = true;
+  }
+
   emit('open');
 }
 
 function closeModal() {
   dialogRef.value?.close();
-  isOpen.value = false;
+
+  if (isOpen.value) {
+    isOpen.value = false;
+  }
+
   emit('close');
 }
 
