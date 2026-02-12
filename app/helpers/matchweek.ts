@@ -51,12 +51,9 @@ export function createMatchListFromTeamList(
 
   while (completedRobins < roundRobins) {
     weeks.push(
-      ...weeks.slice(-1 * robinLength).map((week) => week.map((match): Match => ({
-        id: uuidv4(),
-        homeTeam: Object.assign({}, match.awayTeam),
-        awayTeam: Object.assign({}, match.homeTeam),
-        kickoff: null,
-      }))),
+      ...weeks.slice(-1 * robinLength).map((week) => (
+        week.map((match) => newMatch(match.awayTeam.id, match.homeTeam.id))
+      )),
     );
     
     completedRobins += 1;
