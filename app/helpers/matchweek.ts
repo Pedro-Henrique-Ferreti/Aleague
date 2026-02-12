@@ -1,4 +1,4 @@
-import { createMatch } from './match';
+import { newMatch } from './match';
 
 export function createMatchListFromTeamList(
   list: TeamDetails['id'][], roundRobins = 1, excludeGroups?: TeamDetails['id'][][],
@@ -31,7 +31,7 @@ export function createMatchListFromTeamList(
         awayTeam = teamA;
       }
 
-      week.push(createMatch(homeTeam, awayTeam));
+      week.push(newMatch(homeTeam, awayTeam));
     }
 
     weeks.push(week.sort(() => Math.random() - 0.5));

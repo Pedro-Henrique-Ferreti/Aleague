@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
 import { IconPencilQuestion, IconPlus, IconTrash } from '@tabler/icons-vue';
-import { getRandomScore, createMatch } from '~/helpers/match';
+import { getRandomScore, newMatch } from '~/helpers/match';
 
 const tournamentStore = useTournamentStore();
 
@@ -52,7 +52,7 @@ const emit = defineEmits<{
 const slot = defineModel<PlayoffRound['slots'][number]>('slot', { required: true });
 
 function addMatchToSlot() {
-  slot.value.legs.push(createMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
+  slot.value.legs.push(newMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
 }
 
 function randomizeScore() {

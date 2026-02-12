@@ -22,7 +22,7 @@ export function getRandomScore() {
   return num;
 }
 
-export const createMatch = (
+export const newMatch = (
   homeTeamId: Match['homeTeam']['id'] = null,
   awayTeamId: Match['awayTeam']['id'] = null,
 ): Match => ({
