@@ -1,7 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
 import { createMatchListFromTeamList } from './matchweek';
-import { getPlayoffRoundNames } from './playoffs';
-import { newStandingsEntry } from './standings';
+import { newGroupStage, newPlayoffStage } from './stage';
 
 export function createStage(tournament: Tournament, stageForm: TournamentStageForm) {
   const baseStage: BaseTournamentStage = {
@@ -11,48 +9,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
     type: stageForm.type,
   };
 
-  const groupStage = (): TournamentGroupsStage => ({
-    ...baseStage,
-    type: StageType.GROUPS,
-    format: stageForm.format,
-    roundRobins: stageForm.groupRoundRobins,
-    groups: Array.from({ length: stageForm.groups }, (_, index) => ({
-      order: index + 1,
-      qualifier: Array.from({ length: stageForm.teamsPerGroup }, () => Qualifier.NONE),
-      standings: Array.from({ length: stageForm.teamsPerGroup }, () => newStandingsEntry()),
-    })),
-    overallQualifier: (
-      stageForm.groups > 1
-        ? Array.from({ length: stageForm.teamsPerGroup * stageForm.groups }, () => Qualifier.NONE)
-        : []
-    ),
-    matchweeks: [],
-  });
-
-  const playoffStage = (): TournamentPlayoffsStage => {
-    const roundNames = getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams);
-    return {
-      ...baseStage,
-      type: StageType.PLAYOFFS,
-      rounds: Array.from({ length: stageForm.playoffRounds }, (_, index) => ({
-        id: uuidv4(),
-        order: index,
-        name: roundNames[index]!,
-        slots: Array.from({ length: stageForm.teams / 2 ** (index + 1) }, (_, order) => ({
-          id: uuidv4(),
-          order,
-          legs: [{
-            id: uuidv4(),
-            homeTeam: { id: null, score: null },
-            awayTeam: { id: null, score: null },
-            kickoff: null,
-          } as PlayoffRoundSlot['legs'][number]],
-        })),
-      })),
-    }
-  };
-
-  return stageForm.type === StageType.GROUPS ? groupStage() : playoffStage();
+  return stageForm.type === StageType.GROUPS ? newGroupStage(stageForm, baseStage) : newPlayoffStage(stageForm, baseStage);
 }
 
 export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroupsStage['matchweeks'] {
