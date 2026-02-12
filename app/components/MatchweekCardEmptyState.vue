@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
-import { allTeamsAssigned } from '~/helpers/stage';
+import { stageHasAllTeamsAssigned } from '~/helpers/stage';
 
 const { createStageMatchweeks, activeTournamentId } = useTournamentStore();
 
@@ -38,5 +38,5 @@ const props = defineProps<{
   stage: TournamentGroupsStage;
 }>();
 
-const allowCreateMatchweeks = computed(() => allTeamsAssigned(props.stage));
+const allowCreateMatchweeks = computed(() => stageHasAllTeamsAssigned(props.stage));
 </script>

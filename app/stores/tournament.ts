@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { getBaseFileId, getTimestamp } from '~/helpers/file';
-import { allTeamsAssigned } from '~/helpers/stage';
+import { stageHasAllTeamsAssigned } from '~/helpers/stage';
 import { newStandingsEntry } from '~/helpers/standings';
 import { createMatchweeks, createStage } from '~/helpers/tournament';
 
@@ -135,7 +135,7 @@ export const useTournamentStore = defineStore('tournament', {
       const stage = this.getStage(id, stageId);
 
       if (stage.type !== StageType.GROUPS) throw new Error('Stage type not supported');
-      if (!allTeamsAssigned(stage)) throw new Error('All teams must be assigned');
+      if (!stageHasAllTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
       stage.matchweeks = createMatchweeks(stage);
     },
