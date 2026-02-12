@@ -17,35 +17,30 @@ export function newPlayoffStage(stageForm: TournamentStageForm, baseStage: BaseT
     id: uuidv4(),
     order: index,
     name: roundNames[index]!,
-    slots: Array.from({ length: stageForm.teams / 2 ** (index + 1) }, (_, index) => newPlayoffRoundSlot(index)),
+    slots: createArray(stageForm.teams / 2 ** (index + 1), newPlayoffRoundSlot),
   });
 
   return {
     ...baseStage,
     type: StageType.PLAYOFFS,
-    rounds: Array.from({ length: stageForm.playoffRounds }, (_, index) => newRound(index)),
+    rounds: createArray(stageForm.playoffRounds, newRound),
   };
 }
 
 export function newGroupStage(stageForm: TournamentStageForm, baseStage: BaseTournamentStage): TournamentGroupsStage {
-  const qualifier = Array.from({ length: stageForm.teamsPerGroup }, () => Qualifier.NONE);
-  const standings = Array.from({ length: stageForm.teamsPerGroup }, newStandingsEntry);
-
   return {
     ...baseStage,
     type: StageType.GROUPS,
     format: stageForm.format,
     roundRobins: stageForm.groupRoundRobins,
-    groups: Array.from({ length: stageForm.groups }, (_, index) => ({
+    matchweeks: [],
+    groups: createArray(stageForm.groups, (index) => ({
       order: index + 1,
-      qualifier,
-      standings,
+      qualifier: createArray(stageForm.teamsPerGroup, () => Qualifier.NONE),
+      standings: createArray(stageForm.teamsPerGroup, () => newStandingsEntry()),
     })),
     overallQualifier: (
-      stageForm.groups > 1
-        ? Array.from({ length: stageForm.teamsPerGroup * stageForm.groups }, () => Qualifier.NONE)
-        : []
+      (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, () => Qualifier.NONE) : []
     ),
-    matchweeks: [],
   };
 }

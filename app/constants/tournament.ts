@@ -1,13 +1,10 @@
 const TOURNAMENT_NUMBER_OF_ICONS = 40;
 
 export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
-  ...Array.from(
-    { length: TOURNAMENT_NUMBER_OF_ICONS },
-    (_, index) => ({
-      label: `Logo ${index + 1}`,
-      value: `/images/icons/tournament/icon-${index + 1}.svg`,
-    }),
-  ),
+  ...createArray(TOURNAMENT_NUMBER_OF_ICONS, (index) => ({
+    label: `Logo ${index + 1}`,
+    value: `/images/icons/tournament/icon-${index + 1}.svg`,
+  })),
   { label: 'Campeonato Paulista 2026', value: '/images/icons/tournament/Paulistao_2026.png' },
   { label: 'Campeonato Paulista A2 2025', value: '/images/icons/tournament/Paulistao_A2_2025.png' },
   { label: 'Campeonato Brasileiro Série A', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_A.png' },

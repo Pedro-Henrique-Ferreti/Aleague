@@ -144,7 +144,7 @@ export function getTableEntriesByWeek(standings: StandingsEntry[], weeks?: numbe
     weeks ?? standings.toSorted((a, b) => b.data.length - a.data.length)[0]?.data.length ?? 0
   );
 
-  return Array.from({ length }, (_, index): TableEntriesByWeek[number] => ({
+  return createArray(length, (index): TableEntriesByWeek[number] => ({
     week: index + 1,
     entries: standings.map((i) => getTableEntry(i, undefined, index + 1)).sort(sortTableEntries),
   }));

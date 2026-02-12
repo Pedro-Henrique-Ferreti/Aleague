@@ -23,3 +23,7 @@ export function normalizeString(str: string) {
 export function clone<T>(data: T) {
   return JSON.parse(JSON.stringify(data)) as T;
 }
+
+export function createArray<T>(length: number, fn: (index: number) => T) {
+  return Array.from({ length }, (_, index) => fn(index));
+}

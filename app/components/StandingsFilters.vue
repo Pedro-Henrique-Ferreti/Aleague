@@ -70,7 +70,7 @@ const weekDirectionOptions: Readonly<SelectOptionList<FiltersForm['weekDirection
 
 const weekOptions = computed<SelectOptionList<FiltersForm['week']>>(() => [
   DEFAULT_WEEK_OPTION,
-  ...Array.from({ length: props.matchweeks }, (_, i) => ({
+  ...createArray(props.matchweeks, (i) => ({
     label: `Rodada ${i + 1}`,
     value: i + 1,
   })),
