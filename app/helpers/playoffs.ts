@@ -1,5 +1,4 @@
 import { createMatch } from './match';
-import { v4 as uuidv4 } from 'uuid';
 
 export function getPlayoffRoundNames(rounds: number, teams: number): string[] {
   const isFullPath = (teams / 2 ** rounds) === 1;

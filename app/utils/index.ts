@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
+export { v4 as uuidv4 } from 'uuid';
+
 export function formatDate(date: string | Date, dateFormat: string) {
   return format(new Date(date), dateFormat, { locale: ptBR });
 }

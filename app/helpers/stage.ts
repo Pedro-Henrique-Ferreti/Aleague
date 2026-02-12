@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoffs';
 import { newStandingsEntry } from './standings';
 

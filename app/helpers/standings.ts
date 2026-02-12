@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { getMatchResult } from './match';
 
 export const newStandingsEntryData = (week: StandingsEntryData['week']): StandingsEntryData => ({
