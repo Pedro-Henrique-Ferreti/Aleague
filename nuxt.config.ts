@@ -7,6 +7,11 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['types', 'constants', 'utils'],
   },
+  eslint: {
+    config: {
+      standalone: false,
+    }
+  },
   app: {
     head: {
       title: 'Aleague',
