@@ -39,4 +39,7 @@ export default defineNuxtConfig({
   svgo: {
     defaultImport: 'component',
   },
-})
+  typescript: {
+    typeCheck: true,
+  },
+});
