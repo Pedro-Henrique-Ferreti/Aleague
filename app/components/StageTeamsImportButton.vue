@@ -28,7 +28,7 @@ function onFileImported(files: UseImportSourceFilesHandlerParams) {
   if (!tournament) return;
 
   const teams = tournament.stages.flatMap((stage) => {
-    if (stage.type === StageType.GROUPS) {
+    if (stage.type === StageType.GROUP) {
       return stage.groups.flatMap(g => g.standings.map(s => s.team));
     }
 

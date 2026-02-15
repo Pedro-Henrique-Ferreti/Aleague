@@ -17,7 +17,7 @@
 
 <script lang="ts">
 export interface RulesForm {
-  format: GroupsStageFormat;
+  format: GroupStageFormat;
   roundRobins: number;
 }
 </script>
@@ -26,9 +26,9 @@ export interface RulesForm {
 const format = defineModel<RulesForm['format']>('format', { required: true });
 const roundRobins = defineModel<RulesForm['roundRobins']>('round-robins', { required: true });
 
-const FORMAT_OPTIONS: Readonly<SelectOptionList<GroupsStageFormat>> = [
-  { label: 'Equipes do mesmo grupo', value: GroupsStageFormat.ROUND_ROBIN },
-  { label: 'Apenas equipes de outros grupos', value: GroupsStageFormat.OTHER_GROUPS_ROUND_ROBIN },
-  { label: 'Todos contra todos', value: GroupsStageFormat.ALL_PLAY_ALL },
+const FORMAT_OPTIONS: Readonly<SelectOptionList<GroupStageFormat>> = [
+  { label: 'Equipes do mesmo grupo', value: GroupStageFormat.SAME_GROUP_ROUND_ROBIN },
+  { label: 'Apenas equipes de outros grupos', value: GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN },
+  { label: 'Todos contra todos', value: GroupStageFormat.ALL_PLAY_ALL },
 ];
 </script>

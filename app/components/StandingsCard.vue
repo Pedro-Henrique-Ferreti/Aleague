@@ -118,10 +118,10 @@ import { getTableEntry, sortTableEntries } from '~/helpers/standings';
 
 interface Props {
   title: string;
-  standings: TournamentGroupsStage['groups'][number]['standings'];
+  standings: GroupStage['groups'][number]['standings'];
   entryType?: TableEntryType;
   sortType?: TableEntrySortType;
-  matchweeks?: TournamentGroupsStage['matchweeks'];
+  matchweeks?: GroupStage['matchweeks'];
   displayedWeek?: Matchweek['week'];
   weekDirection?: WeekDirection;
 }

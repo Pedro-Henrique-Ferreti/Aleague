@@ -73,7 +73,7 @@ const stageModalIsOpen = computed({
 const editTeamModalIsOpen = ref(false);
 
 const allowEmptySlots = computed(() => (
-  props.activeStage?.type === StageType.GROUPS && props.activeStage.matchweeks.length === 0
+  props.activeStage?.type === StageType.GROUP && props.activeStage.matchweeks.length === 0
 ));
 
 // Delete stage

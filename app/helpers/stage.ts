@@ -1,11 +1,11 @@
-import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoffs';
+import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
 
 export function stageHasAllTeamsAssigned(stage: TournamentStage) {
-  return stage.type === StageType.GROUPS && stage.groups.every(g => g.standings.every(s => s.team !== null));
+  return stage.type === StageType.GROUP && stage.groups.every(g => g.standings.every(s => s.team !== null));
 }
 
-export function newPlayoffStage(stageForm: TournamentStageForm, baseStage: BaseTournamentStage): TournamentPlayoffsStage {
+export function newPlayoffStage(stageForm: StageForm, baseStage: BaseStage): PlayoffStage {
   const roundNames = getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams);
 
   const newRound = (index: number): PlayoffRound => ({
@@ -17,15 +17,15 @@ export function newPlayoffStage(stageForm: TournamentStageForm, baseStage: BaseT
 
   return {
     ...baseStage,
-    type: StageType.PLAYOFFS,
+    type: StageType.PLAYOFF,
     rounds: createArray(stageForm.playoffRounds, newRound),
   };
 }
 
-export function newGroupStage(stageForm: TournamentStageForm, baseStage: BaseTournamentStage): TournamentGroupsStage {
+export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): GroupStage {
   return {
     ...baseStage,
-    type: StageType.GROUPS,
+    type: StageType.GROUP,
     matchweeks: [],
     groups: createArray(stageForm.groups, index => ({
       order: index + 1,

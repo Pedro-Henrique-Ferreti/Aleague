@@ -75,7 +75,7 @@ const form = ref<StageTeamsForm>({
 
 // Modal
 function onOpenModal() {
-  if (props.stage.type === StageType.GROUPS) {
+  if (props.stage.type === StageType.GROUP) {
     form.value.groups = props.stage.groups.map(group => ({
       order: group.order,
       teams: group.standings.map(entry => entry.team),

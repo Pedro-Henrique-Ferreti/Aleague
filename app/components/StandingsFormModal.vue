@@ -26,7 +26,7 @@ import type { StandingsFormChartProps } from './StandingsFormChart.vue';
 import { getTableEntriesByWeek } from '~/helpers/standings';
 
 const props = defineProps<{
-  standings: TournamentGroupsStage['groups'][number]['standings'];
+  standings: GroupStage['groups'][number]['standings'];
 }>();
 
 const { getTeamById } = useTeamStore();

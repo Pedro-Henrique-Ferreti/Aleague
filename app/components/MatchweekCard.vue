@@ -61,7 +61,7 @@ const teamStore = useTeamStore();
 
 const matchweekKickoffModalIsOpen = ref(false);
 
-const stage = defineModel<TournamentGroupsStage>({ required: true });
+const stage = defineModel<GroupStage>({ required: true });
 
 function getCurrentMatchweek() {
   const firstIncompleteWeek = stage.value.matchweeks.find(

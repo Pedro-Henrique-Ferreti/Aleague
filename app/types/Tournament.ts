@@ -1,23 +1,23 @@
 export enum StageType {
-  GROUPS,
-  PLAYOFFS,
+  GROUP,
+  PLAYOFF,
 }
 
-export enum GroupsStageFormat {
-  ROUND_ROBIN,
+export enum GroupStageFormat {
+  SAME_GROUP_ROUND_ROBIN,
   OTHER_GROUPS_ROUND_ROBIN,
   ALL_PLAY_ALL,
 }
 
-export interface BaseTournamentStage {
+export interface BaseStage {
   id: number;
   name: string;
   sequence: number;
   type: StageType;
 }
 
-export interface TournamentGroupsStage extends BaseTournamentStage {
-  type: StageType.GROUPS;
+export interface GroupStage extends BaseStage {
+  type: StageType.GROUP;
   groups: {
     order: number;
     standings: StandingsEntry[];
@@ -27,12 +27,12 @@ export interface TournamentGroupsStage extends BaseTournamentStage {
   matchweeks: Matchweek[];
 }
 
-export interface TournamentPlayoffsStage extends BaseTournamentStage {
-  type: StageType.PLAYOFFS;
+export interface PlayoffStage extends BaseStage {
+  type: StageType.PLAYOFF;
   rounds: [PlayoffRound] | PlayoffRound[];
 }
 
-export type TournamentStage = TournamentGroupsStage | TournamentPlayoffsStage;
+export type TournamentStage = GroupStage | PlayoffStage;
 
 export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
   collectionId: Collection['id'] | null;

@@ -108,7 +108,7 @@ const teamsInTournament = computed(() => {
   const stages = tournamentStore.activeTournament!.stages.filter(s => s.id !== props.stageId);
 
   return stages.flatMap((stage) => {
-    if (stage.type === StageType.GROUPS) {
+    if (stage.type === StageType.GROUP) {
       return stage.groups.flatMap(group => group.standings.map(entry => entry.team));
     } else {
       return stage.rounds.flatMap(round => round.slots.flatMap(slot => slot.legs.flatMap(leg => [leg.homeTeam.id, leg.awayTeam.id])));

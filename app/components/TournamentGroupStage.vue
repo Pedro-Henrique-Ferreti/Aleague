@@ -48,7 +48,7 @@ import { getMatchResult } from '~/helpers/match';
 import { getStandingsDataFromScore, newStandingsEntryData } from '~/helpers/standings';
 import { DEFAULT_WEEK_OPTION, type FiltersForm } from './StandingsFilters.vue';
 
-const stage = defineModel<TournamentGroupsStage>({ required: true });
+const stage = defineModel<GroupStage>({ required: true });
 
 function newFiltersForm(): FiltersForm {
   return {
@@ -64,7 +64,7 @@ const filtersForm = ref<FiltersForm>(newFiltersForm());
 const showFilters = ref(false);
 
 // Displayed groups
-const displayedGroups = computed<TournamentGroupsStage['groups']>(() => (
+const displayedGroups = computed<GroupStage['groups']>(() => (
   filtersForm.value.view === TableEntryView.PER_GROUP
     ? stage.value.groups
     : [{
@@ -84,7 +84,7 @@ function onUpdateGroupQualifier(value: Qualifier[], groupIndex: number) {
 }
 
 // Card title
-function getCardTitle(order: TournamentGroupsStage['groups'][number]['order']) {
+function getCardTitle(order: GroupStage['groups'][number]['order']) {
   if (stage.value.groups.length === 1) return 'Classificação';
 
   if (filtersForm.value.view === TableEntryView.OVERALL) return 'Classificação geral';

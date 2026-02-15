@@ -19,26 +19,26 @@
           v-model="form.type"
           name="type"
           label="Grupos"
-          :value="StageType.GROUPS"
+          :value="StageType.GROUP"
           :disabled="isEditingForm"
         />
         <AppRadio
           v-model="form.type"
           name="type"
           label="Eliminatórias"
-          :value="StageType.PLAYOFFS"
+          :value="StageType.PLAYOFF"
           :disabled="isEditingForm"
         />
       </div>
     </AppFieldset>
     <div class="divider" />
     <StageFormModalGroupFields
-      v-if="form.type === StageType.GROUPS"
+      v-if="form.type === StageType.GROUP"
       v-model:groups="form.groups"
       v-model:teams-per-group="form.teamsPerGroup"
       :disabled="isEditingForm"
     />
-    <StageFormModalPlayoffsFields
+    <StageFormModalPlayoffFields
       v-else
       v-model:teams="form.teams"
       v-model:playoff-rounds="form.playoffRounds"
@@ -51,29 +51,29 @@
 <script setup lang="ts">
 const props = defineProps<{ stage?: TournamentStage }>();
 
-const DEFAULT_GROUPS_STAGE_NAME = 'Fase de Liga';
-const DEFAULT_PLAYOFFS_STAGE_NAME = 'Playoffs';
+const DEFAULT_GROUP_STAGE_NAME = 'Fase de Liga';
+const DEFAULT_PLAYOFF_STAGE_NAME = 'Playoffs';
 const { MIN_TEAMS, MIN_GROUPS, MIN_TEAMS_PER_GROUP, MIN_ROUNDS } = StageConstants;
 
 const tournamentStore = useTournamentStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
-function newForm(): TournamentStageForm {
+function newForm(): StageForm {
   return {
-    name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
-    type: props.stage?.type ?? StageType.GROUPS,
+    name: props.stage?.name ?? DEFAULT_GROUP_STAGE_NAME,
+    type: props.stage?.type ?? StageType.GROUP,
     teams: (
-      props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
+      props.stage?.type === StageType.PLAYOFF ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
     ),
     groups: (
-      props.stage?.type === StageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
+      props.stage?.type === StageType.GROUP ? props.stage.groups.length : MIN_GROUPS
     ),
     teamsPerGroup: (
-      props.stage?.type === StageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
+      props.stage?.type === StageType.GROUP ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
     ),
     playoffRounds: (
-      props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds.length : MIN_ROUNDS
+      props.stage?.type === StageType.PLAYOFF ? props.stage.rounds.length : MIN_ROUNDS
     ),
   };
 }
@@ -84,7 +84,7 @@ const isEditingForm = ref(false);
 
 watch(() => form.value.type, () => {
   form.value.name = (
-    form.value.type === StageType.GROUPS ? DEFAULT_GROUPS_STAGE_NAME : DEFAULT_PLAYOFFS_STAGE_NAME
+    form.value.type === StageType.GROUP ? DEFAULT_GROUP_STAGE_NAME : DEFAULT_PLAYOFF_STAGE_NAME
   );
 });
 

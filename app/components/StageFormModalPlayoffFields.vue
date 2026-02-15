@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
-import { getPlayoffRoundNames } from '~/helpers/playoffs';
+import { getPlayoffRoundNames } from '~/helpers/playoff';
 
 defineProps<{
   disabled: boolean;
@@ -42,6 +42,6 @@ defineProps<{
 
 const { MIN_TEAMS, MIN_ROUNDS } = StageConstants;
 
-const teams = defineModel<TournamentStageForm['teams']>('teams', { required: true });
-const playoffRounds = defineModel<TournamentStageForm['playoffRounds']>('playoff-rounds', { required: true });
+const teams = defineModel<StageForm['teams']>('teams', { required: true });
+const playoffRounds = defineModel<StageForm['playoffRounds']>('playoff-rounds', { required: true });
 </script>

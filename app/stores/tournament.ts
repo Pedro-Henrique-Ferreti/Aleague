@@ -78,7 +78,7 @@ export const useTournamentStore = defineStore('tournament', {
 
       this.activeTournamentId = this.tournaments[index]?.id || (this.tournaments[this.tournaments.length - 1]?.id || null);
     },
-    addStage(id: Tournament['id'], stageForm: TournamentStageForm) {
+    addStage(id: Tournament['id'], stageForm: StageForm) {
       const tournament = this.getTournament(id);
 
       tournament.stages.push(createStage(tournament, stageForm));
@@ -96,7 +96,7 @@ export const useTournamentStore = defineStore('tournament', {
     updateStageTeams(payload: UpdateStageTeamsStorePayload) {
       const stage = this.getStage(payload.id, payload.stageId);
 
-      if (stage.type === StageType.PLAYOFFS) {
+      if (stage.type === StageType.PLAYOFF) {
         payload.form.forEach((group, index) => {
           const [home, away] = group.teams as [Team['id'], Team['id']];
           const { legs } = stage.rounds[0].slots[index]!;
@@ -131,20 +131,20 @@ export const useTournamentStore = defineStore('tournament', {
         this.replaceTeamsInMatchweeks({ id: payload.id, stageId: payload.stageId, queries });
       }
     },
-    createStageMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
+    createStageMatchweeks(id: Tournament['id'], stageId: GroupStage['id']) {
       const stage = this.getStage(id, stageId);
 
-      if (stage.type !== StageType.GROUPS) throw new Error('Stage type not supported');
+      if (stage.type !== StageType.GROUP) throw new Error('Stage type not supported');
       if (!stageHasAllTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
       // TODO: allow choosing format when creating matchweeks
       // TODO: alllow choosing number of round robins when creating matchweeks
-      stage.matchweeks = createMatchweeks(stage.groups, GroupsStageFormat.ROUND_ROBIN, 1);
+      stage.matchweeks = createMatchweeks(stage.groups, GroupStageFormat.SAME_GROUP_ROUND_ROBIN, 1);
     },
     replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
       const stage = this.getTournament(payload.id).stages.find(stage => stage.id === payload.stageId);
 
-      if (!stage || stage.type !== StageType.GROUPS) throw new Error('Stage not found');
+      if (!stage || stage.type !== StageType.GROUP) throw new Error('Stage not found');
 
       if (stage.matchweeks.length === 0) return;
 
@@ -169,10 +169,10 @@ export const useTournamentStore = defineStore('tournament', {
         });
       });
     },
-    deleteMatchweeks(id: Tournament['id'], stageId: TournamentGroupsStage['id']) {
+    deleteMatchweeks(id: Tournament['id'], stageId: GroupStage['id']) {
       const stage = this.getStage(id, stageId);
 
-      if (stage.type !== StageType.GROUPS) throw new Error('Stage type not supported');
+      if (stage.type !== StageType.GROUP) throw new Error('Stage type not supported');
 
       stage.matchweeks = [];
 

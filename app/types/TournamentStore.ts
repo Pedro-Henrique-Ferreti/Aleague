@@ -2,8 +2,8 @@ import type { StageTeamsFormGroup } from '@/components/StageTeamsModal.vue';
 
 export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry'>;
 
-export type TournamentStageForm = (
-  Pick<BaseTournamentStage, 'name' | 'type'>
+export type StageForm = (
+  Pick<BaseStage, 'name' | 'type'>
   & {
     teams: number;
     teamsPerGroup: number;
@@ -20,7 +20,7 @@ export interface StoreState {
 export interface EditStageStorePayload {
   id: Tournament['id'];
   stageId: TournamentStage['id'];
-  stageForm: TournamentStageForm;
+  stageForm: StageForm;
 }
 
 export interface UpdateStageTeamsStorePayload {

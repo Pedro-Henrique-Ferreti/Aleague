@@ -31,7 +31,7 @@ import type { RulesForm } from './MatchweekFormModalRules.vue';
 const step = ref<FormStep>(FormStep.SELECT_RULES);
 
 const form = ref<RulesForm>({
-  format: GroupsStageFormat.ROUND_ROBIN,
+  format: GroupStageFormat.SAME_GROUP_ROUND_ROBIN,
   roundRobins: StageConstants.MIN_ROUNDS,
 });
 

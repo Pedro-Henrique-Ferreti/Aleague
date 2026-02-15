@@ -19,7 +19,7 @@ const props = defineProps<{
 
 const DISPLAYED_ROUNDS_MAX = 4;
 
-const stage = defineModel<TournamentPlayoffsStage>({ required: true });
+const stage = defineModel<PlayoffStage>({ required: true });
 
 const activeRoundIndex = computed(() => (
   stage.value.rounds.findIndex(round => round.id === props.activeRoundId)

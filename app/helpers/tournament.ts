@@ -1,29 +1,29 @@
 import { createMatchListFromTeamList } from './matchweek';
 import { newGroupStage, newPlayoffStage } from './stage';
 
-export function createStage(tournament: Tournament, stageForm: TournamentStageForm) {
-  const baseStage: BaseTournamentStage = {
+export function createStage(tournament: Tournament, stageForm: StageForm) {
+  const baseStage: BaseStage = {
     id: new Date().getTime(),
     sequence: (tournament.stages[tournament.stages.length - 1]?.sequence || 0) + 1,
     name: stageForm.name,
     type: stageForm.type,
   };
 
-  return stageForm.type === StageType.GROUPS ? newGroupStage(stageForm, baseStage) : newPlayoffStage(stageForm, baseStage);
+  return stageForm.type === StageType.GROUP ? newGroupStage(stageForm, baseStage) : newPlayoffStage(stageForm, baseStage);
 }
 
 export function createMatchweeks(
-  groups: TournamentGroupsStage['groups'],
-  format: GroupsStageFormat,
+  groups: GroupStage['groups'],
+  format: GroupStageFormat,
   roundRobins: number,
-): TournamentGroupsStage['matchweeks'] {
+): GroupStage['matchweeks'] {
   let matchList: Match[][] = [];
 
-  const teamsFromGroup = (g: TournamentGroupsStage['groups'][number]) => (
+  const teamsFromGroup = (g: GroupStage['groups'][number]) => (
     g.standings.map(i => i.team!)
   );
 
-  if (format === GroupsStageFormat.ROUND_ROBIN) {
+  if (format === GroupStageFormat.SAME_GROUP_ROUND_ROBIN) {
     groups.forEach((group) => {
       createMatchListFromTeamList(teamsFromGroup(group), roundRobins).forEach((item, i) => {
         if (!matchList[i]) {
@@ -32,7 +32,7 @@ export function createMatchweeks(
         matchList[i]!.push(...item);
       });
     });
-  } else if (format === GroupsStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
+  } else if (format === GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
     matchList = createMatchListFromTeamList(
       groups.flatMap(g => teamsFromGroup(g)),
       roundRobins,

@@ -29,14 +29,14 @@
       :stages="tournament.stages"
     />
     <template v-for="stage, index in tournament.stages">
-      <TournamentGroups
-        v-if="stage.type === StageType.GROUPS && activeStage?.id === stage.id"
-        v-model="(tournament.stages[index] as TournamentGroupsStage)"
+      <TournamentGroupStage
+        v-if="stage.type === StageType.GROUP && activeStage?.id === stage.id"
+        v-model="(tournament.stages[index] as GroupStage)"
         :key="`group-${index}`"
       />
-      <TournamentPlayoffs
-        v-else-if="stage.type === StageType.PLAYOFFS && activeStage?.id === stage.id"
-        v-model="(tournament.stages[index] as TournamentPlayoffsStage)"
+      <TournamentPlayoffStage
+        v-else-if="stage.type === StageType.PLAYOFF && activeStage?.id === stage.id"
+        v-model="(tournament.stages[index] as PlayoffStage)"
         :key="index"
         :active-round-id="controlsRef?.roundId"
       />
@@ -65,7 +65,7 @@ const controlsRef = useTemplateRef<typeof TournamentStageControls>('controls');
 
 const activeStage = computed(() => tournament.value.stages.find(stage => (
   stage.id === controlsRef.value?.roundId || (
-    stage.type === StageType.PLAYOFFS && stage.rounds.find(round => round.id === controlsRef.value?.roundId)
+    stage.type === StageType.PLAYOFF && stage.rounds.find(round => round.id === controlsRef.value?.roundId)
   )
 )));
 </script>

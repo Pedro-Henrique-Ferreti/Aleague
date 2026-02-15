@@ -19,7 +19,7 @@
 
 <script lang="ts">
 interface RoundOption {
-  id: TournamentGroupsStage['id'] | PlayoffRound['id'];
+  id: GroupStage['id'] | PlayoffRound['id'];
   name: string;
 }
 </script>
@@ -30,11 +30,11 @@ const props = defineProps<{
 }>();
 
 const showControls = computed(() => (
-  props.stages.length > 1 || props.stages[0]?.type === StageType.PLAYOFFS
+  props.stages.length > 1 || props.stages[0]?.type === StageType.PLAYOFF
 ));
 
 const roundOptions = computed(() => props.stages.flatMap((stage): RoundOption[] => {
-  if (stage.type === StageType.GROUPS) {
+  if (stage.type === StageType.GROUP) {
     return [{ id: stage.id, name: stage.name }];
   }
 
