@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="fieldset">
+  <fieldset class="fieldset pb-0">
     <legend class="fieldset-legend">{{ label }}</legend>
     <slot />
   </fieldset>
