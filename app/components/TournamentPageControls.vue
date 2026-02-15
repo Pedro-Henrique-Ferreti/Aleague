@@ -28,7 +28,7 @@
         @click="showDeleteStageDialog = true"
       />
     </AppMenu>
-    <TournamentStageModal
+    <StageFormModal
       v-model:is-open="stageModalIsOpen"
       :stage="isEditingStage ? activeStage : undefined"
     />

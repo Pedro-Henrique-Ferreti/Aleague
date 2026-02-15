@@ -13,14 +13,14 @@
     <div class="card-body text-center">
       <h1 class="text-xl font-semibold mb-0.5">Nenhuma fase</h1>
       <p>Adicione uma fase ao campeonato clicando no botão abaixo.</p>
-      <TournamentStageModal v-slot="{ openModal }">
+      <StageFormModal v-slot="{ openModal }">
         <AppButton
           class="btn-primary btn-soft btn-wide mt-2 mx-auto"
           label="Adicionar"
           :icon-left="IconPlus"
           @click="openModal"
         />
-      </TournamentStageModal>
+      </StageFormModal>
     </div>
   </div>
   <template v-else>

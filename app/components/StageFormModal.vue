@@ -32,7 +32,7 @@
       </div>
     </AppFieldset>
     <div class="divider" />
-    <TournamentStageModalGroupFields
+    <StageFormModalGroupFields
       v-if="form.type === StageType.GROUPS"
       v-model:format="form.format"
       v-model:groups="form.groups"
@@ -40,7 +40,7 @@
       v-model:group-round-robins="form.groupRoundRobins"
       :disabled="isEditingForm"
     />
-    <TournamentStageModalPlayoffsFields
+    <StageFormModalPlayoffsFields
       v-else
       v-model:teams="form.teams"
       v-model:playoff-rounds="form.playoffRounds"
