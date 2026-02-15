@@ -13,7 +13,7 @@ export function createStage(tournament: Tournament, stageForm: TournamentStageFo
 }
 
 export function createMatchweeks(
-  stage: TournamentGroupsStage,
+  groups: TournamentGroupsStage['groups'],
   format: GroupsStageFormat,
   roundRobins: number,
 ): TournamentGroupsStage['matchweeks'] {
@@ -24,7 +24,7 @@ export function createMatchweeks(
   );
 
   if (format === GroupsStageFormat.ROUND_ROBIN) {
-    stage.groups.forEach((group) => {
+    groups.forEach((group) => {
       createMatchListFromTeamList(teamsFromGroup(group), roundRobins).forEach((item, i) => {
         if (!matchList[i]) {
           matchList[i] = [];
@@ -34,12 +34,12 @@ export function createMatchweeks(
     });
   } else if (format === GroupsStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
     matchList = createMatchListFromTeamList(
-      stage.groups.flatMap(g => teamsFromGroup(g)),
+      groups.flatMap(g => teamsFromGroup(g)),
       roundRobins,
-      stage.groups.map(g => teamsFromGroup(g)),
+      groups.map(g => teamsFromGroup(g)),
     );
   } else {
-    matchList = createMatchListFromTeamList(stage.groups.flatMap(g => teamsFromGroup(g)), roundRobins);
+    matchList = createMatchListFromTeamList(groups.flatMap(g => teamsFromGroup(g)), roundRobins);
   }
 
   return matchList.map((list, index) => ({
