@@ -7,7 +7,7 @@
     <MatchCardTeam
       :align="layout !== 'vertical' ? 'right' : undefined"
       :team="match.homeTeam.id"
-      :show-country="showCountry"  
+      :show-country="showCountry"
     />
     <div
       class="flex items-stretch gap-0.5 h-full"
@@ -37,7 +37,7 @@
     </div>
     <MatchCardTeam
       :team="match.awayTeam.id"
-      :show-country="showCountry"  
+      :show-country="showCountry"
     />
   </div>
 </template>
@@ -50,14 +50,13 @@ export interface MatchWithOldScore extends Match {
   }
 }
 export interface MatchCardEmits {
-  'match-updated': [MatchWithOldScore];
-  'focus': [];
-  'blur': [];
+  matchUpdated: [MatchWithOldScore];
+  focus: [];
+  blur: [];
 }
 </script>
 
 <script lang="ts" setup>
-const emit = defineEmits<MatchCardEmits>();
 const props = defineProps<{
   match: Match;
   layout?: 'vertical';
@@ -65,14 +64,14 @@ const props = defineProps<{
   readonly?: boolean;
   size?: 'sm';
 }>();
-
+const emit = defineEmits<MatchCardEmits>();
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
 const awayScore = defineModel<Match['awayTeam']['score']>('away-score');
 const fixtureTwoHomeScore = defineModel<Match['homeTeam']['score']>('fixture-two-home-score');
 const fixtureTwoAwayScore = defineModel<Match['awayTeam']['score']>('fixture-two-away-score');
 
 watch(() => [props.match.homeTeam.score, props.match.awayTeam.score], (_, oldScore) => {
-  emit('match-updated', {
+  emit('matchUpdated', {
     ...props.match,
     oldScore: { home: oldScore[0] ?? null, away: oldScore[1] ?? null },
   });
@@ -84,7 +83,10 @@ const matchCardRef = useTemplateRef<HTMLDivElement>('matchCardRef');
 const { focused } = useFocusWithin(matchCardRef);
 
 watch(focused, () => {
-  if (focused.value) emit('focus');
-  else emit('blur');
+  if (focused.value) {
+    emit('focus');
+  } else {
+    emit('blur');
+  }
 });
 </script>

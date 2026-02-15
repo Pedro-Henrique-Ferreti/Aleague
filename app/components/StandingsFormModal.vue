@@ -22,14 +22,14 @@
 </template>
 
 <script lang="ts" setup>
+import type { StandingsFormChartProps } from './StandingsFormChart.vue';
 import { getTableEntriesByWeek } from '~/helpers/standings';
-import type { Props as ChartProps } from './StandingsFormChart.vue';
-
-const { getTeamById } = useTeamStore();
 
 const props = defineProps<{
   standings: TournamentGroupsStage['groups'][number]['standings'];
 }>();
+
+const { getTeamById } = useTeamStore();
 
 const entry = defineModel<TableEntry | null>('entry');
 
@@ -38,11 +38,11 @@ const isOpen = ref(false);
 watch(entry, () => isOpen.value = !!entry.value);
 
 // Chart data
-const chartData = ref<ChartProps['data'] | null>(null);
+const chartData = ref<StandingsFormChartProps['data'] | null>(null);
 
 function loadChartData() {
   chartData.value = getTableEntriesByWeek(props.standings).flatMap((week) => {
-    const index = week.entries.findIndex((i) => i.team === entry.value?.team);
+    const index = week.entries.findIndex(i => i.team === entry.value?.team);
 
     if (index === -1) return [];
 

@@ -22,12 +22,11 @@ export function getRandomScore() {
   return num;
 }
 
-export const newMatch = (
-  homeTeamId: Match['homeTeam']['id'] = null,
-  awayTeamId: Match['awayTeam']['id'] = null,
-): Match => ({
-  id: uuidv4(),
-  homeTeam: { id: homeTeamId, score: null },
-  awayTeam: { id: awayTeamId, score: null },
-  kickoff: null,
-});
+export function newMatch(homeTeamId: Match['homeTeam']['id'] = null, awayTeamId: Match['awayTeam']['id'] = null): Match {
+  return {
+    id: uuidv4(),
+    homeTeam: { id: homeTeamId, score: null },
+    awayTeam: { id: awayTeamId, score: null },
+    kickoff: null,
+  };
+}

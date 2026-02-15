@@ -19,7 +19,7 @@ export function downloadFile(blob: Blob, fileName: string) {
 }
 
 export function normalizeString(str: string) {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return str.normalize('NFD').replace(/[\u0300-\u036F]/g, '');
 }
 
 export function clone<T>(data: T) {

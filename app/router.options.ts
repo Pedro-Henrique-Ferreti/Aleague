@@ -1,4 +1,4 @@
-import type { RouterConfig } from '@nuxt/schema'
+import type { RouterConfig } from '@nuxt/schema';
 
 export default {
   routes: _routes => [
@@ -13,4 +13,4 @@ export default {
       component: () => import('~/pages/Analytics.vue'),
     },
   ],
-} satisfies RouterConfig
+} satisfies RouterConfig;

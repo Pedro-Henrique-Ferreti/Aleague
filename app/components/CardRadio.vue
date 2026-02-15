@@ -13,9 +13,9 @@
       </div>
       <input
         v-model="model"
+        :id="id"
         type="radio"
         class="radio size-1.25"
-        :id="id"
         :name="name"
         :value="value"
         :disabled="disabled"
@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts" setup generic="T extends string | number | null">
-const id = useId();
-
 defineProps<{
   name: string;
   value: T;
   disabled?: boolean;
 }>();
+
+const id = useId();
 
 const model = defineModel<T>();
 </script>

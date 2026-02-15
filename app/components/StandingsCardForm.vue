@@ -15,5 +15,5 @@ withDefaults(defineProps<{
   autoFill?: number;
 }>(), {
   autoFill: 0,
-})
+});
 </script>

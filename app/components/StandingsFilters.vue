@@ -49,17 +49,17 @@ export interface FiltersForm {
 export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<FiltersForm['week']>> = {
   label: 'Todos',
   value: -1,
-}
+};
 </script>
 
 <script setup lang="ts">
 import { IconRestore } from '@tabler/icons-vue';
 
-defineEmits<{ 'reset': [] }>();
 const props = defineProps<{
   showViewInput: boolean;
   matchweeks: number;
 }>();
+defineEmits<{ reset: [] }>();
 
 const form = defineModel<FiltersForm>({ required: true });
 
@@ -70,10 +70,9 @@ const weekDirectionOptions: Readonly<SelectOptionList<FiltersForm['weekDirection
 
 const weekOptions = computed<SelectOptionList<FiltersForm['week']>>(() => [
   DEFAULT_WEEK_OPTION,
-  ...createArray(props.matchweeks, (i) => ({
+  ...createArray(props.matchweeks, i => ({
     label: `Rodada ${i + 1}`,
     value: i + 1,
   })),
 ]);
 </script>
-

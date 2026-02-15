@@ -16,7 +16,7 @@ export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroups
   let matchList: Match[][] = [];
 
   const teamsFromGroup = (g: TournamentGroupsStage['groups'][number]) => (
-    g.standings.map((i) => i.team!)
+    g.standings.map(i => i.team!)
   );
 
   if (stage.format === TournamentGroupFormat.ROUND_ROBIN) {
@@ -27,15 +27,15 @@ export function createMatchweeks(stage: TournamentGroupsStage): TournamentGroups
         }
         matchList[i]!.push(...item);
       });
-  });
+    });
   } else if (stage.format === TournamentGroupFormat.OTHER_GROUPS_ROUND_ROBIN) {
     matchList = createMatchListFromTeamList(
-      stage.groups.flatMap((g) => teamsFromGroup(g)),
+      stage.groups.flatMap(g => teamsFromGroup(g)),
       stage.roundRobins,
-      stage.groups.map((g) => teamsFromGroup(g)),
+      stage.groups.map(g => teamsFromGroup(g)),
     );
   } else {
-    matchList = createMatchListFromTeamList(stage.groups.flatMap((g) => teamsFromGroup(g)), stage.roundRobins);
+    matchList = createMatchListFromTeamList(stage.groups.flatMap(g => teamsFromGroup(g)), stage.roundRobins);
   }
 
   return matchList.map((list, index) => ({

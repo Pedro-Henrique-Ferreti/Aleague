@@ -4,7 +4,7 @@ import 'floating-vue/dist/style.css';
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(FloatingVue, {
     themes: {
-      tooltip: {
+      'tooltip': {
         $resetCss: true,
         distance: 8,
         overflowPadding: 12,

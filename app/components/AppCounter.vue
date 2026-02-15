@@ -17,9 +17,9 @@
         >
           <BaseInput
             v-model="inputValue"
+            :id="id"
             class="text-center cursor-default grow"
             readonly
-            :id="id"
             :disabled="disabled"
           />
         </label>
@@ -40,8 +40,6 @@
 <script lang="ts" setup>
 import { IconMinus, IconPlus } from '@tabler/icons-vue';
 
-const id = useId();
-
 const props = withDefaults(defineProps<{
   label: string;
   min?: number;
@@ -54,10 +52,12 @@ const props = withDefaults(defineProps<{
   max: Number.MAX_SAFE_INTEGER,
 });
 
+const id = useId();
+
 const model = defineModel<number>({ default: 0 });
 
 const inputValue = computed({
-  get: () => model.value, 
+  get: () => model.value,
   set(value: number) {
     if (value < props.min || (value > props.max)) return;
 

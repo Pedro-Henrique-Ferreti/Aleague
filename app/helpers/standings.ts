@@ -1,16 +1,27 @@
 import { getMatchResult } from './match';
 
-export const newStandingsEntryData = (week: StandingsEntryData['week']): StandingsEntryData => ({
-  week,
-  type: TableEntryType.HOME,
-  points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [],
-});
+export function newStandingsEntryData(week: StandingsEntryData['week']): StandingsEntryData {
+  return {
+    week,
+    type: TableEntryType.HOME,
+    points: 0,
+    played: 0,
+    won: 0,
+    drawn: 0,
+    lost: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
+    form: [],
+  };
+}
 
-export const newStandingsEntry = (id?: StandingsEntry['id'], team?: StandingsEntry['team']): StandingsEntry => ({
-  id: id ?? uuidv4(),
-  team: team ?? null,
-  data: [newStandingsEntryData(1)],
-});
+export function newStandingsEntry(id?: StandingsEntry['id'], team?: StandingsEntry['team']): StandingsEntry {
+  return {
+    id: id ?? uuidv4(),
+    team: team ?? null,
+    data: [newStandingsEntryData(1)],
+  };
+}
 
 export function getStandingsDataFromScore(homeScore: number, awayScore: number, isHomeTeam: boolean) {
   const goalsFor = isHomeTeam ? homeScore : awayScore;
@@ -47,7 +58,7 @@ export function sortTableEntryByType(a: TableEntry, b: TableEntry, sortType: Tab
 
 export function sortTableEntries(a: TableEntry, b: TableEntry, sortType = TableEntrySortType.POINTS): number {
   const result = sortTableEntryByType(a, b, sortType);
-  
+
   if (result !== 0) return result;
 
   if (a.played === 0 && b.played === 0) return 0;
@@ -82,7 +93,7 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
   const forms: TableEntry['form'] = [];
 
   for (const week of matchweeks) {
-    const match = week.matches.find((m) => (
+    const match = week.matches.find(m => (
       (m.homeTeam.id === teamId || m.awayTeam.id === teamId)
       && m.homeTeam.score !== null
       && m.awayTeam.score !== null
@@ -101,7 +112,10 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
 }
 
 export function getTableEntry(
-  entry: StandingsEntry, type = TableEntryType.OVERALL, week?: Matchweek['week'], direction = WeekDirection.BEFORE
+  entry: StandingsEntry,
+  type = TableEntryType.OVERALL,
+  week?: Matchweek['week'],
+  direction = WeekDirection.BEFORE,
 ): TableEntry {
   const data: StandingsData = {
     points: 0,
@@ -145,6 +159,6 @@ export function getTableEntriesByWeek(standings: StandingsEntry[], weeks?: numbe
 
   return createArray(length, (index): TableEntriesByWeek[number] => ({
     week: index + 1,
-    entries: standings.map((i) => getTableEntry(i, undefined, index + 1)).sort(sortTableEntries),
+    entries: standings.map(i => getTableEntry(i, undefined, index + 1)).sort(sortTableEntries),
   }));
 }

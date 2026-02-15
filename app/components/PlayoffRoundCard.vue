@@ -44,12 +44,13 @@
 import { IconPencilQuestion, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { getRandomScore, newMatch } from '~/helpers/match';
 
+const emit = defineEmits<{
+  winnerUpdated: [PlayoffRoundWinner];
+}>();
+
 const tournamentStore = useTournamentStore();
 
-const emit = defineEmits<{
-  'winner-updated': [PlayoffRoundWinner];
-}>();
-const slot = defineModel<PlayoffRound['slots'][number]>('slot', { required: true });
+const slot = defineModel<PlayoffRound['slots'][number]>({ required: true });
 
 function addMatchToSlot() {
   slot.value.legs.push(newMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
@@ -63,15 +64,18 @@ function randomizeScore() {
 }
 
 const winner = computed<PlayoffRoundWinner>(() => {
-  if (slot.value.legs.some((m) => m.homeTeam.score === null || m.awayTeam.score === null)) return null;
+  if (slot.value.legs.some(m => m.homeTeam.score === null || m.awayTeam.score === null))
+    return null;
 
   const homeScore = slot.value.legs.reduce((sum, m) => m.homeTeam.score! + sum, 0);
   const awayScore = slot.value.legs.reduce((sum, m) => m.awayTeam.score! + sum, 0);
 
-  if (homeScore > awayScore) return slot.value.legs[0].homeTeam.id;
-  if (homeScore < awayScore) return slot.value.legs[0].awayTeam.id;
+  if (homeScore > awayScore)
+    return slot.value.legs[0].homeTeam.id;
+  if (homeScore < awayScore)
+    return slot.value.legs[0].awayTeam.id;
   return null;
 });
 
-watch(winner, () => emit('winner-updated', winner.value));
+watch(winner, () => emit('winnerUpdated', winner.value));
 </script>

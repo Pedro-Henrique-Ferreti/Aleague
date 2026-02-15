@@ -1,7 +1,7 @@
 const TOURNAMENT_NUMBER_OF_ICONS = 40;
 
 export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
-  ...createArray(TOURNAMENT_NUMBER_OF_ICONS, (index) => ({
+  ...createArray(TOURNAMENT_NUMBER_OF_ICONS, index => ({
     label: `Logo ${index + 1}`,
     value: `/images/icons/tournament/icon-${index + 1}.svg`,
   })),

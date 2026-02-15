@@ -21,10 +21,11 @@
 <script lang="ts" setup>
 import { IconEdit, IconFolderOpen } from '@tabler/icons-vue';
 
-const tournamentStore = useTournamentStore();
-
-defineEmits<{ 'edit': [] }>();
 const props = defineProps<{ collection: Collection }>();
 
-const tournaments = computed(() => tournamentStore.tournaments.filter((t) => t.collectionId === props.collection.id));
+defineEmits<{ edit: [] }>();
+
+const tournamentStore = useTournamentStore();
+
+const tournaments = computed(() => tournamentStore.tournaments.filter(t => t.collectionId === props.collection.id));
 </script>

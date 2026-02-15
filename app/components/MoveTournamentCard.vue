@@ -7,8 +7,8 @@
   >
     <div class="flex items-center gap-1">
       <component
-        class="size-1.25"
         :is="icon ?? IconFolderFilled"
+        class="size-1.25"
         :class="[isChecked ? 'fill-base-content' : 'fill-base-200']"
       />
       <span>{{ label }}</span>
@@ -17,15 +17,14 @@
 </template>
 
 <script lang="ts" setup>
-import { IconFolderFilled, type Icon } from '@tabler/icons-vue';
+import type { Icon } from '@tabler/icons-vue';
+import { IconFolderFilled } from '@tabler/icons-vue';
 
-interface Props {
+defineProps<{
   value: Tournament['collectionId'];
   label: string;
   icon?: Icon;
-}
+}>();
 
 const model = defineModel<Tournament['collectionId']>();
-
-defineProps<Props>();
 </script>

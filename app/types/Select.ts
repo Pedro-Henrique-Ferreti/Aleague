@@ -6,4 +6,4 @@ export interface SelectOption<V extends SelectOptionValue> {
   disabled?: boolean;
 }
 
-export type SelectOptionList<T extends SelectOptionValue> = SelectOption<T>[]; 
+export type SelectOptionList<T extends SelectOptionValue> = SelectOption<T>[];

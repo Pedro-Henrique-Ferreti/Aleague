@@ -4,16 +4,20 @@
 
 <script lang="ts" setup>
 import {
-  Chart as ChartJS,
   CategoryScale,
+  type ChartConfiguration,
+  Chart as ChartJS,
+  Filler,
   LinearScale,
   LineController,
   LineElement,
   PointElement,
-  Filler,
   Tooltip,
-  type ChartConfiguration,
 } from 'chart.js';
+
+const props = defineProps<{
+  config: ChartConfiguration,
+}>();
 
 ChartJS.register(
   CategoryScale,
@@ -26,10 +30,6 @@ ChartJS.register(
 );
 
 const id = useId();
-
-const props = defineProps<{
-  config: ChartConfiguration,
-}>();
 
 onMounted(() => {
   const ctx = (document.getElementById(id) as HTMLCanvasElement).getContext('2d');

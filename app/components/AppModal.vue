@@ -3,12 +3,12 @@
     name="trigger"
     :open="openModal"
     :close="closeModal"
-    :toggle="toggleModal"  
+    :toggle="toggleModal"
   />
   <dialog
     ref="dialogRef"
-    class="modal text-left"
     :id="id"
+    class="modal text-left"
     @close="closeModal"
   >
     <div
@@ -52,13 +52,6 @@
 </template>
 
 <script lang="ts" setup>
-const id = useId();
-
-const emit = defineEmits<{
-  open: [];
-  close: [];
-  submit: [];
-}>();
 withDefaults(defineProps<{
   title?: string;
   showCloseIcon?: boolean;
@@ -71,6 +64,14 @@ withDefaults(defineProps<{
   submitButtonLabel: 'Salvar',
   showActions: true,
 });
+
+const emit = defineEmits<{
+  open: [];
+  close: [];
+  submit: [];
+}>();
+
+const id = useId();
 
 const isOpen = defineModel<boolean>('is-open');
 const dialogRef = ref<HTMLDialogElement | null>(null);
@@ -106,6 +107,6 @@ watchEffect(() => {
 defineExpose({
   open: openModal,
   close: closeModal,
-  toggle: toggleModal
+  toggle: toggleModal,
 });
 </script>

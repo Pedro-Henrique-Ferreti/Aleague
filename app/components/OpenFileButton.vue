@@ -15,15 +15,15 @@ const tournamentStore = useTournamentStore();
 
 function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFilesHandlerParams) {
   const tournaments = tournamentFiles.filter(
-    (file) => !tournamentStore.tournaments.find((i) => i.id === file.data.id)
-  ).map((file) => file.data);
+    file => !tournamentStore.tournaments.find(i => i.id === file.data.id),
+  ).map(file => file.data);
 
   tournamentStore.tournaments.push(...tournaments);
 
   let id = tournaments.reverse()[0]?.id;
 
   for (const file of collectionFiles) {
-    if (collectionStore.collections.find((i) => i.id === file.id)) return;
+    if (collectionStore.collections.find(i => i.id === file.id)) return;
 
     collectionStore.collections.push({
       id: file.id,

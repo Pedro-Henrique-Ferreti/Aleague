@@ -10,12 +10,12 @@
     <AppMenuItem
       label="Editar datas"
       :icon="IconClockEdit"
-      @click="$emit('edit-kickoffs')"
+      @click="$emit('editKickoffs')"
     />
     <AppMenuItem
       label="Aleatorizar resultados"
       :icon="IconPencilQuestion"
-      @click="$emit('randomize-results')"
+      @click="$emit('randomizeResults')"
     />
     <AppMenuItem
       label="Excluir rodadas"
@@ -34,18 +34,18 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPencilQuestion, IconDotsVertical, IconTrash, IconClockEdit } from '@tabler/icons-vue';
+import { IconClockEdit, IconDotsVertical, IconPencilQuestion, IconTrash } from '@tabler/icons-vue';
 
 const emit = defineEmits<{
-  'edit-kickoffs': [];
-  'randomize-results': [];
-  'delete-matchweeks': [];
+  editKickoffs: [];
+  randomizeResults: [];
+  deleteMatchweeks: [];
 }>();
 
 const showDeleteMatchweeksDialog = ref(false);
 
 function onDeleteMatchweeks() {
-  emit('delete-matchweeks');
+  emit('deleteMatchweeks');
   showDeleteMatchweeksDialog.value = false;
 }
 </script>

@@ -7,11 +7,11 @@
     <button
       v-for="option in roundOptions"
       v-text="option.name"
+      :key="option.id"
       class="tab basis-1/2 @min-[35rem]/main:basis-1/4 @min-[56rem]/main:basis-1/7"
       type="button"
       role="tab"
       :class="{ 'tab-active': roundId === option.id }"
-      :key="option.id"
       @click="roundId = option.id"
     />
   </div>
@@ -38,7 +38,7 @@ const roundOptions = computed(() => props.stages.flatMap((stage): RoundOption[] 
     return [{ id: stage.id, name: stage.name }];
   }
 
-  return stage.rounds.map((round) => ({ id: round.id, name: round.name }));
+  return stage.rounds.map(round => ({ id: round.id, name: round.name }));
 }));
 
 const roundId = ref<RoundOption['id'] | undefined>(roundOptions.value[0]?.id);

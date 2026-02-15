@@ -16,7 +16,7 @@ export const useFileStore = defineStore('file', {
 
       downloadFile(
         new Blob([JSON.stringify(sourceFile)], { type: 'application/json' }),
-        `${normalizeString(sourceFile.data.name).replace(/[^a-zA-Z0-9]/g, '_')}.json`,
+        `${normalizeString(sourceFile.data.name).replace(/[^a-z0-9]/gi, '_')}.json`,
       );
     },
     generateCollectionFile(collection: Collection): CollectionFile {
@@ -30,7 +30,7 @@ export const useFileStore = defineStore('file', {
           id: collection.id,
           name: collection.name,
           createdAt: collection.createdAt,
-          tournaments: tournamentStore.tournaments.filter((t) => t.collectionId === collection.id),
+          tournaments: tournamentStore.tournaments.filter(t => t.collectionId === collection.id),
         },
       };
     },

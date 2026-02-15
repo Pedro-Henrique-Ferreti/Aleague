@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts" setup>
-import { IconWand } from '@tabler/icons-vue';
 import type { StageTeamsForm } from './StageTeamsModal.vue';
+import { IconWand } from '@tabler/icons-vue';
 
 const props = defineProps<{
   teamOptions?: TeamDetails[];

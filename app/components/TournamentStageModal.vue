@@ -51,37 +51,40 @@
 </template>
 
 <script setup lang="ts">
+const props = defineProps<{ stage?: TournamentStage }>();
+
 const DEFAULT_GROUPS_STAGE_NAME = 'Fase de Liga';
 const DEFAULT_PLAYOFFS_STAGE_NAME = 'Playoffs';
 const { MIN_TEAMS, MIN_GROUPS, MIN_TEAMS_PER_GROUP, MIN_ROUNDS } = StageConstants;
 
 const tournamentStore = useTournamentStore();
 
-const props = defineProps<{ stage?: TournamentStage }>();
 const modalIsOpen = defineModel<boolean>('is-open');
 
-const newForm = (): TournamentStageForm => ({
-  name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
-  type: props.stage?.type ?? StageType.GROUPS,
-  format: (
-    props.stage?.type === StageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
-  ),
-  teams: (
-    props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
-  ),
-  groups: (
-    props.stage?.type === StageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
-  ),
-  teamsPerGroup: (
-    props.stage?.type === StageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
-  ),
-  groupRoundRobins: (
-    props.stage?.type === StageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
-  ),
-  playoffRounds: (
-    props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds.length : MIN_ROUNDS
-  ),
-});
+function newForm(): TournamentStageForm {
+  return {
+    name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
+    type: props.stage?.type ?? StageType.GROUPS,
+    format: (
+      props.stage?.type === StageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
+    ),
+    teams: (
+      props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
+    ),
+    groups: (
+      props.stage?.type === StageType.GROUPS ? props.stage.groups.length : MIN_GROUPS
+    ),
+    teamsPerGroup: (
+      props.stage?.type === StageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
+    ),
+    groupRoundRobins: (
+      props.stage?.type === StageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
+    ),
+    playoffRounds: (
+      props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds.length : MIN_ROUNDS
+    ),
+  };
+}
 
 const form = ref(newForm());
 
@@ -91,7 +94,7 @@ watch(() => form.value.type, () => {
   form.value.name = (
     form.value.type === StageType.GROUPS ? DEFAULT_GROUPS_STAGE_NAME : DEFAULT_PLAYOFFS_STAGE_NAME
   );
-})
+});
 
 // Max allowed number of playoff rounds
 const maxPlayoffRounds = computed(() => {

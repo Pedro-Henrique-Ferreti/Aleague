@@ -32,10 +32,12 @@
       <TournamentGroups
         v-if="stage.type === StageType.GROUPS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentGroupsStage)"
+        :key="`group-${index}`"
       />
       <TournamentPlayoffs
         v-else-if="stage.type === StageType.PLAYOFFS && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as TournamentPlayoffsStage)"
+        :key="index"
         :active-round-id="controlsRef?.roundId"
       />
     </template>
@@ -52,7 +54,7 @@ const tournament = computed({
   get: () => tournamentStore.activeTournament!,
   set: (value) => {
     const index = tournamentStore.tournaments.findIndex(t => t.id === value?.id);
-    
+
     if (index > -1 && value) {
       tournamentStore.tournaments[index] = value;
     }
@@ -61,9 +63,9 @@ const tournament = computed({
 
 const controlsRef = useTemplateRef<typeof TournamentStageControls>('controls');
 
-const activeStage = computed(() => tournament.value.stages.find((stage) => (
+const activeStage = computed(() => tournament.value.stages.find(stage => (
   stage.id === controlsRef.value?.roundId || (
-    stage.type === StageType.PLAYOFFS && stage.rounds.find((round) => round.id === controlsRef.value?.roundId)
+    stage.type === StageType.PLAYOFFS && stage.rounds.find(round => round.id === controlsRef.value?.roundId)
   )
 )));
 </script>

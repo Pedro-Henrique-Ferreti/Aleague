@@ -8,16 +8,16 @@
     <slot name="left">
       <component
         v-if="iconLeft"
-        class="shrink-0 size-1"
         :is="iconLeft"
+        class="shrink-0 size-1"
       />
     </slot>
     <slot>{{ label }}</slot>
     <slot name="right">
       <component
         v-if="iconRight"
-        class="shrink-0 size-1"
         :is="iconRight"
+        class="shrink-0 size-1"
       />
     </slot>
   </div>

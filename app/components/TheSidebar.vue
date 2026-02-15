@@ -71,7 +71,9 @@ const selectedCollection = ref<Collection>();
 const collectionModalIsOpen = computed({
   get: () => !!selectedCollection.value,
   set: (isOpen) => {
-    if (!isOpen) selectedCollection.value = undefined;
+    if (!isOpen) {
+      selectedCollection.value = undefined;
+    }
   },
 });
 </script>

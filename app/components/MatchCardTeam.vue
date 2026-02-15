@@ -8,7 +8,7 @@
         class="size-1.5 shrink-0"
         alt="Team badge"
         :src="teamDetails.badge"
-      />
+      >
       <span>{{ teamDetails.name }}</span>
       <span
         v-if="showCountry && teamDetails"
@@ -26,13 +26,13 @@
 <script lang="ts" setup>
 import { IconShieldFilled } from '@tabler/icons-vue';
 
-const { getTeamById } = useTeamStore();
-
 const props = defineProps<{
   team?: TeamDetails['id'] | null;
   align?: 'right';
   showCountry?: boolean;
 }>();
+
+const { getTeamById } = useTeamStore();
 
 const teamDetails = computed(() => props.team ? getTeamById(props.team) : undefined);
 </script>

@@ -10,7 +10,7 @@ export const useTeamStore = defineStore('team', {
   }),
   actions: {
     getTeamById(id?: TeamDetails['id'] | null): TeamDetails | undefined {
-      return DETAILED_TEAM_LIST.find((team) => team.id === id);
+      return DETAILED_TEAM_LIST.find(team => team.id === id);
     },
     focusMatchTeams({ homeTeam, awayTeam }: Match) {
       for (const team of [homeTeam.id, awayTeam.id]) {
@@ -20,7 +20,7 @@ export const useTeamStore = defineStore('team', {
       }
     },
     blurMatchTeams({ homeTeam, awayTeam }: Match) {
-      this.focusedTeamId = this.focusedTeamId.filter((i) => i !== homeTeam.id && i !== awayTeam.id);
+      this.focusedTeamId = this.focusedTeamId.filter(i => i !== homeTeam.id && i !== awayTeam.id);
     },
   },
 });

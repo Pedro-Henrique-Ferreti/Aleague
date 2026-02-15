@@ -12,12 +12,12 @@ export const useCollectionStore = defineStore('collection', {
   getters: {
     activeCollection(state) {
       const tournamentStore = useTournamentStore();
-      return state.collections.find((i) => i.id === tournamentStore.activeTournament?.collectionId);
+      return state.collections.find(i => i.id === tournamentStore.activeTournament?.collectionId);
     },
   },
   actions: {
     getCollection(id: Collection['id'] | null): Collection {
-      const collection = this.collections.find((i) => i.id === id);
+      const collection = this.collections.find(i => i.id === id);
 
       if (!collection) throw new Error('Collection not found');
 
@@ -31,7 +31,7 @@ export const useCollectionStore = defineStore('collection', {
       } satisfies Collection);
     },
     updateCollection(id: Collection['id'], payload: CollectionForm) {
-      const index = this.collections.findIndex((i) => i.id === id);
+      const index = this.collections.findIndex(i => i.id === id);
 
       if (index === -1) throw new Error('Collection not found');
 

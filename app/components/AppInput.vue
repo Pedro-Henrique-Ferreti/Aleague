@@ -15,11 +15,11 @@
 <script lang="ts" setup>
 import type { BaseInputModel } from './BaseInput.vue';
 
-const id = useId();
-
 defineProps<{
   label: string;
 }>();
+
+const id = useId();
 
 const model = defineModel<BaseInputModel>();
 </script>

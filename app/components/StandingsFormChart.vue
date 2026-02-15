@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-export interface Props {
+export interface StandingsFormChartProps {
   data: {
     week: number;
     position: number;
@@ -16,7 +16,7 @@ export interface Props {
 <script lang="ts" setup>
 import type { ChartConfiguration } from 'chart.js';
 
-const props = defineProps<Props>();
+const props = defineProps<StandingsFormChartProps>();
 
 const yAxisStepSize = computed(() => {
   if (props.lowestYPoint <= 4) return 1;
@@ -30,9 +30,9 @@ const yAxisStepSize = computed(() => {
 const chartConfig = computed<ChartConfiguration>(() => ({
   type: 'line',
   data: {
-    labels: props.data.map((i) => i.week),
+    labels: props.data.map(i => i.week),
     datasets: [{
-      data: props.data.map((i) => i.position),
+      data: props.data.map(i => i.position),
       borderColor: '#D1D1D1',
       borderWidth: 2,
       tension: 0.1,
@@ -77,8 +77,8 @@ const chartConfig = computed<ChartConfiguration>(() => ({
       tooltip: {
         displayColors: false,
         callbacks: {
-          title: (tooltips) => tooltips.map(({ label }) => `Rodada ${label}`),
-          label: (tooltip) => `Pos: ${tooltip.formattedValue}`,
+          title: tooltips => tooltips.map(({ label }) => `Rodada ${label}`),
+          label: tooltip => `Pos: ${tooltip.formattedValue}`,
         },
       },
     },

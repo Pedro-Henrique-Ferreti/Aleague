@@ -32,11 +32,11 @@
 import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
 import { stageHasAllTeamsAssigned } from '~/helpers/stage';
 
-const { createStageMatchweeks, activeTournamentId } = useTournamentStore();
-
 const props = defineProps<{
   stage: TournamentGroupsStage;
 }>();
+
+const { createStageMatchweeks, activeTournamentId } = useTournamentStore();
 
 const allowCreateMatchweeks = computed(() => stageHasAllTeamsAssigned(props.stage));
 </script>

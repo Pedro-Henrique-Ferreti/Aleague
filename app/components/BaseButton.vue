@@ -29,10 +29,10 @@ export interface BaseButtonProps {
 import type { ButtonHTMLAttributes } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
 
-const emit = defineEmits(['click']);
 const props = withDefaults(defineProps<BaseButtonProps>(), {
   type: 'button',
 });
+const emit = defineEmits(['click']);
 
 const isExternalLink = computed(() => (
   typeof props.to === 'string' && (

@@ -3,7 +3,7 @@
     class="flex bg-gray-100 rounded-sm font-semibold before:content-['-']"
     :class="{
       'flex-col before:hidden': layout === 'vertical',
-      'items-center before:order-1': layout !== 'vertical'
+      'items-center before:order-1': layout !== 'vertical',
     }"
   >
     <BaseInput
@@ -26,12 +26,12 @@
 </template>
 
 <script lang="ts" setup>
-const MASK_OPTIONS = { min: 0, max: 99, scale: 0 } as const;
-
 defineProps<{
   layout?: 'vertical';
   disabled?: boolean;
 }>();
+
+const MASK_OPTIONS = { min: 0, max: 99, scale: 0 } as const;
 
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
 const awayScore = defineModel<Match['awayTeam']['score']>('away-score');

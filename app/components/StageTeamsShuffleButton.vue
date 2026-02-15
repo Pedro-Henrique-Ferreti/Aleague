@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-import { IconArrowsShuffle } from '@tabler/icons-vue';
 import type { StageTeamsForm } from './StageTeamsModal.vue';
+import { IconArrowsShuffle } from '@tabler/icons-vue';
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 
 function shuffleTeams() {
-  const teams = groups.value.flatMap((group) => group.teams);
+  const teams = groups.value.flatMap(group => group.teams);
 
   teams.sort(() => Math.random() - 0.5);
 

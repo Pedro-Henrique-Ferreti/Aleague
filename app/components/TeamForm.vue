@@ -5,10 +5,10 @@
   />
   <Dropdown
     v-else
+    :key="form.match.id"
     class="data-[ring=true]:[&_svg]:outline-2"
     theme="team-form"
     :auto-hide="false"
-    :key="form.match.id"
     :disabled="tooltipDisabled"
   >
     <IconErrorCircle
@@ -45,8 +45,8 @@
 import { Dropdown } from 'floating-vue';
 import IconCheckCircle from '@/assets/icons/CheckCircle.svg';
 import IconCircleMinus from '@/assets/icons/CircleMinus.svg';
-import IconErrorCircle from '@/assets/icons/ErrorCircle.svg';
 import IconEmptyCircle from '@/assets/icons/EmptyCircle.svg';
+import IconErrorCircle from '@/assets/icons/ErrorCircle.svg';
 import { getKickoffDisplayText } from '~/helpers/match';
 
 defineProps<{

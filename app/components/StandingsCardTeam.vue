@@ -13,21 +13,21 @@
       {{ position }}
     </button>
     <div
+      :id="popoverId"
       class="dropdown menu p-0.5 flex flex-row rounded-md bg-base-100 shadow-sm dropdown-right"
       popover
-      :id="popoverId"
       :style="`position-anchor:--team-button-${popoverId}`"
     >
       <button
         v-for="color in QUALIFIER_COLORS"
+        :key="color"
         class="flex items-center justify-center size-1.75 cursor-pointer"
         aria-label="Select qualifier color"
-        :key="color"
         @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
       >
         <component
-          :style="`fill:${getColor(color)}`"
           :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
+          :style="`fill:${getColor(color)}`"
         />
       </button>
     </div>
@@ -36,14 +36,14 @@
       class="size-1.5 mr-0.75"
       alt="Team badge"
       :src="team?.badge || ''"
-    />
+    >
     <div>
       {{ team?.name }}
-        <span
-          v-if="tournamentStore.activeTournament?.showCountry && team"
-          v-text="team.country"
-          class="badge badge-secondary badge-soft badge-xs inline-block ml-0.5"
-        />
+      <span
+        v-if="tournamentStore.activeTournament?.showCountry && team"
+        v-text="team.country"
+        class="badge badge-secondary badge-soft badge-xs inline-block ml-0.5"
+      />
     </div>
   </div>
 </template>
@@ -51,22 +51,22 @@
 <script lang="ts" setup>
 import { IconCircleDotFilled, IconCircleFilled } from '@tabler/icons-vue';
 
+const props = defineProps<{
+  position: number;
+  teamId: TeamDetails['id'];
+}>();
+
 const QUALIFIER_COLORS = [
   Qualifier.GREEN,
   Qualifier.BLUE,
   Qualifier.RED,
-  Qualifier.ORANGE
+  Qualifier.ORANGE,
 ];
 
 const popoverId = useId();
 
 const tournamentStore = useTournamentStore();
 const { getTeamById } = useTeamStore();
-
-const props = defineProps<{
-  position: number;
-  teamId: TeamDetails['id'];
-}>();
 
 const qualifier = defineModel<Qualifier>('qualifier', { required: true });
 

@@ -42,11 +42,11 @@ interface Props {
   type?: 'delete';
 }
 
-const emit = defineEmits<{ confirm: [] }>();
-
 withDefaults(defineProps<Props>(), {
   title: 'Continuar',
 });
+
+const emit = defineEmits<{ confirm: [] }>();
 
 const isOpen = defineModel<boolean>('is-open');
 

@@ -1,7 +1,9 @@
 import { newMatch } from './match';
 
 export function createMatchListFromTeamList(
-  list: TeamDetails['id'][], roundRobins = 1, excludeGroups?: TeamDetails['id'][][],
+  list: TeamDetails['id'][],
+  roundRobins = 1,
+  excludeGroups?: TeamDetails['id'][][],
 ): Match[][] {
   const teamList = [...list.sort(() => Math.random() - 0.5)];
 
@@ -17,11 +19,11 @@ export function createMatchListFromTeamList(
       const teamA = teams1[i]!;
       const teamB = teams2[i]!;
 
-      if (excludeGroups?.some((group) => group.includes(teamA) && group.includes(teamB))) continue;
+      if (excludeGroups?.some(group => group.includes(teamA) && group.includes(teamB))) continue;
 
       const prevWeek = weeks[weeks.length - 1];
-      const teamAPlayedAtHome = prevWeek?.find((m) => m.homeTeam.id === teamA);
-      const teamBPlayedAtHome = prevWeek?.find((m) => m.homeTeam.id === teamB);
+      const teamAPlayedAtHome = prevWeek?.find(m => m.homeTeam.id === teamA);
+      const teamBPlayedAtHome = prevWeek?.find(m => m.homeTeam.id === teamB);
 
       let homeTeam = teamA;
       let awayTeam = teamB;
@@ -39,7 +41,7 @@ export function createMatchListFromTeamList(
     teams2.push(teams1.pop()!);
 
     const item = teams1.shift()!;
-    
+
     teams1.unshift(item, teams2.shift()!);
 
     rounds -= 1;
@@ -51,14 +53,14 @@ export function createMatchListFromTeamList(
 
   while (completedRobins < roundRobins) {
     weeks.push(
-      ...weeks.slice(-1 * robinLength).map((week) => (
-        week.map((match) => newMatch(match.awayTeam.id, match.homeTeam.id))
+      ...weeks.slice(-1 * robinLength).map(week => (
+        week.map(match => newMatch(match.awayTeam.id, match.homeTeam.id))
       )),
     );
-    
+
     completedRobins += 1;
   }
 
   // In case exclude groups generated weeks with no matches
-  return weeks.filter((week) => week.length > 0);
+  return weeks.filter(week => week.length > 0);
 }

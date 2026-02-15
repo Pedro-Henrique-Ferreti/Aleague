@@ -11,7 +11,7 @@
         class="size-1.5"
         alt="Team badge"
         :src="team?.badge || ''"
-      />
+      >
       <span>{{ team.name }}</span>
       <CloseButton
         class="btn-xs ml-auto"
@@ -23,14 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-const { getTeamById } = useTeamStore();
-
-defineEmits<{
-  (e: 'remove'): void;
-}>();
 const props = defineProps<{
   teamId: Team['id'] | null;
 }>();
+
+defineEmits<{ remove: [] }>();
+
+const { getTeamById } = useTeamStore();
 
 const team = computed(() => props.teamId ? getTeamById(props.teamId) : null);
 </script>

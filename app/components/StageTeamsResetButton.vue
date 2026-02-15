@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts" setup>
-import { IconRefresh } from '@tabler/icons-vue';
 import type { StageTeamsForm } from './StageTeamsModal.vue';
+import { IconRefresh } from '@tabler/icons-vue';
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 

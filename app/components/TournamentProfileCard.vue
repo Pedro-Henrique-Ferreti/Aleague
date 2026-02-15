@@ -4,7 +4,7 @@
       class="w-auto h-6"
       alt="Tournament icon"
       :src="tournament.icon"
-    />
+    >
     <div>
       <h1 class="text-3xl font-medium mb-0.5">{{ tournament.name }}</h1>
       <div class="badge-container flex-wrap">

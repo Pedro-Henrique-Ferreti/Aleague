@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconLayersSubtract, IconEdit, IconDownload, IconFolderOpen, IconFileDescription, IconFolderUp, IconTrash } from '@tabler/icons-vue';
+import { IconDownload, IconEdit, IconFileDescription, IconFolderOpen, IconFolderUp, IconLayersSubtract, IconTrash } from '@tabler/icons-vue';
 
 const { downloadTournamentSourceFile } = useFileStore();
 const tournamentStore = useTournamentStore();

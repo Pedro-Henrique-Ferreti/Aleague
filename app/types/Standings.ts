@@ -8,7 +8,7 @@ export enum Qualifier {
 
 export enum WeekDirection {
   BEFORE,
-  AFTER
+  AFTER,
 }
 
 export enum TableEntrySortType {

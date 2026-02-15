@@ -15,13 +15,13 @@
     <input
       v-for="team in teamOptions"
       v-model="selectedTeams"
+      :key="String(team)"
       class="btn btn-xs rounded-md"
       type="checkbox"
       name="teams"
-      :key="String(team)"
       :value="team"
       :aria-label="getTeamById(team)?.name"
-    />
+    >
     <button
       class="btn btn-square btn-xs rounded-md"
       type="button"
@@ -75,12 +75,12 @@
 <script lang="ts" setup>
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-vue';
 
-const { getTeamById } = useTeamStore();
-
 const props = defineProps<{
   form: TableEntry['form'];
   teamId: TableEntry['team'];
 }>();
+
+const { getTeamById } = useTeamStore();
 
 const showFilters = ref(false);
 
@@ -89,8 +89,8 @@ const selectedTeams = ref<Team['id'][]>([]);
 
 const teamOptions = computed(() => (
   Array.from(
-    new Set(props.form.flatMap((i) => [i.match.homeTeam.id, i.match.awayTeam.id]))
-  ).filter((id) => id !== null && id !== props.teamId)
+    new Set(props.form.flatMap(i => [i.match.homeTeam.id, i.match.awayTeam.id])),
+  ).filter(id => id !== null && id !== props.teamId)
 ));
 
 // Form

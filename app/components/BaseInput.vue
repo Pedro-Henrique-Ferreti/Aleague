@@ -2,13 +2,13 @@
   <input
     ref="inputRef"
     v-bind="mask ? undefined : { value: model }"
+    :id="id || defaultId"
     :type="mask ? 'text' : type"
     :name="name"
-    :id="id || defaultId"
     :readonly="!!readonly"
     :disabled="disabled"
     @input="mask ? undefined : onInput($event)"
-    @change="mask? undefined : onChangeLazy(($event.target as HTMLInputElement).value)"
+    @change="mask ? undefined : onChangeLazy(($event.target as HTMLInputElement).value)"
     @blur="mask ? onChangeLazy(imaskInstance?.unmaskedValue || '') : undefined"
   >
 </template>
@@ -31,16 +31,16 @@ interface BaseInputProps {
 
 <script lang="ts" setup>
 import type { InputTypeHTMLAttribute } from 'vue';
-import IMask, { HTMLInputMaskElement, type InputMask } from 'imask';
+import IMask, { type HTMLInputMaskElement, type InputMask } from 'imask';
 
-const defaultId = useId();
-
-const emit = defineEmits<{
-  'update:modelValue': [value: BaseInputModel];
-}>();
 const props = withDefaults(defineProps<BaseInputProps>(), {
   type: 'text',
 });
+const emit = defineEmits<{
+  'update:modelValue': [value: BaseInputModel];
+}>();
+
+const defaultId = useId();
 
 const model = computed({
   get: () => props.modelValue,

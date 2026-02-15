@@ -20,8 +20,8 @@
       <div class="flex flex-wrap gap-x-0.25">
         <span
           v-for="name in getPlayoffRoundNames(playoffRounds, teams)"
-          class="last:[&_svg]:hidden"
           :key="name"
+          class="last:[&_svg]:hidden"
         >
           {{ name }}
           <IconArrowBadgeRightFilled class="inline size-1 -translate-y-px" />
@@ -35,12 +35,12 @@
 import { IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
 import { getPlayoffRoundNames } from '~/helpers/playoffs';
 
-const { MIN_TEAMS, MIN_ROUNDS } = StageConstants;
-
 defineProps<{
   disabled: boolean;
   maxPlayoffRounds: number;
 }>();
+
+const { MIN_TEAMS, MIN_ROUNDS } = StageConstants;
 
 const teams = defineModel<TournamentStageForm['teams']>('teams', { required: true });
 const playoffRounds = defineModel<TournamentStageForm['playoffRounds']>('playoff-rounds', { required: true });

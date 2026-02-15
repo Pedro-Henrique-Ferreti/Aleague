@@ -1,6 +1,10 @@
 <template>
   <BaseButton
-    :class="['btn relative', isLoading ? 'cursor-default' : '', (label || $slots.default) ? '[--icon-size:1.25em]': '[--icon-size:1.5em]' ]"
+    class="btn relative"
+    :class="[
+      { 'cursor-default': isLoading },
+      (label || $slots.default) ? '[--icon-size:1.25em]' : '[--icon-size:1.5em]',
+    ]"
     :to="to"
     :type="type"
     :disabled="disabled"
@@ -16,14 +20,14 @@
     >
       <component
         v-if="iconLeft"
-        class="size-(--icon-size)"
         :is="iconLeft"
+        class="size-(--icon-size)"
       />
       <slot>{{ label }}</slot>
       <component
         v-if="iconRight"
-        class="size-(--icon-size)"
         :is="iconRight"
+        class="size-(--icon-size)"
       />
     </div>
   </BaseButton>
@@ -33,11 +37,11 @@
 import type { Icon } from '@tabler/icons-vue';
 import type { BaseButtonProps } from './BaseButton.vue';
 
-defineEmits(['click']);
 defineProps<BaseButtonProps & {
   isLoading?: boolean;
   label?: string;
   iconLeft?: Icon;
   iconRight?: Icon;
 }>();
+defineEmits(['click']);
 </script>

@@ -4,18 +4,18 @@
       <IconSearch class="w-auto h-[1em] opacity-50 shrink-0" />
       <input
         v-model.trim="form.search"
+        :id="inputId"
         class="grow"
         type="search"
         placeholder="Search"
-        :id="inputId"
         @click="showPopover"
         @keypress.enter="showPopover"
-      />
+      >
       <ul
         ref="popoverRef"
+        :id="popoverId"
         class="dropdown menu w-full max-w-14.5 max-h-14.5 rounded-box bg-base-100 top-0.25 border border-base-200 [position-anchor:--teams-input]"
         popover
-        :id="popoverId"
       >
         <li
           v-if="teamOptions.length === 0"
@@ -36,7 +36,7 @@
               class="size-1.25"
               alt="Team badge"
               :src="getTeamById(team.id)?.badge || ''"
-            />
+            >
             <span>{{ team.name }}</span>
           </button>
         </li>
@@ -57,7 +57,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { IconSearch } from '@tabler/icons-vue';
+
+/* eslint-disable ts/prefer-literal-enum-member */
+// This is needed to allow using TeamType values as SelectOption values without type issues.
 enum TeamTypeFilter {
   All = '',
   CLUB = TeamType.CLUB,
@@ -71,10 +75,13 @@ interface Form {
   filter: TeamTypeFilter;
   country: string;
 }
-</script>
 
-<script lang="ts" setup>
-import { IconSearch } from '@tabler/icons-vue';
+const props = defineProps<{
+  selectedTeams: Array<Team['id']>;
+  stageId: TournamentStage['id'];
+}>();
+
+defineEmits<{ select: [Team] }>();
 
 const MAX_DISPLAYED_OPTIONS = 60;
 const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
@@ -88,16 +95,8 @@ const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
 const inputId = useId();
 const popoverId = useId();
 
-const tournamentStore = useTournamentStore(); 
+const tournamentStore = useTournamentStore();
 const { getTeamById } = useTeamStore();
-
-const emit = defineEmits<{
-  select: [Team];
-}>();
-const props = defineProps<{
-  selectedTeams: Array<Team['id']>;
-  stageId: TournamentStage['id'];
-}>();
 
 const form = ref<Form>({
   search: '',
@@ -106,13 +105,13 @@ const form = ref<Form>({
 });
 
 const teamsInTournament = computed(() => {
-  const stages = tournamentStore.activeTournament!.stages.filter((s) => s.id !== props.stageId);
+  const stages = tournamentStore.activeTournament!.stages.filter(s => s.id !== props.stageId);
 
   return stages.flatMap((stage) => {
     if (stage.type === StageType.GROUPS) {
-      return stage.groups.flatMap((group) => group.standings.map((entry) => entry.team));
+      return stage.groups.flatMap(group => group.standings.map(entry => entry.team));
     } else {
-      return stage.rounds.flatMap((round) => round.slots.flatMap((slot) => slot.legs.flatMap((leg) => [leg.homeTeam.id, leg.awayTeam.id])));
+      return stage.rounds.flatMap(round => round.slots.flatMap(slot => slot.legs.flatMap(leg => [leg.homeTeam.id, leg.awayTeam.id])));
     }
   });
 });

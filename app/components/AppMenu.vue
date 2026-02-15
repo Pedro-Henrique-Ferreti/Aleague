@@ -9,8 +9,8 @@
     :icon-right="displayedIconRight"
   />
   <ul
-    popover
     :id="id"
+    popover
     :class="['dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm', dropdownClass]"
     :style="`position-anchor: --menu-${id}`"
   >
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconChevronDown, type Icon } from '@tabler/icons-vue';
+import { type Icon, IconChevronDown } from '@tabler/icons-vue';
 
 export interface AppMenuProps {
   label?: string;
@@ -29,15 +29,13 @@ export interface AppMenuProps {
   tooltip?: string;
 }
 
-const id = useId();
-
 const props = withDefaults(defineProps<AppMenuProps>(), {
   iconRight: undefined,
 });
 
-const displayedIconRight = computed(() => {
-  if (props.iconRight !== false) {
-    return props.iconRight ?? IconChevronDown;
-  }
-});
+const id = useId();
+
+const displayedIconRight = computed(() => (
+  props.iconRight !== false ? props.iconRight ?? IconChevronDown : undefined
+));
 </script>

@@ -16,9 +16,9 @@
     <button
       v-for="item in model"
       v-text="item"
+      :key="item"
       class="badge badge-outline badge-secondary cursor-pointer"
       type="button"
-      :key="item"
       @click="removeTag(item)"
     />
   </div>
@@ -35,6 +35,6 @@ function addTag() {
 }
 
 function removeTag(item: Tournament['tags'][number]) {
-  model.value = model.value.filter((i) => i !== item);
+  model.value = model.value.filter(i => i !== item);
 }
 </script>

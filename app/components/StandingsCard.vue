@@ -19,8 +19,8 @@
               tag="tbody"
             >
               <tr
-                class="text-xs text-gray-500 bg-gray-1 [&_th]:p-0.75 [&_th]:text-center"
                 key="header"
+                class="text-xs text-gray-500 bg-gray-1 [&_th]:p-0.75 [&_th]:text-center"
               >
                 <th
                   class="resize-observer"
@@ -43,13 +43,13 @@
               </tr>
               <tr
                 v-for="entry, index in tableEntriesSorted"
+                :key="entry.id"
                 class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
                 :class="{
                   'cursor-pointer': renderFormModal,
                   'bg-gray-200!': entry.team && teamStore.focusedTeamId.includes(entry.team),
                 }"
                 :tabindex="renderFormModal ? 0 : -1"
-                :key="entry.id"
                 @click="onTableEntryClick(entry)"
               >
                 <td
@@ -66,7 +66,7 @@
                     <StandingsCardTeam
                       v-model:qualifier="qualifier[index]!"
                       :position="index + 1"
-                      :team-id="entry.team" 
+                      :team-id="entry.team"
                     />
                   </td>
                   <td :class="{ 'font-bold': sortType === TableEntrySortType.POINTS }">
@@ -111,7 +111,11 @@
   />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import type { ResizeObserverCallback } from '@vueuse/core';
+import { vResizeObserver } from '@vueuse/components';
+import { getTableEntry, sortTableEntries } from '~/helpers/standings';
+
 interface Props {
   title: string;
   standings: TournamentGroupsStage['groups'][number]['standings'];
@@ -121,24 +125,18 @@ interface Props {
   displayedWeek?: Matchweek['week'];
   weekDirection?: WeekDirection;
 }
-</script>
-
-<script lang="ts" setup>
-import type { ResizeObserverCallback } from '@vueuse/core';
-import { vResizeObserver } from '@vueuse/components';
-import { getTableEntry, sortTableEntries } from '~/helpers/standings';
-
-const teamStore = useTeamStore();
 
 const props = withDefaults(defineProps<Props>(), {
   sortType: TableEntrySortType.POINTS,
   entryType: TableEntryType.OVERALL,
 });
 
+const teamStore = useTeamStore();
+
 const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 
 const tableEntries = computed<TableEntry[]>(() => (
-  props.standings.map((i) => getTableEntry(i, props.entryType, props.displayedWeek, props.weekDirection))
+  props.standings.map(i => getTableEntry(i, props.entryType, props.displayedWeek, props.weekDirection))
 ));
 const tableEntriesSorted = computed(() => (
   tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))
@@ -150,7 +148,7 @@ const renderFormModal = computed(() => !!props.matchweeks?.length);
 
 async function onTableEntryClick(entry: TableEntry) {
   if (!renderFormModal.value) return;
-  
+
   selectedTableEntry.value = null;
   await nextTick();
   selectedTableEntry.value = entry;
@@ -161,7 +159,7 @@ const positionSize = ref('0px');
 
 const onResizeObserver: ResizeObserverCallback = (entries) => {
   positionSize.value = `${entries[0]?.contentRect.width || 0}px`;
-}
+};
 
 // Faded border size
 const tableWrapperRef = useTemplateRef('table-wrapper');

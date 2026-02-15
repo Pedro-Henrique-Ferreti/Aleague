@@ -2,7 +2,7 @@ import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoffs';
 import { newStandingsEntry } from './standings';
 
 export function stageHasAllTeamsAssigned(stage: TournamentStage) {
-  return stage.type === StageType.GROUPS && stage.groups.every((g) => g.standings.every((s) => s.team !== null));
+  return stage.type === StageType.GROUPS && stage.groups.every(g => g.standings.every(s => s.team !== null));
 }
 
 export function newPlayoffStage(stageForm: TournamentStageForm, baseStage: BaseTournamentStage): TournamentPlayoffsStage {
@@ -29,7 +29,7 @@ export function newGroupStage(stageForm: TournamentStageForm, baseStage: BaseTou
     format: stageForm.format,
     roundRobins: stageForm.groupRoundRobins,
     matchweeks: [],
-    groups: createArray(stageForm.groups, (index) => ({
+    groups: createArray(stageForm.groups, index => ({
       order: index + 1,
       qualifier: createArray(stageForm.teamsPerGroup, () => Qualifier.NONE),
       standings: createArray(stageForm.teamsPerGroup, () => newStandingsEntry()),

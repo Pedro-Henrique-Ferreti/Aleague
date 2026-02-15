@@ -3,11 +3,11 @@
     <div class="grid gap-1.5 h-fit">
       <StandingsCard
         v-for="(group, index) in displayedGroups"
+        :key="group.order"
         :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallQualifier : group.qualifier"
         :standings="group.standings"
         :entry-type="filtersForm.entryType"
         :sort-type="filtersForm.sortType"
-        :key="group.order"
         :title="getCardTitle(group.order)"
         :matchweeks="stage.matchweeks"
         :displayed-week="filtersForm.week === DEFAULT_WEEK_OPTION.value ? undefined : filtersForm.week"
@@ -42,32 +42,36 @@
 </template>
 
 <script lang="ts" setup>
-import { getStandingsDataFromScore, newStandingsEntryData } from '~/helpers/standings';
 import type { MatchWithOldScore } from './MatchCard.vue';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
-import { DEFAULT_WEEK_OPTION, type FiltersForm } from './StandingsFilters.vue';
 import { getMatchResult } from '~/helpers/match';
+import { getStandingsDataFromScore, newStandingsEntryData } from '~/helpers/standings';
+import { DEFAULT_WEEK_OPTION, type FiltersForm } from './StandingsFilters.vue';
 
 const stage = defineModel<TournamentGroupsStage>({ required: true });
 
-const newFiltersForm = (): FiltersForm => ({
-  entryType: TableEntryType.OVERALL,
-  sortType: TableEntrySortType.POINTS,
-  view: TableEntryView.PER_GROUP,
-  week: DEFAULT_WEEK_OPTION.value,
-  weekDirection: WeekDirection.BEFORE,
-}); 
+function newFiltersForm(): FiltersForm {
+  return {
+    entryType: TableEntryType.OVERALL,
+    sortType: TableEntrySortType.POINTS,
+    view: TableEntryView.PER_GROUP,
+    week: DEFAULT_WEEK_OPTION.value,
+    weekDirection: WeekDirection.BEFORE,
+  };
+}
 
 const filtersForm = ref<FiltersForm>(newFiltersForm());
 const showFilters = ref(false);
 
 // Displayed groups
 const displayedGroups = computed<TournamentGroupsStage['groups']>(() => (
-  filtersForm.value.view === TableEntryView.PER_GROUP ? stage.value.groups : [{
-    order: -1,
-    qualifier: [],
-    standings: stage.value.groups.flatMap((group) => group.standings),
-  }]
+  filtersForm.value.view === TableEntryView.PER_GROUP
+    ? stage.value.groups
+    : [{
+        order: -1,
+        qualifier: [],
+        standings: stage.value.groups.flatMap(group => group.standings),
+      }]
 ));
 
 function onUpdateGroupQualifier(value: Qualifier[], groupIndex: number) {
@@ -102,11 +106,11 @@ function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
 
   [homeTeam, awayTeam].forEach((team) => {
     stage.value.groups.forEach((group) => {
-      const row = group.standings.find((s) => s.team === team.id);
+      const row = group.standings.find(s => s.team === team.id);
 
       if (!row) return;
 
-      let entry = row.data.find((d) => d.week === week);
+      let entry = row.data.find(d => d.week === week);
 
       if (!entry) {
         entry = newStandingsEntryData(week);
@@ -114,7 +118,7 @@ function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
       }
 
       const isHome = team.id === homeTeam.id;
-      
+
       entry.type = isHome ? TableEntryType.HOME : TableEntryType.AWAY;
 
       if (onlySubtract || subtractAndSum) {
@@ -127,7 +131,7 @@ function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
         entry.lost -= data.lost;
         entry.goalsFor -= data.goalsFor;
         entry.goalsAgainst -= data.goalsAgainst;
-        entry.form = entry.form.filter((f) => f.week !== week);
+        entry.form = entry.form.filter(f => f.week !== week);
       }
 
       if (onlySum || subtractAndSum) {

@@ -1,4 +1,4 @@
-import type { StageTeamsFormGroup } from "@/components/StageTeamsModal.vue";
+import type { StageTeamsFormGroup } from '@/components/StageTeamsModal.vue';
 
 export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry'>;
 

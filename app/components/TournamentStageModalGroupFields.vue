@@ -41,11 +41,11 @@
 </template>
 
 <script lang="ts" setup>
-const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MIN_ROUNDS, MAX_TEAMS_PER_GROUP } = StageConstants;
-
 defineProps<{
   disabled: boolean;
 }>();
+
+const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MIN_ROUNDS, MAX_TEAMS_PER_GROUP } = StageConstants;
 
 const format = defineModel<TournamentStageForm['format']>('format', { required: true });
 const groups = defineModel<TournamentStageForm['groups']>('groups', { required: true });

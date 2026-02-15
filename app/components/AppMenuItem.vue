@@ -1,5 +1,5 @@
 <template>
- <li>
+  <li>
     <button
       type="button"
       class="whitespace-nowrap"
@@ -10,8 +10,8 @@
       @click="$emit('click')"
     >
       <component
-        class="size-1"
         :is="icon"
+        class="size-1"
       />
       <span>{{ label }}</span>
     </button>
@@ -21,12 +21,10 @@
 <script lang="ts" setup>
 import type { Icon } from '@tabler/icons-vue';
 
-defineEmits<{
-  click: [];
-}>();
 defineProps<{
   label: string;
   icon: Icon;
   type?: 'primary' | 'error';
 }>();
+defineEmits<{ click: [] }>();
 </script>

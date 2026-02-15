@@ -26,7 +26,7 @@ export function useImportSourceFiles(
     for (const item of files) {
       promiseList.push(new Promise((resolve) => {
         const reader = new FileReader();
-    
+
         reader.onload = () => {
           const sourceFile = JSON.parse(reader.result as string) as SourceFile;
 
@@ -38,7 +38,7 @@ export function useImportSourceFiles(
 
           resolve();
         };
-      
+
         reader.readAsText(item);
       }));
     }

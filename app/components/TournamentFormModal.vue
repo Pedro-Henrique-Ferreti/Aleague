@@ -25,7 +25,7 @@
           class="h-5"
           alt="Icon preview"
           :src="form.icon"
-        />
+        >
       </div>
       <div class="flex gap-0.5 col-end-3 justify-between">
         <AppButton
@@ -46,7 +46,7 @@
       v-model="form.showCountry"
       label="Mostrar legenda de país"
     />
-  </AppModal>  
+  </AppModal>
 </template>
 
 <script setup lang="ts">
@@ -58,6 +58,19 @@ const props = defineProps<{
 }>();
 
 const modalIsOpen = defineModel<boolean>('is-open');
+
+// Form
+function newForm(): TournamentForm {
+  return {
+    name: '',
+    icon: ICON_OPTIONS[0]!.value,
+    tags: [],
+    showCountry: false,
+  };
+}
+
+const form = ref<TournamentForm>(newForm());
+const isEditingTournament = computed(() => !!props.tournament);
 
 function onOpenModal() {
   if (props.tournament) {
@@ -72,17 +85,6 @@ function onOpenModal() {
 
   form.value = newForm();
 }
-
-// Form
-const newForm = (): TournamentForm => ({
-  name: '',
-  icon: ICON_OPTIONS[0]!.value,
-  tags: [],
-  showCountry: false,
-});
-
-const form = ref<TournamentForm>(newForm());
-const isEditingTournament = computed(() => !!props.tournament);
 
 const selectedIconIndex = computed(() => ICON_OPTIONS.findIndex(({ value }) => value === form.value.icon));
 

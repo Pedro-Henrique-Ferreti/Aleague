@@ -25,14 +25,14 @@
 </template>
 
 <script lang="ts" setup>
-import { IconFolders, IconPlus, IconBallFootball } from '@tabler/icons-vue';
 import type { AppMenuProps } from './AppMenu.vue';
-
-const tournamentStore = useTournamentStore();
+import { IconBallFootball, IconFolders, IconPlus } from '@tabler/icons-vue';
 
 defineProps<{
   dropdownClass?: AppMenuProps['dropdownClass'];
 }>();
+
+const tournamentStore = useTournamentStore();
 
 // Tournament modal
 const tournamentModalIsOpen = ref(false);

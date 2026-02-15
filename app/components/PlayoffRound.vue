@@ -3,20 +3,20 @@
     <div class="relative group">
       <input
         v-model.lazy="name"
+        :id="inputId"
         type="text"
         class="w-full text-lg text-center font-medium focus:[&+svg]:hidden"
-        :id="inputId"
       >
       <IconPencil class="round-edit-icon" />
     </div>
     <div class="flex flex-col gap-0.75">
       <PlayoffRoundCard
         v-for="(slot, index) in slots"
-        class="bracket even:not-last:mb-1"
-        :slot="slot"
         :key="slot.id"
-        @update:slot="slots[index] = $event"
-        @winner-updated="$emit('slot-winner-updated', { team: $event, slotIndex: index })"
+        class="bracket even:not-last:mb-1"
+        :model-value="slot"
+        @update:model-value="slots[index] = $event"
+        @winner-updated="$emit('slotWinnerUpdated', { team: $event, slotIndex: index })"
       />
     </div>
   </div>
@@ -25,11 +25,11 @@
 <script lang="ts" setup>
 import { IconPencil } from '@tabler/icons-vue';
 
-const inputId = useId();
-
 defineEmits<{
-  'slot-winner-updated': [{ team: PlayoffRoundWinner, slotIndex: number }];
+  slotWinnerUpdated: [{ team: PlayoffRoundWinner, slotIndex: number }];
 }>();
+
+const inputId = useId();
 
 const name = defineModel<PlayoffRound['name']>('name', { required: true });
 const slots = defineModel<PlayoffRound['slots']>('slots', { required: true });

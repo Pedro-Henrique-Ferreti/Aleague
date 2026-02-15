@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import { IconFileDescription } from '@tabler/icons-vue';
 
-const tournamentStore = useTournamentStore();
-
 defineProps<{ tournament: Tournament }>();
+
+const tournamentStore = useTournamentStore();
 </script>

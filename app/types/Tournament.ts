@@ -44,4 +44,4 @@ export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
   stages: TournamentStage[];
   tags: string[];
   showCountry: boolean;
-}
+};

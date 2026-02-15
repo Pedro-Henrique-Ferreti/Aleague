@@ -34,8 +34,8 @@
       <StageTeamsGroup
         v-for="group, index in form.groups"
         v-model="form.groups[index]!"
-        :stage-type="stage.type"
         :key="group.order"
+        :stage-type="stage.type"
       />
     </div>
   </AppModal>
@@ -58,11 +58,11 @@ export interface StageTeamsForm {
 </script>
 
 <script lang="ts" setup>
-const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
-
 const props = withDefaults(defineProps<Props>(), {
   allowEmptySlots: true,
 });
+
+const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
@@ -76,9 +76,9 @@ const form = ref<StageTeamsForm>({
 // Modal
 function onOpenModal() {
   if (props.stage.type === StageType.GROUPS) {
-    form.value.groups = props.stage.groups.map((group) => ({
+    form.value.groups = props.stage.groups.map(group => ({
       order: group.order,
-      teams: group.standings.map((entry) => entry.team),
+      teams: group.standings.map(entry => entry.team),
     }));
   } else {
     form.value.groups = props.stage.rounds[0]!.slots.map(({ legs: [match] }, index) => ({
@@ -90,15 +90,15 @@ function onOpenModal() {
 
 // Team selection
 const selectedTeams = computed(() => (
-  form.value.groups.flatMap((i) => i.teams.filter((team) => team !== null))
+  form.value.groups.flatMap(i => i.teams.filter(team => team !== null))
 ));
 
 function onSelectTeam(team: Team) {
-  const group = form.value.groups.find((i) => i.teams.includes(null));
+  const group = form.value.groups.find(i => i.teams.includes(null));
 
   if (!group) return;
 
-  const slotIndex = group.teams.findIndex((slot) => slot === null);
+  const slotIndex = group.teams.findIndex(slot => slot === null);
 
   group.teams[slotIndex] = team.id;
 }

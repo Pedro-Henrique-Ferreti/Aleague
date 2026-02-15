@@ -11,28 +11,17 @@
       v-model="form.name"
       label="Nome"
     />
-  </AppModal>  
+  </AppModal>
 </template>
 
 <script setup lang="ts">
-const { createCollection, updateCollection } = useCollectionStore();
-
 const props = defineProps<{
   collection?: Collection;
 }>();
 
+const { createCollection, updateCollection } = useCollectionStore();
+
 const modalIsOpen = defineModel<boolean>('is-open');
-
-function onOpenModal() {
-  if (!props.collection) {
-    form.value = newForm();
-    return;
-  }
-
-  form.value = {
-    name: props.collection.name,
-  };
-}
 
 // Form
 const newForm = (): CollectionForm => ({ name: '' });
@@ -50,5 +39,16 @@ async function submitForm() {
   }
 
   modalIsOpen.value = false;
+}
+
+function onOpenModal() {
+  if (!props.collection) {
+    form.value = newForm();
+    return;
+  }
+
+  form.value = {
+    name: props.collection.name,
+  };
 }
 </script>

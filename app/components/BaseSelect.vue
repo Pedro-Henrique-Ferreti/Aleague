@@ -1,8 +1,8 @@
 <template>
   <select
     v-model="model"
-    class="select"
     :id="id"
+    class="select"
     :disabled="disabled"
   >
     <option
@@ -23,9 +23,9 @@ export interface BaseSelectProps<T extends SelectOptionValue> {
 </script>
 
 <script setup lang="ts" generic="T extends SelectOptionValue">
-const id = useId();
-
 defineProps<BaseSelectProps<T>>();
+
+const id = useId();
 
 const model = defineModel<T>();
 </script>

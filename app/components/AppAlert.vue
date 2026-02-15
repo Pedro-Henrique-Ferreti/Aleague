@@ -12,8 +12,8 @@
   >
     <slot name="icon">
       <component
-        class="shrink-0"
         :is="icon"
+        class="shrink-0"
       />
     </slot>
     <slot>
@@ -30,5 +30,5 @@ defineProps<{
   message?: string;
   soft?: boolean;
   type?: 'success' | 'error' | 'warning' | 'info';
-}>()
+}>();
 </script>

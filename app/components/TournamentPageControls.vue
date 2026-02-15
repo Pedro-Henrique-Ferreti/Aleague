@@ -51,11 +51,11 @@
 <script lang="ts" setup>
 import { IconEdit, IconPlus, IconTournament, IconTrash, IconUsersGroup } from '@tabler/icons-vue';
 
-const tournamentStore = useTournamentStore();
-
 const props = defineProps<{
   activeStage: TournamentStage;
 }>();
+
+const tournamentStore = useTournamentStore();
 
 // Stage modal
 const isCreatingStage = ref(false);

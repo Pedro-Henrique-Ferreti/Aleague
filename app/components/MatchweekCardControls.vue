@@ -33,7 +33,7 @@ const props = defineProps<{
 
 const currentMatchweek = defineModel<number>('current-matchweek', { required: true });
 
-const matchweeksOptions = computed<SelectOptionList<number>>(() => props.matchweeks.map((i) => ({
+const matchweeksOptions = computed<SelectOptionList<number>>(() => props.matchweeks.map(i => ({
   label: `Rodada ${i.week}`,
   value: i.week,
 })));

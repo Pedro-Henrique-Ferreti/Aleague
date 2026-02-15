@@ -31,14 +31,14 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
-              @match-updated="$emit('match-updated', $event, currentMatchweek)"
+              @match-updated="$emit('matchUpdated', $event, currentMatchweek)"
               @focus="nextTick(() => teamStore.focusMatchTeams(match))"
               @blur="nextTick(() => teamStore.blurMatchTeams(match))"
             />
           </template>
         </div>
         <MatchweekKickoffModal
-          v-model:is-open="matchweekKickoffModalIsOpen" 
+          v-model:is-open="matchweekKickoffModalIsOpen"
           :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
           @kickoffs-updated="stage.matchweeks[currentMatchweek - 1]!.matches = $event"
         />
@@ -52,12 +52,12 @@ import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
 
+defineEmits<{
+  matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']]
+}>();
+
 const tournamentStore = useTournamentStore();
 const teamStore = useTeamStore();
-
-defineEmits<{
-  'match-updated': [MatchCardEmits['match-updated'][number], Matchweek['week']]
-}>();
 
 const matchweekKickoffModalIsOpen = ref(false);
 
@@ -65,7 +65,7 @@ const stage = defineModel<TournamentGroupsStage>({ required: true });
 
 function getCurrentMatchweek() {
   const firstIncompleteWeek = stage.value.matchweeks.find(
-    (i) => i.matches.some((m) => m.homeTeam.score === null || m.awayTeam.score === null)
+    i => i.matches.some(m => m.homeTeam.score === null || m.awayTeam.score === null),
   )?.week;
 
   const lastWeek = stage.value.matchweeks[stage.value.matchweeks.length - 1]?.week;

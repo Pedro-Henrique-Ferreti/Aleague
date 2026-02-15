@@ -33,8 +33,8 @@
     <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(20rem,1fr))]">
       <div
         v-for="group in form.kickoffGroups"
-        class="card card-border relative"
         :key="group.time"
+        class="card card-border relative"
       >
         <div class="card-body p-1 flex gap-0.5">
           <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2 capitalize">
@@ -42,35 +42,31 @@
           </div>
           <MatchCard
             v-for="match in group.matches"
-            class="border border-dashed border-base-200 rounded-lg p-0.5"
             :key="match.id"
+            class="border border-dashed border-base-200 rounded-lg p-0.5"
             :match="match"
           />
         </div>
       </div>
-    </div>    
-    
+    </div>
   </AppModal>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { IconRefresh, IconWand } from '@tabler/icons-vue';
+import { getKickoffDisplayText } from '~/helpers/match';
+
 interface KickoffGroup {
   time: MatchKickoff;
   matches: Match[];
 }
-</script>
 
-<script lang="ts" setup>
-import { IconCalendarWeek, IconRefresh, IconWand } from '@tabler/icons-vue';
-import { getKickoffDisplayText } from '~/helpers/match';
-
-const emit = defineEmits<{
-  'kickoffs-updated': [value: Matchweek['matches']];
-}>();
 const props = defineProps<{
   matches: Match[];
 }>();
-
+const emit = defineEmits<{
+  kickoffsUpdated: [value: Matchweek['matches']];
+}>();
 const isOpen = defineModel<boolean>('is-open');
 
 const modalRef = useTemplateRef('modalRef');
@@ -81,7 +77,7 @@ const form = ref({
 });
 
 function resetKickoffGroups() {
-  form.value.kickoffGroups = KICKOFF_TIMES[form.value.kickoffType].map((time) => ({
+  form.value.kickoffGroups = KICKOFF_TIMES[form.value.kickoffType].map(time => ({
     time,
     matches: [],
   }));
@@ -100,10 +96,10 @@ function fillSlots() {
 }
 
 function assignKickoffs() {
-  emit('kickoffs-updated', props.matches.map((match): Match => ({
+  emit('kickoffsUpdated', props.matches.map((match): Match => ({
     ...match,
     kickoff: (
-      form.value.kickoffGroups.find((g) => g.matches.find((m) => m.id === match.id))?.time || null
+      form.value.kickoffGroups.find(g => g.matches.find(m => m.id === match.id))?.time || null
     ),
   })));
 
