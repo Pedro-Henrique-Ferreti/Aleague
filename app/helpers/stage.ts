@@ -26,7 +26,6 @@ export function newGroupStage(stageForm: TournamentStageForm, baseStage: BaseTou
   return {
     ...baseStage,
     type: StageType.GROUPS,
-    roundRobins: stageForm.groupRoundRobins,
     matchweeks: [],
     groups: createArray(stageForm.groups, index => ({
       order: index + 1,

@@ -36,7 +36,6 @@
       v-if="form.type === StageType.GROUPS"
       v-model:groups="form.groups"
       v-model:teams-per-group="form.teamsPerGroup"
-      v-model:group-round-robins="form.groupRoundRobins"
       :disabled="isEditingForm"
     />
     <StageFormModalPlayoffsFields
@@ -72,9 +71,6 @@ function newForm(): TournamentStageForm {
     ),
     teamsPerGroup: (
       props.stage?.type === StageType.GROUPS ? props.stage?.groups[0]?.standings.length || MIN_TEAMS_PER_GROUP : MIN_TEAMS_PER_GROUP
-    ),
-    groupRoundRobins: (
-      props.stage?.type === StageType.GROUPS ? props.stage.roundRobins : MIN_ROUNDS
     ),
     playoffRounds: (
       props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds.length : MIN_ROUNDS

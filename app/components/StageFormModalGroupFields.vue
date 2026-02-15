@@ -15,15 +15,8 @@
       :max="MAX_TEAMS_PER_GROUP"
       :disabled="disabled"
     />
-    <AppCounter
-      v-model="groupRoundRobins"
-      label="Turnos"
-      :min="MIN_ROUNDS"
-      :max="3"
-      :disabled="disabled"
-    />
     <AppFieldset
-      class="text-center"
+      class="text-center col-span-2 mt-1"
       label="Total de equipes"
     >
       <span class="font-semibold text-2xl text-center">
@@ -38,9 +31,8 @@ defineProps<{
   disabled: boolean;
 }>();
 
-const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MIN_ROUNDS, MAX_TEAMS_PER_GROUP } = StageConstants;
+const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MAX_TEAMS_PER_GROUP } = StageConstants;
 
 const groups = defineModel<TournamentStageForm['groups']>('groups', { required: true });
 const teamsPerGroup = defineModel<TournamentStageForm['teamsPerGroup']>('teams-per-group', { required: true });
-const groupRoundRobins = defineModel<TournamentStageForm['groupRoundRobins']>('group-round-robins', { required: true });
 </script>

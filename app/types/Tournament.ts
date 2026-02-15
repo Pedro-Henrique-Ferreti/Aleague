@@ -18,7 +18,6 @@ export interface BaseTournamentStage {
 
 export interface TournamentGroupsStage extends BaseTournamentStage {
   type: StageType.GROUPS;
-  roundRobins: number;
   groups: {
     order: number;
     standings: StandingsEntry[];
