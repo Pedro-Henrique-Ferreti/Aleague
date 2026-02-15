@@ -3,7 +3,7 @@ export enum StageType {
   PLAYOFFS,
 }
 
-export enum TournamentGroupFormat {
+export enum GroupsStageFormat {
   ROUND_ROBIN,
   OTHER_GROUPS_ROUND_ROBIN,
   ALL_PLAY_ALL,

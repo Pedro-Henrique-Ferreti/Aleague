@@ -139,7 +139,7 @@ export const useTournamentStore = defineStore('tournament', {
 
       // TODO: allow choosing format when creating matchweeks
       // TODO: alllow choosing number of round robins when creating matchweeks
-      stage.matchweeks = createMatchweeks(stage, TournamentGroupFormat.ROUND_ROBIN, 1);
+      stage.matchweeks = createMatchweeks(stage, GroupsStageFormat.ROUND_ROBIN, 1);
     },
     replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
       const stage = this.getTournament(payload.id).stages.find(stage => stage.id === payload.stageId);
