@@ -34,7 +34,6 @@
     <div class="divider" />
     <StageFormModalGroupFields
       v-if="form.type === StageType.GROUPS"
-      v-model:format="form.format"
       v-model:groups="form.groups"
       v-model:teams-per-group="form.teamsPerGroup"
       v-model:group-round-robins="form.groupRoundRobins"
@@ -65,9 +64,6 @@ function newForm(): TournamentStageForm {
   return {
     name: props.stage?.name ?? DEFAULT_GROUPS_STAGE_NAME,
     type: props.stage?.type ?? StageType.GROUPS,
-    format: (
-      props.stage?.type === StageType.GROUPS ? props.stage.format : TournamentGroupFormat.ROUND_ROBIN
-    ),
     teams: (
       props.stage?.type === StageType.PLAYOFFS ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
     ),

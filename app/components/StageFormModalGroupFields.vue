@@ -1,11 +1,4 @@
 <template>
-  <AppSelect
-    v-model="format"
-    class="max-w-20"
-    label="Disputa de partidas"
-    :options="TOURNAMENT_GROUP_FORMAT_OPTIONS"
-    :disabled="disabled"
-  />
   <div class="grid grid-cols-2 gap-x-1">
     <AppCounter
       v-model="groups"
@@ -47,7 +40,6 @@ defineProps<{
 
 const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MIN_ROUNDS, MAX_TEAMS_PER_GROUP } = StageConstants;
 
-const format = defineModel<TournamentStageForm['format']>('format', { required: true });
 const groups = defineModel<TournamentStageForm['groups']>('groups', { required: true });
 const teamsPerGroup = defineModel<TournamentStageForm['teamsPerGroup']>('teams-per-group', { required: true });
 const groupRoundRobins = defineModel<TournamentStageForm['groupRoundRobins']>('group-round-robins', { required: true });

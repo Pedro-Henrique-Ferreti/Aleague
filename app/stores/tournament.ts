@@ -137,7 +137,8 @@ export const useTournamentStore = defineStore('tournament', {
       if (stage.type !== StageType.GROUPS) throw new Error('Stage type not supported');
       if (!stageHasAllTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
-      stage.matchweeks = createMatchweeks(stage);
+      // TODO: allow choosing format when creating matchweeks
+      stage.matchweeks = createMatchweeks(stage, TournamentGroupFormat.ROUND_ROBIN);
     },
     replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
       const stage = this.getTournament(payload.id).stages.find(stage => stage.id === payload.stageId);

@@ -4,7 +4,6 @@ export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCo
 
 export type TournamentStageForm = (
   Pick<BaseTournamentStage, 'name' | 'type'>
-  & Pick<TournamentGroupsStage, 'format'>
   & {
     teams: number;
     teamsPerGroup: number;
