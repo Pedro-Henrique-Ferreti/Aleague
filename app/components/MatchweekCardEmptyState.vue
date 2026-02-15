@@ -14,14 +14,14 @@
     <template v-else>
       <p>Adicione todas as equipes antes de gerar as partidas.</p>
       <StageTeamsModal
-        v-slot="{ open }"
+        v-slot="{ openModal }"
         :stage="stage"
       >
         <AppButton
           class="btn-primary btn-soft btn-wide mt-2"
           label="Equipes"
           :icon-left="IconUsersGroup"
-          @click="open"
+          @click="openModal"
         />
       </StageTeamsModal>
     </template>

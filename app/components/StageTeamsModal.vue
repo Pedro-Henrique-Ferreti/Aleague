@@ -7,8 +7,8 @@
     @open="onOpenModal"
     @submit="submitForm"
   >
-    <template #trigger="{ open }">
-      <slot :open="open" />
+    <template #trigger="{ openModal }">
+      <slot :open-modal="openModal" />
     </template>
     <div class="flex gap-1 mb-2 justify-center relative">
       <StageTeamsInput

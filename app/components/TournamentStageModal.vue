@@ -6,8 +6,8 @@
     @open="onOpenModal"
     @submit="submitForm"
   >
-    <template #trigger="{ open }">
-      <slot :open="open" />
+    <template #trigger="{ openModal }">
+      <slot :open-modal="openModal" />
     </template>
     <AppInput
       v-model="form.name"

@@ -1,9 +1,9 @@
 <template>
   <slot
     name="trigger"
-    :open="openModal"
-    :close="closeModal"
-    :toggle="toggleModal"
+    :open-modal="openModal"
+    :close-modal="closeModal"
+    :toggle-modal="toggleModal"
   />
   <dialog
     ref="dialogRef"

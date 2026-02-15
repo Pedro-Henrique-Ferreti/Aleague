@@ -7,10 +7,10 @@
     :show-close-icon="false"
     @submit="onSubmit"
   >
-    <template #trigger="{ open }">
+    <template #trigger="{ openModal }">
       <slot
         name="trigger"
-        :open="open"
+        :open-modal="openModal"
       />
     </template>
     <div
