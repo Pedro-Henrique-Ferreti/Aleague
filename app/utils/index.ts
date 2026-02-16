@@ -29,3 +29,7 @@ export function clone<T>(data: T) {
 export function createArray<T>(length: number, fn: (index: number) => T) {
   return Array.from({ length }, (_, index) => fn(index));
 }
+
+export function randomizeArray<T>(array: T[]) {
+  return [...array].sort(() => Math.random() - 0.5);
+}

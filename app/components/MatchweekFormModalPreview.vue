@@ -15,7 +15,7 @@
           class="btn-square btn-accent btn-soft"
           aria-label="Gerar novamente"
           :icon-left="IconRefresh"
-          @click="getMatchweeks"
+          @click="getNewMatchweeks"
         />
       </AppTooltip>
     </div>
@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import type { RulesForm } from './MatchweekFormModalRules.vue';
 import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
-import { createMatchweeks } from '~/helpers/tournament';
+import { newGroupStageMatchweekList } from '~/helpers/stage';
 
 const props = defineProps<{
   rules: RulesForm;
@@ -43,11 +43,11 @@ defineEmits<{ showPrevious: [] }>();
 
 const matchweeks = ref<Matchweek[]>([]);
 
-function getMatchweeks() {
-  matchweeks.value = createMatchweeks(props.groups, props.rules.format, props.rules.roundRobins);
+function getNewMatchweeks() {
+  matchweeks.value = newGroupStageMatchweekList(props.groups, props.rules.format, props.rules.roundRobins);
 }
 
-getMatchweeks();
+getNewMatchweeks();
 
 defineExpose({ matchweeks });
 </script>

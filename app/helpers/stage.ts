@@ -1,3 +1,4 @@
+import { createMatchListFromTeamList } from './matchweek';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
 
@@ -36,4 +37,40 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
       (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, () => Qualifier.NONE) : []
     ),
   };
+}
+
+export function newGroupStageMatchweekList(
+  groups: GroupStage['groups'],
+  format: GroupStageFormat,
+  roundRobins: number,
+): GroupStage['matchweeks'] {
+  if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
+
+  let matchList: MatchList = [];
+
+  const getGroupTeams = (group: GroupStage['groups'][number]) => (group.standings.map(i => i.team!));
+
+  if (format === GroupStageFormat.SAME_GROUP_ROUND_ROBIN) {
+    for (const group of groups) {
+      createMatchListFromTeamList(getGroupTeams(group), roundRobins).forEach((item, i) => {
+        if (!matchList[i]) {
+          matchList[i] = [];
+        }
+        matchList[i]!.push(...item);
+      });
+    }
+  } else if (format === GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
+    matchList = createMatchListFromTeamList(
+      groups.flatMap(getGroupTeams),
+      roundRobins,
+      groups.map(getGroupTeams),
+    );
+  } else {
+    matchList = createMatchListFromTeamList(groups.flatMap(getGroupTeams), roundRobins);
+  }
+
+  return matchList.map((list, index) => ({
+    week: index + 1,
+    matches: list,
+  }));
 }

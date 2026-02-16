@@ -21,6 +21,8 @@ export enum MatchResult {
 
 export type MatchKickoff = string;
 
+export type MatchList = Match[][];
+
 export interface MatchTeam {
   id: Team['id'] | null;
   score: number | null;

@@ -3,13 +3,13 @@ import { newMatch } from './match';
 export function createMatchListFromTeamList(
   list: TeamDetails['id'][],
   roundRobins = 1,
-  excludeGroups?: TeamDetails['id'][][],
-): Match[][] {
-  const teamList = [...list.sort(() => Math.random() - 0.5)];
-
+  avoidGroups?: TeamDetails['id'][][],
+): MatchList {
+  const teamList = randomizeArray(list);
   const teams1 = teamList.slice(0, teamList.length / 2);
   const teams2 = teamList.slice(teamList.length / 2, teamList.length);
-  const weeks: Match[][] = [];
+  const weeks: MatchList = [];
+
   let rounds = teamList.length - 1;
 
   while (rounds > 0) {
@@ -19,7 +19,9 @@ export function createMatchListFromTeamList(
       const teamA = teams1[i]!;
       const teamB = teams2[i]!;
 
-      if (excludeGroups?.some(group => group.includes(teamA) && group.includes(teamB))) continue;
+      const teamsInSameAvoidGroup = avoidGroups?.some(group => group.includes(teamA) && group.includes(teamB));
+
+      if (teamsInSameAvoidGroup) continue;
 
       const prevWeek = weeks[weeks.length - 1];
       const teamAPlayedAtHome = prevWeek?.find(m => m.homeTeam.id === teamA);
@@ -36,7 +38,7 @@ export function createMatchListFromTeamList(
       week.push(newMatch(homeTeam, awayTeam));
     }
 
-    weeks.push(week.sort(() => Math.random() - 0.5));
+    weeks.push(randomizeArray(week));
 
     teams2.push(teams1.pop()!);
 
