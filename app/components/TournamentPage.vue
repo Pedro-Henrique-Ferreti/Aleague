@@ -1,7 +1,7 @@
 <template>
   <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr]">
     <TournamentProfileCard />
-    <TournamentPageControls
+    <TournamentStageOptions
       v-if="activeStage"
       :active-stage="activeStage"
     />
@@ -24,7 +24,7 @@
     </div>
   </div>
   <template v-else>
-    <TournamentStageControls ref="controls" />
+    <TournamentStageSelector ref="stage-selector" />
     <template v-for="stage, index in tournament.stages">
       <TournamentGroupStage
         v-if="stage.type === StageType.GROUP && activeStage?.id === stage.id"
@@ -35,7 +35,7 @@
         v-else-if="stage.type === StageType.PLAYOFF && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as PlayoffStage)"
         :key="index"
-        :active-round-id="controlsRef?.roundId"
+        :active-round-id="(stageSelector?.selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
       />
     </template>
   </template>
@@ -43,7 +43,6 @@
 
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
-import TournamentStageControls from './TournamentStageControls.vue';
 
 const tournamentStore = useTournamentStore();
 
@@ -58,11 +57,13 @@ const tournament = computed({
   },
 });
 
-const controlsRef = useTemplateRef<typeof TournamentStageControls>('controls');
+const stageSelector = useTemplateRef('stage-selector');
 
-const activeStage = computed(() => tournament.value.stages.find(stage => (
-  stage.id === controlsRef.value?.roundId || (
-    stage.type === StageType.PLAYOFF && stage.rounds.find(round => round.id === controlsRef.value?.roundId)
-  )
-)));
+const activeStage = computed(() => tournament.value.stages.find((stage) => {
+  if (stage.type === StageType.GROUP) {
+    return stage.id === stageSelector.value?.selectedStageOrPlayoffRoundId;
+  }
+
+  return stage.rounds.some(round => round.id === stageSelector.value?.selectedStageOrPlayoffRoundId);
+}));
 </script>
