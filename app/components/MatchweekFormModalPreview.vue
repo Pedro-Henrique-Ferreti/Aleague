@@ -1,11 +1,24 @@
 <template>
-  <div class="mb-1">
+  <div class="flex items-center justify-between mb-1">
     <AppButton
       class="btn-ghost px-0.5"
       label="Voltar"
       :icon-left="IconArrowNarrowLeft"
       @click="$emit('showPrevious')"
     />
+    <div class="flex items-center gap-0.75">
+      <AppTooltip
+        class="tooltip-left"
+        label="Gerar novamente"
+      >
+        <AppButton
+          class="btn-square btn-accent btn-soft"
+          aria-label="Gerar novamente"
+          :icon-left="IconRefresh"
+          @click="getMatchweeks"
+        />
+      </AppTooltip>
+    </div>
   </div>
   <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(20rem,1fr))]">
     <MatchweekFormModalPreviewCard
@@ -18,7 +31,7 @@
 
 <script lang="ts" setup>
 import type { RulesForm } from './MatchweekFormModalRules.vue';
-import { IconArrowNarrowLeft } from '@tabler/icons-vue';
+import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
 import { createMatchweeks } from '~/helpers/tournament';
 
 const props = defineProps<{
@@ -28,9 +41,13 @@ const props = defineProps<{
 
 defineEmits<{ showPrevious: [] }>();
 
-const matchweeks = ref(
-  createMatchweeks(props.groups, props.rules.format, props.rules.roundRobins),
-);
+const matchweeks = ref<Matchweek[]>([]);
+
+function getMatchweeks() {
+  matchweeks.value = createMatchweeks(props.groups, props.rules.format, props.rules.roundRobins);
+}
+
+getMatchweeks();
 
 defineExpose({ matchweeks });
 </script>
