@@ -3,18 +3,18 @@
     <img
       class="w-auto h-6"
       alt="Tournament icon"
-      :src="tournament.icon"
+      :src="store.activeTournament?.icon"
     >
     <div>
-      <h1 class="text-3xl font-medium mb-0.5">{{ tournament.name }}</h1>
+      <h1 class="text-3xl font-medium mb-0.5">{{ store.activeTournament?.name }}</h1>
       <div class="badge-container flex-wrap">
         <div class="badge badge-ghost">
           <IconCalendarPlus class="size-[1em]" />
-          {{ formatDate(tournament.createdAt, 'd MMM yyyy') }}
+          {{ formatDate(store.activeTournament?.createdAt, 'd MMM yyyy') }}
         </div>
         <div class="badge badge-ghost">
           <IconPencil class="size-[1em]" />
-          {{ formatDate(tournament.updatedAt, 'd MMM yyyy') }}
+          {{ formatDate(store.activeTournament?.updatedAt, 'd MMM yyyy') }}
         </div>
       </div>
     </div>
@@ -24,7 +24,5 @@
 <script setup lang="ts">
 import { IconCalendarPlus, IconPencil } from '@tabler/icons-vue';
 
-defineProps<{
-  tournament: Tournament;
-}>();
+const store = useTournamentStore();
 </script>

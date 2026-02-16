@@ -1,6 +1,6 @@
 <template>
   <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr]">
-    <TournamentProfileCard :tournament="tournament" />
+    <TournamentProfileCard />
     <TournamentPageControls
       v-if="activeStage"
       :active-stage="activeStage"
@@ -24,10 +24,7 @@
     </div>
   </div>
   <template v-else>
-    <TournamentStageControls
-      ref="controls"
-      :stages="tournament.stages"
-    />
+    <TournamentStageControls ref="controls" />
     <template v-for="stage, index in tournament.stages">
       <TournamentGroupStage
         v-if="stage.type === StageType.GROUP && activeStage?.id === stage.id"

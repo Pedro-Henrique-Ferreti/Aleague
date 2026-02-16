@@ -25,15 +25,15 @@ interface RoundOption {
 </script>
 
 <script lang="ts" setup>
-const props = defineProps<{
-  stages: TournamentStage[];
-}>();
+const store = useTournamentStore();
+
+const stages = computed(() => store.activeTournament?.stages || []);
 
 const showControls = computed(() => (
-  props.stages.length > 1 || props.stages[0]?.type === StageType.PLAYOFF
+  stages.value.length > 1 || stages.value[0]?.type === StageType.PLAYOFF
 ));
 
-const roundOptions = computed(() => props.stages.flatMap((stage): RoundOption[] => {
+const roundOptions = computed(() => stages.value.flatMap((stage): RoundOption[] => {
   if (stage.type === StageType.GROUP) {
     return [{ id: stage.id, name: stage.name }];
   }
