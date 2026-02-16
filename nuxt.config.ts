@@ -38,6 +38,7 @@ export default defineNuxtConfig({
       },
     },
     plugins: [
+      // @ts-expect-error - Mismatched types between TailwindCSS plugin and Vite
       tailwindcss(),
     ],
   },

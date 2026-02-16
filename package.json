@@ -24,7 +24,7 @@
     "date-fns": "^4.1.0",
     "floating-vue": "^5.2.2",
     "imask": "^7.6.1",
-    "nuxt": "^4.1.2",
+    "nuxt": "4.1.2",
     "nuxt-svgo": "^4.2.6",
     "pinia": "^3.0.3",
     "sortablejs": "^1.15.6",
