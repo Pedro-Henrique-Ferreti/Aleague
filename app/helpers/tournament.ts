@@ -19,6 +19,8 @@ export function createMatchweeks(
 ): GroupStage['matchweeks'] {
   let matchList: Match[][] = [];
 
+  if (!groups.every(g => g.standings.every(s => s.team !== null))) throw new Error('All teams must be assigned');
+
   const teamsFromGroup = (g: GroupStage['groups'][number]) => (
     g.standings.map(i => i.team!)
   );

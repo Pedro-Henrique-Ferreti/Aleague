@@ -131,15 +131,12 @@ export const useTournamentStore = defineStore('tournament', {
         this.replaceTeamsInMatchweeks({ id: payload.id, stageId: payload.stageId, queries });
       }
     },
-    createStageMatchweeks(id: Tournament['id'], stageId: GroupStage['id']) {
+    addMatchweeksToStage(id: Tournament['id'], stageId: GroupStage['id'], matchweeks: Matchweek[]) {
       const stage = this.getStage(id, stageId);
 
       if (stage.type !== StageType.GROUP) throw new Error('Stage type not supported');
-      if (!stageHasAllTeamsAssigned(stage)) throw new Error('All teams must be assigned');
 
-      // TODO: allow choosing format when creating matchweeks
-      // TODO: alllow choosing number of round robins when creating matchweeks
-      stage.matchweeks = createMatchweeks(stage.groups, GroupStageFormat.SAME_GROUP_ROUND_ROBIN, 1);
+      stage.matchweeks = matchweeks;
     },
     replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
       const stage = this.getTournament(payload.id).stages.find(stage => stage.id === payload.stageId);

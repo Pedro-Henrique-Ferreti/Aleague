@@ -3,7 +3,10 @@
     <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
     <template v-if="allowCreateMatchweeks">
       <p>Clique no botão abaixo para gerar as partidas.</p>
-      <MatchweekFormModal v-slot="{ openModal }">
+      <MatchweekFormModal
+        v-slot="{ openModal }"
+        :stage="stage"
+      >
         <AppButton
           class="btn-accent btn-wide mt-2"
           label="Gerar partidas"

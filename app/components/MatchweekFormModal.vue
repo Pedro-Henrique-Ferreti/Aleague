@@ -14,19 +14,33 @@
       v-model:format="form.format"
       v-model:round-robins="form.roundRobins"
     />
-    <MatchweekFormModalReview v-else-if="step === FormStep.REVIEW_MATCHWEEKS" />
+    <MatchweekFormModalPreview
+      v-else-if="step === FormStep.PREVIEW_MATCHWEEKS"
+      ref="preview"
+      :rules="form"
+      :groups="stage.groups"
+      @show-previous="step = FormStep.SELECT_RULES"
+    />
   </AppModal>
 </template>
 
 <script lang="ts">
 enum FormStep {
   SELECT_RULES,
-  REVIEW_MATCHWEEKS,
+  PREVIEW_MATCHWEEKS,
 }
 </script>
 
 <script lang="ts" setup>
 import type { RulesForm } from './MatchweekFormModalRules.vue';
+
+const props = defineProps<{
+  stage: GroupStage;
+}>();
+
+const tournamentStore = useTournamentStore();
+
+const previewRef = useTemplateRef('preview');
 
 const step = ref<FormStep>(FormStep.SELECT_RULES);
 
@@ -37,7 +51,10 @@ const form = ref<RulesForm>({
 
 function onFormSubmit() {
   if (step.value === FormStep.SELECT_RULES) {
-    step.value = FormStep.REVIEW_MATCHWEEKS;
+    step.value = FormStep.PREVIEW_MATCHWEEKS;
+    return;
   }
+
+  tournamentStore.addMatchweeksToStage(tournamentStore.activeTournamentId!, props.stage.id, previewRef.value!.matchweeks);
 }
 </script>
