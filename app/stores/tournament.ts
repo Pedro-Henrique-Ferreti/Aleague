@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { getBaseFileId, getTimestamp } from '~/helpers/file';
 import { newStandingsEntry } from '~/helpers/standings';
-import { createStage } from '~/helpers/tournament';
+import { newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', {
   state: (): StoreState => ({
@@ -80,7 +80,7 @@ export const useTournamentStore = defineStore('tournament', {
     addStage(id: Tournament['id'], stageForm: StageForm) {
       const tournament = this.getTournament(id);
 
-      tournament.stages.push(createStage(tournament, stageForm));
+      tournament.stages.push(newTournamentStage(stageForm, tournament.stages));
     },
     editStage(payload: EditStageStorePayload) {
       const stage = this.getStage(payload.id, payload.stageId);

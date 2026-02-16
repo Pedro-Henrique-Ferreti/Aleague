@@ -1,15 +1,15 @@
 import { createMatchListFromTeamList } from './matchweek';
 import { groupsAreFullyCompleted, newGroupStage, newPlayoffStage } from './stage';
 
-export function createStage(tournament: Tournament, stageForm: StageForm) {
+export function newTournamentStage(form: StageForm, stageList?: TournamentStage[]): TournamentStage {
   const baseStage: BaseStage = {
     id: new Date().getTime(),
-    sequence: (tournament.stages[tournament.stages.length - 1]?.sequence || 0) + 1,
-    name: stageForm.name,
-    type: stageForm.type,
+    sequence: (stageList?.[stageList.length - 1]?.sequence || 0) + 1,
+    name: form.name,
+    type: form.type,
   };
 
-  return stageForm.type === StageType.GROUP ? newGroupStage(stageForm, baseStage) : newPlayoffStage(stageForm, baseStage);
+  return form.type === StageType.GROUP ? newGroupStage(form, baseStage) : newPlayoffStage(form, baseStage);
 }
 
 export function createMatchweeks(
