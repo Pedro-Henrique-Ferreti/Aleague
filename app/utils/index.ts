@@ -31,5 +31,5 @@ export function createArray<T>(length: number, fn: (index: number) => T) {
 }
 
 export function randomizeArray<T>(array: T[]) {
-  return [...array].sort(() => Math.random() - 0.5);
+  return array.toSorted(() => Math.random() - 0.5);
 }
