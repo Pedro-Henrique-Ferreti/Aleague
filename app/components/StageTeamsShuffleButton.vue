@@ -1,15 +1,12 @@
 <template>
-  <div
-    class="tooltip"
-    data-tip="Embaralhar equipes"
-  >
+  <AppTooltip label="Embaralhar equipes">
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Shuffle teams"
       :icon-left="IconArrowsShuffle"
       @click="shuffleTeams"
     />
-  </div>
+  </AppTooltip>
 </template>
 
 <script lang="ts" setup>

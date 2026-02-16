@@ -1,15 +1,12 @@
 <template>
-  <div
-    class="tooltip"
-    data-tip="Preencher participantes"
-  >
+  <AppTooltip label="Preencher participantes">
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Fill slots"
       :icon-left="IconWand"
       @click="fillSlots"
     />
-  </div>
+  </AppTooltip>
 </template>
 
 <script lang="ts" setup>

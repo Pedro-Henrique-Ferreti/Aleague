@@ -1,7 +1,7 @@
 <template>
-  <div
-    class="tooltip tooltip-left"
-    data-tip="Remover equipes"
+  <AppTooltip
+    class="tooltip-left"
+    label="Remover equipes"
   >
     <AppButton
       class="btn-square btn-accent btn-soft"
@@ -9,7 +9,7 @@
       :icon-left="IconRefresh"
       @click="resetSlots"
     />
-  </div>
+  </AppTooltip>
 </template>
 
 <script lang="ts" setup>

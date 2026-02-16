@@ -1,15 +1,12 @@
 <template>
-  <div
-    class="tooltip"
-    data-tip="Importar participantes"
-  >
+  <AppTooltip label="Importar participantes">
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Fill slots"
       :icon-left="IconFileArrowLeft"
       @click="openFileExplorer"
     />
-  </div>
+  </AppTooltip>
 </template>
 
 <script lang="ts" setup>
