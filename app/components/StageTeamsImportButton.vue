@@ -1,5 +1,8 @@
 <template>
-  <div class="tooltip" data-tip="Importar participantes">
+  <div
+    class="tooltip"
+    data-tip="Importar participantes"
+  >
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Fill slots"

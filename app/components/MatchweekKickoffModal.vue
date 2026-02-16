@@ -14,14 +14,20 @@
         :options="MATCHWEEK_KICKOFF_OPTIONS"
       />
       <div class="absolute flex gap-0.75 right-1.5">
-        <div class="tooltip" data-tip="Preencher partidas">
+        <div
+          class="tooltip"
+          data-tip="Preencher partidas"
+        >
           <AppButton
             class="btn-square btn-accent btn-soft"
             :icon-left="IconWand"
             @click="fillSlots"
           />
         </div>
-        <div class="tooltip" data-tip="Remover partidas">
+        <div
+          class="tooltip"
+          data-tip="Remover partidas"
+        >
           <AppButton
             class="btn-square btn-accent btn-soft"
             :icon-left="IconRefresh"

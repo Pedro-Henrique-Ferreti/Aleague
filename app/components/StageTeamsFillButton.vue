@@ -1,5 +1,8 @@
 <template>
-  <div class="tooltip" data-tip="Preencher participantes">
+  <div
+    class="tooltip"
+    data-tip="Preencher participantes"
+  >
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Fill slots"

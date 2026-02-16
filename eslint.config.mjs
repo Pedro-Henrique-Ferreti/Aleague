@@ -24,6 +24,14 @@ export default withNuxt(
       'vue/block-order': ['error', {
         order: ['template', 'script', 'style'],
       }],
+      'vue/max-attributes-per-line': ['error', {
+        singleline: {
+          max: 1,
+        },
+        multiline: {
+          max: 1,
+        },
+      }],
       'vue/attributes-order': ['error', {
         order: [
           'LIST_RENDERING',

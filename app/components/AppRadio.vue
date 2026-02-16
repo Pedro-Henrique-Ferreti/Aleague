@@ -1,5 +1,8 @@
 <template>
-  <label class="inline-flex gap-0.5" :for="id">
+  <label
+    class="inline-flex gap-0.5"
+    :for="id"
+  >
     <input
       v-model="model"
       :id="id"

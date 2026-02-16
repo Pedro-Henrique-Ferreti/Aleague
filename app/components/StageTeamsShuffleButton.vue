@@ -1,5 +1,8 @@
 <template>
-  <div class="tooltip" data-tip="Embaralhar equipes">
+  <div
+    class="tooltip"
+    data-tip="Embaralhar equipes"
+  >
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Shuffle teams"
