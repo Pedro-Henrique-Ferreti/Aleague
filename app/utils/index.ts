@@ -3,8 +3,8 @@ import { ptBR } from 'date-fns/locale';
 
 export { v4 as uuidv4 } from 'uuid';
 
-export function formatDate(date: string | Date, dateFormat: string) {
-  return format(new Date(date), dateFormat, { locale: ptBR });
+export function formatDate(date?: string | Date | null, dateFormat?: string) {
+  return (!date || !dateFormat) ? '' : format(new Date(date), dateFormat, { locale: ptBR });
 }
 
 export function downloadFile(blob: Blob, fileName: string) {
