@@ -1,4 +1,4 @@
-import { createMatchListFromTeamList } from './matchweek';
+import { createMatchSchedule } from './matchweek';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
 
@@ -46,31 +46,34 @@ export function newGroupStageMatchweekList(
 ): GroupStage['matchweeks'] {
   if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
 
-  let matchList: MatchList = [];
+  let schedule: MatchSchedule = [];
 
   const getGroupTeams = (group: GroupStage['groups'][number]) => (group.standings.map(i => i.team!));
 
   if (format === GroupStageFormat.SAME_GROUP_ROUND_ROBIN) {
     for (const group of groups) {
-      createMatchListFromTeamList(getGroupTeams(group), roundRobins).forEach((item, i) => {
-        if (!matchList[i]) {
-          matchList[i] = [];
+      createMatchSchedule(getGroupTeams(group), roundRobins).forEach((matches, i) => {
+        if (!schedule[i]) {
+          schedule[i] = [];
         }
-        matchList[i]!.push(...item);
+
+        schedule[i]!.push(...matches);
       });
     }
   } else if (format === GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
-    matchList = createMatchListFromTeamList(
+    const avoidGroups = groups.map(getGroupTeams);
+
+    schedule = createMatchSchedule(
       groups.flatMap(getGroupTeams),
       roundRobins,
-      groups.map(getGroupTeams),
+      avoidGroups,
     );
   } else {
-    matchList = createMatchListFromTeamList(groups.flatMap(getGroupTeams), roundRobins);
+    schedule = createMatchSchedule(groups.flatMap(getGroupTeams), roundRobins);
   }
 
-  return matchList.map((list, index) => ({
+  return schedule.map((matches, index) => ({
     week: index + 1,
-    matches: list,
+    matches,
   }));
 }

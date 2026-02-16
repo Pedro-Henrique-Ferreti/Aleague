@@ -1,21 +1,21 @@
 import { newMatch } from './match';
 
-export function createMatchListFromTeamList(
-  list: TeamDetails['id'][],
+export function createMatchSchedule(
+  teams: TeamDetails['id'][],
   roundRobins = 1,
   avoidGroups?: TeamDetails['id'][][],
-): MatchList {
-  const teamList = randomizeArray(list);
+): MatchSchedule {
+  const teamList = randomizeArray(teams);
   const teams1 = teamList.slice(0, teamList.length / 2);
   const teams2 = teamList.slice(teamList.length / 2, teamList.length);
-  let weeks: MatchList = [];
-  let rounds = teamList.length - 1; // A team can't play against itself, so the number of rounds is always one less than the number of teams
+  let weeks: MatchSchedule = [];
+  let rounds = teamList.length - 1; // A team can't play against itself, so the number of rounds is always one less
 
   /**
-   * If there are avoidGroups, the expected number of weeks is reduced by the number of
-   * teams in the avoidGroup minus one (since those teams can't play each other)
+   * Expected weeks is further reduced by the number of teams in the avoidGroup (minus the team itself, which is assumed to be in the avoidGroup).
    */
   const expectedWeeks = rounds - (avoidGroups?.[0] ? avoidGroups[0].length - 1 : 0);
+  const expectedMatchesPerWeek = teams.length / 2; // Teams should play once per week, so matches per week is always half the number of teams
 
   while (rounds > 0) {
     const week: Match[] = [];
@@ -58,13 +58,11 @@ export function createMatchListFromTeamList(
   weeks = weeks.filter(week => week.length > 0);
 
   // Make sure all weeks have the same number of matches
-  const expectedMatchesPerWeek = list.length / 2;
-
   let weeksAreUneven = weeks.some(week => week.length !== expectedMatchesPerWeek);
 
   while (weeksAreUneven) {
     const allMatches = randomizeArray(weeks.flat());
-    const newWeeks: MatchList = Array.from({ length: expectedWeeks }, () => []);
+    const newWeeks: MatchSchedule = Array.from({ length: expectedWeeks }, () => []);
 
     for (const match of allMatches) {
       const matchTeams = [match.homeTeam.id, match.awayTeam.id];
