@@ -1,8 +1,7 @@
 import { defineStore } from 'pinia';
 import { getBaseFileId, getTimestamp } from '~/helpers/file';
-import { stageHasAllTeamsAssigned } from '~/helpers/stage';
 import { newStandingsEntry } from '~/helpers/standings';
-import { createMatchweeks, createStage } from '~/helpers/tournament';
+import { createStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', {
   state: (): StoreState => ({
