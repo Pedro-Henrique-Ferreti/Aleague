@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
-    <template v-if="allowCreateMatchweeks">
+    <template v-if="groupsAreFullyCompleted(stage.groups)">
       <p>Clique no botão abaixo para gerar as partidas.</p>
       <MatchweekFormModal
         v-slot="{ openModal }"
@@ -34,11 +34,9 @@
 
 <script lang="ts" setup>
 import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
-import { stageHasAllTeamsAssigned } from '~/helpers/stage';
+import { groupsAreFullyCompleted } from '~/helpers/stage';
 
-const props = defineProps<{
+defineProps<{
   stage: GroupStage;
 }>();
-
-const allowCreateMatchweeks = computed(() => stageHasAllTeamsAssigned(props.stage));
 </script>

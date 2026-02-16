@@ -1,5 +1,5 @@
 import { createMatchListFromTeamList } from './matchweek';
-import { newGroupStage, newPlayoffStage } from './stage';
+import { groupsAreFullyCompleted, newGroupStage, newPlayoffStage } from './stage';
 
 export function createStage(tournament: Tournament, stageForm: StageForm) {
   const baseStage: BaseStage = {
@@ -17,9 +17,9 @@ export function createMatchweeks(
   format: GroupStageFormat,
   roundRobins: number,
 ): GroupStage['matchweeks'] {
-  let matchList: Match[][] = [];
+  if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
 
-  if (!groups.every(g => g.standings.every(s => s.team !== null))) throw new Error('All teams must be assigned');
+  let matchList: Match[][] = [];
 
   const teamsFromGroup = (g: GroupStage['groups'][number]) => (
     g.standings.map(i => i.team!)
