@@ -826,4 +826,8 @@ export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 825, name: 'Cabofriense', badge: 'https://img.sofascore.com/api/v1/team/6978/image', country: 'BRA', type: TeamType.CLUB },
   { id: 826, name: 'Resende', badge: 'https://img.sofascore.com/api/v1/team/32878/image', country: 'BRA', type: TeamType.CLUB },
   { id: 827, name: 'Audax-RJ', badge: 'https://img.sofascore.com/api/v1/team/85341/image', country: 'BRA', type: TeamType.CLUB },
+  { id: 828, name: 'URT', badge: 'https://img.sofascore.com/api/v1/team/35278/image', country: 'BRA', type: TeamType.CLUB },
+  { id: 829, name: 'Democrata (GV)', badge: 'https://img.sofascore.com/api/v1/team/21848/image', country: 'BRA', type: TeamType.CLUB },
+  { id: 830, name: 'North', badge: 'https://img.sofascore.com/api/v1/team/465989/image', country: 'BRA', type: TeamType.CLUB },
+  { id: 831, name: 'Athletic', badge: 'https://img.sofascore.com/api/v1/team/342775/image', country: 'BRA', type: TeamType.CLUB },
 ];
