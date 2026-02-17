@@ -39,11 +39,13 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
   };
 }
 
-export function newGroupStageMatchweekList(
-  groups: GroupStage['groups'],
-  format: GroupStageFormat,
-  roundRobins: number,
-): GroupStage['matchweeks'] {
+export function newGroupStageMatchweekList(payload: {
+  groups: GroupStage['groups'];
+  format: GroupStageFormat;
+  roundRobins: number;
+}): GroupStage['matchweeks'] {
+  const { groups, format, roundRobins } = payload;
+
   if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
 
   let schedule: MatchSchedule = [];
@@ -52,7 +54,10 @@ export function newGroupStageMatchweekList(
 
   if (format === GroupStageFormat.SAME_GROUP_ROUND_ROBIN) {
     for (const group of groups) {
-      createMatchSchedule(getGroupTeams(group), roundRobins).forEach((matches, i) => {
+      createMatchSchedule({
+        teams: getGroupTeams(group),
+        roundRobins,
+      }).forEach((matches, i) => {
         if (!schedule[i]) {
           schedule[i] = [];
         }
@@ -61,15 +66,16 @@ export function newGroupStageMatchweekList(
       });
     }
   } else if (format === GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
-    const avoidGroups = groups.map(getGroupTeams);
-
-    schedule = createMatchSchedule(
-      groups.flatMap(getGroupTeams),
+    schedule = createMatchSchedule({
+      teams: groups.flatMap(getGroupTeams),
       roundRobins,
-      avoidGroups,
-    );
+      avoidGroups: groups.map(getGroupTeams),
+    });
   } else {
-    schedule = createMatchSchedule(groups.flatMap(getGroupTeams), roundRobins);
+    schedule = createMatchSchedule({
+      teams: groups.flatMap(getGroupTeams),
+      roundRobins,
+    });
   }
 
   return schedule.map((matches, index) => ({

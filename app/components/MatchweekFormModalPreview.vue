@@ -44,7 +44,11 @@ defineEmits<{ showPrevious: [] }>();
 const matchweeks = ref<Matchweek[]>([]);
 
 function getNewMatchweeks() {
-  matchweeks.value = newGroupStageMatchweekList(props.groups, props.rules.format, props.rules.roundRobins);
+  matchweeks.value = newGroupStageMatchweekList({
+    groups: props.groups,
+    format: props.rules.format,
+    roundRobins: props.rules.roundRobins,
+  });
 }
 
 getNewMatchweeks();
