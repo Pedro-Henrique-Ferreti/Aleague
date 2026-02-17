@@ -5,6 +5,7 @@
     :class="[layout === 'vertical' ? 'grid-cols-[1fr_auto]' : 'grid-cols-[1fr_auto_1fr]']"
   >
     <MatchCardTeam
+      :class="{ 'text-base-content/60': winnerTeamId && winnerTeamId !== match.homeTeam.id }"
       :align="layout !== 'vertical' ? 'right' : undefined"
       :team="match.homeTeam.id"
       :show-country="showCountry"
@@ -36,6 +37,7 @@
       </template>
     </div>
     <MatchCardTeam
+      :class="{ 'text-base-content/60': winnerTeamId && winnerTeamId !== match.awayTeam.id }"
       :team="match.awayTeam.id"
       :show-country="showCountry"
     />
@@ -63,6 +65,7 @@ const props = defineProps<{
   showCountry?: boolean;
   readonly?: boolean;
   size?: 'sm';
+  winnerTeamId?: TeamDetails['id'];
 }>();
 const emit = defineEmits<MatchCardEmits>();
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');

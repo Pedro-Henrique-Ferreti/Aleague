@@ -11,6 +11,7 @@
         :show-country="tournamentStore.activeTournament?.showCountry"
         :fixture-two-home-score="slot.legs[1]?.homeTeam.score"
         :fixture-two-away-score="slot.legs[1]?.awayTeam.score"
+        :winner-team-id="winner ?? undefined"
         @update:fixture-two-home-score="slot.legs[1] ? slot.legs[1].homeTeam.score = $event as Match['homeTeam']['score'] : null"
         @update:fixture-two-away-score="slot.legs[1] ? slot.legs[1].awayTeam.score = $event as Match['awayTeam']['score'] : null"
       />
