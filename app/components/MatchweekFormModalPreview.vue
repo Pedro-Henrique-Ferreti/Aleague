@@ -48,6 +48,7 @@ function getNewMatchweeks() {
     groups: props.groups,
     format: props.rules.format,
     roundRobins: props.rules.roundRobins,
+    weeksToCreate: props.rules.weeksToCreate,
   });
 }
 

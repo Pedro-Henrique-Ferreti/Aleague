@@ -43,8 +43,9 @@ export function newGroupStageMatchweekList(payload: {
   groups: GroupStage['groups'];
   format: GroupStageFormat;
   roundRobins: number;
+  weeksToCreate?: number;
 }): GroupStage['matchweeks'] {
-  const { groups, format, roundRobins } = payload;
+  const { groups, format, roundRobins, weeksToCreate } = payload;
 
   if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
 
@@ -57,6 +58,7 @@ export function newGroupStageMatchweekList(payload: {
       createMatchSchedule({
         teams: getGroupTeams(group),
         roundRobins,
+        weeksToCreate,
       }).forEach((matches, i) => {
         if (!schedule[i]) {
           schedule[i] = [];
@@ -70,11 +72,13 @@ export function newGroupStageMatchweekList(payload: {
       teams: groups.flatMap(getGroupTeams),
       roundRobins,
       avoidGroups: groups.map(getGroupTeams),
+      weeksToCreate,
     });
   } else {
     schedule = createMatchSchedule({
       teams: groups.flatMap(getGroupTeams),
       roundRobins,
+      weeksToCreate,
     });
   }
 

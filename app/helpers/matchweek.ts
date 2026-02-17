@@ -17,8 +17,9 @@ export function createMatchSchedule(payload: {
   teams: TeamDetails['id'][];
   roundRobins?: number;
   avoidGroups?: TeamDetails['id'][][];
+  weeksToCreate?: number;
 }): MatchSchedule {
-  const { teams, roundRobins = 1, avoidGroups } = payload;
+  const { teams, roundRobins = 1, avoidGroups, weeksToCreate } = payload;
   const teamList = randomizeArray(teams);
   const teams1 = teamList.slice(0, teamList.length / 2);
   const teams2 = teamList.slice(teamList.length / 2, teamList.length);
@@ -99,6 +100,9 @@ export function createMatchSchedule(payload: {
       weeksAreUneven = false;
     }
   }
+
+  // Remove extra weeks
+  schedule = schedule.slice(0, weeksToCreate ?? schedule.length);
 
   // Round-robin generation
   const robinLength = schedule.length;

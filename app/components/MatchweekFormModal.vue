@@ -11,8 +11,7 @@
     </template>
     <MatchweekFormModalRules
       v-if="step === FormStep.SELECT_RULES"
-      v-model:format="form.format"
-      v-model:round-robins="form.roundRobins"
+      v-model:form="form"
     />
     <MatchweekFormModalPreview
       v-else-if="step === FormStep.PREVIEW_MATCHWEEKS"
@@ -47,6 +46,7 @@ const step = ref<FormStep>(FormStep.SELECT_RULES);
 const form = ref<RulesForm>({
   format: GroupStageFormat.SAME_GROUP_ROUND_ROBIN,
   roundRobins: StageConstants.MIN_ROUNDS,
+  weeksToCreate: 1,
 });
 
 function onFormSubmit() {
