@@ -100,7 +100,7 @@ const { getTeamById } = useTeamStore();
 
 const form = ref<Form>({
   search: '',
-  filter: TeamTypeFilter.All,
+  filter: TeamTypeFilter.CLUB,
   country: '',
 });
 
