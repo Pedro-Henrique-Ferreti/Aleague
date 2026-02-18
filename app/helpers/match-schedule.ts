@@ -27,7 +27,29 @@ function addRoundRobins(schedule: MatchSchedule, totalRoundRobins: MatchSchedule
   return newSchedule;
 }
 
-function generateInitialSchedule(teams: MatchScheduleParams['teams'], avoidGroups: MatchScheduleParams['avoidGroups']): MatchSchedule {
+export function generateInitialSchedule(teams: MatchScheduleParams['teams'], avoidGroups?: MatchScheduleParams['avoidGroups']): MatchSchedule {
+  if (teams.length % 2 !== 0) {
+    throw new Error('Teams array must have an even number of elements');
+  }
+
+  const teamsSet = new Set(teams);
+
+  if (teamsSet.size !== teams.length) {
+    throw new Error('Teams array must not contain duplicate elements');
+  }
+
+  if (avoidGroups && avoidGroups.some(group => group.length % 2 !== 0)) {
+    throw new Error('Each avoidGroup must have an even number of elements');
+  }
+
+  if (avoidGroups && avoidGroups.some(group => group.length !== avoidGroups[0]?.length)) {
+    throw new Error('All avoid groups must have an equal number of elements');
+  }
+
+  if (avoidGroups && avoidGroups.flat().some(t => !teamsSet.has(t))) {
+    throw new Error('Teams and avoidGroups must have the exact same elements');
+  }
+
   const firstHalfTeams = teams.slice(0, teams.length / 2);
   const secondHalfTeams = teams.slice(teams.length / 2, teams.length);
   const schedule: MatchSchedule = [];
