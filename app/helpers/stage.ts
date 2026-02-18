@@ -1,4 +1,4 @@
-import { createMatchSchedule } from './matchweek';
+import { createMatchSchedule } from './match-schedule';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
 
