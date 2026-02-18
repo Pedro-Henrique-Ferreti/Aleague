@@ -10,7 +10,12 @@
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "test:unit": "vitest --project unit",
+    "test:nuxt": "vitest --project nuxt"
   },
   "dependencies": {
     "@nuxt/icon": "^2.0.0",
@@ -36,10 +41,17 @@
   "devDependencies": {
     "@antfu/eslint-config": "^7.4.3",
     "@nuxt/eslint": "^1.15.1",
+    "@nuxt/test-utils": "^4.0.0",
+    "@testing-library/vue": "^8.1.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vue/test-utils": "^2.4.6",
     "@vueuse/nuxt": "^13.9.0",
     "daisyui": "^5.5.17",
     "eslint": "^9.39.2",
+    "happy-dom": "^20.6.2",
+    "playwright-core": "^1.58.2",
     "typescript": "^5.9.3",
+    "vitest": "^4.0.18",
     "vue-tsc": "^3.2.4"
   }
 }

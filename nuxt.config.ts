@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-svgo'],
+  modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-svgo', '@nuxt/test-utils/module'],
   imports: {
     dirs: ['types', 'constants', 'utils'],
   },
@@ -37,10 +37,7 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [
-      // @ts-expect-error - Mismatched types between TailwindCSS plugin and Vite
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
   svgo: {
     defaultImport: 'component',
