@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { generateInitialSchedule } from '@/helpers/match-schedule';
-import { getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
+import { addRoundRobins, balanceScheduleWeeks, createMatchSchedule, generateInitialSchedule } from '@/helpers/match-schedule';
+import { getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
 
 describe('match-schedule', () => {
   describe('generateInitialSchedule', () => {
@@ -69,6 +69,37 @@ describe('match-schedule', () => {
 
         expect(weekTeams.sort().join()).toBe(teams.sort().join());
       });
+    });
+  });
+
+  describe('balanceScheduleWeeks', () => {
+    it('should ensure all weeks have the same number of matches', () => {
+      const teams = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+      const avoidGroups = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
+      const schedule = generateInitialSchedule(teams, avoidGroups);
+      const balancedSchedule = balanceScheduleWeeks(schedule, teams.length, avoidGroups[0]!.length);
+      const expectedWeeks = getExpectedMatchweeksPerRoundRobin(teams.length, avoidGroups[0]!.length);
+
+      expect(balancedSchedule.length === expectedWeeks).toBeTruthy();
+    });
+  });
+
+  describe('addRoundRobins', () => {
+    it('should add the correct number of round robins', () => {
+      const schedule = generateInitialSchedule([1, 2, 3, 4]);
+
+      expect(addRoundRobins(schedule).length).toBe(3);
+      expect(addRoundRobins(schedule, 2).length).toBe(6);
+      expect(addRoundRobins(schedule, 3).length).toBe(9);
+    });
+  });
+
+  describe('createMatchSchedule', () => {
+    it('should cap the number of weeks to the number provided', () => {
+      const teams = [1, 2, 3, 4];
+      const schedule = createMatchSchedule({ teams, weeksToCreate: 2 });
+
+      expect(schedule.length).toBe(2);
     });
   });
 });
