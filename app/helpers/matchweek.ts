@@ -1,4 +1,7 @@
 export function getExpectedMatchesPerWeek(teamsCount: number): number {
+  if (teamsCount < 2 || teamsCount % 2 !== 0) {
+    return 0;
+  }
   // Teams should play once per week, so matches per week is always half the number of teams
   return teamsCount / 2;
 }
