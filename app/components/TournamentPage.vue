@@ -24,7 +24,7 @@
     </div>
   </div>
   <template v-else>
-    <TournamentStageSelector ref="stage-selector" />
+    <TournamentStageSelector />
     <template v-for="stage, index in tournament.stages">
       <TournamentGroupStage
         v-if="stage.type === StageType.GROUP && activeStage?.id === stage.id"
@@ -35,7 +35,7 @@
         v-else-if="stage.type === StageType.PLAYOFF && activeStage?.id === stage.id"
         v-model="(tournament.stages[index] as PlayoffStage)"
         :key="index"
-        :active-round-id="(stageSelector?.selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
+        :active-round-id="(stageSelectorStore.selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
       />
     </template>
   </template>
@@ -45,16 +45,15 @@
 import { IconPlus } from '@tabler/icons-vue';
 
 const tournamentStore = useTournamentStore();
+const stageSelectorStore = useStageSelectorStore();
 
 const tournament = computed(() => tournamentStore.activeTournament!);
 
-const stageSelector = useTemplateRef('stage-selector');
-
 const activeStage = computed(() => tournament.value.stages.find((stage) => {
   if (stage.type === StageType.GROUP) {
-    return stage.id === stageSelector.value?.selectedStageOrPlayoffRoundId;
+    return stage.id === stageSelectorStore.selectedStageOrPlayoffRoundId;
   }
 
-  return stage.rounds.some(round => round.id === stageSelector.value?.selectedStageOrPlayoffRoundId);
+  return stage.rounds.some(round => round.id === stageSelectorStore.selectedStageOrPlayoffRoundId);
 }));
 </script>
