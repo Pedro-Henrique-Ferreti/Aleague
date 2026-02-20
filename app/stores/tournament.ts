@@ -2,95 +2,110 @@ import { defineStore } from 'pinia';
 import { getBaseFileId, getTimestamp } from '~/helpers/file';
 import { newTournamentStage } from '~/helpers/tournament';
 
-export const useTournamentStore = defineStore('tournament', {
-  state: (): StoreState => ({
-    tournaments: [],
-    activeTournamentId: null,
-  }),
-  getters: {
-    activeTournament: state => state.tournaments.find(t => t.id === state.activeTournamentId),
-    nonCollectionTournaments: state => state.tournaments.filter(t => !t.collectionId),
-  },
-  actions: {
-    createTournament(payload: TournamentForm) {
-      const timestamp = getTimestamp();
-      const tournament: Tournament = {
-        ...payload,
-        id: getBaseFileId(),
-        collectionId: null,
-        createdAt: timestamp,
-        updatedAt: timestamp,
-        stages: [],
-      };
+export const useTournamentStore = defineStore('tournament', () => {
+  const tournaments = ref<Tournament[]>([]);
+  const activeTournamentId = ref<Tournament['id'] | null>(null);
 
-      this.tournaments.push(tournament);
+  const activeTournament = computed(() => tournaments.value.find(t => t.id === activeTournamentId.value));
+  const nonCollectionTournaments = computed(() => tournaments.value.filter(t => !t.collectionId));
 
-      return tournament;
-    },
-    getTournament(id: Tournament['id'] | null): Tournament {
-      const tournament = this.tournaments.find(i => i.id === id);
+  function createTournament(payload: TournamentForm) {
+    const timestamp = getTimestamp();
+    const tournament: Tournament = {
+      ...payload,
+      id: getBaseFileId(),
+      collectionId: null,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+      stages: [],
+    };
 
-      if (!tournament) throw new Error('Tournament not found');
+    tournaments.value.push(tournament);
 
-      return tournament;
-    },
-    getStage(id: Tournament['id'], stageId: TournamentStage['id']): TournamentStage {
-      const stage = this.getTournament(id).stages.find(i => i.id === stageId);
+    return tournament;
+  }
 
-      if (!stage) throw new Error('Stage not found');
+  function getTournament(id: Tournament['id'] | null): Tournament {
+    const tournament = tournaments.value.find(i => i.id === id);
 
-      return stage;
-    },
-    updateTournament(id: Tournament['id'] | null, payload: TournamentForm) {
-      const index = this.tournaments.findIndex(i => i.id === id);
+    if (!tournament) throw new Error('Tournament not found');
 
-      if (index === -1) throw new Error('Tournament not found');
+    return tournament;
+  }
 
-      this.tournaments[index] = {
-        ...this.tournaments[index] as Tournament,
-        ...payload,
-      };
-    },
-    duplicateTournament(id: Tournament['id']) {
-      const parse = (str: string) => str.replace(/\(\d+\)/, '').trim();
-      const tournament = clone(this.getTournament(id));
-      const newId = getBaseFileId();
-      const name = parse(tournament.name);
-      const number = this.tournaments.filter(t => parse(t.name).startsWith(name)).length + 1;
-      const timestamp = getTimestamp();
+  function getStage(id: Tournament['id'], stageId: TournamentStage['id']): TournamentStage {
+    const stage = getTournament(id).stages.find(i => i.id === stageId);
 
-      this.tournaments.push({
-        ...tournament,
-        id: newId,
-        name: `${name} (${number})`,
-        createdAt: timestamp,
-        updatedAt: timestamp,
-      });
+    if (!stage) throw new Error('Stage not found');
 
-      this.activeTournamentId = newId;
-    },
-    deleteTournament(id: Tournament['id']) {
-      const index = this.tournaments.findIndex(i => i.id === id);
+    return stage;
+  }
 
-      this.tournaments.splice(index, 1);
+  function updateTournament(id: Tournament['id'] | null, payload: TournamentForm) {
+    const index = tournaments.value.findIndex(i => i.id === id);
 
-      this.activeTournamentId = this.tournaments[index]?.id || (this.tournaments[this.tournaments.length - 1]?.id || null);
-    },
-    addStage(id: Tournament['id'], stageForm: StageForm) {
-      const tournament = this.getTournament(id);
+    if (index === -1) throw new Error('Tournament not found');
 
-      tournament.stages.push(newTournamentStage(stageForm, tournament.stages));
-    },
-    editStage(payload: EditStageStorePayload) {
-      const stage = this.getStage(payload.id, payload.stageId);
+    tournaments.value[index] = {
+      ...tournaments.value[index] as Tournament,
+      ...payload,
+    };
+  }
 
-      stage.name = payload.stageForm.name;
-    },
-    removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
-      const tournament = this.getTournament(id);
+  function duplicateTournament(id: Tournament['id']) {
+    const parse = (str: string) => str.replace(/\(\d+\)/, '').trim();
+    const tournament = clone(getTournament(id));
+    const newId = getBaseFileId();
+    const name = parse(tournament.name);
+    const number = tournaments.value.filter(t => parse(t.name).startsWith(name)).length + 1;
+    const timestamp = getTimestamp();
 
-      tournament.stages = tournament.stages.filter(stage => stage.id !== stageId);
-    },
-    
-  },
+    tournaments.value.push({
+      ...tournament,
+      id: newId,
+      name: `${name} (${number})`,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    });
+
+    activeTournamentId.value = newId;
+  }
+
+  function deleteTournament(id: Tournament['id']) {
+    const index = tournaments.value.findIndex(i => i.id === id);
+
+    tournaments.value.splice(index, 1);
+    activeTournamentId.value = tournaments.value[index]?.id || (tournaments.value[tournaments.value.length - 1]?.id || null);
+  }
+
+  function addStage(id: Tournament['id'], stageForm: StageForm) {
+    const tournament = getTournament(id);
+    tournament.stages.push(newTournamentStage(stageForm, tournament.stages));
+  }
+
+  function editStage(payload: EditStageStorePayload) {
+    const stage = getStage(payload.id, payload.stageId);
+    stage.name = payload.stageForm.name;
+  }
+
+  function removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
+    const tournament = getTournament(id);
+    tournament.stages = tournament.stages.filter(stage => stage.id !== stageId);
+  }
+
+  return {
+    tournaments,
+    activeTournamentId,
+    activeTournament,
+    nonCollectionTournaments,
+    createTournament,
+    getTournament,
+    getStage,
+    updateTournament,
+    duplicateTournament,
+    deleteTournament,
+    addStage,
+    editStage,
+    removeStage,
+  };
 });

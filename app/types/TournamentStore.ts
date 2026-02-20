@@ -12,11 +12,6 @@ export type StageForm = (
   }
 );
 
-export interface StoreState {
-  tournaments: Tournament[];
-  activeTournamentId: Tournament['id'] | null;
-}
-
 export interface EditStageStorePayload {
   id: Tournament['id'];
   stageId: TournamentStage['id'];
