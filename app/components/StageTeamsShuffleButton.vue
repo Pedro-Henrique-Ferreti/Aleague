@@ -3,14 +3,14 @@
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Shuffle teams"
-      :icon-left="IconArrowsShuffle"
+      :icon-left="IconRefresh"
       @click="shuffleTeams"
     />
   </AppTooltip>
 </template>
 
 <script lang="ts" setup>
-import { IconArrowsShuffle } from '@tabler/icons-vue';
+import { IconRefresh } from '@tabler/icons-vue';
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 

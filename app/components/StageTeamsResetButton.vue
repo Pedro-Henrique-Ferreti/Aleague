@@ -6,14 +6,14 @@
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Remove teams"
-      :icon-left="IconRefresh"
+      :icon-left="IconTrash"
       @click="resetSlots"
     />
   </AppTooltip>
 </template>
 
 <script lang="ts" setup>
-import { IconRefresh } from '@tabler/icons-vue';
+import { IconTrash } from '@tabler/icons-vue';
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });
 
