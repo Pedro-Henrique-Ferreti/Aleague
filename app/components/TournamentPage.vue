@@ -46,16 +46,7 @@ import { IconPlus } from '@tabler/icons-vue';
 
 const tournamentStore = useTournamentStore();
 
-const tournament = computed({
-  get: () => tournamentStore.activeTournament!,
-  set: (value) => {
-    const index = tournamentStore.tournaments.findIndex(t => t.id === value?.id);
-
-    if (index > -1 && value) {
-      tournamentStore.tournaments[index] = value;
-    }
-  },
-});
+const tournament = computed(() => tournamentStore.activeTournament!);
 
 const stageSelector = useTemplateRef('stage-selector');
 

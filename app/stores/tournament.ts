@@ -6,7 +6,17 @@ export const useTournamentStore = defineStore('tournament', () => {
   const tournaments = ref<Tournament[]>([]);
   const activeTournamentId = ref<Tournament['id'] | null>(null);
 
-  const activeTournament = computed(() => tournaments.value.find(t => t.id === activeTournamentId.value));
+  const activeTournament = computed({
+    get: () => tournaments.value.find(t => t.id === activeTournamentId.value),
+    set: (value) => {
+      const index = tournaments.value.findIndex(t => t.id === value?.id);
+
+      if (index > -1 && value) {
+        tournaments.value[index] = value;
+      }
+    },
+  });
+
   const nonCollectionTournaments = computed(() => tournaments.value.filter(t => !t.collectionId));
 
   function createTournament(payload: TournamentForm) {
