@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import { getBaseFileId, getTimestamp } from '~/helpers/file';
+import { appendNumericSuffix, getBaseFileId, getTimestamp } from '~/helpers/file';
 import { newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
   const tournaments = ref<Tournament[]>([]);
-  const activeTournamentId = ref<Tournament['id'] | null>(null);
+  const activeTournamentId = ref<Tournament['id']>();
 
   const activeTournament = computed({
     get: () => tournaments.value.find(t => t.id === activeTournamentId.value),
@@ -20,19 +20,19 @@ export const useTournamentStore = defineStore('tournament', () => {
   const nonCollectionTournaments = computed(() => tournaments.value.filter(t => !t.collectionId));
 
   function createTournament(payload: TournamentForm) {
+    const id = getBaseFileId();
     const timestamp = getTimestamp();
-    const tournament: Tournament = {
+
+    tournaments.value.push({
       ...payload,
       id: getBaseFileId(),
       collectionId: null,
       createdAt: timestamp,
       updatedAt: timestamp,
       stages: [],
-    };
+    } satisfies Tournament);
 
-    tournaments.value.push(tournament);
-
-    return tournament;
+    activeTournamentId.value = id;
   }
 
   function getTournament(id: Tournament['id'] | null): Tournament {
@@ -51,56 +51,45 @@ export const useTournamentStore = defineStore('tournament', () => {
     return stage;
   }
 
-  function updateTournament(id: Tournament['id'] | null, payload: TournamentForm) {
-    const index = tournaments.value.findIndex(i => i.id === id);
+  function updateActiveTournament(payload: TournamentForm) {
+    if (!activeTournament.value) return;
 
-    if (index === -1) throw new Error('Tournament not found');
-
-    tournaments.value[index] = {
-      ...tournaments.value[index] as Tournament,
+    activeTournament.value = {
+      ...activeTournament.value,
       ...payload,
     };
   }
 
-  function duplicateTournament(id: Tournament['id']) {
-    const parse = (str: string) => str.replace(/\(\d+\)/, '').trim();
-    const tournament = clone(getTournament(id));
-    const newId = getBaseFileId();
-    const name = parse(tournament.name);
-    const number = tournaments.value.filter(t => parse(t.name).startsWith(name)).length + 1;
+  function duplicateActiveTournament() {
+    if (!activeTournament.value) return;
+
+    const id = getBaseFileId();
     const timestamp = getTimestamp();
 
     tournaments.value.push({
-      ...tournament,
-      id: newId,
-      name: `${name} (${number})`,
+      ...activeTournament.value,
+      id,
+      name: appendNumericSuffix(activeTournament.value.name, tournaments.value),
       createdAt: timestamp,
       updatedAt: timestamp,
     });
 
-    activeTournamentId.value = newId;
+    activeTournamentId.value = id;
   }
 
-  function deleteTournament(id: Tournament['id']) {
-    const index = tournaments.value.findIndex(i => i.id === id);
+  function deleteActiveTournament() {
+    const index = tournaments.value.findIndex(i => i.id === activeTournamentId.value);
+
+    if (index === -1) return;
 
     tournaments.value.splice(index, 1);
-    activeTournamentId.value = tournaments.value[index]?.id || (tournaments.value[tournaments.value.length - 1]?.id || null);
+    activeTournamentId.value = tournaments.value[index]?.id ?? tournaments.value[tournaments.value.length - 1]?.id;
   }
 
-  function addStage(id: Tournament['id'], stageForm: StageForm) {
-    const tournament = getTournament(id);
-    tournament.stages.push(newTournamentStage(stageForm, tournament.stages));
-  }
+  function addStage(form: StageForm) {
+    if (!activeTournament.value) return;
 
-  function editStage(payload: EditStageStorePayload) {
-    const stage = getStage(payload.id, payload.stageId);
-    stage.name = payload.stageForm.name;
-  }
-
-  function removeStage(id: Tournament['id'], stageId: TournamentStage['id']) {
-    const tournament = getTournament(id);
-    tournament.stages = tournament.stages.filter(stage => stage.id !== stageId);
+    activeTournament.value.stages.push(newTournamentStage(form, activeTournament.value.stages));
   }
 
   return {
@@ -111,11 +100,9 @@ export const useTournamentStore = defineStore('tournament', () => {
     createTournament,
     getTournament,
     getStage,
-    updateTournament,
-    duplicateTournament,
-    deleteTournament,
+    updateActiveTournament,
+    duplicateActiveTournament,
+    deleteActiveTournament,
     addStage,
-    editStage,
-    removeStage,
   };
 });

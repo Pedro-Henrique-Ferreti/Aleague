@@ -43,7 +43,7 @@
       v-model:is-open="showDeleteStageDialog"
       type="delete"
       title="Excluir fase"
-      @confirm="tournamentStore.removeStage(tournamentStore.activeTournamentId!, activeStage.id)"
+      @confirm="stageStore.deleteActiveStage"
     >
       <p>Você tem certeza que deseja excluir a fase <b>{{ activeStage.name }}</b>? Essa ação não poderá ser desfeita.</p>
     </AppDialog>
@@ -53,8 +53,8 @@
 <script lang="ts" setup>
 import { IconEdit, IconPlus, IconTournament, IconTrash, IconUsersGroup } from '@tabler/icons-vue';
 
-const tournamentStore = useTournamentStore();
-const { activeStage } = storeToRefs(useStageStore());
+const stageStore = useStageStore();
+const { activeStage } = storeToRefs(stageStore);
 
 // Stage modal
 const isCreatingStage = ref(false);

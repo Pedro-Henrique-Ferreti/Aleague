@@ -32,16 +32,8 @@ defineProps<{
   dropdownClass?: AppMenuProps['dropdownClass'];
 }>();
 
-const tournamentStore = useTournamentStore();
+const { createTournament } = useTournamentStore();
 
-// Tournament modal
 const tournamentModalIsOpen = ref(false);
-
-function createTournament(form: TournamentForm) {
-  const tournament = tournamentStore.createTournament(form);
-  tournamentStore.activeTournamentId = tournament.id;
-}
-
-// Collection modal
 const collectionModalIsOpen = ref(false);
 </script>

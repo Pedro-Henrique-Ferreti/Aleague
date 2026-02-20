@@ -28,7 +28,7 @@
         class="toolbar-button"
         label="Duplicar"
         :icon-left="IconLayersSubtract"
-        @click="tournamentStore.duplicateTournament(tournamentId)"
+        @click="tournamentStore.duplicateActiveTournament"
       />
       <AppButton
         class="toolbar-button"
@@ -49,7 +49,7 @@
     v-model:is-open="tournamentModalIsOpen"
     :key="tournamentId"
     :tournament="tournamentStore.activeTournament"
-    :submit-fn="(form) => tournamentStore.updateTournament(tournamentId, form)"
+    :submit-fn="tournamentStore.updateActiveTournament"
   />
   <MoveTournamentModal v-model:is-open="moveTournamentModalIsOpen" />
   <AppDialog
@@ -79,7 +79,7 @@ const moveTournamentModalIsOpen = ref(false);
 const deleteTournamentDialogIsOpen = ref(false);
 
 function deleteTournament() {
-  tournamentStore.deleteTournament(tournamentId.value);
+  tournamentStore.deleteActiveTournament();
   deleteTournamentDialogIsOpen.value = false;
 }
 </script>

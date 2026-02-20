@@ -12,12 +12,6 @@ export type StageForm = (
   }
 );
 
-export interface EditStageStorePayload {
-  id: Tournament['id'];
-  stageId: TournamentStage['id'];
-  stageForm: StageForm;
-}
-
 export interface UpdateStageTeamsStorePayload {
   id: Tournament['id'];
   stageId: TournamentStage['id'];

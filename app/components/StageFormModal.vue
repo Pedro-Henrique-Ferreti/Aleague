@@ -56,6 +56,7 @@ const DEFAULT_PLAYOFF_STAGE_NAME = 'Playoffs';
 const { MIN_TEAMS, MIN_GROUPS, MIN_TEAMS_PER_GROUP, MIN_ROUNDS } = StageConstants;
 
 const tournamentStore = useTournamentStore();
+const stageStore = useStageStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
@@ -112,13 +113,9 @@ const submitIsDisabled = computed(() => !form.value.name);
 
 function submitForm() {
   if (isEditingForm.value) {
-    tournamentStore.editStage({
-      id: tournamentStore.activeTournamentId!,
-      stageId: props.stage!.id,
-      stageForm: form.value,
-    });
+    stageStore.updateActiveStage(form.value);
   } else {
-    tournamentStore.addStage(tournamentStore.activeTournamentId!, form.value);
+    tournamentStore.addStage(form.value);
   }
 
   modalIsOpen.value = false;

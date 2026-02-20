@@ -26,6 +26,18 @@ export const useStageStore = defineStore('stage', () => {
     },
   });
 
+  function updateActiveStage(form: StageForm) {
+    if (!activeStage.value) return;
+
+    activeStage.value.name = form.name;
+  }
+
+  function deleteActiveStage() {
+    if (!activeTournament.value || !activeStage.value) return;
+
+    activeTournament.value.stages = activeTournament.value.stages.filter(stage => stage.id !== activeStage.value?.id);
+  }
+
   function addGroupMatchweeks(matchweeks: Matchweek[]) {
     if (activeStage.value?.type === StageType.GROUP) {
       activeStage.value.matchweeks = matchweeks;
@@ -113,6 +125,8 @@ export const useStageStore = defineStore('stage', () => {
   return {
     activeStage,
     activeStageIndex,
+    updateActiveStage,
+    deleteActiveStage,
     deleteGroupMatchweeks,
     addGroupMatchweeks,
     updateStageTeams,
