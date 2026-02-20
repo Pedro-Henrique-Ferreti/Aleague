@@ -7,7 +7,7 @@
     />
   </div>
   <div
-    v-if="tournament.stages.length === 0"
+    v-if="activeTournament?.stages.length === 0"
     class="max-w-44 min-h-10 mt-4 mx-auto card card-border"
   >
     <div class="card-body text-center">
@@ -25,35 +25,22 @@
   </div>
   <template v-else>
     <TournamentStageSelector />
-    <template v-for="stage, index in tournament.stages">
-      <TournamentGroupStage
-        v-if="stage.type === StageType.GROUP && activeStage?.id === stage.id"
-        v-model="(tournament.stages[index] as GroupStage)"
-        :key="`group-${index}`"
-      />
-      <TournamentPlayoffStage
-        v-else-if="stage.type === StageType.PLAYOFF && activeStage?.id === stage.id"
-        v-model="(tournament.stages[index] as PlayoffStage)"
-        :key="index"
-        :active-round-id="(stageSelectorStore.selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
-      />
-    </template>
+    <TournamentGroupStage
+      v-if="activeStage && activeStage.type === StageType.GROUP"
+      v-model="(activeStage as GroupStage)"
+    />
+    <TournamentPlayoffStage
+      v-else-if="activeStage && activeStage.type === StageType.PLAYOFF"
+      v-model="(activeStage as PlayoffStage)"
+      :active-round-id="(selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
+    />
   </template>
 </template>
 
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
 
-const tournamentStore = useTournamentStore();
-const stageSelectorStore = useStageSelectorStore();
-
-const tournament = computed(() => tournamentStore.activeTournament!);
-
-const activeStage = computed(() => tournament.value.stages.find((stage) => {
-  if (stage.type === StageType.GROUP) {
-    return stage.id === stageSelectorStore.selectedStageOrPlayoffRoundId;
-  }
-
-  return stage.rounds.some(round => round.id === stageSelectorStore.selectedStageOrPlayoffRoundId);
-}));
+const { activeTournament } = storeToRefs(useTournamentStore());
+const { activeStage } = storeToRefs(useStageStore());
+const { selectedStageOrPlayoffRoundId } = storeToRefs(useStageSelectorStore());
 </script>

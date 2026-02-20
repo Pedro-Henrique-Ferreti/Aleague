@@ -3,6 +3,28 @@ import { newStandingsEntry } from '~/helpers/standings';
 
 export const useStageStore = defineStore('stage', () => {
   const tournamentStore = useTournamentStore();
+  const stageSelectorStore = useStageSelectorStore();
+  const { activeTournament } = storeToRefs(tournamentStore);
+  const { selectedStageOrPlayoffRoundId } = storeToRefs(stageSelectorStore);
+
+  const activeStageIndex = computed(() => {
+    return activeTournament.value?.stages.findIndex((stage) => {
+      if (stage.type === StageType.GROUP) {
+        return stage.id === selectedStageOrPlayoffRoundId.value;
+      }
+
+      return stage.rounds.some(round => round.id === selectedStageOrPlayoffRoundId.value);
+    }) ?? -1;
+  });
+
+  const activeStage = computed({
+    get: () => activeTournament.value?.stages[activeStageIndex.value],
+    set(value: TournamentStage) {
+      if (activeTournament.value?.stages[activeStageIndex.value]) {
+        activeTournament.value.stages[activeStageIndex.value] = value;
+      }
+    },
+  });
 
   function addMatchweeks(id: Tournament['id'], stageId: GroupStage['id'], matchweeks: Matchweek[]) {
     const stage = tournamentStore.getStage(id, stageId);
@@ -93,6 +115,8 @@ export const useStageStore = defineStore('stage', () => {
   }
 
   return {
+    activeStage,
+    activeStageIndex,
     deleteMatchweeks,
     addMatchweeks,
     updateStageTeams,
