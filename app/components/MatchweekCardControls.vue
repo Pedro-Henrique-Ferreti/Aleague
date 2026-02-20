@@ -5,20 +5,21 @@
       class="btn-square btn-sm btn-ghost"
       aria-label="Show previous matchweek"
       :icon-left="IconChevronLeft"
-      :disabled="currentMatchweek <= 1"
+      :disabled="disabled || currentMatchweek <= 1"
       @click="currentMatchweek -= 1"
     />
     <BaseSelect
       v-model="currentMatchweek"
       class="select-ghost w-7 p-0 justify-center h-2 bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
       :options="matchweeksOptions"
+      :disabled="disabled"
     />
     <AppButton
       v-tooltip="'Próxima rodada'"
       class="btn-square btn-sm btn-ghost"
       aria-label="Show next matchweek"
       :icon-left="IconChevronRight"
-      :disabled="currentMatchweek >= matchweeks.length"
+      :disabled="disabled || currentMatchweek >= matchweeks.length"
       @click="currentMatchweek += 1"
     />
   </div>
@@ -29,6 +30,7 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 
 const props = defineProps<{
   matchweeks: Matchweek[];
+  disabled?: boolean;
 }>();
 
 const currentMatchweek = defineModel<number>('current-matchweek', { required: true });

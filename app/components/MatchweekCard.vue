@@ -10,6 +10,7 @@
           <MatchweekCardControls
             v-model:current-matchweek="currentMatchweek"
             :matchweeks="stage.matchweeks"
+            :disabled="isRandomizingScores"
           />
           <MatchweekCardOptions
             @edit-kickoffs="matchweekKickoffModalIsOpen = true"
@@ -95,7 +96,11 @@ const showMatchKickoff = computed(() => {
   ));
 });
 
+const isRandomizingScores = ref(false);
+
 async function randomizeMatchweekResults() {
+  isRandomizingScores.value = true;
+
   for (const match of stage.value.matchweeks[currentMatchweek.value - 1]!.matches) {
     await new Promise((resolve) => {
       match.homeTeam.score = getRandomScore();
@@ -104,6 +109,8 @@ async function randomizeMatchweekResults() {
       setTimeout(resolve);
     });
   }
+
+  isRandomizingScores.value = false;
 }
 </script>
 
