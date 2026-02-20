@@ -53,6 +53,7 @@
       v-model="form.country"
       class="w-8 select-sm select-ghost px-0.5"
       :options="COUNTRY_OPTIONS"
+      :disabled="form.filter === TeamTypeFilter.NATIONAL"
     />
   </div>
 </template>
@@ -102,6 +103,10 @@ const form = ref<Form>({
   search: '',
   filter: TeamTypeFilter.CLUB,
   country: '',
+});
+
+watch(() => form.value.filter, () => {
+  form.value.country = '';
 });
 
 const teamsInTournament = computed(() => {
