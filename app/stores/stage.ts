@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { updateGroupStageTeams, updatePlayoffStageTeams } from '~/helpers/stage-teams';
 import { newStandingsEntry } from '~/helpers/standings';
 
 export const useStageStore = defineStore('stage', () => {
@@ -54,72 +55,14 @@ export const useStageStore = defineStore('stage', () => {
     }
   }
 
-  function updateStageTeams(payload: UpdateStageTeamsStorePayload) {
-    const stage = tournamentStore.getStage(payload.id, payload.stageId);
+  function updateActiveStageTeams(form: StageTeamsForm) {
+    if (!activeStage.value) return;
 
-    if (stage.type === StageType.PLAYOFF) {
-      payload.form.forEach((group, index) => {
-        const [home, away] = group.teams as [Team['id'], Team['id']];
-        const { legs } = stage.rounds[0].slots[index]!;
-
-        legs.forEach((_, index) => {
-          legs[index]!.homeTeam.id = (index % 2 === 0) ? home : away;
-          legs[index]!.awayTeam.id = (index % 2 === 0) ? away : home;
-        });
-      });
-      return;
+    if (activeStage.value.type === StageType.PLAYOFF) {
+      activeStage.value = updatePlayoffStageTeams(activeStage.value, form);
+    } else {
+      activeStage.value = updateGroupStageTeams(activeStage.value, form);
     }
-
-    const queries: ReplaceTeamsInMatchweeksParams['queries'] = [];
-
-    payload.form.forEach((group) => {
-      const stageGroup = stage.groups.find(g => g.order === group.order);
-
-      if (!stageGroup) throw new Error('Group not found');
-
-      group.teams.forEach((team, index) => {
-        const replacedTeam = stageGroup.standings[index]!.team;
-
-        stageGroup.standings[index]!.team = team;
-
-        if (team && replacedTeam) {
-          queries.push({ search: replacedTeam, replace: team });
-        }
-      });
-    });
-
-    if (queries.length) {
-      replaceTeamsInMatchweeks({ id: payload.id, stageId: payload.stageId, queries });
-    }
-  }
-
-  function replaceTeamsInMatchweeks(payload: ReplaceTeamsInMatchweeksParams) {
-    const stage = tournamentStore.getTournament(payload.id).stages.find(stage => stage.id === payload.stageId);
-
-    if (!stage || stage.type !== StageType.GROUP) throw new Error('Stage not found');
-
-    if (stage.matchweeks.length === 0) return;
-
-    stage.matchweeks.forEach((matchweek) => {
-      matchweek.matches.forEach((match) => {
-        const { homeTeam, awayTeam } = match;
-
-        let homeIsUpdated = false;
-        let awayIsUpdated = false;
-
-        payload.queries.filter(i => i.search === homeTeam.id || i.search === awayTeam.id).forEach((query) => {
-          if (query.search === homeTeam.id && !homeIsUpdated) {
-            homeTeam.id = query.replace;
-            homeIsUpdated = true;
-          }
-
-          if (query.search === awayTeam.id && !awayIsUpdated) {
-            awayTeam.id = query.replace;
-            awayIsUpdated = true;
-          }
-        });
-      });
-    });
   }
 
   return {
@@ -129,6 +72,6 @@ export const useStageStore = defineStore('stage', () => {
     deleteActiveStage,
     deleteGroupMatchweeks,
     addGroupMatchweeks,
-    updateStageTeams,
+    updateActiveStageTeams,
   };
 });

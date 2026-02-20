@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { StageTeamsForm } from './StageTeamsModal.vue';
 import { IconArrowsShuffle } from '@tabler/icons-vue';
 
 const groups = defineModel<StageTeamsForm['groups']>({ required: true });

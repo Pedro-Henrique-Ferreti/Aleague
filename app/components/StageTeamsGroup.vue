@@ -15,11 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { StageTeamsFormGroup } from './StageTeamsModal.vue';
-
 defineProps<{
   stageType: TournamentStage['type'];
 }>();
 
-const group = defineModel<StageTeamsFormGroup>({ required: true });
+const group = defineModel<StageTeamsForm['groups'][number]>({ required: true });
 </script>

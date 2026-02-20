@@ -41,29 +41,17 @@
   </AppModal>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 interface Props {
   stage: TournamentStage;
   allowEmptySlots?: boolean;
 }
 
-export interface StageTeamsFormGroup {
-  order: number;
-  teams: StandingsEntry['team'][];
-}
-
-export interface StageTeamsForm {
-  groups: StageTeamsFormGroup[];
-}
-</script>
-
-<script lang="ts" setup>
 const props = withDefaults(defineProps<Props>(), {
   allowEmptySlots: true,
 });
 
-const { activeTournamentId: tournamentId } = useTournamentStore();
-const { updateStageTeams } = useStageStore();
+const stageStore = useStageStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
@@ -111,12 +99,7 @@ const submitButtonDisabled = computed(() => (
 ));
 
 function submitForm() {
-  updateStageTeams({
-    id: tournamentId!,
-    stageId: props.stage.id,
-    form: form.value.groups,
-  });
-
+  stageStore.updateActiveStageTeams(form.value);
   modalIsOpen.value = false;
 }
 </script>

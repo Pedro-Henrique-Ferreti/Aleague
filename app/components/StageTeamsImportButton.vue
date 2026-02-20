@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { StageTeamsForm } from './StageTeamsModal.vue';
 import { IconFileArrowLeft } from '@tabler/icons-vue';
 
 const props = defineProps<{
