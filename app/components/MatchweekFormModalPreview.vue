@@ -20,7 +20,7 @@
       </AppTooltip>
     </div>
   </div>
-  <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(20rem,1fr))]">
+  <div class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
     <MatchweekFormModalPreviewCard
       v-for="matchweek in matchweeks"
       :key="matchweek.week"
