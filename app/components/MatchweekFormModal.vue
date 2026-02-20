@@ -34,12 +34,11 @@ enum FormStep {
 <script lang="ts" setup>
 import type { RulesForm } from './MatchweekFormModalRules.vue';
 
-const props = defineProps<{
+defineProps<{
   stage: GroupStage;
 }>();
 
-const tournamentStore = useTournamentStore();
-const stageStore = useStageStore();
+const { addGroupMatchweeks } = useStageStore();
 
 const previewRef = useTemplateRef('preview');
 
@@ -57,6 +56,8 @@ function onFormSubmit() {
     return;
   }
 
-  stageStore.addMatchweeks(tournamentStore.activeTournamentId!, props.stage.id, previewRef.value!.matchweeks);
+  if (previewRef.value?.matchweeks) {
+    addGroupMatchweeks(previewRef.value.matchweeks);
+  }
 }
 </script>

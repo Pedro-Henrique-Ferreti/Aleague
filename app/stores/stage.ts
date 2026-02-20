@@ -26,24 +26,20 @@ export const useStageStore = defineStore('stage', () => {
     },
   });
 
-  function addMatchweeks(id: Tournament['id'], stageId: GroupStage['id'], matchweeks: Matchweek[]) {
-    const stage = tournamentStore.getStage(id, stageId);
-
-    if (stage.type !== StageType.GROUP) throw new Error('Stage type not supported');
-
-    stage.matchweeks = matchweeks;
+  function addGroupMatchweeks(matchweeks: Matchweek[]) {
+    if (activeStage.value?.type === StageType.GROUP) {
+      activeStage.value.matchweeks = matchweeks;
+    }
   }
 
-  function deleteMatchweeks(id: Tournament['id'], stageId: GroupStage['id']) {
-    const stage = tournamentStore.getStage(id, stageId);
+  function deleteGroupMatchweeks() {
+    if (activeStage.value?.type !== StageType.GROUP) return;
 
-    if (stage.type !== StageType.GROUP) throw new Error('Stage type not supported');
+    activeStage.value.matchweeks = [];
 
-    stage.matchweeks = [];
-
-    stage.groups.forEach((group, index) => {
-      stage.groups[index]!.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
-    });
+    for (const group of activeStage.value.groups) {
+      group.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
+    }
   }
 
   function updateStageTeams(payload: UpdateStageTeamsStorePayload) {
@@ -117,8 +113,8 @@ export const useStageStore = defineStore('stage', () => {
   return {
     activeStage,
     activeStageIndex,
-    deleteMatchweeks,
-    addMatchweeks,
+    deleteGroupMatchweeks,
+    addGroupMatchweeks,
     updateStageTeams,
   };
 });
