@@ -12,6 +12,7 @@
     <MatchweekFormModalRules
       v-if="step === FormStep.SELECT_RULES"
       v-model:form="form"
+      :stage="stage"
     />
     <MatchweekFormModalPreview
       v-else-if="step === FormStep.PREVIEW_MATCHWEEKS"

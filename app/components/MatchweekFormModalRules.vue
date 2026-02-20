@@ -4,7 +4,7 @@
       v-model="form.format"
       class="col-span-2"
       label="Disputa de partidas"
-      :options="FORMAT_OPTIONS"
+      :options="formatOptions"
     />
     <AppCounter
       v-model="form.roundRobins"
@@ -29,11 +29,26 @@ export interface RulesForm {
 </script>
 
 <script lang="ts" setup>
+const props = defineProps<{
+  stage: GroupStage;
+}>();
+
 const form = defineModel<RulesForm>('form', { required: true });
 
-const FORMAT_OPTIONS: Readonly<SelectOptionList<GroupStageFormat>> = [
-  { label: 'Equipes do mesmo grupo', value: GroupStageFormat.SAME_GROUP_ROUND_ROBIN },
-  { label: 'Apenas equipes de outros grupos', value: GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN },
-  { label: 'Todos contra todos', value: GroupStageFormat.ALL_PLAY_ALL },
-];
+const formatOptions = computed<SelectOptionList<GroupStageFormat>>(() => ([
+  {
+    label: 'Equipes do mesmo grupo',
+    value: GroupStageFormat.SAME_GROUP_ROUND_ROBIN,
+  },
+  {
+    label: 'Apenas equipes de outros grupos',
+    value: GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN,
+    disabled: props.stage.groups.length < 2,
+  },
+  {
+    label: 'Todos contra todos',
+    value: GroupStageFormat.ALL_PLAY_ALL,
+    disabled: props.stage.groups.length < 2,
+  },
+]));
 </script>
