@@ -33,11 +33,13 @@
       :stage="isEditingStage ? activeStage : undefined"
     />
     <StageTeamsModal
+      v-if="activeStage"
       v-model:is-open="editTeamModalIsOpen"
       :allow-empty-slots="allowEmptySlots"
       :stage="activeStage"
     />
     <AppDialog
+      v-if="activeStage"
       v-model:is-open="showDeleteStageDialog"
       type="delete"
       title="Excluir fase"
@@ -51,11 +53,8 @@
 <script lang="ts" setup>
 import { IconEdit, IconPlus, IconTournament, IconTrash, IconUsersGroup } from '@tabler/icons-vue';
 
-const props = defineProps<{
-  activeStage: TournamentStage;
-}>();
-
 const tournamentStore = useTournamentStore();
+const { activeStage } = storeToRefs(useStageStore());
 
 // Stage modal
 const isCreatingStage = ref(false);
@@ -73,7 +72,7 @@ const stageModalIsOpen = computed({
 const editTeamModalIsOpen = ref(false);
 
 const allowEmptySlots = computed(() => (
-  props.activeStage?.type === StageType.GROUP && props.activeStage.matchweeks.length === 0
+  activeStage.value?.type === StageType.GROUP && activeStage.value.matchweeks.length === 0
 ));
 
 // Delete stage

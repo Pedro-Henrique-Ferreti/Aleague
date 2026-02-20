@@ -1,10 +1,7 @@
 <template>
   <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr]">
     <TournamentProfileCard />
-    <TournamentStageOptions
-      v-if="activeStage"
-      :active-stage="activeStage"
-    />
+    <TournamentStageOptions v-if="activeStage" />
   </div>
   <div
     v-if="activeTournament?.stages.length === 0"
