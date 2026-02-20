@@ -9,6 +9,7 @@
     <BaseInput
       v-model.number="homeScore"
       class="text-[1rem] w-2 min-h-1.75 text-center focus:placeholder:text-transparent"
+      autocomplete="off"
       :placeholder="layout === 'vertical' ? '-' : ''"
       :disabled="disabled"
       :mask="Number"
@@ -17,6 +18,7 @@
     <BaseInput
       v-model.number="awayScore"
       class="text-[1rem] w-2 min-h-1.75 text-center order-2 focus:placeholder:text-transparent"
+      autocomplete="off"
       :placeholder="layout === 'vertical' ? '-' : ''"
       :disabled="disabled"
       :mask="Number"
