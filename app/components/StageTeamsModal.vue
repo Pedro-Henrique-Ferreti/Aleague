@@ -62,7 +62,8 @@ const props = withDefaults(defineProps<Props>(), {
   allowEmptySlots: true,
 });
 
-const { updateStageTeams, activeTournamentId: tournamentId } = useTournamentStore();
+const { activeTournamentId: tournamentId } = useTournamentStore();
+const { updateStageTeams } = useStageStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 

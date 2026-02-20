@@ -39,6 +39,7 @@ const props = defineProps<{
 }>();
 
 const tournamentStore = useTournamentStore();
+const stageStore = useStageStore();
 
 const previewRef = useTemplateRef('preview');
 
@@ -56,6 +57,6 @@ function onFormSubmit() {
     return;
   }
 
-  tournamentStore.addMatchweeksToStage(tournamentStore.activeTournamentId!, props.stage.id, previewRef.value!.matchweeks);
+  stageStore.addMatchweeks(tournamentStore.activeTournamentId!, props.stage.id, previewRef.value!.matchweeks);
 }
 </script>

@@ -15,7 +15,7 @@
           <MatchweekCardOptions
             @edit-kickoffs="matchweekKickoffModalIsOpen = true"
             @randomize-results="randomizeMatchweekResults"
-            @delete-matchweeks="tournamentStore.deleteMatchweeks(tournamentStore.activeTournamentId!, stage.id)"
+            @delete-matchweeks="stageStore.deleteMatchweeks(tournamentStore.activeTournamentId!, stage.id)"
           />
         </header>
         <div class="grid gap-1">
@@ -58,6 +58,7 @@ defineEmits<{
 }>();
 
 const tournamentStore = useTournamentStore();
+const stageStore = useStageStore();
 const teamStore = useTeamStore();
 
 const matchweekKickoffModalIsOpen = ref(false);
