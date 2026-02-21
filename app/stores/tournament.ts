@@ -43,14 +43,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     return tournament;
   }
 
-  function getStage(id: Tournament['id'], stageId: TournamentStage['id']): TournamentStage {
-    const stage = getTournament(id).stages.find(i => i.id === stageId);
-
-    if (!stage) throw new Error('Stage not found');
-
-    return stage;
-  }
-
   function updateActiveTournament(payload: TournamentForm) {
     if (!activeTournament.value) return;
 
@@ -99,7 +91,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     nonCollectionTournaments,
     createTournament,
     getTournament,
-    getStage,
     updateActiveTournament,
     duplicateActiveTournament,
     deleteActiveTournament,
