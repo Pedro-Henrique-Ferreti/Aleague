@@ -16,6 +16,7 @@
       v-model="store.form.weeksToCreate"
       label="Rodadas por turno"
       :min="1"
+      :max="store.maxWeeksToCreate"
     />
   </div>
 </template>
