@@ -1,12 +1,9 @@
 <template>
   <div class="text-center">
     <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
-    <template v-if="groupsAreFullyCompleted(stage.groups)">
+    <template v-if="activeGroupStage && groupsAreFullyCompleted(activeGroupStage.groups)">
       <p>Clique no botão abaixo para gerar as partidas.</p>
-      <MatchweekFormModal
-        v-slot="{ openModal }"
-        :stage="stage"
-      >
+      <MatchweekFormModal v-slot="{ openModal }">
         <AppButton
           class="btn-accent btn-wide mt-2"
           label="Gerar partidas"
@@ -15,11 +12,11 @@
         />
       </MatchweekFormModal>
     </template>
-    <template v-else>
+    <template v-else-if="activeGroupStage">
       <p>Adicione todas as equipes antes de gerar as partidas.</p>
       <StageTeamsModal
         v-slot="{ openModal }"
-        :stage="stage"
+        :stage="activeGroupStage"
       >
         <AppButton
           class="btn-primary btn-soft btn-wide mt-2"
@@ -36,7 +33,5 @@
 import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
 import { groupsAreFullyCompleted } from '~/helpers/group-stage';
 
-defineProps<{
-  stage: GroupStage;
-}>();
+const { activeGroupStage } = storeToRefs(useStageStore());
 </script>

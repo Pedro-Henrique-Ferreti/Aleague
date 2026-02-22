@@ -1,10 +1,7 @@
 <template>
   <section class="card card-border h-fit">
     <div class="card-body gap-0 p-1.25">
-      <MatchweekCardEmptyState
-        v-if="stage.matchweeks.length === 0"
-        :stage="stage"
-      />
+      <MatchweekCardEmptyState v-if="stage.matchweeks.length === 0" />
       <template v-else>
         <header class="matchweek-header">
           <MatchweekCardControls

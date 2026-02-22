@@ -33,15 +33,12 @@
 import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
 import { newGroupStageMatchweekList } from '~/helpers/stage';
 
-const props = defineProps<{
-  groups: GroupStage['groups'];
-}>();
-
 const store = useMatchweekFormStore();
+const { activeGroupStage } = storeToRefs(useStageStore());
 
 function getNewMatchweeks() {
   store.matchweeks = newGroupStageMatchweekList({
-    groups: props.groups,
+    groups: activeGroupStage.value?.groups ?? [],
     format: store.form.format,
     roundRobins: store.form.roundRobins,
     weeksToCreate: store.form.weeksToCreate,

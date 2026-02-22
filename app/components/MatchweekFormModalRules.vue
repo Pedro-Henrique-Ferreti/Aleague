@@ -21,10 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{
-  stage: GroupStage;
-}>();
-
+const { activeGroupStage } = storeToRefs(useStageStore());
 const store = useMatchweekFormStore();
 
 const formatOptions = computed<SelectOptionList<GroupStageFormat>>(() => ([
@@ -35,12 +32,12 @@ const formatOptions = computed<SelectOptionList<GroupStageFormat>>(() => ([
   {
     label: 'Apenas equipes de outros grupos',
     value: GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN,
-    disabled: props.stage.groups.length < 2,
+    disabled: (activeGroupStage.value?.groups.length ?? 0) < 2,
   },
   {
     label: 'Todos contra todos',
     value: GroupStageFormat.ALL_PLAY_ALL,
-    disabled: props.stage.groups.length < 2,
+    disabled: (activeGroupStage.value?.groups.length ?? 0) < 2,
   },
 ]));
 </script>

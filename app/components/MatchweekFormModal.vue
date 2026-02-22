@@ -9,21 +9,11 @@
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
     </template>
-    <MatchweekFormModalRules
-      v-if="store.step === MatchweekFormStep.SELECT_RULES"
-      :stage="stage"
-    />
-    <MatchweekFormModalPreview
-      v-else-if="store.step === MatchweekFormStep.PREVIEW_MATCHWEEKS"
-      :groups="stage.groups"
-    />
+    <MatchweekFormModalRules v-if="store.step === MatchweekFormStep.SELECT_RULES" />
+    <MatchweekFormModalPreview v-else-if="store.step === MatchweekFormStep.PREVIEW_MATCHWEEKS" />
   </AppModal>
 </template>
 
 <script lang="ts" setup>
-defineProps<{
-  stage: GroupStage;
-}>();
-
 const store = useMatchweekFormStore();
 </script>
