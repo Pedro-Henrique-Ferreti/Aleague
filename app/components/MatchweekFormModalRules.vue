@@ -1,39 +1,31 @@
 <template>
   <div class="grid grid-cols-2 gap-1">
     <AppSelect
-      v-model="form.format"
+      v-model="store.form.format"
       class="col-span-2"
       label="Disputa de partidas"
       :options="formatOptions"
     />
     <AppCounter
-      v-model="form.roundRobins"
+      v-model="store.form.roundRobins"
       label="Turnos"
       :min="StageConstants.MIN_ROUNDS"
       :max="3"
     />
     <AppCounter
-      v-model="form.weeksToCreate"
+      v-model="store.form.weeksToCreate"
       label="Rodadas por turno"
       :min="1"
     />
   </div>
 </template>
 
-<script lang="ts">
-export interface RulesForm {
-  format: GroupStageFormat;
-  roundRobins: number;
-  weeksToCreate: number;
-}
-</script>
-
 <script lang="ts" setup>
 const props = defineProps<{
   stage: GroupStage;
 }>();
 
-const form = defineModel<RulesForm>('form', { required: true });
+const store = useMatchweekFormStore();
 
 const formatOptions = computed<SelectOptionList<GroupStageFormat>>(() => ([
   {

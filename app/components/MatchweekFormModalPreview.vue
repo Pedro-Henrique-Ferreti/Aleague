@@ -4,7 +4,7 @@
       class="btn-ghost px-0.5"
       label="Voltar"
       :icon-left="IconArrowNarrowLeft"
-      @click="$emit('showPrevious')"
+      @click="store.showPreviousStep"
     />
     <div class="flex items-center gap-0.75">
       <AppTooltip
@@ -22,7 +22,7 @@
   </div>
   <div class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
     <MatchweekFormModalPreviewCard
-      v-for="matchweek in matchweeks"
+      v-for="matchweek in store.matchweeks"
       :key="matchweek.week"
       :matchweek="matchweek"
     />
@@ -30,29 +30,23 @@
 </template>
 
 <script lang="ts" setup>
-import type { RulesForm } from './MatchweekFormModalRules.vue';
 import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
 import { newGroupStageMatchweekList } from '~/helpers/stage';
 
 const props = defineProps<{
-  rules: RulesForm;
   groups: GroupStage['groups'];
 }>();
 
-defineEmits<{ showPrevious: [] }>();
-
-const matchweeks = ref<Matchweek[]>([]);
+const store = useMatchweekFormStore();
 
 function getNewMatchweeks() {
-  matchweeks.value = newGroupStageMatchweekList({
+  store.matchweeks = newGroupStageMatchweekList({
     groups: props.groups,
-    format: props.rules.format,
-    roundRobins: props.rules.roundRobins,
-    weeksToCreate: props.rules.weeksToCreate,
+    format: store.form.format,
+    roundRobins: store.form.roundRobins,
+    weeksToCreate: store.form.weeksToCreate,
   });
 }
 
 getNewMatchweeks();
-
-defineExpose({ matchweeks });
 </script>

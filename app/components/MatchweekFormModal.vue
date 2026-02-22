@@ -1,63 +1,29 @@
 <template>
   <AppModal
     title="Gerar partidas"
-    :size="step === FormStep.SELECT_RULES ? undefined : 'xl'"
-    :submit-button-label="step === FormStep.SELECT_RULES ? 'Próximo' : 'Confirmar'"
-    @submit="onFormSubmit"
-    @open="step = FormStep.SELECT_RULES"
+    :size="store.step === MatchweekFormStep.SELECT_RULES ? undefined : 'xl'"
+    :submit-button-label="store.step === MatchweekFormStep.SELECT_RULES ? 'Próximo' : 'Confirmar'"
+    @submit="store.onFormSubmit"
+    @open="store.step = MatchweekFormStep.SELECT_RULES"
   >
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
     </template>
     <MatchweekFormModalRules
-      v-if="step === FormStep.SELECT_RULES"
-      v-model:form="form"
+      v-if="store.step === MatchweekFormStep.SELECT_RULES"
       :stage="stage"
     />
     <MatchweekFormModalPreview
-      v-else-if="step === FormStep.PREVIEW_MATCHWEEKS"
-      ref="preview"
-      :rules="form"
+      v-else-if="store.step === MatchweekFormStep.PREVIEW_MATCHWEEKS"
       :groups="stage.groups"
-      @show-previous="step = FormStep.SELECT_RULES"
     />
   </AppModal>
 </template>
 
-<script lang="ts">
-enum FormStep {
-  SELECT_RULES,
-  PREVIEW_MATCHWEEKS,
-}
-</script>
-
 <script lang="ts" setup>
-import type { RulesForm } from './MatchweekFormModalRules.vue';
-
 defineProps<{
   stage: GroupStage;
 }>();
 
-const { addGroupMatchweeks } = useStageStore();
-
-const previewRef = useTemplateRef('preview');
-
-const step = ref<FormStep>(FormStep.SELECT_RULES);
-
-const form = ref<RulesForm>({
-  format: GroupStageFormat.SAME_GROUP_ROUND_ROBIN,
-  roundRobins: StageConstants.MIN_ROUNDS,
-  weeksToCreate: 1,
-});
-
-function onFormSubmit() {
-  if (step.value === FormStep.SELECT_RULES) {
-    step.value = FormStep.PREVIEW_MATCHWEEKS;
-    return;
-  }
-
-  if (previewRef.value?.matchweeks) {
-    addGroupMatchweeks(previewRef.value.matchweeks);
-  }
-}
+const store = useMatchweekFormStore();
 </script>
