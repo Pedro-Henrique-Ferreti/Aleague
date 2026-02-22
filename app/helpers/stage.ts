@@ -1,3 +1,4 @@
+import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from './group-stage';
 import { createMatchSchedule } from './match-schedule';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
@@ -51,12 +52,12 @@ export function newGroupStageMatchweekList(payload: {
 
   let schedule: MatchSchedule = [];
 
-  const getGroupTeams = (group: GroupStage['groups'][number]) => (group.standings.map(i => i.team!));
-
   if (format === GroupStageFormat.SAME_GROUP_ROUND_ROBIN) {
-    for (const group of groups) {
+    const teamLists = getSameGroupTeamLists(groups);
+
+    for (const teams of teamLists) {
       createMatchSchedule({
-        teams: getGroupTeams(group),
+        teams,
         roundRobins,
         weeksToCreate,
       }).forEach((matches, i) => {
@@ -67,17 +68,13 @@ export function newGroupStageMatchweekList(payload: {
         schedule[i]!.push(...matches);
       });
     }
-  } else if (format === GroupStageFormat.OTHER_GROUPS_ROUND_ROBIN) {
-    schedule = createMatchSchedule({
-      teams: groups.flatMap(getGroupTeams),
-      roundRobins,
-      avoidGroups: groups.map(getGroupTeams),
-      weeksToCreate,
-    });
   } else {
+    const { teams, avoidGroups } = getGroupTeamsAndAvoidGroups(groups, format);
+
     schedule = createMatchSchedule({
-      teams: groups.flatMap(getGroupTeams),
+      teams,
       roundRobins,
+      avoidGroups,
       weeksToCreate,
     });
   }
