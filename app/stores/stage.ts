@@ -27,6 +27,11 @@ export const useStageStore = defineStore('stage', () => {
     },
   });
 
+  const activeGroupStage = computed({
+    get: () => activeStage.value?.type === StageType.GROUP ? activeStage.value : undefined,
+    set: (value: GroupStage) => activeStage.value = value,
+  });
+
   function updateActiveStage(form: StageForm) {
     if (!activeStage.value) return;
 
@@ -40,17 +45,17 @@ export const useStageStore = defineStore('stage', () => {
   }
 
   function addGroupMatchweeks(matchweeks: Matchweek[]) {
-    if (activeStage.value?.type === StageType.GROUP) {
-      activeStage.value.matchweeks = matchweeks;
-    }
+    if (!activeGroupStage.value) return;
+
+    activeGroupStage.value.matchweeks = matchweeks;
   }
 
   function deleteGroupMatchweeks() {
-    if (activeStage.value?.type !== StageType.GROUP) return;
+    if (!activeGroupStage.value) return;
 
-    activeStage.value.matchweeks = [];
+    activeGroupStage.value.matchweeks = [];
 
-    for (const group of activeStage.value.groups) {
+    for (const group of activeGroupStage.value.groups) {
       group.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
     }
   }
@@ -68,6 +73,7 @@ export const useStageStore = defineStore('stage', () => {
   return {
     activeStage,
     activeStageIndex,
+    activeGroupStage,
     updateActiveStage,
     deleteActiveStage,
     deleteGroupMatchweeks,
