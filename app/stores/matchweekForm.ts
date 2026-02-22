@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from '~/helpers/group-stage';
 import { getExpectedMatchweeksPerRoundRobin } from '~/helpers/matchweek';
 
-export interface RulesForm {
+interface RulesForm {
   format: GroupStageFormat;
   roundRobins: number;
   weeksToCreate: number;
