@@ -1,11 +1,7 @@
-import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from './group-stage';
+import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, groupsAreFullyCompleted } from './group-stage';
 import { createMatchSchedule } from './match-schedule';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
-
-export function groupsAreFullyCompleted(groups: GroupStage['groups']): boolean {
-  return groups.every(g => g.standings.every(s => s.team !== null));
-}
 
 export function newPlayoffStage(stageForm: StageForm, baseStage: BaseStage): PlayoffStage {
   const roundNames = getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams);

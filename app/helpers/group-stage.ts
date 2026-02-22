@@ -14,3 +14,7 @@ export function getGroupTeamsAndAvoidGroups(groups: GroupStage['groups'], format
     ),
   };
 }
+
+export function groupsAreFullyCompleted(groups: GroupStage['groups']): boolean {
+  return groups.every(g => g.standings.every(s => s.team !== null));
+}

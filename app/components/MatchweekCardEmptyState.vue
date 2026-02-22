@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
-import { groupsAreFullyCompleted } from '~/helpers/stage';
+import { groupsAreFullyCompleted } from '~/helpers/group-stage';
 
 defineProps<{
   stage: GroupStage;
