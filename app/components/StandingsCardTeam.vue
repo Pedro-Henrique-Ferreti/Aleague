@@ -14,22 +14,24 @@
     </button>
     <div
       :id="popoverId"
-      class="dropdown menu p-0.5 flex flex-row rounded-md bg-base-100 shadow-sm dropdown-right"
+      class="dropdown menu p-0.5 rounded-md bg-base-100 shadow-sm dropdown-right"
       popover
       :style="`position-anchor:--team-button-${popoverId}`"
     >
-      <button
-        v-for="color in QUALIFIER_COLORS"
-        :key="color"
-        class="flex items-center justify-center size-1.75 cursor-pointer"
-        aria-label="Select qualifier color"
-        @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
-      >
-        <component
-          :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
-          :style="`fill:${getColor(color)}`"
-        />
-      </button>
+      <div class="flex flex-row">
+        <button
+          v-for="color in QUALIFIER_COLORS"
+          :key="color"
+          class="flex items-center justify-center size-1.75 cursor-pointer"
+          aria-label="Select qualifier color"
+          @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
+        >
+          <component
+            :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
+            :style="`fill:${getColor(color)}`"
+          />
+        </button>
+      </div>
     </div>
     <span class="size-0.25 ml-0.75 mr-1 rounded-full bg-base-200" />
     <img
