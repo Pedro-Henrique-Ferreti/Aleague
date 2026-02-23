@@ -51,9 +51,14 @@
 <script setup lang="ts">
 const props = defineProps<{ stage?: TournamentStage }>();
 
-const DEFAULT_GROUP_STAGE_NAME = 'Fase de Liga';
-const DEFAULT_PLAYOFF_STAGE_NAME = 'Playoffs';
-const { MIN_TEAMS, MIN_GROUPS, MIN_TEAMS_PER_GROUP, MIN_ROUNDS } = StageConstants;
+const {
+  MIN_TEAMS,
+  MIN_GROUPS,
+  MIN_TEAMS_PER_GROUP,
+  MIN_ROUNDS,
+  DEFAULT_GROUP_STAGE_NAME,
+  DEFAULT_PLAYOFF_STAGE_NAME,
+} = STAGE_FORM;
 
 const tournamentStore = useTournamentStore();
 const stageStore = useStageStore();

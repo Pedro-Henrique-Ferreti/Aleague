@@ -18,7 +18,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
 
   const newForm = (): RulesForm => ({
     format: GroupStageFormat.SAME_GROUP_ROUND_ROBIN,
-    roundRobins: StageConstants.MIN_ROUNDS,
+    roundRobins: STAGE_FORM.MIN_ROUNDS,
     weeksToCreate: 1,
   });
 

@@ -9,7 +9,7 @@
     <AppCounter
       v-model="store.form.roundRobins"
       label="Turnos"
-      :min="StageConstants.MIN_ROUNDS"
+      :min="STAGE_FORM.MIN_ROUNDS"
       :max="3"
     />
     <AppCounter

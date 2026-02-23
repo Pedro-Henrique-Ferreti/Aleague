@@ -1,7 +1,7 @@
-const TOURNAMENT_NUMBER_OF_ICONS = 40;
+const ICONS_COUNT = 40;
 
 export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
-  ...createArray(TOURNAMENT_NUMBER_OF_ICONS, index => ({
+  ...createArray(ICONS_COUNT, index => ({
     label: `Opção ${index + 1}`,
     value: `/images/icons/tournament/icon-${index + 1}.svg`,
   })),
@@ -26,27 +26,3 @@ export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
   { label: 'UEFA Europa League', value: 'https://img.sofascore.com/api/v1/unique-tournament/679/image' },
   { label: 'UEFA Conference League', value: 'https://img.sofascore.com/api/v1/unique-tournament/17015/image' },
 ];
-
-export const PLAYOFF_ROUND_NAMES: ReadonlyArray<string> = ['Oitavas de Final', 'Quartas de Final', 'Semifinal', 'Final'];
-
-export const PLAYOFF_ORDINAL_ROUND_NAMES: ReadonlyArray<string> = [
-  'Primeira Fase',
-  'Segunda Fase',
-  'Terceira Fase',
-  'Quarta Fase',
-  'Quinta Fase',
-  'Sexta Fase',
-  'Sétima Fase',
-  'Oitava Fase',
-  'Nona Fase',
-  'Décima Fase',
-];
-
-export const StageConstants = {
-  MIN_TEAMS: 2,
-  MIN_TEAMS_PER_GROUP: 2,
-  MAX_TEAMS_PER_GROUP: 36,
-  MIN_ROUNDS: 1,
-  MIN_GROUPS: 1,
-  MAX_GROUPS: 32,
-};

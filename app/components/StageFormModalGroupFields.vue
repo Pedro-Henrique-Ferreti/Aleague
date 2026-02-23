@@ -31,7 +31,7 @@ defineProps<{
   disabled: boolean;
 }>();
 
-const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MAX_TEAMS_PER_GROUP } = StageConstants;
+const { MAX_GROUPS, MIN_TEAMS_PER_GROUP, MIN_GROUPS, MAX_TEAMS_PER_GROUP } = STAGE_FORM;
 
 const groups = defineModel<StageForm['groups']>('groups', { required: true });
 const teamsPerGroup = defineModel<StageForm['teamsPerGroup']>('teams-per-group', { required: true });

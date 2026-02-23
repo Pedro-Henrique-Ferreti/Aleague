@@ -40,7 +40,7 @@ defineProps<{
   maxPlayoffRounds: number;
 }>();
 
-const { MIN_TEAMS, MIN_ROUNDS } = StageConstants;
+const { MIN_TEAMS, MIN_ROUNDS } = STAGE_FORM;
 
 const teams = defineModel<StageForm['teams']>('teams', { required: true });
 const playoffRounds = defineModel<StageForm['playoffRounds']>('playoff-rounds', { required: true });
