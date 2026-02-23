@@ -16,7 +16,7 @@
     >
       <span
         v-if="homeScore === undefined && awayScore === undefined"
-        class="flex items-center font-semibold text-gray-600"
+        class="flex items-center font-medium"
       >
         ✕
       </span>
