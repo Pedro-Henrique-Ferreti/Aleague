@@ -25,6 +25,7 @@
     <TournamentGroupStage
       v-if="activeStage && activeStage.type === StageType.GROUP"
       v-model="(activeStage as GroupStage)"
+      :key="activeStage.id"
     />
     <TournamentPlayoffStage
       v-else-if="activeStage && activeStage.type === StageType.PLAYOFF"
