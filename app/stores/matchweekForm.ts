@@ -16,13 +16,15 @@ export enum MatchweekFormStep {
 export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   const stageStore = useStageStore();
 
-  const step = ref<MatchweekFormStep>(MatchweekFormStep.SELECT_RULES);
-  const matchweeks = ref<Matchweek[]>([]);
-  const form = ref<RulesForm>({
+  const newForm = (): RulesForm => ({
     format: GroupStageFormat.SAME_GROUP_ROUND_ROBIN,
     roundRobins: StageConstants.MIN_ROUNDS,
     weeksToCreate: 1,
   });
+
+  const step = ref<MatchweekFormStep>(MatchweekFormStep.SELECT_RULES);
+  const matchweeks = ref<Matchweek[]>([]);
+  const form = ref(newForm());
 
   const maxWeeksToCreate = computed(() => {
     if (!stageStore.activeGroupStage) return 0;
@@ -46,6 +48,12 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     step.value = MatchweekFormStep.SELECT_RULES;
   }
 
+  function onFormOpen() {
+    form.value = newForm();
+    matchweeks.value = [];
+    step.value = MatchweekFormStep.SELECT_RULES;
+  }
+
   function onFormSubmit() {
     if (step.value === MatchweekFormStep.SELECT_RULES) {
       step.value = MatchweekFormStep.PREVIEW_MATCHWEEKS;
@@ -61,6 +69,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     matchweeks,
     maxWeeksToCreate,
     showPreviousStep,
+    onFormOpen,
     onFormSubmit,
   };
 });

@@ -4,7 +4,7 @@
     :size="store.step === MatchweekFormStep.SELECT_RULES ? undefined : 'xl'"
     :submit-button-label="store.step === MatchweekFormStep.SELECT_RULES ? 'Próximo' : 'Confirmar'"
     @submit="store.onFormSubmit"
-    @open="store.step = MatchweekFormStep.SELECT_RULES"
+    @open="store.onFormOpen"
   >
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
