@@ -33,6 +33,12 @@ const inputId = useId();
 
 const name = defineModel<PlayoffRound['name']>('name', { required: true });
 const slots = defineModel<PlayoffRound['slots']>('slots', { required: true });
+
+watch(name, (newValue, oldValue) => {
+  if (newValue === '') {
+    name.value = oldValue;
+  }
+});
 </script>
 
 <style scoped>
