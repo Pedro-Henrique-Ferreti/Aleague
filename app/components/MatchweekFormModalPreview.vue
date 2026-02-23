@@ -15,7 +15,7 @@
           class="btn-square btn-accent btn-soft"
           aria-label="Gerar novamente"
           :icon-left="IconRefresh"
-          @click="getNewMatchweeks"
+          @click="store.getNewMatchweeks"
         />
       </AppTooltip>
     </div>
@@ -31,19 +31,6 @@
 
 <script lang="ts" setup>
 import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
-import { newGroupStageMatchweekList } from '~/helpers/stage';
 
 const store = useMatchweekFormStore();
-const { activeGroupStage } = storeToRefs(useStageStore());
-
-function getNewMatchweeks() {
-  store.matchweeks = newGroupStageMatchweekList({
-    groups: activeGroupStage.value?.groups ?? [],
-    format: store.form.format,
-    roundRobins: store.form.roundRobins,
-    weeksToCreate: store.form.weeksToCreate,
-  });
-}
-
-getNewMatchweeks();
 </script>

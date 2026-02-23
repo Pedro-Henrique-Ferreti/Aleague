@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from '~/helpers/group-stage';
 import { getExpectedMatchweeksPerRoundRobin } from '~/helpers/matchweek';
+import { newGroupStageMatchweekList } from '~/helpers/stage';
 
 interface RulesForm {
   format: GroupStageFormat;
@@ -48,6 +49,15 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     step.value = MatchweekFormStep.SELECT_RULES;
   }
 
+  function getNewMatchweeks() {
+    matchweeks.value = newGroupStageMatchweekList({
+      groups: stageStore.activeGroupStage?.groups ?? [],
+      format: form.value.format,
+      roundRobins: form.value.roundRobins,
+      weeksToCreate: form.value.weeksToCreate,
+    });
+  }
+
   function onFormOpen() {
     form.value = newForm();
     matchweeks.value = [];
@@ -56,6 +66,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
 
   function onFormSubmit() {
     if (step.value === MatchweekFormStep.SELECT_RULES) {
+      getNewMatchweeks();
       step.value = MatchweekFormStep.PREVIEW_MATCHWEEKS;
       return;
     }
@@ -71,5 +82,6 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     showPreviousStep,
     onFormOpen,
     onFormSubmit,
+    getNewMatchweeks,
   };
 });
