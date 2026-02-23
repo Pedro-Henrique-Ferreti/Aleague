@@ -45,7 +45,7 @@ export const PLAYOFF_ORDINAL_ROUND_NAMES: ReadonlyArray<string> = [
 export const StageConstants = {
   MIN_TEAMS: 2,
   MIN_TEAMS_PER_GROUP: 2,
-  MAX_TEAMS_PER_GROUP: 32,
+  MAX_TEAMS_PER_GROUP: 36,
   MIN_ROUNDS: 1,
   MIN_GROUPS: 1,
   MAX_GROUPS: 32,
