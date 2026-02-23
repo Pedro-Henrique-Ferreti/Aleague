@@ -41,64 +41,32 @@
                 <th v-if="matchweeks?.length">Recentes</th>
                 <th />
               </tr>
-              <tr
+              <StandingsCardTableRow
                 v-for="entry, index in tableEntriesSorted"
                 :key="entry.id"
-                class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
-                :class="{
-                  'cursor-pointer': renderFormModal,
-                  'bg-gray-200!': entry.team && teamStore.focusedTeamId.includes(entry.team),
-                }"
-                :tabindex="renderFormModal ? 0 : -1"
+                :is-clickable="renderFormModal"
+                :entry="entry"
+                :sort-type="sortType"
+                :show-form="matchweeks && matchweeks.length > 0"
                 @click="onTableEntryClick(entry)"
               >
-                <td
-                  v-resize-observer="onResizeObserver"
-                  class="resize-observer p-0!"
-                />
-                <td
-                  v-if="!entry.team"
-                  class="h-3"
-                  colspan="10"
-                />
-                <template v-else>
+                <template #resize-observer>
+                  <td
+                    v-resize-observer="onResizeObserver"
+                    class="resize-observer p-0!"
+                  />
+                </template>
+                <template #team>
                   <td class="position bg-inherit h-[2.875rem] py-0 border-0">
                     <StandingsCardTeam
+                      v-if="entry.team"
                       v-model:qualifier="qualifier[index]!"
                       :position="index + 1"
                       :team-id="entry.team"
                     />
                   </td>
-                  <td :class="{ 'font-bold': sortType === TableEntrySortType.POINTS }">
-                    {{ entry.points }}
-                  </td>
-                  <td>{{ entry.played }}</td>
-                  <td :class="{ 'font-bold': sortType === TableEntrySortType.WON }">
-                    {{ entry.won }}
-                  </td>
-                  <td>{{ entry.drawn }}</td>
-                  <td :class="{ 'font-bold': sortType === TableEntrySortType.LOST }">
-                    {{ entry.lost }}
-                  </td>
-                  <td :class="{ 'font-bold': sortType === TableEntrySortType.GOALS_FOR }">
-                    {{ entry.goalsFor }}
-                  </td>
-                  <td :class="{ 'font-bold': sortType === TableEntrySortType.GOALS_AGAINST }">
-                    {{ entry.goalsAgainst }}
-                  </td>
-                  <td :class="{ 'font-bold': sortType === TableEntrySortType.GOALS_DIFFERENCE }">
-                    {{ entry.goalsFor - entry.goalsAgainst }}
-                  </td>
-                  <td>{{ entry.played ? Math.round(entry.points / (entry.played * POINTS_PER_WIN) * 100) : 0 }}%</td>
-                  <td v-if="matchweeks?.length">
-                    <StandingsCardForm
-                      :form="entry.form.slice(-5)"
-                      :auto-fill="5"
-                    />
-                  </td>
                 </template>
-                <td />
-              </tr>
+              </StandingsCardTableRow>
             </TransitionGroup>
           </table>
         </div>
@@ -131,8 +99,6 @@ const props = withDefaults(defineProps<Props>(), {
   entryType: TableEntryType.OVERALL,
 });
 
-const teamStore = useTeamStore();
-
 const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 
 const tableEntries = computed<TableEntry[]>(() => (
@@ -147,8 +113,6 @@ const selectedTableEntry = ref<TableEntry | null>(null);
 const renderFormModal = computed(() => !!props.matchweeks?.length);
 
 async function onTableEntryClick(entry: TableEntry) {
-  if (!renderFormModal.value) return;
-
   selectedTableEntry.value = null;
   await nextTick();
   selectedTableEntry.value = entry;
@@ -186,7 +150,7 @@ watch(tableScroll.x, getFadedBorderSize, { immediate: true });
 }
 .table-container::after {
   width: v-bind(fadedBorderSize);
-  @apply content-[''] max-w-[2.25rem] h-[calc(100%-1rem)] bg-gradient-to-l from-white to-transparent absolute right-0 top-0 pointer-events-none;
+  @apply content-[''] max-w-2.25 h-[calc(100%-1rem)] bg-linear-to-l from-white to-transparent absolute right-0 top-0 pointer-events-none;
 }
 .resize-observer {
   @apply min-w-16 w-[40%];
