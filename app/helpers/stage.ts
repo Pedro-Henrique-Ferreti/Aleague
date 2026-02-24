@@ -59,11 +59,7 @@ export async function newGroupStageMatchweekList(payload: {
       });
 
       scheduleResult.forEach((matches, i) => {
-        if (!schedule[i]) {
-          schedule[i] = [];
-        }
-
-        schedule[i]!.push(...matches);
+        schedule[i] = [...(schedule[i] ?? []), ...matches];
       });
     }
   } else {
