@@ -4,7 +4,7 @@
       class="btn-ghost px-0.5"
       label="Voltar"
       :icon-left="IconArrowNarrowLeft"
-      @click="store.showPreviousStep"
+      @click="store.showFormStep(MatchweekFormStep.SELECT_RULES)"
     />
     <div class="flex items-center gap-0.75">
       <AppTooltip

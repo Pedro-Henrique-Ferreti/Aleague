@@ -45,10 +45,6 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     form.value.weeksToCreate = maxWeeksToCreate.value;
   });
 
-  function showPreviousStep() {
-    step.value = MatchweekFormStep.SELECT_RULES;
-  }
-
   async function getNewMatchweeks() {
     matchweekList.value = await newGroupStageMatchweekList({
       groups: stageStore.activeGroupStage?.groups ?? [],
@@ -58,16 +54,24 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     });
   }
 
+  function showFormStep(newStep: MatchweekFormStep) {
+    if (newStep === MatchweekFormStep.SELECT_RULES) {
+      matchweekList.value = undefined;
+    } else if (newStep === MatchweekFormStep.PREVIEW_MATCHWEEKS) {
+      getNewMatchweeks();
+    }
+
+    step.value = newStep;
+  }
+
   function onFormOpen() {
     form.value = newForm();
-    matchweekList.value = undefined;
-    step.value = MatchweekFormStep.SELECT_RULES;
+    showFormStep(MatchweekFormStep.SELECT_RULES);
   }
 
   function onFormSubmit() {
     if (step.value === MatchweekFormStep.SELECT_RULES) {
-      getNewMatchweeks();
-      step.value = MatchweekFormStep.PREVIEW_MATCHWEEKS;
+      showFormStep(MatchweekFormStep.PREVIEW_MATCHWEEKS);
       return;
     }
 
@@ -81,7 +85,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     form,
     matchweekList,
     maxWeeksToCreate,
-    showPreviousStep,
+    showFormStep,
     onFormOpen,
     onFormSubmit,
     getNewMatchweeks,
