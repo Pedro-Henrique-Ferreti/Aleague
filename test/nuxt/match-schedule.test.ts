@@ -7,6 +7,8 @@ const unbalanceableSchedule = {
   avoidGroups: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]],
 };
 
+const EXECUTION_TIME = MAX_EXECUTION_TIME + 1000;
+
 describe('match-schedule', () => {
   describe('generateInitialSchedule', () => {
     it('should throw error when teams array has odd number of elements', () => {
@@ -82,7 +84,7 @@ describe('match-schedule', () => {
       const teams = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
       const avoidGroups = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
       const schedule = generateInitialSchedule(teams, avoidGroups);
-      const balancedSchedule = await balanceScheduleWeeks(schedule, teams.length, avoidGroups[0]!.length);
+      const { schedule: balancedSchedule } = await balanceScheduleWeeks(schedule, teams.length, avoidGroups[0]!.length);
       const expectedWeeks = getExpectedMatchweeksPerRoundRobin(teams.length, avoidGroups[0]!.length);
 
       expect(balancedSchedule.length === expectedWeeks).toBeTruthy();
@@ -99,7 +101,7 @@ describe('match-schedule', () => {
 
       expect(elapsedTime).toBeCloseTo(MAX_EXECUTION_TIME, -2);
     });
-  }, MAX_EXECUTION_TIME + 1000);
+  }, EXECUTION_TIME);
 
   describe('addRoundRobins', () => {
     it('should add the correct number of round robins', () => {
@@ -119,4 +121,14 @@ describe('match-schedule', () => {
       expect(schedule.length).toBe(2);
     });
   });
+
+  it('should not cap the number of weeks if the schedule is not balanceable', async () => {
+    const schedule = await createMatchSchedule({
+      teams: unbalanceableSchedule.teams,
+      avoidGroups: unbalanceableSchedule.avoidGroups,
+      weeksToCreate: 2,
+    });
+
+    expect(schedule.length).toBeGreaterThan(2);
+  }, EXECUTION_TIME);
 });
