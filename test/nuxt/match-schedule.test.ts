@@ -73,11 +73,11 @@ describe('match-schedule', () => {
   });
 
   describe('balanceScheduleWeeks', () => {
-    it('should ensure all weeks have the same number of matches', () => {
+    it('should ensure all weeks have the same number of matches', async () => {
       const teams = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
       const avoidGroups = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
       const schedule = generateInitialSchedule(teams, avoidGroups);
-      const balancedSchedule = balanceScheduleWeeks(schedule, teams.length, avoidGroups[0]!.length);
+      const balancedSchedule = await balanceScheduleWeeks(schedule, teams.length, avoidGroups[0]!.length);
       const expectedWeeks = getExpectedMatchweeksPerRoundRobin(teams.length, avoidGroups[0]!.length);
 
       expect(balancedSchedule.length === expectedWeeks).toBeTruthy();
@@ -95,9 +95,9 @@ describe('match-schedule', () => {
   });
 
   describe('createMatchSchedule', () => {
-    it('should cap the number of weeks to the number provided', () => {
+    it('should cap the number of weeks to the number provided', async () => {
       const teams = [1, 2, 3, 4];
-      const schedule = createMatchSchedule({ teams, weeksToCreate: 2 });
+      const schedule = await createMatchSchedule({ teams, weeksToCreate: 2 });
 
       expect(schedule.length).toBe(2);
     });

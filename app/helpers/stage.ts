@@ -36,12 +36,12 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
   };
 }
 
-export function newGroupStageMatchweekList(payload: {
+export async function newGroupStageMatchweekList(payload: {
   groups: GroupStage['groups'];
   format: GroupStageFormat;
   roundRobins: number;
   weeksToCreate?: number;
-}): GroupStage['matchweeks'] {
+}): Promise<GroupStage['matchweeks']> {
   const { groups, format, roundRobins, weeksToCreate } = payload;
 
   if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
@@ -52,11 +52,13 @@ export function newGroupStageMatchweekList(payload: {
     const teamLists = getSameGroupTeamLists(groups);
 
     for (const teams of teamLists) {
-      createMatchSchedule({
+      const scheduleResult = await createMatchSchedule({
         teams,
         roundRobins,
         weeksToCreate,
-      }).forEach((matches, i) => {
+      });
+
+      scheduleResult.forEach((matches, i) => {
         if (!schedule[i]) {
           schedule[i] = [];
         }
@@ -67,7 +69,7 @@ export function newGroupStageMatchweekList(payload: {
   } else {
     const { teams, avoidGroups } = getGroupTeamsAndAvoidGroups(groups, format);
 
-    schedule = createMatchSchedule({
+    schedule = await createMatchSchedule({
       teams,
       roundRobins,
       avoidGroups,

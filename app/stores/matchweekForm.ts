@@ -49,8 +49,8 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     step.value = MatchweekFormStep.SELECT_RULES;
   }
 
-  function getNewMatchweeks() {
-    matchweeks.value = newGroupStageMatchweekList({
+  async function getNewMatchweeks() {
+    matchweeks.value = await newGroupStageMatchweekList({
       groups: stageStore.activeGroupStage?.groups ?? [],
       format: form.value.format,
       roundRobins: form.value.roundRobins,
