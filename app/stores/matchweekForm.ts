@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from '~/helpers/group-stage';
 import { getExpectedMatchweeksPerRoundRobin } from '~/helpers/matchweek';
-import { newGroupStageMatchweekList } from '~/helpers/stage';
+import { newGroupStageMatchweekList, type NewMatchweekListResponse } from '~/helpers/stage';
 
 interface RulesForm {
   format: GroupStageFormat;
@@ -24,7 +24,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   });
 
   const step = ref<MatchweekFormStep>(MatchweekFormStep.SELECT_RULES);
-  const matchweeks = ref<Matchweek[]>([]);
+  const matchweekList = ref<NewMatchweekListResponse>();
   const form = ref(newForm());
 
   const maxWeeksToCreate = computed(() => {
@@ -50,7 +50,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   }
 
   async function getNewMatchweeks() {
-    matchweeks.value = await newGroupStageMatchweekList({
+    matchweekList.value = await newGroupStageMatchweekList({
       groups: stageStore.activeGroupStage?.groups ?? [],
       format: form.value.format,
       roundRobins: form.value.roundRobins,
@@ -60,7 +60,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
 
   function onFormOpen() {
     form.value = newForm();
-    matchweeks.value = [];
+    matchweekList.value = undefined;
     step.value = MatchweekFormStep.SELECT_RULES;
   }
 
@@ -71,13 +71,15 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
       return;
     }
 
-    stageStore.addGroupMatchweeks(matchweeks.value);
+    if (matchweekList.value) {
+      stageStore.addGroupMatchweeks(matchweekList.value.matchweeks);
+    }
   }
 
   return {
     step,
     form,
-    matchweeks,
+    matchweekList,
     maxWeeksToCreate,
     showPreviousStep,
     onFormOpen,

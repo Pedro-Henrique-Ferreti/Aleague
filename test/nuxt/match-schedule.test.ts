@@ -116,14 +116,14 @@ describe('match-schedule', () => {
   describe('createMatchSchedule', () => {
     it('should cap the number of weeks to the number provided', async () => {
       const teams = [1, 2, 3, 4];
-      const schedule = await createMatchSchedule({ teams, weeksToCreate: 2 });
+      const { schedule } = await createMatchSchedule({ teams, weeksToCreate: 2 });
 
       expect(schedule.length).toBe(2);
     });
   });
 
   it('should not cap the number of weeks if the schedule is not balanceable', async () => {
-    const schedule = await createMatchSchedule({
+    const { schedule } = await createMatchSchedule({
       teams: unbalanceableSchedule.teams,
       avoidGroups: unbalanceableSchedule.avoidGroups,
       weeksToCreate: 2,

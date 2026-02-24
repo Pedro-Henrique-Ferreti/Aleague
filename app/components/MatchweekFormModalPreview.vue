@@ -22,7 +22,7 @@
   </div>
   <div class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
     <MatchweekFormModalPreviewCard
-      v-for="matchweek in store.matchweeks"
+      v-for="matchweek in store.matchweekList?.matchweeks"
       :key="matchweek.week"
       :matchweek="matchweek"
     />
