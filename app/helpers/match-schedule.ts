@@ -8,6 +8,8 @@ interface MatchScheduleParams {
   weeksToCreate?: number;
 }
 
+export const MAX_EXECUTION_TIME = 10 * 1000;
+
 export function addRoundRobins(schedule: MatchSchedule, totalRoundRobins: MatchScheduleParams['roundRobins'] = 1): MatchSchedule {
   const roundRobinWeeksCount = schedule.length;
   const newSchedule = [...schedule];
@@ -132,7 +134,11 @@ export async function balanceScheduleWeeks(schedule: MatchSchedule, teamsCount: 
     return result;
   };
 
+  const startTime = new Date().getTime();
+
   while (!isBalanced(rebalancedSchedule)) {
+    if (new Date().getTime() - startTime > MAX_EXECUTION_TIME) break;
+
     rebalancedSchedule = attemptRebalance();
     await new Promise(resolve => setTimeout(resolve));
   }

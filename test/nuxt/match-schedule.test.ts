@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { addRoundRobins, balanceScheduleWeeks, createMatchSchedule, generateInitialSchedule } from '@/helpers/match-schedule';
+import { addRoundRobins, balanceScheduleWeeks, createMatchSchedule, generateInitialSchedule, MAX_EXECUTION_TIME } from '@/helpers/match-schedule';
 import { getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
+
+const unbalanceableSchedule = {
+  teams: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+  avoidGroups: [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], [17, 18, 19, 20]],
+};
 
 describe('match-schedule', () => {
   describe('generateInitialSchedule', () => {
@@ -82,7 +87,19 @@ describe('match-schedule', () => {
 
       expect(balancedSchedule.length === expectedWeeks).toBeTruthy();
     });
-  });
+
+    it('should not run indefinitely if weeks cannot be balanced', async () => {
+      const teamsCount = unbalanceableSchedule.teams.length;
+      const avoidGroupCount = unbalanceableSchedule.avoidGroups[0]!.length;
+      const schedule = generateInitialSchedule(unbalanceableSchedule.teams, unbalanceableSchedule.avoidGroups);
+
+      const startTime = Date.now();
+      await balanceScheduleWeeks(schedule, teamsCount, avoidGroupCount);
+      const elapsedTime = Date.now() - startTime;
+
+      expect(elapsedTime).toBeCloseTo(MAX_EXECUTION_TIME, -2);
+    });
+  }, MAX_EXECUTION_TIME + 1000);
 
   describe('addRoundRobins', () => {
     it('should add the correct number of round robins', () => {
