@@ -116,7 +116,7 @@ export async function balanceScheduleWeeks(
 
   const attemptRebalance = (): MatchSchedule => {
     const allMatches = randomizeArray(schedule.flat());
-    const result: MatchSchedule = createArray(expectedWeeks, () => [] as Match[]);
+    const result: MatchSchedule = createArray<Match[]>(expectedWeeks, []);
 
     for (const match of allMatches) {
       const matchTeams = [match.homeTeam.id, match.awayTeam.id];

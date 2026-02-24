@@ -32,9 +32,17 @@ describe('utils', () => {
 
   describe('createArray', () => {
     it('should create an array with the correct length', () => {
-      const array = createArray(5, index => index);
+      const array = createArray(5);
       expect(array.length).toBe(5);
-      expect(array).toEqual([0, 1, 2, 3, 4]);
+    });
+
+    it('should create an array of numbers if value is not provided', () => {
+      expect(createArray(3)).toEqual([0, 1, 2]);
+    });
+
+    it('should call the function if provided and pass the current loop index to it', () => {
+      const array = createArray(3, index => index + 3);
+      expect(array).toEqual([3, 4, 5]);
     });
   });
 });

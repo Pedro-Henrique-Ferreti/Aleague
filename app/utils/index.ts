@@ -26,8 +26,14 @@ export function clone<T>(data: T) {
   return JSON.parse(JSON.stringify(data)) as T;
 }
 
-export function createArray<T>(length: number, fn: (index: number) => T) {
-  return Array.from({ length }, (_, index) => fn(index));
+export function createArray<T = number>(length: number, valueOrFunction?: T | ((index: number) => T)) {
+  return Array.from({ length }, (_, index) => {
+    if (valueOrFunction === undefined) return index as T;
+
+    if (typeof valueOrFunction === 'function') return (valueOrFunction as (index: number) => T)(index) as T;
+
+    return clone(valueOrFunction) as T;
+  }) as T extends number ? number[] : T extends boolean ? boolean[] : T[];
 }
 
 export function randomizeArray<T>(array: T[]) {

@@ -58,9 +58,9 @@ describe('match-schedule', () => {
     });
 
     it('should ensure a schedule with no avoidGroups has the correct number of weeks', () => {
-      const teams1 = createArray(4, index => index);
-      const teams2 = createArray(8, index => index);
-      const teams3 = createArray(20, index => index);
+      const teams1 = createArray(4);
+      const teams2 = createArray(8);
+      const teams3 = createArray(20);
 
       expect(generateInitialSchedule(teams1).length).toBe(getMaxPossibleMatchweeksPerRoundRobin(teams1.length));
       expect(generateInitialSchedule(teams2).length).toBe(getMaxPossibleMatchweeksPerRoundRobin(teams2.length));
