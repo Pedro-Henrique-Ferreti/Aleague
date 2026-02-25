@@ -15,8 +15,7 @@
       :max="maxPlayoffRounds"
       :disabled="disabled"
     />
-    <div class="alert col-span-2 mt-1 text-xs font-semibold">
-      <IconInfoCircle class="text-primary shrink-0" />
+    <AppAlert class="col-span-2 mt-1">
       <div class="flex flex-wrap gap-x-0.25">
         <span
           v-for="name in getPlayoffRoundNames(playoffRounds, teams)"
@@ -27,12 +26,12 @@
           <IconArrowBadgeRightFilled class="inline size-1 -translate-y-px" />
         </span>
       </div>
-    </div>
+    </AppAlert>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IconArrowBadgeRightFilled, IconInfoCircle } from '@tabler/icons-vue';
+import { IconArrowBadgeRightFilled } from '@tabler/icons-vue';
 import { getPlayoffRoundNames } from '~/helpers/playoff';
 
 defineProps<{

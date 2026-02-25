@@ -1,6 +1,6 @@
 <template>
   <div
-    class="alert"
+    class="alert text-xs font-semibold"
     role="alert"
     :class="{
       'alert-info': type === 'info',
@@ -10,25 +10,31 @@
       'alert-soft': soft,
     }"
   >
-    <slot name="icon">
-      <component
-        :is="icon"
-        class="shrink-0"
-      />
-    </slot>
+    <div class="shrink-0">
+      <slot name="icon">
+        <component
+          :is="icon"
+          class="text-primary"
+        />
+      </slot>
+    </div>
     <slot>
-      <span>{{ message }}</span>
+      <p>{{ message }}</p>
     </slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Icon } from '@tabler/icons-vue';
+import { type Icon, IconInfoCircle } from '@tabler/icons-vue';
 
-defineProps<{
+interface Props {
   icon?: Icon;
   message?: string;
   soft?: boolean;
   type?: 'success' | 'error' | 'warning' | 'info';
-}>();
+}
+
+withDefaults(defineProps<Props>(), {
+  icon: () => IconInfoCircle,
+});
 </script>
