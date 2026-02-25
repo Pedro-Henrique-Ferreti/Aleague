@@ -2,11 +2,11 @@
   <div class="text-center">
     <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
     <template v-if="activeGroupStage && groupsAreFullyCompleted(activeGroupStage.groups)">
-      <p>Clique no botão abaixo para gerar as partidas.</p>
+      <p>Clique no botão abaixo para configurar as partidas.</p>
       <MatchweekFormModal v-slot="{ openModal }">
         <AppButton
           class="btn-accent btn-wide mt-2"
-          label="Gerar partidas"
+          label="Configurar partidas"
           :icon-left="IconRefresh"
           @click="openModal"
         />
