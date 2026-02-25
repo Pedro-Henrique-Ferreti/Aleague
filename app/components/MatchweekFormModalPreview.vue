@@ -26,16 +26,20 @@
     class="min-h-10"
     message="Criando rodadas. Por favor, aguarde..."
   />
-  <div
-    v-else
-    class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3"
-  >
-    <MatchweekFormModalPreviewCard
-      v-for="matchweek in store.matchweekList?.matchweeks"
-      :key="matchweek.week"
-      :matchweek="matchweek"
+  <template v-else>
+    <AppAlert
+      v-if="store.matchweekList && !store.matchweekList.isBalanced"
+      class="mb-2"
+      message="Não foi possível criar a quantidade escolhida de rodadas. Se desejar, você pode alterar as configurações da fase ou das partidas."
     />
-  </div>
+    <div class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
+      <MatchweekFormModalPreviewCard
+        v-for="matchweek in store.matchweekList?.matchweeks"
+        :key="matchweek.week"
+        :matchweek="matchweek"
+      />
+    </div>
+  </template>
 </template>
 
 <script lang="ts" setup>
