@@ -154,7 +154,7 @@ export async function balanceScheduleWeeks(
 
   return {
     isBalanced: isBalancedResult,
-    schedule: isBalancedResult ? rebalancedSchedule : schedule,
+    schedule: isBalancedResult ? rebalancedSchedule : schedule.sort((a, b) => b.length - a.length),
   };
 }
 
