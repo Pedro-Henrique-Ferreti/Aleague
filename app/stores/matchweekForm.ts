@@ -25,6 +25,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
 
   const step = ref<MatchweekFormStep>(MatchweekFormStep.SELECT_RULES);
   const matchweekList = ref<NewMatchweekListResponse>();
+  const isCreatingMatchweeks = ref(false);
   const form = ref(newForm());
 
   const maxWeeksToCreate = computed(() => {
@@ -46,12 +47,16 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   });
 
   async function getNewMatchweeks() {
+    isCreatingMatchweeks.value = true;
+
     matchweekList.value = await newGroupStageMatchweekList({
       groups: stageStore.activeGroupStage?.groups ?? [],
       format: form.value.format,
       roundRobins: form.value.roundRobins,
       weeksToCreate: form.value.weeksToCreate,
     });
+
+    isCreatingMatchweeks.value = false;
   }
 
   function showFormStep(newStep: MatchweekFormStep) {
@@ -83,6 +88,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   return {
     step,
     form,
+    isCreatingMatchweeks,
     matchweekList,
     maxWeeksToCreate,
     showFormStep,

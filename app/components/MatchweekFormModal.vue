@@ -3,6 +3,7 @@
     title="Gerar partidas"
     :size="store.step === MatchweekFormStep.SELECT_RULES ? undefined : 'xl'"
     :submit-button-label="store.step === MatchweekFormStep.SELECT_RULES ? 'Próximo' : 'Confirmar'"
+    :submit-button-disabled="store.isCreatingMatchweeks"
     @submit="store.onFormSubmit"
     @open="store.onFormOpen"
   >

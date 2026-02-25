@@ -15,12 +15,21 @@
           class="btn-square btn-accent btn-soft"
           aria-label="Gerar novamente"
           :icon-left="IconRefresh"
+          :disabled="store.isCreatingMatchweeks"
           @click="store.getNewMatchweeks"
         />
       </AppTooltip>
     </div>
   </div>
-  <div class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
+  <LoadingIndicator
+    v-if="store.isCreatingMatchweeks"
+    class="min-h-10"
+    message="Criando rodadas. Por favor, aguarde..."
+  />
+  <div
+    v-else
+    class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3"
+  >
     <MatchweekFormModalPreviewCard
       v-for="matchweek in store.matchweekList?.matchweeks"
       :key="matchweek.week"
