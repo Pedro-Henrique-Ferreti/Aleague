@@ -1,7 +1,6 @@
 <template>
   <AppModal
     v-model:is-open="isOpen"
-    ref="modalRef"
     title="Editar datas"
     size="xl"
     @open="resetKickoffGroups"
@@ -67,9 +66,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   kickoffsUpdated: [value: Matchweek['matches']];
 }>();
-const isOpen = defineModel<boolean>('is-open');
 
-const modalRef = useTemplateRef('modalRef');
+const isOpen = defineModel<boolean>('is-open');
 
 const form = ref({
   kickoffType: MatchweekKickoff.WEEKDAY,
@@ -103,6 +101,6 @@ function assignKickoffs() {
     ),
   })));
 
-  modalRef.value?.close();
+  isOpen.value = false;
 }
 </script>

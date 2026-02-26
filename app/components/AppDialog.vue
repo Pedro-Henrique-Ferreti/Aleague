@@ -1,7 +1,6 @@
 <template>
   <AppModal
     v-model:is-open="isOpen"
-    ref="modalRef"
     submit-button-label="Confirmar"
     :title="title"
     :show-close-icon="false"
@@ -50,11 +49,9 @@ const emit = defineEmits<{ confirm: [] }>();
 
 const isOpen = defineModel<boolean>('is-open');
 
-const modal = useTemplateRef('modalRef');
-
 function onSubmit() {
   emit('confirm');
 
-  modal.value?.close();
+  isOpen.value = false;
 }
 </script>

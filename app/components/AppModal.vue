@@ -3,7 +3,6 @@
     name="trigger"
     :open-modal="openModal"
     :close-modal="closeModal"
-    :toggle-modal="toggleModal"
   />
   <dialog
     ref="dialogRef"
@@ -74,39 +73,28 @@ const emit = defineEmits<{
 const id = useId();
 
 const isOpen = defineModel<boolean>('is-open');
-const dialogRef = ref<HTMLDialogElement | null>(null);
+
+const dialogRef = useTemplateRef('dialogRef');
 
 function openModal() {
-  dialogRef.value?.showModal();
-
-  if (!isOpen.value) {
-    isOpen.value = true;
-  }
-
-  emit('open');
+  isOpen.value = true;
 }
 
 function closeModal() {
+  isOpen.value = false;
+}
+
+function onModalOpen() {
+  dialogRef.value?.showModal();
+  emit('open');
+}
+
+function onModalClose() {
   dialogRef.value?.close();
-
-  if (isOpen.value) {
-    isOpen.value = false;
-  }
-
   emit('close');
 }
 
-function toggleModal() {
-  (dialogRef.value?.open) ? dialogRef.value.close() : dialogRef.value?.showModal();
-}
-
-watchEffect(() => {
-  isOpen.value ? openModal() : closeModal();
-});
-
-defineExpose({
-  open: openModal,
-  close: closeModal,
-  toggle: toggleModal,
+watch(isOpen, (value) => {
+  value ? onModalOpen() : onModalClose();
 });
 </script>
