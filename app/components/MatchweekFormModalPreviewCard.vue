@@ -28,5 +28,11 @@ const props = defineProps<{
 
 const store = useMatchweekFormStore();
 
-const roundRobinNumber = computed(() => Math.ceil(props.matchweek.week / store.form.weeksToCreate));
+const roundRobinNumber = computed(() => {
+  if (!store.matchweekList) return 1;
+
+  const weeksPerRoundRobin = store.matchweekList.matchweeks.length / store.form.roundRobins;
+
+  return Math.ceil(props.matchweek.week / weeksPerRoundRobin);
+});
 </script>
