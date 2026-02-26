@@ -12,7 +12,7 @@
     @close="closeModal"
   >
     <div
-      class="modal-box"
+      class="modal-box max-h-[93vh]"
       :class="{ 'max-w-48': size === 'lg', 'max-w-80': size === 'xl' }"
     >
       <CloseButton
