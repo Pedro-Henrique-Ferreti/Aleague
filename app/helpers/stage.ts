@@ -45,8 +45,9 @@ export async function newGroupStageMatchweekList(payload: {
   format: GroupStageFormat;
   roundRobins: number;
   weeksToCreate?: number;
+  signal?: AbortSignal;
 }): Promise<NewMatchweekListResponse> {
-  const { groups, format, roundRobins, weeksToCreate } = payload;
+  const { groups, format, roundRobins, weeksToCreate, signal } = payload;
 
   if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
 
@@ -60,6 +61,7 @@ export async function newGroupStageMatchweekList(payload: {
         teams,
         roundRobins,
         weeksToCreate,
+        signal,
       });
 
       schedule.forEach((matches, i) => {
@@ -73,6 +75,7 @@ export async function newGroupStageMatchweekList(payload: {
       roundRobins,
       avoidGroups,
       weeksToCreate,
+      signal,
     });
   }
 

@@ -101,6 +101,31 @@ describe('match-schedule', () => {
 
       expect(elapsedTime).toBeCloseTo(MAX_EXECUTION_TIME, -2);
     });
+
+    it('should terminate if a signal is provided and aborted', async () => {
+      const teamsCount = unbalanceableSchedule.teams.length;
+      const avoidGroupCount = unbalanceableSchedule.avoidGroups[0]!.length;
+      const schedule = generateInitialSchedule(unbalanceableSchedule.teams, unbalanceableSchedule.avoidGroups);
+      const controller = new AbortController();
+      const timeBeforeAbort = 2000;
+
+      setTimeout(() => controller.abort(), timeBeforeAbort);
+
+      const startTime = Date.now();
+
+      let caughtError: Error | undefined;
+
+      try {
+        await balanceScheduleWeeks(schedule, teamsCount, avoidGroupCount, controller.signal);
+      } catch (e) {
+        caughtError = e as Error;
+      }
+
+      const elapsedTime = Date.now() - startTime;
+
+      expect(caughtError?.message).toBe('Schedule balancing was aborted');
+      expect(elapsedTime).toBeCloseTo(timeBeforeAbort, -2);
+    });
   }, EXECUTION_TIME);
 
   describe('addRoundRobins', () => {

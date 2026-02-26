@@ -24,6 +24,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   });
 
   const step = ref<MatchweekFormStep>(MatchweekFormStep.SELECT_RULES);
+  const matchweekListController = ref<AbortController>();
   const matchweekList = ref<NewMatchweekListResponse>();
   const isCreatingMatchweeks = ref(false);
   const form = ref(newForm());
@@ -48,20 +49,25 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
 
   async function getNewMatchweeks() {
     isCreatingMatchweeks.value = true;
+    matchweekListController.value = new AbortController();
 
-    matchweekList.value = await newGroupStageMatchweekList({
+    newGroupStageMatchweekList({
       groups: stageStore.activeGroupStage?.groups ?? [],
       format: form.value.format,
       roundRobins: form.value.roundRobins,
       weeksToCreate: form.value.weeksToCreate,
-    });
-
-    isCreatingMatchweeks.value = false;
+      signal: matchweekListController.value?.signal,
+    }).then((result) => {
+      matchweekList.value = result;
+      isCreatingMatchweeks.value = false;
+    }).catch(() => {});
   }
 
   function showFormStep(newStep: MatchweekFormStep) {
     if (newStep === MatchweekFormStep.SELECT_RULES) {
+      matchweekListController.value?.abort();
       matchweekList.value = undefined;
+      isCreatingMatchweeks.value = false;
     } else if (newStep === MatchweekFormStep.PREVIEW_MATCHWEEKS) {
       getNewMatchweeks();
     }
@@ -72,6 +78,10 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   function onFormOpen() {
     form.value = newForm();
     showFormStep(MatchweekFormStep.SELECT_RULES);
+  }
+
+  function onFormClose() {
+    matchweekListController.value?.abort();
   }
 
   function onFormSubmit() {
@@ -93,6 +103,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     maxWeeksToCreate,
     showFormStep,
     onFormOpen,
+    onFormClose,
     onFormSubmit,
     getNewMatchweeks,
   };

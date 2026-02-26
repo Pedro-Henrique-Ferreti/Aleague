@@ -6,6 +6,7 @@ interface MatchScheduleParams {
   roundRobins?: number;
   avoidGroups?: TeamDetails['id'][][];
   weeksToCreate?: number;
+  signal?: AbortSignal;
 }
 
 export interface MatchScheduleResponse {
@@ -106,6 +107,7 @@ export async function balanceScheduleWeeks(
   schedule: MatchSchedule,
   teamsCount: number,
   avoidGroupMembersCount?: number,
+  signal?: AbortSignal,
 ): Promise<MatchScheduleResponse> {
   const expectedMatchesPerWeek = getExpectedMatchesPerWeek(teamsCount);
   const expectedWeeks = getExpectedMatchweeksPerRoundRobin(teamsCount, avoidGroupMembersCount);
@@ -144,10 +146,15 @@ export async function balanceScheduleWeeks(
   const startTime = new Date().getTime();
 
   while (!isBalanced(rebalancedSchedule)) {
-    if (new Date().getTime() - startTime > MAX_EXECUTION_TIME) break;
+    if (new Date().getTime() - startTime > MAX_EXECUTION_TIME || signal?.aborted) break;
 
     rebalancedSchedule = attemptRebalance();
+
     await new Promise(resolve => setTimeout(resolve));
+  }
+
+  if (signal?.aborted) {
+    throw new Error('Schedule balancing was aborted');
   }
 
   const isBalancedResult = isBalanced(rebalancedSchedule);
@@ -163,7 +170,7 @@ export async function createMatchSchedule(payload: MatchScheduleParams): Promise
 
   const initialSchedule = generateInitialSchedule(randomizeArray(teams), avoidGroups);
 
-  const result = await balanceScheduleWeeks(initialSchedule, teams.length, avoidGroups?.[0]?.length);
+  const result = await balanceScheduleWeeks(initialSchedule, teams.length, avoidGroups?.[0]?.length, payload.signal);
 
   if (result.isBalanced && weeksToCreate) {
     result.schedule = result.schedule.slice(0, weeksToCreate);

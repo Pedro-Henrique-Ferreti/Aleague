@@ -6,6 +6,7 @@
     :submit-button-disabled="store.isCreatingMatchweeks"
     @submit="store.onFormSubmit"
     @open="store.onFormOpen"
+    @close="store.onFormClose"
   >
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
