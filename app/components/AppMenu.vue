@@ -11,7 +11,7 @@
   <ul
     :id="id"
     popover
-    :class="['dropdown menu w-fit min-w-10 rounded-box bg-base-100 shadow-sm', dropdownClass]"
+    :class="['dropdown menu rounded-box bg-base-100 shadow-sm', dropdownClass]"
     :style="`position-anchor: --menu-${id}`"
   >
     <slot />
