@@ -24,12 +24,12 @@
     <TournamentStageSelector />
     <TournamentGroupStage
       v-if="activeStage && activeStage.type === StageType.GROUP"
-      v-model="(activeStage as GroupStage)"
+      v-model="activeStage"
       :key="activeStage.id"
     />
     <TournamentPlayoffStage
       v-else-if="activeStage && activeStage.type === StageType.PLAYOFF"
-      v-model="(activeStage as PlayoffStage)"
+      v-model="activeStage"
       :active-round-id="(selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
     />
   </template>
