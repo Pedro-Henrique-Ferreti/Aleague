@@ -9,7 +9,7 @@ export default {
     },
     {
       name: 'analytics',
-      path: '/estatisticas',
+      path: '/analytics',
       component: () => import('~/pages/Analytics.vue'),
     },
   ],
