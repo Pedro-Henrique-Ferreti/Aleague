@@ -10,7 +10,7 @@
         :icon-left="menuIsOpen ? IconChevronLeft : IconChevronRight"
         @click="menuIsOpen = !menuIsOpen"
       />
-      <div class="not-group-data-[open]:hidden">
+      <div class="not-group-data-open:hidden">
         <CreateFileMenu
           class="w-full"
           dropdown-class="min-w-14"
@@ -82,12 +82,12 @@ const collectionModalIsOpen = computed({
 @reference '@/assets/css/main.css';
 
 .sidebar {
-  @apply flex flex-col w-2 h-screen py-1.5 px-1 border-r-1 border-base-200 sticky top-0 data-[open]:w-16;
+  @apply flex flex-col w-2 h-screen py-1.5 px-1 border-r border-base-200 sticky top-0 data-open:w-16;
 }
 .sidebar-close-button {
-  @apply btn-square bg-white btn-sm absolute! top-0 right-0 not-group-data-[open]:-right-2;
+  @apply btn-square bg-white btn-sm absolute! top-0 right-0 not-group-data-open:-right-2;
 }
 .sidebar-content {
-  @apply -mr-1 overflow-y-auto scrollbar-on-hover not-group-data-[open]:hidden [scrollbar-gutter:stable];
+  @apply -mr-1 overflow-y-auto scrollbar-on-hover not-group-data-open:hidden [scrollbar-gutter:stable];
 }
 </style>
