@@ -5,7 +5,7 @@
     </h1>
     <p>{{ message }}</p>
     <div class="flex mt-2 w-full items-center justify-center">
-      <OpenFileButton class="w-full max-w-12" />
+      <OpenFileButton class="w-full max-w-12 btn-outline" />
       <slot />
     </div>
   </div>

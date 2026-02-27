@@ -1,6 +1,6 @@
 <template>
   <AppButton
-    class="btn-primary btn-outline"
+    class="btn-primary"
     label="Abrir"
     :icon-left="IconFolder"
     @click="openFileExplorer"
