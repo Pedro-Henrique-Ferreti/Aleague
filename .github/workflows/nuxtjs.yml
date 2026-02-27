@@ -16,6 +16,8 @@ jobs:
           node-version: "22"
       # Pick your own package manager and build script
       - run: npm install
+      - run: npm run typecheck
+      - run: npm run lint
       - run: npx nuxt generate --preset github_pages
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
