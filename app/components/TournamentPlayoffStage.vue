@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grid grid-cols-4 justify-center gap-2">
+    <div class="grid grid-cols-4 justify-center gap-6.25">
       <PlayoffRound
         v-for="round in stage.rounds.filter((r) => displayedRoundsId.includes(r.id))"
         v-model:name="round.name"

@@ -13,7 +13,7 @@
       <PlayoffRoundCard
         v-for="(slot, index) in slots"
         :key="slot.id"
-        class="bracket even:not-last:mb-1"
+        class="bracket"
         :model-value="slot"
         @update:model-value="slots[index] = $event"
         @winner-updated="$emit('slotWinnerUpdated', { team: $event, slotIndex: index })"
@@ -52,13 +52,17 @@ watch(name, (newValue, oldValue) => {
   @apply size-1.25 text-base-content/60 fill-white absolute right-0.5 top-1/2 -translate-y-1/2 pointer-events-none not-group-hover:hidden;
 }
 
+.bracket {
+  @apply relative;
+}
+
 .bracket::before, .bracket::after {
-  @apply block shrink-0 border border-gray-300 content-[''];
+  @apply block shrink-0 border border-gray-300 content-[''] absolute;
 }
 .bracket::before {
-  @apply w-1.75 h-1/2 rounded-xl rounded-l-none border-2 border-l-0;
+  @apply w-1.75 h-1/2 rounded-xl rounded-l-none border-2 border-l-0 -translate-x-4.25;
 }
 .bracket::after {
-  @apply w-2.5;
+  @apply w-2.5 -translate-x-full;
 }
 </style>
