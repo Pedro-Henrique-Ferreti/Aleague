@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <div class="grid grid-cols-4 justify-center gap-6.25">
+  <div ref="container">
+    <div
+      class="grid grid-cols-(--columns) justify-center gap-6.25"
+      :style="`--columns: repeat(${displayedRoundsCount}, 1fr)`"
+    >
       <PlayoffRound
         v-for="round in stage.rounds.filter((r) => displayedRoundsId.includes(r.id))"
         v-model:name="round.name"
@@ -13,11 +16,31 @@
 </template>
 
 <script lang="ts" setup>
+import { useResizeObserver } from '@vueuse/core';
+
 const props = defineProps<{
   activeRoundId: PlayoffRound['id'];
 }>();
 
-const DISPLAYED_ROUNDS_MAX = 4;
+const containerEl = useTemplateRef('container');
+
+const displayedRoundsCount = ref(0);
+
+useResizeObserver(containerEl, ([entry]) => {
+  if (!entry) return;
+
+  const { width } = entry.contentRect;
+
+  if (width > 1440) {
+    displayedRoundsCount.value = 4;
+  } else if (width > 1024) {
+    displayedRoundsCount.value = 3;
+  } else if (width > 640) {
+    displayedRoundsCount.value = 2;
+  } else {
+    displayedRoundsCount.value = 1;
+  }
+});
 
 const stage = defineModel<PlayoffStage>({ required: true });
 
@@ -26,7 +49,7 @@ const activeRoundIndex = computed(() => (
 ));
 
 const displayedRoundsId = computed(() => (
-  stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + DISPLAYED_ROUNDS_MAX).map(i => i.id)
+  stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + displayedRoundsCount.value).map(i => i.id)
 ));
 
 function moveTeamToNextRound(winner: PlayoffRoundWinner, slotIndex: number, roundId: PlayoffRound['id']) {
