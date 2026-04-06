@@ -9,7 +9,7 @@
         alt="Team badge"
         :src="teamDetails.badge"
       >
-      <span>{{ teamDetails.name }}</span>
+      <span :class="{ 'bg-amber-300': isHighlighted }">{{ teamDetails.name }}</span>
       <span
         v-if="showCountry && teamDetails"
         v-text="teamDetails.country"
@@ -30,6 +30,7 @@ const props = defineProps<{
   team?: TeamDetails['id'] | null;
   align?: 'right';
   showCountry?: boolean;
+  isHighlighted?: boolean;
 }>();
 
 const { getTeamById } = useTeamStore();

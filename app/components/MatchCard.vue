@@ -9,6 +9,7 @@
       :align="layout !== 'vertical' ? 'right' : undefined"
       :team="match.homeTeam.id"
       :show-country="showCountry"
+      :is-highlighted="homeTeamHighlighted"
     />
     <div
       class="flex items-stretch gap-0.5 h-full"
@@ -40,6 +41,7 @@
       :class="{ 'text-base-content/60': winnerTeamId && winnerTeamId !== match.awayTeam.id }"
       :team="match.awayTeam.id"
       :show-country="showCountry"
+      :is-highlighted="awayTeamHighlighted"
     />
   </div>
 </template>
@@ -66,6 +68,8 @@ const props = defineProps<{
   readonly?: boolean;
   size?: 'sm';
   winnerTeamId?: TeamDetails['id'];
+  homeTeamHighlighted?: boolean;
+  awayTeamHighlighted?: boolean;
 }>();
 const emit = defineEmits<MatchCardEmits>();
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
