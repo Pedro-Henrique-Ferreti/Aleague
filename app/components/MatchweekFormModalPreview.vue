@@ -28,11 +28,16 @@
   />
   <template v-else>
     <AppAlert
-      v-if="store.matchweekList && !store.matchweekList.isBalanced"
-      class="mb-2"
+      v-if="store.matchweekList && store.matchweekList.isBalanced"
+      class="mb-1"
       message="Não foi possível criar a quantidade escolhida de rodadas. Se desejar, você pode alterar as configurações da fase ou das partidas."
     />
-    <div class="grid gap-1 gap-y-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
+    <TeamListFilter
+      v-model="store.previewHighlightedTeams"
+      title="Destacar"
+      :options="teamListOptions"
+    />
+    <div class="grid gap-1 gap-y-1.5 mt-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
       <MatchweekFormModalPreviewCard
         v-for="matchweek in store.matchweekList?.matchweeks"
         :key="matchweek.week"
@@ -46,4 +51,18 @@
 import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
 
 const store = useMatchweekFormStore();
+
+onMounted(() => {
+  store.previewHighlightedTeams = [];
+});
+
+const teamListOptions = computed(() => {
+  if (!store.matchweekList) return [];
+
+  return Array.from(
+    new Set(store.matchweekList.matchweeks.flatMap(week => (
+      week.matches.flatMap(match => [match.homeTeam.id, match.awayTeam.id])
+    ))),
+  ).filter(id => id !== null);
+});
 </script>

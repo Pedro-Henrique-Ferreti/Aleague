@@ -29,6 +29,8 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
   const isCreatingMatchweeks = ref(false);
   const form = ref(newForm());
 
+  const previewHighlightedTeams = ref<Team['id'][]>([]);
+
   const maxWeeksToCreate = computed(() => {
     if (!stageStore.activeGroupStage) return 0;
 
@@ -101,6 +103,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     isCreatingMatchweeks,
     matchweekList,
     maxWeeksToCreate,
+    previewHighlightedTeams,
     showFormStep,
     onFormOpen,
     onFormClose,

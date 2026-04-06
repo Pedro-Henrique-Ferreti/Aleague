@@ -16,6 +16,8 @@
         v-for="match in matchweek.matches"
         :key="match.id"
         :match="match"
+        :home-team-highlighted="match.homeTeam.id !== null && store.previewHighlightedTeams.includes(match.homeTeam.id)"
+        :away-team-highlighted="match.awayTeam.id !== null && store.previewHighlightedTeams.includes(match.awayTeam.id)"
       />
     </div>
   </div>
