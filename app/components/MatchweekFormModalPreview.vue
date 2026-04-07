@@ -28,7 +28,7 @@
   />
   <template v-else>
     <AppAlert
-      v-if="store.matchweekList && store.matchweekList.isBalanced"
+      v-if="store.matchweekList && !store.matchweekList.isBalanced"
       class="mb-1"
       message="Não foi possível criar a quantidade escolhida de rodadas. Se desejar, você pode alterar as configurações da fase ou das partidas."
     />
