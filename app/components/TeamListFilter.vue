@@ -11,29 +11,34 @@
       @click="showFilters = !showFilters"
     />
   </div>
-  <div
-    v-if="showFilters"
-    class="flex flex-wrap gap-0.5 mt-0.5"
-  >
-    <input
-      v-for="team in options"
-      v-model="selectedTeams"
-      :key="String(team)"
-      class="btn btn-xs rounded-md"
-      type="checkbox"
-      name="teams"
-      :value="team"
-      :aria-label="getTeamById(team)?.name"
+  <template v-if="showFilters">
+    <div class="flex flex-wrap gap-0.5 mt-0.5">
+      <input
+        v-for="team in options"
+        v-model="selectedTeams"
+        :key="String(team)"
+        class="btn btn-xs rounded-md"
+        type="checkbox"
+        name="teams"
+        :value="team"
+        :aria-label="getTeamById(team)?.name"
+      >
+      <button
+        class="btn btn-square btn-xs rounded-md"
+        type="button"
+        aria-label="Clear selected teams"
+        @click="selectedTeams = []"
+      >
+        ✕
+      </button>
+    </div>
+    <div
+      v-if="$slots.default"
+      class="mt-0.75"
     >
-    <button
-      class="btn btn-square btn-xs rounded-md"
-      type="button"
-      aria-label="Clear selected teams"
-      @click="selectedTeams = []"
-    >
-      ✕
-    </button>
-  </div>
+      <slot />
+    </div>
+  </template>
 </template>
 
 <script lang="ts" setup>
