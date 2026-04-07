@@ -5,13 +5,23 @@
       :id="id"
       type="checkbox"
       class="toggle"
+      :class="{
+        'toggle-sm': size === 'sm',
+        'toggle-md': size === 'md',
+        'toggle-lg': size === 'lg',
+      }"
     >
     <span>{{ label }}</span>
   </label>
 </template>
 
 <script lang="ts" setup>
-defineProps<{ label: string }>();
+withDefaults(defineProps<{
+  label: string
+  size?: 'sm' | 'md' | 'lg';
+}>(), {
+  size: 'md',
+});
 
 const id = useId();
 
