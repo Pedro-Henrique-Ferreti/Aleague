@@ -33,10 +33,16 @@
       message="Não foi possível criar a quantidade escolhida de rodadas. Se desejar, você pode alterar as configurações da fase ou das partidas."
     />
     <TeamListFilter
-      v-model="store.previewHighlightedTeams"
+      v-model="store.previewFilter.highlightedTeams"
       title="Destacar"
       :options="teamListOptions"
-    />
+    >
+      <AppToggle
+        v-model="store.previewFilter.showMatchesOnly"
+        label="Destacar apenas partidas entre as equipes"
+        size="sm"
+      />
+    </TeamListFilter>
     <div class="grid gap-1 gap-y-1.5 mt-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
       <MatchweekFormModalPreviewCard
         v-for="matchweek in store.matchweekList?.matchweeks"
@@ -53,7 +59,8 @@ import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
 const store = useMatchweekFormStore();
 
 onMounted(() => {
-  store.previewHighlightedTeams = [];
+  store.previewFilter.highlightedTeams = [];
+  store.previewFilter.showMatchesOnly = false;
 });
 
 const teamListOptions = computed(() => {

@@ -16,8 +16,8 @@
         v-for="match in matchweek.matches"
         :key="match.id"
         :match="match"
-        :home-team-highlighted="match.homeTeam.id !== null && store.previewHighlightedTeams.includes(match.homeTeam.id)"
-        :away-team-highlighted="match.awayTeam.id !== null && store.previewHighlightedTeams.includes(match.awayTeam.id)"
+        :home-team-highlighted="shouldHighlightTeam(match.homeTeam.id, match.awayTeam.id, true)"
+        :away-team-highlighted="shouldHighlightTeam(match.homeTeam.id, match.awayTeam.id, false)"
       />
     </div>
   </div>
@@ -37,4 +37,16 @@ const roundRobinNumber = computed(() => {
 
   return Math.ceil(props.matchweek.week / weeksPerRoundRobin);
 });
+
+function shouldHighlightTeam(homeTeam: MatchTeam['id'], awayTeam: MatchTeam['id'], isHomeTeam: boolean) {
+  if ((isHomeTeam && homeTeam === null) || (!isHomeTeam && awayTeam === null)) return false;
+
+  if (store.previewFilter.showMatchesOnly) {
+    return store.previewFilter.highlightedTeams.includes(homeTeam!) && store.previewFilter.highlightedTeams.includes(awayTeam!);
+  }
+
+  return isHomeTeam
+    ? store.previewFilter.highlightedTeams.includes(homeTeam!)
+    : store.previewFilter.highlightedTeams.includes(awayTeam!);
+}
 </script>
