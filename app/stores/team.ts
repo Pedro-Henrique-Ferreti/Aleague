@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 interface StoreState {
   focusedTeamId: TeamDetails['id'][];
 }

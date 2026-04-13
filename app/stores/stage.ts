@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { updateGroupStageTeams, updatePlayoffStageTeams } from '~/helpers/stage-teams';
 import { newStandingsEntry } from '~/helpers/standings';
 

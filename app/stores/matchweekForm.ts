@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from '~/helpers/group-stage';
 import { getExpectedMatchweeksPerRoundRobin } from '~/helpers/matchweek';
 import { newGroupStageMatchweekList, type NewMatchweekListResponse } from '~/helpers/stage';

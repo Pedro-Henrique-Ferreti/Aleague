@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { getBaseFileId, getTimestamp } from '~/helpers/file';
 
 interface State {

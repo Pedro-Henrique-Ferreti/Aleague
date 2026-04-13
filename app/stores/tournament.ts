@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia';
 import { appendNumericSuffix, getBaseFileId, getTimestamp } from '~/helpers/file';
 import { newTournamentStage } from '~/helpers/tournament';
 

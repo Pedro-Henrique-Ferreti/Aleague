@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 export const useFileStore = defineStore('file', {
   actions: {
     downloadTournamentSourceFile(tournamentId: Tournament['id']) {

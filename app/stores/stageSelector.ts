@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia';
-
 interface SelectionOption {
   id: GroupStage['id'] | PlayoffRound['id'];
   name: GroupStage['name'] | PlayoffRound['name'];
