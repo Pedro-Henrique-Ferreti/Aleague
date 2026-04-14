@@ -23,7 +23,7 @@
             <span
               v-if="match.kickoff && showMatchKickoff[index]"
               v-text="getKickoffDisplayText(match.kickoff, 'EEEEEE \'•\' kk\'h\'mm')"
-              class="matchweek-kickoff"
+              class="matchweek-kickoff divider"
             />
             <MatchCard
               v-model:home-score="match.homeTeam.score"
@@ -119,6 +119,6 @@ async function randomizeMatchweekResults() {
 }
 
 .matchweek-kickoff {
-  @apply divider justify-self-center w-full max-w-2/3 mt-0.75 first:mt-0 -mb-0.5 text-xs font-semibold capitalize;
+  @apply justify-self-center w-full max-w-2/3 mt-0.75 first:mt-0 -mb-0.5 text-xs font-semibold capitalize;
 }
 </style>
