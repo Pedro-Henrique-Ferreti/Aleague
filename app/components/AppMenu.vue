@@ -1,13 +1,19 @@
 <template>
-  <AppButton
-    v-tooltip="tooltip"
-    :style="`anchor-name: --menu-${id}`"
-    :label="label"
-    :class="$attrs.class"
+  <slot
+    name="trigger"
+    :style="triggerStyles"
     :popovertarget="id"
-    :icon-left="iconLeft"
-    :icon-right="displayedIconRight"
-  />
+  >
+    <AppButton
+      v-tooltip="tooltip"
+      :style="triggerStyles"
+      :label="label"
+      :class="$attrs.class"
+      :popovertarget="id"
+      :icon-left="iconLeft"
+      :icon-right="displayedIconRight"
+    />
+  </slot>
   <ul
     :id="id"
     popover
@@ -35,6 +41,7 @@ const props = withDefaults(defineProps<AppMenuProps>(), {
 
 const id = useId();
 
+const triggerStyles = computed(() => `anchor-name: --menu-${id}`);
 const displayedIconRight = computed(() => (
   props.iconRight !== false ? props.iconRight ?? IconChevronDown : undefined
 ));
