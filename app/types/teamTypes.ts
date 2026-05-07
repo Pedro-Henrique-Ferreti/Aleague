@@ -5,7 +5,7 @@ export enum TeamType {
 }
 
 export interface TeamDetails {
-  id: number;
+  id: string;
   name: string;
   country: string;
   badge: string;
