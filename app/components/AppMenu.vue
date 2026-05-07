@@ -12,6 +12,7 @@
       :popovertarget="id"
       :icon-left="iconLeft"
       :icon-right="displayedIconRight"
+      :disabled="disabled"
     />
   </slot>
   <ul
@@ -33,6 +34,7 @@ export interface AppMenuProps {
   iconRight?: Icon | false;
   dropdownClass?: string;
   tooltip?: string;
+  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<AppMenuProps>(), {
