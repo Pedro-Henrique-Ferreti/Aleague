@@ -1,0 +1,15 @@
+export const CHILE_TEAM_LIST: Readonly<TeamDetails[]> = [
+  { id: 'CHL-1', name: 'Universidad Católica', badge: 'https://img.sofascore.com/api/v1/team/3151/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-2', name: 'Unión Española', badge: 'https://img.sofascore.com/api/v1/team/3153/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-3', name: 'Colo-Colo', badge: 'https://img.sofascore.com/api/v1/team/3155/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-4', name: 'Palestino', badge: 'https://img.sofascore.com/api/v1/team/3157/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-5', name: 'Audax Italiano', badge: 'https://img.sofascore.com/api/v1/team/3162/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-6', name: 'O\'Higgins', badge: 'https://img.sofascore.com/api/v1/team/3163/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-7', name: 'Huachipato', badge: 'https://img.sofascore.com/api/v1/team/3164/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-8', name: 'Coquimbo Unido', badge: 'https://img.sofascore.com/api/v1/team/3165/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-9', name: 'Cobresal', badge: 'https://img.sofascore.com/api/v1/team/3167/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-10', name: 'Antofagasta', badge: 'https://img.sofascore.com/api/v1/team/5601/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-11', name: 'Ñublense', badge: 'https://img.sofascore.com/api/v1/team/7029/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-12', name: 'Deportes Iquique', badge: 'https://img.sofascore.com/api/v1/team/33596/image', country: 'CHL', type: TeamType.CLUB },
+  { id: 'CHL-13', name: 'Unión La Calera', badge: 'https://img.sofascore.com/api/v1/team/48242/image', country: 'CHL', type: TeamType.CLUB },
+];
