@@ -37,6 +37,10 @@ export enum Country {
   TURKEY = 'TUR',
   URUGUAY = 'URY',
   VENEZUELA = 'VEN',
+  CZECH_REPUBLIC = 'CZE',
+  POLAND = 'POL',
+  GREECE = 'GRC',
+  UKRAINE = 'UKR',
 }
 
 export const COUNTRY_OPTIONS: Readonly<SelectOptionList<Country | ''>> = [
@@ -62,6 +66,7 @@ export const COUNTRY_OPTIONS: Readonly<SelectOptionList<Country | ''>> = [
   { value: Country.UNITED_STATES, label: 'Estados Unidos' },
   { value: Country.FINLAND, label: 'Finlândia' },
   { value: Country.FRANCE, label: 'França' },
+  { value: Country.GREECE, label: 'Grécia' },
   { value: Country.NETHERLANDS, label: 'Holanda' },
   { value: Country.INDIA, label: 'Índia' },
   { value: Country.ENGLAND, label: 'Inglaterra' },
@@ -72,11 +77,14 @@ export const COUNTRY_OPTIONS: Readonly<SelectOptionList<Country | ''>> = [
   { value: Country.NORWAY, label: 'Noruega' },
   { value: Country.PARAGUAY, label: 'Paraguai' },
   { value: Country.PERU, label: 'Peru' },
+  { value: Country.POLAND, label: 'Polônia' },
   { value: Country.PORTUGAL, label: 'Portugal' },
+  { value: Country.CZECH_REPUBLIC, label: 'República Tcheca' },
   { value: Country.RUSSIA, label: 'Rússia' },
   { value: Country.SWEDEN, label: 'Suécia' },
   { value: Country.SWITZERLAND, label: 'Suíça' },
   { value: Country.TURKEY, label: 'Turquia' },
+  { value: Country.UKRAINE, label: 'Ucrânia' },
   { value: Country.URUGUAY, label: 'Uruguai' },
   { value: Country.VENEZUELA, label: 'Venezuela' },
 ];
