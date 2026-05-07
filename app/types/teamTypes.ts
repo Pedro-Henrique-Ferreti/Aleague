@@ -10,6 +10,7 @@ export interface TeamDetails {
   country: string;
   badge: string;
   type: TeamType;
+  tags: string[];
 }
 
 export type Team = Pick<TeamDetails, 'id' | 'name'>;
