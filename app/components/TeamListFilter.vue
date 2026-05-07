@@ -12,26 +12,12 @@
     />
   </div>
   <template v-if="showFilters">
-    <div class="flex flex-wrap gap-0.5 mt-0.5">
-      <input
-        v-for="team in options"
-        v-model="selectedTeams"
-        :key="String(team)"
-        class="btn btn-xs rounded-md"
-        type="checkbox"
-        name="teams"
-        :value="team"
-        :aria-label="getTeamById(team)?.name"
-      >
-      <button
-        class="btn btn-square btn-xs rounded-md"
-        type="button"
-        aria-label="Clear selected teams"
-        @click="selectedTeams = []"
-      >
-        ✕
-      </button>
-    </div>
+    <AppFilter
+      v-model="selectedTeams"
+      class="mt-0.5"
+      input-name="teams"
+      :options="filterOptions"
+    />
     <div
       v-if="$slots.default"
       class="mt-0.75"
@@ -54,4 +40,9 @@ const { getTeamById } = useTeamStore();
 const selectedTeams = defineModel<Team['id'][]>({ default: () => [] });
 
 const showFilters = ref(!props.title);
+
+const filterOptions = computed(() => props.options.map(id => ({
+  value: id,
+  label: getTeamById(id)?.name ?? id,
+})));
 </script>
