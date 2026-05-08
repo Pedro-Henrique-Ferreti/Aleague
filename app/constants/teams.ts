@@ -4,6 +4,7 @@ import { BELGIUM_TEAM_LIST } from './teams/belgium';
 import { BOLIVIA_TEAM_LIST } from './teams/bolivia';
 import { BRAZIL_TEAM_LIST } from './teams/brazil';
 import { CHILE_TEAM_LIST } from './teams/chile';
+import { CHINA_TEAM_LIST } from './teams/china';
 import { COLOMBIA_TEAM_LIST } from './teams/colombia';
 import { CUSTOM_TEAM_LIST } from './teams/custom';
 import { CZECH_REPUBLIC_TEAM_LIST } from './teams/czech-republic';
@@ -20,12 +21,14 @@ import { KOREA_TEAM_LIST } from './teams/korea';
 import { MEXICO_TEAM_LIST } from './teams/mexico';
 import { NATIONAL_TEAM_LIST } from './teams/national';
 import { NETHERLANDS_TEAM_LIST } from './teams/netherlands';
+import { NORWAY_TEAM_LIST } from './teams/norway';
 import { PARAGUAY_TEAM_LIST } from './teams/paraguay';
 import { PERU_TEAM_LIST } from './teams/peru';
 import { POLAND_TEAM_LIST } from './teams/poland';
 import { PORTUGAL_TEAM_LIST } from './teams/portugal';
 import { RUSSIA_TEAM_LIST } from './teams/russia';
 import { SAUDI_ARABIA_TEAM_LIST } from './teams/saudi-arabia';
+import { SCOTLAND_TEAM_LIST } from './teams/scotland';
 import { SPAIN_TEAM_LIST } from './teams/spain';
 import { SWITZERLAND_TEAM_LIST } from './teams/switzerland';
 import { TURKEY_TEAM_LIST } from './teams/turkey';
@@ -66,6 +69,9 @@ export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
   ...CZECH_REPUBLIC_TEAM_LIST,
   ...POLAND_TEAM_LIST,
   ...GREECE_TEAM_LIST,
+  ...CHINA_TEAM_LIST,
+  ...NORWAY_TEAM_LIST,
+  ...SCOTLAND_TEAM_LIST,
   ...NATIONAL_TEAM_LIST,
   ...CUSTOM_TEAM_LIST,
 ];

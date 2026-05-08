@@ -11,4 +11,9 @@ export const BOLIVIA_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'BOL-10', name: 'Real Tomayapo', badge: 'https://img.sofascore.com/api/v1/team/335685/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
   { id: 'BOL-11', name: 'Independiente Petrolero', badge: 'https://img.sofascore.com/api/v1/team/372975/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
   { id: 'BOL-12', name: 'San Antonio Bulo-Bulo', badge: 'https://img.sofascore.com/api/v1/team/396625/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
+  { id: 'BOL-13', name: 'Club Aurora', badge: 'https://img.sofascore.com/api/v1/team/33714/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
+  { id: 'BOL-14', name: 'Academia de Balompié Boliviano', badge: 'https://img.sofascore.com/api/v1/team/423188/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
+  { id: 'BOL-15', name: 'CDT Real Oruro', badge: 'https://img.sofascore.com/api/v1/team/423186/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
+  { id: 'BOL-16', name: 'GV San José', badge: 'https://img.sofascore.com/api/v1/team/505268/image', country: 'BOL', type: TeamType.CLUB, tags: [] },
+  { id: 'BOL-17', name: 'Guabirá', badge: 'https://img.sofascore.com/api/v1/team/47701/image', country: 'BOL', type: TeamType.CLUB, tags: [] }
 ];

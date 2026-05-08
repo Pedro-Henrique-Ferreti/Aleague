@@ -1,0 +1,18 @@
+export const NORWAY_TEAM_LIST: Readonly<TeamDetails[]> = [
+  { id: 'NOR-1', name: 'Tromsø', badge: 'https://img.sofascore.com/api/v1/team/660/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-2', name: 'Viking', badge: 'https://img.sofascore.com/api/v1/team/1164/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-3', name: 'Lillestrøm', badge: 'https://img.sofascore.com/api/v1/team/664/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-4', name: 'Bodø/Glimt', badge: 'https://img.sofascore.com/api/v1/team/656/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-5', name: 'Molde', badge: 'https://img.sofascore.com/api/v1/team/661/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-6', name: 'HamKam', badge: 'https://img.sofascore.com/api/v1/team/666/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-7', name: 'Brann', badge: 'https://img.sofascore.com/api/v1/team/1159/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-8', name: 'Sandefjord', badge: 'https://img.sofascore.com/api/v1/team/676/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-9', name: 'Kristiansund', badge: 'https://img.sofascore.com/api/v1/team/957/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-10', name: 'KFUM Oslo', badge: 'https://img.sofascore.com/api/v1/team/786/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-11', name: 'Vålerenga', badge: 'https://img.sofascore.com/api/v1/team/1165/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-12', name: 'Fredrikstad', badge: 'https://img.sofascore.com/api/v1/team/687/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-13', name: 'Sarpsborg 08', badge: 'https://img.sofascore.com/api/v1/team/822/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-14', name: 'Rosenborg', badge: 'https://img.sofascore.com/api/v1/team/1161/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-15', name: 'IK Start', badge: 'https://img.sofascore.com/api/v1/team/667/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+  { id: 'NOR-16', name: 'Aalesund', badge: 'https://img.sofascore.com/api/v1/team/677/image', country: 'NOR', type: TeamType.CLUB, tags: [] },
+];

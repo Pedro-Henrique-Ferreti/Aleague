@@ -8,4 +8,9 @@ export const VENEZUELA_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'VEN-7', name: 'Metropolitanos', badge: 'https://img.sofascore.com/api/v1/team/162480/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
   { id: 'VEN-8', name: 'Puerto Cabello', badge: 'https://img.sofascore.com/api/v1/team/230725/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
   { id: 'VEN-9', name: 'Rayo Zuliano', badge: 'https://img.sofascore.com/api/v1/team/386310/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
+  { id: 'VEN-10', name: 'Universidad Central', badge: 'https://img.sofascore.com/api/v1/team/249952/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
+  { id: 'VEN-11', name: 'Portuguesa', badge: 'https://img.sofascore.com/api/v1/team/6234/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
+  { id: 'VEN-12', name: 'Estudiantes de Mérida', badge: 'https://img.sofascore.com/api/v1/team/7745/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
+  { id: 'VEN-13', name: 'Anzoátegui', badge: 'https://img.sofascore.com/api/v1/team/418693/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
+  { id: 'VEN-14', name: 'Trujillanos', badge: 'https://img.sofascore.com/api/v1/team/6235/image', country: 'VEN', type: TeamType.CLUB, tags: [] },
 ];

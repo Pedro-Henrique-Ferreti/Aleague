@@ -11,4 +11,12 @@ export const PORTUGAL_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'PRT-10', name: 'Estoril Praia', badge: 'https://img.sofascore.com/api/v1/team/4500/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
   { id: 'PRT-11', name: 'Casa Pia', badge: 'https://img.sofascore.com/api/v1/team/36365/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
   { id: 'PRT-12', name: 'Famalicão', badge: 'https://img.sofascore.com/api/v1/team/49531/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-13', name: 'Gil Vicente', badge: 'https://img.sofascore.com/api/v1/team/3010/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-14', name: 'Moreirense', badge: 'https://img.sofascore.com/api/v1/team/3014/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-15', name: 'Vitória', badge: 'https://img.sofascore.com/api/v1/team/3009/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-16', name: 'Alverca', badge: 'https://img.sofascore.com/api/v1/team/190328/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-17', name: 'Arouca', badge: 'https://img.sofascore.com/api/v1/team/25777/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-18', name: 'Nacional', badge: 'https://img.sofascore.com/api/v1/team/3013/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-19', name: 'Tondela', badge: 'https://img.sofascore.com/api/v1/team/38396/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
+  { id: 'PRT-20', name: 'AVS', badge: 'https://img.sofascore.com/api/v1/team/483088/image', country: 'PRT', type: TeamType.CLUB, tags: [] },
 ];

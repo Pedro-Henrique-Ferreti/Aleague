@@ -14,4 +14,11 @@ export const FRANCE_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'FRA-13', name: 'Toulouse', badge: 'https://img.sofascore.com/api/v1/team/1681/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
   { id: 'FRA-14', name: 'Stade de Reims', badge: 'https://img.sofascore.com/api/v1/team/1682/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
   { id: 'FRA-15', name: 'Brest', badge: 'https://img.sofascore.com/api/v1/team/1715/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-16', name: 'Lens', badge: 'https://img.sofascore.com/api/v1/team/1648/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-17', name: 'Rennes', badge: 'https://img.sofascore.com/api/v1/team/1658/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-18', name: 'AS Monaco', badge: 'https://img.sofascore.com/api/v1/team/1653/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-19', name: 'Lorient', badge: 'https://img.sofascore.com/api/v1/team/1656/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-20', name: 'Paris FC', badge: 'https://img.sofascore.com/api/v1/team/6070/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-21', name: 'Angers', badge: 'https://img.sofascore.com/api/v1/team/1684/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
+  { id: 'FRA-22', name: 'Metz', badge: 'https://img.sofascore.com/api/v1/team/1651/image', country: 'FRA', type: TeamType.CLUB, tags: [] },
 ];

@@ -12,4 +12,10 @@ export const CHILE_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'CHL-11', name: 'Ñublense', badge: 'https://img.sofascore.com/api/v1/team/7029/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
   { id: 'CHL-12', name: 'Deportes Iquique', badge: 'https://img.sofascore.com/api/v1/team/33596/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
   { id: 'CHL-13', name: 'Unión La Calera', badge: 'https://img.sofascore.com/api/v1/team/48242/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
+  { id: 'CHL-14', name: 'Deportes Limache', badge: 'https://img.sofascore.com/api/v1/team/331131/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
+  { id: 'CHL-15', name: 'Universidad de Chile', badge: 'https://img.sofascore.com/api/v1/team/3161/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
+  { id: 'CHL-16', name: 'Everton', badge: 'https://img.sofascore.com/api/v1/team/5032/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
+  { id: 'CHL-17', name: 'La Serena', badge: 'https://img.sofascore.com/api/v1/team/5031/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
+  { id: 'CHL-18', name: 'Universidad  de Concepción', badge: 'https://img.sofascore.com/api/v1/team/5034/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
+  { id: 'CHL-19', name: 'Deportes Concepción', badge: 'https://img.sofascore.com/api/v1/team/3160/image', country: 'CHL', type: TeamType.CLUB, tags: [] },
 ];

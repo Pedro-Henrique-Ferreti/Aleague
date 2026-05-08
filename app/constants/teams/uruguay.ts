@@ -7,4 +7,12 @@ export const URUGUAY_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'URY-6', name: 'Cerro Largo', badge: 'https://img.sofascore.com/api/v1/team/25009/image', country: 'URY', type: TeamType.CLUB, tags: [] },
   { id: 'URY-7', name: 'Racing UY', badge: 'https://img.sofascore.com/api/v1/team/25010/image', country: 'URY', type: TeamType.CLUB, tags: [] },
   { id: 'URY-8', name: 'Boston River', badge: 'https://img.sofascore.com/api/v1/team/174970/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-9', name: 'Deportivo Maldonado', badge: 'https://img.sofascore.com/api/v1/team/3234/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-10', name: 'Albion', badge: 'https://img.sofascore.com/api/v1/team/278204/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-11', name: 'Central Español', badge: 'https://img.sofascore.com/api/v1/team/3232/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-12', name: 'Torque', badge: 'https://img.sofascore.com/api/v1/team/174972/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-13', name: 'Wanderers', badge: 'https://img.sofascore.com/api/v1/team/3240/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-14', name: 'Juventud', badge: 'https://img.sofascore.com/api/v1/team/3224/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-15', name: 'Progreso', badge: 'https://img.sofascore.com/api/v1/team/3238/image', country: 'URY', type: TeamType.CLUB, tags: [] },
+  { id: 'URY-16', name: 'Cerro', badge: 'https://img.sofascore.com/api/v1/team/22011/image', country: 'URY', type: TeamType.CLUB, tags: [] },
 ];

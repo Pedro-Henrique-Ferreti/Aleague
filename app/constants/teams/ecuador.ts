@@ -6,4 +6,13 @@ export const ECUADOR_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'ECU-5', name: 'Macará', badge: 'https://img.sofascore.com/api/v1/team/6001/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
   { id: 'ECU-6', name: 'Mushuc Runa', badge: 'https://img.sofascore.com/api/v1/team/134976/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
   { id: 'ECU-7', name: 'Delfín', badge: 'https://img.sofascore.com/api/v1/team/213638/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-8', name: 'Independiente del Valle', badge: 'https://img.sofascore.com/api/v1/team/39723/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-9', name: 'Universidad Católica', badge: 'https://img.sofascore.com/api/v1/team/21942/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-10', name: 'Guayaquil City', badge: 'https://img.sofascore.com/api/v1/team/188850/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-11', name: 'Deportivo Cuenca', badge: 'https://img.sofascore.com/api/v1/team/5251/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-12', name: 'Orense', badge: 'https://img.sofascore.com/api/v1/team/277525/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-13', name: 'Leones del Norte', badge: 'https://img.sofascore.com/api/v1/team/388234/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-14', name: 'Libertad', badge: 'https://img.sofascore.com/api/v1/team/394127/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-15', name: 'Técnico Universitario', badge: 'https://img.sofascore.com/api/v1/team/21941/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
+  { id: 'ECU-16', name: 'Manta', badge: 'https://img.sofascore.com/api/v1/team/33561/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
 ];
