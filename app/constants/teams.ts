@@ -34,11 +34,11 @@ import { URUGUAY_TEAM_LIST } from './teams/uruguay';
 import { VENEZUELA_TEAM_LIST } from './teams/venezuela';
 
 export const DETAILED_TEAM_LIST: Readonly<TeamDetails[]> = [
+  ...BRAZIL_TEAM_LIST,
   ...ARGENTINA_TEAM_LIST,
   ...AUSTRIA_TEAM_LIST,
   ...BELGIUM_TEAM_LIST,
   ...BOLIVIA_TEAM_LIST,
-  ...BRAZIL_TEAM_LIST,
   ...CHILE_TEAM_LIST,
   ...COLOMBIA_TEAM_LIST,
   ...DENMARK_TEAM_LIST,
