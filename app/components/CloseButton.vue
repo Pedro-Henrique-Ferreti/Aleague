@@ -3,6 +3,6 @@
     v-text="'✕'"
     type="button"
     class="btn btn-sm btn-circle btn-ghost"
-    aria-label="Close"
+    aria-label="Fechar"
   />
 </template>

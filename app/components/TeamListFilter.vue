@@ -6,7 +6,7 @@
     <span class="font-semibold">{{ title }}</span>
     <AppButton
       class="btn-square btn-ghost btn-xs"
-      aria-label="Filters"
+      aria-label="Filtros"
       :icon-left="showFilters ? IconChevronUp : IconChevronDown"
       @click="showFilters = !showFilters"
     />

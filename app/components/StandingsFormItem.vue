@@ -3,7 +3,7 @@
     <span>Rodada {{ form.week }}</span>
     <img
       class="size-1.75"
-      alt="Team badge"
+      alt="Escudo da equipe"
       :src="team?.badge"
     >
     <span class="font-semibold text-[0.625rem]">{{ team?.name }}&nbsp;{{ isHomeTeam ? '(C)' : '(F)' }}</span>

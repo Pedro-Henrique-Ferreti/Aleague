@@ -9,13 +9,13 @@
     <template v-else>
       <img
         class="size-1.5"
-        alt="Team badge"
+        alt="Escudo da equipe"
         :src="team?.badge || ''"
       >
       <span>{{ team.name }}</span>
       <CloseButton
         class="btn-xs ml-auto"
-        aria-label="Remove team"
+        aria-label="Remover equipe"
         @click="$emit('remove')"
       />
     </template>

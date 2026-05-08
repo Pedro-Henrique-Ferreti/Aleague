@@ -17,7 +17,7 @@
       <CloseButton
         v-if="showCloseIcon"
         class="absolute right-1 top-1"
-        aria-label="Close modal"
+        aria-label="Fechar modal"
         @click="closeModal"
       />
       <h3

@@ -3,7 +3,7 @@
     <AppButton
       v-tooltip="'Rodada anterior'"
       class="btn-square btn-sm btn-ghost"
-      aria-label="Show previous matchweek"
+      aria-label="Mostrar rodada anterior"
       :icon-left="IconChevronLeft"
       :disabled="disabled || currentMatchweek <= 1"
       @click="currentMatchweek -= 1"
@@ -17,7 +17,7 @@
     <AppButton
       v-tooltip="'Próxima rodada'"
       class="btn-square btn-sm btn-ghost"
-      aria-label="Show next matchweek"
+      aria-label="Mostrar próxima rodada"
       :icon-left="IconChevronRight"
       :disabled="disabled || currentMatchweek >= matchweeks.length"
       @click="currentMatchweek += 1"

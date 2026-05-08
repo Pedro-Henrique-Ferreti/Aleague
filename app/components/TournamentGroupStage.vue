@@ -18,7 +18,7 @@
           <AppButton
             v-if="index === 0"
             class="btn-square btn-ghost w-2 h-2"
-            aria-label="Filters"
+            aria-label="Filtros"
             :icon-left="IconAdjustmentsHorizontal"
             @click="showFilters = !showFilters"
           />

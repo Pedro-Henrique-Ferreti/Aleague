@@ -1,8 +1,8 @@
 <template>
-  <AppTooltip label="Preencher participantes">
+  <AppTooltip label="Preencher aleatoriamente">
     <AppButton
       class="btn-square btn-accent btn-soft"
-      aria-label="Fill slots"
+      aria-label="Preencher aleatoriamente"
       :icon-left="IconWand"
       @click="fillSlots"
     />

@@ -23,20 +23,20 @@
       <div class="flex justify-center size-5">
         <img
           class="h-5"
-          alt="Icon preview"
+          alt="Logo do campeonato"
           :src="form.icon"
         >
       </div>
       <div class="flex gap-0.5 col-end-3 justify-between">
         <AppButton
           class="btn-square btn-sm"
-          aria-label="Show previous avatar"
+          aria-label="Mostrar logo anterior"
           :icon-left="IconChevronLeft"
           @click="changeIcon(-1)"
         />
         <AppButton
           class="btn-square btn-sm"
-          aria-label="Show next avatar"
+          aria-label="Mostrar logo seguinte"
           :icon-left="IconChevronRight"
           @click="changeIcon(1)"
         />

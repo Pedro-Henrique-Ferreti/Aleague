@@ -6,7 +6,7 @@
     <template v-if="teamDetails">
       <img
         class="size-1.5 shrink-0"
-        alt="Team badge"
+        alt="Escudo da equipe"
         :src="teamDetails.badge"
       >
       <span :class="{ 'bg-amber-300': isHighlighted }">{{ teamDetails.name }}</span>

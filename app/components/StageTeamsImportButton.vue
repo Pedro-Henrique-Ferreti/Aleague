@@ -1,8 +1,8 @@
 <template>
-  <AppTooltip label="Importar participantes">
+  <AppTooltip label="Importar equipes">
     <AppButton
       class="btn-square btn-accent btn-soft"
-      aria-label="Fill slots"
+      aria-label="Importar equipes"
       :icon-left="IconFileArrowLeft"
       @click="openFileExplorer"
     />

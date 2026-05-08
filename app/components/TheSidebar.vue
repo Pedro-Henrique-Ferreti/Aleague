@@ -6,7 +6,7 @@
     <header class="pt-3.5 mb-2 relative">
       <AppButton
         class="sidebar-close-button"
-        :aria-label="menuIsOpen ? 'Close menu' : 'Open menu'"
+        :aria-label="menuIsOpen ? 'Fechar menu' : 'Abrir menu'"
         :icon-left="menuIsOpen ? IconChevronLeft : IconChevronRight"
         @click="menuIsOpen = !menuIsOpen"
       />

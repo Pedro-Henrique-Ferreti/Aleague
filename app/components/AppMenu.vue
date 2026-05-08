@@ -13,6 +13,7 @@
       :icon-left="iconLeft"
       :icon-right="displayedIconRight"
       :disabled="disabled"
+      :aria-label="ariaLabel"
     />
   </slot>
   <component
@@ -37,6 +38,7 @@ export interface AppMenuProps {
   dropdownElement?: 'ul' | 'div';
   tooltip?: string;
   disabled?: boolean;
+  ariaLabel?: string;
 }
 
 const props = withDefaults(defineProps<AppMenuProps>(), {

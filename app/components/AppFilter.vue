@@ -13,7 +13,7 @@
     <button
       class="btn btn-square btn-xs rounded-md"
       type="button"
-      aria-label="Reset filter"
+      aria-label="Limpar filtros"
       @click="selectedOptions = []"
     >
       ✕

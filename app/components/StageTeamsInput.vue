@@ -7,7 +7,7 @@
         :id="inputId"
         class="grow"
         type="search"
-        placeholder="Search"
+        placeholder="Pesquisar"
         @click="showPopover"
         @keypress.enter="showPopover"
       >
@@ -34,7 +34,7 @@
           >
             <img
               class="size-1.25"
-              alt="Team badge"
+              alt="Escudo da equipe"
               :src="getTeamById(team.id)?.badge || ''"
             >
             <span>{{ team.name }}</span>
@@ -46,12 +46,14 @@
     <BaseSelect
       v-model="form.filter"
       class="w-7.5 select-sm select-ghost px-0.5"
+      aria-label="Tipo de equipe"
       :options="TEAM_TYPE_OPTIONS"
     />
     <div class="divider divider-horizontal m-0" />
     <BaseSelect
       v-model="form.country"
       class="w-8.5 select-sm select-ghost px-0.5"
+      aria-label="País da equipe"
       :options="COUNTRY_OPTIONS"
       :disabled="form.filter === TeamTypeFilter.NATIONAL"
     />

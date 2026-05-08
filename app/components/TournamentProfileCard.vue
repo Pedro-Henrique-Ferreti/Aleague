@@ -2,7 +2,7 @@
   <div class="flex items-center gap-1.5">
     <img
       class="w-auto h-6"
-      alt="Tournament icon"
+      alt="Logo do campeonato"
       :src="store.activeTournament?.icon"
     >
     <div>

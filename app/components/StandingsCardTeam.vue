@@ -23,7 +23,7 @@
           v-for="color in QUALIFIER_COLORS"
           :key="color"
           class="flex items-center justify-center size-1.75 cursor-pointer"
-          aria-label="Select qualifier color"
+          aria-label="Cor da legenda"
           @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
         >
           <component
@@ -36,7 +36,7 @@
     <span class="size-0.25 ml-0.75 mr-1 rounded-full bg-base-200" />
     <img
       class="size-1.5 mr-0.75"
-      alt="Team badge"
+      alt="Escudo da equipe"
       :src="team?.badge || ''"
     >
     <div>
