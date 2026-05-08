@@ -59,6 +59,7 @@
     <AppMenu
       class="text-xs bg-transparent border-0 font-normal px-0.75"
       label="Tags"
+      dropdown-element="div"
       dropdown-class="dropdown-end max-w-24 max-h-14.5 border border-base-200 shadow-none!"
       :icon-right="IconCaretDownFilled"
       :disabled="tagOptions.length === 0 || form.country === ''"

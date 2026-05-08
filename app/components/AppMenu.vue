@@ -15,14 +15,15 @@
       :disabled="disabled"
     />
   </slot>
-  <ul
+  <component
+    :is="dropdownElement"
     :id="id"
     popover
     :class="['dropdown menu rounded-box bg-base-100 shadow-sm', dropdownClass]"
     :style="`position-anchor: --menu-${id}`"
   >
     <slot />
-  </ul>
+  </component>
 </template>
 
 <script lang="ts" setup>
@@ -33,12 +34,14 @@ export interface AppMenuProps {
   iconLeft?: Icon;
   iconRight?: Icon | false;
   dropdownClass?: string;
+  dropdownElement?: 'ul' | 'div';
   tooltip?: string;
   disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<AppMenuProps>(), {
   iconRight: undefined,
+  dropdownElement: 'ul',
 });
 
 const id = useId();
