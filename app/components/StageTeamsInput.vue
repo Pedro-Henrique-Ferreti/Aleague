@@ -51,15 +51,29 @@
     <div class="divider divider-horizontal m-0" />
     <BaseSelect
       v-model="form.country"
-      class="w-8 select-sm select-ghost px-0.5"
+      class="w-8.5 select-sm select-ghost px-0.5"
       :options="COUNTRY_OPTIONS"
       :disabled="form.filter === TeamTypeFilter.NATIONAL"
     />
+    <div class="divider divider-horizontal m-0" />
+    <AppMenu
+      class="text-xs bg-transparent border-0 font-normal px-0.75"
+      label="Tags"
+      dropdown-class="dropdown-end max-w-24 max-h-14.5 border border-base-200 shadow-none!"
+      :icon-right="IconCaretDownFilled"
+      :disabled="tagOptions.length === 0 || form.country === ''"
+    >
+      <AppFilter
+        v-model="form.tags"
+        input-name="tags"
+        :options="tagOptions"
+      />
+    </AppMenu>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IconSearch } from '@tabler/icons-vue';
+import { IconCaretDownFilled, IconSearch } from '@tabler/icons-vue';
 
 /* eslint-disable ts/prefer-literal-enum-member */
 // This is needed to allow using TeamType values as SelectOption values without type issues.
@@ -75,6 +89,7 @@ interface Form {
   search: string;
   filter: TeamTypeFilter;
   country: string;
+  tags: TeamDetails['tags'];
 }
 
 const props = defineProps<{
@@ -103,10 +118,15 @@ const form = ref<Form>({
   search: '',
   filter: TeamTypeFilter.CLUB,
   country: '',
+  tags: [],
 });
 
 watch(() => form.value.filter, () => {
   form.value.country = '';
+});
+
+watch([() => form.value.filter, () => form.value.country], () => {
+  form.value.tags = [];
 });
 
 const teamsInTournament = computed(() => {
@@ -121,17 +141,28 @@ const teamsInTournament = computed(() => {
   });
 });
 
-const teamOptions = computed<TeamDetails[]>(() => DETAILED_TEAM_LIST.filter((team) => {
-  const parseName = (name: string) => normalizeString(name).toLowerCase();
-  const { search, filter, country } = form.value;
-
-  const isSearchValid = search === '' || parseName(team.name).includes(parseName(search));
+const validTeams = computed(() => DETAILED_TEAM_LIST.filter((team) => {
+  const { filter, country } = form.value;
   const isCountryValid = country === '' || team.country === country;
   const isTypeValid = filter === TeamTypeFilter.All || (
     (filter === TeamTypeFilter.TOURNAMENT) ? teamsInTournament.value.includes(team.id) : (filter as unknown as TeamType) === team.type
   );
 
-  return !props.selectedTeams.includes(team.id) && isSearchValid && isTypeValid && isCountryValid;
+  return isCountryValid && isTypeValid;
+}));
+
+const tagOptions = computed(() => {
+  const tagsSet = new Set<TeamDetails['tags'][number]>(validTeams.value.flatMap(team => team.tags));
+
+  return Array.from(tagsSet).map(tag => ({ label: tag, value: tag }));
+});
+
+const teamOptions = computed<TeamDetails[]>(() => validTeams.value.filter((team) => {
+  const parseName = (name: string) => normalizeString(name).toLowerCase();
+  const isSearchValid = form.value.search === '' || parseName(team.name).includes(parseName(form.value.search));
+  const isTagValid = form.value.tags.length === 0 || form.value.tags.every(tag => team.tags.includes(tag));
+
+  return !props.selectedTeams.includes(team.id) && isSearchValid && isTagValid;
 }));
 
 // Popover
