@@ -64,7 +64,7 @@
       dropdown-element="div"
       dropdown-class="dropdown-end max-w-24 max-h-14.5 border border-base-200 shadow-none!"
       :icon-right="IconCaretDownFilled"
-      :disabled="tagOptions.length === 0 || form.country === ''"
+      :disabled="tagOptions.length === 0 || (form.filter !== TeamTypeFilter.NATIONAL && form.country === '')"
     >
       <AppFilter
         v-model="form.tags"
