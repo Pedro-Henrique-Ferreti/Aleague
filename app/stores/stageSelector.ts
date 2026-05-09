@@ -20,9 +20,9 @@ export const useStageSelectorStore = defineStore('stage-selector', () => {
     });
   });
 
-  watch(() => selectionOptions.value.length, (length) => {
-    selectedStageOrPlayoffRoundId.value = selectionOptions.value[length - 1]?.id;
-  }, { immediate: true });
+  watchEffect(() => {
+    selectedStageOrPlayoffRoundId.value = selectionOptions.value[selectionOptions.value.length - 1]?.id;
+  });
 
   return {
     selectionOptions,
