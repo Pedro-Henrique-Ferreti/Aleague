@@ -13,7 +13,7 @@
       @click="$emit('editKickoffs')"
     />
     <AppMenuItem
-      label="Aleatorizar resultados"
+      label="Simular resultados"
       :icon="IconPencilQuestion"
       @click="$emit('randomizeResults')"
     />

@@ -18,7 +18,7 @@
       <ul class="dropdown-content menu bg-base-100 w-14 rounded-box z-1 shadow-sm">
         <AppMenuItem
           v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
-          label="Aleatorizar resultados"
+          label="Simular resultados"
           :icon="IconPencilQuestion"
           @click="randomizeScore"
         />
