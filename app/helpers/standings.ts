@@ -35,7 +35,7 @@ export function getStandingsDataFromScore(homeScore: number, awayScore: number, 
     won: won ? 1 : 0,
     drawn: drawn ? 1 : 0,
     lost: goalsFor < goalsAgainst ? 1 : 0,
-    points: won ? POINTS_PER_WIN : drawn ? POINTS_PER_DRAW : POINTS_PER_LOSE,
+    points: won ? POINTS_PER_WIN : drawn ? POINTS_PER_DRAW : POINTS_PER_LOSS,
   };
 }
 

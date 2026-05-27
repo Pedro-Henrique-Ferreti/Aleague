@@ -20,4 +20,4 @@ export const TABLE_ENTRY_VIEW_OPTIONS: Readonly<SelectOptionList<TableEntryView>
 
 export const POINTS_PER_WIN = 3;
 export const POINTS_PER_DRAW = 1;
-export const POINTS_PER_LOSE = 0;
+export const POINTS_PER_LOSS = 0;
