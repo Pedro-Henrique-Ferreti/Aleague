@@ -14,7 +14,7 @@
     />
     <AppMenuItem
       label="Simular resultados"
-      :icon="IconPencilQuestion"
+      :icon="IconDeviceGamepad2"
       @click="$emit('randomizeResults')"
     />
     <AppMenuItem
@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconClockEdit, IconDotsVertical, IconPencilQuestion, IconTrash } from '@tabler/icons-vue';
+import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconTrash } from '@tabler/icons-vue';
 
 const emit = defineEmits<{
   editKickoffs: [];

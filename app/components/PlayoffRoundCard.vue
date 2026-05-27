@@ -19,7 +19,7 @@
         <AppMenuItem
           v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
           label="Simular resultados"
-          :icon="IconPencilQuestion"
+          :icon="IconDeviceGamepad2"
           @click="randomizeScore"
         />
         <AppMenuItem
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPencilQuestion, IconPlus, IconTrash } from '@tabler/icons-vue';
+import { IconDeviceGamepad2, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { getRandomScore, newMatch } from '~/helpers/match';
 
 const emit = defineEmits<{
