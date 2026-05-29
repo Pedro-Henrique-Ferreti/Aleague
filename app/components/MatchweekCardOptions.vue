@@ -13,9 +13,14 @@
       @click="matchweekCardStore.kickoffModalIsOpen = true"
     />
     <AppMenuItem
-      label="Simular resultados"
+      label="Simular uma vez"
       :icon="IconDeviceGamepad2"
       @click="matchweekCardStore.simulateMatchweek"
+    />
+    <AppMenuItem
+      label="Simular tudo"
+      :icon="IconPlayerTrackNext"
+      @click="showSimulationModal = true"
     />
     <AppMenuItem
       label="Excluir rodadas"
@@ -31,18 +36,30 @@
     message="Você tem certeza que deseja excluir todas as rodadas? Essa ação não poderá ser desfeita."
     @confirm="onDeleteMatchweeks"
   />
+  <AppDialog
+    v-model:is-open="showSimulationModal"
+    title="Simular rodadas"
+    message="Você deseja simular os resultados para todas as rodadas? Resultados já existentes serão apagados."
+    @confirm="onSimulateMatchweeks"
+  />
 </template>
 
 <script lang="ts" setup>
-import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconTrash } from '@tabler/icons-vue';
+import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconPlayerTrackNext, IconTrash } from '@tabler/icons-vue';
 
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
 
 const showDeleteMatchweeksDialog = ref(false);
+const showSimulationModal = ref(false);
 
 function onDeleteMatchweeks() {
   stageStore.deleteGroupMatchweeks();
   showDeleteMatchweeksDialog.value = false;
+}
+
+function onSimulateMatchweeks() {
+  showSimulationModal.value = false;
+  matchweekCardStore.simulateAllMatchweeks();
 }
 </script>

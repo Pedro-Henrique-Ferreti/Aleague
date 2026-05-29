@@ -1,5 +1,6 @@
 <template>
-  <section class="card card-border h-fit">
+  <section class="card card-border h-fit relative">
+    <MatchweekCardSimulationLoader />
     <div class="card-body gap-0 p-1.25">
       <MatchweekCardEmptyState v-if="stageStore.activeGroupStage?.matchweeks.length === 0" />
       <template v-else-if="selectedMatchweek">

@@ -8,6 +8,10 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   const selectedWeekNumber = ref(getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []));
   const kickoffModalIsOpen = ref(false);
   const isSimulatingResults = ref(false);
+  const matchesToSimulateCount = ref({
+    total: 0,
+    simulated: 0,
+  });
 
   const selectedMatchweek = computed({
     get: () => stageStore.activeGroupStage?.matchweeks[selectedWeekNumber.value - 1],
@@ -29,6 +33,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
       await new Promise((resolve) => {
         match.homeTeam.score = getRandomScore();
         match.awayTeam.score = getRandomScore();
+        matchesToSimulateCount.value.simulated += 1;
 
         setTimeout(resolve);
       });
@@ -38,7 +43,35 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   async function simulateMatchweek() {
     isSimulatingResults.value = true;
 
+    matchesToSimulateCount.value = {
+      total: selectedMatchweek.value?.matches.length ?? 0,
+      simulated: 0,
+    };
+
     await simulateSelectedMatchweek();
+
+    isSimulatingResults.value = false;
+  }
+
+  async function simulateAllMatchweeks() {
+    if (!stageStore.activeGroupStage) return;
+
+    isSimulatingResults.value = true;
+    selectedWeekNumber.value = 1;
+    matchesToSimulateCount.value = {
+      total: stageStore.activeGroupStage.matchweeks.reduce((value, mw) => value + mw.matches.length, 0) ?? 0,
+      simulated: 0,
+    };
+
+    const lastWeekNumber = [...stageStore.activeGroupStage.matchweeks].pop()?.week ?? 1;
+    let remainingWeeks = stageStore.activeGroupStage?.matchweeks.length ?? 0;
+
+    while (remainingWeeks > 0) {
+      await simulateSelectedMatchweek();
+      selectedWeekNumber.value = Math.min(selectedWeekNumber.value + 1, lastWeekNumber);
+      remainingWeeks -= 1;
+      await nextTick();
+    }
 
     isSimulatingResults.value = false;
   }
@@ -48,6 +81,8 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     selectedMatchweek,
     kickoffModalIsOpen,
     isSimulatingResults,
+    matchesToSimulateCount,
     simulateMatchweek,
+    simulateAllMatchweeks,
   };
 });
