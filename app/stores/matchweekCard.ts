@@ -76,6 +76,11 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     isSimulatingResults.value = false;
   }
 
+  function resetAllMatchweeks() {
+    stageStore.resetGroupMatchweeks();
+    selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
+  }
+
   return {
     selectedWeekNumber,
     selectedMatchweek,
@@ -84,5 +89,6 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     matchesToSimulateCount,
     simulateMatchweek,
     simulateAllMatchweeks,
+    resetAllMatchweeks,
   };
 });

@@ -43,10 +43,29 @@ export const useStageStore = defineStore('stage', () => {
     activeTournament.value.stages = activeTournament.value.stages.filter(stage => stage.id !== activeStage.value?.id);
   }
 
+  function resetGroupStandings() {
+    for (const group of activeGroupStage.value?.groups ?? []) {
+      group.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
+    }
+  }
+
   function addGroupMatchweeks(matchweeks: Matchweek[]) {
     if (!activeGroupStage.value) return;
 
     activeGroupStage.value.matchweeks = matchweeks;
+  }
+
+  function resetGroupMatchweeks() {
+    if (!activeGroupStage.value) return;
+
+    for (const matchweek of activeGroupStage.value.matchweeks) {
+      for (const match of matchweek.matches) {
+        match.homeTeam.score = null;
+        match.awayTeam.score = null;
+      }
+    }
+
+    resetGroupStandings();
   }
 
   function deleteGroupMatchweeks() {
@@ -54,9 +73,7 @@ export const useStageStore = defineStore('stage', () => {
 
     activeGroupStage.value.matchweeks = [];
 
-    for (const group of activeGroupStage.value.groups) {
-      group.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
-    }
+    resetGroupStandings();
   }
 
   function updateActiveStageTeams(form: StageTeamsForm) {
@@ -78,5 +95,6 @@ export const useStageStore = defineStore('stage', () => {
     deleteGroupMatchweeks,
     addGroupMatchweeks,
     updateActiveStageTeams,
+    resetGroupMatchweeks,
   };
 });

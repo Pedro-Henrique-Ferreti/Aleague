@@ -23,6 +23,11 @@
       @click="showSimulationModal = true"
     />
     <AppMenuItem
+      label="Reiniciar rodadas"
+      :icon="IconRefresh"
+      @click="showResetMatchweeksModal = true"
+    />
+    <AppMenuItem
       label="Excluir rodadas"
       type="error"
       :icon="IconTrash"
@@ -42,16 +47,24 @@
     message="Você deseja simular os resultados para todas as rodadas? Resultados já existentes serão apagados."
     @confirm="onSimulateMatchweeks"
   />
+  <AppDialog
+    v-model:is-open="showResetMatchweeksModal"
+    type="delete"
+    title="Reiniciar rodadas"
+    message="Você deseja reiniciar os resultados para todas as rodadas? Essa ação não poderá ser desfeita."
+    @confirm="onResetMatchweeks"
+  />
 </template>
 
 <script lang="ts" setup>
-import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconPlayerTrackNext, IconTrash } from '@tabler/icons-vue';
+import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconPlayerTrackNext, IconRefresh, IconTrash } from '@tabler/icons-vue';
 
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
 
 const showDeleteMatchweeksDialog = ref(false);
 const showSimulationModal = ref(false);
+const showResetMatchweeksModal = ref(false);
 
 function onDeleteMatchweeks() {
   stageStore.deleteGroupMatchweeks();
@@ -61,5 +74,10 @@ function onDeleteMatchweeks() {
 function onSimulateMatchweeks() {
   showSimulationModal.value = false;
   matchweekCardStore.simulateAllMatchweeks();
+}
+
+function onResetMatchweeks() {
+  showResetMatchweeksModal.value = false;
+  matchweekCardStore.resetAllMatchweeks();
 }
 </script>
