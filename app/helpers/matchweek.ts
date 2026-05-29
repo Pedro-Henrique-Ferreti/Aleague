@@ -15,3 +15,13 @@ export function getExpectedMatchweeksPerRoundRobin(teamsCount: number, avoidGrou
   // A team is assumed to be in the avoidGroup, so avoidGroupMembersCount is subtracted by one
   return getMaxPossibleMatchweeksPerRoundRobin(teamsCount) - Math.max(0, avoidGroupMembersCount - 1);
 }
+
+export function getActiveMatchweekNumber(matchweeks: Matchweek[]): Matchweek['week'] {
+  const firstIncompleteWeek = matchweeks.find(
+    i => i.matches.some(m => m.homeTeam.score === null || m.awayTeam.score === null),
+  )?.week;
+
+  const lastWeek = matchweeks[matchweeks.length - 1]?.week;
+
+  return firstIncompleteWeek || (lastWeek ?? 1);
+}

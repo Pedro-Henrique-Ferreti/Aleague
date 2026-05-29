@@ -5,7 +5,7 @@
       <template v-else>
         <header class="matchweek-header">
           <MatchweekCardControls
-            v-model:current-matchweek="currentMatchweek"
+            v-model:matchweek-number="activeMatchweekNumber"
             :matchweeks="stage.matchweeks"
             :disabled="isRandomizingScores"
           />
@@ -17,7 +17,7 @@
         </header>
         <div class="grid gap-1">
           <template
-            v-for="(match, index) in stage.matchweeks[currentMatchweek - 1]!.matches.toSorted(sortMatches)"
+            v-for="(match, index) in stage.matchweeks[activeMatchweekNumber - 1]!.matches.toSorted(sortMatches)"
             :key="match.id"
           >
             <span
@@ -29,7 +29,7 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
-              @match-updated="$emit('matchUpdated', $event, currentMatchweek)"
+              @match-updated="$emit('matchUpdated', $event, activeMatchweekNumber)"
               @focus="nextTick(() => teamStore.focusMatchTeams(match))"
               @blur="nextTick(() => teamStore.blurMatchTeams(match))"
             />
@@ -37,8 +37,8 @@
         </div>
         <MatchweekKickoffModal
           v-model:is-open="matchweekKickoffModalIsOpen"
-          :matches="stage.matchweeks[currentMatchweek - 1]!.matches"
-          @kickoffs-updated="stage.matchweeks[currentMatchweek - 1]!.matches = $event"
+          :matches="stage.matchweeks[activeMatchweekNumber - 1]!.matches"
+          @kickoffs-updated="stage.matchweeks[activeMatchweekNumber - 1]!.matches = $event"
         />
       </template>
     </div>
@@ -49,32 +49,21 @@
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
+import { getActiveMatchweekNumber } from '~/helpers/matchweek';
 
 defineEmits<{
-  matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']]
+  matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']];
 }>();
-
 const stageStore = useStageStore();
 const teamStore = useTeamStore();
 
-const matchweekKickoffModalIsOpen = ref(false);
-
 const stage = defineModel<GroupStage>({ required: true });
 
-function getCurrentMatchweek() {
-  const firstIncompleteWeek = stage.value.matchweeks.find(
-    i => i.matches.some(m => m.homeTeam.score === null || m.awayTeam.score === null),
-  )?.week;
-
-  const lastWeek = stage.value.matchweeks[stage.value.matchweeks.length - 1]?.week;
-
-  return firstIncompleteWeek || (lastWeek ?? 1);
-}
-
-const currentMatchweek = ref(getCurrentMatchweek());
+const matchweekKickoffModalIsOpen = ref(false);
+const activeMatchweekNumber = ref(getActiveMatchweekNumber(stage.value.matchweeks));
 
 watch(() => stage.value.matchweeks.length, () => {
-  currentMatchweek.value = getCurrentMatchweek();
+  activeMatchweekNumber.value = getActiveMatchweekNumber(stage.value.matchweeks);
 });
 
 function sortMatches(a: Match, b: Match) {
@@ -86,7 +75,7 @@ function sortMatches(a: Match, b: Match) {
 }
 
 const showMatchKickoff = computed(() => {
-  const matches = stage.value.matchweeks[currentMatchweek.value - 1]!.matches.toSorted(sortMatches);
+  const matches = stage.value.matchweeks[activeMatchweekNumber.value - 1]!.matches.toSorted(sortMatches);
 
   return matches.map((match, i) => (
     !matches[i - 1] || matches[i - 1]!.kickoff !== match.kickoff
@@ -98,7 +87,7 @@ const isRandomizingScores = ref(false);
 async function randomizeMatchweekResults() {
   isRandomizingScores.value = true;
 
-  for (const match of stage.value.matchweeks[currentMatchweek.value - 1]!.matches) {
+  for (const match of stage.value.matchweeks[activeMatchweekNumber.value - 1]!.matches) {
     await new Promise((resolve) => {
       match.homeTeam.score = getRandomScore();
       match.awayTeam.score = getRandomScore();

@@ -5,11 +5,11 @@
       class="btn-square btn-sm btn-ghost"
       aria-label="Mostrar rodada anterior"
       :icon-left="IconChevronLeft"
-      :disabled="disabled || currentMatchweek <= 1"
-      @click="currentMatchweek -= 1"
+      :disabled="disabled || matchweekNumber <= 1"
+      @click="matchweekNumber -= 1"
     />
     <BaseSelect
-      v-model="currentMatchweek"
+      v-model="matchweekNumber"
       class="select-ghost w-7 p-0 justify-center h-2 bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
       :options="matchweeksOptions"
       :disabled="disabled"
@@ -19,8 +19,8 @@
       class="btn-square btn-sm btn-ghost"
       aria-label="Mostrar próxima rodada"
       :icon-left="IconChevronRight"
-      :disabled="disabled || currentMatchweek >= matchweeks.length"
-      @click="currentMatchweek += 1"
+      :disabled="disabled || matchweekNumber >= matchweeks.length"
+      @click="matchweekNumber += 1"
     />
   </div>
 </template>
@@ -33,9 +33,9 @@ const props = defineProps<{
   disabled?: boolean;
 }>();
 
-const currentMatchweek = defineModel<number>('current-matchweek', { required: true });
+const matchweekNumber = defineModel<Matchweek['week']>('matchweek-number', { required: true });
 
-const matchweeksOptions = computed<SelectOptionList<number>>(() => props.matchweeks.map(i => ({
+const matchweeksOptions = computed<SelectOptionList<Matchweek['week']>>(() => props.matchweeks.map(i => ({
   label: `Rodada ${i.week}`,
   value: i.week,
 })));
