@@ -45,14 +45,14 @@
     <div class="divider divider-horizontal m-0" />
     <BaseSelect
       v-model="form.filter"
-      class="w-7.5 select-sm select-ghost px-0.5"
+      class="w-7.5 select-sm select-ghost bg-white px-0.5"
       aria-label="Tipo de equipe"
       :options="TEAM_TYPE_OPTIONS"
     />
     <div class="divider divider-horizontal m-0" />
     <BaseSelect
       v-model="form.country"
-      class="w-8.5 select-sm select-ghost px-0.5"
+      class="w-8.5 select-sm select-ghost bg-white px-0.5"
       aria-label="País da equipe"
       :options="COUNTRY_OPTIONS"
       :disabled="form.filter === TeamTypeFilter.NATIONAL"

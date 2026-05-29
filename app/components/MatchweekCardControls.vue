@@ -10,7 +10,7 @@
     />
     <BaseSelect
       v-model="matchweekCardStore.selectedWeekNumber"
-      class="select-ghost w-7 p-0 justify-center h-2 bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
+      class="select-ghost w-7 p-0 justify-center h-2 bg-white bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
       :options="weekOptions"
       :disabled="disabled"
     />
