@@ -2,7 +2,7 @@
   <section class="card card-border h-fit">
     <div class="card-body gap-0 p-1.25">
       <MatchweekCardEmptyState v-if="stage.matchweeks.length === 0" />
-      <template v-else>
+      <template v-else-if="selectedMatchweek">
         <header class="matchweek-header">
           <MatchweekCardControls
             v-model:matchweek-number="activeMatchweekNumber"
@@ -17,7 +17,7 @@
         </header>
         <div class="grid gap-1">
           <template
-            v-for="(match, index) in stage.matchweeks[activeMatchweekNumber - 1]!.matches.toSorted(sortMatches)"
+            v-for="(match, index) in selectedMatchweek.matches.toSorted(sortMatches)"
             :key="match.id"
           >
             <span
@@ -37,8 +37,8 @@
         </div>
         <MatchweekKickoffModal
           v-model:is-open="matchweekKickoffModalIsOpen"
-          :matches="stage.matchweeks[activeMatchweekNumber - 1]!.matches"
-          @kickoffs-updated="stage.matchweeks[activeMatchweekNumber - 1]!.matches = $event"
+          :matches="selectedMatchweek.matches"
+          @kickoffs-updated="selectedMatchweek.matches = $event"
         />
       </template>
     </div>
@@ -61,6 +61,13 @@ const stage = defineModel<GroupStage>({ required: true });
 
 const matchweekKickoffModalIsOpen = ref(false);
 const activeMatchweekNumber = ref(getActiveMatchweekNumber(stage.value.matchweeks));
+
+const selectedMatchweek = computed({
+  get: () => stage.value.matchweeks[activeMatchweekNumber.value - 1],
+  set(value: Matchweek) {
+    stage.value.matchweeks[activeMatchweekNumber.value - 1] = value;
+  },
+});
 
 watch(() => stage.value.matchweeks.length, () => {
   activeMatchweekNumber.value = getActiveMatchweekNumber(stage.value.matchweeks);
@@ -85,9 +92,11 @@ const showMatchKickoff = computed(() => {
 const isRandomizingScores = ref(false);
 
 async function randomizeMatchweekResults() {
+  if (!selectedMatchweek.value) return;
+
   isRandomizingScores.value = true;
 
-  for (const match of stage.value.matchweeks[activeMatchweekNumber.value - 1]!.matches) {
+  for (const match of selectedMatchweek.value.matches) {
     await new Promise((resolve) => {
       match.homeTeam.score = getRandomScore();
       match.awayTeam.score = getRandomScore();
