@@ -49,29 +49,18 @@
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
-import { getActiveMatchweekNumber } from '~/helpers/matchweek';
 
 defineEmits<{
   matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']];
 }>();
 const stageStore = useStageStore();
+const matchweekCardStore = useMatchweekCardStore();
+const { selectedMatchweek, activeMatchweekNumber } = storeToRefs(matchweekCardStore);
 const teamStore = useTeamStore();
 
 const stage = defineModel<GroupStage>({ required: true });
 
 const matchweekKickoffModalIsOpen = ref(false);
-const activeMatchweekNumber = ref(getActiveMatchweekNumber(stage.value.matchweeks));
-
-const selectedMatchweek = computed({
-  get: () => stage.value.matchweeks[activeMatchweekNumber.value - 1],
-  set(value: Matchweek) {
-    stage.value.matchweeks[activeMatchweekNumber.value - 1] = value;
-  },
-});
-
-watch(() => stage.value.matchweeks.length, () => {
-  activeMatchweekNumber.value = getActiveMatchweekNumber(stage.value.matchweeks);
-});
 
 function sortMatches(a: Match, b: Match) {
   if (a.kickoff && !b.kickoff) return 1;
