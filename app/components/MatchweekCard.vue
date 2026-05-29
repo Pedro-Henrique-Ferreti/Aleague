@@ -4,8 +4,8 @@
       <MatchweekCardEmptyState v-if="stageStore.activeGroupStage?.matchweeks.length === 0" />
       <template v-else-if="selectedMatchweek">
         <header class="matchweek-header">
-          <MatchweekCardControls :disabled="isRandomizingScores" />
-          <MatchweekCardOptions @randomize-results="randomizeMatchweekResults" />
+          <MatchweekCardControls />
+          <MatchweekCardOptions />
         </header>
         <div class="grid gap-1">
           <template
@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
-import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
+import { getKickoffDisplayText } from '~/helpers/match';
 
 defineEmits<{
   matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']];
@@ -64,25 +64,6 @@ const showMatchKickoff = computed(() => {
     !matches[i - 1] || matches[i - 1]!.kickoff !== match.kickoff
   ));
 });
-
-const isRandomizingScores = ref(false);
-
-async function randomizeMatchweekResults() {
-  if (!selectedMatchweek.value) return;
-
-  isRandomizingScores.value = true;
-
-  for (const match of selectedMatchweek.value.matches) {
-    await new Promise((resolve) => {
-      match.homeTeam.score = getRandomScore();
-      match.awayTeam.score = getRandomScore();
-
-      setTimeout(resolve);
-    });
-  }
-
-  isRandomizingScores.value = false;
-}
 </script>
 
 <style scoped>

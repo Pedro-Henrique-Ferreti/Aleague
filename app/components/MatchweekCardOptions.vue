@@ -15,7 +15,7 @@
     <AppMenuItem
       label="Simular resultados"
       :icon="IconDeviceGamepad2"
-      @click="$emit('randomizeResults')"
+      @click="matchweekCardStore.simulateMatchweek"
     />
     <AppMenuItem
       label="Excluir rodadas"
@@ -35,10 +35,6 @@
 
 <script lang="ts" setup>
 import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconTrash } from '@tabler/icons-vue';
-
-defineEmits<{
-  randomizeResults: [];
-}>();
 
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();

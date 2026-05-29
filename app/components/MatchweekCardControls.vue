@@ -5,21 +5,21 @@
       class="btn-square btn-sm btn-ghost"
       aria-label="Mostrar rodada anterior"
       :icon-left="IconChevronLeft"
-      :disabled="disabled || matchweekCardStore.selectedWeekNumber <= 1"
+      :disabled="matchweekCardStore.isSimulatingResults || matchweekCardStore.selectedWeekNumber <= 1"
       @click="matchweekCardStore.selectedWeekNumber -= 1"
     />
     <BaseSelect
       v-model="matchweekCardStore.selectedWeekNumber"
       class="select-ghost w-7 p-0 justify-center h-2 bg-white bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
       :options="weekOptions"
-      :disabled="disabled"
+      :disabled="matchweekCardStore.isSimulatingResults"
     />
     <AppButton
       v-tooltip="'Próxima rodada'"
       class="btn-square btn-sm btn-ghost"
       aria-label="Mostrar próxima rodada"
       :icon-left="IconChevronRight"
-      :disabled="disabled || matchweekCardStore.selectedWeekNumber >= matchweeks.length"
+      :disabled="matchweekCardStore.isSimulatingResults || matchweekCardStore.selectedWeekNumber >= matchweeks.length"
       @click="matchweekCardStore.selectedWeekNumber += 1"
     />
   </div>
@@ -27,10 +27,6 @@
 
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
-
-defineProps<{
-  disabled?: boolean;
-}>();
 
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
