@@ -1,6 +1,6 @@
 <template>
   <AppModal
-    v-model:is-open="isOpen"
+    v-model:is-open="matchweekCardStore.kickoffModalIsOpen"
     title="Editar datas"
     size="xl"
     @open="resetKickoffGroups"
@@ -60,14 +60,8 @@ interface KickoffGroup {
   matches: Match[];
 }
 
-const props = defineProps<{
-  matches: Match[];
-}>();
-const emit = defineEmits<{
-  kickoffsUpdated: [value: Matchweek['matches']];
-}>();
-
-const isOpen = defineModel<boolean>('is-open');
+const matchweekCardStore = useMatchweekCardStore();
+const { selectedMatchweek } = storeToRefs(matchweekCardStore);
 
 const form = ref({
   kickoffType: MatchweekKickoff.WEEKDAY,
@@ -84,9 +78,11 @@ function resetKickoffGroups() {
 watchEffect(resetKickoffGroups);
 
 function fillSlots() {
+  if (!selectedMatchweek.value) return;
+
   resetKickoffGroups();
 
-  for (const match of props.matches) {
+  for (const match of selectedMatchweek.value.matches) {
     const randomIndex = Math.floor(Math.random() * form.value.kickoffGroups.length);
 
     form.value.kickoffGroups[randomIndex]?.matches.push(match);
@@ -94,13 +90,15 @@ function fillSlots() {
 }
 
 function assignKickoffs() {
-  emit('kickoffsUpdated', props.matches.map((match): Match => ({
+  if (!selectedMatchweek.value) return;
+
+  selectedMatchweek.value.matches = selectedMatchweek.value.matches.map((match): Match => ({
     ...match,
     kickoff: (
       form.value.kickoffGroups.find(g => g.matches.find(m => m.id === match.id))?.time || null
     ),
-  })));
+  }));
 
-  isOpen.value = false;
+  matchweekCardStore.kickoffModalIsOpen = false;
 }
 </script>

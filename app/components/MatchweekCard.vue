@@ -1,19 +1,11 @@
 <template>
   <section class="card card-border h-fit">
     <div class="card-body gap-0 p-1.25">
-      <MatchweekCardEmptyState v-if="stage.matchweeks.length === 0" />
+      <MatchweekCardEmptyState v-if="stageStore.activeGroupStage?.matchweeks.length === 0" />
       <template v-else-if="selectedMatchweek">
         <header class="matchweek-header">
-          <MatchweekCardControls
-            v-model:matchweek-number="activeMatchweekNumber"
-            :matchweeks="stage.matchweeks"
-            :disabled="isRandomizingScores"
-          />
-          <MatchweekCardOptions
-            @edit-kickoffs="matchweekKickoffModalIsOpen = true"
-            @randomize-results="randomizeMatchweekResults"
-            @delete-matchweeks="stageStore.deleteGroupMatchweeks"
-          />
+          <MatchweekCardControls :disabled="isRandomizingScores" />
+          <MatchweekCardOptions @randomize-results="randomizeMatchweekResults" />
         </header>
         <div class="grid gap-1">
           <template
@@ -29,17 +21,13 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
-              @match-updated="$emit('matchUpdated', $event, activeMatchweekNumber)"
+              @match-updated="$emit('matchUpdated', $event, selectedWeekNumber)"
               @focus="nextTick(() => teamStore.focusMatchTeams(match))"
               @blur="nextTick(() => teamStore.blurMatchTeams(match))"
             />
           </template>
         </div>
-        <MatchweekKickoffModal
-          v-model:is-open="matchweekKickoffModalIsOpen"
-          :matches="selectedMatchweek.matches"
-          @kickoffs-updated="selectedMatchweek.matches = $event"
-        />
+        <MatchweekKickoffModal />
       </template>
     </div>
   </section>
@@ -53,14 +41,11 @@ import { getKickoffDisplayText, getRandomScore } from '~/helpers/match';
 defineEmits<{
   matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']];
 }>();
+
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
-const { selectedMatchweek, activeMatchweekNumber } = storeToRefs(matchweekCardStore);
+const { selectedMatchweek, selectedWeekNumber } = storeToRefs(matchweekCardStore);
 const teamStore = useTeamStore();
-
-const stage = defineModel<GroupStage>({ required: true });
-
-const matchweekKickoffModalIsOpen = ref(false);
 
 function sortMatches(a: Match, b: Match) {
   if (a.kickoff && !b.kickoff) return 1;
@@ -71,7 +56,9 @@ function sortMatches(a: Match, b: Match) {
 }
 
 const showMatchKickoff = computed(() => {
-  const matches = stage.value.matchweeks[activeMatchweekNumber.value - 1]!.matches.toSorted(sortMatches);
+  if (!selectedMatchweek.value) return [];
+
+  const matches = selectedMatchweek.value.matches.toSorted(sortMatches);
 
   return matches.map((match, i) => (
     !matches[i - 1] || matches[i - 1]!.kickoff !== match.kickoff

@@ -5,13 +5,13 @@
       class="btn-square btn-sm btn-ghost"
       aria-label="Mostrar rodada anterior"
       :icon-left="IconChevronLeft"
-      :disabled="disabled || matchweekNumber <= 1"
-      @click="matchweekNumber -= 1"
+      :disabled="disabled || matchweekCardStore.selectedWeekNumber <= 1"
+      @click="matchweekCardStore.selectedWeekNumber -= 1"
     />
     <BaseSelect
-      v-model="matchweekNumber"
+      v-model="matchweekCardStore.selectedWeekNumber"
       class="select-ghost w-7 p-0 justify-center h-2 bg-[url()] font-semibold text-lg [&_option]:font-normal [&_option]:textarea-md"
-      :options="matchweeksOptions"
+      :options="weekOptions"
       :disabled="disabled"
     />
     <AppButton
@@ -19,8 +19,8 @@
       class="btn-square btn-sm btn-ghost"
       aria-label="Mostrar próxima rodada"
       :icon-left="IconChevronRight"
-      :disabled="disabled || matchweekNumber >= matchweeks.length"
-      @click="matchweekNumber += 1"
+      :disabled="disabled || matchweekCardStore.selectedWeekNumber >= matchweeks.length"
+      @click="matchweekCardStore.selectedWeekNumber += 1"
     />
   </div>
 </template>
@@ -28,14 +28,16 @@
 <script lang="ts" setup>
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 
-const props = defineProps<{
-  matchweeks: Matchweek[];
+defineProps<{
   disabled?: boolean;
 }>();
 
-const matchweekNumber = defineModel<Matchweek['week']>('matchweek-number', { required: true });
+const stageStore = useStageStore();
+const matchweekCardStore = useMatchweekCardStore();
 
-const matchweeksOptions = computed<SelectOptionList<Matchweek['week']>>(() => props.matchweeks.map(i => ({
+const matchweeks = computed(() => stageStore.activeGroupStage?.matchweeks ?? []);
+
+const weekOptions = computed<SelectOptionList<Matchweek['week']>>(() => matchweeks.value.map(i => ({
   label: `Rodada ${i.week}`,
   value: i.week,
 })));

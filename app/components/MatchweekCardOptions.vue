@@ -10,7 +10,7 @@
     <AppMenuItem
       label="Editar datas"
       :icon="IconClockEdit"
-      @click="$emit('editKickoffs')"
+      @click="matchweekCardStore.kickoffModalIsOpen = true"
     />
     <AppMenuItem
       label="Simular resultados"
@@ -36,16 +36,17 @@
 <script lang="ts" setup>
 import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconTrash } from '@tabler/icons-vue';
 
-const emit = defineEmits<{
-  editKickoffs: [];
+defineEmits<{
   randomizeResults: [];
-  deleteMatchweeks: [];
 }>();
+
+const stageStore = useStageStore();
+const matchweekCardStore = useMatchweekCardStore();
 
 const showDeleteMatchweeksDialog = ref(false);
 
 function onDeleteMatchweeks() {
-  emit('deleteMatchweeks');
+  stageStore.deleteGroupMatchweeks();
   showDeleteMatchweeksDialog.value = false;
 }
 </script>
