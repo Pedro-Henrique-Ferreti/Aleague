@@ -10,7 +10,7 @@
       class="select-sm max-w-8"
       :options="TABLE_ENTRY_SORT_TYPE_OPTIONS"
     />
-    <template v-if="matchweeks > 0">
+    <template v-if="matchweeksCount > 0">
       <BaseSelect
         v-model="form.weekDirection"
         class="select-sm max-w-8"
@@ -23,7 +23,7 @@
       />
     </template>
     <BaseSelect
-      v-if="showViewInput"
+      v-if="showEntryViewInput"
       v-model="form.view"
       class="select-sm max-w-8"
       :options="TABLE_ENTRY_VIEW_OPTIONS"
@@ -55,13 +55,14 @@ export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<FiltersForm['week']>> = 
 <script setup lang="ts">
 import { IconRestore } from '@tabler/icons-vue';
 
-const props = defineProps<{
-  showViewInput: boolean;
-  matchweeks: number;
-}>();
 defineEmits<{ reset: [] }>();
 
+const stageStore = useStageStore();
+
 const form = defineModel<FiltersForm>({ required: true });
+
+const matchweeksCount = computed(() => stageStore.activeGroupStage?.matchweeks.length ?? 0);
+const showEntryViewInput = computed(() => stageStore.activeGroupStage?.groups.length ?? 0 > 1);
 
 const weekDirectionOptions: Readonly<SelectOptionList<FiltersForm['weekDirection']>> = [
   { label: 'Anterior a', value: WeekDirection.BEFORE },
@@ -70,7 +71,7 @@ const weekDirectionOptions: Readonly<SelectOptionList<FiltersForm['weekDirection
 
 const weekOptions = computed<SelectOptionList<FiltersForm['week']>>(() => [
   DEFAULT_WEEK_OPTION,
-  ...createArray(props.matchweeks, i => ({
+  ...createArray(matchweeksCount.value, i => ({
     label: `Rodada ${i + 1}`,
     value: i + 1,
   })),

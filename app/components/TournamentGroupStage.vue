@@ -27,8 +27,6 @@
           v-if="index === 0"
           v-show="showFilters"
           v-model="filtersForm"
-          :show-view-input="stage.groups.length > 1"
-          :matchweeks="stage.matchweeks.length"
           @reset="filtersForm = newFiltersForm()"
         />
       </StandingsCard>
@@ -62,7 +60,6 @@ function newFiltersForm(): FiltersForm {
 const filtersForm = ref<FiltersForm>(newFiltersForm());
 const showFilters = ref(false);
 
-// Displayed groups
 const displayedGroups = computed<GroupStage['groups']>(() => (
   filtersForm.value.view === TableEntryView.PER_GROUP
     ? stage.value.groups
@@ -82,7 +79,6 @@ function onUpdateGroupQualifier(value: Qualifier[], groupIndex: number) {
   stage.value.groups[groupIndex]!.qualifier = value;
 }
 
-// Card title
 function getCardTitle(order: GroupStage['groups'][number]['order']) {
   if (stage.value.groups.length === 1) return 'Classificação';
 
@@ -91,7 +87,6 @@ function getCardTitle(order: GroupStage['groups'][number]['order']) {
   return `Grupo ${order}`;
 }
 
-// Update standings
 function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
   const { homeTeam, awayTeam, oldScore } = match;
   const prevFinished = oldScore.home !== null && oldScore.away !== null;
