@@ -83,7 +83,7 @@ export function sortTableEntries(a: TableEntry, b: TableEntry, sortType = TableE
 
   if (gfDiff !== 0) return gfDiff;
 
-  // Fourth tiebreaker: random
+  // Fifth tiebreaker: random
   return Math.random() > 0.5 ? 1 : -1;
 }
 
