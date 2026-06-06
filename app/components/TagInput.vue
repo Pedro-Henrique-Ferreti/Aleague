@@ -30,6 +30,7 @@ const model = defineModel<Tournament['tags']>({ required: true });
 const inputModel = ref('');
 
 function addTag() {
+  if (!inputModel.value) return;
   model.value.push(inputModel.value);
   inputModel.value = '';
 }
