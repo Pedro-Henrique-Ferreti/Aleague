@@ -35,6 +35,7 @@
     <StageTeamsModal
       v-if="activeStage"
       v-model:is-open="editTeamModalIsOpen"
+      :key="activeStage.id"
       :allow-empty-slots="allowEmptySlots"
       :stage="activeStage"
     />
@@ -56,7 +57,6 @@ import { IconEdit, IconPlus, IconTournament, IconTrash, IconUsersGroup } from '@
 const stageStore = useStageStore();
 const { activeStage } = storeToRefs(stageStore);
 
-// Stage modal
 const isCreatingStage = ref(false);
 const isEditingStage = ref(false);
 
@@ -68,13 +68,10 @@ const stageModalIsOpen = computed({
   },
 });
 
-// Edit teams modal
 const editTeamModalIsOpen = ref(false);
+const showDeleteStageDialog = ref(false);
 
 const allowEmptySlots = computed(() => (
   activeStage.value?.type === StageType.GROUP && activeStage.value.matchweeks.length === 0
 ));
-
-// Delete stage
-const showDeleteStageDialog = ref(false);
 </script>
