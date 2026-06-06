@@ -20,7 +20,7 @@
           v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
           label="Simular resultados"
           :icon="IconDeviceGamepad2"
-          @click="randomizeScore"
+          @click="simulateScore"
         />
         <AppMenuItem
           v-if="slot.legs.length <= 1"
@@ -57,13 +57,6 @@ function addMatchToSlot() {
   slot.value.legs.push(newMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
 }
 
-function randomizeScore() {
-  slot.value.legs.forEach((_, index) => {
-    slot.value.legs[index]!.homeTeam.score = getRandomScore();
-    slot.value.legs[index]!.awayTeam.score = getRandomScore();
-  });
-}
-
 const winner = computed<PlayoffRoundWinner>(() => {
   if (slot.value.legs.some(m => m.homeTeam.score === null || m.awayTeam.score === null))
     return null;
@@ -79,4 +72,14 @@ const winner = computed<PlayoffRoundWinner>(() => {
 });
 
 watch(winner, () => emit('winnerUpdated', winner.value));
+
+function simulateScore() {
+  do {
+    for (const match of slot.value.legs) {
+      match.homeTeam.score = getRandomScore();
+      match.awayTeam.score = getRandomScore();
+    }
+  }
+  while (winner.value === null);
+}
 </script>
