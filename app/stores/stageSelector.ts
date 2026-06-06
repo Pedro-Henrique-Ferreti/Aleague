@@ -27,12 +27,12 @@ export const useStageSelectorStore = defineStore('stage-selector', () => {
     });
   });
 
-  watchEffect(() => {
+  watch(() => selectionOptions.value.map(option => option.id).join(), () => {
     const lastOption = selectionOptions.value[selectionOptions.value.length - 1];
     const lastFirstRoundOption = selectionOptions.value.findLast(option => option.isFirstStageRound);
 
     selectedStageOrPlayoffRoundId.value = (lastOption?.type === StageType.GROUP ? lastOption : lastFirstRoundOption)?.id;
-  });
+  }, { immediate: true });
 
   return {
     selectionOptions,
