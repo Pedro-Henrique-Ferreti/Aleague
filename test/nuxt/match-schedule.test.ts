@@ -3,7 +3,7 @@ import { addRoundRobins, balanceScheduleWeeks, createMatchSchedule, generateInit
 import { getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
 
 const unbalanceableSchedule = {
-  teams: createArray(20, String),
+  teams: createArray(20, (i) => `${i + 1}`),
   avoidGroups: [['1', '2', '3', '4'], ['5', '6', '7', '8'], ['9', '10', '11', '12'], ['13', '14', '15', '16'], ['17', '18', '19', '20']],
 };
 

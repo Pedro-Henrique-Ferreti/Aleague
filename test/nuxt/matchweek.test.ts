@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getExpectedMatchesPerWeek, getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
+import { getActiveMatchweekNumber, getExpectedMatchesPerWeek, getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
 
 describe('matchweek', () => {
   describe('getExpectedMatchesPerWeek', () => {
@@ -30,6 +30,31 @@ describe('matchweek', () => {
       expect(getExpectedMatchweeksPerRoundRobin(8)).toBe(7);
       expect(getExpectedMatchweeksPerRoundRobin(12, 4)).toBe(8);
       expect(getExpectedMatchweeksPerRoundRobin(16, 8)).toBe(8);
+    });
+  });
+
+  describe('getActiveMatchweekNumber', () => {
+    it('should return the first week with incomplete matches', () => {
+      const matchweeks: Matchweek[] = [
+        { week: 1, matches: [{ id: 'm1', homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null }] },
+        { week: 2, matches: [{ id: 'm2', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null }] },
+        { week: 3, matches: [{ id: 'm3', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null }] },
+      ];
+
+      expect(getActiveMatchweekNumber(matchweeks)).toBe(2);
+    });
+
+    it('should return the last week when all matches are complete', () => {
+      const matchweeks: Matchweek[] = [
+        { week: 1, matches: [{ id: 'm1', homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null }] },
+        { week: 2, matches: [{ id: 'm2', homeTeam: { id: 'a', score: 2 }, awayTeam: { id: 'b', score: 1 }, kickoff: null }] },
+      ];
+
+      expect(getActiveMatchweekNumber(matchweeks)).toBe(2);
+    });
+
+    it('should return 1 when matchweeks array is empty', () => {
+      expect(getActiveMatchweekNumber([])).toBe(1);
     });
   });
 });
