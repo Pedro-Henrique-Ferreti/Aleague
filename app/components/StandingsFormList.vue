@@ -23,24 +23,24 @@
       />
     </swiper-slide>
   </swiper-container>
-  <div class="flex gap-1.5 mt-1 text-xs [&_b]:text-sm">
+  <div class="flex gap-1.5 mt-1 text-xs">
     <p class="flex gap-0.5">
-      <span>Partidas: <b>{{ stats.home.played + stats.away.played }}</b></span>
-      <span>V: <b>{{ stats.home.won + stats.away.won }}</b></span>
-      <span>E: <b>{{ stats.home.drawn + stats.away.drawn }}</b></span>
-      <span>D: <b>{{ stats.home.lost + stats.away.lost }}</b></span>
+      <span>Partidas: <span class="font-bold text-sm">{{ stats.home.played + stats.away.played }}</span></span>
+      <span>V: <span class="font-bold text-sm">{{ stats.home.won + stats.away.won }}</span></span>
+      <span>E: <span class="font-bold text-sm">{{ stats.home.drawn + stats.away.drawn }}</span></span>
+      <span>D: <span class="font-bold text-sm">{{ stats.home.lost + stats.away.lost }}</span></span>
     </p>
     <p class="flex gap-0.5">
-      <span>Casa: <b>{{ stats.home.played }}</b></span>
-      <span>V: <b>{{ stats.home.won }}</b></span>
-      <span>E: <b>{{ stats.home.drawn }}</b></span>
-      <span>D: <b>{{ stats.home.lost }}</b></span>
+      <span>Casa: <span class="font-bold text-sm">{{ stats.home.played }}</span></span>
+      <span>V: <span class="font-bold text-sm">{{ stats.home.won }}</span></span>
+      <span>E: <span class="font-bold text-sm">{{ stats.home.drawn }}</span></span>
+      <span>D: <span class="font-bold text-sm">{{ stats.home.lost }}</span></span>
     </p>
     <p class="flex gap-0.5">
-      <span>Fora: <b>{{ stats.away.played }}</b></span>
-      <span>V: <b>{{ stats.away.won }}</b></span>
-      <span>E: <b>{{ stats.away.drawn }}</b></span>
-      <span>D: <b>{{ stats.away.lost }}</b></span>
+      <span>Fora: <span class="font-bold text-sm">{{ stats.away.played }}</span></span>
+      <span>V: <span class="font-bold text-sm">{{ stats.away.won }}</span></span>
+      <span>E: <span class="font-bold text-sm">{{ stats.away.drawn }}</span></span>
+      <span>D: <span class="font-bold text-sm">{{ stats.away.lost }}</span></span>
     </p>
   </div>
 </template>

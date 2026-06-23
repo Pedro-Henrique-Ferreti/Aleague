@@ -59,7 +59,7 @@
     @confirm="deleteTournament"
   >
     <p>
-      Você tem certeza que deseja excluir <b>{{ tournamentStore.activeTournament?.name }}</b>? Essa ação não poderá ser
+      Você tem certeza que deseja excluir <strong>{{ tournamentStore.activeTournament?.name }}</strong>? Essa ação não poderá ser
       desfeita e você não poderá recuperá-lo, a não ser que possua uma cópia salva.
     </p>
   </AppDialog>

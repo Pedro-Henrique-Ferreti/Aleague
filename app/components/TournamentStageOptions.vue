@@ -46,7 +46,7 @@
       title="Excluir fase"
       @confirm="stageStore.deleteActiveStage"
     >
-      <p>Você tem certeza que deseja excluir a fase <b>{{ activeStage.name }}</b>? Essa ação não poderá ser desfeita.</p>
+      <p>Você tem certeza que deseja excluir a fase <strong>{{ activeStage.name }}</strong>? Essa ação não poderá ser desfeita.</p>
     </AppDialog>
   </div>
 </template>
