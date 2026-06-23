@@ -5,6 +5,7 @@ export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
     label: `Opção ${index + 1}`,
     value: `/images/icons/tournament/icon-${index + 1}.svg`,
   })),
+  { label: 'Copa do Mundo', value: '/images/icons/tournament/World_Cup.png' },
   { label: 'Campeonato Brasileiro Série A', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_A.png' },
   { label: 'Campeonato Brasileiro Série B', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_B.png' },
   { label: 'Campeonato Brasileiro Série C', value: 'https://img.sofascore.com/api/v1/unique-tournament/1281/image' },
@@ -25,4 +26,5 @@ export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
   { label: 'UEFA Champions League', value: 'https://img.sofascore.com/api/v1/unique-tournament/7/image' },
   { label: 'UEFA Europa League', value: 'https://img.sofascore.com/api/v1/unique-tournament/679/image' },
   { label: 'UEFA Conference League', value: 'https://img.sofascore.com/api/v1/unique-tournament/17015/image' },
+  { label: 'FIFA', value: '/images/icons/tournament/FIFA.svg' },
 ];
