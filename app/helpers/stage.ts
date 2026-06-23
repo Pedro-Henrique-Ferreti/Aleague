@@ -28,6 +28,7 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
   return {
     ...baseStage,
     type: StageType.GROUP,
+    nameFormat: stageForm.groupNameFormat,
     matchweeks: [],
     groups: createArray(stageForm.groups, index => ({
       order: index + 1,

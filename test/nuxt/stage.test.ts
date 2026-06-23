@@ -6,7 +6,13 @@ describe('stage', () => {
     it('should create correct number of rounds', () => {
       const baseStage: BaseStage = { id: 1, name: 'Playoffs', sequence: 1, type: StageType.PLAYOFF };
       const stageForm: StageForm = {
-        name: 'Playoffs', type: StageType.PLAYOFF, teams: 8, teamsPerGroup: 0, groups: 0, playoffRounds: 3,
+        name: 'Playoffs',
+        type: StageType.PLAYOFF,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 8,
+        teamsPerGroup: 0,
+        groups: 0,
+        playoffRounds: 3,
       };
 
       const result = newPlayoffStage(stageForm, baseStage);
@@ -17,7 +23,13 @@ describe('stage', () => {
     it('should create correct number of slots per round', () => {
       const baseStage: BaseStage = { id: 1, name: 'Playoffs', sequence: 1, type: StageType.PLAYOFF };
       const stageForm: StageForm = {
-        name: 'Playoffs', type: StageType.PLAYOFF, teams: 8, teamsPerGroup: 0, groups: 0, playoffRounds: 3,
+        name: 'Playoffs',
+        type: StageType.PLAYOFF,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 8,
+        teamsPerGroup: 0,
+        groups: 0,
+        playoffRounds: 3,
       };
 
       const result = newPlayoffStage(stageForm, baseStage);
@@ -32,7 +44,13 @@ describe('stage', () => {
     it('should create correct number of groups', () => {
       const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
       const stageForm: StageForm = {
-        name: 'Group Stage', type: StageType.GROUP, teams: 12, teamsPerGroup: 4, groups: 3, playoffRounds: 0,
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 12,
+        teamsPerGroup: 4,
+        groups: 3,
+        playoffRounds: 0,
       };
 
       const result = newGroupStage(stageForm, baseStage);
@@ -46,7 +64,13 @@ describe('stage', () => {
     it('should create standings entries for each team per group', () => {
       const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
       const stageForm: StageForm = {
-        name: 'Group Stage', type: StageType.GROUP, teams: 8, teamsPerGroup: 4, groups: 2, playoffRounds: 0,
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 8,
+        teamsPerGroup: 4,
+        groups: 2,
+        playoffRounds: 0,
       };
 
       const result = newGroupStage(stageForm, baseStage);
@@ -59,7 +83,13 @@ describe('stage', () => {
     it('should include overallQualifier when there are multiple groups', () => {
       const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
       const stageForm: StageForm = {
-        name: 'Group Stage', type: StageType.GROUP, teams: 8, teamsPerGroup: 4, groups: 2, playoffRounds: 0,
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 8,
+        teamsPerGroup: 4,
+        groups: 2,
+        playoffRounds: 0,
       };
 
       const result = newGroupStage(stageForm, baseStage);
@@ -70,7 +100,13 @@ describe('stage', () => {
     it('should omit overallQualifier when there is a single group', () => {
       const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
       const stageForm: StageForm = {
-        name: 'Group Stage', type: StageType.GROUP, teams: 4, teamsPerGroup: 4, groups: 1, playoffRounds: 0,
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 4,
+        teamsPerGroup: 4,
+        groups: 1,
+        playoffRounds: 0,
       };
 
       const result = newGroupStage(stageForm, baseStage);

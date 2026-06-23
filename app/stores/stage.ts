@@ -35,6 +35,10 @@ export const useStageStore = defineStore('stage', () => {
     if (!activeStage.value) return;
 
     activeStage.value.name = form.name;
+
+    if (activeStage.value.type === StageType.GROUP) {
+      activeStage.value.nameFormat = form.groupNameFormat;
+    }
   }
 
   function deleteActiveStage() {

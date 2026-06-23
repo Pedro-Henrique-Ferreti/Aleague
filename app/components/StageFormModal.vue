@@ -36,6 +36,7 @@
       v-if="form.type === StageType.GROUP"
       v-model:groups="form.groups"
       v-model:teams-per-group="form.teamsPerGroup"
+      v-model:group-name-format="form.groupNameFormat"
       :disabled="isEditingForm"
     />
     <StageFormModalPlayoffFields
@@ -69,6 +70,7 @@ function newForm(): StageForm {
   return {
     name: props.stage?.name ?? DEFAULT_GROUP_STAGE_NAME,
     type: props.stage?.type ?? StageType.GROUP,
+    groupNameFormat: props.stage?.type === StageType.GROUP ? props.stage.nameFormat : GroupStageNameFormat.NUMBER,
     teams: (
       props.stage?.type === StageType.PLAYOFF ? props.stage.rounds[0].slots.length * 2 : MIN_TEAMS
     ),
@@ -94,7 +96,6 @@ watch(() => form.value.type, () => {
   );
 });
 
-// Max allowed number of playoff rounds
 const maxPlayoffRounds = computed(() => {
   let teams = form.value.teams;
   let count = 0;
@@ -113,7 +114,6 @@ watch(() => maxPlayoffRounds.value, () => {
   }
 });
 
-// Submit form
 const submitIsDisabled = computed(() => !form.value.name);
 
 function submitForm() {

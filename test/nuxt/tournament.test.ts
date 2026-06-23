@@ -7,6 +7,7 @@ describe('tournament', () => {
       const result = newTournamentStage({
         name: 'Group Stage',
         type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
         teams: 8,
         teamsPerGroup: 4,
         groups: 2,
@@ -22,6 +23,7 @@ describe('tournament', () => {
       const result = newTournamentStage({
         name: 'Playoffs',
         type: StageType.PLAYOFF,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
         teams: 8,
         teamsPerGroup: 0,
         groups: 0,
@@ -36,6 +38,7 @@ describe('tournament', () => {
       const form: StageForm = {
         name: 'Stage 2',
         type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
         teams: 4,
         teamsPerGroup: 4,
         groups: 1,
@@ -43,7 +46,16 @@ describe('tournament', () => {
       };
 
       const existingStages = [
-        { id: 100, sequence: 1, name: 'Stage 1', type: StageType.GROUP, groups: [], overallQualifier: [], matchweeks: [] },
+        {
+          id: 100,
+          sequence: 1,
+          name: 'Stage 1',
+          type: StageType.GROUP,
+          nameFormat: GroupStageNameFormat.NUMBER,
+          groups: [],
+          overallQualifier: [],
+          matchweeks: [],
+        },
       ] as TournamentStage[];
 
       const result = newTournamentStage(form, existingStages);
@@ -55,6 +67,7 @@ describe('tournament', () => {
       const result = newTournamentStage({
         name: 'First Stage',
         type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
         teams: 4,
         teamsPerGroup: 4,
         groups: 1,

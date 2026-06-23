@@ -8,6 +8,7 @@ describe('stage-teams', () => {
       const playoffStage = newTournamentStage({
         name: 'Playoffs',
         type: StageType.PLAYOFF,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
         groups: 0,
         playoffRounds: 2,
         teams: 4,
@@ -70,6 +71,7 @@ describe('stage-teams', () => {
       const groupStage = newTournamentStage({
         name: 'Group',
         type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
         groups: 1,
         playoffRounds: 0,
         teams: 2,
@@ -94,6 +96,7 @@ describe('stage-teams', () => {
         name: 'Group',
         sequence: 1,
         type: StageType.GROUP,
+        nameFormat: GroupStageNameFormat.NUMBER,
         matchweeks: [{
           week: 1,
           matches: [

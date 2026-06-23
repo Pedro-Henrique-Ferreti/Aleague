@@ -9,6 +9,11 @@ export enum GroupStageFormat {
   ALL_PLAY_ALL,
 }
 
+export enum GroupStageNameFormat {
+  NUMBER,
+  LETTER,
+}
+
 export interface BaseStage {
   id: number;
   name: string;
@@ -18,6 +23,7 @@ export interface BaseStage {
 
 export interface GroupStage extends BaseStage {
   type: StageType.GROUP;
+  nameFormat: GroupStageNameFormat;
   groups: {
     order: number;
     standings: StandingsEntry[];

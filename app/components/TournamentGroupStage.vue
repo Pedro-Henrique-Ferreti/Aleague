@@ -84,7 +84,12 @@ function getCardTitle(order: GroupStage['groups'][number]['order']) {
 
   if (filtersForm.value.view === TableEntryView.OVERALL) return 'Classificação geral';
 
-  return `Grupo ${order}`;
+  if (stage.value.nameFormat === GroupStageNameFormat.NUMBER) return `Grupo ${order}`;
+
+  const count = order > ALPHABET.length ? Math.ceil(order / ALPHABET.length) : '';
+  const charPosition = order > ALPHABET.length ? order % ALPHABET.length : order;
+
+  return `Grupo ${ALPHABET.at(charPosition - 1)}${count}`;
 }
 
 function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {

@@ -23,3 +23,5 @@ export const STAGE_FORM = {
   DEFAULT_GROUP_STAGE_NAME: 'Fase de Liga',
   DEFAULT_PLAYOFF_STAGE_NAME: 'Playoffs',
 };
+
+export const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
