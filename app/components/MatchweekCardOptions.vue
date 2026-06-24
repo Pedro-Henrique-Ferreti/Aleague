@@ -67,7 +67,7 @@ const showSimulationModal = ref(false);
 const showResetMatchweeksModal = ref(false);
 
 function onDeleteMatchweeks() {
-  stageStore.deleteGroupMatchweeks();
+  stageStore.deleteGroupStageMatchweeks();
   showDeleteMatchweeksDialog.value = false;
 }
 

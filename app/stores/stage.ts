@@ -47,19 +47,19 @@ export const useStageStore = defineStore('stage', () => {
     activeTournament.value.stages = activeTournament.value.stages.filter(stage => stage.id !== activeStage.value?.id);
   }
 
-  function resetGroupStandings() {
+  function resetGroupStageStandings() {
     for (const group of activeGroupStage.value?.groups ?? []) {
       group.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
     }
   }
 
-  function addGroupMatchweeks(matchweeks: Matchweek[]) {
+  function addGroupStageMatchweeks(matchweeks: Matchweek[]) {
     if (!activeGroupStage.value) return;
 
     activeGroupStage.value.matchweeks = matchweeks;
   }
 
-  function resetGroupMatchweeks() {
+  function resetGroupStageMatchesScore() {
     if (!activeGroupStage.value) return;
 
     for (const matchweek of activeGroupStage.value.matchweeks) {
@@ -69,15 +69,15 @@ export const useStageStore = defineStore('stage', () => {
       }
     }
 
-    resetGroupStandings();
+    resetGroupStageStandings();
   }
 
-  function deleteGroupMatchweeks() {
+  function deleteGroupStageMatchweeks() {
     if (!activeGroupStage.value) return;
 
     activeGroupStage.value.matchweeks = [];
 
-    resetGroupStandings();
+    resetGroupStageStandings();
   }
 
   function updateActiveStageTeams(form: StageTeamsForm) {
@@ -96,9 +96,9 @@ export const useStageStore = defineStore('stage', () => {
     activeGroupStage,
     updateActiveStage,
     deleteActiveStage,
-    deleteGroupMatchweeks,
-    addGroupMatchweeks,
+    deleteGroupStageMatchweeks,
+    addGroupStageMatchweeks,
     updateActiveStageTeams,
-    resetGroupMatchweeks,
+    resetGroupStageMatchesScore,
   };
 });

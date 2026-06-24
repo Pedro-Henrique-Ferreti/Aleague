@@ -77,7 +77,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   }
 
   function resetAllMatchweeks() {
-    stageStore.resetGroupMatchweeks();
+    stageStore.resetGroupStageMatchesScore();
     selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
   }
 

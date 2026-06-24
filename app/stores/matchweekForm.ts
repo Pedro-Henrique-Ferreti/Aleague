@@ -95,7 +95,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     }
 
     if (matchweekList.value) {
-      stageStore.addGroupMatchweeks(matchweekList.value.matchweeks);
+      stageStore.addGroupStageMatchweeks(matchweekList.value.matchweeks);
     }
   }
 
