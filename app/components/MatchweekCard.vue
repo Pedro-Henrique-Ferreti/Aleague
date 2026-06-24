@@ -22,7 +22,7 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
-              @match-updated="$emit('matchUpdated', $event, selectedWeekNumber)"
+              @match-updated="!matchweekCardStore.isResettingMatchweeks && $emit('matchUpdated', $event, selectedWeekNumber)"
               @focus="nextTick(() => teamStore.focusMatchTeams(match))"
               @blur="nextTick(() => teamStore.blurMatchTeams(match))"
             />

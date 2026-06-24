@@ -8,6 +8,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   const selectedWeekNumber = ref(getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []));
   const kickoffModalIsOpen = ref(false);
   const isSimulatingResults = ref(false);
+  const isResettingMatchweeks = ref(false);
   const matchesToSimulateCount = ref({
     total: 0,
     simulated: 0,
@@ -77,8 +78,13 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   }
 
   function resetAllMatchweeks() {
+    isResettingMatchweeks.value = true;
     stageStore.resetGroupStageMatchesScore();
     selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
+
+    nextTick(() => {
+      isResettingMatchweeks.value = false;
+    });
   }
 
   return {
@@ -86,6 +92,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     selectedMatchweek,
     kickoffModalIsOpen,
     isSimulatingResults,
+    isResettingMatchweeks,
     matchesToSimulateCount,
     simulateMatchweek,
     simulateAllMatchweeks,
