@@ -12,12 +12,12 @@
       :is-highlighted="homeTeamHighlighted"
     />
     <div
-      class="flex items-stretch gap-0.5 h-full"
+      class="flex items-center gap-0.5 h-full"
       :class="{ 'row-span-2': layout === 'vertical' }"
     >
       <span
         v-if="homeScore === undefined && awayScore === undefined"
-        class="flex items-center font-medium"
+        class="flex items-center font-medium mx-0.5"
       >
         ✕
       </span>
@@ -84,9 +84,7 @@ watch(() => [props.match.homeTeam.score, props.match.awayTeam.score], (_, oldSco
   });
 });
 
-// Focus within
 const matchCardRef = useTemplateRef<HTMLDivElement>('matchCardRef');
-
 const { focused } = useFocusWithin(matchCardRef);
 
 watch(focused, () => {
