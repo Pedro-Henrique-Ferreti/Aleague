@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { getStandingsDataFromScore, getTableEntriesByWeek, getTableEntry, getTableEntryForm, sortTableEntries, sortTableEntryByType } from '~/helpers/standings';
+import {
+  getStandingsDataFromScore,
+  getTableEntriesByWeek,
+  getTableEntry,
+  getTableEntryForm,
+  newStandingsEntry,
+  sortTableEntries,
+  sortTableEntryByType,
+  updateStandings,
+} from '~/helpers/standings';
 
 describe('standings', () => {
   describe('getStandingsDataFromScore', () => {
@@ -269,6 +278,127 @@ describe('standings', () => {
       expect(result[0]?.week).toBe(1);
       expect(result[1]?.week).toBe(2);
       expect(result[2]?.week).toBe(3);
+    });
+  });
+
+  describe('updateStandings', () => {
+    const getTestData = (newScore: MatchWithOldScore['oldScore'], oldScore: MatchWithOldScore['oldScore']) => ({
+      match: {
+        id: 'match-1',
+        homeTeam: { id: 'team-a', score: newScore.home },
+        awayTeam: { id: 'team-b', score: newScore.away },
+        oldScore,
+        kickoff: null,
+      } satisfies MatchWithOldScore,
+      groups: [{
+        order: 1,
+        qualifier: [Qualifier.NONE, Qualifier.NONE],
+        standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
+      }] as GroupStage['groups'],
+    });
+
+    it('should update a data entry when a match is finished', () => {
+      const { match, groups } = getTestData({ home: 2, away: 1 }, { home: null, away: null });
+      const [group] = updateStandings(groups, match, 1);
+      const homeEntry = group?.standings[0]?.data[0];
+
+      expect(group?.standings[0]?.data).toHaveLength(1);
+      expect(homeEntry?.played).toBe(1);
+      expect(homeEntry?.points).toBe(POINTS_PER_WIN);
+      expect(homeEntry?.won).toBe(1);
+      expect(homeEntry?.drawn).toBe(0);
+      expect(homeEntry?.lost).toBe(0);
+      expect(homeEntry?.goalsFor).toBe(2);
+      expect(homeEntry?.goalsAgainst).toBe(1);
+      expect(homeEntry?.form).toHaveLength(1);
+
+      const awayEntry = group?.standings[1]?.data[0];
+
+      expect(group?.standings[1]?.data).toHaveLength(1);
+      expect(awayEntry?.played).toBe(1);
+      expect(awayEntry?.points).toBe(POINTS_PER_LOSS);
+      expect(awayEntry?.won).toBe(0);
+      expect(awayEntry?.drawn).toBe(0);
+      expect(awayEntry?.lost).toBe(1);
+      expect(awayEntry?.goalsFor).toBe(1);
+      expect(awayEntry?.goalsAgainst).toBe(2);
+      expect(awayEntry?.form).toHaveLength(1);
+    });
+
+    it('should reset a data entry when a match is reset', () => {
+      const week = 1;
+      let { match, groups } = getTestData({ home: 2, away: 1 }, { home: null, away: null });
+
+      groups = updateStandings(groups, match, week);
+      groups = updateStandings(groups, {
+        id: 'match-2',
+        homeTeam: { id: match.homeTeam.id, score: null },
+        awayTeam: { id: match.awayTeam.id, score: null },
+        oldScore: { home: match.homeTeam.score, away: match.awayTeam.score },
+        kickoff: null,
+      }, week);
+
+      const homeEntry = groups[0]?.standings[0]?.data[0];
+
+      expect(groups[0]?.standings[0]?.data).toHaveLength(1);
+      expect(homeEntry?.played).toBe(0);
+      expect(homeEntry?.points).toBe(0);
+      expect(homeEntry?.won).toBe(0);
+      expect(homeEntry?.drawn).toBe(0);
+      expect(homeEntry?.lost).toBe(0);
+      expect(homeEntry?.goalsFor).toBe(0);
+      expect(homeEntry?.goalsAgainst).toBe(0);
+      expect(homeEntry?.form).toHaveLength(0);
+
+      const awayEntry = groups[0]?.standings[1]?.data[0];
+
+      expect(groups[0]?.standings[1]?.data).toHaveLength(1);
+      expect(awayEntry?.played).toBe(0);
+      expect(awayEntry?.points).toBe(0);
+      expect(awayEntry?.won).toBe(0);
+      expect(awayEntry?.drawn).toBe(0);
+      expect(awayEntry?.lost).toBe(0);
+      expect(awayEntry?.goalsFor).toBe(0);
+      expect(awayEntry?.goalsAgainst).toBe(0);
+      expect(awayEntry?.form).toHaveLength(0);
+    });
+
+    it('should not update a data entry when a match is not finished', () => {
+      const week = 1;
+      let { match, groups } = getTestData({ home: null, away: null }, { home: null, away: null });
+
+      groups = updateStandings(groups, match, week);
+      groups = updateStandings(groups, {
+        id: 'match-2',
+        homeTeam: { id: match.homeTeam.id, score: 1 },
+        awayTeam: { id: match.awayTeam.id, score: null },
+        oldScore: { home: match.homeTeam.score, away: match.awayTeam.score },
+        kickoff: null,
+      }, week);
+
+      const homeEntry = groups[0]?.standings[0]?.data[0];
+
+      expect(groups[0]?.standings[0]?.data).toHaveLength(1);
+      expect(homeEntry?.played).toBe(0);
+      expect(homeEntry?.points).toBe(0);
+      expect(homeEntry?.won).toBe(0);
+      expect(homeEntry?.drawn).toBe(0);
+      expect(homeEntry?.lost).toBe(0);
+      expect(homeEntry?.goalsFor).toBe(0);
+      expect(homeEntry?.goalsAgainst).toBe(0);
+      expect(homeEntry?.form).toHaveLength(0);
+
+      const awayEntry = groups[0]?.standings[1]?.data[0];
+
+      expect(groups[0]?.standings[1]?.data).toHaveLength(1);
+      expect(awayEntry?.played).toBe(0);
+      expect(awayEntry?.points).toBe(0);
+      expect(awayEntry?.won).toBe(0);
+      expect(awayEntry?.drawn).toBe(0);
+      expect(awayEntry?.lost).toBe(0);
+      expect(awayEntry?.goalsFor).toBe(0);
+      expect(awayEntry?.goalsAgainst).toBe(0);
+      expect(awayEntry?.form).toHaveLength(0);
     });
   });
 });
