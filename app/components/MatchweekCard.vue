@@ -22,7 +22,7 @@
               v-model:home-score="match.homeTeam.score"
               v-model:away-score="match.awayTeam.score"
               :match="match"
-              @match-updated="!matchweekCardStore.isResettingMatchweeks && $emit('matchUpdated', $event, selectedWeekNumber)"
+              @match-updated="handleMatchUpdated"
               @focus="nextTick(() => teamStore.focusMatchTeams(match))"
               @blur="nextTick(() => teamStore.blurMatchTeams(match))"
             />
@@ -35,13 +35,9 @@
 </template>
 
 <script lang="ts" setup>
-import type { MatchCardEmits } from './MatchCard.vue';
 import { isBefore } from 'date-fns';
 import { getKickoffDisplayText } from '~/helpers/match';
-
-defineEmits<{
-  matchUpdated: [MatchCardEmits['matchUpdated'][number], Matchweek['week']];
-}>();
+import { updateStandings } from '~/helpers/standings.js';
 
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
@@ -65,6 +61,12 @@ const showMatchKickoff = computed(() => {
     !matches[i - 1] || matches[i - 1]!.kickoff !== match.kickoff
   ));
 });
+
+function handleMatchUpdated(match: MatchWithOldScore) {
+  if (!stageStore.activeGroupStage || matchweekCardStore.isResettingMatchweeks) return;
+
+  stageStore.activeGroupStage.groups = updateStandings(stageStore.activeGroupStage.groups, match, selectedWeekNumber.value);
+}
 </script>
 
 <style scoped>

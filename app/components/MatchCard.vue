@@ -46,20 +46,6 @@
   </div>
 </template>
 
-<script lang="ts">
-export interface MatchWithOldScore extends Match {
-  oldScore: {
-    home: Match['homeTeam']['score'];
-    away: Match['awayTeam']['score'];
-  }
-}
-export interface MatchCardEmits {
-  matchUpdated: [MatchWithOldScore];
-  focus: [];
-  blur: [];
-}
-</script>
-
 <script lang="ts" setup>
 const props = defineProps<{
   match: Match;
@@ -71,7 +57,13 @@ const props = defineProps<{
   homeTeamHighlighted?: boolean;
   awayTeamHighlighted?: boolean;
 }>();
-const emit = defineEmits<MatchCardEmits>();
+
+const emit = defineEmits<{
+  matchUpdated: [MatchWithOldScore];
+  focus: [];
+  blur: [];
+}>();
+
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
 const awayScore = defineModel<Match['awayTeam']['score']>('away-score');
 const fixtureTwoHomeScore = defineModel<Match['homeTeam']['score']>('fixture-two-home-score');

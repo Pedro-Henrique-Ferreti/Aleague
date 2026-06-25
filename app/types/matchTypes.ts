@@ -35,6 +35,13 @@ export interface Match {
   kickoff: MatchKickoff | null;
 }
 
+export interface MatchWithOldScore extends Match {
+  oldScore: {
+    home: Match['homeTeam']['score'];
+    away: Match['awayTeam']['score'];
+  }
+}
+
 export interface Matchweek {
   week: number;
   matches: Match[];

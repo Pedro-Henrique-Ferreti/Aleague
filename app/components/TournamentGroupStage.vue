@@ -31,18 +31,12 @@
         />
       </StandingsCard>
     </div>
-    <MatchweekCard
-      class="sticky top-2 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden"
-      @match-updated="updateStandings"
-    />
+    <MatchweekCard class="sticky top-2 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import type { MatchWithOldScore } from './MatchCard.vue';
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
-import { getMatchResult } from '~/helpers/match';
-import { getStandingsDataFromScore, newStandingsEntryData } from '~/helpers/standings';
 import { DEFAULT_WEEK_OPTION, type FiltersForm } from './StandingsFilters.vue';
 
 const stage = defineModel<GroupStage>({ required: true });
@@ -90,68 +84,5 @@ function getCardTitle(order: GroupStage['groups'][number]['order']) {
   const charPosition = order > ALPHABET.length ? order % ALPHABET.length : order;
 
   return `Grupo ${ALPHABET.at(charPosition - 1)}${count}`;
-}
-
-function updateStandings(match: MatchWithOldScore, week: Matchweek['week']) {
-  const { homeTeam, awayTeam, oldScore } = match;
-  const prevFinished = oldScore.home !== null && oldScore.away !== null;
-  const newFinished = homeTeam.score !== null && awayTeam.score !== null;
-
-  if (!prevFinished && !newFinished) return;
-
-  const onlySum = !prevFinished && newFinished;
-  const onlySubtract = prevFinished && !newFinished;
-  const subtractAndSum = prevFinished && newFinished;
-
-  [homeTeam, awayTeam].forEach((team) => {
-    stage.value.groups.forEach((group) => {
-      const row = group.standings.find(s => s.team === team.id);
-
-      if (!row) return;
-
-      let entry = row.data.find(d => d.week === week);
-
-      if (!entry) {
-        entry = newStandingsEntryData(week);
-        row.data.push(entry);
-      }
-
-      const isHome = team.id === homeTeam.id;
-
-      entry.type = isHome ? TableEntryType.HOME : TableEntryType.AWAY;
-
-      if (onlySubtract || subtractAndSum) {
-        const data = getStandingsDataFromScore(oldScore.home!, oldScore.away!, isHome);
-
-        entry.played -= 1;
-        entry.points -= data.points;
-        entry.won -= data.won;
-        entry.drawn -= data.drawn;
-        entry.lost -= data.lost;
-        entry.goalsFor -= data.goalsFor;
-        entry.goalsAgainst -= data.goalsAgainst;
-        entry.form = entry.form.filter(f => f.week !== week);
-      }
-
-      if (onlySum || subtractAndSum) {
-        const data = getStandingsDataFromScore(homeTeam.score!, awayTeam.score!, isHome);
-
-        entry.played += 1;
-        entry.points += data.points;
-        entry.won += data.won;
-        entry.drawn += data.drawn;
-        entry.lost += data.lost;
-        entry.goalsFor += data.goalsFor;
-        entry.goalsAgainst += data.goalsAgainst;
-        entry.form.push({
-          week,
-          match,
-          result: getMatchResult(match.homeTeam.score!, match.awayTeam.score!, isHome),
-        });
-      }
-
-      row.data.sort((a, b) => a.week - b.week);
-    });
-  });
 }
 </script>
