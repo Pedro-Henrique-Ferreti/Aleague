@@ -15,7 +15,7 @@
         >
           <table class="table static">
             <TransitionGroup
-              name="table-entries"
+              :name="!matchweekCardStore.isSimulatingResults ? 'table-entries' : undefined"
               tag="tbody"
             >
               <tr
@@ -84,7 +84,7 @@ import type { ResizeObserverCallback } from '@vueuse/core';
 import { vResizeObserver } from '@vueuse/components';
 import { getTableEntry, sortTableEntries } from '~/helpers/standings';
 
-interface Props {
+interface StandingsCardProps {
   title: string;
   standings: GroupStage['groups'][number]['standings'];
   entryType?: TableEntryType;
@@ -94,7 +94,9 @@ interface Props {
   weekDirection?: WeekDirection;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const matchweekCardStore = useMatchweekCardStore();
+
+const props = withDefaults(defineProps<StandingsCardProps>(), {
   sortType: TableEntrySortType.POINTS,
   entryType: TableEntryType.OVERALL,
 });
