@@ -57,6 +57,10 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   async function simulateAllMatchweeks() {
     if (!stageStore.activeGroupStage) return;
 
+    resetAllMatchweeks();
+
+    await nextTick();
+
     isSimulatingResults.value = true;
     selectedWeekNumber.value = 1;
     matchesToSimulateCount.value = {
