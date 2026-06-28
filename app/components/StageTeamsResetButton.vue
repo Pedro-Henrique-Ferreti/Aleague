@@ -1,8 +1,5 @@
 <template>
-  <AppTooltip
-    class="tooltip-left"
-    label="Remover equipes"
-  >
+  <AppTooltip label="Remover equipes">
     <AppButton
       class="btn-square btn-accent btn-soft"
       aria-label="Remove teams"

@@ -10,44 +10,72 @@
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
     </template>
-    <div class="flex gap-1 mb-2 justify-center relative">
-      <StageTeamsInput
-        ref="teams-input"
-        :stage-id="stage.id"
-        :selected-teams="selectedTeams"
-        @select="onSelectTeam"
-      />
-      <div class="absolute flex gap-0.75 right-0">
-        <StageTeamsImportButton
-          v-model="form.groups"
-          :selected-teams="selectedTeams"
-        />
-        <StageTeamsFillButton
-          v-model="form.groups"
-          :team-options="teamsInputRef?.teamOptions"
-        />
-        <StageTeamsShuffleButton v-model="form.groups" />
-        <StageTeamsResetButton v-model="form.groups" />
+    <div class="flex gap-1">
+      <div class="flex-1">
+        <div
+          class="flex gap-1 mb-2 relative"
+          :class="[standingsPanelIsOpen ? 'justify-between' : 'justify-center']"
+        >
+          <StageTeamsInput
+            ref="teams-input"
+            :stage-id="stage.id"
+            :selected-teams="selectedTeams"
+            @select="onSelectTeam"
+          />
+          <div
+            class="flex gap-0.75 right-0"
+            :class="{ absolute: !standingsPanelIsOpen }"
+          >
+            <StageTeamsImportButton
+              v-model="form.groups"
+              :selected-teams="selectedTeams"
+            />
+            <StageTeamsFillButton
+              v-model="form.groups"
+              :team-options="teamsInputRef?.teamOptions"
+            />
+            <StageTeamsShuffleButton v-model="form.groups" />
+            <StageTeamsResetButton v-model="form.groups" />
+            <AppTooltip
+              v-if="!standingsPanelIsOpen"
+              label="Abrir painel de classificação"
+              class="tooltip-left"
+            >
+              <AppButton
+                class="btn-square btn-soft"
+                aria-label="Abrir painel de classificação"
+                :icon-left="IconLayoutSidebarRightExpand"
+                @click="standingsPanelIsOpen = true"
+              />
+            </AppTooltip>
+          </div>
+        </div>
+        <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
+          <StageTeamsGroup
+            v-for="group, index in form.groups"
+            v-model="form.groups[index]!"
+            :key="group.order"
+            :stage-type="stage.type"
+          />
+        </div>
       </div>
-    </div>
-    <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-      <StageTeamsGroup
-        v-for="group, index in form.groups"
-        v-model="form.groups[index]!"
-        :key="group.order"
-        :stage-type="stage.type"
+      <StandingsPanel
+        v-if="standingsPanelIsOpen"
+        @close-panel="standingsPanelIsOpen = false"
       />
     </div>
   </AppModal>
 </template>
 
 <script lang="ts" setup>
-interface Props {
+import { IconLayoutSidebarRightExpand } from '@tabler/icons-vue';
+
+interface StageTeamsProps {
   stage: TournamentStage;
   allowEmptySlots?: boolean;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<StageTeamsProps>(), {
   allowEmptySlots: true,
 });
 
@@ -57,13 +85,14 @@ const modalIsOpen = defineModel<boolean>('is-open');
 
 const teamsInputRef = useTemplateRef('teams-input');
 
-// Form
+const standingsPanelIsOpen = ref(false);
 const form = ref<StageTeamsForm>({
   groups: [],
 });
 
-// Modal
 function onOpenModal() {
+  standingsPanelIsOpen.value = false;
+
   if (props.stage.type === StageType.GROUP) {
     form.value.groups = props.stage.groups.map(group => ({
       order: group.order,
@@ -77,7 +106,6 @@ function onOpenModal() {
   }
 }
 
-// Team selection
 const selectedTeams = computed(() => (
   form.value.groups.flatMap(i => i.teams.filter(team => team !== null))
 ));
@@ -92,7 +120,6 @@ function onSelectTeam(team: Team) {
   group.teams[slotIndex] = team.id;
 }
 
-// Submit form
 const submitButtonDisabled = computed(() => (
   !props.allowEmptySlots
   && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
