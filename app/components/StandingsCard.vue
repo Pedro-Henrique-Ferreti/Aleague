@@ -15,8 +15,8 @@
         >
           <table class="table static">
             <TransitionGroup
-              :name="!matchweekCardStore.isSimulatingResults ? 'table-entries' : undefined"
               tag="tbody"
+              :name="!matchweekCardStore.isSimulatingResults ? 'table-entries' : undefined"
             >
               <tr
                 key="header"
@@ -41,7 +41,7 @@
                 <th v-if="matchweeks?.length">Recentes</th>
                 <th />
               </tr>
-              <StandingsCardTableRow
+              <StandingsTableRow
                 v-for="entry, index in tableEntriesSorted"
                 :key="entry.id"
                 :is-clickable="renderFormModal"
@@ -58,7 +58,7 @@
                 </template>
                 <template #team>
                   <td class="position bg-inherit h-[2.875rem] py-0 border-0">
-                    <StandingsCardTeam
+                    <StandingsTableTeam
                       v-if="entry.team"
                       v-model:qualifier="qualifier[index]!"
                       :position="index + 1"
@@ -66,7 +66,7 @@
                     />
                   </td>
                 </template>
-              </StandingsCardTableRow>
+              </StandingsTableRow>
             </TransitionGroup>
           </table>
         </div>
@@ -94,12 +94,12 @@ interface StandingsCardProps {
   weekDirection?: WeekDirection;
 }
 
-const matchweekCardStore = useMatchweekCardStore();
-
 const props = withDefaults(defineProps<StandingsCardProps>(), {
   sortType: TableEntrySortType.POINTS,
   entryType: TableEntryType.OVERALL,
 });
+
+const matchweekCardStore = useMatchweekCardStore();
 
 const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 
