@@ -18,6 +18,16 @@ export const TABLE_ENTRY_VIEW_OPTIONS: Readonly<SelectOptionList<TableEntryView>
   { label: 'Geral', value: TableEntryView.OVERALL },
 ];
 
+export const WEEK_DIRECTION_OPTIONS: Readonly<SelectOptionList<WeekDirection>> = [
+  { label: 'Anterior a', value: WeekDirection.BEFORE },
+  { label: 'Depois de', value: WeekDirection.AFTER },
+];
+
+export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<StandingsFilters['week']>> = {
+  label: 'Todos',
+  value: -1,
+};
+
 export const POINTS_PER_WIN = 3;
 export const POINTS_PER_DRAW = 1;
 export const POINTS_PER_LOSS = 0;

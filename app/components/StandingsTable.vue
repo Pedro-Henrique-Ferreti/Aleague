@@ -76,16 +76,13 @@ export type StandingsTableProps = Pick<StandingsTableRowProps, 'showForm'> & {
   standings: GroupStage['groups'][number]['standings'];
   disableMovementTransition?: boolean;
   disableRowClick?: boolean;
-  entryType?: TableEntryType;
-  sortType?: TableEntrySortType;
-  displayedWeek?: Matchweek['week'];
-  weekDirection?: WeekDirection;
+  filters?: Partial<Pick<StandingsFilters, 'entryType' | 'sortType' | 'week' | 'weekDirection'>>;
 };
 
-const props = withDefaults(defineProps<StandingsTableProps>(), {
-  sortType: TableEntrySortType.POINTS,
-  entryType: TableEntryType.OVERALL,
-});
+const props = defineProps<StandingsTableProps>();
+
+const sortType = computed(() => props.filters?.sortType ?? TableEntrySortType.POINTS);
+const entryType = computed(() => props.filters?.entryType ?? TableEntryType.OVERALL);
 
 const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
 const selectedTableEntry = defineModel<TableEntry>('tableEntry');
@@ -96,10 +93,15 @@ const positionSize = ref('0px');
 const fadedBorderSize = ref('0px');
 
 const tableEntries = computed<TableEntry[]>(() => (
-  props.standings.map(i => getTableEntry(i, props.entryType, props.displayedWeek, props.weekDirection))
+  props.standings.map(i => getTableEntry(
+    i,
+    entryType.value,
+    props.filters?.week === DEFAULT_WEEK_OPTION.value ? undefined : props.filters?.week,
+    props.filters?.weekDirection,
+  ))
 ));
 const tableEntriesSorted = computed(() => (
-  tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, props.sortType))
+  tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, sortType.value))
 ));
 
 const onResizeObserver: ResizeObserverCallback = (entries) => {

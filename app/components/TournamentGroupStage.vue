@@ -6,12 +6,8 @@
         :key="group.order"
         :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallQualifier : group.qualifier"
         :standings="group.standings"
-        :entry-type="filtersForm.entryType"
-        :sort-type="filtersForm.sortType"
+        :filters="filtersForm"
         :title="getCardTitle(group.order)"
-        :matchweeks="stage.matchweeks"
-        :displayed-week="filtersForm.week === DEFAULT_WEEK_OPTION.value ? undefined : filtersForm.week"
-        :week-direction="filtersForm.weekDirection"
         @update:qualifier="onUpdateGroupQualifier($event, index)"
       >
         <template #header>
@@ -27,7 +23,7 @@
           v-if="index === 0"
           v-show="showFilters"
           v-model="filtersForm"
-          @reset="filtersForm = newFiltersForm()"
+          @reset="filtersForm = newStandingsFilters()"
         />
       </StandingsCard>
     </div>
@@ -37,11 +33,10 @@
 
 <script lang="ts" setup>
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
-import { DEFAULT_WEEK_OPTION, type FiltersForm } from './StandingsFilters.vue';
 
 const stage = defineModel<GroupStage>({ required: true });
 
-function newFiltersForm(): FiltersForm {
+function newStandingsFilters(): StandingsFilters {
   return {
     entryType: TableEntryType.OVERALL,
     sortType: TableEntrySortType.POINTS,
@@ -51,7 +46,7 @@ function newFiltersForm(): FiltersForm {
   };
 }
 
-const filtersForm = ref<FiltersForm>(newFiltersForm());
+const filtersForm = ref<StandingsFilters>(newStandingsFilters());
 const showFilters = ref(false);
 
 const displayedGroups = computed<GroupStage['groups']>(() => (

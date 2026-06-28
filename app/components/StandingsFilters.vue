@@ -14,7 +14,7 @@
       <BaseSelect
         v-model="form.weekDirection"
         class="select-sm max-w-8"
-        :options="weekDirectionOptions"
+        :options="WEEK_DIRECTION_OPTIONS"
       />
       <BaseSelect
         v-model="form.week"
@@ -37,21 +37,6 @@
   </div>
 </template>
 
-<script lang="ts">
-export interface FiltersForm {
-  entryType: TableEntryType;
-  sortType: TableEntrySortType;
-  view: TableEntryView;
-  week: Matchweek['week'];
-  weekDirection: WeekDirection;
-}
-
-export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<FiltersForm['week']>> = {
-  label: 'Todos',
-  value: -1,
-};
-</script>
-
 <script setup lang="ts">
 import { IconRestore } from '@tabler/icons-vue';
 
@@ -59,17 +44,12 @@ defineEmits<{ reset: [] }>();
 
 const stageStore = useStageStore();
 
-const form = defineModel<FiltersForm>({ required: true });
+const form = defineModel<StandingsFilters>({ required: true });
 
 const matchweeksCount = computed(() => stageStore.activeGroupStage?.matchweeks.length ?? 0);
 const showEntryViewInput = computed(() => stageStore.activeGroupStage?.groups.length ?? 0 > 1);
 
-const weekDirectionOptions: Readonly<SelectOptionList<FiltersForm['weekDirection']>> = [
-  { label: 'Anterior a', value: WeekDirection.BEFORE },
-  { label: 'Depois de', value: WeekDirection.AFTER },
-];
-
-const weekOptions = computed<SelectOptionList<FiltersForm['week']>>(() => [
+const weekOptions = computed<SelectOptionList<StandingsFilters['week']>>(() => [
   DEFAULT_WEEK_OPTION,
   ...createArray(matchweeksCount.value, i => ({
     label: `Rodada ${i + 1}`,

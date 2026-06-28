@@ -31,6 +31,14 @@ export enum TableEntryView {
   OVERALL,
 }
 
+export interface StandingsFilters {
+  entryType: TableEntryType;
+  sortType: TableEntrySortType;
+  view: TableEntryView;
+  week: Matchweek['week'];
+  weekDirection: WeekDirection;
+}
+
 export interface StandingsData {
   points: number;
   played: number;

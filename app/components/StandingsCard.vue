@@ -13,10 +13,7 @@
         :disable-row-click="!renderFormModal"
         :disable-movement-transition="matchweekCardStore.isSimulatingResults"
         :table-entry="selectedTableEntry"
-        :entry-type="entryType"
-        :sort-type="sortType"
-        :displayed-week="displayedWeek"
-        :week-direction="weekDirection"
+        :filters="filters"
         @update:table-entry="onTableEntryClick"
       />
     </div>
@@ -30,7 +27,7 @@
 <script lang="ts" setup>
 import type { StandingsTableProps } from './StandingsTable.vue';
 
-type StandingsCardProps = Pick<StandingsTableProps, 'standings' | 'entryType' | 'sortType' | 'displayedWeek' | 'weekDirection'> & {
+type StandingsCardProps = Pick<StandingsTableProps, 'standings' | 'filters'> & {
   title: string;
   matchweeks?: GroupStage['matchweeks'];
 };
