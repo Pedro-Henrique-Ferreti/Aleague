@@ -31,7 +31,7 @@ const props = defineProps<{
 
 const { getTeamById } = useTeamStore();
 
-const entry = defineModel<TableEntry | null>('entry');
+const entry = defineModel<TableEntry | undefined>('entry');
 
 const isOpen = ref(false);
 

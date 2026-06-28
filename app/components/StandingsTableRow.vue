@@ -49,12 +49,14 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{
+export interface StandingsTableRowProps {
   entry: TableEntry;
   isClickable?: boolean;
   sortType: TableEntrySortType;
   showForm?: boolean;
-}>();
+}
+
+defineProps<StandingsTableRowProps>();
 defineEmits(['click']);
 
 const teamStore = useTeamStore();
