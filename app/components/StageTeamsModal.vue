@@ -61,6 +61,7 @@
       </div>
       <StandingsPanel
         v-if="standingsPanelIsOpen"
+        @select-team="onSelectTeam"
         @close-panel="standingsPanelIsOpen = false"
       />
     </div>
