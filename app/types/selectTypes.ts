@@ -1,4 +1,4 @@
-export type SelectOptionValue = string | number | boolean | Record<string, unknown>;
+export type SelectOptionValue = string | number | boolean | object;
 
 export interface SelectOption<V extends SelectOptionValue> {
   label: string;
