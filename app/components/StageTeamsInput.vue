@@ -77,6 +77,7 @@
 
 <script lang="ts" setup>
 import { IconCaretDownFilled, IconSearch } from '@tabler/icons-vue';
+import { getTeamById } from '@/helpers/team';
 
 /* eslint-disable ts/prefer-literal-enum-member */
 // This is needed to allow using TeamType values as SelectOption values without type issues.
@@ -115,7 +116,6 @@ const inputId = useId();
 const popoverId = useId();
 
 const tournamentStore = useTournamentStore();
-const { getTeamById } = useTeamStore();
 
 const form = ref<Form>({
   search: '',

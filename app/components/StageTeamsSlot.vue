@@ -23,13 +23,13 @@
 </template>
 
 <script lang="ts" setup>
+import { getTeamById } from '@/helpers/team';
+
 const props = defineProps<{
   teamId: Team['id'] | null;
 }>();
 
 defineEmits<{ remove: [] }>();
-
-const { getTeamById } = useTeamStore();
 
 const team = computed(() => props.teamId ? getTeamById(props.teamId) : null);
 </script>

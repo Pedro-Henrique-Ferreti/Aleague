@@ -52,6 +52,7 @@
 
 <script lang="ts" setup>
 import { IconCircleDotFilled, IconCircleFilled } from '@tabler/icons-vue';
+import { getTeamById } from '@/helpers/team';
 
 const props = defineProps<{
   position: number;
@@ -66,9 +67,7 @@ const QUALIFIER_COLORS = [
 ];
 
 const popoverId = useId();
-
 const tournamentStore = useTournamentStore();
-const { getTeamById } = useTeamStore();
 
 const qualifier = defineModel<Qualifier>('qualifier', { required: true });
 

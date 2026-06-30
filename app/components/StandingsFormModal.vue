@@ -23,13 +23,12 @@
 
 <script lang="ts" setup>
 import type { StandingsFormChartProps } from './StandingsFormChart.vue';
+import { getTeamById } from '@/helpers/team.js';
 import { getTableEntriesByWeek } from '~/helpers/standings';
 
 const props = defineProps<{
   standings: GroupStage['groups'][number]['standings'];
 }>();
-
-const { getTeamById } = useTeamStore();
 
 const entry = defineModel<TableEntry | undefined>('entry');
 

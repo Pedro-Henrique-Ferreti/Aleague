@@ -29,6 +29,7 @@
 
 <script lang="ts" setup>
 import { IconLayoutSidebarLeftExpand } from '@tabler/icons-vue';
+import { getTeamById } from '@/helpers/team';
 
 const emit = defineEmits<{
   selectTeam: [Team];
@@ -36,7 +37,6 @@ const emit = defineEmits<{
 }>();
 
 const tournamentStore = useTournamentStore();
-const { getTeamById } = useTeamStore();
 
 const stageOptions = computed<SelectOptionList<TournamentStage>>(() => {
   return tournamentStore.activeTournament?.stages.map(stage => ({

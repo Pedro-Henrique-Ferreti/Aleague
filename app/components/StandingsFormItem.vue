@@ -17,12 +17,12 @@
 </template>
 
 <script lang="ts" setup>
+import { getTeamById } from '@/helpers/team';
+
 const props = defineProps<{
   form: TableEntryForm;
   teamId: TableEntry['team'];
 }>();
-
-const { getTeamById } = useTeamStore();
 
 const isHomeTeam = computed(() => props.form.match.homeTeam.id === props.teamId);
 

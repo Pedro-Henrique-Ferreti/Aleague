@@ -25,6 +25,7 @@
 
 <script lang="ts" setup>
 import { IconShieldFilled } from '@tabler/icons-vue';
+import { getTeamById } from '@/helpers/team';
 
 const props = defineProps<{
   team?: TeamDetails['id'] | null;
@@ -32,8 +33,6 @@ const props = defineProps<{
   showCountry?: boolean;
   isHighlighted?: boolean;
 }>();
-
-const { getTeamById } = useTeamStore();
 
 const teamDetails = computed(() => props.team ? getTeamById(props.team) : undefined);
 </script>
