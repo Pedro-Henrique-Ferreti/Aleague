@@ -11,24 +11,26 @@
     @close="closeModal"
   >
     <div
-      class="modal-box max-h-[93vh]"
+      class="modal-box p-0 max-h-[93vh]"
       :class="{ 'max-w-48': size === 'lg', 'max-w-80': size === 'xl' }"
     >
-      <CloseButton
-        v-if="showCloseIcon"
-        class="absolute right-1 top-1"
-        aria-label="Fechar modal"
-        @click="closeModal"
-      />
-      <h3
-        v-if="title"
-        v-text="title"
-        class="text-lg font-semibold mb-1"
-      />
-      <slot />
+      <div class="pt-1.5 px-1.5">
+        <CloseButton
+          v-if="showCloseIcon"
+          class="absolute right-1 top-1"
+          aria-label="Fechar modal"
+          @click="closeModal"
+        />
+        <h3
+          v-if="title"
+          v-text="title"
+          class="text-lg font-semibold mb-1"
+        />
+        <slot />
+      </div>
       <div
         v-if="showActions"
-        class="modal-action"
+        class="modal-action p-1.5 mt-0 sticky bottom-0 bg-inherit"
       >
         <slot name="actions">
           <AppButton
