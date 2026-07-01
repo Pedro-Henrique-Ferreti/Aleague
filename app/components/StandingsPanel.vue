@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-20 pl-1 border-l border-base-200">
+  <div class="max-w-24 pl-1 border-l border-base-200">
     <div class="mb-0.5">
       <AppTooltip label="Fechar painel">
         <AppButton
@@ -19,6 +19,7 @@
         v-for="group in selectedStage.groups"
         :key="group.order"
         disable-movement-transition
+        display-mode="compact"
         :qualifier="group.qualifier"
         :standings="group.standings"
         @update:table-entry="handleTableEntryClick"

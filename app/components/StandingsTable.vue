@@ -23,16 +23,18 @@
               Posição
             </th>
             <th class="min-w-3">Pts</th>
-            <th class="min-w-3">J</th>
-            <th class="min-w-3">V</th>
-            <th class="min-w-3">E</th>
-            <th class="min-w-3">D</th>
-            <th class="min-w-3">GP</th>
-            <th class="min-w-3">GC</th>
-            <th class="min-w-3">SG</th>
-            <th class="min-w-4">%</th>
-            <th v-if="showForm">Recentes</th>
-            <th />
+            <template v-if="displayMode === 'complete'">
+              <th class="min-w-3">J</th>
+              <th class="min-w-3">V</th>
+              <th class="min-w-3">E</th>
+              <th class="min-w-3">D</th>
+              <th class="min-w-3">GP</th>
+              <th class="min-w-3">GC</th>
+              <th class="min-w-3">SG</th>
+              <th class="min-w-4">%</th>
+              <th v-if="showForm">Recentes</th>
+              <th />
+            </template>
           </tr>
           <StandingsTableRow
             v-for="entry, index in tableEntriesSorted"
@@ -41,6 +43,7 @@
             :entry="entry"
             :sort-type="sortType"
             :show-form="showForm"
+            :display-mode="displayMode"
             @click="selectedTableEntry = entry"
           >
             <template #resize-observer>
@@ -72,14 +75,16 @@ import type { StandingsTableRowProps } from './StandingsTableRow.vue';
 import { vResizeObserver } from '@vueuse/components';
 import { getTableEntry, sortTableEntries } from '~/helpers/standings.js';
 
-export type StandingsTableProps = Pick<StandingsTableRowProps, 'showForm'> & {
+export type StandingsTableProps = Pick<StandingsTableRowProps, 'showForm' | 'displayMode'> & {
   standings: GroupStage['groups'][number]['standings'];
   disableMovementTransition?: boolean;
   disableRowClick?: boolean;
   filters?: Partial<Pick<StandingsFilters, 'entryType' | 'sortType' | 'week' | 'weekDirection'>>;
 };
 
-const props = defineProps<StandingsTableProps>();
+const props = withDefaults(defineProps<StandingsTableProps>(), {
+  displayMode: 'complete',
+});
 
 const sortType = computed(() => props.filters?.sortType ?? TableEntrySortType.POINTS);
 const entryType = computed(() => props.filters?.entryType ?? TableEntryType.OVERALL);
