@@ -1,7 +1,7 @@
 <template>
   <div
     class="standings-team flex items-center h-full"
-    :style="`--clr:${getColor(qualifier)};`"
+    :style="`--clr:${QUALIFIER_COLOR_VALUES[qualifier]};`"
   >
     <span
       v-if="disableQualifierSelector"
@@ -27,7 +27,7 @@
       >
         <div class="flex flex-row">
           <button
-            v-for="color in QUALIFIER_COLORS"
+            v-for="color in COLOR_OPTIONS"
             :key="color"
             class="flex items-center justify-center size-1.75 cursor-pointer"
             aria-label="Cor da legenda"
@@ -35,7 +35,7 @@
           >
             <component
               :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
-              :style="`fill:${getColor(color)}`"
+              :style="`fill:${QUALIFIER_COLOR_VALUES[color]}`"
             />
           </button>
         </div>
@@ -68,7 +68,7 @@ const props = defineProps<{
   disableQualifierSelector?: boolean;
 }>();
 
-const QUALIFIER_COLORS = [
+const COLOR_OPTIONS: ReadonlyArray<Qualifier> = [
   Qualifier.GREEN,
   Qualifier.BLUE,
   Qualifier.RED,
@@ -81,22 +81,6 @@ const tournamentStore = useTournamentStore();
 const qualifier = defineModel<Qualifier>('qualifier', { required: true });
 
 const team = computed(() => getTeamById(props.teamId));
-
-function getColor(value: Qualifier) {
-  switch (value) {
-    case Qualifier.GREEN:
-      return '#00a63e';
-    case Qualifier.BLUE:
-      return '#2b7fff';
-    case Qualifier.RED:
-      return '#fb2c36';
-    case Qualifier.ORANGE:
-      return '#ff6900';
-    case Qualifier.NONE:
-    default:
-      return 'transparent';
-  }
-}
 </script>
 
 <style scoped>

@@ -31,3 +31,11 @@ export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<StandingsFilters['week']
 export const POINTS_PER_WIN = 3;
 export const POINTS_PER_DRAW = 1;
 export const POINTS_PER_LOSS = 0;
+
+export const QUALIFIER_COLOR_VALUES: Record<Qualifier, string> = {
+  [Qualifier.GREEN]: '#00a63e',
+  [Qualifier.BLUE]: '#2b7fff',
+  [Qualifier.RED]: '#fb2c36',
+  [Qualifier.ORANGE]: '#ff6900',
+  [Qualifier.NONE]: 'transparent',
+};
