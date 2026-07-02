@@ -19,6 +19,7 @@
     </div>
   </section>
   <StandingsFormModal
+    v-if="renderFormModal"
     v-model:entry="selectedTableEntry"
     :standings="standings"
   />
