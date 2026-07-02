@@ -3,36 +3,44 @@
     class="standings-team flex items-center h-full"
     :style="`--clr:${getColor(qualifier)};`"
   >
-    <button
-      class="font-medium text-[1rem] size-1.5 btn btn-ghost p-0"
-      type="button"
-      :style="`anchor-name:--team-button-${popoverId}`"
-      :popovertarget="popoverId"
-      @click.stop
+    <span
+      v-if="disableQualifierSelector"
+      class="qualifier-button"
     >
       {{ position }}
-    </button>
-    <div
-      :id="popoverId"
-      class="dropdown menu p-0.5 rounded-md bg-base-100 shadow-sm dropdown-right"
-      popover
-      :style="`position-anchor:--team-button-${popoverId}`"
-    >
-      <div class="flex flex-row">
-        <button
-          v-for="color in QUALIFIER_COLORS"
-          :key="color"
-          class="flex items-center justify-center size-1.75 cursor-pointer"
-          aria-label="Cor da legenda"
-          @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
-        >
-          <component
-            :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
-            :style="`fill:${getColor(color)}`"
-          />
-        </button>
+    </span>
+    <template v-else>
+      <button
+        class="qualifier-button btn btn-ghost p-0"
+        type="button"
+        :style="`anchor-name:--team-button-${popoverId}`"
+        :popovertarget="popoverId"
+        @click.stop
+      >
+        {{ position }}
+      </button>
+      <div
+        :id="popoverId"
+        class="dropdown menu p-0.5 rounded-md bg-base-100 shadow-sm dropdown-right"
+        popover
+        :style="`position-anchor:--team-button-${popoverId}`"
+      >
+        <div class="flex flex-row">
+          <button
+            v-for="color in QUALIFIER_COLORS"
+            :key="color"
+            class="flex items-center justify-center size-1.75 cursor-pointer"
+            aria-label="Cor da legenda"
+            @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
+          >
+            <component
+              :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
+              :style="`fill:${getColor(color)}`"
+            />
+          </button>
+        </div>
       </div>
-    </div>
+    </template>
     <span class="size-0.25 ml-0.75 mr-1 rounded-full bg-base-200" />
     <img
       class="size-1.5 mr-0.75"
@@ -57,6 +65,7 @@ import { getTeamById } from '@/helpers/team';
 const props = defineProps<{
   position: number;
   teamId: TeamDetails['id'];
+  disableQualifierSelector?: boolean;
 }>();
 
 const QUALIFIER_COLORS = [
@@ -92,6 +101,10 @@ function getColor(value: Qualifier) {
 
 <style scoped>
 @reference '@/assets/css/main.css';
+
+.qualifier-button {
+  @apply flex justify-center items-center text-[1rem] size-1.5 font-medium;
+}
 
 .standings-team::before {
   @apply content-[''] absolute left-0 h-[calc(100%-0.5rem)] w-0.25 bg-(--clr) rounded-e-md;

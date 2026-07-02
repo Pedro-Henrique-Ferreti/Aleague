@@ -59,6 +59,7 @@
                   v-model:qualifier="qualifier[index]!"
                   :position="index + 1"
                   :team-id="entry.team"
+                  :disable-qualifier-selector="displayMode !== 'complete'"
                 />
               </td>
             </template>
