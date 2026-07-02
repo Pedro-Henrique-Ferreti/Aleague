@@ -8,6 +8,7 @@
         :standings="group.standings"
         :filters="filtersForm"
         :title="getCardTitle(group.order)"
+        :matchweeks="stage.matchweeks"
         @update:qualifier="onUpdateGroupQualifier($event, index)"
       >
         <template #header>
