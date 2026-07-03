@@ -167,4 +167,6 @@ export const NATIONAL_TEAM_LIST: Readonly<TeamDetails[]> = [
   { id: 'NAT-166', name: 'País de Gales', badge: '/images/countries/wales.svg', country: 'WAL', type: TeamType.NATIONAL, tags: ['Europa'] },
   { id: 'NAT-167', name: 'Zâmbia', badge: '/images/countries/zambia.svg', country: 'ZMB', type: TeamType.NATIONAL, tags: ['África'] },
   { id: 'NAT-168', name: 'Zimbabwe', badge: '/images/countries/zimbabwe.svg', country: 'ZWE', type: TeamType.NATIONAL, tags: ['África'] },
+  { id: 'NAT-169', name: 'Curaçao', badge: '/images/countries/curacao.svg', country: 'ZWE', type: TeamType.NATIONAL, tags: ['América Central'] },
+  { id: 'NAT-170', name: 'Jordânia', badge: '/images/countries/jordan.svg', country: 'JOR', type: TeamType.NATIONAL, tags: ['Ásia'] },
 ];
