@@ -60,7 +60,7 @@
                   v-model:qualifier="qualifier[index]!"
                   :position="index + 1"
                   :team-id="entry.team"
-                  :disable-qualifier-selector="displayMode !== 'complete'"
+                  :disable-qualifier-selector="displayMode !== 'complete' || disableRowClick"
                 />
               </td>
             </template>
