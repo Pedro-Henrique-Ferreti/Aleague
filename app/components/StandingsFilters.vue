@@ -47,7 +47,7 @@ const stageStore = useStageStore();
 const form = defineModel<StandingsFilters>({ required: true });
 
 const matchweeksCount = computed(() => stageStore.activeGroupStage?.matchweeks.length ?? 0);
-const showEntryViewInput = computed(() => stageStore.activeGroupStage?.groups.length ?? 0 > 1);
+const showEntryViewInput = computed(() => (stageStore.activeGroupStage?.groups.length ?? 0) > 1);
 
 const weekOptions = computed<SelectOptionList<StandingsFilters['week']>>(() => [
   DEFAULT_WEEK_OPTION,
