@@ -1,5 +1,5 @@
 <template>
-  <div class="w-22 max-h-[76vh] overflow-y-auto pl-1 border-l border-base-200">
+  <div class="w-22 max-h-[76vh] overflow-y-auto pl-1 border-l border-base-200 sticky top-3">
     <div class="mb-0.5">
       <AppTooltip label="Fechar painel">
         <AppButton
