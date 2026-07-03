@@ -1,72 +1,74 @@
 <template>
-  <div class="divider mt-0.5 -mb-[7px]" />
-  <div class="table-container">
-    <div
-      v-resize-observer="getFadedBorderSize"
-      ref="table-wrapper"
-      class="overflow-x-auto"
-    >
-      <table class="table static">
-        <TransitionGroup
-          tag="tbody"
-          :name="disableMovementTransition ? undefined : 'table-entries'"
-        >
-          <tr
-            key="header"
-            class="text-xs text-gray-500 bg-gray-1 [&_th]:p-0.75 [&_th]:text-center"
+  <div>
+    <div class="divider m-0 h-fit" />
+    <div class="table-container">
+      <div
+        v-resize-observer="getFadedBorderSize"
+        ref="table-wrapper"
+        class="overflow-x-auto"
+      >
+        <table class="table static">
+          <TransitionGroup
+            tag="tbody"
+            :name="disableMovementTransition ? undefined : 'table-entries'"
           >
-            <th
-              class="resize-observer"
-              aria-hidden="true"
-            />
-            <th class="position bg-inherit">
-              Posição
-            </th>
-            <th class="min-w-3">Pts</th>
-            <template v-if="displayMode === 'complete'">
-              <th class="min-w-3">J</th>
-              <th class="min-w-3">V</th>
-              <th class="min-w-3">E</th>
-              <th class="min-w-3">D</th>
-              <th class="min-w-3">GP</th>
-              <th class="min-w-3">GC</th>
-              <th class="min-w-3">SG</th>
-              <th class="min-w-4">%</th>
-              <th v-if="showForm">Recentes</th>
-              <th />
-            </template>
-          </tr>
-          <StandingsTableRow
-            v-for="entry, index in tableEntriesSorted"
-            :key="entry.id"
-            :is-clickable="disableRowClick !== true && !disabledEntries?.includes(entry.id)"
-            :disabled="disabledEntries?.includes(entry.id)"
-            :entry="entry"
-            :sort-type="sortType"
-            :show-form="showForm"
-            :display-mode="displayMode"
-            @click="selectedTableEntry = entry"
-          >
-            <template #resize-observer>
-              <td
-                v-resize-observer="onResizeObserver"
-                class="resize-observer p-0!"
+            <tr
+              key="header"
+              class="text-xs text-gray-500 bg-gray-1 [&_th]:p-0.75 [&_th]:text-center"
+            >
+              <th
+                class="resize-observer"
+                aria-hidden="true"
               />
-            </template>
-            <template #team>
-              <td class="position bg-inherit h-[2.875rem] py-0 border-0">
-                <StandingsTableTeam
-                  v-if="entry.team"
-                  v-model:qualifier="qualifier[index]!"
-                  :position="index + 1"
-                  :team-id="entry.team"
-                  :disable-qualifier-selector="displayMode !== 'complete' || disableRowClick"
+              <th class="position bg-inherit">
+                Posição
+              </th>
+              <th class="min-w-3">Pts</th>
+              <template v-if="displayMode === 'complete'">
+                <th class="min-w-3">J</th>
+                <th class="min-w-3">V</th>
+                <th class="min-w-3">E</th>
+                <th class="min-w-3">D</th>
+                <th class="min-w-3">GP</th>
+                <th class="min-w-3">GC</th>
+                <th class="min-w-3">SG</th>
+                <th class="min-w-4">%</th>
+                <th v-if="showForm">Recentes</th>
+                <th />
+              </template>
+            </tr>
+            <StandingsTableRow
+              v-for="entry, index in tableEntriesSorted"
+              :key="entry.id"
+              :is-clickable="disableRowClick !== true && !disabledEntries?.includes(entry.id)"
+              :disabled="disabledEntries?.includes(entry.id)"
+              :entry="entry"
+              :sort-type="sortType"
+              :show-form="showForm"
+              :display-mode="displayMode"
+              @click="selectedTableEntry = entry"
+            >
+              <template #resize-observer>
+                <td
+                  v-resize-observer="onResizeObserver"
+                  class="resize-observer p-0!"
                 />
-              </td>
-            </template>
-          </StandingsTableRow>
-        </TransitionGroup>
-      </table>
+              </template>
+              <template #team>
+                <td class="position bg-inherit h-[2.875rem] py-0 border-0">
+                  <StandingsTableTeam
+                    v-if="entry.team"
+                    v-model:qualifier="qualifier[index]!"
+                    :position="index + 1"
+                    :team-id="entry.team"
+                    :disable-qualifier-selector="displayMode !== 'complete' || disableRowClick"
+                  />
+                </td>
+              </template>
+            </StandingsTableRow>
+          </TransitionGroup>
+        </table>
+      </div>
     </div>
   </div>
 </template>

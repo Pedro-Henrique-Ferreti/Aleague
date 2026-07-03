@@ -8,6 +8,7 @@
       <slot />
       <StandingsTable
         v-model:qualifier="qualifier"
+        class="mt-0.75"
         :standings="standings"
         :show-form="!!matchweeks?.length"
         :disable-row-click="!renderFormModal || matchweekCardStore.isSimulatingResults"
