@@ -39,7 +39,8 @@
           <StandingsTableRow
             v-for="entry, index in tableEntriesSorted"
             :key="entry.id"
-            :is-clickable="!disableRowClick"
+            :is-clickable="disableRowClick !== true && !disabledEntries?.includes(entry.id)"
+            :disabled="disabledEntries?.includes(entry.id)"
             :entry="entry"
             :sort-type="sortType"
             :show-form="showForm"
@@ -80,6 +81,7 @@ export type StandingsTableProps = Pick<StandingsTableRowProps, 'showForm' | 'dis
   standings: GroupStage['groups'][number]['standings'];
   disableMovementTransition?: boolean;
   disableRowClick?: boolean;
+  disabledEntries?: StandingsEntry['id'][];
   filters?: Partial<Pick<StandingsFilters, 'entryType' | 'sortType' | 'week' | 'weekDirection'>>;
 };
 

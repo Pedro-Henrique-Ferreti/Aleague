@@ -20,8 +20,10 @@
         :key="group.order"
         display-mode="compact"
         disable-movement-transition
+        :table-entry="undefined"
         :qualifier="group.qualifier"
         :standings="group.standings"
+        :disabled-entries="getDisabledEntries(group)"
         @update:table-entry="handleTableEntryClick"
       />
     </template>
@@ -32,6 +34,9 @@
 import { IconLayoutSidebarLeftExpand } from '@tabler/icons-vue';
 import { getTeamById } from '@/helpers/team';
 
+const props = defineProps<{
+  selectedTeams: Team['id'][];
+}>();
 const emit = defineEmits<{
   selectTeam: [Team];
   closePanel: [];
@@ -47,6 +52,10 @@ const stageOptions = computed<SelectOptionList<TournamentStage>>(() => {
 });
 
 const selectedStage = ref<TournamentStage | undefined>(stageOptions.value[0]?.value);
+
+function getDisabledEntries(group: GroupStage['groups'][number]): StandingsEntry['id'][] {
+  return group.standings.filter(entry => props.selectedTeams.includes(entry.team ?? '')).map(entry => entry.id);
+}
 
 function handleTableEntryClick(entry: TableEntry | undefined) {
   const team = getTeamById(entry?.team);

@@ -1,9 +1,11 @@
 <template>
   <tr
-    class="bg-white h-3 hover:bg-gray-1 transition-colors duration-300 text-center [&_td]:px-0.75"
+    class="bg-white h-3 transition-all duration-300 text-center [&_td]:px-0.75"
     :class="{
       'cursor-pointer': isClickable,
       'bg-gray-200!': entry.team && teamStore.focusedTeamId.includes(entry.team),
+      'hover:bg-gray-1': !disabled,
+      'opacity-50': disabled,
     }"
     :tabindex="isClickable ? 0 : -1"
     @click="isClickable && $emit('click')"
@@ -54,6 +56,7 @@
 export interface StandingsTableRowProps {
   entry: TableEntry;
   isClickable?: boolean;
+  disabled?: boolean;
   sortType: TableEntrySortType;
   showForm?: boolean;
   displayMode?: 'complete' | 'compact';

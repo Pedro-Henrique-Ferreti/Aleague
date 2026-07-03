@@ -61,6 +61,7 @@
       </div>
       <StandingsPanel
         v-if="standingsPanelIsOpen"
+        :selected-teams="selectedTeams"
         @select-team="onSelectTeam"
         @close-panel="standingsPanelIsOpen = false"
       />
