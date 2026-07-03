@@ -7,7 +7,7 @@
         :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallQualifier : group.qualifier"
         :standings="group.standings"
         :filters="filtersForm"
-        :title="getCardTitle(group.order)"
+        :title="getGroupName(group, stage, filtersForm.view)"
         :matchweeks="stage.matchweeks"
         @update:qualifier="onUpdateGroupQualifier($event, index)"
       >
@@ -34,6 +34,7 @@
 
 <script lang="ts" setup>
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
+import { getGroupName } from '@/helpers/group-stage';
 
 const stage = defineModel<GroupStage>({ required: true });
 
@@ -67,18 +68,5 @@ function onUpdateGroupQualifier(value: Qualifier[], groupIndex: number) {
   }
 
   stage.value.groups[groupIndex]!.qualifier = value;
-}
-
-function getCardTitle(order: GroupStage['groups'][number]['order']) {
-  if (stage.value.groups.length === 1) return 'Classificação';
-
-  if (filtersForm.value.view === TableEntryView.OVERALL) return 'Classificação geral';
-
-  if (stage.value.nameFormat === GroupStageNameFormat.NUMBER) return `Grupo ${order}`;
-
-  const count = order > ALPHABET.length ? Math.ceil(order / ALPHABET.length) : '';
-  const charPosition = order > ALPHABET.length ? order % ALPHABET.length : order;
-
-  return `Grupo ${ALPHABET.at(charPosition - 1)}${count}`;
 }
 </script>
