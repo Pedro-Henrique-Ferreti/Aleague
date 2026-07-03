@@ -12,20 +12,26 @@
     </div>
     <BaseSelect
       v-model="selectedStage"
+      class="mb-1.5"
       :options="stageOptions"
     />
     <template v-if="selectedStage?.type === StageType.GROUP">
-      <StandingsTable
+      <div
         v-for="group in selectedStage.groups"
         :key="group.order"
-        display-mode="compact"
-        disable-movement-transition
-        :table-entry="undefined"
-        :qualifier="group.qualifier"
-        :standings="group.standings"
-        :disabled-entries="getDisabledEntries(group)"
-        @update:table-entry="handleTableEntryClick"
-      />
+        class="not-last:mb-1.5"
+      >
+        <span class="block font-medium mb-0.75">{{ getGroupName(group, selectedStage) }}</span>
+        <StandingsTable
+          display-mode="compact"
+          disable-movement-transition
+          :table-entry="undefined"
+          :qualifier="group.qualifier"
+          :standings="group.standings"
+          :disabled-entries="getDisabledEntries(group)"
+          @update:table-entry="handleTableEntryClick"
+        />
+      </div>
     </template>
   </div>
 </template>
@@ -33,6 +39,7 @@
 <script lang="ts" setup>
 import { IconLayoutSidebarLeftExpand } from '@tabler/icons-vue';
 import { getTeamById } from '@/helpers/team';
+import { getGroupName } from '~/helpers/group-stage';
 
 const props = defineProps<{
   selectedTeams: Team['id'][];
