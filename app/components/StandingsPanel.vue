@@ -33,6 +33,10 @@
         />
       </div>
     </template>
+    <StandingsPanelPlayoff
+      v-else-if="selectedStage?.type === StageType.PLAYOFF"
+      :stage="selectedStage"
+    />
   </div>
 </template>
 
