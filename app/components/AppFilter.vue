@@ -11,6 +11,7 @@
       :aria-label="option.label"
     >
     <button
+      v-if="showResetButton"
       class="btn btn-square btn-xs rounded-md"
       type="button"
       aria-label="Limpar filtros"
@@ -27,10 +28,15 @@ interface AppFilterOption {
   label: string;
 }
 
-defineProps<{
+interface AppFilterProps {
   options: AppFilterOption[];
   inputName: HTMLInputElement['name'];
-}>();
+  showResetButton?: boolean;
+}
+
+withDefaults(defineProps<AppFilterProps>(), {
+  showResetButton: true,
+});
 
 const selectedOptions = defineModel<T[]>();
 </script>
