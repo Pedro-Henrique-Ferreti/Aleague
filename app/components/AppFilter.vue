@@ -5,7 +5,7 @@
       v-model="selectedOptions"
       :key="String(option.value)"
       class="btn btn-xs rounded-md"
-      type="checkbox"
+      :type="type"
       :name="inputName"
       :value="option.value"
       :aria-label="option.label"
@@ -31,12 +31,14 @@ interface AppFilterOption {
 interface AppFilterProps {
   options: AppFilterOption[];
   inputName: HTMLInputElement['name'];
+  type?: 'checkbox' | 'radio';
   showResetButton?: boolean;
 }
 
 withDefaults(defineProps<AppFilterProps>(), {
+  type: 'checkbox',
   showResetButton: true,
 });
 
-const selectedOptions = defineModel<T[]>();
+const selectedOptions = defineModel<T | T[]>();
 </script>
