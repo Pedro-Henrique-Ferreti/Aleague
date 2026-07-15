@@ -15,14 +15,12 @@
   </select>
 </template>
 
-<script lang="ts">
+<script setup lang="ts" generic="T extends SelectOptionValue">
 export interface BaseSelectProps<T extends SelectOptionValue> {
   options: SelectOptionList<T> | Readonly<SelectOptionList<T>>;
   disabled?: boolean;
 }
-</script>
 
-<script setup lang="ts" generic="T extends SelectOptionValue">
 defineProps<BaseSelectProps<T>>();
 
 const id = useId();

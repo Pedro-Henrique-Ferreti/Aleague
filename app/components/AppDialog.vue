@@ -35,13 +35,13 @@
 <script setup lang="ts">
 import { IconAlertTriangle } from '@tabler/icons-vue';
 
-interface Props {
+interface AppDialogProps {
   title?: string;
   message?: string;
   type?: 'delete';
 }
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<AppDialogProps>(), {
   title: 'Continuar',
 });
 

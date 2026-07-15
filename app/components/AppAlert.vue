@@ -27,14 +27,14 @@
 <script setup lang="ts">
 import { type Icon, IconInfoCircle } from '@tabler/icons-vue';
 
-interface Props {
+interface AppAlertProps {
   icon?: Icon;
   message?: string;
   soft?: boolean;
   type?: 'success' | 'error' | 'warning' | 'info';
 }
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<AppAlertProps>(), {
   icon: () => IconInfoCircle,
 });
 </script>

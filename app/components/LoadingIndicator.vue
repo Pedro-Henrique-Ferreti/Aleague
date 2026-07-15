@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts" setup>
-interface Props {
+interface LoadingIndicatorProps {
   message?: string;
 }
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<LoadingIndicatorProps>(), {
   message: 'Carregando. Por favor, aguarde...',
 });
 </script>

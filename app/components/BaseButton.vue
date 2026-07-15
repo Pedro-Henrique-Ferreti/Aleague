@@ -17,17 +17,15 @@
   </NuxtLink>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import type { ButtonHTMLAttributes } from 'vue';
+import type { RouteLocationRaw } from 'vue-router';
+
 export interface BaseButtonProps {
   to?: RouteLocationRaw;
   type?: ButtonHTMLAttributes['type'];
   disabled?: boolean;
 }
-</script>
-
-<script lang="ts" setup>
-import type { ButtonHTMLAttributes } from 'vue';
-import type { RouteLocationRaw } from 'vue-router';
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {
   type: 'button',

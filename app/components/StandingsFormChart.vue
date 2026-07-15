@@ -2,7 +2,9 @@
   <AppChart :config="chartConfig" />
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import type { ChartConfiguration } from 'chart.js';
+
 export interface StandingsFormChartProps {
   data: {
     week: number;
@@ -11,10 +13,6 @@ export interface StandingsFormChartProps {
   }[];
   lowestYPoint: number;
 }
-</script>
-
-<script lang="ts" setup>
-import type { ChartConfiguration } from 'chart.js';
 
 const props = defineProps<StandingsFormChartProps>();
 

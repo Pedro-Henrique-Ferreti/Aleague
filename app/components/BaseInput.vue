@@ -13,7 +13,10 @@
   >
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import type { InputTypeHTMLAttribute } from 'vue';
+import IMask, { type HTMLInputMaskElement, type InputMask } from 'imask';
+
 export type BaseInputModel = string | number | null;
 
 interface BaseInputProps {
@@ -27,11 +30,6 @@ interface BaseInputProps {
   mask?: string | RegExp | (() => void);
   maskOptions?: Record<string, unknown>;
 }
-</script>
-
-<script lang="ts" setup>
-import type { InputTypeHTMLAttribute } from 'vue';
-import IMask, { type HTMLInputMaskElement, type InputMask } from 'imask';
 
 const props = withDefaults(defineProps<BaseInputProps>(), {
   type: 'text',

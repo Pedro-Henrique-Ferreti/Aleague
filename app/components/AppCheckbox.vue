@@ -24,22 +24,20 @@
   </label>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 enum TextPlacement {
   LEFT = 'left',
   RIGHT = 'right',
 }
 
-interface Props {
+interface AppCheckboxProps {
   value?: string | number;
   disabled?: boolean;
   label?: string;
   placement?: `${TextPlacement}`;
 }
-</script>
 
-<script lang="ts" setup>
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<AppCheckboxProps>(), {
   value: '',
   placement: TextPlacement.RIGHT,
 });

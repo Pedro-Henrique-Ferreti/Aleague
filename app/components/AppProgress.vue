@@ -28,12 +28,12 @@ enum ProgressColor {
   ERROR = 'error',
 }
 
-interface Props {
+interface AppProgressProps {
   color?: `${ProgressColor}`;
   value?: number;
 }
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<AppProgressProps>(), {
   color: ProgressColor.SECONDARY,
 });
 </script>
