@@ -7,6 +7,8 @@ export const useStageStore = defineStore('stage', () => {
   const { activeTournament } = storeToRefs(tournamentStore);
   const { selectedStageOrPlayoffRoundId } = storeToRefs(stageSelectorStore);
 
+  const legendsModalIsOpen = ref(false);
+
   const activeStageIndex = computed(() => {
     return activeTournament.value?.stages.findIndex((stage) => {
       if (stage.type === StageType.GROUP) {
@@ -95,6 +97,7 @@ export const useStageStore = defineStore('stage', () => {
     activeStage,
     activeStageIndex,
     activeGroupStage,
+    legendsModalIsOpen,
     updateActiveStage,
     deleteActiveStage,
     deleteGroupStageMatchweeks,

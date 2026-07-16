@@ -29,12 +29,13 @@
       </StandingsCard>
     </div>
     <MatchweekCard class="sticky top-2 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden" />
+    <StandingsLegendsModal v-if="isGroupStageSeeded(stage.groups)" />
   </section>
 </template>
 
 <script lang="ts" setup>
 import { IconAdjustmentsHorizontal } from '@tabler/icons-vue';
-import { getGroupName } from '@/helpers/group-stage';
+import { getGroupName, isGroupStageSeeded } from '@/helpers/group-stage';
 
 const stage = defineModel<GroupStage>({ required: true });
 
