@@ -5,11 +5,13 @@
     :class="[layout === 'vertical' ? 'grid-cols-[1fr_auto]' : 'grid-cols-[1fr_auto_1fr]']"
   >
     <MatchCardTeam
-      :class="{ 'text-base-content/60': winnerTeamId && winnerTeamId !== match.homeTeam.id }"
+      :disabled="homeTeamDisabled || (!!winnerTeamId && winnerTeamId !== match.homeTeam.id)"
       :align="layout !== 'vertical' ? 'right' : undefined"
       :team="match.homeTeam.id"
       :show-country="showCountry"
       :is-highlighted="homeTeamHighlighted"
+      :is-clickable="props.homeTeamClickable"
+      @click="$emit('homeTeamClick', match.homeTeam.id ?? undefined)"
     />
     <div
       class="flex items-center gap-0.5 h-full"
@@ -38,10 +40,12 @@
       </template>
     </div>
     <MatchCardTeam
-      :class="{ 'text-base-content/60': winnerTeamId && winnerTeamId !== match.awayTeam.id }"
+      :disabled="awayTeamDisabled || (!!winnerTeamId && winnerTeamId !== match.awayTeam.id)"
       :team="match.awayTeam.id"
       :show-country="showCountry"
       :is-highlighted="awayTeamHighlighted"
+      :is-clickable="props.awayTeamClickable"
+      @click="$emit('awayTeamClick', match.awayTeam.id ?? undefined)"
     />
   </div>
 </template>
@@ -56,12 +60,18 @@ const props = defineProps<{
   winnerTeamId?: TeamDetails['id'];
   homeTeamHighlighted?: boolean;
   awayTeamHighlighted?: boolean;
+  homeTeamClickable?: boolean;
+  awayTeamClickable?: boolean;
+  homeTeamDisabled?: boolean;
+  awayTeamDisabled?: boolean;
 }>();
 
 const emit = defineEmits<{
   matchUpdated: [MatchWithOldScore];
   focus: [];
   blur: [];
+  homeTeamClick: [Team['id']?];
+  awayTeamClick: [Team['id']?];
 }>();
 
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');
