@@ -35,7 +35,7 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
       qualifier: createArray(stageForm.teamsPerGroup, LegendColor.NONE),
       standings: createArray(stageForm.teamsPerGroup, () => newStandingsEntry()),
     })),
-    overallQualifier: (
+    overallLegend: (
       (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, LegendColor.NONE) : []
     ),
   };

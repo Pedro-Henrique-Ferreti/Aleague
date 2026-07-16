@@ -53,7 +53,7 @@ describe('tournament', () => {
           type: StageType.GROUP,
           nameFormat: GroupStageNameFormat.NUMBER,
           groups: [],
-          overallQualifier: [],
+          overallLegend: [],
           matchweeks: [],
         },
       ] as TournamentStage[];

@@ -4,7 +4,7 @@
       <StandingsCard
         v-for="(group, index) in displayedGroups"
         :key="group.order"
-        :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallQualifier : group.qualifier"
+        :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallLegend : group.qualifier"
         :standings="group.standings"
         :filters="filtersForm"
         :title="getGroupName(group, stage, filtersForm.view)"
@@ -63,7 +63,7 @@ const displayedGroups = computed<GroupStage['groups']>(() => (
 
 function onUpdateGroupQualifier(value: LegendColor[], groupIndex: number) {
   if (filtersForm.value.view === TableEntryView.OVERALL) {
-    stage.value.overallQualifier = value;
+    stage.value.overallLegend = value;
     return;
   }
 

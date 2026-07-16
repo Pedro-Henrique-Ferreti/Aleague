@@ -111,7 +111,7 @@ describe('stage-teams', () => {
           ] as StandingsEntry[],
           qualifier: [LegendColor.NONE, LegendColor.NONE],
         }],
-        overallQualifier: [],
+        overallLegend: [],
       };
 
       const form: StageTeamsForm = {

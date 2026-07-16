@@ -80,7 +80,7 @@ describe('stage', () => {
       result.groups.forEach(group => group.standings.forEach(entry => expect(entry.team).toBeNull()));
     });
 
-    it('should include overallQualifier when there are multiple groups', () => {
+    it('should include overallLegend when there are multiple groups', () => {
       const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
       const stageForm: StageForm = {
         name: 'Group Stage',
@@ -94,10 +94,10 @@ describe('stage', () => {
 
       const result = newGroupStage(stageForm, baseStage);
 
-      expect(result.overallQualifier).toHaveLength(8);
+      expect(result.overallLegend).toHaveLength(8);
     });
 
-    it('should omit overallQualifier when there is a single group', () => {
+    it('should omit overallLegend when there is a single group', () => {
       const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
       const stageForm: StageForm = {
         name: 'Group Stage',
@@ -111,7 +111,7 @@ describe('stage', () => {
 
       const result = newGroupStage(stageForm, baseStage);
 
-      expect(result.overallQualifier).toEqual([]);
+      expect(result.overallLegend).toEqual([]);
     });
   });
 
