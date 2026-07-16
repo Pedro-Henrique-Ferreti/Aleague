@@ -15,7 +15,11 @@
       class="mb-1.5"
       :options="stageOptions"
     />
-    <template v-if="selectedStage?.type === StageType.GROUP">
+    <div v-if="showEmptyState">
+      <h1 class="text-lg text-center font-semibold mb-0.5">Fase não preenchida</h1>
+      <p class="text-center">Adicione todas as equipes para visualizar a classificação da fase.</p>
+    </div>
+    <template v-else-if="selectedStage?.type === StageType.GROUP">
       <div
         v-for="group in selectedStage.groups"
         :key="group.order"
@@ -45,7 +49,8 @@
 <script lang="ts" setup>
 import { IconLayoutSidebarLeftExpand } from '@tabler/icons-vue';
 import { getTeamById } from '@/helpers/team';
-import { getGroupName } from '~/helpers/group-stage';
+import { getGroupName, isGroupStageSeeded } from '~/helpers/group-stage';
+import { isPlayoffStageSeeded } from '~/helpers/playoff';
 
 const props = defineProps<{
   selectedTeams: Team['id'][];
@@ -65,6 +70,18 @@ const stageOptions = computed<SelectOptionList<TournamentStage>>(() => {
 });
 
 const selectedStage = ref<TournamentStage | undefined>(stageOptions.value[0]?.value);
+
+const showEmptyState = computed(() => {
+  if (!selectedStage.value) {
+    return true;
+  }
+
+  if (selectedStage.value?.type === StageType.GROUP) {
+    return !isGroupStageSeeded(selectedStage.value.groups);
+  }
+
+  return !isPlayoffStageSeeded(selectedStage.value.rounds);
+});
 
 function getDisabledEntries(group: GroupStage['groups'][number]): StandingsEntry['id'][] {
   return group.standings.filter(entry => props.selectedTeams.includes(entry.team ?? '')).map(entry => entry.id);
