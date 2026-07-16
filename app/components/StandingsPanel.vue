@@ -29,13 +29,15 @@
           :qualifier="group.qualifier"
           :standings="group.standings"
           :disabled-entries="getDisabledEntries(group)"
-          @update:table-entry="handleTableEntryClick"
+          @update:table-entry="handleSelectTeam($event?.team ?? '')"
         />
       </div>
     </template>
     <StandingsPanelPlayoff
       v-else-if="selectedStage?.type === StageType.PLAYOFF"
       :stage="selectedStage"
+      :disabled-teams="selectedTeams"
+      @select-team="handleSelectTeam"
     />
   </div>
 </template>
@@ -68,8 +70,8 @@ function getDisabledEntries(group: GroupStage['groups'][number]): StandingsEntry
   return group.standings.filter(entry => props.selectedTeams.includes(entry.team ?? '')).map(entry => entry.id);
 }
 
-function handleTableEntryClick(entry: TableEntry | undefined) {
-  const team = getTeamById(entry?.team);
+function handleSelectTeam(id: Team['id']) {
+  const team = getTeamById(id);
 
   if (team) {
     emit('selectTeam', team);
