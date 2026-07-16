@@ -19,27 +19,10 @@
       >
         {{ position }}
       </button>
-      <div
-        :id="popoverId"
-        class="dropdown menu p-0.5 rounded-md bg-base-100 shadow-sm dropdown-right"
-        popover
-        :style="`position-anchor:--team-button-${popoverId}`"
-      >
-        <div class="flex flex-row">
-          <button
-            v-for="color in COLOR_OPTIONS"
-            :key="color"
-            class="flex items-center justify-center size-1.75 cursor-pointer"
-            aria-label="Cor da legenda"
-            @click.stop="legend === color ? legend = LegendColor.NONE : legend = color"
-          >
-            <component
-              :is="color === legend ? IconCircleDotFilled : IconCircleFilled"
-              :style="`fill:${LEGEND_COLOR_VALUES[color]}`"
-            />
-          </button>
-        </div>
-      </div>
+      <StandingsTableLegendPopover
+        v-model:legend="legend"
+        :popover-id="popoverId"
+      />
     </template>
     <span class="size-0.25 ml-0.75 mr-1 rounded-full bg-base-200" />
     <img
@@ -59,7 +42,6 @@
 </template>
 
 <script lang="ts" setup>
-import { IconCircleDotFilled, IconCircleFilled } from '@tabler/icons-vue';
 import { getTeamById } from '@/helpers/team';
 
 const props = defineProps<{
@@ -67,13 +49,6 @@ const props = defineProps<{
   teamId: TeamDetails['id'];
   disableLegendSelector?: boolean;
 }>();
-
-const COLOR_OPTIONS: ReadonlyArray<LegendColor> = [
-  LegendColor.GREEN,
-  LegendColor.BLUE,
-  LegendColor.RED,
-  LegendColor.ORANGE,
-];
 
 const popoverId = useId();
 const tournamentStore = useTournamentStore();
