@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <div class="text-xl font-semibold mb-0.5">Nenhuma partida disponível</div>
-    <template v-if="activeGroupStage && groupsAreFullyCompleted(activeGroupStage.groups)">
+    <template v-if="activeGroupStage && isGroupStageSeeded(activeGroupStage.groups)">
       <p>Clique no botão abaixo para configurar as partidas.</p>
       <MatchweekFormModal v-slot="{ openModal }">
         <AppButton
@@ -31,7 +31,7 @@
 
 <script lang="ts" setup>
 import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
-import { groupsAreFullyCompleted } from '~/helpers/group-stage';
+import { isGroupStageSeeded } from '~/helpers/group-stage';
 
 const { activeGroupStage } = storeToRefs(useStageStore());
 </script>

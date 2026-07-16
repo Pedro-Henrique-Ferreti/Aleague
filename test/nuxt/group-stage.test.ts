@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, groupsAreFullyCompleted } from '~/helpers/group-stage';
+import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded } from '~/helpers/group-stage';
 
 describe('group-stage', () => {
   describe('getSameGroupTeamLists', () => {
@@ -70,7 +70,7 @@ describe('group-stage', () => {
     });
   });
 
-  describe('groupsAreFullyCompleted', () => {
+  describe('isGroupStageSeeded', () => {
     it('should return true when all teams are assigned', () => {
       const groups = [
         {
@@ -83,7 +83,7 @@ describe('group-stage', () => {
         },
       ] as GroupStage['groups'];
 
-      expect(groupsAreFullyCompleted(groups)).toBeTruthy();
+      expect(isGroupStageSeeded(groups)).toBeTruthy();
     });
 
     it('should return false when any team is not assigned', () => {
@@ -98,7 +98,7 @@ describe('group-stage', () => {
         },
       ] as GroupStage['groups'];
 
-      expect(groupsAreFullyCompleted(groups)).toBeFalsy();
+      expect(isGroupStageSeeded(groups)).toBeFalsy();
     });
   });
 });

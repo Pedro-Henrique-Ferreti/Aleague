@@ -1,4 +1,4 @@
-import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, groupsAreFullyCompleted } from './group-stage';
+import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded } from './group-stage';
 import { createMatchSchedule, type MatchScheduleResponse } from './match-schedule';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
@@ -50,7 +50,7 @@ export async function newGroupStageMatchweekList(payload: {
 }): Promise<NewMatchweekListResponse> {
   const { groups, format, roundRobins, weeksToCreate, signal } = payload;
 
-  if (!groupsAreFullyCompleted(groups)) throw new Error('All teams must be assigned');
+  if (!isGroupStageSeeded(groups)) throw new Error('All teams must be assigned');
 
   let scheduleResult: MatchScheduleResponse = { schedule: [], isBalanced: true };
 
