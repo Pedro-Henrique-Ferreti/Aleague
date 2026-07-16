@@ -58,10 +58,10 @@
                 <td class="position bg-inherit h-[2.875rem] py-0 border-0">
                   <StandingsTableTeam
                     v-if="entry.team"
-                    v-model:qualifier="qualifier[index]!"
+                    v-model:legend="legend[index]!"
                     :position="index + 1"
                     :team-id="entry.team"
-                    :disable-qualifier-selector="displayMode !== 'complete' || disableRowClick"
+                    :disable-legend-selector="displayMode !== 'complete' || disableRowClick"
                   />
                 </td>
               </template>
@@ -94,7 +94,7 @@ const props = withDefaults(defineProps<StandingsTableProps>(), {
 const sortType = computed(() => props.filters?.sortType ?? TableEntrySortType.POINTS);
 const entryType = computed(() => props.filters?.entryType ?? TableEntryType.OVERALL);
 
-const qualifier = defineModel<LegendColor[]>('qualifier', { required: true });
+const legend = defineModel<LegendColor[]>('legend', { required: true });
 const selectedTableEntry = defineModel<TableEntry>('tableEntry');
 
 const tableWrapperRef = useTemplateRef('table-wrapper');

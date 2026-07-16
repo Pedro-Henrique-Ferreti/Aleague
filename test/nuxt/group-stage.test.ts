@@ -11,7 +11,7 @@ describe('group-stage', () => {
             { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         },
         {
           order: 2,
@@ -19,7 +19,7 @@ describe('group-stage', () => {
             { id: '3', team: 'team-c', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: '4', team: 'team-d', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
 
@@ -40,7 +40,7 @@ describe('group-stage', () => {
             { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
 
@@ -58,7 +58,7 @@ describe('group-stage', () => {
             { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
 
@@ -79,7 +79,7 @@ describe('group-stage', () => {
             { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
 
@@ -94,7 +94,7 @@ describe('group-stage', () => {
             { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: '2', team: null, data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
 

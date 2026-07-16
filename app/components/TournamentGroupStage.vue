@@ -4,12 +4,12 @@
       <StandingsCard
         v-for="(group, index) in displayedGroups"
         :key="group.order"
-        :qualifier="filtersForm.view === TableEntryView.OVERALL ? stage.overallLegend : group.qualifier"
+        :legend="filtersForm.view === TableEntryView.OVERALL ? stage.overallLegend : group.legend"
         :standings="group.standings"
         :filters="filtersForm"
         :title="getGroupName(group, stage, filtersForm.view)"
         :matchweeks="stage.matchweeks"
-        @update:qualifier="onUpdateGroupQualifier($event, index)"
+        @update:legend="handleUpdateGroupLegend($event, index)"
       >
         <template #header>
           <AppButton
@@ -56,17 +56,17 @@ const displayedGroups = computed<GroupStage['groups']>(() => (
     ? stage.value.groups
     : [{
         order: -1,
-        qualifier: [],
+        legend: [],
         standings: stage.value.groups.flatMap(group => group.standings),
       }]
 ));
 
-function onUpdateGroupQualifier(value: LegendColor[], groupIndex: number) {
+function handleUpdateGroupLegend(value: LegendColor[], groupIndex: number) {
   if (filtersForm.value.view === TableEntryView.OVERALL) {
     stage.value.overallLegend = value;
     return;
   }
 
-  stage.value.groups[groupIndex]!.qualifier = value;
+  stage.value.groups[groupIndex]!.legend = value;
 }
 </script>

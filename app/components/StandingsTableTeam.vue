@@ -1,17 +1,17 @@
 <template>
   <div
     class="standings-team flex items-center h-full"
-    :style="`--clr:${LEGEND_COLOR_VALUES[qualifier]};`"
+    :style="`--clr:${LEGEND_COLOR_VALUES[legend]};`"
   >
     <span
-      v-if="disableQualifierSelector"
-      class="qualifier-button"
+      v-if="disableLegendSelector"
+      class="legend-button"
     >
       {{ position }}
     </span>
     <template v-else>
       <button
-        class="qualifier-button btn btn-ghost p-0"
+        class="legend-button btn btn-ghost p-0"
         type="button"
         :style="`anchor-name:--team-button-${popoverId}`"
         :popovertarget="popoverId"
@@ -31,10 +31,10 @@
             :key="color"
             class="flex items-center justify-center size-1.75 cursor-pointer"
             aria-label="Cor da legenda"
-            @click.stop="qualifier === color ? qualifier = LegendColor.NONE : qualifier = color"
+            @click.stop="legend === color ? legend = LegendColor.NONE : legend = color"
           >
             <component
-              :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
+              :is="color === legend ? IconCircleDotFilled : IconCircleFilled"
               :style="`fill:${LEGEND_COLOR_VALUES[color]}`"
             />
           </button>
@@ -65,7 +65,7 @@ import { getTeamById } from '@/helpers/team';
 const props = defineProps<{
   position: number;
   teamId: TeamDetails['id'];
-  disableQualifierSelector?: boolean;
+  disableLegendSelector?: boolean;
 }>();
 
 const COLOR_OPTIONS: ReadonlyArray<LegendColor> = [
@@ -78,7 +78,7 @@ const COLOR_OPTIONS: ReadonlyArray<LegendColor> = [
 const popoverId = useId();
 const tournamentStore = useTournamentStore();
 
-const qualifier = defineModel<LegendColor>('qualifier', { required: true });
+const legend = defineModel<LegendColor>('legend', { required: true });
 
 const team = computed(() => getTeamById(props.teamId));
 </script>
@@ -86,7 +86,7 @@ const team = computed(() => getTeamById(props.teamId));
 <style scoped>
 @reference '@/assets/css/main.css';
 
-.qualifier-button {
+.legend-button {
   @apply flex justify-center items-center text-[1rem] size-1.5 font-medium;
 }
 

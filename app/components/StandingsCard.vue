@@ -7,7 +7,7 @@
       </header>
       <slot />
       <StandingsTable
-        v-model:qualifier="qualifier"
+        v-model:legend="legend"
         class="mt-0.75"
         :standings="standings"
         :show-form="!!matchweeks?.length"
@@ -38,7 +38,7 @@ const props = defineProps<StandingsCardProps>();
 
 const matchweekCardStore = useMatchweekCardStore();
 
-const qualifier = defineModel<LegendColor[]>('qualifier', { required: true });
+const legend = defineModel<LegendColor[]>('legend', { required: true });
 
 const selectedTableEntry = ref<TableEntry>();
 const renderFormModal = computed(() => !!props.matchweeks?.length);

@@ -109,7 +109,7 @@ describe('stage-teams', () => {
             { id: 's1', team: 'old-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
             { id: 's2', team: 'old-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
           ] as StandingsEntry[],
-          qualifier: [LegendColor.NONE, LegendColor.NONE],
+          legend: [LegendColor.NONE, LegendColor.NONE],
         }],
         overallLegend: [],
       };

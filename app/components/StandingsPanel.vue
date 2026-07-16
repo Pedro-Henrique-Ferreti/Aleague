@@ -30,7 +30,7 @@
           display-mode="compact"
           disable-movement-transition
           :table-entry="undefined"
-          :qualifier="group.qualifier"
+          :legend="group.legend"
           :standings="group.standings"
           :disabled-entries="getDisabledEntries(group)"
           @update:table-entry="handleSelectTeam($event?.team ?? '')"

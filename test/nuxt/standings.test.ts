@@ -292,7 +292,7 @@ describe('standings', () => {
       } satisfies MatchWithOldScore,
       groups: [{
         order: 1,
-        qualifier: [LegendColor.NONE, LegendColor.NONE],
+        legend: [LegendColor.NONE, LegendColor.NONE],
         standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
       }] as GroupStage['groups'],
     });
