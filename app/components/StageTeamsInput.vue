@@ -117,12 +117,16 @@ const popoverId = useId();
 
 const tournamentStore = useTournamentStore();
 
-const form = ref<Form>({
-  search: '',
-  filter: TeamTypeFilter.CLUB,
-  country: '',
-  tags: [],
-});
+function newForm(): Form {
+  return {
+    search: '',
+    filter: TeamTypeFilter.CLUB,
+    country: '',
+    tags: [],
+  };
+}
+
+const form = ref(newForm());
 
 watch(() => form.value.filter, () => {
   form.value.country = '';
@@ -176,5 +180,8 @@ function showPopover() {
 }
 
 // Exposed values
-defineExpose({ teamOptions });
+defineExpose({
+  teamOptions,
+  reset: () => (form.value = newForm()),
+});
 </script>

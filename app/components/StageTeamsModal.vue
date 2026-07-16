@@ -93,6 +93,7 @@ const form = ref<StageTeamsForm>({
 });
 
 function onOpenModal() {
+  teamsInputRef.value?.reset();
   standingsPanelIsOpen.value = false;
 
   if (props.stage.type === StageType.GROUP) {
