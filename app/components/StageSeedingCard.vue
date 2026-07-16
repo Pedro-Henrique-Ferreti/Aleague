@@ -4,7 +4,7 @@
       <div class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2">
         {{ stageType === StageType.GROUP ? 'Grupo' : 'Partida' }} {{ group.order }}
       </div>
-      <StageTeamsSlot
+      <StageSeedingTeamSlot
         v-for="team, index in group.teams"
         :key="index"
         :team-id="team"

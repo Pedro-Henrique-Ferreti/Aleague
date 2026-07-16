@@ -32,7 +32,7 @@
       v-model:is-open="stageModalIsOpen"
       :stage="isEditingStage ? activeStage : undefined"
     />
-    <StageTeamsModal
+    <StageSeedingModal
       v-if="activeStage"
       v-model:is-open="editTeamModalIsOpen"
       :key="activeStage.id"

@@ -26,16 +26,16 @@
             class="flex gap-0.75 right-0"
             :class="{ absolute: !standingsPanelIsOpen }"
           >
-            <StageTeamsImportButton
+            <StageSeedingImportButton
               v-model="form.groups"
               :selected-teams="selectedTeams"
             />
-            <StageTeamsFillButton
+            <StageSeedingRandomButton
               v-model="form.groups"
               :team-options="teamsInputRef?.teamOptions"
             />
-            <StageTeamsShuffleButton v-model="form.groups" />
-            <StageTeamsResetButton v-model="form.groups" />
+            <StageSeedingShuffleButton v-model="form.groups" />
+            <StageSeedingResetButton v-model="form.groups" />
             <AppTooltip
               v-if="!standingsPanelIsOpen"
               label="Abrir painel de classificação"
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-          <StageTeamsGroup
+          <StageSeedingCard
             v-for="group, index in form.groups"
             v-model="form.groups[index]!"
             :key="group.order"

@@ -14,7 +14,7 @@
     </template>
     <template v-else-if="activeGroupStage">
       <p>Adicione todas as equipes antes de gerar as partidas.</p>
-      <StageTeamsModal
+      <StageSeedingModal
         v-slot="{ openModal }"
         :stage="activeGroupStage"
       >
@@ -24,7 +24,7 @@
           :icon-left="IconUsersGroup"
           @click="openModal"
         />
-      </StageTeamsModal>
+      </StageSeedingModal>
     </template>
   </div>
 </template>
