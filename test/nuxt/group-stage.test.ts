@@ -83,7 +83,7 @@ describe('group-stage', () => {
         },
       ] as GroupStage['groups'];
 
-      expect(isGroupStageSeeded(groups)).toBeTruthy();
+      expect(isGroupStageSeeded(groups)).toBe(true);
     });
 
     it('should return false when any team is not assigned', () => {
@@ -98,7 +98,7 @@ describe('group-stage', () => {
         },
       ] as GroupStage['groups'];
 
-      expect(isGroupStageSeeded(groups)).toBeFalsy();
+      expect(isGroupStageSeeded(groups)).toBe(false);
     });
   });
 });
