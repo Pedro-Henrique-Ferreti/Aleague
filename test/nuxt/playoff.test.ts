@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPlayoffRoundNames, newPlayoffRoundSlot } from '~/helpers/playoff';
+import { getPlayoffRoundNames, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff';
 
 describe('playoff', () => {
   describe('getPlayoffRoundNames', () => {
@@ -48,6 +48,32 @@ describe('playoff', () => {
       const slot1 = newPlayoffRoundSlot(0);
       const slot2 = newPlayoffRoundSlot(1);
       expect(slot1.id).not.toBe(slot2.id);
+    });
+  });
+
+  describe('isPlayoffStageSeeded', () => {
+    it('should return true for a seeded playoff stage', () => {
+      const seededRounds = [
+        {
+          slots: [{
+            legs: [{ homeTeam: { id: 'team-a', score: null }, awayTeam: { id: 'team-b', score: null } }] as PlayoffRoundSlot['legs'],
+          }] as PlayoffRoundSlot[],
+        } as PlayoffRound,
+      ] as PlayoffStage['rounds'];
+
+      expect(isPlayoffStageSeeded(seededRounds)).toBe(true);
+    });
+
+    it('should return false for an unseeded playoff stage', () => {
+      const unseededRounds = [
+        {
+          slots: [{
+            legs: [{ homeTeam: { id: null, score: null }, awayTeam: { id: null, score: null } }] as PlayoffRoundSlot['legs'],
+          }] as PlayoffRoundSlot[],
+        } as PlayoffRound,
+      ] as PlayoffStage['rounds'];
+
+      expect(isPlayoffStageSeeded(unseededRounds)).toBe(false);
     });
   });
 });

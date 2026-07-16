@@ -18,3 +18,7 @@ export function newPlayoffRoundSlot(index: number): PlayoffRoundSlot {
     legs: [newMatch()],
   };
 }
+
+export function isPlayoffStageSeeded(rounds: PlayoffRound[]): boolean {
+  return rounds.every(round => round.slots.every(slot => slot.legs.every(leg => leg.homeTeam.id !== null && leg.awayTeam.id !== null)));
+}
