@@ -1,6 +1,6 @@
 <template>
   <div class="card card-border rounded-lg flex-row items-center">
-    <label class="input input-ghost max-w-14 [anchor-name:--teams-input]">
+    <label class="input input-ghost max-w-14 [anchor-name:--team-search-input]">
       <IconSearch class="w-auto h-[1em] opacity-50 shrink-0" />
       <input
         v-model.trim="form.search"
@@ -14,7 +14,7 @@
       <ul
         ref="popoverRef"
         :id="popoverId"
-        class="dropdown menu w-full max-w-14.5 max-h-14.5 rounded-box bg-base-100 top-0.25 border border-base-200 [position-anchor:--teams-input]"
+        class="dropdown menu w-full max-w-14.5 max-h-14.5 rounded-box bg-base-100 top-0.25 border border-base-200 [position-anchor:--team-search-input]"
         popover
       >
         <li

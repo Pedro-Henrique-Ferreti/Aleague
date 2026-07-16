@@ -16,8 +16,8 @@
           class="flex gap-1 mb-2 relative"
           :class="[standingsPanelIsOpen ? 'justify-between' : 'justify-center']"
         >
-          <StageTeamsInput
-            ref="teams-input"
+          <TeamSearchInput
+            ref="team-search"
             :stage-id="stage.id"
             :selected-teams="selectedTeams"
             @select="onSelectTeam"
@@ -32,7 +32,7 @@
             />
             <StageSeedingRandomButton
               v-model="form.groups"
-              :team-options="teamsInputRef?.teamOptions"
+              :team-options="teamSearchInput?.teamOptions"
             />
             <StageSeedingShuffleButton v-model="form.groups" />
             <StageSeedingResetButton v-model="form.groups" />
@@ -85,7 +85,7 @@ const stageStore = useStageStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
-const teamsInputRef = useTemplateRef('teams-input');
+const teamSearchInput = useTemplateRef('team-search');
 
 const standingsPanelIsOpen = ref(false);
 const form = ref<StageTeamsForm>({
@@ -93,7 +93,7 @@ const form = ref<StageTeamsForm>({
 });
 
 function onOpenModal() {
-  teamsInputRef.value?.reset();
+  teamSearchInput.value?.reset();
   standingsPanelIsOpen.value = false;
 
   if (props.stage.type === StageType.GROUP) {
