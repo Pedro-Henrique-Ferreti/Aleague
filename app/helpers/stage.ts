@@ -32,11 +32,11 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
     matchweeks: [],
     groups: createArray(stageForm.groups, index => ({
       order: index + 1,
-      qualifier: createArray(stageForm.teamsPerGroup, Qualifier.NONE),
+      qualifier: createArray(stageForm.teamsPerGroup, LegendColor.NONE),
       standings: createArray(stageForm.teamsPerGroup, () => newStandingsEntry()),
     })),
     overallQualifier: (
-      (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, Qualifier.NONE) : []
+      (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, LegendColor.NONE) : []
     ),
   };
 }

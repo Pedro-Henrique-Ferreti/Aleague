@@ -1,4 +1,4 @@
-export enum Qualifier {
+export enum LegendColor {
   NONE,
   GREEN,
   BLUE,

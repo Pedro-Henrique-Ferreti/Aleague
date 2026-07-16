@@ -27,9 +27,9 @@ export interface GroupStage extends BaseStage {
   groups: {
     order: number;
     standings: StandingsEntry[];
-    qualifier: Qualifier[];
+    qualifier: LegendColor[];
   }[];
-  overallQualifier: Qualifier[];
+  overallQualifier: LegendColor[];
   matchweeks: Matchweek[];
 }
 

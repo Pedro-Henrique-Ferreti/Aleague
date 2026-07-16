@@ -38,7 +38,7 @@ const props = defineProps<StandingsCardProps>();
 
 const matchweekCardStore = useMatchweekCardStore();
 
-const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
+const qualifier = defineModel<LegendColor[]>('qualifier', { required: true });
 
 const selectedTableEntry = ref<TableEntry>();
 const renderFormModal = computed(() => !!props.matchweeks?.length);

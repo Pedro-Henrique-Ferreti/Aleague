@@ -61,7 +61,7 @@ const displayedGroups = computed<GroupStage['groups']>(() => (
       }]
 ));
 
-function onUpdateGroupQualifier(value: Qualifier[], groupIndex: number) {
+function onUpdateGroupQualifier(value: LegendColor[], groupIndex: number) {
   if (filtersForm.value.view === TableEntryView.OVERALL) {
     stage.value.overallQualifier = value;
     return;

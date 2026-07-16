@@ -1,7 +1,7 @@
 <template>
   <div
     class="standings-team flex items-center h-full"
-    :style="`--clr:${QUALIFIER_COLOR_VALUES[qualifier]};`"
+    :style="`--clr:${LEGEND_COLOR_VALUES[qualifier]};`"
   >
     <span
       v-if="disableQualifierSelector"
@@ -31,11 +31,11 @@
             :key="color"
             class="flex items-center justify-center size-1.75 cursor-pointer"
             aria-label="Cor da legenda"
-            @click.stop="qualifier === color ? qualifier = Qualifier.NONE : qualifier = color"
+            @click.stop="qualifier === color ? qualifier = LegendColor.NONE : qualifier = color"
           >
             <component
               :is="color === qualifier ? IconCircleDotFilled : IconCircleFilled"
-              :style="`fill:${QUALIFIER_COLOR_VALUES[color]}`"
+              :style="`fill:${LEGEND_COLOR_VALUES[color]}`"
             />
           </button>
         </div>
@@ -68,17 +68,17 @@ const props = defineProps<{
   disableQualifierSelector?: boolean;
 }>();
 
-const COLOR_OPTIONS: ReadonlyArray<Qualifier> = [
-  Qualifier.GREEN,
-  Qualifier.BLUE,
-  Qualifier.RED,
-  Qualifier.ORANGE,
+const COLOR_OPTIONS: ReadonlyArray<LegendColor> = [
+  LegendColor.GREEN,
+  LegendColor.BLUE,
+  LegendColor.RED,
+  LegendColor.ORANGE,
 ];
 
 const popoverId = useId();
 const tournamentStore = useTournamentStore();
 
-const qualifier = defineModel<Qualifier>('qualifier', { required: true });
+const qualifier = defineModel<LegendColor>('qualifier', { required: true });
 
 const team = computed(() => getTeamById(props.teamId));
 </script>

@@ -94,7 +94,7 @@ const props = withDefaults(defineProps<StandingsTableProps>(), {
 const sortType = computed(() => props.filters?.sortType ?? TableEntrySortType.POINTS);
 const entryType = computed(() => props.filters?.entryType ?? TableEntryType.OVERALL);
 
-const qualifier = defineModel<Qualifier[]>('qualifier', { required: true });
+const qualifier = defineModel<LegendColor[]>('qualifier', { required: true });
 const selectedTableEntry = defineModel<TableEntry>('tableEntry');
 
 const tableWrapperRef = useTemplateRef('table-wrapper');
