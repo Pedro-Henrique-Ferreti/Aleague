@@ -27,6 +27,7 @@
           @reset="filtersForm = newStandingsFilters()"
         />
       </StandingsCard>
+      <LegendsCard :legends="stage.legendDescription" />
     </div>
     <MatchweekCard class="sticky top-2 max-h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden" />
     <StandingsLegendsModal v-if="isGroupStageSeeded(stage.groups)" />
