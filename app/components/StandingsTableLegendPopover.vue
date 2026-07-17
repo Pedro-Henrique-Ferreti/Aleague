@@ -6,32 +6,38 @@
     :style="`position-anchor:--team-button-${popoverId}`"
   >
     <div class="flex flex-row items-center">
-      <button
+      <BaseButton
         v-for="color in COLOR_OPTIONS"
         :key="color"
-        class="flex items-center justify-center size-1.75 cursor-pointer"
+        class="size-1.75 cursor-pointer flex justify-center items-center"
         aria-label="Cor da legenda"
-        @click.stop="legend === color ? legend = LegendColor.NONE : legend = color"
+        @click.stop="legend = color"
       >
-        <component
-          :is="color === legend ? IconCircleDotFilled : IconCircleFilled"
-          :style="`fill:${LEGEND_COLOR_VALUES[color]}`"
+        <IconSquareRoundedX
+          v-if="color === LegendColor.NONE"
+          class="text-gray-400 hover:text-gray-600 transition-colors size-1.5"
         />
-      </button>
-      <button
+        <component
+          v-else
+          :is="color === legend ? IconSquareRoundedCheckFilled : IconSquareRoundedFilled"
+          class="size-1.5"
+          :style="`color:${LEGEND_COLOR_VALUES[color]}`"
+        />
+      </BaseButton>
+      <BaseButton
         v-tooltip="'Editar legendas'"
-        class="btn btn-sm btn-square btn-ghost ml-0.25"
+        class="btn btn-sm btn-square btn-ghost ml-0.5"
         aria-label="Editar legendas"
         @click.stop="stageStore.legendsModalIsOpen = true"
       >
         <IconEditCircle />
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IconCircleDotFilled, IconCircleFilled, IconEditCircle } from '@tabler/icons-vue';
+import { IconEditCircle, IconSquareRoundedCheckFilled, IconSquareRoundedFilled, IconSquareRoundedX } from '@tabler/icons-vue';
 
 defineProps<{
   popoverId: string;
@@ -44,6 +50,7 @@ const COLOR_OPTIONS: ReadonlyArray<LegendColor> = [
   LegendColor.BLUE,
   LegendColor.RED,
   LegendColor.ORANGE,
+  LegendColor.NONE,
 ];
 
 const legend = defineModel<LegendColor>('legend', { required: true });
