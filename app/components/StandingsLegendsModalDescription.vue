@@ -14,7 +14,7 @@
       <BaseInput
         v-model="form.description[color]"
         class="input"
-        :aria-label="`Legenda para ${COLOR_LABELS[color]}`"
+        :aria-label="`Legenda para ${LEGEND_COLOR_ARIA_LABELS[color]}`"
       />
     </div>
   </template>
@@ -27,14 +27,6 @@ import { newLegendDescription } from '~/helpers/group-stage';
 interface LegendsForm {
   description: GroupStage['legendDescription'];
 }
-
-const COLOR_LABELS: Record<LegendColor, string> = {
-  [LegendColor.GREEN]: 'verde',
-  [LegendColor.BLUE]: 'azul',
-  [LegendColor.RED]: 'vermelho',
-  [LegendColor.ORANGE]: 'laranja',
-  [LegendColor.NONE]: 'transparente',
-};
 
 const COLOR_OPTIONS = Object.values(LegendColor).filter(color => color !== LegendColor.NONE);
 
