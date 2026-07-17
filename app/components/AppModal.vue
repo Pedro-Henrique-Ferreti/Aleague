@@ -96,7 +96,7 @@ function onModalClose() {
   emit('close');
 }
 
-watch(isOpen, (value) => {
-  value ? onModalOpen() : onModalClose();
+watchEffect(() => {
+  isOpen.value ? onModalOpen() : onModalClose();
 });
 </script>
