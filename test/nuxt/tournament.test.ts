@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { newLegendDescription } from '~/helpers/group-stage';
 import { newTournamentStage } from '~/helpers/tournament';
 
 describe('tournament', () => {
@@ -54,6 +55,7 @@ describe('tournament', () => {
           nameFormat: GroupStageNameFormat.NUMBER,
           groups: [],
           overallLegend: [],
+          legendDescription: newLegendDescription(),
           matchweeks: [],
         },
       ] as TournamentStage[];

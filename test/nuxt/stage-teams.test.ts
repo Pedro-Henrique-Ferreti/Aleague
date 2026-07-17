@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { newLegendDescription } from '~/helpers/group-stage';
 import { updateGroupStageTeams, updatePlayoffStageTeams } from '~/helpers/stage-teams';
 import { newTournamentStage } from '~/helpers/tournament';
 
@@ -111,6 +112,7 @@ describe('stage-teams', () => {
           ] as StandingsEntry[],
           legend: [LegendColor.NONE, LegendColor.NONE],
         }],
+        legendDescription: newLegendDescription(),
         overallLegend: [],
       };
 

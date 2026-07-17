@@ -1,4 +1,4 @@
-import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded } from './group-stage';
+import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded, newLegendDescription } from './group-stage';
 import { createMatchSchedule, type MatchScheduleResponse } from './match-schedule';
 import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
 import { newStandingsEntry } from './standings';
@@ -35,6 +35,7 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
       legend: createArray(stageForm.teamsPerGroup, LegendColor.NONE),
       standings: createArray(stageForm.teamsPerGroup, () => newStandingsEntry()),
     })),
+    legendDescription: newLegendDescription(),
     overallLegend: (
       (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, LegendColor.NONE) : []
     ),

@@ -30,6 +30,7 @@ export interface GroupStage extends BaseStage {
     legend: LegendColor[];
   }[];
   overallLegend: LegendColor[];
+  legendDescription: Record<Exclude<LegendColor, LegendColor.NONE>, string>;
   matchweeks: Matchweek[];
 }
 

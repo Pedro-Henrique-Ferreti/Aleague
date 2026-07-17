@@ -33,3 +33,9 @@ export function getGroupName(group: GroupStage['groups'][number], stage: GroupSt
 
   return `Grupo ${ALPHABET.at(charPosition - 1)}${count}`;
 }
+
+export function newLegendDescription(): GroupStage['legendDescription'] {
+  return Object.fromEntries(
+    Object.values(LegendColor).filter(color => color !== LegendColor.NONE).map(color => [color, '']),
+  ) as GroupStage['legendDescription'];
+}
