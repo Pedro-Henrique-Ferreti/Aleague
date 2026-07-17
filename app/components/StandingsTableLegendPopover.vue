@@ -9,19 +9,15 @@
       <BaseButton
         v-for="color in Object.values(LegendColor)"
         :key="color"
-        class="size-1.75 cursor-pointer flex justify-center items-center"
+        class="legend-button"
         aria-label="Cor da legenda"
+        :class="[color === LegendColor.NONE ? 'legend-button--reset' : 'legend-button--color']"
+        :style="color !== LegendColor.NONE && `color: ${color}`"
         @click.stop="legend = color"
       >
-        <IconSquareRoundedX
-          v-if="color === LegendColor.NONE"
-          class="text-gray-400 hover:text-gray-600 transition-colors size-1.5"
-        />
         <component
-          v-else
-          :is="color === legend ? IconSquareRoundedCheckFilled : IconSquareRoundedFilled"
+          :is="getButtonIcon(color)"
           class="size-1.5"
-          :style="`color: ${color}`"
         />
       </BaseButton>
       <BaseButton
@@ -46,4 +42,25 @@ defineProps<{
 const stageStore = useStageStore();
 
 const legend = defineModel<LegendColor>('legend', { required: true });
+
+function getButtonIcon(color: LegendColor) {
+  if (color === LegendColor.NONE) return IconSquareRoundedX;
+
+  return color === legend.value ? IconSquareRoundedCheckFilled : IconSquareRoundedFilled;
+}
 </script>
+
+<style scoped>
+@reference '@/assets/css/main.css';
+
+.legend-button {
+  @apply size-1.75 flex justify-center items-center cursor-pointer;
+
+  &.legend-button--color {
+    @apply hover:opacity-70 transition-opacity;
+  }
+  &.legend-button--reset {
+    @apply text-gray-400 hover:text-gray-600 transition-colors;
+  }
+}
+</style>
