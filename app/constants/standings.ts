@@ -31,11 +31,3 @@ export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<StandingsFilters['week']
 export const POINTS_PER_WIN = 3;
 export const POINTS_PER_DRAW = 1;
 export const POINTS_PER_LOSS = 0;
-
-export const LEGEND_COLOR_VALUES: Record<LegendColor, string> = {
-  [LegendColor.GREEN]: '#00a63e',
-  [LegendColor.BLUE]: '#2b7fff',
-  [LegendColor.RED]: '#fb2c36',
-  [LegendColor.ORANGE]: '#ff6900',
-  [LegendColor.NONE]: 'transparent',
-};

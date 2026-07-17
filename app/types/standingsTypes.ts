@@ -1,9 +1,9 @@
 export enum LegendColor {
-  NONE,
-  GREEN,
-  BLUE,
-  ORANGE,
-  RED,
+  GREEN = '#00a63e',
+  BLUE = '#2b7fff',
+  RED = '#fb2c36',
+  ORANGE = '#ff6900',
+  NONE = 'transparent',
 }
 
 export enum WeekDirection {

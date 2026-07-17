@@ -7,7 +7,7 @@
   >
     <div class="flex flex-row items-center">
       <BaseButton
-        v-for="color in COLOR_OPTIONS"
+        v-for="color in Object.values(LegendColor)"
         :key="color"
         class="size-1.75 cursor-pointer flex justify-center items-center"
         aria-label="Cor da legenda"
@@ -21,7 +21,7 @@
           v-else
           :is="color === legend ? IconSquareRoundedCheckFilled : IconSquareRoundedFilled"
           class="size-1.5"
-          :style="`color:${LEGEND_COLOR_VALUES[color]}`"
+          :style="`color: ${color}`"
         />
       </BaseButton>
       <BaseButton
@@ -44,14 +44,6 @@ defineProps<{
 }>();
 
 const stageStore = useStageStore();
-
-const COLOR_OPTIONS: ReadonlyArray<LegendColor> = [
-  LegendColor.GREEN,
-  LegendColor.BLUE,
-  LegendColor.RED,
-  LegendColor.ORANGE,
-  LegendColor.NONE,
-];
 
 const legend = defineModel<LegendColor>('legend', { required: true });
 </script>
