@@ -1,20 +1,17 @@
 <template>
-  <div
+  <AppTablist
     v-if="showControls"
-    role="tablist"
-    class="tabs tabs-border mb-1.5"
+    class="mb-1.5"
   >
-    <button
+    <AppTab
       v-for="option in store.selectionOptions"
-      v-text="option.name"
       :key="option.id"
-      class="tab basis-1/2 @min-[35rem]/main:basis-1/4 @min-[56rem]/main:basis-1/7"
-      type="button"
-      role="tab"
-      :class="{ 'tab-active': store.selectedStageOrPlayoffRoundId === option.id }"
+      class="basis-1/2 @min-[35rem]/main:basis-1/4 @min-[56rem]/main:basis-1/7"
+      :label="option.name"
+      :is-active="store.selectedStageOrPlayoffRoundId === option.id"
       @click="store.selectedStageOrPlayoffRoundId = option.id"
     />
-  </div>
+  </AppTablist>
 </template>
 
 <script lang="ts" setup>
