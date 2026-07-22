@@ -9,38 +9,23 @@
       <AppTab
         class="basis-1/3"
         label="Descrição"
-        :is-active="activeTab === ModalTabs.DESCRIPTION"
-        @click="activeTab = ModalTabs.DESCRIPTION"
       />
       <AppTab
         class="basis-1/3"
         label="Edição múltipla"
-        :is-active="activeTab === ModalTabs.MULTIPLE_EDIT"
-        @click="activeTab = ModalTabs.MULTIPLE_EDIT"
       />
+      <template #tabpanels>
+        <StandingsLegendsModalDescription ref="description" />
+        <StandingsLegendsModalEdit ref="multiple-edit" />
+      </template>
     </AppTablist>
-    <StandingsLegendsModalDescription
-      v-if="ModalTabs.DESCRIPTION === activeTab"
-      ref="legends-description"
-    />
-    <StandingsLegendsModalEdit
-      v-if="ModalTabs.MULTIPLE_EDIT === activeTab"
-      ref="multiple-edit"
-    />
   </AppModal>
 </template>
 
 <script lang="ts" setup>
-enum ModalTabs {
-  DESCRIPTION,
-  MULTIPLE_EDIT,
-}
-
 const stageStore = useStageStore();
 
-const activeTab = ref<ModalTabs>(ModalTabs.DESCRIPTION);
-
-const legendsDescriptionTab = useTemplateRef('legends-description');
+const legendsDescriptionTab = useTemplateRef('description');
 const multipleEditTab = useTemplateRef('multiple-edit');
 
 function handleModalOpen() {
