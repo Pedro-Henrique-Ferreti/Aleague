@@ -3,7 +3,7 @@
   <table>
     <thead>
       <tr class="[&_th]:pr-1 [&_th]:pb-0.5">
-        <th >Posição</th>
+        <th>Posição</th>
         <th>Cor da legenda</th>
       </tr>
     </thead>
