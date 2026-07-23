@@ -7,7 +7,6 @@
         <AppButton
           class="btn-accent btn-wide mt-2"
           label="Configurar partidas"
-          :icon-left="IconRefresh"
           @click="openModal"
         />
       </MatchweekFormModal>
@@ -30,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconRefresh, IconUsersGroup } from '@tabler/icons-vue';
+import { IconUsersGroup } from '@tabler/icons-vue';
 import { isGroupStageSeeded } from '~/helpers/group-stage';
 
 const { activeGroupStage } = storeToRefs(useStageStore());
