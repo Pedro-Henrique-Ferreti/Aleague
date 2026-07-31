@@ -11,7 +11,7 @@
       class="legend-button"
       :for="getId(name)"
       :class="[color === LegendColor.NONE ? 'legend-button--reset' : 'legend-button--color']"
-      :style="color !== LegendColor.NONE && `color: ${color}`"
+      :style="color !== LegendColor.NONE && `color: ${LEGEND_COLOR_VALUES[color]};`"
     >
       <input
         v-model="legend"

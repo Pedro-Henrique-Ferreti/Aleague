@@ -1,7 +1,7 @@
 <template>
   <div
     class="standings-team flex items-center h-full"
-    :style="`--clr: ${legend};`"
+    :style="`--clr: ${LEGEND_COLOR_VALUES[legend]};`"
   >
     <span
       v-if="disableLegendSelector"

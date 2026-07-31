@@ -9,7 +9,7 @@
       <IconSquareRoundedFilled
         class="size-2"
         aria-hidden="true"
-        :style="`color: ${color}`"
+        :style="`color: ${LEGEND_COLOR_VALUES[color]};`"
       />
       <BaseInput
         v-model="form.description[color]"

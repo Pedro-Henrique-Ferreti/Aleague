@@ -14,7 +14,7 @@
           <IconSquareRoundedFilled
             class="size-0.75"
             :aria-label="`Cor ${LEGEND_COLOR_ARIA_LABELS[color]}`"
-            :style="`color: ${color}`"
+            :style="`color: ${LEGEND_COLOR_VALUES[color]};`"
           />
           {{ legend }}
         </li>
