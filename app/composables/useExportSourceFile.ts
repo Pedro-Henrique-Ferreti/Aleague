@@ -1,5 +1,7 @@
 import { generateTournamentFile } from '~/helpers/file';
 
+const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
+
 export function useExportSourceFile() {
   const tournamentStore = useTournamentStore();
   const { getCollection } = useCollectionStore();
@@ -33,7 +35,7 @@ export function useExportSourceFile() {
 
     downloadFile(
       compressedBlob,
-      `${normalizeString(sourceFile.data.name).replace(/[^a-z0-9]/gi, '_')}.json`,
+      `${normalizeString(sourceFile.data.name).replace(NON_ALPHANUMERIC_REGEX, '_')}.json`,
     );
   }
 
