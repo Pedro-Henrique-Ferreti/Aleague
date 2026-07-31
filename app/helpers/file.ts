@@ -10,3 +10,12 @@ export function appendNumericSuffix(name: Tournament['name'], tournaments: Tourn
 
   return `${parsedName} (${sameNameCount + 1})`;
 }
+
+export function generateTournamentFile(tournament: Tournament): TournamentFile {
+  return {
+    id: tournament.id,
+    type: SourceFileType.TOURNAMENT,
+    createdAt: tournament.createdAt,
+    data: tournament,
+  };
+}
