@@ -18,7 +18,7 @@ export function useExportSourceFile() {
     };
   }
 
-  function downloadSourceFile(tournamentId: Tournament['id']) {
+  async function downloadSourceFile(tournamentId: Tournament['id']) {
     const tournament = tournamentStore.getTournament(tournamentId);
 
     const sourceFile = (
@@ -27,8 +27,12 @@ export function useExportSourceFile() {
         : generateTournamentFile(tournament)
     );
 
+    const textStream = new Blob([JSON.stringify(sourceFile)]).stream();
+    const compressedStream = textStream.pipeThrough(new CompressionStream('gzip'));
+    const compressedBlob = await new Response(compressedStream).blob();
+
     downloadFile(
-      new Blob([JSON.stringify(sourceFile)], { type: 'application/json' }),
+      compressedBlob,
       `${normalizeString(sourceFile.data.name).replace(/[^a-z0-9]/gi, '_')}.json`,
     );
   }

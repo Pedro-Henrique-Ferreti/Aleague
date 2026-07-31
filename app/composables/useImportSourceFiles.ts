@@ -23,23 +23,29 @@ export function useImportSourceFiles(
     const tournamentFiles: TournamentFile[] = [];
     const promiseList: Promise<void>[] = [];
 
-    for (const item of files) {
+    const readFile = (blob: Blob, resolve: () => void) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const sourceFile = JSON.parse(reader.result as string) as SourceFile;
+
+        if (sourceFile.type === SourceFileType.COLLECTION) {
+          collectionFiles.push(sourceFile);
+        } else if (sourceFile.type === SourceFileType.TOURNAMENT) {
+          tournamentFiles.push(sourceFile);
+        }
+
+        resolve();
+      };
+
+      reader.readAsText(blob);
+    };
+
+    for (const file of files) {
       promiseList.push(new Promise((resolve) => {
-        const reader = new FileReader();
+        const decompressedStream = file.stream().pipeThrough(new DecompressionStream('gzip'));
 
-        reader.onload = () => {
-          const sourceFile = JSON.parse(reader.result as string) as SourceFile;
-
-          if (sourceFile.type === SourceFileType.COLLECTION) {
-            collectionFiles.push(sourceFile);
-          } else if (sourceFile.type === SourceFileType.TOURNAMENT) {
-            tournamentFiles.push(sourceFile);
-          }
-
-          resolve();
-        };
-
-        reader.readAsText(item);
+        new Response(decompressedStream).blob().then(blob => readFile(blob, resolve));
       }));
     }
 
