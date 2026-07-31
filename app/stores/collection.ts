@@ -1,43 +1,45 @@
 import { getBaseFileId, getTimestamp } from '~/helpers/file';
 
-interface State {
-  collections: Collection[];
-}
+export const useCollectionStore = defineStore('collection', () => {
+  const tournamentStore = useTournamentStore();
+  const collections = ref<Collection[]>([]);
 
-export const useCollectionStore = defineStore('collection', {
-  state: (): State => ({
-    collections: [],
-  }),
-  getters: {
-    activeCollection(state) {
-      const tournamentStore = useTournamentStore();
-      return state.collections.find(i => i.id === tournamentStore.activeTournament?.collectionId);
-    },
-  },
-  actions: {
-    getCollection(id: Collection['id'] | null): Collection {
-      const collection = this.collections.find(i => i.id === id);
+  const activeCollection = computed(() => {
+    return collections.value.find(i => i.id === tournamentStore.activeTournament?.collectionId);
+  });
 
-      if (!collection) throw new Error('Collection not found');
+  function getCollection(id: Collection['id'] | null): Collection {
+    const collection = collections.value.find(i => i.id === id);
 
-      return collection;
-    },
-    createCollection(payload: CollectionForm) {
-      this.collections.push({
-        id: getBaseFileId(),
-        createdAt: getTimestamp(),
-        name: payload.name,
-      } satisfies Collection);
-    },
-    updateCollection(id: Collection['id'], payload: CollectionForm) {
-      const index = this.collections.findIndex(i => i.id === id);
+    if (!collection) throw new Error('Collection not found');
 
-      if (index === -1) throw new Error('Collection not found');
+    return collection;
+  }
 
-      this.collections[index] = {
-        ...this.collections[index] as Collection,
-        ...payload,
-      };
-    },
-  },
+  function createCollection(payload: CollectionForm) {
+    collections.value.push({
+      id: getBaseFileId(),
+      createdAt: getTimestamp(),
+      name: payload.name,
+    } satisfies Collection);
+  }
+
+  function updateCollection(id: Collection['id'], payload: CollectionForm) {
+    const index = collections.value.findIndex(i => i.id === id);
+
+    if (index === -1) throw new Error('Collection not found');
+
+    collections.value[index] = {
+      ...collections.value[index] as Collection,
+      ...payload,
+    };
+  }
+
+  return {
+    collections,
+    activeCollection,
+    getCollection,
+    createCollection,
+    updateCollection,
+  };
 });
