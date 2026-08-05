@@ -20,7 +20,7 @@ export const TABLE_ENTRY_VIEW_OPTIONS: Readonly<SelectOptionList<TableEntryView>
 
 export const WEEK_DIRECTION_OPTIONS: Readonly<SelectOptionList<WeekDirection>> = [
   { label: 'Anterior a', value: WeekDirection.BEFORE },
-  { label: 'Depois de', value: WeekDirection.AFTER },
+  { label: 'A partir de', value: WeekDirection.AFTER },
 ];
 
 export const DEFAULT_WEEK_OPTION: Readonly<SelectOption<StandingsFilters['week']>> = {
