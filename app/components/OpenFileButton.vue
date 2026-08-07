@@ -20,7 +20,7 @@ function addTournamentToStore(tournament: Tournament) {
 }
 
 function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFilesHandlerParams) {
-  for (const file of collectionFiles) {
+  collectionFiles.forEach((file) => {
     if (collectionStore.collections.find(i => i.id === file.id)) return;
 
     collectionStore.collections.push({
@@ -30,11 +30,13 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
     } satisfies Collection);
 
     file.data.tournaments.forEach(addTournamentToStore);
-  }
+  });
 
   tournamentFiles.forEach(file => addTournamentToStore(file.data));
 
-  tournamentStore.activeTournamentId = tournamentStore.tournaments[tournamentStore.tournaments.length - 1]?.id;
+  nextTick(() => {
+    tournamentStore.activeTournamentId = tournamentStore.tournaments[tournamentStore.tournaments.length - 1]?.id;
+  });
 }
 
 const { openFileExplorer } = useImportSourceFiles(onFilesImported, { multiple: true });
