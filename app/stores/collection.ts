@@ -3,10 +3,25 @@ import { getBaseFileId, getTimestamp } from '~/helpers/file';
 export const useCollectionStore = defineStore('collection', () => {
   const tournamentStore = useTournamentStore();
   const collections = ref<Collection[]>([]);
+  const activeCollectionId = ref<Collection['id']>();
 
   const activeCollection = computed(() => {
-    return collections.value.find(i => i.id === tournamentStore.activeTournament?.collectionId);
+    return collections.value.find(i => i.id === activeCollectionId.value);
   });
+
+  watch([
+    () => tournamentStore.activeTournament,
+    () => tournamentStore.activeTournament?.collectionId,
+  ], () => {
+    if (tournamentStore.activeTournament) {
+      activeCollectionId.value = tournamentStore.activeTournament.collectionId ?? undefined;
+    }
+  });
+
+  function setActiveCollection(id: Collection['id']) {
+    activeCollectionId.value = id;
+    tournamentStore.activeTournamentId = undefined;
+  }
 
   function getCollection(id: Collection['id'] | null): Collection {
     const collection = collections.value.find(i => i.id === id);
@@ -37,7 +52,9 @@ export const useCollectionStore = defineStore('collection', () => {
 
   return {
     collections,
+    activeCollectionId,
     activeCollection,
+    setActiveCollection,
     getCollection,
     createCollection,
     updateCollection,
