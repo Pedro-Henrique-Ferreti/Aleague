@@ -9,12 +9,9 @@ export const useCollectionStore = defineStore('collection', () => {
     return collections.value.find(i => i.id === activeCollectionId.value);
   });
 
-  watch([
-    () => tournamentStore.activeTournament,
-    () => tournamentStore.activeTournament?.collectionId,
-  ], () => {
+  watch(() => tournamentStore.activeTournament?.collectionId, (collectionId) => {
     if (tournamentStore.activeTournament) {
-      activeCollectionId.value = tournamentStore.activeTournament.collectionId ?? undefined;
+      activeCollectionId.value = collectionId ?? undefined;
     }
   });
 
