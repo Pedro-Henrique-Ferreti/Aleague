@@ -37,11 +37,13 @@
 import type { Icon } from '@tabler/icons-vue';
 import type { BaseButtonProps } from './BaseButton.vue';
 
-defineProps<BaseButtonProps & {
+export type AppButtonProps = BaseButtonProps & {
   isLoading?: boolean;
   label?: string;
   iconLeft?: Icon;
   iconRight?: Icon;
-}>();
+};
+
+defineProps<AppButtonProps>();
 defineEmits(['click']);
 </script>
