@@ -13,15 +13,13 @@ import { IconFolder } from '@tabler/icons-vue';
 const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
+function addTournamentToStore(tournament: Tournament) {
+  if (!tournamentStore.tournaments.find(i => i.id === tournament.id)) {
+    tournamentStore.tournaments.push(tournament);
+  }
+}
+
 function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFilesHandlerParams) {
-  const tournaments = tournamentFiles.filter(
-    file => !tournamentStore.tournaments.find(i => i.id === file.data.id),
-  ).map(file => file.data);
-
-  tournamentStore.tournaments.push(...tournaments);
-
-  let id = tournaments.reverse()[0]?.id;
-
   for (const file of collectionFiles) {
     if (collectionStore.collections.find(i => i.id === file.id)) return;
 
@@ -31,14 +29,12 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
       createdAt: file.createdAt,
     } satisfies Collection);
 
-    tournamentStore.tournaments.push(...file.data.tournaments);
-
-    id = file.data.tournaments[0]?.id ?? id;
+    file.data.tournaments.forEach(addTournamentToStore);
   }
 
-  if (id) {
-    tournamentStore.activeTournamentId = id;
-  }
+  tournamentFiles.forEach(file => addTournamentToStore(file.data));
+
+  tournamentStore.activeTournamentId = tournamentStore.tournaments[tournamentStore.tournaments.length - 1]?.id;
 }
 
 const { openFileExplorer } = useImportSourceFiles(onFilesImported, { multiple: true });
