@@ -1,9 +1,3 @@
 <template>
-  <div>
-    {{ collectionStore.activeCollection?.name }}
-  </div>
+  <CollectionProfileCard />
 </template>
-
-<script setup lang="ts">
-const collectionStore = useCollectionStore();
-</script>
