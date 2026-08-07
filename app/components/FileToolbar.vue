@@ -7,11 +7,15 @@
         :icon="IconFolderOpen"
       />
       <BreadcrumbItem
+        v-if="tournamentStore.activeTournament"
         :label="tournamentStore.activeTournament?.name"
         :icon="IconFileDescription"
       />
     </BreadcrumbList>
-    <div class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5">
+    <div
+      v-if="tournamentStore.activeTournament"
+      class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5"
+    >
       <AppButton
         class="toolbar-delete-button"
         label="Excluir"
@@ -44,15 +48,16 @@
       />
     </div>
   </div>
-  <TournamentFormModal
-    v-if="tournamentStore.activeTournament"
-    v-model:is-open="tournamentModalIsOpen"
-    :key="tournamentId"
-    :tournament="tournamentStore.activeTournament"
-    :submit-fn="tournamentStore.updateActiveTournament"
-  />
-  <MoveTournamentModal v-model:is-open="moveTournamentModalIsOpen" />
-  <DeleteTournamentModal v-model:is-open="deleteTournamentDialogIsOpen" />
+  <template v-if="tournamentStore.activeTournament">
+    <TournamentFormModal
+      v-model:is-open="tournamentModalIsOpen"
+      :key="tournamentId"
+      :tournament="tournamentStore.activeTournament"
+      :submit-fn="tournamentStore.updateActiveTournament"
+    />
+    <MoveTournamentModal v-model:is-open="moveTournamentModalIsOpen" />
+    <DeleteTournamentModal v-model:is-open="deleteTournamentDialogIsOpen" />
+  </template>
 </template>
 
 <script lang="ts" setup>
