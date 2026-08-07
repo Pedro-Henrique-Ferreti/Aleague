@@ -52,17 +52,7 @@
     :submit-fn="tournamentStore.updateActiveTournament"
   />
   <MoveTournamentModal v-model:is-open="moveTournamentModalIsOpen" />
-  <AppDialog
-    v-model:is-open="deleteTournamentDialogIsOpen"
-    type="delete"
-    title="Excluir campeonato"
-    @confirm="deleteTournament"
-  >
-    <p>
-      Você tem certeza que deseja excluir <strong>{{ tournamentStore.activeTournament?.name }}</strong>? Essa ação não poderá ser
-      desfeita e você não poderá recuperá-lo, a não ser que possua uma cópia salva.
-    </p>
-  </AppDialog>
+  <DeleteTournamentModal v-model:is-open="deleteTournamentDialogIsOpen" />
 </template>
 
 <script lang="ts" setup>
@@ -77,11 +67,6 @@ const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 const tournamentModalIsOpen = ref(false);
 const moveTournamentModalIsOpen = ref(false);
 const deleteTournamentDialogIsOpen = ref(false);
-
-function deleteTournament() {
-  tournamentStore.deleteActiveTournament();
-  deleteTournamentDialogIsOpen.value = false;
-}
 </script>
 
 <style scoped>
