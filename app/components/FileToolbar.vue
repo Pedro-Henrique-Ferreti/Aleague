@@ -16,26 +16,23 @@
       v-if="tournamentStore.activeTournament"
       class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5"
     >
-      <AppButton
-        class="toolbar-delete-button"
+      <FileToolbarButton
+        type="delete"
         label="Excluir"
         :icon-left="IconTrash"
         @click="deleteTournamentDialogIsOpen = true"
       />
-      <AppButton
-        class="toolbar-button"
+      <FileToolbarButton
         label="Mover"
         :icon-left="IconFolderUp"
         @click="moveTournamentModalIsOpen = true"
       />
-      <AppButton
-        class="toolbar-button"
+      <FileToolbarButton
         label="Duplicar"
         :icon-left="IconLayersSubtract"
         @click="tournamentStore.duplicateActiveTournament"
       />
-      <AppButton
-        class="toolbar-button"
+      <FileToolbarButton
         label="Editar"
         :icon-left="IconEdit"
         @click="tournamentModalIsOpen = true"
@@ -73,15 +70,3 @@ const tournamentModalIsOpen = ref(false);
 const moveTournamentModalIsOpen = ref(false);
 const deleteTournamentDialogIsOpen = ref(false);
 </script>
-
-<style scoped>
-@reference '@/assets/css/main.css';
-
-.toolbar-button {
-  @apply px-0.5 bg-transparent border-0 hover:bg-base-200;
-}
-
-.toolbar-delete-button {
-  @apply text-error px-0.5 bg-transparent border-0 hover:bg-error/8;
-}
-</style>
