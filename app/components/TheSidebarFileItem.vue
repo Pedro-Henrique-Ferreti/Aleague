@@ -1,13 +1,16 @@
 <template>
-  <li>
-    <button
-      type="button"
+  <li
+    v-tooltip.right="tournament.name"
+    class="overflow-auto"
+  >
+    <BaseButton
+      class="truncate w-full block"
       :class="{ 'menu-active': tournamentStore.activeTournamentId === tournament.id }"
       @click="tournamentStore.activeTournamentId = tournament.id"
     >
-      <IconFileDescription class="h-1 w-1" />
+      <IconFileDescription class="h-1 w-1 inline-block" />
       {{ tournament.name }}
-    </button>
+    </BaseButton>
   </li>
 </template>
 
