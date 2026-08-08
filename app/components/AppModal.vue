@@ -14,7 +14,7 @@
       class="modal-box p-0 max-h-[93vh]"
       :class="{ 'max-w-48': size === 'lg', 'max-w-80': size === 'xl' }"
     >
-      <div class="pt-1.5 px-1.5">
+      <div class="p-1.5">
         <CloseButton
           v-if="showCloseIcon"
           class="absolute right-1 top-1"
@@ -30,7 +30,7 @@
       </div>
       <div
         v-if="showActions"
-        class="modal-action p-1.5 mt-0 sticky bottom-0 bg-inherit"
+        class="modal-action px-1.5 pb-1.5 mt-0 sticky bottom-0 bg-inherit"
       >
         <slot name="actions">
           <AppButton
