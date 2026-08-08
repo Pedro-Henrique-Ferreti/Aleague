@@ -12,11 +12,9 @@
         :icon="IconFileDescription"
       />
     </BreadcrumbList>
-    <div
-      v-if="tournamentStore.activeTournament"
-      class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5"
-    >
-      <FileToolbarTournament />
+    <div class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5">
+      <FileToolbarCollection v-if="collectionStore.activeCollection" />
+      <FileToolbarTournament v-else-if="tournamentStore.activeTournament" />
       <AppButton
         class="btn-accent btn-soft ml-0.5"
         label="Salvar"

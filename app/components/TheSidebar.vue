@@ -42,7 +42,6 @@
           v-for="collection in collectionStore.collections"
           :key="collection.id"
           :collection="collection"
-          @edit="selectedCollection = collection"
         />
         <TheSidebarFileItem
           v-for="tournament in tournamentStore.nonCollectionTournaments"
@@ -51,10 +50,6 @@
         />
       </ul>
     </div>
-    <CollectionFormModal
-      v-model:is-open="collectionModalIsOpen"
-      :collection="selectedCollection"
-    />
   </aside>
 </template>
 
@@ -65,17 +60,6 @@ const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
 const menuIsOpen = ref(true);
-
-const selectedCollection = ref<Collection>();
-
-const collectionModalIsOpen = computed({
-  get: () => !!selectedCollection.value,
-  set: (isOpen) => {
-    if (!isOpen) {
-      selectedCollection.value = undefined;
-    }
-  },
-});
 </script>
 
 <style scoped>
