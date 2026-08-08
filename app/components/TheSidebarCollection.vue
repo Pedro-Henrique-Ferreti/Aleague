@@ -1,6 +1,9 @@
 <template>
   <li class="gap-0.25">
-    <BaseButton>
+    <BaseButton
+      :class="{ 'menu-active': !tournamentStore.activeTournament && collection.id === collectionStore.activeCollectionId }"
+      @click="collectionStore.setActiveCollection(collection.id)"
+    >
       <IconFolderOpen class="h-1 w-1" />
       {{ collection.name }}
     </BaseButton>
@@ -19,6 +22,7 @@ import { IconFolderOpen } from '@tabler/icons-vue';
 
 const props = defineProps<{ collection: Collection }>();
 
+const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
 const tournaments = computed(() => tournamentStore.tournaments.filter(t => t.collectionId === props.collection.id));
