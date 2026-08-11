@@ -8,11 +8,11 @@
     <div>
       <h1 class="text-3xl font-medium mb-0.5">{{ store.activeTournament?.name }}</h1>
       <div class="badge-container flex-wrap">
-        <div class="badge badge-ghost">
-          <IconCalendarPlus class="size-[1em]" />
+        <div class="badge badge-soft badge-secondary">
+          <IconClock class="size-[1em]" />
           {{ formatDate(store.activeTournament?.createdAt, 'd MMM yyyy') }}
         </div>
-        <div class="badge badge-ghost">
+        <div class="badge badge-soft badge-secondary">
           <IconPencil class="size-[1em]" />
           {{ formatDate(store.activeTournament?.updatedAt, 'd MMM yyyy') }}
         </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconCalendarPlus, IconPencil } from '@tabler/icons-vue';
+import { IconClock, IconPencil } from '@tabler/icons-vue';
 
 const store = useTournamentStore();
 </script>
