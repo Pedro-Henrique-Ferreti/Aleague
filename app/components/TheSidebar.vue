@@ -37,7 +37,7 @@
         </ul>
       </nav>
       <h2 class="text-gray-500 mb-0.5">Arquivos</h2>
-      <ul class="menu gap-0.25 p-0">
+      <ul class="menu gap-0.25 w-full p-0">
         <TheSidebarCollection
           v-for="collection in collectionStore.collections"
           :key="collection.id"
