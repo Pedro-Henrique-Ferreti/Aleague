@@ -20,15 +20,7 @@ export function useExportSourceFile() {
     };
   }
 
-  async function downloadSourceFile(tournamentId: Tournament['id']) {
-    const tournament = tournamentStore.getTournament(tournamentId);
-
-    const sourceFile = (
-      tournament.collectionId
-        ? generateCollectionFile(getCollection(tournament.collectionId))
-        : generateTournamentFile(tournament)
-    );
-
+  async function downloadSourceFile(sourceFile: TournamentFile | CollectionFile) {
     const textStream = new Blob([JSON.stringify(sourceFile)]).stream();
     const compressedStream = textStream.pipeThrough(new CompressionStream('gzip'));
     const compressedBlob = await new Response(compressedStream).blob();
@@ -39,5 +31,22 @@ export function useExportSourceFile() {
     );
   }
 
-  return { downloadSourceFile };
+  function downloadCollectionFile(id: Collection['id']) {
+    return downloadSourceFile(generateCollectionFile(getCollection(id)));
+  }
+
+  function downloadTournamentFile(id: Tournament['id']) {
+    const tournament = tournamentStore.getTournament(id);
+
+    if (tournament.collectionId) {
+      return downloadCollectionFile(tournament.collectionId);
+    }
+
+    return downloadSourceFile(generateTournamentFile(tournament));
+  }
+
+  return {
+    downloadTournamentFile,
+    downloadCollectionFile,
+  };
 }
