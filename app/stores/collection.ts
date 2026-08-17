@@ -29,11 +29,15 @@ export const useCollectionStore = defineStore('collection', () => {
   }
 
   function createCollection(payload: CollectionForm) {
+    const id = getBaseFileId();
+
     collections.value.push({
-      id: getBaseFileId(),
+      id,
       createdAt: getTimestamp(),
       name: payload.name,
     } satisfies Collection);
+
+    setActiveCollection(id);
   }
 
   function updateCollection(id: Collection['id'], payload: CollectionForm) {
