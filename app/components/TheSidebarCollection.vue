@@ -1,10 +1,13 @@
 <template>
   <li class="gap-0.25">
     <BaseButton
-      :class="{ 'menu-active': !tournamentStore.activeTournament && collection.id === collectionStore.activeCollectionId }"
+      :class="{ 'menu-active': !tournamentStore.activeTournament && isActive }"
       @click="collectionStore.setActiveCollection(collection.id)"
     >
-      <IconFolderOpen class="h-1 w-1" />
+      <component
+        :is="isActive ? IconFolderOpen : IconFolder"
+        class="h-1 w-1"
+      />
       {{ collection.name }}
     </BaseButton>
     <ul
@@ -21,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconFolderOpen } from '@tabler/icons-vue';
+import { IconFolder, IconFolderOpen } from '@tabler/icons-vue';
 
 const props = defineProps<{ collection: Collection }>();
 
