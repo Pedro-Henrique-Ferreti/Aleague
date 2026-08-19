@@ -2,9 +2,23 @@ const ICONS_COUNT = 40;
 
 export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
   ...createArray(ICONS_COUNT, index => ({
-    label: `Opção ${index + 1}`,
+    label: `Ícone ${index + 1}`,
     value: `/images/icons/tournament/icon-${index + 1}.svg`,
   })),
+
+  { label: 'Liga 1', value: 'images/leagues/american-league.png' },
+  { label: 'Liga 2', value: 'images/leagues/argentinian-league.png' },
+  { label: 'Liga 3', value: 'images/leagues/bolivian-league.png' },
+  { label: 'Liga 4', value: 'images/leagues/brazilian-league.png' },
+  { label: 'Liga 5', value: 'images/leagues/chilean-league.png' },
+  { label: 'Liga 6', value: 'images/leagues/colombian-league.png' },
+  { label: 'Liga 7', value: 'images/leagues/ecuadorian-league.png' },
+  { label: 'Liga 8', value: 'images/leagues/mexican-league.png' },
+  { label: 'Liga 9', value: 'images/leagues/paraguayan-league.png' },
+  { label: 'Liga 10', value: 'images/leagues/peruvian-league.png' },
+  { label: 'Liga 11', value: 'images/leagues/uruguayan-league.png' },
+  { label: 'Liga 12', value: 'images/leagues/venezuelan-league.png' },
+  { label: 'Copa do Mundo', value: '/images/icons/tournament/World_Cup.png' },
   { label: 'Copa do Mundo', value: '/images/icons/tournament/World_Cup.png' },
   { label: 'Campeonato Brasileiro Série A', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_A.png' },
   { label: 'Campeonato Brasileiro Série B', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_B.png' },
