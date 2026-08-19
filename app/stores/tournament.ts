@@ -58,7 +58,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     const timestamp = getTimestamp();
 
     tournaments.value.push({
-      ...activeTournament.value,
+      ...clone(activeTournament.value),
       id,
       name: appendNumericSuffix(activeTournament.value.name, tournaments.value),
       createdAt: timestamp,
