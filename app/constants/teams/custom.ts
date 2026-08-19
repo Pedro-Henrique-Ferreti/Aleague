@@ -219,7 +219,7 @@ const venezuelaTeams = [
   { id: 'CUS-VEN-2', name: 'Vila Baltimore', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
   { id: 'CUS-VEN-3', name: 'Vila Caracas', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
   { id: 'CUS-VEN-4', name: 'Jardim Nuevo', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
-  { id: 'CUS-VEN-4', name: 'Vila Andaluz', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
+  { id: 'CUS-VEN-5', name: 'Vila Andaluz', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
   { id: 'CUS-VEN-6', name: 'Jardim Margarita', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
   { id: 'CUS-VEN-7', name: 'Jardim Canaima', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
   { id: 'CUS-VEN-8', name: 'Vila Maracaibo', badge: '/images/leagues/venezuelan-league.png', type: TeamType.CUSTOM, country: 'VEN', tags: [] },
