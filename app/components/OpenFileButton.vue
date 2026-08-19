@@ -35,12 +35,13 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
   tournamentFiles.forEach(file => addTournamentToStore(file.data));
 
   nextTick(() => {
-    const lastTournament = tournamentStore.tournaments[tournamentStore.tournaments.length - 1];
+    const firstCollection = collectionStore.collections[0];
+    const firstTournament = tournamentStore.tournaments[0];
 
-    if (lastTournament) {
-      tournamentStore.activeTournamentId = lastTournament.id;
-    } else {
-      collectionStore.activeCollectionId = collectionStore.collections[collectionStore.collections.length - 1]?.id;
+    if (firstCollection) {
+      collectionStore.activeCollectionId = firstCollection.id;
+    } else if (firstTournament) {
+      tournamentStore.activeTournamentId = firstTournament.id;
     }
   });
 }
