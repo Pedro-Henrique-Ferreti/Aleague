@@ -7,7 +7,10 @@
       <IconFolderOpen class="h-1 w-1" />
       {{ collection.name }}
     </BaseButton>
-    <ul class="grid gap-0.25">
+    <ul
+      v-if="isActive"
+      class="grid gap-0.25"
+    >
       <TheSidebarFileItem
         v-for="tournament in tournaments"
         :key="tournament.id"
@@ -26,4 +29,5 @@ const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
 const tournaments = computed(() => tournamentStore.tournaments.filter(t => t.collectionId === props.collection.id));
+const isActive = computed(() => props.collection.id === collectionStore.activeCollectionId);
 </script>
