@@ -53,7 +53,6 @@ export const useCollectionStore = defineStore('collection', () => {
 
   return {
     collections,
-    activeCollectionId,
     activeCollection,
     setActiveCollection,
     getCollection,

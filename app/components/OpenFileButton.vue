@@ -39,7 +39,7 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
     const firstTournament = tournamentStore.tournaments[0];
 
     if (firstCollection) {
-      collectionStore.activeCollectionId = firstCollection.id;
+      collectionStore.setActiveCollection(firstCollection.id);
     } else if (firstTournament) {
       tournamentStore.activeTournamentId = firstTournament.id;
     }

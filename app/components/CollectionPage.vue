@@ -32,6 +32,6 @@ const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
 const tournaments = computed(() => {
-  return tournamentStore.tournaments.filter(t => t.collectionId === collectionStore.activeCollectionId);
+  return tournamentStore.tournaments.filter(t => t.collectionId === collectionStore.activeCollection?.id);
 });
 </script>
