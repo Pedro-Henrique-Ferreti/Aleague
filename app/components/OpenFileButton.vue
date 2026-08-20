@@ -13,13 +13,18 @@ import { IconFolder } from '@tabler/icons-vue';
 const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
-function addTournamentToStore(tournament: Tournament) {
-  if (!tournamentStore.tournaments.find(i => i.id === tournament.id)) {
-    tournamentStore.tournaments.push(tournament);
-  }
-}
-
 function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFilesHandlerParams) {
+  let lastAddedCollectionId: Collection['id'];
+  let lastAddedTournamentId: Tournament['id'];
+
+  const addTournamentToStore = (tournament: Tournament) => {
+    if (!tournamentStore.tournaments.find(i => i.id === tournament.id)) {
+      tournamentStore.tournaments.push(tournament);
+
+      lastAddedTournamentId = tournament.id;
+    }
+  };
+
   collectionFiles.forEach((file) => {
     if (collectionStore.collections.find(i => i.id === file.id)) return;
 
@@ -29,19 +34,18 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
       createdAt: file.createdAt,
     } satisfies Collection);
 
+    lastAddedCollectionId = file.id;
+
     file.data.tournaments.forEach(addTournamentToStore);
   });
 
   tournamentFiles.forEach(file => addTournamentToStore(file.data));
 
   nextTick(() => {
-    const firstCollection = collectionStore.collections[0];
-    const firstTournament = tournamentStore.tournaments[0];
-
-    if (firstCollection) {
-      collectionStore.setActiveCollection(firstCollection.id);
-    } else if (firstTournament) {
-      tournamentStore.activeTournamentId = firstTournament.id;
+    if (lastAddedCollectionId) {
+      collectionStore.setActiveCollection(lastAddedCollectionId);
+    } else if (lastAddedTournamentId) {
+      tournamentStore.activeTournamentId = lastAddedTournamentId;
     }
   });
 }
