@@ -7,14 +7,14 @@
     :dropdown-class="dropdownClass"
   >
     <AppMenuItem
-      label="Coleção"
-      :icon="IconFolders"
-      @click="collectionModalIsOpen = true"
+      label="Campeonato"
+      :icon="IconFileDescription"
+      @click="tournamentModalIsOpen = true"
     />
     <AppMenuItem
-      label="Campeonato"
-      :icon="IconBallFootball"
-      @click="tournamentModalIsOpen = true"
+      label="Coleção"
+      :icon="IconFolder"
+      @click="collectionModalIsOpen = true"
     />
   </AppMenu>
   <TournamentFormModal
@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import type { AppMenuProps } from './AppMenu.vue';
-import { IconBallFootball, IconFolders, IconPlus } from '@tabler/icons-vue';
+import { IconFileDescription, IconFolder, IconPlus } from '@tabler/icons-vue';
 
 defineProps<{
   dropdownClass?: AppMenuProps['dropdownClass'];
