@@ -25,7 +25,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     tournaments.value.push({
       ...payload,
       id: getBaseFileId(),
-      collectionId: null,
       createdAt: timestamp,
       updatedAt: timestamp,
       stages: [],
