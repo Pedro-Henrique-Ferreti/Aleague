@@ -1,4 +1,4 @@
-export type SelectOptionValue = string | number | boolean | object;
+export type SelectOptionValue = string | number | boolean | object | null;
 
 export interface SelectOption<V extends SelectOptionValue> {
   label: string;
