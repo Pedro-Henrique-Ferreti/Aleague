@@ -12,7 +12,7 @@
       />
     </div>
   </AppFieldset>
-  <div class="badge-container flex-wrap">
+  <div class="badge-container flex-wrap empty:hidden">
     <button
       v-for="item in model"
       v-text="item"
