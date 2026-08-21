@@ -5,7 +5,7 @@
   >
     <div class="card-body p-0.75 flex-row items-center text-left gap-0.75">
       <img
-        class="w-auto h-3"
+        class="w-auto h-2.25"
         alt="Logo do campeonato"
         :src="tournament.icon"
       >
