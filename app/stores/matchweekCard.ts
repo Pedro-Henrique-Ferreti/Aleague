@@ -23,7 +23,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     },
   });
 
-  watch(() => stageStore.activeGroupStage?.matchweeks.length, () => {
+  watch([() => stageStore.activeGroupStage?.matchweeks.length, () => stageStore.activeGroupStage?.id], () => {
     selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
   });
 
