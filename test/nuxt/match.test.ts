@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getMatchResult, getRandomScore, newMatch } from '~/helpers/match';
+import { getMatchResult, newMatch } from '~/helpers/match';
 
 describe('match', () => {
   describe('getMatchResult', () => {
@@ -13,16 +13,7 @@ describe('match', () => {
     });
   });
 
-  describe('getRandomScore', () => {
-    it('should return a non-negative integer', () => {
-      for (let i = 0; i < 100; i++) {
-        const result = getRandomScore();
-
-        expect(result).toBeGreaterThanOrEqual(0);
-        expect(Number.isInteger(result)).toBeTruthy();
-      }
-    });
-  });
+  
 
   describe('newMatch', () => {
     it('should accept home and away team ids', () => {

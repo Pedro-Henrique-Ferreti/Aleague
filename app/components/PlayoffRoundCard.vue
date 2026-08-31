@@ -43,7 +43,8 @@
 
 <script lang="ts" setup>
 import { IconDeviceGamepad2, IconPlus, IconTrash } from '@tabler/icons-vue';
-import { getRandomScore, newMatch } from '~/helpers/match';
+import { newMatch } from '~/helpers/match';
+import { getRandomScore } from '~/helpers/match-simulation';
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundWinner];

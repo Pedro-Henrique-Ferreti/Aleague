@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getRandomScore } from '~/helpers/match';
+import { getRandomScore } from '~/helpers/match-simulation';
 import { getActiveMatchweekNumber } from '~/helpers/matchweek';
 
 export const useMatchweekCardStore = defineStore('matchweekCard', () => {
