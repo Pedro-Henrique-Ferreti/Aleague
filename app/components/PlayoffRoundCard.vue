@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { IconDeviceGamepad2, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { newMatch } from '~/helpers/match';
-import { getRandomScore } from '~/helpers/match-simulation';
+import { simulateMatchScore } from '~/helpers/match-simulation';
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundWinner];
@@ -77,8 +77,9 @@ watch(winner, () => emit('winnerUpdated', winner.value));
 function simulateScore() {
   do {
     for (const match of slot.value.legs) {
-      match.homeTeam.score = getRandomScore();
-      match.awayTeam.score = getRandomScore();
+      const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
+      match.homeTeam.score = home;
+      match.awayTeam.score = away;
     }
   }
   while (winner.value === null);

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getRandomScore } from '~/helpers/match-simulation';
+import { simulateMatchScore } from '~/helpers/match-simulation';
 import { getActiveMatchweekNumber } from '~/helpers/matchweek';
 
 export const useMatchweekCardStore = defineStore('matchweekCard', () => {
@@ -32,8 +32,9 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
 
     for (const match of selectedMatchweek.value.matches) {
       await new Promise((resolve) => {
-        match.homeTeam.score = getRandomScore();
-        match.awayTeam.score = getRandomScore();
+        const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
+        match.homeTeam.score = home;
+        match.awayTeam.score = away;
         matchesToSimulateCount.value.simulated += 1;
 
         setTimeout(resolve);

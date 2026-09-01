@@ -1,9 +1,16 @@
-export function getRandomScore(): number {
-  let num = Math.floor(Math.random() * 7);
+import { getRandomScore, getSimulatedMatchScore } from './match-score';
+import { getTeamById } from './team';
 
-  if (num > 3 && Math.random() < 0.91) {
-    num = Math.floor(Math.random() * 5);
+export function simulateMatchScore(homeTeamId: Match['homeTeam']['id'], awayTeamId: Match['awayTeam']['id']) {
+  const homeTeam = getTeamById(homeTeamId);
+  const awayTeam = getTeamById(awayTeamId);
+
+  if (!homeTeam?.strength || !awayTeam?.strength) {
+    return {
+      home: getRandomScore(),
+      away: getRandomScore(),
+    };
   }
 
-  return num;
+  return getSimulatedMatchScore(homeTeam.strength, awayTeam.strength);
 }
