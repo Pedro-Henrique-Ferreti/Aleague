@@ -7,12 +7,16 @@
   <dialog
     ref="dialogRef"
     :id="id"
-    class="modal text-left"
+    class="modal text-left p-(--spacing-screen-padding)"
     @close="closeModal"
   >
     <div
-      class="modal-box p-0 max-h-[93vh]"
-      :class="{ 'max-w-48': size === 'lg', 'max-w-80': size === 'xl' }"
+      class="modal-box p-0 flex flex-col"
+      :class="{
+        'max-w-48': size === 'lg',
+        'max-w-80': size === 'xl',
+        'w-full h-full max-w-[unset]': size === 'fullscreen',
+      }"
     >
       <div class="p-1.5">
         <CloseButton
@@ -30,7 +34,7 @@
       </div>
       <div
         v-if="showActions"
-        class="modal-action px-1.5 pb-1.5 mt-0 sticky bottom-0 bg-inherit"
+        class="modal-action px-1.5 pb-1.5 sticky bottom-0 bg-inherit mt-auto"
       >
         <slot name="actions">
           <AppButton
@@ -53,14 +57,16 @@
 </template>
 
 <script lang="ts" setup>
-withDefaults(defineProps<{
+interface AppModalProps {
   title?: string;
   showCloseIcon?: boolean;
   submitButtonLabel?: string;
   submitButtonDisabled?: boolean;
-  size?: 'lg' | 'xl';
+  size?: 'lg' | 'xl' | 'fullscreen';
   showActions?: boolean;
-}>(), {
+}
+
+withDefaults(defineProps<AppModalProps>(), {
   showCloseIcon: true,
   submitButtonLabel: 'Salvar',
   showActions: true,
