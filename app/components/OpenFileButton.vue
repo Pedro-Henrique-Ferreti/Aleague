@@ -17,10 +17,8 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
   let lastAddedCollectionId: Collection['id'];
   let lastAddedTournamentId: Tournament['id'];
 
-  const addTournamentToStore = (tournament: Tournament) => {
-    if (!tournamentStore.tournaments.find(i => i.id === tournament.id)) {
-      tournamentStore.pushTournament(tournament);
-
+  const pushToStore = (tournament: Tournament) => {
+    if (tournamentStore.pushTournament(tournament)) {
       lastAddedTournamentId = tournament.id;
     }
   };
@@ -36,10 +34,10 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
 
     lastAddedCollectionId = file.id;
 
-    file.data.tournaments.forEach(addTournamentToStore);
+    file.data.tournaments.forEach(pushToStore);
   });
 
-  tournamentFiles.forEach(file => addTournamentToStore(file.data));
+  tournamentFiles.forEach(file => pushToStore(file.data));
 
   nextTick(() => {
     if (lastAddedCollectionId) {

@@ -23,9 +23,12 @@ export const useTournamentStore = defineStore('tournament', () => {
     snapshots.value[tournament.id] = clone(tournament);
   }
 
-  function pushTournament(tournament: Tournament) {
+  function pushTournament(tournament: Tournament): boolean {
+    if (tournaments.value.find(i => i.id === tournament.id)) return false;
+
     tournaments.value.push(tournament);
     snapshotTournament(tournament);
+    return true;
   }
 
   function createTournament(payload: TournamentForm) {
