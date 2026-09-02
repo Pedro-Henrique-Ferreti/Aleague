@@ -1,4 +1,4 @@
-import { generateTournamentFile } from '~/helpers/file';
+import { createTournamentFile } from '~/helpers/file';
 
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
 
@@ -6,7 +6,7 @@ export function useExportSourceFile() {
   const tournamentStore = useTournamentStore();
   const { getCollection } = useCollectionStore();
 
-  function generateCollectionFile(collection: Collection): CollectionFile {
+  function createCollectionFile(collection: Collection): CollectionFile {
     return {
       id: collection.id,
       type: SourceFileType.COLLECTION,
@@ -33,11 +33,14 @@ export function useExportSourceFile() {
 
   function downloadCollectionFile(id: Collection['id']) {
     const collection = getCollection(id);
-    const tournamentsInCollection = tournamentStore.tournaments.filter(t => t.collectionId === id);
 
-    tournamentsInCollection.forEach(t => tournamentStore.updateTimestamps(t.id));
+    tournamentStore.tournaments.forEach((tournament) => {
+      if (tournament.collectionId === id) {
+        tournamentStore.updateTimestamps(tournament.id);
+      }
+    });
 
-    return downloadSourceFile(generateCollectionFile(collection));
+    return downloadSourceFile(createCollectionFile(collection));
   }
 
   function downloadTournamentFile(id: Tournament['id']) {
@@ -49,7 +52,7 @@ export function useExportSourceFile() {
 
     tournamentStore.updateTimestamps(id);
 
-    return downloadSourceFile(generateTournamentFile(tournament));
+    return downloadSourceFile(createTournamentFile(tournament));
   }
 
   return {
