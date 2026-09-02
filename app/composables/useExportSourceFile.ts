@@ -32,7 +32,12 @@ export function useExportSourceFile() {
   }
 
   function downloadCollectionFile(id: Collection['id']) {
-    return downloadSourceFile(generateCollectionFile(getCollection(id)));
+    const collection = getCollection(id);
+    const tournamentsInCollection = tournamentStore.tournaments.filter(t => t.collectionId === id);
+
+    tournamentsInCollection.forEach(t => tournamentStore.updateTimestamps(t.id));
+
+    return downloadSourceFile(generateCollectionFile(collection));
   }
 
   function downloadTournamentFile(id: Tournament['id']) {
@@ -41,6 +46,8 @@ export function useExportSourceFile() {
     if (tournament.collectionId) {
       return downloadCollectionFile(tournament.collectionId);
     }
+
+    tournamentStore.updateTimestamps(id);
 
     return downloadSourceFile(generateTournamentFile(tournament));
   }

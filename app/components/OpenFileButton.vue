@@ -19,7 +19,7 @@ function onFilesImported({ collectionFiles, tournamentFiles }: UseImportSourceFi
 
   const addTournamentToStore = (tournament: Tournament) => {
     if (!tournamentStore.tournaments.find(i => i.id === tournament.id)) {
-      tournamentStore.tournaments.push(tournament);
+      tournamentStore.pushTournament(tournament);
 
       lastAddedTournamentId = tournament.id;
     }
