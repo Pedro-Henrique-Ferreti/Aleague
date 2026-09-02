@@ -23,6 +23,10 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     },
   });
 
+  const matchweekIsDirty = computed(() => {
+    return selectedMatchweek.value?.matches.some(m => m.homeTeam.score !== null || m.awayTeam.score !== null) ?? false;
+  });
+
   watch([() => stageStore.activeGroupStage?.matchweeks.length, () => stageStore.activeGroupStage?.id], () => {
     selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
   });
@@ -95,6 +99,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   return {
     selectedWeekNumber,
     selectedMatchweek,
+    matchweekIsDirty,
     kickoffModalIsOpen,
     isSimulatingResults,
     isResettingMatchweeks,

@@ -14,13 +14,13 @@
     />
     <AppMenuItem
       label="Simular uma vez"
-      :icon="IconDeviceGamepad2"
-      @click="matchweekCardStore.simulateMatchweek"
+      :icon="IconPlayerPlay"
+      @click="onSimulateMatchweekClick"
     />
     <AppMenuItem
       label="Simular tudo"
       :icon="IconPlayerTrackNext"
-      @click="showSimulationModal = true"
+      @click="showSimulateAllModal = true"
     />
     <AppMenuItem
       label="Reiniciar rodadas"
@@ -42,10 +42,16 @@
     @confirm="onDeleteMatchweeks"
   />
   <AppDialog
-    v-model:is-open="showSimulationModal"
+    v-model:is-open="showSimulateSingleModal"
+    title="Simular rodada"
+    message="Você deseja simular os resultados desta rodada? Resultados já existentes serão apagados."
+    @confirm="onSimulateMatchweek"
+  />
+  <AppDialog
+    v-model:is-open="showSimulateAllModal"
     title="Simular rodadas"
     message="Você deseja simular os resultados para todas as rodadas? Resultados já existentes serão apagados."
-    @confirm="onSimulateMatchweeks"
+    @confirm="onSimulateAllMatchweeks"
   />
   <AppDialog
     v-model:is-open="showResetMatchweeksModal"
@@ -57,13 +63,14 @@
 </template>
 
 <script lang="ts" setup>
-import { IconClockEdit, IconDeviceGamepad2, IconDotsVertical, IconPlayerTrackNext, IconRefresh, IconTrash } from '@tabler/icons-vue';
+import { IconClockEdit, IconDotsVertical, IconPlayerPlay, IconPlayerTrackNext, IconRefresh, IconTrash } from '@tabler/icons-vue';
 
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
 
 const showDeleteMatchweeksDialog = ref(false);
-const showSimulationModal = ref(false);
+const showSimulateSingleModal = ref(false);
+const showSimulateAllModal = ref(false);
 const showResetMatchweeksModal = ref(false);
 
 function onDeleteMatchweeks() {
@@ -71,13 +78,26 @@ function onDeleteMatchweeks() {
   showDeleteMatchweeksDialog.value = false;
 }
 
-function onSimulateMatchweeks() {
-  showSimulationModal.value = false;
+function onSimulateMatchweek() {
+  showSimulateSingleModal.value = false;
+  matchweekCardStore.simulateMatchweek();
+}
+
+function onSimulateAllMatchweeks() {
+  showSimulateAllModal.value = false;
   matchweekCardStore.simulateAllMatchweeks();
 }
 
 function onResetMatchweeks() {
   showResetMatchweeksModal.value = false;
   matchweekCardStore.resetAllMatchweeks();
+}
+
+function onSimulateMatchweekClick() {
+  if (matchweekCardStore.matchweekIsDirty) {
+    showSimulateSingleModal.value = true;
+  } else {
+    matchweekCardStore.simulateMatchweek();
+  }
 }
 </script>
