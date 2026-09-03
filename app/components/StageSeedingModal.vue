@@ -2,7 +2,7 @@
   <AppModal
     v-model:is-open="modalIsOpen"
     title="Editar equipes"
-    size="xl"
+    size="fullscreen"
     :submit-button-disabled="submitButtonDisabled"
     @open="onOpenModal"
     @submit="submitForm"
