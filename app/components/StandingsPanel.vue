@@ -39,7 +39,12 @@
         :key="group.order"
         class="not-last:mb-1.5"
       >
-        <span class="block font-medium mb-0.75">{{ getGroupName(group, selectedStage) }}</span>
+        <span
+          v-if="selectedStage.groups.length > 1"
+          class="block font-medium mb-0.75"
+        >
+          {{ getGroupName(group.order, selectedStage.nameFormat) }}
+        </span>
         <StandingsTable
           display-mode="compact"
           disable-movement-transition

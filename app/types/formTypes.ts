@@ -11,6 +11,7 @@ export interface StageForm extends Pick<BaseStage, 'name' | 'type'> {
 export interface StageSeedingForm {
   groups: {
     order: number;
+    name: string;
     teams: StandingsEntry['team'][];
   }[];
 }

@@ -18,8 +18,8 @@ describe('stage-teams', () => {
 
       const form: StageSeedingForm = {
         groups: [
-          { order: 0, teams: ['team-a', 'team-b'] },
-          { order: 1, teams: ['team-c', 'team-d'] },
+          { name: '', order: 0, teams: ['team-a', 'team-b'] },
+          { name: '', order: 1, teams: ['team-c', 'team-d'] },
         ],
       };
 
@@ -54,7 +54,7 @@ describe('stage-teams', () => {
 
       const form: StageSeedingForm = {
         groups: [
-          { order: 0, teams: ['team-a', 'team-b'] },
+          { name: '', order: 0, teams: ['team-a', 'team-b'] },
         ],
       };
 
@@ -81,7 +81,7 @@ describe('stage-teams', () => {
 
       const form: StageSeedingForm = {
         groups: [
-          { order: 1, teams: ['team-a', 'team-b'] },
+          { name: '', order: 1, teams: ['team-a', 'team-b'] },
         ],
       };
 
@@ -118,7 +118,7 @@ describe('stage-teams', () => {
 
       const form: StageSeedingForm = {
         groups: [
-          { order: 1, teams: ['team-a', 'team-b'] },
+          { name: '', order: 1, teams: ['team-a', 'team-b'] },
         ],
       };
 

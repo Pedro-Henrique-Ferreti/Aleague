@@ -7,7 +7,7 @@
         :legend="filtersForm.view === TableEntryView.OVERALL ? stage.overallLegend : group.legend"
         :standings="group.standings"
         :filters="filtersForm"
-        :title="getGroupName(group, stage, filtersForm.view)"
+        :title="getCardTitle(group)"
         :matchweeks="stage.matchweeks"
         @update:legend="handleUpdateGroupLegend($event, index)"
       >
@@ -62,6 +62,13 @@ const displayedGroups = computed<GroupStage['groups']>(() => (
         standings: stage.value.groups.flatMap(group => group.standings),
       }]
 ));
+
+function getCardTitle(group: GroupStage['groups'][number]) {
+  if (stage.value.groups.length === 1) return 'Classificação';
+  if (filtersForm.value.view === TableEntryView.OVERALL) return 'Classificação geral';
+
+  return getGroupName(group.order, stage.value.nameFormat);
+}
 
 function handleUpdateGroupLegend(value: LegendColor[], groupIndex: number) {
   if (filtersForm.value.view === TableEntryView.OVERALL) {

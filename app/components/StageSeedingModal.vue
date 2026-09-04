@@ -61,6 +61,7 @@
 
 <script lang="ts" setup>
 import { IconLayoutSidebarRightExpand } from '@tabler/icons-vue';
+import { getGroupName } from '~/helpers/group-stage';
 
 interface StageTeamsProps {
   stage: TournamentStage;
@@ -89,10 +90,12 @@ function onOpenModal() {
   if (props.stage.type === StageType.GROUP) {
     form.value.groups = props.stage.groups.map(group => ({
       order: group.order,
+      name: getGroupName(group.order, (props.stage as GroupStage).nameFormat),
       teams: group.standings.map(entry => entry.team),
     }));
   } else {
     form.value.groups = props.stage.rounds[0]!.slots.map(({ legs: [match] }, index) => ({
+      name: `Partida ${index + 1}`,
       order: index + 1,
       teams: [match.homeTeam.id, match.awayTeam.id],
     }));
