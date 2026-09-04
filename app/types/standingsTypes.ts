@@ -1,8 +1,8 @@
 export enum LegendColor {
   GREEN = '1',
   BLUE = '2',
-  RED = '3',
   ORANGE = '4',
+  RED = '3',
   NONE = '5',
 }
 
