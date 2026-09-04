@@ -18,7 +18,7 @@
         'w-full h-full max-w-[unset]': size === 'fullscreen',
       }"
     >
-      <div class="p-1.5">
+      <div class="flex-1 p-1.5">
         <CloseButton
           v-if="showCloseIcon"
           class="absolute right-1 top-1"
