@@ -19,7 +19,7 @@
         <AppMenuItem
           v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
           label="Simular resultados"
-          :icon="IconDeviceGamepad2"
+          :icon="IconPlayerPlay"
           @click="simulateScore"
         />
         <AppMenuItem
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconDeviceGamepad2, IconPlus, IconTrash } from '@tabler/icons-vue';
+import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { newMatch } from '~/helpers/match';
 import { simulateMatchScore } from '~/helpers/match-simulation';
 
