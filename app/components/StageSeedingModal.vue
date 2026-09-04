@@ -11,25 +11,15 @@
       <slot :open-modal="openModal" />
     </template>
     <div class="flex gap-1">
-      <div class="flex-1">
-        <div
-          class="flex gap-1 mb-2 relative"
-          :class="[standingsPanelIsOpen ? 'justify-between' : 'justify-center']"
-        >
+      <div class="flex-1 @container/groups">
+        <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
           <TeamSearchInput
             ref="team-search"
             :stage-id="stage.id"
             :selected-teams="selectedTeams"
             @select="onSelectTeam"
           />
-          <div
-            class="flex gap-0.75 right-0"
-            :class="{ absolute: !standingsPanelIsOpen }"
-          >
-            <StageSeedingImportButton
-              v-model="form.groups"
-              :selected-teams="selectedTeams"
-            />
+          <div class="flex gap-0.75 right-0 absolute">
             <StageSeedingRandomButton
               v-model="form.groups"
               :team-options="teamSearchInput?.teamOptions"
