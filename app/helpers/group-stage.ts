@@ -1,4 +1,4 @@
-function getGroupTeams(group: GroupStage['groups'][number]) {
+function getGroupTeams(group: GroupStageGroup) {
   return group.standings.map(i => i.team!);
 }
 
@@ -19,7 +19,7 @@ export function isGroupStageSeeded(groups: GroupStage['groups']): boolean {
   return groups.every(g => g.standings.every(s => s.team !== null));
 }
 
-export function getGroupName(order: GroupStage['groups'][number]['order'], nameFormat: GroupStage['nameFormat']) {
+export function getGroupName(order: GroupStageGroup['order'], nameFormat: GroupStage['nameFormat']) {
   if (nameFormat === GroupStageNameFormat.NUMBER) return `Grupo ${order}`;
 
   const count = order > ALPHABET.length ? Math.ceil(order / ALPHABET.length) : '';

@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 interface LegendsForm {
-  legends: GroupStage['groups'][number]['legend'];
+  legends: GroupStageGroup['legend'];
 }
 
 const stageStore = useStageStore();

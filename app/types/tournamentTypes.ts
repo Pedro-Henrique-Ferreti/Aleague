@@ -21,14 +21,16 @@ export interface BaseStage {
   type: StageType;
 }
 
+export interface GroupStageGroup {
+  order: number;
+  standings: StandingsEntry[];
+  legend: LegendColor[];
+}
+
 export interface GroupStage extends BaseStage {
   type: StageType.GROUP;
   nameFormat: GroupStageNameFormat;
-  groups: {
-    order: number;
-    standings: StandingsEntry[];
-    legend: LegendColor[];
-  }[];
+  groups: GroupStageGroup[];
   overallLegend: LegendColor[];
   legendDescription: Record<Exclude<LegendColor, LegendColor.NONE>, string>;
   matchweeks: Matchweek[];

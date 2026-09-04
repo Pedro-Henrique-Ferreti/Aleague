@@ -63,7 +63,7 @@ const displayedGroups = computed<GroupStage['groups']>(() => (
       }]
 ));
 
-function getCardTitle(group: GroupStage['groups'][number]) {
+function getCardTitle(group: GroupStageGroup) {
   if (stage.value.groups.length === 1) return 'Classificação';
   if (filtersForm.value.view === TableEntryView.OVERALL) return 'Classificação geral';
 

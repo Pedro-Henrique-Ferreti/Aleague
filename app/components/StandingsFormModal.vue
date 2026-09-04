@@ -27,7 +27,7 @@ import { getTeamById } from '@/helpers/team.js';
 import { getTableEntriesByWeek } from '~/helpers/standings';
 
 const props = defineProps<{
-  standings: GroupStage['groups'][number]['standings'];
+  standings: GroupStageGroup['standings'];
 }>();
 
 const entry = defineModel<TableEntry | undefined>('entry');

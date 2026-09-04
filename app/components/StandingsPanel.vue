@@ -118,7 +118,7 @@ const showEmptyState = computed(() => {
   );
 });
 
-function getDisabledEntries(group: GroupStage['groups'][number]): StandingsEntry['id'][] {
+function getDisabledEntries(group: GroupStageGroup): StandingsEntry['id'][] {
   return group.standings.filter(entry => props.selectedTeams.includes(entry.team ?? '')).map(entry => entry.id);
 }
 

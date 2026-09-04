@@ -80,7 +80,7 @@ import { vResizeObserver } from '@vueuse/components';
 import { getTableEntry, sortTableEntries } from '~/helpers/standings.js';
 
 export type StandingsTableProps = Pick<StandingsTableRowProps, 'showForm' | 'displayMode'> & {
-  standings: GroupStage['groups'][number]['standings'];
+  standings: GroupStageGroup['standings'];
   disableMovementTransition?: boolean;
   disableRowClick?: boolean;
   disableLegendSelector?: boolean;
