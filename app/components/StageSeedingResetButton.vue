@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { IconTrash } from '@tabler/icons-vue';
 
-const groups = defineModel<StageTeamsForm['groups']>({ required: true });
+const groups = defineModel<StageSeedingForm['groups']>({ required: true });
 
 function resetSlots() {
   groups.value.forEach((group, index) => {

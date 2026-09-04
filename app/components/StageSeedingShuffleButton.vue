@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { IconArrowsShuffle } from '@tabler/icons-vue';
 
-const groups = defineModel<StageTeamsForm['groups']>({ required: true });
+const groups = defineModel<StageSeedingForm['groups']>({ required: true });
 
 function shuffleTeams() {
   const teams = groups.value.flatMap(group => group.teams);

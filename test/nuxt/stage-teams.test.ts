@@ -16,7 +16,7 @@ describe('stage-teams', () => {
         teamsPerGroup: 0,
       }) as PlayoffStage;
 
-      const form: StageTeamsForm = {
+      const form: StageSeedingForm = {
         groups: [
           { order: 0, teams: ['team-a', 'team-b'] },
           { order: 1, teams: ['team-c', 'team-d'] },
@@ -52,7 +52,7 @@ describe('stage-teams', () => {
         }],
       };
 
-      const form: StageTeamsForm = {
+      const form: StageSeedingForm = {
         groups: [
           { order: 0, teams: ['team-a', 'team-b'] },
         ],
@@ -79,7 +79,7 @@ describe('stage-teams', () => {
         teamsPerGroup: 2,
       }) as GroupStage;
 
-      const form: StageTeamsForm = {
+      const form: StageSeedingForm = {
         groups: [
           { order: 1, teams: ['team-a', 'team-b'] },
         ],
@@ -116,7 +116,7 @@ describe('stage-teams', () => {
         overallLegend: [],
       };
 
-      const form: StageTeamsForm = {
+      const form: StageSeedingForm = {
         groups: [
           { order: 1, teams: ['team-a', 'team-b'] },
         ],

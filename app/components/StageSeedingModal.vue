@@ -78,7 +78,7 @@ const modalIsOpen = defineModel<boolean>('is-open');
 const teamSearchInput = useTemplateRef('team-search');
 
 const standingsPanelIsOpen = ref(false);
-const form = ref<StageTeamsForm>({
+const form = ref<StageSeedingForm>({
   groups: [],
 });
 

@@ -16,7 +16,7 @@ const props = defineProps<{
   teamOptions?: TeamDetails[];
 }>();
 
-const groups = defineModel<StageTeamsForm['groups']>({ required: true });
+const groups = defineModel<StageSeedingForm['groups']>({ required: true });
 
 function fillSlots() {
   const options = Object.assign([], props.teamOptions ?? []) as TeamDetails[];

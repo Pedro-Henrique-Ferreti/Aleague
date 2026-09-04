@@ -3,7 +3,7 @@ interface MatchweekReplacementQuery {
   replace: TeamDetails['id'];
 }
 
-export function updatePlayoffStageTeams(playoffStage: PlayoffStage, form: StageTeamsForm) {
+export function updatePlayoffStageTeams(playoffStage: PlayoffStage, form: StageSeedingForm) {
   const stage = clone(playoffStage);
 
   form.groups.forEach((group, index) => {
@@ -46,7 +46,7 @@ function replaceTeamsInMatchweeks(groupStage: GroupStage, queries: MatchweekRepl
   return stage;
 }
 
-export function updateGroupStageTeams(groupStage: GroupStage, form: StageTeamsForm) {
+export function updateGroupStageTeams(groupStage: GroupStage, form: StageSeedingForm) {
   let stage = clone(groupStage);
   const queries: MatchweekReplacementQuery[] = [];
 

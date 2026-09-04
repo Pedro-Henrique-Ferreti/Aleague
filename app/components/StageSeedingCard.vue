@@ -19,5 +19,5 @@ defineProps<{
   stageType: TournamentStage['type'];
 }>();
 
-const group = defineModel<StageTeamsForm['groups'][number]>({ required: true });
+const group = defineModel<StageSeedingForm['groups'][number]>({ required: true });
 </script>

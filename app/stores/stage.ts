@@ -49,7 +49,7 @@ export const useStageStore = defineStore('stage', () => {
     activeTournament.value.stages = activeTournament.value.stages.filter(stage => stage.id !== activeStage.value?.id);
   }
 
-  function updateActiveStageTeams(form: StageTeamsForm) {
+  function updateActiveStageTeams(form: StageSeedingForm) {
     if (!activeStage.value) return;
 
     if (activeStage.value.type === StageType.PLAYOFF) {
