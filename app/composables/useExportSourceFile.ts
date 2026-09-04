@@ -34,6 +34,8 @@ export function useExportSourceFile() {
   function downloadCollectionFile(id: Collection['id']) {
     const collection = getCollection(id);
 
+    if (!collection) return;
+
     tournamentStore.tournaments.forEach((tournament) => {
       if (tournament.collectionId === id) {
         tournamentStore.updateTimestamps(tournament.id);

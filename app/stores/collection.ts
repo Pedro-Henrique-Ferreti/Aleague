@@ -20,12 +20,8 @@ export const useCollectionStore = defineStore('collection', () => {
     tournamentStore.activeTournamentId = undefined;
   }
 
-  function getCollection(id: Collection['id'] | null): Collection {
-    const collection = collections.value.find(i => i.id === id);
-
-    if (!collection) throw new Error('Collection not found');
-
-    return collection;
+  function getCollection(id: Collection['id'] | null) {
+    return collections.value.find(i => i.id === id);
   }
 
   function createCollection(payload: CollectionForm) {
