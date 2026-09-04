@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded } from '~/helpers/group-stage';
+import { getGroupName, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded } from '~/helpers/group-stage';
+import { newStandingsEntry } from '~/helpers/standings';
 
 describe('group-stage', () => {
   describe('getSameGroupTeamLists', () => {
@@ -7,18 +8,12 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [
-            { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
         {
           order: 2,
-          standings: [
-            { id: '3', team: 'team-c', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: '4', team: 'team-d', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('3', 'team-c'), newStandingsEntry('4', 'team-d')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -36,10 +31,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [
-            { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -54,10 +46,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [
-            { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -75,10 +64,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [
-            { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: '2', team: 'team-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -90,15 +76,29 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [
-            { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: '2', team: null, data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
 
       expect(isGroupStageSeeded(groups)).toBe(false);
+    });
+  });
+
+  describe('getGroupName', () => {
+    it('should return group name in number format', () => {
+      const name = getGroupName(1, GroupStageNameFormat.NUMBER);
+      expect(name).toBe('Grupo 1');
+    });
+
+    it('should return group name in letter format', () => {
+      const name = getGroupName(1, GroupStageNameFormat.LETTER);
+      expect(name).toBe('Grupo A');
+    });
+
+    it('should return group name in letter format with count for orders greater than alphabet length', () => {
+      const name = getGroupName(27, GroupStageNameFormat.LETTER);
+      expect(name).toBe('Grupo A2');
     });
   });
 });
