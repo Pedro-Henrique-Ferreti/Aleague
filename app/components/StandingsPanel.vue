@@ -1,6 +1,6 @@
 <template>
   <div class="w-24 max-h-[76vh] overflow-y-auto pl-1 border-l border-base-200 sticky top-3">
-    <div class="mb-0.5">
+    <div class="mb-1 flex items-center gap-0.5">
       <AppTooltip label="Fechar painel">
         <AppButton
           class="btn-square btn-ghost btn-sm -ml-0.5"
@@ -9,15 +9,29 @@
           @click="$emit('closePanel')"
         />
       </AppTooltip>
+      <div class="font-semibold text-lg">Classificação</div>
     </div>
-    <BaseSelect
-      v-model="selectedStage"
-      class="mb-1.5"
-      :options="stageOptions"
-    />
+    <div class="grid mb-1.5 gap-0.75">
+      <AppSelect
+        v-model="selectedTournament"
+        label="Campeonato"
+        :options="tournamentOptions"
+      />
+      <AppSelect
+        v-if="stageOptions.length > 1"
+        v-model="selectedStage"
+        label="Fase"
+        :options="stageOptions"
+      />
+    </div>
     <div v-if="showEmptyState">
-      <h1 class="text-lg text-center font-semibold mb-0.5">Fase não preenchida</h1>
-      <p class="text-center">Adicione todas as equipes para visualizar a classificação da fase.</p>
+      <div class="text-lg text-center font-semibold mb-0.5">
+        {{ stageOptions.length > 1 ? 'Fase incompleta' : 'Campeonato incompleto' }}
+      </div>
+      <p class="text-center">
+        Você deve adicionar todas as equipes para visualizar a classificação
+        {{ stageOptions.length > 1 ? 'desta fase' : 'do campeonato' }}.
+      </p>
     </div>
     <template v-else-if="selectedStage?.type === StageType.GROUP">
       <div
@@ -60,27 +74,39 @@ const emit = defineEmits<{
   closePanel: [];
 }>();
 
+const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
-const stageOptions = computed<SelectOptionList<TournamentStage>>(() => {
-  return tournamentStore.activeTournament?.stages.map(stage => ({
+const tournamentOptions = computed(() => {
+  return tournamentStore.tournaments.map((tournament): SelectOption<Tournament> => ({
+    label: tournament.name,
+    value: tournament,
+    groupLabel: collectionStore.getCollection(tournament.collectionId)?.name,
+  }));
+});
+
+const selectedTournament = ref<Tournament | undefined>(tournamentOptions.value[0]?.value);
+const selectedStage = ref<TournamentStage>();
+
+const stageOptions = computed(() => {
+  return selectedTournament.value?.stages.map((stage): SelectOption<TournamentStage> => ({
     label: stage.name,
     value: stage,
   })) ?? [];
 });
 
-const selectedStage = ref<TournamentStage | undefined>(stageOptions.value[0]?.value);
+watchEffect(() => {
+  selectedStage.value = stageOptions.value[0]?.value;
+});
 
 const showEmptyState = computed(() => {
-  if (!selectedStage.value) {
-    return true;
-  }
-
-  if (selectedStage.value?.type === StageType.GROUP) {
-    return !isGroupStageSeeded(selectedStage.value.groups);
-  }
-
-  return !isPlayoffStageSeeded(selectedStage.value.rounds);
+  return (
+    !selectedStage.value || (
+      selectedStage.value.type === StageType.GROUP
+        ? !isGroupStageSeeded(selectedStage.value.groups)
+        : !isPlayoffStageSeeded(selectedStage.value.rounds)
+    )
+  );
 });
 
 function getDisabledEntries(group: GroupStage['groups'][number]): StandingsEntry['id'][] {
