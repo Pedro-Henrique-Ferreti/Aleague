@@ -10,7 +10,7 @@
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
     </template>
-    <div class="flex gap-1">
+    <div class="flex min-h-full gap-1">
       <div class="flex-1 @container/groups">
         <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
           <TeamSearchInput
