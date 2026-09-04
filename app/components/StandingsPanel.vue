@@ -49,6 +49,10 @@
           :disabled-entries="getDisabledEntries(group)"
           @update:table-entry="handleSelectTeam($event?.team ?? '')"
         />
+        <LegendsCard
+          class="mt-1"
+          :legends="selectedStage.legendDescription"
+        />
       </div>
     </template>
     <StandingsPanelPlayoff
