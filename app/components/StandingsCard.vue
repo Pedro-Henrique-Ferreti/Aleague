@@ -12,6 +12,7 @@
         :standings="standings"
         :show-form="!!matchweeks?.length"
         :disable-row-click="!renderFormModal || matchweekCardStore.isSimulatingResults"
+        :disable-legend-selector="matchweekCardStore.isSimulatingResults"
         :disable-movement-transition="matchweekCardStore.isSimulatingResults"
         :table-entry="selectedTableEntry"
         :filters="filters"

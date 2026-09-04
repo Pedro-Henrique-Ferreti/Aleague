@@ -61,7 +61,7 @@
                     v-model:legend="legend[index]!"
                     :position="index + 1"
                     :team-id="entry.team"
-                    :disable-legend-selector="displayMode !== 'complete' || disableRowClick"
+                    :disable-legend-selector="displayMode !== 'complete' || disableLegendSelector"
                   />
                 </td>
               </template>
@@ -83,6 +83,7 @@ export type StandingsTableProps = Pick<StandingsTableRowProps, 'showForm' | 'dis
   standings: GroupStage['groups'][number]['standings'];
   disableMovementTransition?: boolean;
   disableRowClick?: boolean;
+  disableLegendSelector?: boolean;
   disabledEntries?: StandingsEntry['id'][];
   filters?: Partial<Pick<StandingsFilters, 'entryType' | 'sortType' | 'week' | 'weekDirection'>>;
 };
