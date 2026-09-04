@@ -1,7 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import { newLegendDescription } from '~/helpers/group-stage';
+import { newMatch } from '~/helpers/match';
 import { updateGroupStageTeams, updatePlayoffStageTeams } from '~/helpers/stage-teams';
+import { newStandingsEntry } from '~/helpers/standings';
 import { newTournamentStage } from '~/helpers/tournament';
+
+function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
+  return {
+    groups: groupTeams.map((teams, index) => ({
+      name: '',
+      order: index + 1,
+      teams,
+    })),
+  };
+}
 
 describe('stage-teams', () => {
   describe('updatePlayoffStageTeams', () => {
@@ -16,14 +28,7 @@ describe('stage-teams', () => {
         teamsPerGroup: 0,
       }) as PlayoffStage;
 
-      const form: StageSeedingForm = {
-        groups: [
-          { name: '', order: 0, teams: ['team-a', 'team-b'] },
-          { name: '', order: 1, teams: ['team-c', 'team-d'] },
-        ],
-      };
-
-      const result = updatePlayoffStageTeams(playoffStage, form);
+      const result = updatePlayoffStageTeams(playoffStage, mockStageSeedingForm(['team-a', 'team-b'], ['team-c', 'team-d']));
 
       expect(result.rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(result.rounds[0].slots[0]!.legs[0].awayTeam.id).toBe('team-b');
@@ -44,21 +49,12 @@ describe('stage-teams', () => {
           slots: [{
             id: 's1',
             order: 0,
-            legs: [
-              { id: 'm1', homeTeam: { id: null, score: null }, awayTeam: { id: null, score: null }, kickoff: null },
-              { id: 'm2', homeTeam: { id: null, score: null }, awayTeam: { id: null, score: null }, kickoff: null },
-            ],
+            legs: [newMatch(), newMatch()],
           }],
         }],
       };
 
-      const form: StageSeedingForm = {
-        groups: [
-          { name: '', order: 0, teams: ['team-a', 'team-b'] },
-        ],
-      };
-
-      const result = updatePlayoffStageTeams(playoffStage, form);
+      const result = updatePlayoffStageTeams(playoffStage, mockStageSeedingForm(['team-a', 'team-b']));
 
       expect(result.rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(result.rounds[0].slots[0]!.legs[0].awayTeam.id).toBe('team-b');
@@ -79,13 +75,7 @@ describe('stage-teams', () => {
         teamsPerGroup: 2,
       }) as GroupStage;
 
-      const form: StageSeedingForm = {
-        groups: [
-          { name: '', order: 1, teams: ['team-a', 'team-b'] },
-        ],
-      };
-
-      const result = updateGroupStageTeams(groupStage, form);
+      const result = updateGroupStageTeams(groupStage, mockStageSeedingForm(['team-a', 'team-b']));
 
       expect(result.groups[0]!.standings[0]!.team).toBe('team-a');
       expect(result.groups[0]!.standings[1]!.team).toBe('team-b');
@@ -100,29 +90,18 @@ describe('stage-teams', () => {
         nameFormat: GroupStageNameFormat.NUMBER,
         matchweeks: [{
           week: 1,
-          matches: [
-            { id: 'm1', homeTeam: { id: 'old-a', score: null }, awayTeam: { id: 'old-b', score: null }, kickoff: null },
-          ],
+          matches: [newMatch('old-a', 'old-b')],
         }],
         groups: [{
           order: 1,
-          standings: [
-            { id: 's1', team: 'old-a', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-            { id: 's2', team: 'old-b', data: [{ week: 1, type: TableEntryType.HOME, points: 0, played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0, form: [] }] },
-          ] as StandingsEntry[],
+          standings: [newStandingsEntry('s1', 'old-a'), newStandingsEntry('s2', 'old-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         }],
         legendDescription: newLegendDescription(),
         overallLegend: [],
       };
 
-      const form: StageSeedingForm = {
-        groups: [
-          { name: '', order: 1, teams: ['team-a', 'team-b'] },
-        ],
-      };
-
-      const result = updateGroupStageTeams(groupStage, form);
+      const result = updateGroupStageTeams(groupStage, mockStageSeedingForm(['team-a', 'team-b']));
 
       expect(result.matchweeks[0]!.matches[0]!.homeTeam.id).toBe('team-a');
       expect(result.matchweeks[0]!.matches[0]!.awayTeam.id).toBe('team-b');
