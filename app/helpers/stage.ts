@@ -1,6 +1,6 @@
 import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded, newLegendDescription } from './group-stage';
 import { createMatchSchedule, type MatchScheduleResponse } from './match-schedule';
-import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff';
+import { getPlayoffRoundNames, newPlayoffRoundSlot } from './playoff-stage';
 import { newStandingsEntry } from './standings';
 
 export type NewMatchweekListResponse = Omit<MatchScheduleResponse, 'schedule'> & {

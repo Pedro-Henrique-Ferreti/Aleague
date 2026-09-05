@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 import { IconArrowBadgeRightFilled } from '@tabler/icons-vue';
-import { getPlayoffRoundNames } from '~/helpers/playoff';
+import { getPlayoffRoundNames } from '~/helpers/playoff-stage';
 
 defineProps<{
   disabled: boolean;

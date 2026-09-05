@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPlayoffRoundNames, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff';
+import { getPlayoffRoundNames, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff-stage';
 
 describe('playoff', () => {
   describe('getPlayoffRoundNames', () => {

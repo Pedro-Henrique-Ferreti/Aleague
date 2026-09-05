@@ -73,7 +73,7 @@
 import { IconLayoutSidebarLeftExpand } from '@tabler/icons-vue';
 import { getTeamById } from '@/helpers/team';
 import { getGroupName, isGroupStageSeeded } from '~/helpers/group-stage';
-import { isPlayoffStageSeeded } from '~/helpers/playoff';
+import { isPlayoffStageSeeded } from '~/helpers/playoff-stage';
 
 const props = defineProps<{
   selectedTeams: Team['id'][];
