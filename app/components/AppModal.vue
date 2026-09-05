@@ -11,7 +11,7 @@
     @close="closeModal"
   >
     <div
-      class="modal-box p-0 flex flex-col"
+      class="modal-box max-h-full p-0 flex flex-col"
       :class="{
         'max-w-48': size === 'lg',
         'max-w-80': size === 'xl',
