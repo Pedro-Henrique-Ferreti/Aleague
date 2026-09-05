@@ -25,19 +25,11 @@
       />
     </template>
     <span class="size-0.25 ml-0.75 mr-1 rounded-full bg-base-200" />
-    <img
-      class="size-1.5 mr-0.75"
-      alt="Escudo da equipe"
-      :src="team?.badge || ''"
-    >
-    <div>
-      {{ team?.name }}
-      <span
-        v-if="tournamentStore.activeTournament?.showCountry && team"
-        v-text="team.country"
-        class="badge badge-secondary badge-soft badge-xs inline-block ml-0.5"
-      />
-    </div>
+    <TeamDetails
+      v-if="team"
+      :team="team"
+      :show-country="tournamentStore.activeTournament?.showCountry"
+    />
   </div>
 </template>
 
@@ -50,8 +42,8 @@ const props = defineProps<{
   disableLegendSelector?: boolean;
 }>();
 
-const popoverId = useId();
 const tournamentStore = useTournamentStore();
+const popoverId = useId();
 
 const legend = defineModel<LegendColor>('legend', { required: true });
 

@@ -18,6 +18,7 @@
         :match="match"
         :home-team-highlighted="shouldHighlightTeam(match.homeTeam.id, match.awayTeam.id, true)"
         :away-team-highlighted="shouldHighlightTeam(match.homeTeam.id, match.awayTeam.id, false)"
+        :show-country="tournamentStore.activeTournament?.showCountry"
       />
     </div>
   </div>
@@ -28,6 +29,7 @@ const props = defineProps<{
   matchweek: Matchweek;
 }>();
 
+const tournamentStore = useTournamentStore();
 const store = useMatchweekFormStore();
 
 const roundRobinNumber = computed(() => {

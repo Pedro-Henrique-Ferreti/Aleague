@@ -10,19 +10,16 @@
     }"
     @click="element === 'button' && $emit('click')"
   >
-    <template v-if="teamDetails">
-      <img
-        class="size-1.5 shrink-0"
-        alt="Escudo da equipe"
-        :src="teamDetails.badge"
-      >
-      <span :class="{ 'bg-amber-300': isHighlighted }">{{ teamDetails.name }}</span>
-      <span
-        v-if="showCountry && teamDetails"
-        v-text="teamDetails.country"
-        class="badge badge-secondary badge-soft badge-xs inline-block ml-0.25"
-      />
-    </template>
+    <TeamDetails
+      v-if="teamDetails"
+      class="gap-0.5!"
+      :class="{
+        'flex-row-reverse text-right': align === 'right',
+        '[&>span]:bg-amber-300': isHighlighted,
+      }"
+      :team="teamDetails"
+      :show-country="showCountry"
+    />
     <template v-else>
       <IconShieldFilled class="size-1.5 shrink-0 fill-gray-300" />
       <span>A definir</span>
