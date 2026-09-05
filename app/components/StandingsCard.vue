@@ -14,9 +14,8 @@
         :disable-row-click="!renderFormModal || matchweekCardStore.isSimulatingResults"
         :disable-legend-selector="matchweekCardStore.isSimulatingResults"
         :disable-movement-transition="matchweekCardStore.isSimulatingResults"
-        :table-entry="selectedTableEntry"
         :filters="filters"
-        @update:table-entry="onTableEntryClick"
+        @table-entry-click="onTableEntryClick"
       />
     </div>
   </section>

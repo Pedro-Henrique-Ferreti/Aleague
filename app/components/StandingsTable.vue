@@ -46,7 +46,7 @@
               :sort-type="sortType"
               :show-form="showForm"
               :display-mode="displayMode"
-              @click="selectedTableEntry = entry"
+              @click="$emit('tableEntryClick', entry)"
             >
               <template #resize-observer>
                 <td
@@ -92,11 +92,14 @@ const props = withDefaults(defineProps<StandingsTableProps>(), {
   displayMode: 'complete',
 });
 
+defineEmits<{
+  tableEntryClick: [TableEntry];
+}>();
+
 const sortType = computed(() => props.filters?.sortType ?? TableEntrySortType.POINTS);
 const entryType = computed(() => props.filters?.entryType ?? TableEntryType.OVERALL);
 
 const legend = defineModel<LegendColor[]>('legend', { required: true });
-const selectedTableEntry = defineModel<TableEntry>('tableEntry');
 
 const tableWrapperRef = useTemplateRef('table-wrapper');
 const tableScroll = useScroll(tableWrapperRef);

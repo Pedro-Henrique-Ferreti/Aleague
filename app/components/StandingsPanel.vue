@@ -48,11 +48,10 @@
         <StandingsTable
           display-mode="compact"
           disable-movement-transition
-          :table-entry="undefined"
           :legend="group.legend"
           :standings="group.standings"
           :disabled-entries="getDisabledEntries(group)"
-          @update:table-entry="handleSelectTeam($event?.team ?? '')"
+          @table-entry-click="handleSelectTeam($event?.team ?? '')"
         />
         <LegendsCard
           class="mt-1"
