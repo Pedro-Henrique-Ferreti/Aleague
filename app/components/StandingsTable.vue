@@ -17,6 +17,7 @@
               class="text-xs text-gray-500 bg-gray-1 [&_th]:p-0.75 [&_th]:text-center"
             >
               <th
+                ref="position-resize-observer"
                 class="resize-observer"
                 aria-hidden="true"
               />
@@ -50,8 +51,8 @@
             >
               <template #resize-observer>
                 <td
-                  v-resize-observer="onResizeObserver"
-                  class="resize-observer p-0!"
+                  class="resize-observer"
+                  aria-hidden="true"
                 />
               </template>
               <template #team>
@@ -74,7 +75,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { ResizeObserverCallback } from '@vueuse/core';
 import type { StandingsTableRowProps } from './StandingsTableRow.vue';
 import { vResizeObserver } from '@vueuse/components';
 import { getTableEntry, sortTableEntries } from '~/helpers/standings.js';
@@ -102,9 +102,13 @@ const entryType = computed(() => props.filters?.entryType ?? TableEntryType.OVER
 const legend = defineModel<LegendColor[]>('legend', { required: true });
 
 const tableWrapperRef = useTemplateRef('table-wrapper');
+const positionResizeObserverRef = useTemplateRef('position-resize-observer');
+
 const tableScroll = useScroll(tableWrapperRef);
-const positionSize = ref('0px');
+const { width: resizeObserverWidth } = useElementSize(positionResizeObserverRef);
+
 const fadedBorderSize = ref('0px');
+const positionWidth = computed(() => `${resizeObserverWidth.value}px`);
 
 const tableEntries = computed<TableEntry[]>(() => (
   props.standings.map(i => getTableEntry(
@@ -117,10 +121,6 @@ const tableEntries = computed<TableEntry[]>(() => (
 const tableEntriesSorted = computed(() => (
   tableEntries.value.toSorted((a, b) => sortTableEntries(a, b, sortType.value))
 ));
-
-const onResizeObserver: ResizeObserverCallback = (entries) => {
-  positionSize.value = `${entries[0]?.contentRect.width || 0}px`;
-};
 
 function getFadedBorderSize() {
   const clientWidth = tableWrapperRef.value?.clientWidth || 0;
@@ -144,10 +144,10 @@ watch(tableScroll.x, getFadedBorderSize, { immediate: true });
   @apply content-[''] max-w-2.25 h-[calc(100%-1rem)] bg-linear-to-l from-white to-transparent absolute right-0 top-0 pointer-events-none;
 }
 .resize-observer {
-  @apply min-w-16 w-[40%];
+  @apply min-w-16 w-[40%] p-0!;
 }
 .position {
-  width: v-bind(positionSize);
+  width: v-bind(positionWidth);
   @apply text-left absolute left-0;
 }
 
