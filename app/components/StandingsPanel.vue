@@ -54,10 +54,10 @@
           @table-entry-click="handleSelectTeam($event?.team ?? '')"
         />
       </div>
-        <LegendsCard
-          class="mt-1"
-          :legends="selectedStage.legendDescription"
-        />
+      <LegendsCard
+        class="mt-1"
+        :legends="selectedStage.legendDescription"
+      />
     </template>
     <StandingsPanelPlayoff
       v-else-if="selectedStage?.type === StageType.PLAYOFF"
@@ -76,6 +76,7 @@ import { isPlayoffStageSeeded } from '~/helpers/playoff-stage';
 
 const props = defineProps<{
   selectedTeams: Team['id'][];
+  initialTournamentId?: Tournament['id'];
 }>();
 const emit = defineEmits<{
   selectTeam: [Team];
@@ -93,7 +94,7 @@ const tournamentOptions = computed(() => {
   }));
 });
 
-const selectedTournament = ref<Tournament | undefined>(tournamentOptions.value[0]?.value);
+const selectedTournament = ref(tournamentStore.getTournament(props.initialTournamentId ?? null) ?? tournamentOptions.value[0]?.value);
 const selectedStage = ref<TournamentStage>();
 
 const stageOptions = computed(() => {

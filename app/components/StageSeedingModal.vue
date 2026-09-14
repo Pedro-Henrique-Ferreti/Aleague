@@ -52,6 +52,7 @@
       <StandingsPanel
         v-if="standingsPanelIsOpen"
         :selected-teams="selectedTeams"
+        :initial-tournament-id="tournamentStore.activeTournamentId"
         @select-team="onSelectTeam"
         @close-panel="standingsPanelIsOpen = false"
       />
@@ -72,6 +73,7 @@ const props = withDefaults(defineProps<StageTeamsProps>(), {
   allowEmptySlots: true,
 });
 
+const tournamentStore = useTournamentStore();
 const stageStore = useStageStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
