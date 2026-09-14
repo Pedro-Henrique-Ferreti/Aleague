@@ -48,6 +48,8 @@ export function useExportSourceFile() {
   function downloadTournamentFile(id: Tournament['id']) {
     const tournament = tournamentStore.getTournament(id);
 
+    if (!tournament) return;
+
     if (tournament.collectionId) {
       return downloadCollectionFile(tournament.collectionId);
     }

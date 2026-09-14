@@ -46,12 +46,8 @@ export const useTournamentStore = defineStore('tournament', () => {
     activeTournamentId.value = id;
   }
 
-  function getTournament(id: Tournament['id'] | null): Tournament {
-    const tournament = tournaments.value.find(i => i.id === id);
-
-    if (!tournament) throw new Error('Tournament not found');
-
-    return tournament;
+  function getTournament(id: Tournament['id'] | null) {
+    return tournaments.value.find(i => i.id === id);
   }
 
   function isDirty(tournament: Tournament) {
@@ -61,6 +57,8 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   function updateTimestamps(id: Tournament['id']) {
     const tournament = getTournament(id);
+
+    if (!tournament) return;
 
     if (isDirty(tournament)) {
       tournament.updatedAt = getTimestamp();
