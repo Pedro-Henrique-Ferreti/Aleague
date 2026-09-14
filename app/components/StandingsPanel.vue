@@ -37,7 +37,7 @@
       <div
         v-for="group in selectedStage.groups"
         :key="group.order"
-        class="not-last:mb-1.5"
+        class="not-last-of-type:mb-1.5"
       >
         <span
           v-if="selectedStage.groups.length > 1"
@@ -53,11 +53,11 @@
           :disabled-entries="getDisabledEntries(group)"
           @table-entry-click="handleSelectTeam($event?.team ?? '')"
         />
+      </div>
         <LegendsCard
           class="mt-1"
           :legends="selectedStage.legendDescription"
         />
-      </div>
     </template>
     <StandingsPanelPlayoff
       v-else-if="selectedStage?.type === StageType.PLAYOFF"
