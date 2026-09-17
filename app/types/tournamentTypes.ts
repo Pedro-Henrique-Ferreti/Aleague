@@ -1,3 +1,5 @@
+import type { Timestamp } from './fileTypes';
+
 export enum StageType {
   GROUP,
   PLAYOFF,
@@ -47,7 +49,7 @@ export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
   collectionId: Collection['id'] | null;
   name: string;
   icon: string;
-  updatedAt: string;
+  updatedAt: Timestamp;
   stages: TournamentStage[];
   tags: string[];
   showCountry: boolean;
