@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[2fr_1fr]">
+  <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[1fr_auto]">
     <TournamentProfileCard />
     <TournamentStageOptions v-if="activeStage" />
   </div>
