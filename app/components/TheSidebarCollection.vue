@@ -31,6 +31,6 @@ const props = defineProps<{ collection: Collection }>();
 const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
-const tournaments = computed(() => tournamentStore.tournaments.filter(t => t.collectionId === props.collection.id));
+const tournaments = computed(() => tournamentStore.tournamentList.filter(t => t.collectionId === props.collection.id));
 const isActive = computed(() => props.collection.id === collectionStore.activeCollection?.id);
 </script>

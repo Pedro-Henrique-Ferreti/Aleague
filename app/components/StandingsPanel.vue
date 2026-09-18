@@ -87,7 +87,7 @@ const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
 const tournamentOptions = computed(() => {
-  return tournamentStore.tournaments.map((tournament): SelectOption<Tournament> => ({
+  return tournamentStore.tournamentList.map((tournament): SelectOption<Tournament> => ({
     label: tournament.name,
     value: tournament,
     groupLabel: collectionStore.getCollection(tournament.collectionId)?.name,

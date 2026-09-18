@@ -2,31 +2,31 @@ import { appendNumericSuffix, getBaseFileId, getTimestamp } from '~/helpers/file
 import { newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
-  const tournaments = ref<Tournament[]>([]);
+  const tournaments = ref<Record<Tournament['id'], Tournament>>({});
   const snapshots = ref<Record<Tournament['id'], Tournament>>({});
   const activeTournamentId = ref<Tournament['id']>();
 
   const activeTournament = computed({
-    get: () => tournaments.value.find(t => t.id === activeTournamentId.value),
+    get: () => activeTournamentId.value ? tournaments.value[activeTournamentId.value] : undefined,
     set: (value) => {
-      const index = tournaments.value.findIndex(t => t.id === value?.id);
-
-      if (index > -1 && value) {
-        tournaments.value[index] = value;
+      if (activeTournamentId.value && value) {
+        tournaments.value[activeTournamentId.value] = value;
       }
     },
   });
 
-  const nonCollectionTournaments = computed(() => tournaments.value.filter(t => !t.collectionId));
+  const tournamentList = computed(() => Object.values(tournaments.value));
+
+  const nonCollectionTournaments = computed(() => tournamentList.value.filter(t => !t.collectionId));
 
   function snapshotTournament(tournament: Tournament) {
     snapshots.value[tournament.id] = clone(tournament);
   }
 
   function pushTournament(tournament: Tournament): boolean {
-    if (tournaments.value.find(i => i.id === tournament.id)) return false;
+    if (tournaments.value[tournament.id]) return false;
 
-    tournaments.value.push(tournament);
+    tournaments.value[tournament.id] = tournament;
     snapshotTournament(tournament);
     return true;
   }
@@ -47,7 +47,7 @@ export const useTournamentStore = defineStore('tournament', () => {
   }
 
   function getTournament(id: Tournament['id'] | null) {
-    return tournaments.value.find(i => i.id === id);
+    return id ? tournaments.value[id] : undefined;
   }
 
   function isDirty(tournament: Tournament) {
@@ -85,7 +85,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     pushTournament({
       ...clone(activeTournament.value),
       id,
-      name: appendNumericSuffix(activeTournament.value.name, tournaments.value),
+      name: appendNumericSuffix(activeTournament.value.name, tournamentList.value),
       createdAt: timestamp,
       updatedAt: timestamp,
     });
@@ -96,13 +96,12 @@ export const useTournamentStore = defineStore('tournament', () => {
   function deleteActiveTournament() {
     if (!activeTournament.value) return;
 
-    const index = tournaments.value.findIndex(i => i.id === activeTournament.value?.id);
-
-    if (index === -1) return;
+    const index = tournamentList.value.findIndex(i => i.id === activeTournament.value?.id);
 
     delete snapshots.value[activeTournament.value.id];
-    tournaments.value.splice(index, 1);
-    activeTournamentId.value = tournaments.value[index]?.id ?? tournaments.value[tournaments.value.length - 1]?.id;
+    delete tournaments.value[activeTournament.value.id];
+
+    activeTournamentId.value = tournamentList.value[index]?.id ?? tournamentList.value[tournamentList.value.length - 1]?.id;
   }
 
   function addStage(form: StageForm) {
@@ -112,7 +111,7 @@ export const useTournamentStore = defineStore('tournament', () => {
   }
 
   return {
-    tournaments,
+    tournamentList,
     activeTournamentId,
     activeTournament,
     nonCollectionTournaments,

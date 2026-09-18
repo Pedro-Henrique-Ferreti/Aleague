@@ -15,7 +15,7 @@ export function useExportSourceFile() {
         id: collection.id,
         name: collection.name,
         createdAt: collection.createdAt,
-        tournaments: tournamentStore.tournaments.filter(t => t.collectionId === collection.id),
+        tournaments: tournamentStore.tournamentList.filter(t => t.collectionId === collection.id),
       },
     };
   }
@@ -36,7 +36,7 @@ export function useExportSourceFile() {
 
     if (!collection) return;
 
-    tournamentStore.tournaments.forEach((tournament) => {
+    tournamentStore.tournamentList.forEach((tournament) => {
       if (tournament.collectionId === id) {
         tournamentStore.updateTimestamps(tournament.id);
       }
