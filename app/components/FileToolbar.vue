@@ -3,8 +3,10 @@
     <BreadcrumbList>
       <BreadcrumbItem
         v-if="collectionStore.activeCollection"
+        :clickable="!!tournamentStore.activeTournament"
         :label="collectionStore.activeCollection.name"
         :icon="IconFolderOpen"
+        @click="collectionStore.setActiveCollection(collectionStore.activeCollection.id)"
       />
       <BreadcrumbItem
         v-if="tournamentStore.activeTournament"
