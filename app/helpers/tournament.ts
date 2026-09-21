@@ -1,10 +1,10 @@
-import { getBaseFileId, getTimestamp } from './file';
+import { newBaseFileId, getTimestamp } from './file';
 import { getGroupStageWinner } from './group-stage';
 import { getPlayoffStageWinner } from './playoff-stage';
 import { newGroupStage, newPlayoffStage } from './stage';
 
 export function newTournament(payload: TournamentForm): Tournament {
-  const id = getBaseFileId();
+  const id = newBaseFileId();
   const timestamp = getTimestamp();
 
   return {
