@@ -19,6 +19,7 @@
           </div>
         </div>
         <BaseSelect
+          v-if="tournament?.collectionId || tournamentOptions.length > 1"
           v-model="tournamentStore.activeTournamentId"
           class="tournament-profile__select"
           :options="tournamentOptions"
