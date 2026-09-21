@@ -2,6 +2,7 @@
   <IconEmptyCircle
     v-if="!form"
     class="size-1 text-gray-400"
+    aria-hidden="true"
   />
   <Dropdown
     v-else
@@ -15,16 +16,22 @@
       v-if="form.result === MatchResult.LOST"
       class="size-1 text-[#E73737] rounded-full outline-offset-1 outline-current"
       tabindex="0"
+      role="img"
+      aria-label="Derrota"
     />
     <IconCheckCircle
       v-else-if="form.result === MatchResult.WON"
       class="size-1 text-green-700 rounded-full outline-offset-1 outline-current"
       tabindex="0"
+      role="img"
+      aria-label="Vitória"
     />
     <IconCircleMinus
       v-else-if="form.result === MatchResult.DRAW"
       class="size-1 text-gray-400 rounded-full outline-offset-1 outline-current"
       tabindex="0"
+      role="img"
+      aria-label="Empate"
     />
     <template #popper>
       <div class="font-semibold capitalize mt-0 mb-0.25 text-center text-xs divider">
