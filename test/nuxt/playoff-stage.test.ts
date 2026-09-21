@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getPlayoffRoundNames, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff-stage';
+import { newMatch } from '~/helpers/match';
+import { getPlayoffRoundNames, getPlayoffRoundSlotWinner, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff-stage';
 
 describe('playoff', () => {
   describe('getPlayoffRoundNames', () => {
@@ -74,6 +75,107 @@ describe('playoff', () => {
       ] as PlayoffStage['rounds'];
 
       expect(isPlayoffStageSeeded(unseededRounds)).toBe(false);
+    });
+  });
+
+  describe('getPlayoffRoundSlotWinner', () => {
+    it('should return null when a leg does not have home and away teams', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 2;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBeNull();
+    });
+
+    it('should return null when a leg does not have home and away scores', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBeNull();
+    });
+
+    it('should return the home team for a single-leg home win', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 0;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBe('home-id');
+    });
+
+    it('should return the away team for a single-leg away win', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 0;
+      slot.legs[0].awayTeam.score = 1;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBe('away-id');
+    });
+
+    it('should return null for a single-leg draw', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 1;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBeNull();
+    });
+
+    it('should return the first-leg home team when the aggregate favors the home team', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 1;
+
+      slot.legs.push(newMatch('away-id', 'home-id'));
+
+      slot.legs[1]!.homeTeam.score = 0;
+      slot.legs[1]!.awayTeam.score = 1;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBe('home-id');
+    });
+
+    it('should return the first-leg away team when the aggregate favors the away team', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 1;
+
+      slot.legs.push(newMatch('away-id', 'home-id'));
+
+      slot.legs[1]!.homeTeam.score = 1;
+      slot.legs[1]!.awayTeam.score = 0;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBe('away-id');
+    });
+
+    it('should return null when the aggregate is a draw across two legs', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 1;
+
+      slot.legs.push(newMatch('away-id', 'home-id'));
+
+      slot.legs[1]!.homeTeam.score = 0;
+      slot.legs[1]!.awayTeam.score = 0;
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBeNull();
     });
   });
 });

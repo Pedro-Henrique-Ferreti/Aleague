@@ -45,6 +45,7 @@
 import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { newMatch } from '~/helpers/match';
 import { simulateMatchScore } from '~/helpers/match-simulation';
+import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-stage';
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundSlotWinner];
@@ -58,18 +59,7 @@ function addMatchToSlot() {
   slot.value.legs.push(newMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
 }
 
-const winner = computed<PlayoffRoundSlotWinner>(() => {
-  if (slot.value.legs.some(m => m.homeTeam.score === null || m.awayTeam.score === null)) return null;
-
-  const [firstLeg, secondLeg] = slot.value.legs;
-
-  const homeScore = firstLeg.homeTeam.score! + (secondLeg?.awayTeam.score ?? 0);
-  const awayScore = firstLeg.awayTeam.score! + (secondLeg?.homeTeam.score ?? 0);
-
-  if (homeScore > awayScore) return slot.value.legs[0].homeTeam.id;
-  if (homeScore < awayScore) return slot.value.legs[0].awayTeam.id;
-  return null;
-});
+const winner = computed<PlayoffRoundSlotWinner>(() => getPlayoffRoundSlotWinner(slot.value));
 
 watch(winner, () => emit('winnerUpdated', winner.value));
 

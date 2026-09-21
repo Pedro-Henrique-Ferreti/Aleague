@@ -22,3 +22,20 @@ export function newPlayoffRoundSlot(index: number): PlayoffRoundSlot {
 export function isPlayoffStageSeeded(rounds: PlayoffRound[]): boolean {
   return rounds.every(round => round.slots.every(slot => slot.legs.every(leg => leg.homeTeam.id !== null && leg.awayTeam.id !== null)));
 }
+
+export function getPlayoffRoundSlotWinner(slot: PlayoffRoundSlot): PlayoffRoundSlotWinner {
+  if (
+    slot.legs.some(m => (!m.homeTeam.id || !m.awayTeam.id || m.homeTeam.score === null || m.awayTeam.score === null))
+  ) {
+    return null;
+  }
+
+  const [firstLeg, secondLeg] = slot.legs;
+
+  const homeScore = firstLeg.homeTeam.score! + (secondLeg?.awayTeam.score ?? 0);
+  const awayScore = firstLeg.awayTeam.score! + (secondLeg?.homeTeam.score ?? 0);
+
+  if (homeScore > awayScore) return slot.legs[0].homeTeam.id;
+  if (homeScore < awayScore) return slot.legs[0].awayTeam.id;
+  return null;
+}
