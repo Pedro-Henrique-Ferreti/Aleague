@@ -26,7 +26,7 @@
 import { IconPencil } from '@tabler/icons-vue';
 
 defineEmits<{
-  slotWinnerUpdated: [{ team: PlayoffRoundWinner, slotIndex: number }];
+  slotWinnerUpdated: [{ team: PlayoffRoundSlotWinner, slotIndex: number }];
 }>();
 
 const inputId = useId();

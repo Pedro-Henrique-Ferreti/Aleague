@@ -47,7 +47,7 @@ import { newMatch } from '~/helpers/match';
 import { simulateMatchScore } from '~/helpers/match-simulation';
 
 const emit = defineEmits<{
-  winnerUpdated: [PlayoffRoundWinner];
+  winnerUpdated: [PlayoffRoundSlotWinner];
 }>();
 
 const tournamentStore = useTournamentStore();
@@ -58,7 +58,7 @@ function addMatchToSlot() {
   slot.value.legs.push(newMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
 }
 
-const winner = computed<PlayoffRoundWinner>(() => {
+const winner = computed<PlayoffRoundSlotWinner>(() => {
   if (slot.value.legs.some(m => m.homeTeam.score === null || m.awayTeam.score === null)) return null;
 
   const [firstLeg, secondLeg] = slot.value.legs;

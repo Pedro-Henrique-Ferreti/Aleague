@@ -52,7 +52,7 @@ const displayedRoundsId = computed(() => (
   stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + displayedRoundsCount.value).map(i => i.id)
 ));
 
-function moveTeamToNextRound(winner: PlayoffRoundWinner, slotIndex: number, roundId: PlayoffRound['id']) {
+function moveTeamToNextRound(winner: PlayoffRoundSlotWinner, slotIndex: number, roundId: PlayoffRound['id']) {
   const roundIndex = stage.value.rounds.findIndex(round => round.id === roundId);
 
   if (roundIndex === -1) return;

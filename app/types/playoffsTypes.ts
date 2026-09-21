@@ -1,4 +1,4 @@
-export type PlayoffRoundWinner = Match['homeTeam']['id'] | null;
+export type PlayoffRoundSlotWinner = Match['homeTeam']['id'] | null;
 
 export interface PlayoffRoundSlot {
   id: string;
