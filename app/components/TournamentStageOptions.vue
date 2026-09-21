@@ -1,54 +1,52 @@
 <template>
-  <div class="flex justify-end gap-1">
-    <AppMenu
-      class="btn-primary btn-soft"
-      dropdown-class="dropdown-end"
-      label="Fase"
-      :icon-left="IconTournament"
-    >
-      <AppMenuItem
-        label="Adicionar"
-        :icon="IconPlus"
-        @click="isCreatingStage = true"
-      />
-      <AppMenuItem
-        label="Editar"
-        :icon="IconEdit"
-        @click="isEditingStage = true"
-      />
-      <AppMenuItem
-        label="Equipes"
-        :icon="IconUsersGroup"
-        @click="editTeamModalIsOpen = true"
-      />
-      <AppMenuItem
-        type="error"
-        label="Excluir"
-        :icon="IconTrash"
-        @click="showDeleteStageDialog = true"
-      />
-    </AppMenu>
-    <StageFormModal
-      v-model:is-open="stageModalIsOpen"
-      :stage="isEditingStage ? activeStage : undefined"
+  <AppMenu
+    class="btn-primary btn-soft"
+    dropdown-class="dropdown-end"
+    label="Fase"
+    :icon-left="IconTournament"
+  >
+    <AppMenuItem
+      label="Adicionar"
+      :icon="IconPlus"
+      @click="isCreatingStage = true"
     />
-    <StageSeedingModal
-      v-if="activeStage"
-      v-model:is-open="editTeamModalIsOpen"
-      :key="activeStage.id"
-      :allow-empty-slots="allowEmptySlots"
-      :stage="activeStage"
+    <AppMenuItem
+      label="Editar"
+      :icon="IconEdit"
+      @click="isEditingStage = true"
     />
-    <AppDialog
-      v-if="activeStage"
-      v-model:is-open="showDeleteStageDialog"
-      type="delete"
-      title="Excluir fase"
-      @confirm="stageStore.deleteActiveStage"
-    >
-      <p>Você tem certeza que deseja excluir a fase <strong>{{ activeStage.name }}</strong>? Essa ação não poderá ser desfeita.</p>
-    </AppDialog>
-  </div>
+    <AppMenuItem
+      label="Equipes"
+      :icon="IconUsersGroup"
+      @click="editTeamModalIsOpen = true"
+    />
+    <AppMenuItem
+      type="error"
+      label="Excluir"
+      :icon="IconTrash"
+      @click="showDeleteStageDialog = true"
+    />
+  </AppMenu>
+  <StageFormModal
+    v-model:is-open="stageModalIsOpen"
+    :stage="isEditingStage ? activeStage : undefined"
+  />
+  <StageSeedingModal
+    v-if="activeStage"
+    v-model:is-open="editTeamModalIsOpen"
+    :key="activeStage.id"
+    :allow-empty-slots="allowEmptySlots"
+    :stage="activeStage"
+  />
+  <AppDialog
+    v-if="activeStage"
+    v-model:is-open="showDeleteStageDialog"
+    type="delete"
+    title="Excluir fase"
+    @confirm="stageStore.deleteActiveStage"
+  >
+    <p>Você tem certeza que deseja excluir a fase <strong>{{ activeStage.name }}</strong>? Essa ação não poderá ser desfeita.</p>
+  </AppDialog>
 </template>
 
 <script lang="ts" setup>

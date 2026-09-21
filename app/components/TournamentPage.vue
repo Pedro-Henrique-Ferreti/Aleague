@@ -1,7 +1,10 @@
 <template>
-  <div class="grid gap-1 mb-2 tablet-lg:grid-cols-[1fr_auto]">
+  <div class="grid gap-1 mb-1 min-h-7 tablet-lg:grid-cols-[1fr_auto]">
     <TournamentProfileCard />
-    <TournamentStageOptions v-if="activeStage" />
+    <div class="flex flex-col items-end">
+      <TournamentStageOptions v-if="activeStage" />
+      <TournamentWinnerCard v-if="activeTournamentWinner" />
+    </div>
   </div>
   <div
     v-if="activeTournament?.stages.length === 0"
@@ -38,7 +41,7 @@
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
 
-const { activeTournament } = storeToRefs(useTournamentStore());
+const { activeTournament, activeTournamentWinner } = storeToRefs(useTournamentStore());
 const { activeStage } = storeToRefs(useStageStore());
 const { selectedStageOrPlayoffRoundId } = storeToRefs(useStageSelectorStore());
 </script>
