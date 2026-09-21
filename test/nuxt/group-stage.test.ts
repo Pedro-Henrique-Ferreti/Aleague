@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getGroupName, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded } from '~/helpers/group-stage';
+import { getGroupName, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageComplete, isGroupStageSeeded } from '~/helpers/group-stage';
+import { newMatch } from '~/helpers/match';
 import { newStandingsEntry } from '~/helpers/standings';
 
 describe('group-stage', () => {
@@ -99,6 +100,46 @@ describe('group-stage', () => {
     it('should return group name in letter format with count for orders greater than alphabet length', () => {
       const name = getGroupName(27, GroupStageNameFormat.LETTER);
       expect(name).toBe('Grupo A2');
+    });
+  });
+
+  describe('isGroupStageComplete', () => {
+    it('should return true when all groups are seeded and all matchweeks are complete', () => {
+      const match = newMatch('team-a', 'team-b');
+      match.homeTeam.score = 2;
+      match.awayTeam.score = 1;
+
+      const stage = {
+        groups: [{ standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')] }],
+        matchweeks: [{ week: 1, matches: [match] }],
+      } as GroupStage;
+
+      expect(isGroupStageComplete(stage)).toBe(true);
+    });
+
+    it('should return false when any group is not seeded', () => {
+      const match = newMatch('team-a', 'team-b');
+      match.homeTeam.score = 2;
+      match.awayTeam.score = 1;
+
+      const stage = {
+        groups: [
+          { standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2')] },
+          { standings: [] },
+        ],
+        matchweeks: [{ week: 1, matches: [match] }],
+      } as GroupStage;
+
+      expect(isGroupStageComplete(stage)).toBe(false);
+    });
+
+    it('should return false when any match is not complete', () => {
+      const stage = {
+        groups: [{ standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')] }],
+        matchweeks: [{ week: 1, matches: [newMatch('team-a', 'team-b')] }],
+      } as GroupStage;
+
+      expect(isGroupStageComplete(stage)).toBe(false);
     });
   });
 });
