@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newLegendDescription } from '~/helpers/group-stage';
-import { newTournamentStage } from '~/helpers/tournament';
+import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 describe('tournament', () => {
   describe('newTournamentStage', () => {
@@ -77,6 +77,20 @@ describe('tournament', () => {
       });
 
       expect(result.sequence).toBe(1);
+    });
+  });
+
+  describe('getTournamentWinner', () => {
+    it('should return null when there are no stages', () => {
+      const tournament = newTournament({
+        icon: '',
+        collectionId: null,
+        name: 'Tournament',
+        showCountry: false,
+        tags: [],
+      });
+
+      expect(getTournamentWinner(tournament)).toBeNull();
     });
   });
 });

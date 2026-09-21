@@ -1,4 +1,6 @@
 import { getBaseFileId, getTimestamp } from './file';
+import { getGroupStageWinner } from './group-stage';
+import { getPlayoffStageWinner } from './playoff-stage';
 import { newGroupStage, newPlayoffStage } from './stage';
 
 export function newTournament(payload: TournamentForm): Tournament {
@@ -23,4 +25,12 @@ export function newTournamentStage(form: StageForm, stageList?: TournamentStage[
   };
 
   return form.type === StageType.GROUP ? newGroupStage(form, baseStage) : newPlayoffStage(form, baseStage);
+}
+
+export function getTournamentWinner(tournament: Tournament): TeamDetails | null {
+  const lastStage = tournament.stages[tournament.stages.length - 1];
+
+  if (!lastStage) return null;
+
+  return lastStage.type === StageType.PLAYOFF ? getPlayoffStageWinner(lastStage) : getGroupStageWinner(lastStage);
 }
