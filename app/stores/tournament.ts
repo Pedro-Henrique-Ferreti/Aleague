@@ -1,4 +1,4 @@
-import { appendNumericSuffix, newBaseFileId, getTimestamp } from '~/helpers/file';
+import { appendNumericSuffix, newBaseFileId, newTimestamp } from '~/helpers/file';
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
@@ -54,7 +54,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     if (!tournament) return;
 
     if (isDirty(tournament)) {
-      tournament.updatedAt = getTimestamp();
+      tournament.updatedAt = newTimestamp();
     }
 
     snapshotTournament(tournament);
@@ -73,7 +73,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     if (!activeTournament.value) return;
 
     const id = newBaseFileId();
-    const timestamp = getTimestamp();
+    const timestamp = newTimestamp();
 
     pushTournament({
       ...clone(activeTournament.value),

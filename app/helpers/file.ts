@@ -2,7 +2,7 @@ import type { BaseFileId, Timestamp } from '~/types/fileTypes';
 
 export const newBaseFileId = (): BaseFileId => new Date().getTime() as BaseFileId;
 
-export const getTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
+export const newTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
 
 export function appendNumericSuffix(name: Tournament['name'], tournaments: Tournament[]) {
   const removeSuffix = (str: string) => str.replace(/\(\d+\)/, '').trim();

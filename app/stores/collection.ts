@@ -1,4 +1,4 @@
-import { newBaseFileId, getTimestamp } from '~/helpers/file';
+import { newBaseFileId, newTimestamp } from '~/helpers/file';
 
 export const useCollectionStore = defineStore('collection', () => {
   const tournamentStore = useTournamentStore();
@@ -29,7 +29,7 @@ export const useCollectionStore = defineStore('collection', () => {
 
     collections.value.push({
       id,
-      createdAt: getTimestamp(),
+      createdAt: newTimestamp(),
       name: payload.name,
     } satisfies Collection);
 

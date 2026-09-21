@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { appendNumericSuffix, getTimestamp } from '~/helpers/file';
+import { appendNumericSuffix, newTimestamp } from '~/helpers/file';
 
 describe('file', () => {
-  describe('getTimestamp', () => {
+  describe('newTimestamp', () => {
     it('should return a valid ISO date string', () => {
-      const result = getTimestamp();
+      const result = newTimestamp();
       const parsed = new Date(result);
 
       expect(parsed.toISOString()).toBe(result);
