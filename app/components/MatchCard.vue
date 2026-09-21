@@ -32,8 +32,8 @@
         />
         <MatchCardScore
           v-if="fixtureTwoHomeScore !== undefined && fixtureTwoAwayScore !== undefined"
-          v-model:home-score="fixtureTwoHomeScore"
-          v-model:away-score="fixtureTwoAwayScore"
+          v-model:home-score="fixtureTwoAwayScore"
+          v-model:away-score="fixtureTwoHomeScore"
           :layout="layout"
           :disabled="!!readonly || match.homeTeam.id === null || match.awayTeam.id === null"
         />
