@@ -1,5 +1,5 @@
 import { appendNumericSuffix, getBaseFileId, getTimestamp } from '~/helpers/file';
-import { newTournament, newTournamentStage } from '~/helpers/tournament';
+import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
   const tournaments = ref<Record<Tournament['id'], Tournament>>({});
@@ -18,6 +18,8 @@ export const useTournamentStore = defineStore('tournament', () => {
   const tournamentList = computed(() => Object.values(tournaments.value));
 
   const nonCollectionTournaments = computed(() => tournamentList.value.filter(t => !t.collectionId));
+
+  const activeTournamentWinner = computed(() => activeTournament.value ? getTournamentWinner(activeTournament.value) : null);
 
   function snapshotTournament(tournament: Tournament) {
     snapshots.value[tournament.id] = clone(tournament);
@@ -105,6 +107,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     tournamentList,
     activeTournamentId,
     activeTournament,
+    activeTournamentWinner,
     nonCollectionTournaments,
     createTournament,
     pushTournament,
