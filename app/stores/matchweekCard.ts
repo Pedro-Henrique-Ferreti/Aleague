@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { isMatchComplete } from '~/helpers/match';
 import { simulateMatchScore } from '~/helpers/match-simulation';
 import { getActiveMatchweekNumber } from '~/helpers/matchweek';
 
@@ -24,7 +25,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   });
 
   const matchweekIsDirty = computed(() => {
-    return selectedMatchweek.value?.matches.some(m => m.homeTeam.score !== null || m.awayTeam.score !== null) ?? false;
+    return selectedMatchweek.value?.matches.some(isMatchComplete) ?? false;
   });
 
   watch([() => stageStore.activeGroupStage?.matchweeks.length, () => stageStore.activeGroupStage?.id], () => {

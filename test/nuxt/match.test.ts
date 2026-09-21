@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getMatchResult, isMatchSeeded, newMatch } from '~/helpers/match';
+import { getMatchResult, isMatchComplete, isMatchSeeded, newMatch } from '~/helpers/match';
 
 describe('match', () => {
   describe('getMatchResult', () => {
@@ -40,6 +40,35 @@ describe('match', () => {
       expect(isMatchSeeded(newMatch(null, 'team-b'))).toBe(false);
       expect(isMatchSeeded(newMatch('team-a', null))).toBe(false);
       expect(isMatchSeeded(newMatch(null, null))).toBe(false);
+    });
+  });
+
+  describe('isMatchComplete', () => {
+    it('should return true when both teams and scores are set', () => {
+      const match = newMatch('team-a', 'team-b');
+
+      match.homeTeam.score = 1;
+      match.awayTeam.score = 1;
+
+      expect(isMatchSeeded(match)).toBe(true);
+    });
+
+    it('should return false when at least one team or score is not set', () => {
+      const match1 = newMatch('team-a', 'team-b');
+      match1.homeTeam.score = 1;
+
+      expect(isMatchComplete(match1)).toBe(false);
+
+      const match2 = newMatch('team-a', 'team-b');
+      match1.awayTeam.score = 1;
+
+      expect(isMatchComplete(match2)).toBe(false);
+
+      const match3 = newMatch(null, 'team-b');
+      match1.homeTeam.score = 1;
+      match1.awayTeam.score = 1;
+
+      expect(isMatchComplete(match3)).toBe(false);
     });
   });
 });

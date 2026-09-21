@@ -1,4 +1,4 @@
-import { getMatchResult } from './match';
+import { getMatchResult, isMatchComplete } from './match';
 
 export function newStandingsEntryData(week: StandingsEntryData['week']): StandingsEntryData {
   return {
@@ -93,11 +93,7 @@ export function getTableEntryForm(matchweeks: Matchweek[], teamId: StandingsEntr
   const forms: TableEntry['form'] = [];
 
   for (const week of matchweeks) {
-    const match = week.matches.find(m => (
-      (m.homeTeam.id === teamId || m.awayTeam.id === teamId)
-      && m.homeTeam.score !== null
-      && m.awayTeam.score !== null
-    ));
+    const match = week.matches.find(m => (m.homeTeam.id === teamId || m.awayTeam.id === teamId) && isMatchComplete(m));
 
     if (match) {
       forms.push({

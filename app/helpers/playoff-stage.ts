@@ -1,4 +1,4 @@
-import { isMatchSeeded, newMatch } from './match';
+import { isMatchComplete, isMatchSeeded, newMatch } from './match';
 
 export function getPlayoffRoundNames(rounds: number, teams: number): string[] {
   const isFullPath = (teams / 2 ** rounds) === 1;
@@ -24,11 +24,7 @@ export function isPlayoffStageSeeded(rounds: PlayoffRound[]): boolean {
 }
 
 export function getPlayoffRoundSlotWinner(slot: PlayoffRoundSlot): PlayoffRoundSlotWinner {
-  if (
-    slot.legs.some(m => (!m.homeTeam.id || !m.awayTeam.id || m.homeTeam.score === null || m.awayTeam.score === null))
-  ) {
-    return null;
-  }
+  if (slot.legs.some(match => !isMatchComplete(match))) return null;
 
   const [firstLeg, secondLeg] = slot.legs;
 
