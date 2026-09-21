@@ -1,5 +1,5 @@
 import { appendNumericSuffix, getBaseFileId, getTimestamp } from '~/helpers/file';
-import { newTournamentStage } from '~/helpers/tournament';
+import { newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
   const tournaments = ref<Record<Tournament['id'], Tournament>>({});
@@ -32,18 +32,9 @@ export const useTournamentStore = defineStore('tournament', () => {
   }
 
   function createTournament(payload: TournamentForm) {
-    const id = getBaseFileId();
-    const timestamp = getTimestamp();
-
-    pushTournament({
-      ...payload,
-      id: getBaseFileId(),
-      createdAt: timestamp,
-      updatedAt: timestamp,
-      stages: [],
-    });
-
-    activeTournamentId.value = id;
+    const tournament = newTournament(payload);
+    pushTournament(tournament);
+    activeTournamentId.value = tournament.id;
   }
 
   function getTournament(id: Tournament['id'] | null) {
