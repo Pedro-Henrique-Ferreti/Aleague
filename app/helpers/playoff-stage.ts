@@ -1,4 +1,5 @@
 import { isMatchComplete, isMatchSeeded, newMatch } from './match';
+import { getTeamById } from './team';
 
 export function getPlayoffRoundNames(rounds: number, teams: number): string[] {
   const isFullPath = (teams / 2 ** rounds) === 1;
@@ -34,4 +35,14 @@ export function getPlayoffRoundSlotWinner(slot: PlayoffRoundSlot): PlayoffRoundS
   if (homeScore > awayScore) return slot.legs[0].homeTeam.id;
   if (homeScore < awayScore) return slot.legs[0].awayTeam.id;
   return null;
+}
+
+export function getPlayoffStageWinner(stage: PlayoffStage): TeamDetails | null {
+  const lastRound = stage.rounds[stage.rounds.length - 1];
+
+  if (!lastRound || lastRound.slots.length !== 1) return null;
+
+  const winnerId = getPlayoffRoundSlotWinner(lastRound.slots[0]!);
+
+  return getTeamById(winnerId) ?? null;
 }

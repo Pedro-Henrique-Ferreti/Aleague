@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { DETAILED_TEAM_LIST } from '~/constants/teams';
 import { newMatch } from '~/helpers/match';
-import { getPlayoffRoundNames, getPlayoffRoundSlotWinner, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff-stage';
+import { getPlayoffRoundNames, getPlayoffRoundSlotWinner, getPlayoffStageWinner, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff-stage';
 
 describe('playoff', () => {
   describe('getPlayoffRoundNames', () => {
@@ -176,6 +177,62 @@ describe('playoff', () => {
       slot.legs[1]!.awayTeam.score = 0;
 
       expect(getPlayoffRoundSlotWinner(slot)).toBeNull();
+    });
+  });
+
+  describe('getPlayoffStageWinner', () => {
+    it('should return null when the last round has more than one slot', () => {
+      const stage = {
+        rounds: [{
+          slots: [newPlayoffRoundSlot(0), newPlayoffRoundSlot(1)],
+        }] as PlayoffRound[],
+      } as PlayoffStage;
+
+      expect(getPlayoffStageWinner(stage)).toBeNull();
+    });
+
+    it('should return null when the final slot is not complete', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+
+      const stage = {
+        rounds: [{ slots: [slot] }] as PlayoffRound[],
+      } as PlayoffStage;
+
+      expect(getPlayoffStageWinner(stage)).toBeNull();
+    });
+
+    it('should return null when the final match is a draw', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 1;
+
+      const stage = {
+        rounds: [{ slots: [slot] }] as PlayoffRound[],
+      } as PlayoffStage;
+
+      expect(getPlayoffStageWinner(stage)).toBeNull();
+    });
+
+    it('should return the winning team when the final slot is decided', () => {
+      const slot = newPlayoffRoundSlot(0);
+      const id = DETAILED_TEAM_LIST[0]!.id;
+
+      slot.legs[0].homeTeam.id = id;
+      slot.legs[0].awayTeam.id = 'BRA-2';
+      slot.legs[0].homeTeam.score = 2;
+      slot.legs[0].awayTeam.score = 1;
+
+      const stage = {
+        rounds: [{ slots: [slot] }] as PlayoffRound[],
+      } as PlayoffStage;
+
+      const winner = getPlayoffStageWinner(stage);
+
+      expect(winner?.id).toBe(id);
     });
   });
 });
