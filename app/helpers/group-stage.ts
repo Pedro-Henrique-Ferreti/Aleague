@@ -1,4 +1,6 @@
 import { isMatchComplete } from './match';
+import { getTableEntry, sortTableEntries } from './standings';
+import { getTeamById } from './team';
 
 function getGroupTeams(group: GroupStageGroup) {
   return group.standings.map(i => i.team!);
@@ -38,4 +40,13 @@ export function newLegendDescription(): GroupStage['legendDescription'] {
   return Object.fromEntries(
     Object.values(LegendColor).filter(color => color !== LegendColor.NONE).map(color => [color, '']),
   ) as GroupStage['legendDescription'];
+}
+
+export function getGroupStageWinner(stage: GroupStage): TeamDetails | null {
+  if (stage.groups.length !== 1 || !stage.groups[0] || !isGroupStageComplete(stage)) return null;
+
+  const [group] = stage.groups;
+  const [leader] = group.standings.map(i => getTableEntry(i)).sort(sortTableEntries);
+
+  return getTeamById(leader?.team) ?? null;
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getGroupName, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageComplete, isGroupStageSeeded } from '~/helpers/group-stage';
+import { getGroupName, getGroupStageWinner, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageComplete, isGroupStageSeeded } from '~/helpers/group-stage';
 import { newMatch } from '~/helpers/match';
 import { newStandingsEntry } from '~/helpers/standings';
 
@@ -140,6 +140,47 @@ describe('group-stage', () => {
       } as GroupStage;
 
       expect(isGroupStageComplete(stage)).toBe(false);
+    });
+  });
+
+  describe('getGroupStageWinner', () => {
+    it('should return null when the stage has more than one group', () => {
+      const stage = {
+        groups: [
+          { standings: [newStandingsEntry('1', 'BRA-1')] },
+          { standings: [newStandingsEntry('2', 'BRA-2')] },
+        ],
+      } as GroupStage;
+
+      expect(getGroupStageWinner(stage)).toBeNull();
+    });
+
+    it('should return null when the stage is not complete', () => {
+      const stage = {
+        groups: [{ standings: [newStandingsEntry('1', 'BRA-1'), newStandingsEntry('2', 'BRA-2')] }],
+        matchweeks: [{ week: 1, matches: [newMatch('BRA-1', 'BRA-2')] }],
+      } as GroupStage;
+
+      expect(getGroupStageWinner(stage)).toBeNull();
+    });
+
+    it('should return the leading team when the stage is complete', () => {
+      const id = DETAILED_TEAM_LIST[0]!.id;
+      const leader = newStandingsEntry('1', id);
+      leader.data[0].points = 3;
+
+      const match = newMatch(id, 'BRA-2');
+      match.homeTeam.score = 1;
+      match.awayTeam.score = 0;
+
+      const stage = {
+        groups: [{ standings: [leader, newStandingsEntry('2', 'BRA-2')] }],
+        matchweeks: [{ week: 1, matches: [match] }],
+      } as GroupStage;
+
+      const winner = getGroupStageWinner(stage);
+
+      expect(winner!.id).toBe(id);
     });
   });
 });
