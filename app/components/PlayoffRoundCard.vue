@@ -17,7 +17,7 @@
       />
       <ul class="dropdown-content menu bg-base-100 w-14 rounded-box z-1 shadow-sm">
         <AppMenuItem
-          v-if="slot.legs[0].homeTeam.id !== null && slot.legs[0].awayTeam.id !== null"
+          v-if="isMatchSeeded(slot.legs[0])"
           :label="`Simular partida${slot.legs.length > 1 ? 's' : ''}`"
           :icon="IconPlayerPlay"
           @click="simulateScore"
@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
-import { newMatch } from '~/helpers/match';
+import { isMatchSeeded, newMatch } from '~/helpers/match';
 import { simulateMatchScore } from '~/helpers/match-simulation';
 import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-stage';
 
