@@ -59,16 +59,15 @@ function addMatchToSlot() {
 }
 
 const winner = computed<PlayoffRoundWinner>(() => {
-  if (slot.value.legs.some(m => m.homeTeam.score === null || m.awayTeam.score === null))
-    return null;
+  if (slot.value.legs.some(m => m.homeTeam.score === null || m.awayTeam.score === null)) return null;
 
-  const homeScore = slot.value.legs.reduce((sum, m) => m.homeTeam.score! + sum, 0);
-  const awayScore = slot.value.legs.reduce((sum, m) => m.awayTeam.score! + sum, 0);
+  const [firstLeg, secondLeg] = slot.value.legs;
 
-  if (homeScore > awayScore)
-    return slot.value.legs[0].homeTeam.id;
-  if (homeScore < awayScore)
-    return slot.value.legs[0].awayTeam.id;
+  const homeScore = firstLeg.homeTeam.score! + (secondLeg?.awayTeam.score ?? 0);
+  const awayScore = firstLeg.awayTeam.score! + (secondLeg?.homeTeam.score ?? 0);
+
+  if (homeScore > awayScore) return slot.value.legs[0].homeTeam.id;
+  if (homeScore < awayScore) return slot.value.legs[0].awayTeam.id;
   return null;
 });
 
