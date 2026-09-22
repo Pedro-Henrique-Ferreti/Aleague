@@ -1,17 +1,8 @@
 <template>
   <CollectionProfileCard />
   <section class="mt-2">
-    <h2 class="font-medium text-2xl mb-1">Campeonatos</h2>
-    <div
-      v-if="tournaments.length"
-      class="grid gap-1 grid-cols-[repeat(auto-fill,minmax(17rem,1fr))]"
-    >
-      <CollectionTournamentCard
-        v-for="tournament in tournaments"
-        :key="tournament.id"
-        :tournament="tournament"
-      />
-    </div>
+    <h2 class="font-medium text-xl mb-1">Campeonatos</h2>
+    <CollectionTournamentsTable v-if="tournaments.length" />
     <div
       v-else
       class="flex flex-col items-center text-center max-w-1/3 m-auto"
