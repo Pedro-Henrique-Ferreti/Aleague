@@ -19,7 +19,6 @@ export const ICON_OPTIONS: Readonly<SelectOptionList<Tournament['icon']>> = [
   { label: 'Liga 11', value: 'images/leagues/uruguayan-league.png' },
   { label: 'Liga 12', value: 'images/leagues/venezuelan-league.png' },
   { label: 'Copa do Mundo', value: '/images/icons/tournament/World_Cup.png' },
-  { label: 'Copa do Mundo', value: '/images/icons/tournament/World_Cup.png' },
   { label: 'Campeonato Brasileiro Série A', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_A.png' },
   { label: 'Campeonato Brasileiro Série B', value: '/images/icons/tournament/Campeonato_Brasileiro_Serie_B.png' },
   { label: 'Campeonato Brasileiro Série C', value: 'https://img.sofascore.com/api/v1/unique-tournament/1281/image' },
