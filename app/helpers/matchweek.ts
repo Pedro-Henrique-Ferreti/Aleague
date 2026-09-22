@@ -1,3 +1,5 @@
+import { isMatchComplete } from './match';
+
 export function getExpectedMatchesPerWeek(teamsCount: number): number {
   if (teamsCount < 2 || teamsCount % 2 !== 0) {
     return 0;
@@ -18,7 +20,7 @@ export function getExpectedMatchweeksPerRoundRobin(teamsCount: number, avoidGrou
 
 export function getActiveMatchweekNumber(matchweeks: Matchweek[]): Matchweek['week'] {
   const firstIncompleteWeek = matchweeks.find(
-    i => i.matches.some(m => m.homeTeam.score === null || m.awayTeam.score === null),
+    week => week.matches.some(m => !isMatchComplete(m)),
   )?.week;
 
   const lastWeek = matchweeks[matchweeks.length - 1]?.week;
