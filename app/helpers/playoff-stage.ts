@@ -37,7 +37,7 @@ export function getPlayoffRoundSlotWinner(slot: PlayoffRoundSlot): PlayoffRoundS
   return null;
 }
 
-export function getPlayoffStageWinner(stage: PlayoffStage): TeamDetails | null {
+export function getPlayoffStageWinner(stage: PlayoffStage): TournamentWinner {
   const lastRound = stage.rounds[stage.rounds.length - 1];
 
   if (!lastRound || lastRound.slots.length !== 1) return null;

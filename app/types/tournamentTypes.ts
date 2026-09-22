@@ -16,6 +16,8 @@ export enum GroupStageNameFormat {
   LETTER,
 }
 
+export type TournamentWinner = TeamDetails | null;
+
 export interface BaseStage {
   id: number;
   name: string;

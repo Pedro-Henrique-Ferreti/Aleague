@@ -27,7 +27,7 @@ export function newTournamentStage(form: StageForm, stageList?: TournamentStage[
   return form.type === StageType.GROUP ? newGroupStage(form, baseStage) : newPlayoffStage(form, baseStage);
 }
 
-export function getTournamentWinner(tournament: Tournament): TeamDetails | null {
+export function getTournamentWinner(tournament: Tournament): TournamentWinner {
   const lastStage = tournament.stages[tournament.stages.length - 1];
 
   if (!lastStage) return null;

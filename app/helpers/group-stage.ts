@@ -46,7 +46,7 @@ export function newLegendDescription(): GroupStage['legendDescription'] {
   ) as GroupStage['legendDescription'];
 }
 
-export function getGroupStageWinner(stage: GroupStage): TeamDetails | null {
+export function getGroupStageWinner(stage: GroupStage): TournamentWinner {
   if (stage.groups.length !== 1 || !stage.groups[0] || !isGroupStageComplete(stage)) return null;
 
   const [group] = stage.groups;
