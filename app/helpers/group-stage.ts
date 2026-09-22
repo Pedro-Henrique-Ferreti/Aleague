@@ -23,8 +23,12 @@ export function isGroupStageSeeded(groups: GroupStage['groups']): boolean {
   return groups.every(g => g.standings.every(s => s.team !== null));
 }
 
-export function isGroupStageComplete(stage: GroupStage) {
-  return isGroupStageSeeded(stage.groups) && stage.matchweeks.every(week => week.matches.every(isMatchComplete));
+export function isGroupStageComplete(stage: GroupStage): boolean {
+  return (
+    isGroupStageSeeded(stage.groups)
+    && stage.matchweeks.length > 0
+    && stage.matchweeks.every(week => week.matches.every(isMatchComplete))
+  );
 }
 
 export function getGroupName(order: GroupStageGroup['order'], nameFormat: GroupStage['nameFormat']) {
