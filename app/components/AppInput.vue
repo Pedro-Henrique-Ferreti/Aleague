@@ -7,6 +7,7 @@
       <BaseInput
         v-model="model"
         :id="id"
+        :model-modifiers="modelModifiers"
       />
     </label>
   </AppFieldset>
@@ -21,5 +22,5 @@ defineProps<{
 
 const id = useId();
 
-const model = defineModel<BaseInputModel>();
+const [model, modelModifiers] = defineModel<BaseInputModel>();
 </script>

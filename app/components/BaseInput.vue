@@ -19,7 +19,7 @@ import IMask, { type HTMLInputMaskElement, type InputMask } from 'imask';
 
 export type BaseInputModel = string | number | null;
 
-interface BaseInputProps {
+export interface BaseInputProps {
   name?: string;
   id?: string;
   readonly?: boolean;
