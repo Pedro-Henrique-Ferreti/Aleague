@@ -1,21 +1,18 @@
 <template>
   <div class="round">
-    <div class="relative group">
-      <input
-        v-model.lazy="name"
-        :id="inputId"
-        type="text"
-        class="w-full text-lg text-center font-medium focus:[&+svg]:hidden"
-      >
-      <IconPencil class="round-edit-icon" />
+    <div class="flex justify-center items-center px-2.5 min-h-2 relative">
+      <h2 class="text-lg text-center font-medium">{{ round.name }}</h2>
+      <div class="absolute top-0 right-0">
+        <PlayoffRoundOptions v-model="round" />
+      </div>
     </div>
     <div class="flex flex-col gap-0.75">
       <PlayoffRoundCard
-        v-for="(slot, index) in slots"
+        v-for="(slot, index) in round.slots"
         :key="slot.id"
         class="bracket"
         :model-value="slot"
-        @update:model-value="slots[index] = $event"
+        @update:model-value="round.slots[index] = $event"
         @winner-updated="$emit('slotWinnerUpdated', { team: $event, slotIndex: index })"
       />
     </div>
@@ -23,22 +20,13 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPencil } from '@tabler/icons-vue';
+import PlayoffRoundOptions from './PlayoffRoundOptions.vue';
 
 defineEmits<{
   slotWinnerUpdated: [{ team: PlayoffRoundSlotWinner, slotIndex: number }];
 }>();
 
-const inputId = useId();
-
-const name = defineModel<PlayoffRound['name']>('name', { required: true });
-const slots = defineModel<PlayoffRound['slots']>('slots', { required: true });
-
-watch(name, (newValue, oldValue) => {
-  if (newValue === '') {
-    name.value = oldValue;
-  }
-});
+const round = defineModel<PlayoffRound>({ required: true });
 </script>
 
 <style scoped>
@@ -46,10 +34,6 @@ watch(name, (newValue, oldValue) => {
 
 .round {
   @apply grid gap-1.5 grid-rows-[auto_1fr] not-first:[&_.bracket]:mb-0! first:[&_.bracket]:before:hidden! first:[&_.bracket]:after:hidden!;
-}
-
-.round-edit-icon {
-  @apply size-1.25 text-base-content/60 fill-white absolute right-0.5 top-1/2 -translate-y-1/2 pointer-events-none not-group-hover:hidden;
 }
 
 .bracket {

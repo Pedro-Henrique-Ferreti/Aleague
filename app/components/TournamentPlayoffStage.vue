@@ -4,13 +4,14 @@
       class="grid grid-cols-(--columns) justify-center gap-6.25"
       :style="`--columns: repeat(${displayedRoundsCount}, 1fr)`"
     >
-      <PlayoffRound
-        v-for="round in stage.rounds.filter((r) => displayedRoundsId.includes(r.id))"
-        v-model:name="round.name"
-        v-model:slots="round.slots"
-        :key="round.id"
-        @slot-winner-updated="moveTeamToNextRound($event.team, $event.slotIndex, round.id)"
-      />
+      <template v-for="round, index in stage.rounds">
+        <PlayoffRound
+          v-if="displayedRoundsId.includes(round.id)"
+          v-model="stage.rounds[index]!"
+          :key="round.id"
+          @slot-winner-updated="moveTeamToNextRound($event.team, $event.slotIndex, round.id)"
+        />
+      </template>
     </div>
   </div>
 </template>
