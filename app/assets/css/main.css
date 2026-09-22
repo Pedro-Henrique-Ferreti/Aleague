@@ -50,4 +50,8 @@
   .badge-container {
     @apply flex items-center gap-0.5;
   }
+
+  .table-empty-cell-content {
+    @apply [&_td]:empty:before:font-bold [&_td]:empty:before:opacity-50 [&_td]:empty:before:content-['-']
+  }
 }
