@@ -17,6 +17,11 @@
       :icon="IconPlayerPlay"
       @click="showSimulateMatchesModal = true"
     />
+    <AppMenuItem
+      label="Reiniciar partidas"
+      :icon="IconRefresh"
+      @click="showResetMatchesModal = true"
+    />
   </AppMenu>
   <PlayoffRoundModal
     v-model:is-open="showRenameModal"
@@ -28,16 +33,24 @@
     message="Você deseja simular os resultados das partidas? Resultados já existentes serão apagados."
     @confirm="onSimulateMatches"
   />
+  <AppDialog
+    v-model:is-open="showResetMatchesModal"
+    type="delete"
+    title="Reiniciar partidas"
+    message="Você deseja reiniciar os resultados para todas as partidas? Essa ação não poderá ser desfeita."
+    @confirm="onResetMatches"
+  />
 </template>
 
 <script lang="ts" setup>
-import { IconDotsVertical, IconPencil, IconPlayerPlay } from '@tabler/icons-vue';
+import { IconDotsVertical, IconPencil, IconPlayerPlay, IconRefresh } from '@tabler/icons-vue';
 import { simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
 
 const round = defineModel<PlayoffRound>({ required: true });
 
 const showRenameModal = ref(false);
 const showSimulateMatchesModal = ref(false);
+const showResetMatchesModal = ref(false);
 
 function onSimulateMatches() {
   for (const slot of round.value.slots) {
@@ -45,5 +58,16 @@ function onSimulateMatches() {
   }
 
   showSimulateMatchesModal.value = false;
+}
+
+function onResetMatches() {
+  for (const slot of round.value.slots) {
+    for (const match of slot.legs) {
+      match.homeTeam.score = null;
+      match.awayTeam.score = null;
+    }
+  }
+
+  showResetMatchesModal.value = false;
 }
 </script>
