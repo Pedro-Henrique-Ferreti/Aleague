@@ -32,8 +32,7 @@
 
 <script lang="ts" setup>
 import { IconDotsVertical, IconPencil, IconPlayerPlay } from '@tabler/icons-vue';
-import { simulateMatchScore } from '~/helpers/match-simulation';
-import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-stage';
+import { simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
 
 const round = defineModel<PlayoffRound>({ required: true });
 
@@ -42,14 +41,7 @@ const showSimulateMatchesModal = ref(false);
 
 function onSimulateMatches() {
   for (const slot of round.value.slots) {
-    do {
-      for (const match of slot.legs) {
-        const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
-        match.homeTeam.score = home;
-        match.awayTeam.score = away;
-      }
-    }
-    while (getPlayoffRoundSlotWinner(slot) === null);
+    simulatePlayoffRoundSlotScore(slot);
   }
 
   showSimulateMatchesModal.value = false;

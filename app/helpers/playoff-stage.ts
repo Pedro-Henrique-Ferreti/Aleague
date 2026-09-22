@@ -1,4 +1,5 @@
 import { isMatchComplete, isMatchSeeded, newMatch } from './match';
+import { simulateMatchScore } from './match-simulation';
 import { getTeamById } from './team';
 
 export function getPlayoffRoundNames(rounds: number, teams: number): string[] {
@@ -45,4 +46,17 @@ export function getPlayoffStageWinner(stage: PlayoffStage): TournamentWinner {
   const winnerId = getPlayoffRoundSlotWinner(lastRound.slots[0]!);
 
   return getTeamById(winnerId) ?? null;
+}
+
+export function simulatePlayoffRoundSlotScore(slot: PlayoffRoundSlot) {
+  if (slot.legs.some(match => !isMatchSeeded(match))) return;
+
+  do {
+    for (const match of slot.legs) {
+      const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
+      match.homeTeam.score = home;
+      match.awayTeam.score = away;
+    }
+  }
+  while (getPlayoffRoundSlotWinner(slot) === null);
 }

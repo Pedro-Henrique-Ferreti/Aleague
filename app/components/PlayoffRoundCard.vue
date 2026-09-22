@@ -20,7 +20,7 @@
           v-if="isMatchSeeded(slot.legs[0])"
           :label="`Simular partida${slot.legs.length > 1 ? 's' : ''}`"
           :icon="IconPlayerPlay"
-          @click="simulateScore"
+          @click="simulatePlayoffRoundSlotScore(slot)"
         />
         <AppMenuItem
           v-if="slot.legs.length <= 1"
@@ -44,8 +44,7 @@
 <script lang="ts" setup>
 import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { isMatchSeeded, newMatch } from '~/helpers/match';
-import { simulateMatchScore } from '~/helpers/match-simulation';
-import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-stage';
+import { getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundSlotWinner];
@@ -62,15 +61,4 @@ function addMatchToSlot() {
 const winner = computed<PlayoffRoundSlotWinner>(() => getPlayoffRoundSlotWinner(slot.value));
 
 watch(winner, () => emit('winnerUpdated', winner.value));
-
-function simulateScore() {
-  do {
-    for (const match of slot.value.legs) {
-      const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
-      match.homeTeam.score = home;
-      match.awayTeam.score = away;
-    }
-  }
-  while (winner.value === null);
-}
 </script>

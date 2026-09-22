@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DETAILED_TEAM_LIST } from '~/constants/teams';
 import { newMatch } from '~/helpers/match';
-import { getPlayoffRoundNames, getPlayoffRoundSlotWinner, getPlayoffStageWinner, isPlayoffStageSeeded, newPlayoffRoundSlot } from '~/helpers/playoff-stage';
+import { getPlayoffRoundNames, getPlayoffRoundSlotWinner, getPlayoffStageWinner, isPlayoffStageSeeded, newPlayoffRoundSlot, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
 
 describe('playoff', () => {
   describe('getPlayoffRoundNames', () => {
@@ -233,6 +233,42 @@ describe('playoff', () => {
       const winner = getPlayoffStageWinner(stage);
 
       expect(winner?.id).toBe(id);
+    });
+  });
+
+  describe('simulatePlayoffRoundSlotScore', () => {
+    it('should not change the slot when a leg is not seeded', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      simulatePlayoffRoundSlotScore(slot);
+
+      expect(slot.legs[0].homeTeam.score).toBeNull();
+      expect(slot.legs[0].awayTeam.score).toBeNull();
+    });
+
+    it('should fill scores on all legs of a seeded slot', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs.push(newMatch('away-id', 'home-id'));
+
+      simulatePlayoffRoundSlotScore(slot);
+
+      for (const leg of slot.legs) {
+        expect(typeof leg.homeTeam.score).toBe('number');
+        expect(typeof leg.awayTeam.score).toBe('number');
+      }
+    });
+
+    it('should produce a decided slot for a seeded slot', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+
+      simulatePlayoffRoundSlotScore(slot);
+
+      expect(getPlayoffRoundSlotWinner(slot)).toBeTruthy();
     });
   });
 });
