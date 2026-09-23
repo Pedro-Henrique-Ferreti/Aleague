@@ -46,7 +46,7 @@
             :key="group.order"
             :title="group.name"
           >
-            <StageSeedingTeamSlot
+            <TeamSlot
               v-for="team, index in group.teams"
               :key="index"
               :team-id="team"

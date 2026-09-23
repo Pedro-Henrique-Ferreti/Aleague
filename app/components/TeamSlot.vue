@@ -1,14 +1,14 @@
 <template>
   <div class="flex gap-0.5 w-full h-2.5 p-0.5 border border-dashed border-base-200 rounded-lg items-center">
     <span
-      v-if="!team"
+      v-if="!teamDetails"
       class="opacity-60"
     >
       Em aberto
     </span>
     <template v-else>
       <TeamDetails
-        :team="team"
+        :team="teamDetails"
         :show-country="tournamentStore.activeTournament?.showCountry"
       />
       <CloseButton
@@ -24,12 +24,13 @@
 import { getTeamById } from '@/helpers/team';
 
 const props = defineProps<{
-  teamId: Team['id'] | null;
+  teamId?: Team['id'] | null;
+  team?: TeamDetails;
 }>();
 
 defineEmits<{ remove: [] }>();
 
 const tournamentStore = useTournamentStore();
 
-const team = computed(() => props.teamId ? getTeamById(props.teamId) : null);
+const teamDetails = computed(() => props.team || getTeamById(props.teamId));
 </script>
