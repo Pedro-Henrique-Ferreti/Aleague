@@ -1,9 +1,8 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getRandomScore, getSimulatedMatchScore } from '~/helpers/match-score';
+import { describe, expect, it } from 'vitest';
+import { newMatch } from '~/helpers/match';
+import { getRandomScore, getSimulatedMatchScore, resetMatchScore } from '~/helpers/match-score';
 
 describe('match-score', () => {
-  afterEach(() => vi.clearAllMocks());
-
   describe('getRandomScore', () => {
     it('should return a non-negative integer', () => {
       for (let i = 0; i < 100; i++) {
@@ -25,6 +24,20 @@ describe('match-score', () => {
         expect(Number.isInteger(result.home)).toBeTruthy();
         expect(Number.isInteger(result.away)).toBeTruthy();
       }
+    });
+  });
+
+  describe('resetMatchScore', () => {
+    it('should reset the match score', () => {
+      const match = newMatch();
+
+      match.homeTeam.score = 2;
+      match.awayTeam.score = 2;
+
+      resetMatchScore(match);
+
+      expect(match.homeTeam.score).toBeNull();
+      expect(match.awayTeam.score).toBeNull();
     });
   });
 });

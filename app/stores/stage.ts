@@ -1,3 +1,4 @@
+import { resetMatchScore } from '~/helpers/match-score';
 import { updateGroupStageTeams, updatePlayoffStageTeams } from '~/helpers/stage-teams';
 import { newStandingsEntry } from '~/helpers/standings';
 
@@ -76,10 +77,7 @@ export const useStageStore = defineStore('stage', () => {
     if (!activeGroupStage.value) return;
 
     for (const matchweek of activeGroupStage.value.matchweeks) {
-      for (const match of matchweek.matches) {
-        match.homeTeam.score = null;
-        match.awayTeam.score = null;
-      }
+      matchweek.matches.forEach(resetMatchScore);
     }
 
     resetGroupStageStandings();

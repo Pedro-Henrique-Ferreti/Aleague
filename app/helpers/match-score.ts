@@ -34,3 +34,8 @@ export function getSimulatedMatchScore(homeStrength: TeamStrength, awayStrength:
 
   return { home, away };
 }
+
+export function resetMatchScore(match: Match) {
+  match.homeTeam.score = null;
+  match.awayTeam.score = null;
+}

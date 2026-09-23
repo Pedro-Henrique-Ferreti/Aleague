@@ -44,6 +44,7 @@
 
 <script lang="ts" setup>
 import { IconDotsVertical, IconPencil, IconPlayerPlay, IconRefresh } from '@tabler/icons-vue';
+import { resetMatchScore } from '~/helpers/match-score';
 import { simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
 
 const round = defineModel<PlayoffRound>({ required: true });
@@ -62,10 +63,7 @@ function onSimulateMatches() {
 
 function onResetMatches() {
   for (const slot of round.value.slots) {
-    for (const match of slot.legs) {
-      match.homeTeam.score = null;
-      match.awayTeam.score = null;
-    }
+    slot.legs.forEach(resetMatchScore);
   }
 
   showResetMatchesModal.value = false;
