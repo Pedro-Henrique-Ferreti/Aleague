@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
 import { isMatchSeeded, newMatch } from '~/helpers/match';
-import { getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
+import { getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundSlotWinner];

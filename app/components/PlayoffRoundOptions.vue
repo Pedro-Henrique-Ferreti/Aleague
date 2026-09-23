@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { IconDotsVertical, IconPencil, IconPlayerPlay, IconRefresh } from '@tabler/icons-vue';
 import { resetMatchScore } from '~/helpers/match-score';
-import { simulatePlayoffRoundSlotScore } from '~/helpers/playoff-stage';
+import { simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 const round = defineModel<PlayoffRound>({ required: true });
 
