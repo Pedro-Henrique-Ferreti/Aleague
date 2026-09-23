@@ -22,6 +22,11 @@
       :icon="IconRefresh"
       @click="showResetMatchesModal = true"
     />
+    <PlayoffSlotMenuLegOption
+      :legs-count="round.slots.some(slot => slot.legs.length !== 2) ? 1 : 2"
+      @add-second-leg="onAddSecondLegs"
+      @remove-second-leg="onRemoveAllSecondLegs"
+    />
   </AppMenu>
   <PlayoffRoundModal
     v-model:is-open="showRenameModal"
@@ -45,7 +50,7 @@
 <script lang="ts" setup>
 import { IconDotsVertical, IconPencil, IconPlayerPlay, IconRefresh } from '@tabler/icons-vue';
 import { resetMatchScore } from '~/helpers/match-score';
-import { simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+import { addSecondLegToSlot, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 const round = defineModel<PlayoffRound>({ required: true });
 
@@ -67,5 +72,17 @@ function onResetMatches() {
   }
 
   showResetMatchesModal.value = false;
+}
+
+function onAddSecondLegs() {
+  for (const slot of round.value.slots) {
+    addSecondLegToSlot(slot);
+  }
+}
+
+function onRemoveAllSecondLegs() {
+  for (const slot of round.value.slots) {
+    slot.legs.pop();
+  }
 }
 </script>
