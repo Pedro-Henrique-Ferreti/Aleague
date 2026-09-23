@@ -22,19 +22,10 @@
           :icon="IconPlayerPlay"
           @click="simulatePlayoffRoundSlotScore(slot)"
         />
-        <AppMenuItem
-          v-if="slot.legs.length <= 1"
-          type="primary"
-          label="Adicionar segundo jogo"
-          :icon="IconPlus"
-          @click="addSecondLegToSlot(slot)"
-        />
-        <AppMenuItem
-          v-else
-          type="error"
-          label="Excluir segundo jogo"
-          :icon="IconTrash"
-          @click="slot.legs.pop()"
+        <PlayoffSlotMenuLegOption
+          :legs-count="slot.legs.length"
+          @add-second-leg="addSecondLegToSlot(slot)"
+          @remove-second-leg="slot.legs.pop()"
         />
       </ul>
     </div>
@@ -42,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
+import { IconPlayerPlay } from '@tabler/icons-vue';
 import { isMatchSeeded } from '~/helpers/match';
 import { addSecondLegToSlot, getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
