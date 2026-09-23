@@ -34,7 +34,7 @@ export interface AppMenuProps {
   label?: string;
   iconLeft?: Icon;
   iconRight?: Icon | false;
-  dropdownClass?: string;
+  dropdownClass?: string | Record<string, boolean>;
   dropdownElement?: 'ul' | 'div';
   tooltip?: string;
   disabled?: boolean;
