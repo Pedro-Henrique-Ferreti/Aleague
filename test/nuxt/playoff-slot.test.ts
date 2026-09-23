@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newMatch } from '~/helpers/match';
-import { getPlayoffRoundSlotWinner, newPlayoffRoundSlot, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+import { addSecondLegToSlot, getPlayoffRoundSlotWinner, newPlayoffRoundSlot, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 describe('playoff-slot', () => {
   describe('newPlayoffRoundSlot', () => {
@@ -155,6 +155,31 @@ describe('playoff-slot', () => {
       simulatePlayoffRoundSlotScore(slot);
 
       expect(getPlayoffRoundSlotWinner(slot)).toBeTruthy();
+    });
+  });
+
+  describe('addSecondLegToSlot', () => {
+    it('should add a second leg to the slot', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+
+      addSecondLegToSlot(slot);
+
+      expect(slot.legs[1]).toBeTruthy();
+      expect(slot.legs[1]?.homeTeam.id).toBe('away-id');
+      expect(slot.legs[1]?.awayTeam.id).toBe('home-id');
+    });
+
+    it('should not add a second leg when the slot is double-legged', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+
+      addSecondLegToSlot(slot);
+      addSecondLegToSlot(slot);
+
+      expect(slot.legs.length).toBe(2);
     });
   });
 });

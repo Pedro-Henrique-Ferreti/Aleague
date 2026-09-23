@@ -34,3 +34,9 @@ export function simulatePlayoffRoundSlotScore(slot: PlayoffRoundSlot) {
   }
   while (getPlayoffRoundSlotWinner(slot) === null);
 }
+
+export function addSecondLegToSlot(slot: PlayoffRoundSlot) {
+  if (slot.legs.length < 2) {
+    slot.legs.push(newMatch(slot.legs[0].awayTeam.id, slot.legs[0].homeTeam.id));
+  }
+}

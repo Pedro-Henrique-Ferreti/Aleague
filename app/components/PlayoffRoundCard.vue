@@ -27,7 +27,7 @@
           type="primary"
           label="Adicionar segundo jogo"
           :icon="IconPlus"
-          @click="addMatchToSlot"
+          @click="addSecondLegToSlot(slot)"
         />
         <AppMenuItem
           v-else
@@ -43,8 +43,8 @@
 
 <script lang="ts" setup>
 import { IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-vue';
-import { isMatchSeeded, newMatch } from '~/helpers/match';
-import { getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+import { isMatchSeeded } from '~/helpers/match';
+import { addSecondLegToSlot, getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundSlotWinner];
@@ -53,10 +53,6 @@ const emit = defineEmits<{
 const tournamentStore = useTournamentStore();
 
 const slot = defineModel<PlayoffRound['slots'][number]>({ required: true });
-
-function addMatchToSlot() {
-  slot.value.legs.push(newMatch(slot.value.legs[0].awayTeam.id, slot.value.legs[0].homeTeam.id));
-}
 
 const winner = computed<PlayoffRoundSlotWinner>(() => getPlayoffRoundSlotWinner(slot.value));
 
