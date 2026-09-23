@@ -41,12 +41,18 @@
           </div>
         </div>
         <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-          <StageSeedingCard
-            v-for="group, index in form.groups"
-            v-model="form.groups[index]!"
+          <TeamGroupCard
+            v-for="group in form.groups"
             :key="group.order"
-            :stage-type="stage.type"
-          />
+            :title="group.name"
+          >
+            <StageSeedingTeamSlot
+              v-for="team, index in group.teams"
+              :key="index"
+              :team-id="team"
+              @remove="group.teams[index] = null"
+            />
+          </TeamGroupCard>
         </div>
       </div>
       <StandingsPanel
