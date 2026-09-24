@@ -25,6 +25,10 @@ export function isMatchSeeded(match: Match): boolean {
   return match.homeTeam.id !== null && match.awayTeam.id !== null;
 }
 
+export function isMatchUnseeded(match: Match): boolean {
+  return match.homeTeam.id === null && match.awayTeam.id === null;
+}
+
 export function isMatchComplete(match: Match): boolean {
   return isMatchSeeded(match) && match.homeTeam.score !== null && match.awayTeam.score !== null;
 }

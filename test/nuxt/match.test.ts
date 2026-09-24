@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getMatchResult, isMatchComplete, isMatchSeeded, newMatch } from '~/helpers/match';
+import { getMatchResult, isMatchComplete, isMatchSeeded, isMatchUnseeded, newMatch } from '~/helpers/match';
 
 describe('match', () => {
   describe('getMatchResult', () => {
@@ -69,6 +69,16 @@ describe('match', () => {
       match1.awayTeam.score = 1;
 
       expect(isMatchComplete(match3)).toBe(false);
+    });
+  });
+
+  describe('isMatchUnseeded', () => {
+    it('should return true when both teams are not seeded', () => {
+      expect(isMatchUnseeded(newMatch())).toBe(true);
+    });
+
+    it('should return false when at least one team is seeded', () => {
+      expect(isMatchUnseeded(newMatch('team-a'))).toBe(false);
     });
   });
 });
