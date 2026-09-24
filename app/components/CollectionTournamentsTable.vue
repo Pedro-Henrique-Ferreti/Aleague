@@ -16,6 +16,7 @@
             :key="tournament.id"
             class="hover:bg-base-content/10 transition-colors cursor-pointer"
             tabindex="0"
+            @keypress.enter="($event.target as HTMLTableCellElement)?.click()"
             @click="tournamentStore.activeTournamentId = tournament.id"
           >
             <td>
