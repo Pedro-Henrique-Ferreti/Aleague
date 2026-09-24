@@ -1,5 +1,3 @@
-import type { Timestamp } from './fileTypes';
-
 export enum StageType {
   GROUP,
   PLAYOFF,

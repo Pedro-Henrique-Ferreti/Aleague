@@ -1,5 +1,3 @@
-import type { BaseFileId, Timestamp } from '~/types/fileTypes';
-
 export const newBaseFileId = (): BaseFileId => new Date().getTime() as BaseFileId;
 
 export const newTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
