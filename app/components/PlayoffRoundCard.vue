@@ -37,7 +37,8 @@
 
 <script lang="ts" setup>
 import { IconPlayerPlay } from '@tabler/icons-vue';
-import { isMatchSeeded } from '~/helpers/match';
+import { isMatchSeeded, isMatchUnseeded } from '~/helpers/match';
+import { resetMatchScore } from '~/helpers/match-score';
 import { addSecondLegToSlot, getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 export interface PlayoffRoundCardProps {
@@ -53,4 +54,10 @@ const tournamentStore = useTournamentStore();
 const slot = defineModel<PlayoffRound['slots'][number]>({ required: true });
 
 const winner = computed(() => getPlayoffRoundSlotWinner(slot.value));
+
+watch(() => isMatchUnseeded(slot.value.legs[0]), (isUnseeded) => {
+  if (isUnseeded) {
+    slot.value.legs.forEach(resetMatchScore);
+  }
+});
 </script>
