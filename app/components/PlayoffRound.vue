@@ -12,6 +12,7 @@
         :key="slot.id"
         class="bracket"
         :model-value="slot"
+        :dropdown-position="cardDropdownPosition"
         @update:model-value="round.slots[index] = $event"
         @winner-updated="$emit('slotWinnerUpdated', { team: $event, slotIndex: index })"
       />
@@ -20,7 +21,14 @@
 </template>
 
 <script lang="ts" setup>
+import type { PlayoffRoundCardProps } from './PlayoffRoundCard.vue';
 import PlayoffRoundOptions from './PlayoffRoundOptions.vue';
+
+export interface PlayoffRoundProps {
+  cardDropdownPosition?: PlayoffRoundCardProps['dropdownPosition'];
+}
+
+defineProps<PlayoffRoundProps>();
 
 defineEmits<{
   slotWinnerUpdated: [{ team: PlayoffRoundSlotWinner, slotIndex: number }];

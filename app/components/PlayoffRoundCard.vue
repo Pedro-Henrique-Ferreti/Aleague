@@ -1,6 +1,9 @@
 <template>
   <div class="flex h-full items-center">
-    <div class="card card-border dropdown dropdown-hover dropdown-right p-0.75 order-1 w-full group">
+    <div
+      class="card card-border dropdown dropdown-hover p-0.75 order-1 w-full group"
+      :class="[dropdownPosition === 'left' ? 'dropdown-left' : 'dropdown-right']"
+    >
       <MatchCard
         v-model:home-score="slot.legs[0].homeTeam.score"
         v-model:away-score="slot.legs[0].awayTeam.score"
@@ -36,6 +39,14 @@
 import { IconPlayerPlay } from '@tabler/icons-vue';
 import { isMatchSeeded } from '~/helpers/match';
 import { addSecondLegToSlot, getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+
+export interface PlayoffRoundCardProps {
+  dropdownPosition?: 'right' | 'left';
+}
+
+withDefaults(defineProps<PlayoffRoundCardProps>(), {
+  dropdownPosition: 'right',
+});
 
 const emit = defineEmits<{
   winnerUpdated: [PlayoffRoundSlotWinner];
