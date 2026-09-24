@@ -19,7 +19,10 @@
 <script lang="ts" setup>
 import type { PlayoffRoundProps } from './PlayoffRound.vue';
 import { useResizeObserver } from '@vueuse/core';
-import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-slot.js';
+import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-slot';
+import { moveTeamToNextRound } from '~/helpers/playoff-stage';
+
+type SlotResult = Parameters<typeof moveTeamToNextRound>[1];
 
 const props = defineProps<{
   activeRoundId: PlayoffRound['id'];
@@ -55,7 +58,7 @@ const displayedRoundsId = computed(() => (
   stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + displayedRoundsCount.value).map(i => i.id)
 ));
 
-const slotResults = computed(() => {
+const slotResults = computed<SlotResult[]>(() => {
   return stage.value.rounds.flatMap((r, roundIndex) => r.slots.flatMap((slot, slotIndex) => ({
     roundIndex,
     slotIndex,
@@ -66,7 +69,7 @@ const slotResults = computed(() => {
 watch(slotResults, (newResults, oldResults) => {
   newResults.forEach((result, index) => {
     if (result.winner !== oldResults[index]?.winner) {
-      moveTeamToNextRound(result.winner, result.slotIndex, result.roundIndex);
+      moveTeamToNextRound(stage.value, result);
     }
   });
 });
@@ -74,31 +77,5 @@ watch(slotResults, (newResults, oldResults) => {
 function getRoundCardDropdownPosition(round: PlayoffRound): PlayoffRoundProps['cardDropdownPosition'] {
   const position = displayedRoundsId.value.findIndex(id => id === round.id) + 1;
   return displayedRoundsCount.value === position ? 'left' : undefined;
-}
-
-function moveTeamToNextRound(winner: PlayoffRoundSlotWinner, slotIndex: number, roundIndex: number) {
-  const round = stage.value.rounds[roundIndex + 1];
-
-  if (!round) return;
-
-  const slot = round.slots[Math.floor(slotIndex / 2)];
-
-  if (!slot) return;
-
-  const isFirstMatchHomeTeam = slotIndex % 2 === 0;
-
-  if (isFirstMatchHomeTeam) {
-    slot.legs[0].homeTeam.id = winner;
-  } else {
-    slot.legs[0].awayTeam.id = winner;
-  }
-
-  if (slot.legs[1]) {
-    if (isFirstMatchHomeTeam) {
-      slot.legs[1].awayTeam.id = winner;
-    } else {
-      slot.legs[1].homeTeam.id = winner;
-    }
-  }
 }
 </script>

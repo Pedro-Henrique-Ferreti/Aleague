@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { DETAILED_TEAM_LIST } from '~/constants/teams';
-import { newPlayoffRoundSlot } from '~/helpers/playoff-slot';
-import { getPlayoffRoundNames, getPlayoffStageWinner, isPlayoffStageSeeded } from '~/helpers/playoff-stage';
+import { addSecondLegToSlot, newPlayoffRoundSlot } from '~/helpers/playoff-slot';
+import { getPlayoffRoundNames, getPlayoffStageWinner, isPlayoffStageSeeded, moveTeamToNextRound } from '~/helpers/playoff-stage';
+import { newPlayoffStage } from '~/helpers/stage';
 
 describe('playoff-stage', () => {
   describe('getPlayoffRoundNames', () => {
@@ -114,6 +115,36 @@ describe('playoff-stage', () => {
       const winner = getPlayoffStageWinner(stage);
 
       expect(winner?.id).toBe(id);
+    });
+  });
+
+  describe('moveTeamToNextRound', () => {
+    it('should move a team to the next round', () => {
+      const playoffStage = newPlayoffStage(
+        {
+          name: 'Test Stage',
+          groups: 0,
+          groupNameFormat: GroupStageNameFormat.NUMBER,
+          playoffRounds: 2,
+          teams: 4,
+          teamsPerGroup: 0,
+          type: StageType.PLAYOFF,
+        },
+        {
+          id: 1,
+          name: 'Test Stage',
+          sequence: 1,
+          type: StageType.PLAYOFF,
+        },
+      );
+      addSecondLegToSlot(playoffStage.rounds[1]!.slots[0]!);
+
+      playoffStage.rounds[0]!.slots[0]!.legs[0].homeTeam.id = 'team-a';
+
+      moveTeamToNextRound(playoffStage, { winner: 'team-a', slotIndex: 0, roundIndex: 0 });
+
+      expect(playoffStage.rounds[1]!.slots[0]!.legs[0].homeTeam.id).toBe('team-a');
+      expect(playoffStage.rounds[1]!.slots[0]!.legs[1]!.awayTeam.id).toBe('team-a');
     });
   });
 });
