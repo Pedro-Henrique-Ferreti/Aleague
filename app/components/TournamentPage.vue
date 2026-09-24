@@ -1,9 +1,13 @@
 <template>
-  <div class="grid gap-1 mb-1.5 min-h-7 tablet-lg:grid-cols-[1fr_auto]">
-    <TournamentProfileCard />
-    <div class="flex flex-col items-end">
-      <TournamentStageOptions v-if="activeStage" />
-      <TournamentWinnerCard v-if="activeTournamentWinner" />
+  <div class="card card-border mb-2">
+    <div class="card-body p-1.25">
+      <div class="grid gap-1 min-h-6.25 tablet-lg:grid-cols-[1fr_auto]">
+        <TournamentProfileCard />
+        <div class="flex flex-col items-end">
+          <TournamentStageOptions v-if="activeStage" />
+          <TournamentWinnerCard v-if="activeTournamentWinner" />
+        </div>
+      </div>
     </div>
   </div>
   <div
