@@ -48,15 +48,9 @@ withDefaults(defineProps<PlayoffRoundCardProps>(), {
   dropdownPosition: 'right',
 });
 
-const emit = defineEmits<{
-  winnerUpdated: [PlayoffRoundSlotWinner];
-}>();
-
 const tournamentStore = useTournamentStore();
 
 const slot = defineModel<PlayoffRound['slots'][number]>({ required: true });
 
-const winner = computed<PlayoffRoundSlotWinner>(() => getPlayoffRoundSlotWinner(slot.value));
-
-watch(winner, () => emit('winnerUpdated', winner.value));
+const winner = computed(() => getPlayoffRoundSlotWinner(slot.value));
 </script>

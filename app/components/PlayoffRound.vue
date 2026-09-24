@@ -14,7 +14,6 @@
         :model-value="slot"
         :dropdown-position="cardDropdownPosition"
         @update:model-value="round.slots[index] = $event"
-        @winner-updated="$emit('slotWinnerUpdated', { team: $event, slotIndex: index })"
       />
     </div>
   </div>
@@ -29,10 +28,6 @@ export interface PlayoffRoundProps {
 }
 
 defineProps<PlayoffRoundProps>();
-
-defineEmits<{
-  slotWinnerUpdated: [{ team: PlayoffRoundSlotWinner, slotIndex: number }];
-}>();
 
 const round = defineModel<PlayoffRound>({ required: true });
 </script>

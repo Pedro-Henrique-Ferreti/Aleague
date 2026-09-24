@@ -10,7 +10,6 @@
           v-model="stage.rounds[index]!"
           :key="round.id"
           :card-dropdown-position="getRoundCardDropdownPosition(round)"
-          @slot-winner-updated="moveTeamToNextRound($event.team, $event.slotIndex, round.id)"
         />
       </template>
     </div>
@@ -20,6 +19,7 @@
 <script lang="ts" setup>
 import type { PlayoffRoundProps } from './PlayoffRound.vue';
 import { useResizeObserver } from '@vueuse/core';
+import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-slot.js';
 
 const props = defineProps<{
   activeRoundId: PlayoffRound['id'];
@@ -55,16 +55,28 @@ const displayedRoundsId = computed(() => (
   stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + displayedRoundsCount.value).map(i => i.id)
 ));
 
+const slotResults = computed(() => {
+  return stage.value.rounds.flatMap((r, roundIndex) => r.slots.flatMap((slot, slotIndex) => ({
+    roundIndex,
+    slotIndex,
+    winner: getPlayoffRoundSlotWinner(slot),
+  })));
+});
+
+watch(slotResults, (newResults, oldResults) => {
+  newResults.forEach((result, index) => {
+    if (result.winner !== oldResults[index]?.winner) {
+      moveTeamToNextRound(result.winner, result.slotIndex, result.roundIndex);
+    }
+  });
+});
+
 function getRoundCardDropdownPosition(round: PlayoffRound): PlayoffRoundProps['cardDropdownPosition'] {
   const position = displayedRoundsId.value.findIndex(id => id === round.id) + 1;
   return displayedRoundsCount.value === position ? 'left' : undefined;
 }
 
-function moveTeamToNextRound(winner: PlayoffRoundSlotWinner, slotIndex: number, roundId: PlayoffRound['id']) {
-  const roundIndex = stage.value.rounds.findIndex(round => round.id === roundId);
-
-  if (roundIndex === -1) return;
-
+function moveTeamToNextRound(winner: PlayoffRoundSlotWinner, slotIndex: number, roundIndex: number) {
   const round = stage.value.rounds[roundIndex + 1];
 
   if (!round) return;
