@@ -47,16 +47,13 @@
 
 <script lang="ts" setup>
 import { IconPlus } from '@tabler/icons-vue';
+import { newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
 import TeamGroupCard from './TeamGroupCard.vue';
 
 defineProps<{
   drawParticipants: DrawParticipant[];
 }>();
-
-function newDrawPot(): DrawPot {
-  return { id: new Date().getTime(), participants: [] };
-}
 
 const drawPots = ref<DrawPot[]>([newDrawPot()]);
 
