@@ -9,7 +9,7 @@
       :participant="team"
       :pots-count="drawPots.length"
       :disabled="isParticipantDisabled(team)"
-      @add-to-pot="drawPots[$event - 1]?.push(team)"
+      @add-to-pot="drawPots[$event - 1]?.participants.push(team)"
     />
   </TeamGroupCard>
   <div class="flex justify-end">
@@ -18,7 +18,7 @@
       label="Adicionar pote"
       :icon-left="IconPlus"
       :disabled="drawPots.length >= MAX_DRAW_POTS"
-      @click="drawPots.push([])"
+      @click="drawPots.push(newDrawPot())"
     />
   </div>
   <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] mt-1">
@@ -27,11 +27,19 @@
       :key="index"
       :title="`Pote ${index + 1}`"
     >
+      <template #badge-icon>
+        <CloseButton
+          v-if="drawPots.length > 1"
+          class="btn-xs -mr-0.5"
+          aria-label="Remover pote"
+          @click="drawPots.splice(index, 1)"
+        />
+      </template>
       <TeamSlot
-        v-for="team in pot"
+        v-for="team in pot.participants"
         :key="team.id"
         :team="team"
-        @remove="drawPots[index] = pot.filter((t) => t.id !== team.id)"
+        @remove="drawPots[index]!.participants = pot.participants.filter((t) => t.id !== team.id)"
       />
     </TeamGroupCard>
   </div>
@@ -47,9 +55,13 @@ defineProps<{
 
 const MAX_DRAW_POTS = 4;
 
-const drawPots = ref<DrawPot[]>([[]]);
+function newDrawPot(): DrawPot {
+  return { id: new Date().getTime(), participants: [] };
+}
+
+const drawPots = ref<DrawPot[]>([newDrawPot()]);
 
 function isParticipantDisabled(team: DrawParticipant) {
-  return drawPots.value.flat().some(t => t.id === team.id);
+  return drawPots.value.flatMap(d => d.participants).some(t => t.id === team.id);
 }
 </script>
