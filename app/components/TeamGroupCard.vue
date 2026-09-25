@@ -6,6 +6,7 @@
         class="badge badge-secondary badge-soft absolute top-0 left-1/2 -translate-1/2"
       >
         {{ title }}
+        <slot name="badge-icon" />
       </div>
       <slot />
     </div>
