@@ -1,6 +1,7 @@
 <template>
   <AppModal
     v-model:is-open="modalIsOpen"
+    v-model:is-side-panel-open="isSidePanelOpen"
     title="Editar equipes"
     size="fullscreen"
     :submit-button-disabled="submitButtonDisabled"
@@ -10,64 +11,56 @@
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
     </template>
-    <div class="flex min-h-full gap-1">
-      <div class="flex-1 @container/groups">
-        <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
-          <TeamSearchInput
-            ref="team-search"
-            :stage-id="stage.id"
-            :selected-teams="selectedTeams"
-            @select="onSelectTeam"
-          />
-          <div class="flex gap-0.75 right-0 absolute">
-            <StageSeedingRandomButton
-              v-model="form.groups"
-              :team-options="teamSearchInput?.teamOptions"
-            />
-            <StageSeedingShuffleButton v-model="form.groups" />
-            <StageSeedingResetButton v-model="form.groups" />
-            <AppTooltip
-              v-if="!standingsPanelIsOpen"
-              label="Abrir painel de classificação"
-              class="tooltip-left"
-            >
-              <AppButton
-                class="btn-square btn-soft"
-                aria-label="Abrir painel de classificação"
-                :icon-left="IconLayoutSidebarRightExpand"
-                @click="standingsPanelIsOpen = true"
-              />
-            </AppTooltip>
-          </div>
-        </div>
-        <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-          <TeamGroupCard
-            v-for="group in form.groups"
-            :key="group.order"
-            :title="group.name"
-          >
-            <TeamSlot
-              v-for="team, index in group.teams"
-              :key="index"
-              :team-id="team"
-              @remove="group.teams[index] = null"
-            />
-          </TeamGroupCard>
-        </div>
-      </div>
+    <template
+      v-if="isSidePanelOpen"
+      #side-panel
+    >
       <StandingsPanel
-        v-if="standingsPanelIsOpen"
         :selected-teams="selectedTeams"
         :initial-tournament-id="tournamentStore.activeTournamentId"
         @select-team="onSelectTeam"
-        @close-panel="standingsPanelIsOpen = false"
       />
+    </template>
+    <div class="flex-1 @container/groups">
+      <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
+        <TeamSearchInput
+          ref="team-search"
+          :stage-id="stage.id"
+          :selected-teams="selectedTeams"
+          @select="onSelectTeam"
+        />
+        <div class="flex gap-0.75 right-0 absolute">
+          <StageSeedingRandomButton
+            v-model="form.groups"
+            :team-options="teamSearchInput?.teamOptions"
+          />
+          <StageSeedingShuffleButton v-model="form.groups" />
+          <StageSeedingResetButton v-model="form.groups" />
+          <StageSeedingOpenPanelButton
+            v-if="!isSidePanelOpen"
+            @click="isSidePanelOpen = true"
+          />
+        </div>
+      </div>
+      <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
+        <TeamGroupCard
+          v-for="group in form.groups"
+          :key="group.order"
+          :title="group.name"
+        >
+          <TeamSlot
+            v-for="team, index in group.teams"
+            :key="index"
+            :team-id="team"
+            @remove="group.teams[index] = null"
+          />
+        </TeamGroupCard>
+      </div>
     </div>
   </AppModal>
 </template>
 
 <script lang="ts" setup>
-import { IconLayoutSidebarRightExpand } from '@tabler/icons-vue';
 import { getGroupName } from '~/helpers/group-stage';
 
 interface StageTeamsProps {
@@ -86,14 +79,14 @@ const modalIsOpen = defineModel<boolean>('is-open');
 
 const teamSearchInput = useTemplateRef('team-search');
 
-const standingsPanelIsOpen = ref(false);
+const isSidePanelOpen = ref(false);
 const form = ref<StageSeedingForm>({
   groups: [],
 });
 
 function onOpenModal() {
   teamSearchInput.value?.reset();
-  standingsPanelIsOpen.value = false;
+  isSidePanelOpen.value = false;
 
   if (props.stage.type === StageType.GROUP) {
     form.value.groups = props.stage.groups.map(group => ({

@@ -1,16 +1,6 @@
 <template>
-  <div class="w-24 max-h-[76vh] overflow-y-auto pl-1 border-l border-base-200 sticky top-3">
-    <div class="mb-1 flex items-center gap-0.5">
-      <AppTooltip label="Fechar painel">
-        <AppButton
-          class="btn-square btn-ghost btn-sm -ml-0.5"
-          aria-label="Fechar painel"
-          :icon-left="IconLayoutSidebarLeftExpand"
-          @click="$emit('closePanel')"
-        />
-      </AppTooltip>
-      <div class="font-semibold text-lg">Classificação</div>
-    </div>
+  <div class="w-24">
+    <div class="mb-1 font-semibold text-lg">Classificação</div>
     <div class="grid mb-1.5 gap-0.75">
       <AppSelect
         v-model="selectedTournament"
@@ -69,7 +59,6 @@
 </template>
 
 <script lang="ts" setup>
-import { IconLayoutSidebarLeftExpand } from '@tabler/icons-vue';
 import { getTeamById } from '@/helpers/team';
 import { getGroupName, isGroupStageSeeded } from '~/helpers/group-stage';
 import { isPlayoffStageSeeded } from '~/helpers/playoff-stage';
