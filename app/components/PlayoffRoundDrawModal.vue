@@ -17,7 +17,7 @@ const round = defineModel<PlayoffRound>('round', { required: true });
 
 const drawParticipants = computed(() => {
   return round.value.slots.flatMap(
-    slot => [getTeamById(slot.legs[0].homeTeam.id), getTeamById(slot.legs[0].awayTeam.id)],
-  ).filter(team => !!team);
+    slot => [slot.legs[0].homeTeam.id, slot.legs[0].awayTeam.id],
+  ).filter(team => team !== null);
 });
 </script>

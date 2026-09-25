@@ -1,4 +1,4 @@
-export type DrawParticipant = TeamDetails;
+export type DrawParticipant = TeamDetails['id'];
 
 export interface DrawPot {
   id: number;

@@ -5,7 +5,7 @@
   >
     <DrawPotsParticipant
       v-for="team in drawParticipants"
-      :key="team.id"
+      :key="team"
       :participant="team"
       :pots-count="drawPots.length"
       :disabled="isParticipantDisabled(team)"
@@ -37,9 +37,9 @@
       </template>
       <TeamSlot
         v-for="team in pot.participants"
-        :key="team.id"
-        :team="team"
-        @remove="drawPots[index]!.participants = pot.participants.filter((t) => t.id !== team.id)"
+        :key="team"
+        :team="getTeamById(team)"
+        @remove="drawPots[index]!.participants.splice(index, 1)"
       />
     </TeamGroupCard>
   </div>
@@ -47,6 +47,7 @@
 
 <script lang="ts" setup>
 import { IconPlus } from '@tabler/icons-vue';
+import { getTeamById } from '~/helpers/team';
 import TeamGroupCard from './TeamGroupCard.vue';
 
 defineProps<{
@@ -60,6 +61,6 @@ function newDrawPot(): DrawPot {
 const drawPots = ref<DrawPot[]>([newDrawPot()]);
 
 function isParticipantDisabled(team: DrawParticipant) {
-  return drawPots.value.flatMap(d => d.participants).some(t => t.id === team.id);
+  return drawPots.value.flatMap(d => d.participants).includes(team);
 }
 </script>

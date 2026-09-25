@@ -10,7 +10,7 @@
         <TeamDetails
           class="text-base-content"
           :class="{ 'text-base-content opacity-40': disabled }"
-          :team="participant"
+          :team="getTeamById(participant)!"
         />
       </BaseButton>
     </template>
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import { IconArrowRightToArc } from '@tabler/icons-vue';
+import { getTeamById } from '~/helpers/team';
 
 defineProps<{
   participant: DrawParticipant;
