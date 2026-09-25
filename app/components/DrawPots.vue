@@ -53,8 +53,6 @@ defineProps<{
   drawParticipants: DrawParticipant[];
 }>();
 
-const MAX_DRAW_POTS = 4;
-
 function newDrawPot(): DrawPot {
   return { id: new Date().getTime(), participants: [] };
 }
