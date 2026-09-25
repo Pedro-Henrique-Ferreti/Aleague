@@ -5,7 +5,10 @@
     size="xl"
     submit-button-label="Salvar"
   >
-    <DrawPots :draw-participants="drawParticipants" />
+    <DrawPots
+      v-model="seedingDraw.pots.value"
+      :draw-participants="drawParticipants"
+    />
   </AppModal>
 </template>
 
@@ -14,6 +17,8 @@ import { getTeamById } from '~/helpers/team';
 
 const modalIsOpen = defineModel<boolean>('is-open');
 const round = defineModel<PlayoffRound>('round', { required: true });
+
+const seedingDraw = useSeedingDraw();
 
 const drawParticipants = computed(() => {
   return round.value.slots.flatMap(

@@ -55,7 +55,7 @@ defineProps<{
   drawParticipants: DrawParticipant[];
 }>();
 
-const drawPots = ref<DrawPot[]>([newDrawPot()]);
+const drawPots = defineModel<DrawPot[]>({ required: true });
 
 function isParticipantDisabled(team: DrawParticipant) {
   return drawPots.value.flatMap(d => d.participants).includes(team);
