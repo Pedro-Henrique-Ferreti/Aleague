@@ -51,11 +51,21 @@ import { newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
 import TeamGroupCard from './TeamGroupCard.vue';
 
-defineProps<{
+const props = defineProps<{
   drawParticipants: DrawParticipant[];
 }>();
 
 const drawPots = defineModel<DrawPot[]>({ required: true });
+
+watch(() => props.drawParticipants, (newParticipants) => {
+  for (const pot of drawPots.value) {
+    pot.participants.forEach((participant, index) => {
+      if (!newParticipants.includes(participant)) {
+        pot.participants.splice(index, 1);
+      }
+    });
+  }
+});
 
 function isParticipantDisabled(team: DrawParticipant) {
   return drawPots.value.flatMap(d => d.participants).includes(team);
