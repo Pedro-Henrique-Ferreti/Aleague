@@ -49,7 +49,6 @@
 import { IconPlus } from '@tabler/icons-vue';
 import { newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
-import TeamGroupCard from './TeamGroupCard.vue';
 
 const props = defineProps<{
   drawParticipants: DrawParticipant[];
@@ -59,11 +58,7 @@ const drawPots = defineModel<DrawPot[]>({ required: true });
 
 watch(() => props.drawParticipants, (newParticipants) => {
   for (const pot of drawPots.value) {
-    pot.participants.forEach((participant, index) => {
-      if (!newParticipants.includes(participant)) {
-        pot.participants.splice(index, 1);
-      }
-    });
+    pot.participants = pot.participants.filter(i => newParticipants.includes(i));
   }
 });
 
