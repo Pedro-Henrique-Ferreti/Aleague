@@ -1,7 +1,7 @@
 <template>
   <TeamGroupCard
     title="Participantes"
-    class="max-h-16 [&_.card-body]:overflow-y-auto mb-2"
+    class="max-h-[13.625rem] [&_.card-body]:overflow-y-auto mb-2"
   >
     <DrawPotsParticipant
       v-for="team in drawParticipants"
