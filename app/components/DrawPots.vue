@@ -24,7 +24,7 @@
   <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] mt-1">
     <TeamGroupCard
       v-for="pot, index in drawPots"
-      :key="index"
+      :key="pot.id"
       :title="`Pote ${index + 1}`"
     >
       <template #badge-icon>
@@ -36,10 +36,10 @@
         />
       </template>
       <TeamSlot
-        v-for="team in pot.participants"
+        v-for="(team, teamIndex) in pot.participants"
         :key="team"
         :team="getTeamById(team)"
-        @remove="drawPots[index]!.participants.splice(index, 1)"
+        @remove="pot.participants.splice(teamIndex, 1)"
       />
     </TeamGroupCard>
   </div>
