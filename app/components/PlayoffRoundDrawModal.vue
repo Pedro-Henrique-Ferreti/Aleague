@@ -5,6 +5,8 @@
     size="xl"
     :submit-button-label="seedingDraw.isStepActive.value.POTS ? 'Próximo' : 'Concluir'"
     :submit-button-disabled="submitButtonDisabled"
+    @open="seedingDraw.reset"
+    @submit="seedingDraw.nextStep"
   >
     <DrawPots
       v-if="seedingDraw.isStepActive.value.POTS"

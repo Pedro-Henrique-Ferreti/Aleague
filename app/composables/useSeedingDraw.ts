@@ -19,11 +19,23 @@ export function useSeedingDraw(drawParticipants: Ref<DrawParticipant[]>) {
     step.value = DrawStep.POTS;
   }
 
+  function previousStep() {
+    step.value = DrawStep.POTS;
+  }
+
+  function nextStep() {
+    if (step.value === DrawStep.POTS && !isPotsStepCompleted.value) return;
+
+    step.value = DrawStep.PROCEDURE;
+  }
+
   return {
     pots,
     participants: drawParticipants,
     isStepActive,
     isPotsStepCompleted,
     reset,
+    previousStep,
+    nextStep,
   };
 }
