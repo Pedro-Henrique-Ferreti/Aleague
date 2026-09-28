@@ -4,10 +4,11 @@
     title="Sortear partidas"
     size="xl"
     submit-button-label="Salvar"
+    :submit-button-disabled="submitButtonDisabled"
   >
     <DrawPots
       v-model="seedingDraw.pots.value"
-      :draw-participants="drawParticipants"
+      :draw-participants="seedingDraw.participants.value"
     />
   </AppModal>
 </template>
@@ -18,11 +19,12 @@ import { getTeamById } from '~/helpers/team';
 const modalIsOpen = defineModel<boolean>('is-open');
 const round = defineModel<PlayoffRound>('round', { required: true });
 
-const seedingDraw = useSeedingDraw();
+const seedingDraw = useSeedingDraw(
+  computed(() => round.value.slots.flatMap(s => [s.legs[0].homeTeam.id, s.legs[0].awayTeam.id]).filter(team => team !== null)),
+);
 
-const drawParticipants = computed(() => {
-  return round.value.slots.flatMap(
-    slot => [slot.legs[0].homeTeam.id, slot.legs[0].awayTeam.id],
-  ).filter(team => team !== null);
+const submitButtonDisabled = computed(() => {
+  if (seedingDraw.step.value === DrawStep.POTS) return !seedingDraw.isPotsStepCompleted.value;
+  return false;
 });
 </script>

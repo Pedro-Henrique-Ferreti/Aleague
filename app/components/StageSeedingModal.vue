@@ -68,7 +68,7 @@
           </div>
           <DrawPots
             v-model="seedingDraw.pots.value"
-            :draw-participants="selectedTeams"
+            :draw-participants="seedingDraw.participants.value"
           />
         </template>
       </AppTablist>
@@ -90,7 +90,6 @@ const props = withDefaults(defineProps<StageTeamsProps>(), {
 
 const tournamentStore = useTournamentStore();
 const stageStore = useStageStore();
-const seedingDraw = useSeedingDraw();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
@@ -100,6 +99,17 @@ const isSidePanelOpen = ref(false);
 const form = ref<StageSeedingForm>({
   groups: [],
 });
+
+const selectedTeams = computed(() => (
+  form.value.groups.flatMap(i => i.teams.filter(team => team !== null))
+));
+
+const submitButtonDisabled = computed(() => (
+  !props.allowEmptySlots
+  && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
+));
+
+const seedingDraw = useSeedingDraw(selectedTeams);
 
 function onOpenModal() {
   teamSearchInput.value?.reset();
@@ -121,10 +131,6 @@ function onOpenModal() {
   }
 }
 
-const selectedTeams = computed(() => (
-  form.value.groups.flatMap(i => i.teams.filter(team => team !== null))
-));
-
 function onSelectTeam(team: Team) {
   const group = form.value.groups.find(i => i.teams.includes(null));
 
@@ -134,11 +140,6 @@ function onSelectTeam(team: Team) {
 
   group.teams[slotIndex] = team.id;
 }
-
-const submitButtonDisabled = computed(() => (
-  !props.allowEmptySlots
-  && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
-));
 
 function submitForm() {
   stageStore.updateActiveStageTeams(form.value);
