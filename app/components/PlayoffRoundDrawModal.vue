@@ -3,10 +3,11 @@
     v-model:is-open="modalIsOpen"
     title="Sortear partidas"
     size="xl"
-    submit-button-label="Salvar"
+    :submit-button-label="seedingDraw.isStepActive.value.POTS ? 'Próximo' : 'Concluir'"
     :submit-button-disabled="submitButtonDisabled"
   >
     <DrawPots
+      v-if="seedingDraw.isStepActive.value.POTS"
       v-model="seedingDraw.pots.value"
       :draw-participants="seedingDraw.participants.value"
     />
@@ -14,8 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '~/helpers/team';
-
 const modalIsOpen = defineModel<boolean>('is-open');
 const round = defineModel<PlayoffRound>('round', { required: true });
 
@@ -24,7 +23,7 @@ const seedingDraw = useSeedingDraw(
 );
 
 const submitButtonDisabled = computed(() => {
-  if (seedingDraw.step.value === DrawStep.POTS) return !seedingDraw.isPotsStepCompleted.value;
+  if (seedingDraw.isStepActive.value.POTS) return !seedingDraw.isPotsStepCompleted.value;
   return false;
 });
 </script>

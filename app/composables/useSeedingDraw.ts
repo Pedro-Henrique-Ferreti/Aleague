@@ -4,6 +4,11 @@ export function useSeedingDraw(drawParticipants: Ref<DrawParticipant[]>) {
   const pots = ref([newDrawPot()]);
   const step = ref<DrawStep>(DrawStep.POTS);
 
+  const isStepActive = computed<Record<keyof typeof DrawStep, boolean>>(() => ({
+    POTS: step.value === DrawStep.POTS,
+    PROCEDURE: step.value === DrawStep.PROCEDURE,
+  }));
+
   const isPotsStepCompleted = computed(() => {
     const { length: participantsCount } = drawParticipants.value;
     return participantsCount > 0 && pots.value.reduce((acc, pot) => acc + pot.participants.length, 0) === participantsCount;
@@ -16,8 +21,8 @@ export function useSeedingDraw(drawParticipants: Ref<DrawParticipant[]>) {
 
   return {
     pots,
-    step,
     participants: drawParticipants,
+    isStepActive,
     isPotsStepCompleted,
     reset,
   };
