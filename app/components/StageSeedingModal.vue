@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getGroupName } from '~/helpers/group-stage';
+import { newStageSeedingForm } from '~/helpers/stage-seeding';
 
 interface StageTeamsProps {
   stage: TournamentStage;
@@ -96,9 +96,7 @@ const modalIsOpen = defineModel<boolean>('is-open');
 const teamSearchInput = useTemplateRef('team-search');
 
 const isSidePanelOpen = ref(false);
-const form = ref<StageSeedingForm>({
-  groups: [],
-});
+const form = ref(newStageSeedingForm());
 
 const selectedTeams = computed(() => (
   form.value.groups.flatMap(i => i.teams.filter(team => team !== null))
@@ -115,20 +113,7 @@ function onOpenModal() {
   teamSearchInput.value?.reset();
   seedingDraw.reset();
   isSidePanelOpen.value = false;
-
-  if (props.stage.type === StageType.GROUP) {
-    form.value.groups = props.stage.groups.map(group => ({
-      order: group.order,
-      name: getGroupName(group.order, (props.stage as GroupStage).nameFormat),
-      teams: group.standings.map(entry => entry.team),
-    }));
-  } else {
-    form.value.groups = props.stage.rounds[0]!.slots.map(({ legs: [match] }, index) => ({
-      name: `Partida ${index + 1}`,
-      order: index + 1,
-      teams: [match.homeTeam.id, match.awayTeam.id],
-    }));
-  }
+  form.value = newStageSeedingForm(props.stage);
 }
 
 function onSelectTeam(team: Team) {
