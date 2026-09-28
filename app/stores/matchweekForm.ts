@@ -1,6 +1,6 @@
 import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists } from '~/helpers/group-stage';
 import { getExpectedMatchweeksPerRoundRobin } from '~/helpers/matchweek';
-import { newGroupStageMatchweekList, type NewMatchweekListResponse } from '~/helpers/stage';
+import { newMatchweekList, type NewMatchweekListResponse } from '~/helpers/matchweek-list';
 
 interface RulesForm {
   format: GroupStageFormat;
@@ -55,7 +55,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
     isCreatingMatchweeks.value = true;
     matchweekListController.value = new AbortController();
 
-    newGroupStageMatchweekList({
+    newMatchweekList({
       groups: stageStore.activeGroupStage?.groups ?? [],
       format: form.value.format,
       roundRobins: form.value.roundRobins,

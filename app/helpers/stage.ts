@@ -1,12 +1,7 @@
-import { getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageSeeded, newLegendDescription } from './group-stage';
-import { createMatchSchedule, type MatchScheduleResponse } from './match-schedule';
+import { newLegendDescription } from './group-stage';
 import { newPlayoffRoundSlot } from './playoff-slot';
 import { getPlayoffRoundNames } from './playoff-stage';
 import { newStandingsEntry } from './standings';
-
-export type NewMatchweekListResponse = Omit<MatchScheduleResponse, 'schedule'> & {
-  matchweeks: GroupStage['matchweeks'];
-};
 
 export function newPlayoffStage(stageForm: StageForm, baseStage: BaseStage): PlayoffStage {
   const roundNames = getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams);
@@ -40,53 +35,5 @@ export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): Group
     overallLegend: (
       (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, LegendColor.NONE) : []
     ),
-  };
-}
-
-export async function newGroupStageMatchweekList(payload: {
-  groups: GroupStage['groups'];
-  format: GroupStageFormat;
-  roundRobins: number;
-  weeksToCreate?: number;
-  signal?: AbortSignal;
-}): Promise<NewMatchweekListResponse> {
-  const { groups, format, roundRobins, weeksToCreate, signal } = payload;
-
-  if (!isGroupStageSeeded(groups)) throw new Error('All teams must be assigned');
-
-  let scheduleResult: MatchScheduleResponse = { schedule: [], isBalanced: true };
-
-  if (format === GroupStageFormat.SAME_GROUP_ROUND_ROBIN) {
-    const teamLists = getSameGroupTeamLists(groups);
-
-    for (const teams of teamLists) {
-      const { schedule } = await createMatchSchedule({
-        teams,
-        roundRobins,
-        weeksToCreate,
-        signal,
-      });
-
-      schedule.forEach((matches, i) => {
-        scheduleResult.schedule[i] = [...(scheduleResult.schedule[i] ?? []), ...matches];
-      });
-    }
-  } else {
-    const { teams, avoidGroups } = getGroupTeamsAndAvoidGroups(groups, format);
-    scheduleResult = await createMatchSchedule({
-      teams,
-      roundRobins,
-      avoidGroups,
-      weeksToCreate,
-      signal,
-    });
-  }
-
-  return {
-    isBalanced: scheduleResult.isBalanced,
-    matchweeks: scheduleResult.schedule.map((matches, index) => ({
-      week: index + 1,
-      matches,
-    })),
   };
 }
