@@ -42,20 +42,36 @@
           />
         </div>
       </div>
-      <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-        <TeamGroupCard
-          v-for="group in form.groups"
-          :key="group.order"
-          :title="group.name"
-        >
-          <TeamSlot
-            v-for="team, index in group.teams"
-            :key="index"
-            :team-id="team"
-            @remove="group.teams[index] = null"
+      <AppTablist class="mb-1.5">
+        <AppTab
+          class="basis-1/5"
+          label="Adicionar manualmente"
+        />
+        <AppTab
+          class="basis-1/5"
+          label="Atribuir por sorteio"
+        />
+        <template #tabpanels>
+          <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
+            <TeamGroupCard
+              v-for="group in form.groups"
+              :key="group.order"
+              :title="group.name"
+            >
+              <TeamSlot
+                v-for="team, index in group.teams"
+                :key="index"
+                :team-id="team"
+                @remove="group.teams[index] = null"
+              />
+            </TeamGroupCard>
+          </div>
+          <DrawPots
+            v-model="seedingDraw.pots.value"
+            :draw-participants="selectedTeams"
           />
-        </TeamGroupCard>
-      </div>
+        </template>
+      </AppTablist>
     </div>
   </AppModal>
 </template>
@@ -74,6 +90,7 @@ const props = withDefaults(defineProps<StageTeamsProps>(), {
 
 const tournamentStore = useTournamentStore();
 const stageStore = useStageStore();
+const seedingDraw = useSeedingDraw();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
@@ -86,6 +103,7 @@ const form = ref<StageSeedingForm>({
 
 function onOpenModal() {
   teamSearchInput.value?.reset();
+  seedingDraw.reset();
   isSidePanelOpen.value = false;
 
   if (props.stage.type === StageType.GROUP) {
