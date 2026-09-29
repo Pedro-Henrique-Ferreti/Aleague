@@ -13,7 +13,7 @@
       >
         <IconCircleCheck
           v-if="index < activePotIndex"
-          class="size-[1em]"
+          class="size-[1em] animate-fade"
         />
         {{ getDrawPotName(index) }}
       </div>

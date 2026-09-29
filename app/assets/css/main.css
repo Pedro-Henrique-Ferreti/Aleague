@@ -1,5 +1,6 @@
 @import "./_reset.css";
 @import "./_tooltip.css";
+@import "./_animation.css";
 @import "tailwindcss";
 
 @plugin "daisyui" {
@@ -33,6 +34,9 @@
 
   /* Colors */
   --color-gray-1: #faf9fa;
+
+  /* Animations */
+  --animate-fade: fade var(--default-transition-duration) var(--default-transition-timing-function);
 }
 
 @utility container-* {
