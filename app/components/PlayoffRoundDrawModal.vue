@@ -13,6 +13,11 @@
       v-model="seedingDraw.pots.value"
       :draw-participants="seedingDraw.participants.value"
     />
+    <DrawProcedure
+      v-else-if="seedingDraw.isStepActive.value.PROCEDURE"
+      :draw-pots="seedingDraw.pots.value"
+      @previous-step="seedingDraw.previousStep"
+    />
   </AppModal>
 </template>
 
