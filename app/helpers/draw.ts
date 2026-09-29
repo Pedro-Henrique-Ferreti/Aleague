@@ -4,3 +4,7 @@ export function newDrawPot(): DrawPot {
     participants: [],
   };
 }
+
+export function getDrawPotName(potIndex: number): string {
+  return `Pote ${potIndex + 1}`;
+}

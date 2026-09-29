@@ -25,7 +25,7 @@
     <TeamGroupCard
       v-for="pot, index in drawPots"
       :key="pot.id"
-      :title="`Pote ${index + 1}`"
+      :title="getDrawPotName(index)"
     >
       <template #badge-icon>
         <CloseButton
@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import { IconPlus } from '@tabler/icons-vue';
-import { newDrawPot } from '~/helpers/draw';
+import { getDrawPotName, newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
