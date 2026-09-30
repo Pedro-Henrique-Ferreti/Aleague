@@ -1,8 +1,15 @@
 import { newDrawPot } from '~/helpers/draw';
+import { getTeamSeedingGroups } from '~/helpers/stage-seeding';
 
-export function useSeedingDraw(drawParticipants: Ref<DrawParticipant[]>) {
+export function useSeedingDraw(
+  drawParticipants: Ref<DrawParticipant[]>,
+  seedingGroupsSource: Parameters<typeof getTeamSeedingGroups>[0],
+) {
   const pots = ref([newDrawPot()]);
   const step = ref<DrawStep>(DrawStep.POTS);
+  const procedureForm = ref<DrawProcedureForm>({
+    groups: [],
+  });
 
   const isStepActive = computed<Record<keyof typeof DrawStep, boolean>>(() => ({
     POTS: step.value === DrawStep.POTS,
@@ -27,11 +34,15 @@ export function useSeedingDraw(drawParticipants: Ref<DrawParticipant[]>) {
     if (step.value === DrawStep.POTS && !isPotsStepCompleted.value) return;
 
     step.value = DrawStep.PROCEDURE;
+    procedureForm.value = {
+      groups: getTeamSeedingGroups(seedingGroupsSource, true),
+    };
   }
 
   return {
     pots,
     participants: drawParticipants,
+    procedureForm,
     isStepActive,
     isPotsStepCompleted,
     reset,

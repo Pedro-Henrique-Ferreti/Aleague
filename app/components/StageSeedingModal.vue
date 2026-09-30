@@ -107,7 +107,7 @@ const submitButtonDisabled = computed(() => (
   && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
 ));
 
-const seedingDraw = useSeedingDraw(selectedTeams);
+const seedingDraw = useSeedingDraw(selectedTeams, props.stage);
 
 function onOpenModal() {
   teamSearchInput.value?.reset();

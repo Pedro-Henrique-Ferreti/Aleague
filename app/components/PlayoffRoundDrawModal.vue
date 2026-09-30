@@ -15,6 +15,7 @@
     />
     <DrawProcedure
       v-else-if="seedingDraw.isStepActive.value.PROCEDURE"
+      v-model:form="seedingDraw.procedureForm.value"
       :draw-pots="seedingDraw.pots.value"
       @previous-step="seedingDraw.previousStep"
     />
@@ -27,6 +28,7 @@ const round = defineModel<PlayoffRound>('round', { required: true });
 
 const seedingDraw = useSeedingDraw(
   computed(() => round.value.slots.flatMap(s => [s.legs[0].homeTeam.id, s.legs[0].awayTeam.id]).filter(team => team !== null)),
+  round.value,
 );
 
 const submitButtonDisabled = computed(() => {

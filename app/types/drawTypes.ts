@@ -9,3 +9,7 @@ export interface DrawPot {
   id: number;
   participants: DrawParticipant[];
 }
+
+export interface DrawProcedureForm {
+  groups: TeamSeedingGroup[];
+}

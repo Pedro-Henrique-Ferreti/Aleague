@@ -11,6 +11,7 @@
     :draw-pots="drawPots"
     :active-pot-index="activePotIndex"
   />
+  <DrawProcedureSeedingGroups :groups="form.groups" />
 </template>
 
 <script lang="ts" setup>
@@ -23,6 +24,8 @@ defineProps<{
 defineEmits<{
   previousStep: [];
 }>();
+
+const form = defineModel<DrawProcedureForm>('form', { required: true });
 
 const activePotIndex = ref(0);
 </script>
