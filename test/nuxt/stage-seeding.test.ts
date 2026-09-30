@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { newPlayoffRoundSlot } from '~/helpers/playoff-slot';
 import { newGroupStage, newPlayoffStage } from '~/helpers/stage';
 import { getTeamSeedingGroups } from '~/helpers/stage-seeding';
 
@@ -29,7 +30,7 @@ describe('stage-seeding', () => {
       });
     });
 
-    it('should get seeding groups from a playoff round', () => {
+    it('should get seeding groups from the first round of a playoff stage', () => {
       const stage = newPlayoffStage({
         name: 'Playoffs',
         type: StageType.PLAYOFF,
@@ -45,13 +46,25 @@ describe('stage-seeding', () => {
         type: StageType.PLAYOFF,
       });
 
-      const groups = getTeamSeedingGroups(stage.rounds[0]);
+      const groups = getTeamSeedingGroups(stage);
 
       expect(groups).toHaveLength(4);
 
       groups.forEach((group) => {
         expect(group.teams).toHaveLength(2);
       });
+    });
+
+    it('should get seeding groups from a playoff round', () => {
+      const groups = getTeamSeedingGroups({
+        id: 'round-1',
+        name: 'Round 1',
+        order: 1,
+        slots: [newPlayoffRoundSlot(0)],
+      } satisfies PlayoffRound);
+
+      expect(groups).toHaveLength(1);
+      expect(groups[0]?.teams).toHaveLength(2);
     });
   });
 });
