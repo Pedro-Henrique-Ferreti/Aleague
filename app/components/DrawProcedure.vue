@@ -7,15 +7,27 @@
       @click="seedingDraw.previousStep"
     />
   </div>
-  <DrawProcedureHeader
-    :draw-pots="seedingDraw.pots.value"
-    :active-pot-index="seedingDraw.activePotIndex.value"
+  <BreadcrumbList class="flex justify-center pt-0">
+    <DrawProcedurePotBadge
+      v-for="pot, index in seedingDraw.pots.value"
+      :key="pot.id"
+      :index="index"
+      :type="index === seedingDraw.activePotIndex.value ? 'active' : index < seedingDraw.activePotIndex.value ? 'completed' : undefined"
+    />
+  </BreadcrumbList>
+  <TeamGroupCard>
+    <TeamDetails
+      v-for="team in seedingDraw.pots.value[seedingDraw.activePotIndex.value]?.participants"
+      :key="team"
+      :team="getTeamById(team)!"
   />
+  </TeamGroupCard>
   <DrawProcedureSeedingGroups :groups="seedingDraw.procedureForm.value.groups" />
 </template>
 
 <script lang="ts" setup>
 import { IconArrowNarrowLeft } from '@tabler/icons-vue';
+import { getTeamById } from '~/helpers/team';
 
 defineProps<{
   seedingDraw: ReturnType<typeof useSeedingDraw>;
