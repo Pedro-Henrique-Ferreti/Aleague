@@ -7,6 +7,7 @@ export function useSeedingDraw(
 ) {
   const pots = ref([newDrawPot()]);
   const step = ref<DrawStep>(DrawStep.POTS);
+  const activePotIndex = ref(0);
   const procedureForm = ref<DrawProcedureForm>({
     groups: [],
   });
@@ -26,6 +27,13 @@ export function useSeedingDraw(
     step.value = DrawStep.POTS;
   }
 
+  function resetProcedureStep() {
+    activePotIndex.value = 0;
+    procedureForm.value = {
+      groups: getTeamSeedingGroups(seedingGroupsSource, true),
+    };
+  }
+
   function previousStep() {
     step.value = DrawStep.POTS;
   }
@@ -34,15 +42,14 @@ export function useSeedingDraw(
     if (step.value === DrawStep.POTS && !isPotsStepCompleted.value) return;
 
     step.value = DrawStep.PROCEDURE;
-    procedureForm.value = {
-      groups: getTeamSeedingGroups(seedingGroupsSource, true),
-    };
+    resetProcedureStep();
   }
 
   return {
     pots,
     participants: drawParticipants,
     procedureForm,
+    activePotIndex,
     isStepActive,
     isPotsStepCompleted,
     reset,

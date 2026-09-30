@@ -4,28 +4,20 @@
       class="btn-ghost px-0.5"
       label="Voltar"
       :icon-left="IconArrowNarrowLeft"
-      @click="$emit('previousStep')"
+      @click="seedingDraw.previousStep"
     />
   </div>
   <DrawProcedureHeader
-    :draw-pots="drawPots"
-    :active-pot-index="activePotIndex"
+    :draw-pots="seedingDraw.pots.value"
+    :active-pot-index="seedingDraw.activePotIndex.value"
   />
-  <DrawProcedureSeedingGroups :groups="form.groups" />
+  <DrawProcedureSeedingGroups :groups="seedingDraw.procedureForm.value.groups" />
 </template>
 
 <script lang="ts" setup>
 import { IconArrowNarrowLeft } from '@tabler/icons-vue';
 
 defineProps<{
-  drawPots: DrawPot[];
+  seedingDraw: ReturnType<typeof useSeedingDraw>;
 }>();
-
-defineEmits<{
-  previousStep: [];
-}>();
-
-const form = defineModel<DrawProcedureForm>('form', { required: true });
-
-const activePotIndex = ref(0);
 </script>

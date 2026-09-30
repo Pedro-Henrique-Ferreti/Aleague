@@ -15,9 +15,7 @@
     />
     <DrawProcedure
       v-else-if="seedingDraw.isStepActive.value.PROCEDURE"
-      v-model:form="seedingDraw.procedureForm.value"
-      :draw-pots="seedingDraw.pots.value"
-      @previous-step="seedingDraw.previousStep"
+      :seeding-draw="seedingDraw"
     />
   </AppModal>
 </template>
