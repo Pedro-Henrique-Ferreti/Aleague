@@ -9,7 +9,6 @@
         v-for="team, index in group.teams"
         :key="index"
         :team-id="team"
-        @remove="group.teams[index] = null"
       />
     </TeamGroupCard>
   </div>

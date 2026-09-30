@@ -12,6 +12,7 @@
         :show-country="tournamentStore.activeTournament?.showCountry"
       />
       <CloseButton
+        v-if="showClearButton"
         class="btn-xs ml-auto"
         aria-label="Remover equipe"
         @click="$emit('remove')"
@@ -26,6 +27,7 @@ import { getTeamById } from '@/helpers/team';
 const props = defineProps<{
   teamId?: Team['id'] | null;
   team?: TeamDetails;
+  showClearButton?: boolean;
 }>();
 
 defineEmits<{ remove: [] }>();

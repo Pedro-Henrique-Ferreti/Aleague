@@ -38,6 +38,7 @@
       <TeamSlot
         v-for="(team, teamIndex) in pot.participants"
         :key="team"
+        show-clear-button
         :team="getTeamById(team)"
         @remove="pot.participants.splice(teamIndex, 1)"
       />

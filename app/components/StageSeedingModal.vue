@@ -61,6 +61,7 @@
               <TeamSlot
                 v-for="team, index in group.teams"
                 :key="index"
+                show-clear-button
                 :team-id="team"
                 @remove="group.teams[index] = null"
               />
