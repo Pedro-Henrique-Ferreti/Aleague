@@ -11,10 +11,7 @@
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
     </template>
-    <template
-      v-if="isSidePanelOpen"
-      #side-panel
-    >
+    <template #side-panel>
       <StandingsPanel
         :selected-teams="selectedTeams"
         :initial-tournament-id="tournamentStore.activeTournamentId"
@@ -113,7 +110,6 @@ const seedingDraw = useSeedingDraw(selectedTeams, props.stage);
 function onOpenModal() {
   teamSearchInput.value?.reset();
   seedingDraw.reset();
-  isSidePanelOpen.value = false;
   form.value = newStageSeedingForm(props.stage);
 }
 

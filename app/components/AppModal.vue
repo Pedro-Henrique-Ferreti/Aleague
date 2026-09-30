@@ -14,7 +14,10 @@
       class="modal-box"
       :data-size="size"
     >
-      <div class="modal-main">
+      <div
+        class="modal-main"
+        :data-open="isSidePanelOpen || null"
+      >
         <div class="modal-content">
           <CloseButton
             v-if="showCloseIcon"
@@ -53,6 +56,7 @@
       <div
         v-if="$slots['side-panel']"
         class="modal-side-panel"
+        :data-open="isSidePanelOpen || null"
       >
         <div class="relative">
           <div class="absolute right-0">
@@ -138,21 +142,31 @@ watch(isOpen, () => {
   @apply text-left p-(--spacing-screen-padding);
 }
 .modal-box {
-  @apply max-h-full p-0 flex data-[size=lg]:max-w-48 data-[size=xl]:max-w-80;
+  @apply max-h-full p-0 flex data-[size=lg]:max-w-48 data-[size=xl]:max-w-80 overflow-x-hidden;
 
   &[data-size="fullscreen"] {
     @apply w-full h-full max-w-[unset];
   }
 }
 .modal-main {
-  @apply flex flex-col h-full bg-inherit relative grow;
+  @apply flex flex-col w-full h-full bg-inherit relative grow transition-[width] duration-500 ease-in-out transition-discrete;
+  @apply [interpolate-size:allow-keywords] data-open:w-auto;
 }
 .modal-content {
   @apply flex-1 p-(--_p);
 }
 .modal-side-panel {
-  @apply p-(--_p) border-l border-base-200 overflow-y-auto sticky top-0 [scrollbar-gutter:stable] [scrollbar-width:none];
+  @apply hidden opacity-0 translate-x-1/3 p-(--_p) border-l border-base-200 overflow-y-auto sticky top-0 duration-500 ease-in-out;
+  @apply [scrollbar-gutter:stable] [scrollbar-width:none] transition-discrete transition-[display,opacity,translate];
+
+  &[data-open] {
+    @apply block opacity-100 translate-x-0;
+    @starting-style {
+      @apply opacity-0 translate-x-1/3;
+    }
+  }
 }
+
 .modal-action {
   @apply px-(--_p) pb-(--_p) sticky bottom-0 bg-inherit mt-auto;
 }
