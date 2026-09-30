@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { newGroupStage, newPlayoffStage } from '~/helpers/stage';
-import { newStageSeedingForm } from '~/helpers/stage-seeding';
+import { getTeamSeedingGroups } from '~/helpers/stage-seeding';
 
 describe('stage-seeding', () => {
-  describe('newStageSeedingForm', () => {
-    it('should create a new form from a group stage', () => {
+  describe('getTeamSeedingGroups', () => {
+    it('should get seeding groups from a group stage', () => {
       const stage = newGroupStage({
         name: 'Group Stage',
         type: StageType.GROUP,
@@ -20,12 +20,16 @@ describe('stage-seeding', () => {
         type: StageType.GROUP,
       });
 
-      const form = newStageSeedingForm(stage);
+      const groups = getTeamSeedingGroups(stage);
 
-      expect(form.groups).toHaveLength(2);
+      expect(groups).toHaveLength(2);
+
+      groups.forEach((group) => {
+        expect(group.teams).toHaveLength(4);
+      });
     });
 
-    it('should create a new form from a playoff stage', () => {
+    it('should get seeding groups from a playoff round', () => {
       const stage = newPlayoffStage({
         name: 'Playoffs',
         type: StageType.PLAYOFF,
@@ -41,9 +45,13 @@ describe('stage-seeding', () => {
         type: StageType.PLAYOFF,
       });
 
-      const form = newStageSeedingForm(stage);
+      const groups = getTeamSeedingGroups(stage.rounds[0]);
 
-      expect(form.groups).toHaveLength(4);
+      expect(groups).toHaveLength(4);
+
+      groups.forEach((group) => {
+        expect(group.teams).toHaveLength(2);
+      });
     });
   });
 });

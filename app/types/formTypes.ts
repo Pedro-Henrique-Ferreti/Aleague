@@ -7,11 +7,3 @@ export interface StageForm extends Pick<BaseStage, 'name' | 'type'> {
   playoffRounds: number;
   groupNameFormat: GroupStageNameFormat;
 }
-
-export interface StageSeedingForm {
-  groups: {
-    order: number;
-    name: string;
-    teams: StandingsEntry['team'][];
-  }[];
-}
