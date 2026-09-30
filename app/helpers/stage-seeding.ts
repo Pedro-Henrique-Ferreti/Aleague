@@ -1,11 +1,11 @@
 import { getGroupName } from './group-stage';
 
-export function getTeamSeedingGroups(stageOrRound: TournamentStage | PlayoffRound): TeamSeedingGroup[] {
+export function getTeamSeedingGroups(stageOrRound: TournamentStage | PlayoffRound, resetSeeding?: boolean): TeamSeedingGroup[] {
   if ('groups' in stageOrRound) {
     return stageOrRound.groups.map(group => ({
       order: group.order,
       name: getGroupName(group.order, stageOrRound.nameFormat),
-      teams: group.standings.map(entry => entry.team),
+      teams: group.standings.map(entry => resetSeeding ? null : entry.team),
     }));
   }
 
@@ -14,7 +14,7 @@ export function getTeamSeedingGroups(stageOrRound: TournamentStage | PlayoffRoun
   return round.slots.map(({ legs: [match] }, index) => ({
     name: `Partida ${index + 1}`,
     order: index + 1,
-    teams: [match.homeTeam.id, match.awayTeam.id],
+    teams: resetSeeding ? [null, null] : [match.homeTeam.id, match.awayTeam.id],
   }));
 }
 

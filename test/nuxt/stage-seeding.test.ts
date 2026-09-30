@@ -66,5 +66,39 @@ describe('stage-seeding', () => {
       expect(groups).toHaveLength(1);
       expect(groups[0]?.teams).toHaveLength(2);
     });
+
+    it('should get seeded groups when resetSeeding is false', () => {
+      const round: PlayoffRound = {
+        id: 'round-1',
+        name: 'Round 1',
+        order: 1,
+        slots: [newPlayoffRoundSlot(0)],
+      };
+
+      round.slots[0]!.legs[0].homeTeam.id = 'home-id';
+      round.slots[0]!.legs[0].awayTeam.id = 'away-id';
+
+      const groups = getTeamSeedingGroups(round);
+
+      expect(groups).toHaveLength(1);
+      expect(groups[0]?.teams).toEqual(['home-id', 'away-id']);
+    });
+
+    it('should get reset seeding groups when resetSeeding is true', () => {
+      const round: PlayoffRound = {
+        id: 'round-1',
+        name: 'Round 1',
+        order: 1,
+        slots: [newPlayoffRoundSlot(0)],
+      };
+
+      round.slots[0]!.legs[0].homeTeam.id = 'home-id';
+      round.slots[0]!.legs[0].awayTeam.id = 'away-id';
+
+      const groups = getTeamSeedingGroups(round, true);
+
+      expect(groups).toHaveLength(1);
+      expect(groups[0]?.teams).toEqual([null, null]);
+    });
   });
 });
