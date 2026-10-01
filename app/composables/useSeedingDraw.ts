@@ -49,6 +49,14 @@ export function useSeedingDraw(
     return Object.values(potStatus.value).every(status => status === DrawPotStatus.COMPLETED);
   });
 
+  const activeTeamSeedingGroup = computed(() => {
+    if (isProcedureStepCompleted.value) return undefined;
+
+    return Object.values(procedureForm.value.groups).reduce((shortest, current) => {
+      return countTeams(current.teams) < countTeams(shortest.teams) ? current : shortest;
+    });
+  });
+
   function reset() {
     pots.value = [newDrawPot()];
     step.value = DrawStep.POTS;
@@ -74,21 +82,19 @@ export function useSeedingDraw(
   }
 
   function drawTeam() {
-    if (!isStepActive.value.PROCEDURE || !activePot.value) return;
+    if (!isStepActive.value.PROCEDURE || !activePot.value || !activeTeamSeedingGroup.value) return;
 
     const team = getRandomItem(remainingActivePotTeams.value);
 
     if (!team) return;
 
-    const group = Object.values(procedureForm.value.groups).reduce((shortest, current) => {
-      return countTeams(current.teams) < countTeams(shortest.teams) ? current : shortest;
-    });
+    const { order, teams } = activeTeamSeedingGroup.value;
 
-    const firstEmptyIndex = group.teams.findIndex(t => !t);
+    const firstEmptyIndex = teams.findIndex(t => !t);
 
-    if (firstEmptyIndex === -1 || !procedureForm.value.groups[group.order]) return;
+    if (firstEmptyIndex === -1 || !procedureForm.value.groups[order]) return;
 
-    procedureForm.value.groups[group.order]!.teams[firstEmptyIndex] = team;
+    procedureForm.value.groups[order]!.teams[firstEmptyIndex] = team;
   }
 
   return {
@@ -101,6 +107,7 @@ export function useSeedingDraw(
     drewTeams,
     activePot,
     potStatus,
+    activeTeamSeedingGroup,
     reset,
     previousStep,
     nextStep,

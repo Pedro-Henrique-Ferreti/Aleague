@@ -33,7 +33,10 @@
       :team="getTeamById(team)!"
     />
   </TeamGroupCard>
-  <DrawProcedureSeedingGroups :groups="seedingDraw.procedureForm.value.groups" />
+  <DrawProcedureSeedingGroups
+    :groups="seedingDraw.procedureForm.value.groups"
+    :active-team-seeding-group="seedingDraw.activeTeamSeedingGroup"
+  />
 </template>
 
 <script lang="ts" setup>
