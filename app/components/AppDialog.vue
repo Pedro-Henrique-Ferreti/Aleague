@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { IconAlertTriangle } from '@tabler/icons-vue';
 
-interface AppDialogProps {
+export interface AppDialogProps {
   title?: string;
   message?: string;
   type?: 'delete';

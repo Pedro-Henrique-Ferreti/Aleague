@@ -41,13 +41,13 @@
     message="Você tem certeza que deseja excluir todas as rodadas? Essa ação não poderá ser desfeita."
     @confirm="onDeleteMatchweeks"
   />
-  <AppDialog
+  <SimulateMatchesDialog
     v-model:is-open="showSimulateSingleModal"
     title="Simular rodada"
     message="Você deseja simular os resultados desta rodada? Resultados já existentes serão apagados."
     @confirm="onSimulateMatchweek"
   />
-  <AppDialog
+  <SimulateMatchesDialog
     v-model:is-open="showSimulateAllModal"
     title="Simular rodadas"
     message="Você deseja simular os resultados para todas as rodadas? Resultados já existentes serão apagados."

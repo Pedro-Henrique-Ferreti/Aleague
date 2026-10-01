@@ -15,7 +15,7 @@
     <AppMenuItem
       label="Simular partidas"
       :icon="IconPlayerPlay"
-      @click="showSimulateMatchesModal = true"
+      @click="showSimulateMatchesDialog = true"
     />
     <AppMenuItem
       label="Reiniciar partidas"
@@ -37,8 +37,8 @@
     v-model:is-open="showRenameModal"
     v-model:round="round"
   />
-  <AppDialog
-    v-model:is-open="showSimulateMatchesModal"
+  <SimulateMatchesDialog
+    v-model:is-open="showSimulateMatchesDialog"
     title="Simular partidas"
     message="Você deseja simular os resultados das partidas? Resultados já existentes serão apagados."
     @confirm="onSimulateMatches"
@@ -64,7 +64,7 @@ import { addSecondLegToSlot, simulatePlayoffRoundSlotScore } from '~/helpers/pla
 const round = defineModel<PlayoffRound>({ required: true });
 
 const showRenameModal = ref(false);
-const showSimulateMatchesModal = ref(false);
+const showSimulateMatchesDialog = ref(false);
 const showResetMatchesModal = ref(false);
 const showPlayoffRoundDrawModal = ref(false);
 
@@ -73,7 +73,7 @@ function onSimulateMatches() {
     simulatePlayoffRoundSlotScore(slot);
   }
 
-  showSimulateMatchesModal.value = false;
+  showSimulateMatchesDialog.value = false;
 }
 
 function onResetMatches() {
