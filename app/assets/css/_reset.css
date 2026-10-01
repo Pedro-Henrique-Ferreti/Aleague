@@ -13,6 +13,8 @@
   @media (min-width: 1800px) {
     --container-base-size: 1.15;
   }
+
+  interpolate-size: allow-keywords;
 }
 
 body {
