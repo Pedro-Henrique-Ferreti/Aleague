@@ -14,10 +14,7 @@
       class="modal-box"
       :data-size="size"
     >
-      <div
-        class="modal-main"
-        :data-open="isSidePanelOpen || null"
-      >
+      <div class="modal-main">
         <div class="modal-content">
           <CloseButton
             v-if="showCloseIcon"
@@ -156,14 +153,13 @@ watch(isOpen, () => {
   }
 }
 .modal-main {
-  @apply flex flex-col w-full h-full bg-inherit relative grow transition-[width] duration-500 ease-in-out transition-discrete;
-  @apply [interpolate-size:allow-keywords] data-open:w-auto;
+  @apply flex flex-col h-full bg-inherit relative grow;
 }
 .modal-content {
   @apply flex-1 p-(--_p);
 }
 .modal-side-panel {
-  @apply hidden opacity-0 translate-x-1/3 p-(--_p) border-l border-base-200 overflow-y-auto sticky top-0 duration-500 ease-in-out;
+  @apply hidden opacity-0 translate-x-1/3 shrink-0 p-(--_p) border-l border-base-200 overflow-y-auto sticky top-0 duration-500 ease-in-out;
   @apply [scrollbar-gutter:stable] [scrollbar-width:none] transition-discrete transition-[display,opacity,translate];
 
   &[data-open] {
@@ -173,7 +169,6 @@ watch(isOpen, () => {
     }
   }
 }
-
 .modal-action {
   @apply px-(--_p) pb-(--_p) sticky bottom-0 bg-inherit mt-auto;
 }
