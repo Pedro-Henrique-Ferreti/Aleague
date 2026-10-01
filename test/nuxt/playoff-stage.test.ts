@@ -139,12 +139,36 @@ describe('playoff-stage', () => {
       );
       addSecondLegToSlot(playoffStage.rounds[1]!.slots[0]!);
 
-      playoffStage.rounds[0]!.slots[0]!.legs[0].homeTeam.id = 'team-a';
-
-      moveTeamToNextRound(playoffStage, { winner: 'team-a', slotIndex: 0, roundIndex: 0 });
+      moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: null, slotIndex: 0, roundIndex: 0 });
 
       expect(playoffStage.rounds[1]!.slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(playoffStage.rounds[1]!.slots[0]!.legs[1]!.awayTeam.id).toBe('team-a');
+    });
+
+    it('should search and replace a team in the next round', () => {
+      const playoffStage = newPlayoffStage(
+        {
+          name: 'Test Stage',
+          groups: 0,
+          groupNameFormat: GroupStageNameFormat.NUMBER,
+          playoffRounds: 2,
+          teams: 4,
+          teamsPerGroup: 0,
+          type: StageType.PLAYOFF,
+        },
+        {
+          id: 1,
+          name: 'Test Stage',
+          sequence: 1,
+          type: StageType.PLAYOFF,
+        },
+      );
+
+      playoffStage.rounds[1]!.slots[0]!.legs[0].awayTeam.id = 'team-b';
+
+      moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: 'team-b', slotIndex: 0, roundIndex: 0 });
+
+      expect(playoffStage.rounds[1]!.slots[0]!.legs[0].awayTeam.id).toBe('team-a');
     });
   });
 });

@@ -29,9 +29,9 @@ export function getPlayoffStageWinner(stage: PlayoffStage): TournamentWinner {
 
 export function moveTeamToNextRound(
   stage: PlayoffStage,
-  params: { winner: PlayoffRoundSlotWinner; slotIndex: number; roundIndex: number },
+  params: { newWinner: PlayoffRoundSlotWinner; oldWinner: PlayoffRoundSlotWinner; slotIndex: number; roundIndex: number },
 ) {
-  const { winner, slotIndex, roundIndex } = params;
+  const { newWinner, oldWinner, slotIndex, roundIndex } = params;
 
   const nextRound = stage.rounds[roundIndex + 1];
 
@@ -41,19 +41,19 @@ export function moveTeamToNextRound(
 
   if (!slot) return;
 
-  const isFirstMatchHomeTeam = slotIndex % 2 === 0;
+  const isFirstMatchHomeTeam = slot.legs[0].homeTeam.id === oldWinner;
 
   if (isFirstMatchHomeTeam) {
-    slot.legs[0].homeTeam.id = winner;
+    slot.legs[0].homeTeam.id = newWinner;
   } else {
-    slot.legs[0].awayTeam.id = winner;
+    slot.legs[0].awayTeam.id = newWinner;
   }
 
   if (slot.legs[1]) {
     if (isFirstMatchHomeTeam) {
-      slot.legs[1].awayTeam.id = winner;
+      slot.legs[1].awayTeam.id = newWinner;
     } else {
-      slot.legs[1].homeTeam.id = winner;
+      slot.legs[1].homeTeam.id = newWinner;
     }
   }
 }

@@ -22,7 +22,7 @@ import { useResizeObserver } from '@vueuse/core';
 import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-slot';
 import { moveTeamToNextRound } from '~/helpers/playoff-stage';
 
-type SlotResult = Parameters<typeof moveTeamToNextRound>[1];
+type SlotResult = Omit<Parameters<typeof moveTeamToNextRound>[1], 'oldWinner'>;
 
 const props = defineProps<{
   activeRoundId: PlayoffRound['id'];
@@ -62,14 +62,17 @@ const slotResults = computed<SlotResult[]>(() => {
   return stage.value.rounds.flatMap((r, roundIndex) => r.slots.flatMap((slot, slotIndex) => ({
     roundIndex,
     slotIndex,
-    winner: getPlayoffRoundSlotWinner(slot),
+    newWinner: getPlayoffRoundSlotWinner(slot),
   })));
 });
 
 watch(slotResults, (newResults, oldResults) => {
   newResults.forEach((result, index) => {
-    if (result.winner !== oldResults[index]?.winner) {
-      moveTeamToNextRound(stage.value, result);
+    if (result.newWinner !== oldResults[index]?.newWinner) {
+      moveTeamToNextRound(stage.value, {
+        ...result,
+        oldWinner: oldResults[index]?.newWinner ?? null,
+      });
     }
   });
 });
