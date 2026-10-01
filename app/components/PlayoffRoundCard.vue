@@ -18,13 +18,19 @@
         @update:fixture-two-home-score="slot.legs[1] ? slot.legs[1].homeTeam.score = $event as Match['homeTeam']['score'] : null"
         @update:fixture-two-away-score="slot.legs[1] ? slot.legs[1].awayTeam.score = $event as Match['awayTeam']['score'] : null"
       />
-      <ul class="dropdown-content menu bg-base-100 w-14 rounded-box z-1 shadow-sm">
-        <AppMenuItem
-          v-if="isMatchSeeded(slot.legs[0])"
-          :label="`Simular partida${slot.legs.length > 1 ? 's' : ''}`"
-          :icon="IconPlayerPlay"
-          @click="simulatePlayoffRoundSlotScore(slot)"
-        />
+      <ul class="dropdown-content menu bg-base-100 w-15 rounded-box z-1 shadow-sm">
+        <template v-if="isMatchSeeded(slot.legs[0])">
+          <AppMenuItem
+            :label="`Simular partida${slot.legs.length > 1 ? 's' : ''}`"
+            :icon="IconPlayerPlay"
+            @click="simulatePlayoffRoundSlotScore(slot)"
+          />
+          <AppMenuItem
+            label="Inverter mando de campo"
+            :icon="IconArrowsUpDown"
+            @click="reverseSlotHomeField(slot)"
+          />
+        </template>
         <PlayoffSlotMenuLegOption
           :legs-count="slot.legs.length"
           @add-second-leg="addSecondLegToSlot(slot)"
@@ -36,10 +42,10 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPlayerPlay } from '@tabler/icons-vue';
+import { IconArrowsUpDown, IconPlayerPlay } from '@tabler/icons-vue';
 import { isMatchSeeded, isMatchUnseeded } from '~/helpers/match';
 import { resetMatchScore } from '~/helpers/match-score';
-import { addSecondLegToSlot, getPlayoffRoundSlotWinner, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+import { addSecondLegToSlot, getPlayoffRoundSlotWinner, reverseSlotHomeField, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 export interface PlayoffRoundCardProps {
   dropdownPosition?: 'right' | 'left';

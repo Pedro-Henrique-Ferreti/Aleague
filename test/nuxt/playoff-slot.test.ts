@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newMatch } from '~/helpers/match';
-import { addSecondLegToSlot, getPlayoffRoundSlotWinner, newPlayoffRoundSlot, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+import { addSecondLegToSlot, getPlayoffRoundSlotWinner, newPlayoffRoundSlot, reverseSlotHomeField, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 describe('playoff-slot', () => {
   describe('newPlayoffRoundSlot', () => {
@@ -180,6 +180,22 @@ describe('playoff-slot', () => {
       addSecondLegToSlot(slot);
 
       expect(slot.legs.length).toBe(2);
+    });
+  });
+
+  describe('reverseSlotHomeField', () => {
+    it('should reverse the home and away teams for all legs in the slot', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      addSecondLegToSlot(slot);
+
+      reverseSlotHomeField(slot);
+
+      expect(slot.legs[0].homeTeam.id).toBe('away-id');
+      expect(slot.legs[0].awayTeam.id).toBe('home-id');
+      expect(slot.legs[1]?.homeTeam.id).toBe('home-id');
+      expect(slot.legs[1]?.awayTeam.id).toBe('away-id');
     });
   });
 });

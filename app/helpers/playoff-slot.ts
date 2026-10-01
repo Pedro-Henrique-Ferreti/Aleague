@@ -40,3 +40,9 @@ export function addSecondLegToSlot(slot: PlayoffRoundSlot) {
     slot.legs.push(newMatch(slot.legs[0].awayTeam.id, slot.legs[0].homeTeam.id));
   }
 }
+
+export function reverseSlotHomeField(slot: PlayoffRoundSlot) {
+  for (const match of slot.legs) {
+    [match.homeTeam, match.awayTeam] = [match.awayTeam, match.homeTeam];
+  }
+}
