@@ -123,19 +123,32 @@ function closeModal() {
   isOpen.value = false;
 }
 
-function onModalOpen() {
+function handleModalOpen() {
   dialogRef.value?.showModal();
   emit('open');
 }
 
-function onModalClose() {
+function handleModalClose() {
   dialogRef.value?.close();
   emit('close');
 }
 
 watch(isOpen, () => {
-  isOpen.value ? onModalOpen() : onModalClose();
+  isOpen.value ? handleModalOpen() : handleModalClose();
 }, { immediate: true });
+
+// HMR desync fix: when the parent component hot-reloads, the native <dialog>
+// element's `open` property can become out of sync with the `isOpen` model.
+// If the model says the modal should be open but the dialog is closed,
+// re-call showModal() to resynchronize the DOM with the model state.
+if (import.meta.hot) {
+  import.meta.hot.on('vite:afterUpdate', async () => {
+    await nextTick();
+    if (isOpen.value && dialogRef.value && !dialogRef.value.open) {
+      dialogRef.value?.showModal();
+    }
+  });
+}
 </script>
 
 <style scoped>
@@ -153,7 +166,7 @@ watch(isOpen, () => {
   }
 }
 .modal-main {
-  @apply flex flex-col h-full bg-inherit relative grow;
+  @apply flex flex-col w-full h-full bg-inherit relative grow;
 }
 .modal-content {
   @apply flex-1 p-(--_p);
