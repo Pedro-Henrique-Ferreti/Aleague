@@ -39,3 +39,7 @@ export function createArray<T = number>(length: number, valueOrFunction?: T | ((
 export function randomizeArray<T>(array: T[]) {
   return array.toSorted(() => Math.random() - 0.5);
 }
+
+export function getRandomItem<T>(array: T[]) {
+  return array[Math.floor(Math.random() * array.length)];
+}

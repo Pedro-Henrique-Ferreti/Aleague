@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clone, createArray, formatDate, normalizeString } from '../../app/utils';
+import { clone, createArray, formatDate, getRandomItem, normalizeString } from '../../app/utils';
 
 describe('utils', () => {
   describe('formatDate', () => {
@@ -43,6 +43,15 @@ describe('utils', () => {
     it('should call the function if provided and pass the current loop index to it', () => {
       const array = createArray(3, index => index + 3);
       expect(array).toEqual([3, 4, 5]);
+    });
+  });
+
+  describe('getRandomItem', () => {
+    it('should return a random item from the array', () => {
+      const array = [1, 2, 3, 4, 5];
+      for (let i = 0; i < 100; i++) {
+        expect(array.includes(getRandomItem(array))).toBe(true);
+      }
     });
   });
 });
