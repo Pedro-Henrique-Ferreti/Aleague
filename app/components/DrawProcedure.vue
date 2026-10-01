@@ -19,6 +19,7 @@
     <TeamDetails
       v-for="team in seedingDraw.pots.value[seedingDraw.activePotIndex.value]?.participants"
       :key="team"
+      class="animate-fade"
       :team="getTeamById(team)!"
   />
   </TeamGroupCard>

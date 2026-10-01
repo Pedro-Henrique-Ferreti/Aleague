@@ -3,6 +3,7 @@
     <template #trigger="{ popovertarget, style }">
       <BaseButton
         class="btn btn-ghost border border-dashed border-base-200 hover:border-transparent font-normal justify-start"
+        :class="$attrs.class"
         :popovertarget
         :style
         :disabled

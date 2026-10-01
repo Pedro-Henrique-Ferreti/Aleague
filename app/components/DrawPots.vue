@@ -5,6 +5,7 @@
   >
     <DrawPotsParticipant
       v-for="team in drawParticipants"
+      class="animate-fade"
       :key="team"
       :participant="team"
       :pots-count="drawPots.length"

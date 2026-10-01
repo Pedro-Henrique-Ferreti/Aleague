@@ -8,12 +8,13 @@
     </span>
     <template v-else>
       <TeamDetails
+        class="animate-fade"
         :team="teamDetails"
         :show-country="tournamentStore.activeTournament?.showCountry"
       />
       <CloseButton
         v-if="showClearButton"
-        class="btn-xs ml-auto"
+        class="btn-xs ml-auto animate-fade"
         aria-label="Remover equipe"
         @click="$emit('remove')"
       />

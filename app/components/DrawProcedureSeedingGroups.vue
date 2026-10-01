@@ -7,6 +7,7 @@
     >
       <TeamSlot
         v-for="team, index in group.teams"
+        class="animate-fade"
         :key="index"
         :team-id="team"
       />
