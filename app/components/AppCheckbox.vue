@@ -12,7 +12,7 @@
       v-model="model"
       :id="id"
       type="checkbox"
-      class="checkbox checkbox-secondary checkbox-sm"
+      class="checkbox checkbox-neutral checkbox-sm"
       :value="value"
       :disabled="disabled"
     >
