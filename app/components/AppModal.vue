@@ -30,7 +30,11 @@
             v-text="title"
             class="text-lg font-semibold mb-1"
           />
-          <slot />
+          <slot
+            :side-panel-id="sidePanelId"
+            :is-side-panel-open="isSidePanelOpen"
+            :toggle-side-panel="() => isSidePanelOpen = !isSidePanelOpen"
+          />
         </div>
         <div
           v-if="showActions"
@@ -55,6 +59,7 @@
       </div>
       <div
         v-if="$slots['side-panel']"
+        :id="sidePanelId"
         class="modal-side-panel"
         :data-open="isSidePanelOpen || null"
       >
@@ -67,6 +72,7 @@
               <AppButton
                 class="btn-square btn-ghost btn-sm"
                 aria-label="Fechar painel"
+                :aria-controls="sidePanelId"
                 :icon-left="IconArrowBarToRight"
                 @click="isSidePanelOpen = false"
               />
@@ -104,6 +110,7 @@ const emit = defineEmits<{
 }>();
 
 const id = useId();
+const sidePanelId = useId();
 
 const isOpen = defineModel<boolean>('is-open');
 

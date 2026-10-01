@@ -1,7 +1,6 @@
 <template>
   <AppModal
     v-model:is-open="modalIsOpen"
-    v-model:is-side-panel-open="isSidePanelOpen"
     title="Editar equipes"
     size="fullscreen"
     :submit-button-disabled="submitButtonDisabled"
@@ -18,6 +17,7 @@
         @select-team="onSelectTeam"
       />
     </template>
+    <template #default="slotProps">
     <div class="flex-1 @container/groups">
       <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
         <TeamSearchInput
@@ -34,8 +34,10 @@
           <StageSeedingShuffleButton v-model="form.groups" />
           <StageSeedingResetButton v-model="form.groups" />
           <StageSeedingOpenPanelButton
-            v-if="!isSidePanelOpen"
-            @click="isSidePanelOpen = true"
+              v-show="!slotProps.isSidePanelOpen"
+              :aria-controls="slotProps.sidePanelId"
+              :aria-expanded="slotProps.isSidePanelOpen"
+              @click="slotProps.toggleSidePanel"
           />
         </div>
       </div>
@@ -71,6 +73,7 @@
         </template>
       </AppTablist>
     </div>
+    </template>
   </AppModal>
 </template>
 
@@ -93,7 +96,6 @@ const modalIsOpen = defineModel<boolean>('is-open');
 
 const teamSearchInput = useTemplateRef('team-search');
 
-const isSidePanelOpen = ref(false);
 const form = ref(newStageSeedingForm());
 
 const selectedTeams = computed(() => (
