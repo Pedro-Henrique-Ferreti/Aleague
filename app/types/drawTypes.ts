@@ -3,6 +3,12 @@ export enum DrawStep {
   PROCEDURE,
 }
 
+export enum DrawPotStatus {
+  IDLE,
+  ACTIVE,
+  COMPLETED,
+}
+
 export type DrawParticipant = TeamDetails['id'];
 
 export interface DrawPot {
@@ -11,5 +17,5 @@ export interface DrawPot {
 }
 
 export interface DrawProcedureForm {
-  groups: TeamSeedingGroup[];
+  groups: Record<TeamSeedingGroup['order'], TeamSeedingGroup>;
 }

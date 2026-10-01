@@ -6,28 +6,38 @@
       :icon-left="IconArrowNarrowLeft"
       @click="seedingDraw.previousStep"
     />
+    <div>
+      <AppButton
+        class="btn-secondary btn-soft"
+        label="Sortear"
+        :disabled="seedingDraw.isProcedureStepCompleted.value"
+        :icon-left="IconPlayerPlay"
+        @click="seedingDraw.drawTeam"
+      />
+    </div>
   </div>
   <BreadcrumbList class="flex justify-center pt-0">
     <DrawProcedurePotBadge
       v-for="pot, index in seedingDraw.pots.value"
       :key="pot.id"
       :index="index"
-      :type="index === seedingDraw.activePotIndex.value ? 'active' : index < seedingDraw.activePotIndex.value ? 'completed' : undefined"
+      :status="seedingDraw.potStatus.value[pot.id]"
     />
   </BreadcrumbList>
   <TeamGroupCard>
     <TeamDetails
-      v-for="team in seedingDraw.pots.value[seedingDraw.activePotIndex.value]?.participants"
+      v-for="team in seedingDraw.activePot.value?.participants"
       :key="team"
       class="animate-fade"
+      :class="{ hidden: seedingDraw.drewTeams.value.includes(team) }"
       :team="getTeamById(team)!"
-  />
+    />
   </TeamGroupCard>
   <DrawProcedureSeedingGroups :groups="seedingDraw.procedureForm.value.groups" />
 </template>
 
 <script lang="ts" setup>
-import { IconArrowNarrowLeft } from '@tabler/icons-vue';
+import { IconArrowNarrowLeft, IconPlayerPlay } from '@tabler/icons-vue';
 import { getTeamById } from '~/helpers/team';
 
 defineProps<{

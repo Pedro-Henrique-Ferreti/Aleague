@@ -6,7 +6,7 @@
     :submit-button-label="seedingDraw.isStepActive.value.POTS ? 'Próximo' : 'Concluir'"
     :submit-button-disabled="submitButtonDisabled"
     @open="seedingDraw.reset"
-    @submit="seedingDraw.nextStep"
+    @submit="handleSubmit"
   >
     <DrawPots
       v-if="seedingDraw.isStepActive.value.POTS"
@@ -30,7 +30,17 @@ const seedingDraw = useSeedingDraw(
 );
 
 const submitButtonDisabled = computed(() => {
-  if (seedingDraw.isStepActive.value.POTS) return !seedingDraw.isPotsStepCompleted.value;
-  return false;
+  if (seedingDraw.isStepActive.value.POTS) {
+    return !seedingDraw.isPotsStepCompleted.value;
+  }
+  return !seedingDraw.isProcedureStepCompleted.value;
 });
+
+function handleSubmit() {
+  if (seedingDraw.isStepActive.value.POTS) {
+    seedingDraw.nextStep();
+  } else {
+    modalIsOpen.value = false;
+  }
+}
 </script>

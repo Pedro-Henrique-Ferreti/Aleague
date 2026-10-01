@@ -3,12 +3,12 @@
     <div
       class="badge badge-md transition-colors min-w-5.75"
       :class="{
-        'badge-secondary badge-outline': type === 'active',
-        'badge-success badge-soft': type === 'completed',
+        'badge-secondary badge-outline': status === DrawPotStatus.ACTIVE,
+        'badge-success badge-soft': status === DrawPotStatus.COMPLETED,
       }"
     >
       <IconCircleCheck
-        v-if="type === 'completed'"
+        v-if="status === DrawPotStatus.COMPLETED"
         class="size-[1em] animate-fade"
       />
       {{ getDrawPotName(index) }}
@@ -21,7 +21,7 @@ import { IconCircleCheck } from '@tabler/icons-vue';
 import { getDrawPotName } from '~/helpers/draw';
 
 defineProps<{
-  type?: 'active' | 'completed';
   index: number;
+  status?: DrawPotStatus;
 }>();
 </script>
