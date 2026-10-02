@@ -123,7 +123,7 @@ describe('playoff-slot', () => {
   });
 
   describe('simulatePlayoffRoundSlotScore', () => {
-    it('should not change the slot when a leg is not seeded', () => {
+    it('should not change the slot when it is not seeded', () => {
       const slot = newPlayoffRoundSlot(0);
 
       simulatePlayoffRoundSlotScore(slot);
@@ -155,6 +155,20 @@ describe('playoff-slot', () => {
       simulatePlayoffRoundSlotScore(slot);
 
       expect(getPlayoffRoundSlotWinner(slot)).toBeTruthy();
+    });
+
+    it('should not change a decided slot when preserveIfDecided is true', () => {
+      const slot = newPlayoffRoundSlot(0);
+
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      slot.legs[0].homeTeam.score = 1;
+      slot.legs[0].awayTeam.score = 0;
+
+      simulatePlayoffRoundSlotScore(slot, true);
+
+      expect(slot.legs[0].homeTeam.score).toBe(1);
+      expect(slot.legs[0].awayTeam.score).toBe(0);
     });
   });
 

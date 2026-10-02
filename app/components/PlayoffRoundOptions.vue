@@ -39,8 +39,9 @@
   />
   <SimulateMatchesDialog
     v-model:is-open="showSimulateMatchesDialog"
+    v-model:preserve-score="preserveDecidedSlots"
     title="Simular partidas"
-    message="Você deseja simular os resultados das partidas? Resultados já existentes serão apagados."
+    message="Você deseja simular os resultados de todas as partidas?"
     @confirm="onSimulateMatches"
   />
   <AppDialog
@@ -68,9 +69,11 @@ const showSimulateMatchesDialog = ref(false);
 const showResetMatchesModal = ref(false);
 const showPlayoffRoundDrawModal = ref(false);
 
+const preserveDecidedSlots = ref(false);
+
 function onSimulateMatches() {
   for (const slot of round.value.slots) {
-    simulatePlayoffRoundSlotScore(slot);
+    simulatePlayoffRoundSlotScore(slot, preserveDecidedSlots.value);
   }
 
   showSimulateMatchesDialog.value = false;

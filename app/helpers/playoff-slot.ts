@@ -22,8 +22,13 @@ export function getPlayoffRoundSlotWinner(slot: PlayoffRoundSlot): PlayoffRoundS
   return null;
 }
 
-export function simulatePlayoffRoundSlotScore(slot: PlayoffRoundSlot) {
-  if (slot.legs.some(match => !isMatchSeeded(match))) return;
+export function simulatePlayoffRoundSlotScore(slot: PlayoffRoundSlot, preserveIfDecided?: boolean) {
+  if (
+    slot.legs.some(match => !isMatchSeeded(match))
+    || (preserveIfDecided && getPlayoffRoundSlotWinner(slot) !== null)
+  ) {
+    return;
+  }
 
   do {
     for (const match of slot.legs) {
