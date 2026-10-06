@@ -1,5 +1,6 @@
+import { replaceGroupStageTeams } from '~/helpers/group-stage-teams';
 import { resetMatchScore } from '~/helpers/match-score';
-import { updateGroupStageTeams, updatePlayoffStageTeams } from '~/helpers/stage-teams';
+import { replacePlayoffRoundTeams } from '~/helpers/playoff-teams';
 import { newStandingsEntry } from '~/helpers/standings';
 
 export const useStageStore = defineStore('stage', () => {
@@ -54,9 +55,9 @@ export const useStageStore = defineStore('stage', () => {
     if (!activeStage.value) return;
 
     if (activeStage.value.type === StageType.PLAYOFF) {
-      activeStage.value = updatePlayoffStageTeams(activeStage.value, form);
+      replacePlayoffRoundTeams(activeStage.value, form);
     } else {
-      activeStage.value = updateGroupStageTeams(activeStage.value, form);
+      activeStage.value = replaceGroupStageTeams(activeStage.value, form);
     }
   }
 
