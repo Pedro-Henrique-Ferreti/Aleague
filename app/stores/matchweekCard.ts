@@ -32,10 +32,15 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
   });
 
-  async function simulateSelectedMatchweek() {
+  async function simulateSelectedMatchweek(preserveCompletedMatches?: boolean) {
     if (!selectedMatchweek.value) return;
 
     for (const match of selectedMatchweek.value.matches) {
+      if (preserveCompletedMatches && isMatchComplete(match)) {
+        matchesToSimulateCount.value.simulated += 1;
+        continue;
+      }
+
       await new Promise((resolve) => {
         const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
         match.homeTeam.score = home;
@@ -47,7 +52,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     }
   }
 
-  async function simulateMatchweek() {
+  async function simulateMatchweek(preserveCompletedMatches?: boolean) {
     isSimulatingResults.value = true;
 
     matchesToSimulateCount.value = {
@@ -55,7 +60,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
       simulated: 0,
     };
 
-    await simulateSelectedMatchweek();
+    await simulateSelectedMatchweek(preserveCompletedMatches);
 
     isSimulatingResults.value = false;
   }

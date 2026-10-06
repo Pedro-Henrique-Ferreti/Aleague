@@ -43,8 +43,9 @@
   />
   <SimulateMatchesDialog
     v-model:is-open="showSimulateSingleModal"
+    v-model:preserve-score="preserveCompletedMatches"
     title="Simular rodada"
-    message="Você deseja simular os resultados desta rodada? Resultados já existentes serão apagados."
+    message="Você deseja simular os resultados desta rodada?"
     @confirm="onSimulateMatchweek"
   />
   <SimulateMatchesDialog
@@ -72,6 +73,7 @@ const showDeleteMatchweeksDialog = ref(false);
 const showSimulateSingleModal = ref(false);
 const showSimulateAllModal = ref(false);
 const showResetMatchweeksModal = ref(false);
+const preserveCompletedMatches = ref(false);
 
 function onDeleteMatchweeks() {
   stageStore.deleteGroupStageMatchweeks();
@@ -80,7 +82,7 @@ function onDeleteMatchweeks() {
 
 function onSimulateMatchweek() {
   showSimulateSingleModal.value = false;
-  matchweekCardStore.simulateMatchweek();
+  matchweekCardStore.simulateMatchweek(preserveCompletedMatches.value);
 }
 
 function onSimulateAllMatchweeks() {
