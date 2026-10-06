@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { isMatchComplete } from '~/helpers/match';
-import { simulateMatchScore } from '~/helpers/match-simulation';
-import { getActiveMatchweekNumber } from '~/helpers/matchweek';
+import { getActiveMatchweekNumber, simulateMatchweek } from '~/helpers/matchweek';
 
 export const useMatchweekCardStore = defineStore('matchweekCard', () => {
   const stageStore = useStageStore();
@@ -32,27 +31,16 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     selectedWeekNumber.value = getActiveMatchweekNumber(stageStore.activeGroupStage?.matchweeks ?? []);
   });
 
-  async function simulateSelectedMatchweek(preserveCompletedMatches?: boolean) {
-    if (!selectedMatchweek.value) return;
-
-    for (const match of selectedMatchweek.value.matches) {
-      if (preserveCompletedMatches && isMatchComplete(match)) {
-        matchesToSimulateCount.value.simulated += 1;
-        continue;
-      }
-
-      await new Promise((resolve) => {
-        const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
-        match.homeTeam.score = home;
-        match.awayTeam.score = away;
-        matchesToSimulateCount.value.simulated += 1;
-
-        setTimeout(resolve);
+  function runSelectedMatchweekSimulation(preserveCompletedMatches?: boolean) {
+    if (selectedMatchweek.value) {
+      return simulateMatchweek(selectedMatchweek.value, {
+        preserveCompletedMatches,
+        onMatchSimulated: () => matchesToSimulateCount.value.simulated += 1,
       });
     }
   }
 
-  async function simulateMatchweek(preserveCompletedMatches?: boolean) {
+  async function simulateSelectedMatchweek(preserveCompletedMatches?: boolean) {
     isSimulatingResults.value = true;
 
     matchesToSimulateCount.value = {
@@ -60,7 +48,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
       simulated: 0,
     };
 
-    await simulateSelectedMatchweek(preserveCompletedMatches);
+    await runSelectedMatchweekSimulation(preserveCompletedMatches);
 
     isSimulatingResults.value = false;
   }
@@ -83,7 +71,8 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     let remainingWeeks = stageStore.activeGroupStage?.matchweeks.length ?? 0;
 
     while (remainingWeeks > 0) {
-      await simulateSelectedMatchweek();
+      await runSelectedMatchweekSimulation();
+
       selectedWeekNumber.value = Math.min(selectedWeekNumber.value + 1, lastWeekNumber);
       remainingWeeks -= 1;
       await nextTick();
@@ -110,7 +99,7 @@ export const useMatchweekCardStore = defineStore('matchweekCard', () => {
     isSimulatingResults,
     isResettingMatchweeks,
     matchesToSimulateCount,
-    simulateMatchweek,
+    simulateSelectedMatchweek,
     simulateAllMatchweeks,
     resetAllMatchweeks,
   };

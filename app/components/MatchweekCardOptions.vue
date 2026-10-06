@@ -82,7 +82,7 @@ function onDeleteMatchweeks() {
 
 function onSimulateMatchweek() {
   showSimulateSingleModal.value = false;
-  matchweekCardStore.simulateMatchweek(preserveCompletedMatches.value);
+  matchweekCardStore.simulateSelectedMatchweek(preserveCompletedMatches.value);
 }
 
 function onSimulateAllMatchweeks() {
@@ -99,7 +99,7 @@ function onSimulateMatchweekClick() {
   if (matchweekCardStore.matchweekIsDirty) {
     showSimulateSingleModal.value = true;
   } else {
-    matchweekCardStore.simulateMatchweek();
+    matchweekCardStore.simulateSelectedMatchweek();
   }
 }
 </script>

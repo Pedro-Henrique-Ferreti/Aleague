@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { getActiveMatchweekNumber, getExpectedMatchesPerWeek, getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin } from '~/helpers/matchweek';
+import { describe, expect, it, vi } from 'vitest';
+import { getActiveMatchweekNumber, getExpectedMatchesPerWeek, getExpectedMatchweeksPerRoundRobin, getMaxPossibleMatchweeksPerRoundRobin, simulateMatchweek } from '~/helpers/matchweek';
 
 describe('matchweek', () => {
   describe('getExpectedMatchesPerWeek', () => {
@@ -55,6 +55,57 @@ describe('matchweek', () => {
 
     it('should return 1 when matchweeks array is empty', () => {
       expect(getActiveMatchweekNumber([])).toBe(1);
+    });
+  });
+
+  describe('simulateMatchweek', () => {
+    it('should simulate all matches in a matchweek', async () => {
+      const matchweek: Matchweek = {
+        week: 1,
+        matches: [
+          { id: 'm1', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null },
+          { id: 'm2', homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
+        ],
+      };
+
+      await simulateMatchweek(matchweek);
+
+      expect(matchweek.matches[0]?.homeTeam.score).not.toBeNull();
+      expect(matchweek.matches[0]?.awayTeam.score).not.toBeNull();
+      expect(matchweek.matches[1]?.homeTeam.score).not.toBeNull();
+      expect(matchweek.matches[1]?.awayTeam.score).not.toBeNull();
+    });
+
+    it('should preserve completed matches when preserveCompletedMatches is true', async () => {
+      const matchweek: Matchweek = {
+        week: 1,
+        matches: [
+          { id: 'm1', homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null },
+          { id: 'm2', homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
+        ],
+      };
+
+      await simulateMatchweek(matchweek, { preserveCompletedMatches: true });
+
+      expect(matchweek.matches[0]?.homeTeam.score).toBe(1);
+      expect(matchweek.matches[0]?.awayTeam.score).toBe(0);
+      expect(matchweek.matches[1]?.homeTeam.score).not.toBeNull();
+      expect(matchweek.matches[1]?.awayTeam.score).not.toBeNull();
+    });
+
+    it('should call onMatchSimulated callback for each match', async () => {
+      const matchweek: Matchweek = {
+        week: 1,
+        matches: [
+          { id: 'm1', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null },
+          { id: 'm2', homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
+        ],
+      };
+      const onMatchSimulated = vi.fn();
+
+      await simulateMatchweek(matchweek, { onMatchSimulated });
+
+      expect(onMatchSimulated).toHaveBeenCalledTimes(2);
     });
   });
 });

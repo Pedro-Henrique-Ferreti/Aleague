@@ -1,4 +1,5 @@
 import { isMatchComplete } from './match';
+import { simulateMatchScore } from './match-simulation';
 
 export function getExpectedMatchesPerWeek(teamsCount: number): number {
   if (teamsCount < 2 || teamsCount % 2 !== 0) {
@@ -26,4 +27,25 @@ export function getActiveMatchweekNumber(matchweeks: Matchweek[]): Matchweek['we
   const lastWeek = matchweeks[matchweeks.length - 1]?.week;
 
   return firstIncompleteWeek || (lastWeek ?? 1);
+}
+
+export async function simulateMatchweek(
+  matchweek: Matchweek,
+  options?: { preserveCompletedMatches?: boolean; onMatchSimulated?: () => void },
+) {
+  for (const match of matchweek.matches) {
+    if (options?.preserveCompletedMatches && isMatchComplete(match)) {
+      options?.onMatchSimulated?.();
+      continue;
+    }
+
+    await new Promise((resolve) => {
+      const { home, away } = simulateMatchScore(match.homeTeam.id, match.awayTeam.id);
+      match.homeTeam.score = home;
+      match.awayTeam.score = away;
+      options?.onMatchSimulated?.();
+
+      setTimeout(resolve);
+    });
+  }
 }
