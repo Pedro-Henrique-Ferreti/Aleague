@@ -21,14 +21,12 @@ const groups = defineModel<StageSeedingForm['groups']>({ required: true });
 function fillSlots() {
   const options = Object.assign([], props.teamOptions ?? []) as TeamDetails[];
 
-  groups.value.forEach((group, index) => {
-    group.teams.forEach((slot, slotIndex) => {
+  for (const group of groups.value) {
+    group.teams.forEach((slot, index) => {
       if (slot !== null || options.length === 0) return;
 
-      const [team] = options.splice(Math.floor(Math.random() * options.length), 1);
-
-      groups.value[index]!.teams[slotIndex] = team?.id || null;
+      group.teams[index] = getRandomItem(options)?.id ?? null;
     });
-  });
+  }
 }
 </script>
