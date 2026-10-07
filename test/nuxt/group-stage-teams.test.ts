@@ -11,6 +11,7 @@ function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
       name: '',
       order: index + 1,
       teams,
+      slotId: null,
     })),
   };
 }

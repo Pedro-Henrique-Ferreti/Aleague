@@ -6,15 +6,17 @@ export function getTeamSeedingGroups(stageOrRound: TournamentStage | PlayoffRoun
       order: group.order,
       name: getGroupName(group.order, stageOrRound.nameFormat),
       teams: group.standings.map(entry => resetSeeding ? null : entry.team),
+      slotId: null,
     }));
   }
 
   const round = 'rounds' in stageOrRound ? stageOrRound.rounds[0] : stageOrRound;
 
-  return round.slots.map(({ legs: [match] }, index) => ({
+  return round.slots.map((slot, index) => ({
     name: `Partida ${index + 1}`,
     order: index + 1,
-    teams: resetSeeding ? [null, null] : [match.homeTeam.id, match.awayTeam.id],
+    teams: resetSeeding ? [null, null] : [slot.legs[0].homeTeam.id, slot.legs[0].awayTeam.id],
+    slotId: slot.id,
   }));
 }
 

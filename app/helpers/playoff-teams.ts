@@ -1,11 +1,17 @@
-export function replacePlayoffRoundTeams(stage: PlayoffStage, form: StageSeedingForm) {
-  form.groups.forEach((group, index) => {
-    const [home, away] = group.teams as [Team['id'], Team['id']];
-    const { legs } = stage.rounds[0].slots[index]!;
+export function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeedingForm) {
+  for (const slot of round.slots) {
+    const group = form.groups.find(g => g.slotId === slot.id);
 
-    legs.forEach((_, index) => {
-      legs[index]!.homeTeam.id = (index % 2 === 0) ? home : away;
-      legs[index]!.awayTeam.id = (index % 2 === 0) ? away : home;
-    });
-  });
+    if (!group) return;
+
+    const [homeTeam, awayTeam] = group.teams;
+
+    slot.legs[0].homeTeam.id = homeTeam ?? null;
+    slot.legs[0].awayTeam.id = awayTeam ?? null;
+
+    if (slot.legs[1]) {
+      slot.legs[1].homeTeam.id = awayTeam ?? null;
+      slot.legs[1].awayTeam.id = homeTeam ?? null;
+    }
+  }
 }

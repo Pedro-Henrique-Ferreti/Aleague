@@ -9,6 +9,7 @@ function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
       name: '',
       order: index + 1,
       teams,
+      slotId: null,
     })),
   };
 }
@@ -26,7 +27,7 @@ describe('playoff-teams', () => {
         teamsPerGroup: 0,
       }) as PlayoffStage;
 
-      replacePlayoffRoundTeams(playoffStage, mockStageSeedingForm(['team-a', 'team-b'], ['team-c', 'team-d']));
+      replacePlayoffRoundTeams(playoffStage.rounds[0], mockStageSeedingForm(['team-a', 'team-b'], ['team-c', 'team-d']));
 
       expect(playoffStage.rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(playoffStage.rounds[0].slots[0]!.legs[0].awayTeam.id).toBe('team-b');
@@ -52,7 +53,7 @@ describe('playoff-teams', () => {
         }],
       };
 
-      replacePlayoffRoundTeams(playoffStage, mockStageSeedingForm(['team-a', 'team-b']));
+      replacePlayoffRoundTeams(playoffStage.rounds[0], mockStageSeedingForm(['team-a', 'team-b']));
 
       expect(playoffStage.rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(playoffStage.rounds[0].slots[0]!.legs[0].awayTeam.id).toBe('team-b');
