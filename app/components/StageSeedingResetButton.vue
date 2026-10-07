@@ -15,10 +15,8 @@ import { IconTrash } from '@tabler/icons-vue';
 const groups = defineModel<StageSeedingForm['groups']>({ required: true });
 
 function resetSlots() {
-  groups.value.forEach((group, index) => {
-    group.teams.forEach((_, slotIndex) => {
-      groups.value[index]!.teams[slotIndex] = null;
-    });
-  });
+  for (const group of groups.value) {
+    group.teams = createArray(group.teams.length, null);
+  }
 }
 </script>
