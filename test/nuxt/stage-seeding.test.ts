@@ -25,9 +25,9 @@ describe('stage-seeding', () => {
 
       expect(groups).toHaveLength(2);
 
-      groups.forEach((group) => {
+      for (const group of groups) {
         expect(group.teams).toHaveLength(4);
-      });
+      }
     });
 
     it('should get seeding groups from the first round of a playoff stage', () => {
@@ -50,9 +50,9 @@ describe('stage-seeding', () => {
 
       expect(groups).toHaveLength(4);
 
-      groups.forEach((group) => {
+      for (const group of groups) {
         expect(group.teams).toHaveLength(2);
-      });
+      }
     });
 
     it('should get seeding groups from a playoff round', () => {
