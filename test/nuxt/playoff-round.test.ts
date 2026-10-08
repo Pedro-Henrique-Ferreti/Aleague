@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getNextRound, isPlayoffRoundSeeded, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
+import { getNextRound, isNextRound, isPlayoffRoundSeeded, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { addSecondLegToSlot } from '~/helpers/playoff-slot';
 import { newStageSeedingForm } from '~/helpers/stage-seeding';
 import { mockPlayoffStage } from './mocks';
@@ -24,6 +24,15 @@ describe('playoff-round', () => {
       } as PlayoffRound;
 
       expect(isPlayoffRoundSeeded(unseededRound)).toBe(false);
+    });
+  });
+
+  describe('isNextRound', () => {
+    it('should return true for the next round', () => {
+      const playoffStage = mockPlayoffStage();
+
+      expect(isNextRound(playoffStage.rounds[1]!, playoffStage.rounds[0])).toBe(true);
+      expect(isNextRound(playoffStage.rounds[0], playoffStage.rounds[1]!)).toBe(false);
     });
   });
 

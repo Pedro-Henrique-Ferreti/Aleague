@@ -5,6 +5,10 @@ export function isPlayoffRoundSeeded(round: PlayoffRound) {
   return round.slots.every(slot => slot.legs.every(isMatchSeeded));
 }
 
+export function isNextRound(roundA: PlayoffRound, roundB: PlayoffRound) {
+  return roundA.order - 1 === roundB.order;
+}
+
 export function getNextRound(stage: PlayoffStage, round: PlayoffRound) {
   return stage.rounds.find(r => r.order === round.order + 1);
 }
