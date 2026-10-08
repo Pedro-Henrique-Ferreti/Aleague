@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { newGroupStage } from '~/helpers/group-stage';
 import { newPlayoffRoundSlot } from '~/helpers/playoff-slot';
-import { newPlayoffStage } from '~/helpers/playoff-stage';
 import { getTeamSeedingGroups } from '~/helpers/stage-seeding';
+import { mockPlayoffStage } from './mocks';
 
 describe('stage-seeding', () => {
   describe('getTeamSeedingGroups', () => {
@@ -32,22 +32,12 @@ describe('stage-seeding', () => {
     });
 
     it('should get seeding groups from the first round of a playoff stage', () => {
-      const stage = newPlayoffStage({
-        name: 'Playoffs',
-        type: StageType.PLAYOFF,
-        groupNameFormat: GroupStageNameFormat.NUMBER,
+      const playoffStage = mockPlayoffStage({
         teams: 8,
-        teamsPerGroup: 0,
-        groups: 0,
         playoffRounds: 3,
-      }, {
-        id: 1,
-        name: 'Playoffs',
-        sequence: 1,
-        type: StageType.PLAYOFF,
       });
 
-      const groups = getTeamSeedingGroups(stage);
+      const groups = getTeamSeedingGroups(playoffStage);
 
       expect(groups).toHaveLength(4);
 

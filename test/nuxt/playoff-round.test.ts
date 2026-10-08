@@ -1,9 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { newMatch } from '~/helpers/match';
 import { getNextRound, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { addSecondLegToSlot } from '~/helpers/playoff-slot';
-import { newPlayoffStage } from '~/helpers/playoff-stage';
-import { newTournamentStage } from '~/helpers/tournament';
+import { mockPlayoffStage } from './mocks';
 
 function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
   return {
@@ -19,32 +17,14 @@ function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
 describe('playoff-round', () => {
   describe('getNextRound', () => {
     it('should return the next round in the stage', () => {
-      const playoffStage = newTournamentStage({
-        name: 'Playoffs',
-        type: StageType.PLAYOFF,
-        groupNameFormat: GroupStageNameFormat.NUMBER,
-        groups: 0,
-        playoffRounds: 2,
-        teams: 4,
-        teamsPerGroup: 0,
-      }) as PlayoffStage;
-
+      const playoffStage = mockPlayoffStage();
       const nextRound = getNextRound(playoffStage, playoffStage.rounds[0]);
 
       expect(nextRound).toBe(playoffStage.rounds[1]);
     });
 
     it('should return undefined when there is no next round in the stage', () => {
-      const playoffStage = newTournamentStage({
-        name: 'Playoffs',
-        type: StageType.PLAYOFF,
-        groupNameFormat: GroupStageNameFormat.NUMBER,
-        groups: 0,
-        playoffRounds: 2,
-        teams: 4,
-        teamsPerGroup: 0,
-      }) as PlayoffStage;
-
+      const playoffStage = mockPlayoffStage();
       const nextRound = getNextRound(playoffStage, playoffStage.rounds[1]!);
 
       expect(nextRound).toBeUndefined();
@@ -53,15 +33,7 @@ describe('playoff-round', () => {
 
   describe('replacePlayoffRoundTeams', () => {
     it('should assign teams to the first round slots', () => {
-      const playoffStage = newTournamentStage({
-        name: 'Playoffs',
-        type: StageType.PLAYOFF,
-        groupNameFormat: GroupStageNameFormat.NUMBER,
-        groups: 0,
-        playoffRounds: 2,
-        teams: 4,
-        teamsPerGroup: 0,
-      }) as PlayoffStage;
+      const playoffStage = mockPlayoffStage();
 
       replacePlayoffRoundTeams(playoffStage.rounds[0], mockStageSeedingForm(['team-a', 'team-b'], ['team-c', 'team-d']));
 
@@ -72,22 +44,9 @@ describe('playoff-round', () => {
     });
 
     it('should alternate home and away across legs', () => {
-      const playoffStage: PlayoffStage = {
-        id: 1,
-        name: 'Playoffs',
-        sequence: 1,
-        type: StageType.PLAYOFF,
-        rounds: [{
-          id: 'r1',
-          order: 0,
-          name: 'Semifinal',
-          slots: [{
-            id: 's1',
-            order: 0,
-            legs: [newMatch(), newMatch()],
-          }],
-        }],
-      };
+      const playoffStage = mockPlayoffStage();
+
+      addSecondLegToSlot(playoffStage.rounds[0].slots[0]!);
 
       replacePlayoffRoundTeams(playoffStage.rounds[0], mockStageSeedingForm(['team-a', 'team-b']));
 
@@ -100,24 +59,11 @@ describe('playoff-round', () => {
 
   describe('moveTeamToNextRound', () => {
     it('should move a team to the next round', () => {
-      const playoffStage = newPlayoffStage(
-        {
-          name: 'Test Stage',
-          groups: 0,
-          groupNameFormat: GroupStageNameFormat.NUMBER,
-          playoffRounds: 2,
-          teams: 4,
-          teamsPerGroup: 0,
-          type: StageType.PLAYOFF,
-        },
-        {
-          id: 1,
-          name: 'Test Stage',
-          sequence: 1,
-          type: StageType.PLAYOFF,
-        },
-      );
+      const playoffStage = mockPlayoffStage();
+
       addSecondLegToSlot(playoffStage.rounds[1]!.slots[0]!);
+
+      playoffStage.rounds[1]!.slots[0]!.legs[0].awayTeam.id = 'team-b';
 
       moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: null, slotIndex: 0, round: playoffStage.rounds[0] });
 
@@ -126,23 +72,7 @@ describe('playoff-round', () => {
     });
 
     it('should search and replace a team in the next round', () => {
-      const playoffStage = newPlayoffStage(
-        {
-          name: 'Test Stage',
-          groups: 0,
-          groupNameFormat: GroupStageNameFormat.NUMBER,
-          playoffRounds: 2,
-          teams: 4,
-          teamsPerGroup: 0,
-          type: StageType.PLAYOFF,
-        },
-        {
-          id: 1,
-          name: 'Test Stage',
-          sequence: 1,
-          type: StageType.PLAYOFF,
-        },
-      );
+      const playoffStage = mockPlayoffStage();
 
       playoffStage.rounds[1]!.slots[0]!.legs[0].awayTeam.id = 'team-b';
 
