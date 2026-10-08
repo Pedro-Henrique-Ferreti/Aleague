@@ -1,4 +1,9 @@
+import { isMatchSeeded } from './match';
 import { replaceSlotTeams } from './playoff-slot';
+
+export function isPlayoffRoundSeeded(round: PlayoffRound) {
+  return round.slots.every(slot => slot.legs.every(isMatchSeeded));
+}
 
 export function getNextRound(stage: PlayoffStage, round: PlayoffRound) {
   return stage.rounds.find(r => r.order === round.order + 1);

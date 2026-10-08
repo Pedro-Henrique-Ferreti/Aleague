@@ -1,4 +1,4 @@
-import { isMatchSeeded } from './match';
+import { isPlayoffRoundSeeded } from './playoff-round';
 import { getPlayoffRoundSlotWinner, newPlayoffRoundSlot } from './playoff-slot';
 import { getTeamById } from './team';
 
@@ -31,7 +31,7 @@ export function getPlayoffRoundNames(rounds: number, teams: number): string[] {
 }
 
 export function isPlayoffStageSeeded(rounds: PlayoffRound[]): boolean {
-  return rounds.every(round => round.slots.every(slot => slot.legs.every(isMatchSeeded)));
+  return rounds.every(isPlayoffRoundSeeded);
 }
 
 export function getPlayoffStageWinner(stage: PlayoffStage): TournamentWinner {

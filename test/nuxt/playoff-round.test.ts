@@ -1,10 +1,32 @@
 import { describe, expect, it } from 'vitest';
-import { getNextRound, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
+import { getNextRound, isPlayoffRoundSeeded, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { addSecondLegToSlot } from '~/helpers/playoff-slot';
 import { newStageSeedingForm } from '~/helpers/stage-seeding';
 import { mockPlayoffStage } from './mocks';
 
 describe('playoff-round', () => {
+  describe('isPlayoffRoundSeeded', () => {
+    it('should return true for a seeded round', () => {
+      const seededRound = {
+        slots: [{
+          legs: [{ homeTeam: { id: 'team-a', score: null }, awayTeam: { id: 'team-b', score: null } }] as PlayoffRoundSlot['legs'],
+        }] as PlayoffRoundSlot[],
+      } as PlayoffRound;
+
+      expect(isPlayoffRoundSeeded(seededRound)).toBe(true);
+    });
+
+    it('should return false for an unseeded round', () => {
+      const unseededRound = {
+        slots: [{
+          legs: [{ homeTeam: { id: null, score: null }, awayTeam: { id: null, score: null } }] as PlayoffRoundSlot['legs'],
+        }] as PlayoffRoundSlot[],
+      } as PlayoffRound;
+
+      expect(isPlayoffRoundSeeded(unseededRound)).toBe(false);
+    });
+  });
+
   describe('getNextRound', () => {
     it('should return the next round in the stage', () => {
       const playoffStage = mockPlayoffStage();
