@@ -22,7 +22,9 @@ import { useResizeObserver } from '@vueuse/core';
 import { moveTeamToNextRound } from '~/helpers/playoff-round';
 import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-slot';
 
-type SlotResult = Omit<Parameters<typeof moveTeamToNextRound>[1], 'oldWinner'>;
+type SlotResult = Pick<Parameters<typeof moveTeamToNextRound>[1], 'newWinner' | 'slotIndex'> & {
+  roundIndex: number;
+};
 
 const props = defineProps<{
   activeRoundId: PlayoffRound['id'];
@@ -58,23 +60,30 @@ const displayedRoundsId = computed(() => (
   stage.value.rounds.slice(activeRoundIndex.value, activeRoundIndex.value + displayedRoundsCount.value).map(i => i.id)
 ));
 
-const slotResults = computed<SlotResult[]>(() => {
-  return stage.value.rounds.flatMap(round => round.slots.flatMap((slot, slotIndex) => ({
-    round,
-    slotIndex,
-    newWinner: getPlayoffRoundSlotWinner(slot),
-  })));
+const slotResults = computed<Record<PlayoffRoundSlot['id'], SlotResult>>(() => {
+  return Object.fromEntries(
+    stage.value.rounds.flatMap((round, roundIndex) => round.slots.map((slot, slotIndex) => [
+      slot.id,
+      {
+        roundIndex,
+        slotIndex,
+        newWinner: getPlayoffRoundSlotWinner(slot),
+      },
+    ])),
+  );
 });
 
 watch(slotResults, (newResults, oldResults) => {
-  newResults.forEach((result, index) => {
-    if (result.newWinner !== oldResults[index]?.newWinner) {
+  for (const [key, result] of Object.entries(newResults)) {
+    if (result.newWinner !== oldResults[key]?.newWinner) {
       moveTeamToNextRound(stage.value, {
-        ...result,
-        oldWinner: oldResults[index]?.newWinner ?? null,
+        newWinner: result.newWinner,
+        slotIndex: result.slotIndex,
+        oldWinner: oldResults[key]?.newWinner ?? null,
+        round: stage.value.rounds[result.roundIndex]!,
       });
     }
-  });
+  }
 });
 
 function getRoundCardDropdownPosition(round: PlayoffRound): PlayoffRoundProps['cardDropdownPosition'] {
