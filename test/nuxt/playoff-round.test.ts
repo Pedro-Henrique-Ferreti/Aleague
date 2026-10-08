@@ -1,18 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { getNextRound, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { addSecondLegToSlot } from '~/helpers/playoff-slot';
+import { newStageSeedingForm } from '~/helpers/stage-seeding';
 import { mockPlayoffStage } from './mocks';
-
-function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
-  return {
-    groups: groupTeams.map((teams, index) => ({
-      name: '',
-      order: index + 1,
-      teams,
-      slotId: null,
-    })),
-  };
-}
 
 describe('playoff-round', () => {
   describe('getNextRound', () => {
@@ -34,8 +24,12 @@ describe('playoff-round', () => {
   describe('replacePlayoffRoundTeams', () => {
     it('should assign teams to the first round slots', () => {
       const playoffStage = mockPlayoffStage();
+      const seedingForm = newStageSeedingForm(playoffStage);
 
-      replacePlayoffRoundTeams(playoffStage.rounds[0], mockStageSeedingForm(['team-a', 'team-b'], ['team-c', 'team-d']));
+      seedingForm.groups[0]!.teams = ['team-a', 'team-b'];
+      seedingForm.groups[1]!.teams = ['team-c', 'team-d'];
+
+      replacePlayoffRoundTeams(playoffStage.rounds[0], seedingForm);
 
       expect(playoffStage.rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(playoffStage.rounds[0].slots[0]!.legs[0].awayTeam.id).toBe('team-b');
@@ -45,10 +39,13 @@ describe('playoff-round', () => {
 
     it('should alternate home and away across legs', () => {
       const playoffStage = mockPlayoffStage();
+      const seedingForm = newStageSeedingForm(playoffStage);
+
+      seedingForm.groups[0]!.teams = ['team-a', 'team-b'];
 
       addSecondLegToSlot(playoffStage.rounds[0].slots[0]!);
 
-      replacePlayoffRoundTeams(playoffStage.rounds[0], mockStageSeedingForm(['team-a', 'team-b']));
+      replacePlayoffRoundTeams(playoffStage.rounds[0], seedingForm);
 
       expect(playoffStage.rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(playoffStage.rounds[0].slots[0]!.legs[0].awayTeam.id).toBe('team-b');

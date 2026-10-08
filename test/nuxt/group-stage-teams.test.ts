@@ -2,19 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { newLegendDescription } from '~/helpers/group-stage';
 import { replaceGroupStageTeams } from '~/helpers/group-stage-teams';
 import { newMatch } from '~/helpers/match';
+import { newStageSeedingForm } from '~/helpers/stage-seeding';
 import { newStandingsEntry } from '~/helpers/standings';
 import { newTournamentStage } from '~/helpers/tournament';
-
-function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
-  return {
-    groups: groupTeams.map((teams, index) => ({
-      name: '',
-      order: index + 1,
-      teams,
-      slotId: null,
-    })),
-  };
-}
 
 describe('group-stage-teams', () => {
   describe('replaceGroupStageTeams', () => {
@@ -29,7 +19,11 @@ describe('group-stage-teams', () => {
         teamsPerGroup: 2,
       }) as GroupStage;
 
-      const result = replaceGroupStageTeams(groupStage, mockStageSeedingForm(['team-a', 'team-b']));
+      const seedingForm = newStageSeedingForm(groupStage);
+
+      seedingForm.groups[0]!.teams = ['team-a', 'team-b'];
+
+      const result = replaceGroupStageTeams(groupStage, seedingForm);
 
       expect(result.groups[0]!.standings[0]!.team).toBe('team-a');
       expect(result.groups[0]!.standings[1]!.team).toBe('team-b');
@@ -55,7 +49,11 @@ describe('group-stage-teams', () => {
         overallLegend: [],
       };
 
-      const result = replaceGroupStageTeams(groupStage, mockStageSeedingForm(['team-a', 'team-b']));
+      const seedingForm = newStageSeedingForm(groupStage);
+
+      seedingForm.groups[0]!.teams = ['team-a', 'team-b'];
+
+      const result = replaceGroupStageTeams(groupStage, seedingForm);
 
       expect(result.matchweeks[0]!.matches[0]!.homeTeam.id).toBe('team-a');
       expect(result.matchweeks[0]!.matches[0]!.awayTeam.id).toBe('team-b');
