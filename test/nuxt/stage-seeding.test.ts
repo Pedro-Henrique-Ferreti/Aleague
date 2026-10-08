@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { newGroupStage } from '~/helpers/group-stage';
 import { newPlayoffRoundSlot } from '~/helpers/playoff-slot';
-import { newGroupStage, newPlayoffStage } from '~/helpers/stage';
+import { newPlayoffStage } from '~/helpers/playoff-stage';
 import { getTeamSeedingGroups } from '~/helpers/stage-seeding';
 
 describe('stage-seeding', () => {

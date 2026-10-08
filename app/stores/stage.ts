@@ -1,6 +1,6 @@
 import { replaceGroupStageTeams } from '~/helpers/group-stage-teams';
 import { resetMatchScore } from '~/helpers/match-score';
-import { replacePlayoffRoundTeams } from '~/helpers/playoff-teams';
+import { replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { newStandingsEntry } from '~/helpers/standings';
 
 export const useStageStore = defineStore('stage', () => {

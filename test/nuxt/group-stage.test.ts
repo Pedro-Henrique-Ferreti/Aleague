@@ -1,9 +1,84 @@
 import { describe, expect, it } from 'vitest';
-import { getGroupName, getGroupStageWinner, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageComplete, isGroupStageSeeded } from '~/helpers/group-stage';
+import { getGroupName, getGroupStageWinner, getGroupTeamsAndAvoidGroups, getSameGroupTeamLists, isGroupStageComplete, isGroupStageSeeded, newGroupStage } from '~/helpers/group-stage';
 import { newMatch } from '~/helpers/match';
 import { newStandingsEntry } from '~/helpers/standings';
 
 describe('group-stage', () => {
+  describe('newGroupStage', () => {
+    it('should create correct number of groups', () => {
+      const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
+      const stageForm: StageForm = {
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 12,
+        teamsPerGroup: 4,
+        groups: 3,
+        playoffRounds: 0,
+      };
+
+      const result = newGroupStage(stageForm, baseStage);
+
+      expect(result.groups).toHaveLength(3);
+      expect(result.groups[0]?.order).toBe(1);
+      expect(result.groups[1]?.order).toBe(2);
+      expect(result.groups[2]?.order).toBe(3);
+    });
+
+    it('should create standings entries for each team per group', () => {
+      const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
+      const stageForm: StageForm = {
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 8,
+        teamsPerGroup: 4,
+        groups: 2,
+        playoffRounds: 0,
+      };
+
+      const result = newGroupStage(stageForm, baseStage);
+
+      expect(result.groups[0]?.standings).toHaveLength(4);
+      expect(result.groups[1]?.standings).toHaveLength(4);
+      result.groups.forEach(group => group.standings.forEach(entry => expect(entry.team).toBeNull()));
+    });
+
+    it('should include overallLegend when there are multiple groups', () => {
+      const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
+      const stageForm: StageForm = {
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 8,
+        teamsPerGroup: 4,
+        groups: 2,
+        playoffRounds: 0,
+      };
+
+      const result = newGroupStage(stageForm, baseStage);
+
+      expect(result.overallLegend).toHaveLength(8);
+    });
+
+    it('should omit overallLegend when there is a single group', () => {
+      const baseStage: BaseStage = { id: 1, name: 'Group Stage', sequence: 1, type: StageType.GROUP };
+      const stageForm: StageForm = {
+        name: 'Group Stage',
+        type: StageType.GROUP,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        teams: 4,
+        teamsPerGroup: 4,
+        groups: 1,
+        playoffRounds: 0,
+      };
+
+      const result = newGroupStage(stageForm, baseStage);
+
+      expect(result.overallLegend).toEqual([]);
+    });
+  });
+
   describe('getSameGroupTeamLists', () => {
     it('should return team lists for each group', () => {
       const groups = [

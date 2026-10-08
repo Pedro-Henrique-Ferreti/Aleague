@@ -1,6 +1,24 @@
 import { isMatchComplete } from './match';
-import { getTableEntry, sortTableEntries } from './standings';
+import { getTableEntry, newStandingsEntry, sortTableEntries } from './standings';
 import { getTeamById } from './team';
+
+export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): GroupStage {
+  return {
+    ...baseStage,
+    type: StageType.GROUP,
+    nameFormat: stageForm.groupNameFormat,
+    matchweeks: [],
+    groups: createArray(stageForm.groups, index => ({
+      order: index + 1,
+      legend: createArray(stageForm.teamsPerGroup, LegendColor.NONE),
+      standings: createArray(stageForm.teamsPerGroup, () => newStandingsEntry()),
+    })),
+    legendDescription: newLegendDescription(),
+    overallLegend: (
+      (stageForm.groups > 1) ? createArray(stageForm.teamsPerGroup * stageForm.groups, LegendColor.NONE) : []
+    ),
+  };
+}
 
 function getGroupTeams(group: GroupStageGroup) {
   return group.standings.map(i => i.team!);

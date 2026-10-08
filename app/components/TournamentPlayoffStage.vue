@@ -19,8 +19,8 @@
 <script lang="ts" setup>
 import type { PlayoffRoundProps } from './PlayoffRound.vue';
 import { useResizeObserver } from '@vueuse/core';
+import { moveTeamToNextRound } from '~/helpers/playoff-round';
 import { getPlayoffRoundSlotWinner } from '~/helpers/playoff-slot';
-import { moveTeamToNextRound } from '~/helpers/playoff-stage';
 
 type SlotResult = Omit<Parameters<typeof moveTeamToNextRound>[1], 'oldWinner'>;
 
