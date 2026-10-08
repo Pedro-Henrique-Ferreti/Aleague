@@ -13,8 +13,8 @@
     <div class="shrink-0">
       <slot name="icon">
         <component
-          :is="icon"
-          class="text-primary"
+          :is="alertIcon"
+          :class="{ 'text-primary': !type }"
         />
       </slot>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Icon, IconInfoCircle } from '@tabler/icons-vue';
+import { type Icon, IconAlertTriangle, IconInfoCircle } from '@tabler/icons-vue';
 
 interface AppAlertProps {
   icon?: Icon;
@@ -34,7 +34,11 @@ interface AppAlertProps {
   type?: 'success' | 'error' | 'warning' | 'info';
 }
 
-withDefaults(defineProps<AppAlertProps>(), {
-  icon: () => IconInfoCircle,
-});
+const props = defineProps<AppAlertProps>();
+
+const ALERT_ICONS: Partial<Record<NonNullable<AppAlertProps['type']>, Icon>> = {
+  warning: IconAlertTriangle,
+};
+
+const alertIcon = computed(() => props.icon ?? (props.type ? ALERT_ICONS[props.type] : IconInfoCircle));
 </script>
