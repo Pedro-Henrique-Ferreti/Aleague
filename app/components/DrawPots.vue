@@ -5,8 +5,8 @@
   >
     <DrawPotsParticipant
       v-for="team in drawParticipants"
-      class="animate-fade"
       :key="team"
+      class="animate-fade"
       :participant="team"
       :pots-count="drawPots.length"
       :disabled="isParticipantDisabled(team)"
@@ -18,7 +18,7 @@
       class="btn-sm"
       label="Adicionar pote"
       :icon-left="IconPlus"
-      :disabled="drawPots.length >= MAX_DRAW_POTS"
+      :disabled="disabled || drawPots.length >= MAX_DRAW_POTS"
       @click="drawPots.push(newDrawPot())"
     />
   </div>
@@ -54,6 +54,7 @@ import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   drawParticipants: DrawParticipant[];
+  disabled?: boolean;
 }>();
 
 const drawPots = defineModel<DrawPot[]>({ required: true });
@@ -65,6 +66,6 @@ watch(() => props.drawParticipants, (newParticipants) => {
 });
 
 function isParticipantDisabled(team: DrawParticipant) {
-  return drawPots.value.flatMap(d => d.participants).includes(team);
+  return props.disabled || drawPots.value.flatMap(d => d.participants).includes(team);
 }
 </script>

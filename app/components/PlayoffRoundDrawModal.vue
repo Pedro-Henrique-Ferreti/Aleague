@@ -8,10 +8,17 @@
     @open="seedingDraw.reset"
     @submit="handleSubmit"
   >
+    <AppAlert
+      v-if="!isRoundSeeded"
+      class="mb-2"
+      message="Esta rodada possui vagas em aberto. Preencha todas as vagas antes de realizar o sorteio."
+      type="warning"
+    />
     <DrawPots
       v-if="seedingDraw.isStepActive.value.POTS"
       v-model="seedingDraw.pots.value"
       :draw-participants="seedingDraw.participants.value"
+      :disabled="!isRoundSeeded"
     />
     <DrawProcedure
       v-else-if="seedingDraw.isStepActive.value.PROCEDURE"
@@ -21,24 +28,26 @@
 </template>
 
 <script lang="ts" setup>
-import { replacePlayoffRoundTeams } from '~/helpers/playoff-round';
+import { isPlayoffRoundSeeded, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 
 const stageStore = useStageStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 const round = defineModel<PlayoffRound>('round', { required: true });
 
-const seedingDraw = useSeedingDraw(
-  computed(() => round.value.slots.flatMap(s => [s.legs[0].homeTeam.id, s.legs[0].awayTeam.id]).filter(team => team !== null)),
-  round.value,
-);
+const isRoundSeeded = computed(() => isPlayoffRoundSeeded(round.value));
 
-const submitButtonDisabled = computed(() => {
-  if (seedingDraw.isStepActive.value.POTS) {
-    return !seedingDraw.isPotsStepCompleted.value;
-  }
-  return !seedingDraw.isProcedureStepCompleted.value;
+const roundTeams = computed(() => {
+  return round.value.slots.flatMap(s => [s.legs[0].homeTeam.id, s.legs[0].awayTeam.id]).filter(team => team !== null);
 });
+
+const seedingDraw = useSeedingDraw(roundTeams, round.value);
+
+const submitButtonDisabled = computed(() => (
+  !isRoundSeeded.value
+  || (seedingDraw.isStepActive.value.POTS && !seedingDraw.isPotsStepCompleted.value)
+  || (seedingDraw.isStepActive.value.PROCEDURE && !seedingDraw.isProcedureStepCompleted.value)
+));
 
 function handleSubmit() {
   if (seedingDraw.isStepActive.value.POTS) {
