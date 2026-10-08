@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getNextRound, isNextRound, isPlayoffRoundSeeded, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
-import { addSecondLegToSlot } from '~/helpers/playoff-slot';
+import { getNextRound, isNextRound, isPlayoffRoundSeeded, moveTeamToNextRound, reorderPlayoffRoundSlots, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
+import { addSecondLegToSlot, replaceSlotTeams } from '~/helpers/playoff-slot';
 import { newStageSeedingForm } from '~/helpers/stage-seeding';
 import { mockPlayoffStage } from './mocks';
 
@@ -49,6 +49,39 @@ describe('playoff-round', () => {
       const nextRound = getNextRound(playoffStage, playoffStage.rounds[1]!);
 
       expect(nextRound).toBeUndefined();
+    });
+  });
+
+  describe('reorderPlayoffRoundSlots', () => {
+    it('should reorder the round slots', () => {
+      const { rounds } = mockPlayoffStage({
+        playoffRounds: 3,
+        teams: 8,
+      });
+
+      // Seed first round (1-2 / 3-4 / 5-6 / 7-8)
+      replaceSlotTeams(rounds[0].slots[0]!, { home: 'team-1', away: 'team-2' });
+      replaceSlotTeams(rounds[0].slots[1]!, { home: 'team-3', away: 'team-4' });
+      replaceSlotTeams(rounds[0].slots[2]!, { home: 'team-5', away: 'team-6' });
+      replaceSlotTeams(rounds[0].slots[3]!, { home: 'team-7', away: 'team-8' });
+      // Seed second round (1-3 / 5-7)
+      replaceSlotTeams(rounds[1]!.slots[0]!, { home: 'team-1', away: 'team-3' });
+      replaceSlotTeams(rounds[1]!.slots[1]!, { home: 'team-5', away: 'team-7' });
+      // Shuffle second round
+      replaceSlotTeams(rounds[1]!.slots[0]!, { home: 'team-5', away: 'team-3' });
+      replaceSlotTeams(rounds[1]!.slots[1]!, { home: 'team-1', away: 'team-7' });
+
+      reorderPlayoffRoundSlots(rounds[0]!, rounds[1]!);
+
+      // Expected order (5-6 / 3-4 / 1-2 / 7-8) -> (5-3 / 1 - 7)
+      expect(rounds[0].slots[0]!.legs[0].homeTeam.id).toBe('team-5');
+      expect(rounds[0].slots[1]!.legs[0].homeTeam.id).toBe('team-3');
+      expect(rounds[0].slots[2]!.legs[0].homeTeam.id).toBe('team-1');
+      expect(rounds[0].slots[3]!.legs[0].homeTeam.id).toBe('team-7');
+
+      rounds[0].slots.forEach((slot, index) => {
+        expect(slot.order).toBe(index + 1);
+      });
     });
   });
 

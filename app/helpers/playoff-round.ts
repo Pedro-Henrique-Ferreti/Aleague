@@ -13,7 +13,34 @@ export function getNextRound(stage: PlayoffStage, round: PlayoffRound) {
   return stage.rounds.find(r => r.order === round.order + 1);
 }
 
-export function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeedingForm) {
+export function reorderPlayoffRoundSlots(roundToUpdate: PlayoffRound, roundToCompare: PlayoffRound) {
+  if (!isNextRound(roundToCompare, roundToUpdate)
+    || !isPlayoffRoundSeeded(roundToUpdate)
+    || !isPlayoffRoundSeeded(roundToCompare)) {
+    return;
+  }
+
+  const reorderedSlots: PlayoffRound['slots'] = [];
+
+  for (const { legs: [match] } of roundToCompare.slots) {
+    for (const team of [match.homeTeam.id, match.awayTeam.id]) {
+      const slotToReorder = roundToUpdate?.slots.find((slot) => {
+        return [slot.legs[0].homeTeam.id, slot.legs[0].awayTeam.id].includes(team);
+      });
+
+      if (slotToReorder) {
+        reorderedSlots.push({
+          ...slotToReorder,
+          order: reorderedSlots.length + 1,
+        });
+      }
+    }
+  }
+
+  roundToUpdate.slots = reorderedSlots;
+}
+
+export async function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeedingForm, stage?: PlayoffStage) {
   for (const slot of round.slots) {
     const group = form.groups.find(g => g.slotId === slot.id);
 
@@ -24,6 +51,19 @@ export function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeeding
     replaceSlotTeams(slot, { home, away });
   }
 
+  if (!stage) return;
+
+  const previousRounds = stage.rounds.filter(r => r.order < round.order);
+
+  if (previousRounds.length === 0) return;
+
+  for (const previousRound of previousRounds.sort((a, b) => b.order - a.order)) {
+    const nextRound = getNextRound(stage, previousRound);
+
+    if (nextRound) {
+      reorderPlayoffRoundSlots(previousRound, nextRound);
+    }
+  }
 }
 
 export function moveTeamToNextRound(
