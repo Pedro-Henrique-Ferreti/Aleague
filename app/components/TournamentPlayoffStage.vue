@@ -59,8 +59,8 @@ const displayedRoundsId = computed(() => (
 ));
 
 const slotResults = computed<SlotResult[]>(() => {
-  return stage.value.rounds.flatMap((r, roundIndex) => r.slots.flatMap((slot, slotIndex) => ({
-    roundIndex,
+  return stage.value.rounds.flatMap(round => round.slots.flatMap((slot, slotIndex) => ({
+    round,
     slotIndex,
     newWinner: getPlayoffRoundSlotWinner(slot),
   })));

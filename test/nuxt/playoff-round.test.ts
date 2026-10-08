@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newMatch } from '~/helpers/match';
-import { moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
+import { getNextRound, moveTeamToNextRound, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { addSecondLegToSlot } from '~/helpers/playoff-slot';
 import { newPlayoffStage } from '~/helpers/playoff-stage';
 import { newTournamentStage } from '~/helpers/tournament';
@@ -17,6 +17,40 @@ function mockStageSeedingForm(...groupTeams: string[][]): StageSeedingForm {
 }
 
 describe('playoff-round', () => {
+  describe('getNextRound', () => {
+    it('should return the next round in the stage', () => {
+      const playoffStage = newTournamentStage({
+        name: 'Playoffs',
+        type: StageType.PLAYOFF,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        groups: 0,
+        playoffRounds: 2,
+        teams: 4,
+        teamsPerGroup: 0,
+      }) as PlayoffStage;
+
+      const nextRound = getNextRound(playoffStage, playoffStage.rounds[0]);
+
+      expect(nextRound).toBe(playoffStage.rounds[1]);
+    });
+
+    it('should return undefined when there is no next round in the stage', () => {
+      const playoffStage = newTournamentStage({
+        name: 'Playoffs',
+        type: StageType.PLAYOFF,
+        groupNameFormat: GroupStageNameFormat.NUMBER,
+        groups: 0,
+        playoffRounds: 2,
+        teams: 4,
+        teamsPerGroup: 0,
+      }) as PlayoffStage;
+
+      const nextRound = getNextRound(playoffStage, playoffStage.rounds[1]!);
+
+      expect(nextRound).toBeUndefined();
+    });
+  });
+
   describe('replacePlayoffRoundTeams', () => {
     it('should assign teams to the first round slots', () => {
       const playoffStage = newTournamentStage({
@@ -85,7 +119,7 @@ describe('playoff-round', () => {
       );
       addSecondLegToSlot(playoffStage.rounds[1]!.slots[0]!);
 
-      moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: null, slotIndex: 0, roundIndex: 0 });
+      moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: null, slotIndex: 0, round: playoffStage.rounds[0] });
 
       expect(playoffStage.rounds[1]!.slots[0]!.legs[0].homeTeam.id).toBe('team-a');
       expect(playoffStage.rounds[1]!.slots[0]!.legs[1]!.awayTeam.id).toBe('team-a');
@@ -112,7 +146,7 @@ describe('playoff-round', () => {
 
       playoffStage.rounds[1]!.slots[0]!.legs[0].awayTeam.id = 'team-b';
 
-      moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: 'team-b', slotIndex: 0, roundIndex: 0 });
+      moveTeamToNextRound(playoffStage, { newWinner: 'team-a', oldWinner: 'team-b', slotIndex: 0, round: playoffStage.rounds[0] });
 
       expect(playoffStage.rounds[1]!.slots[0]!.legs[0].awayTeam.id).toBe('team-a');
     });

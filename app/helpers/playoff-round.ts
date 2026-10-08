@@ -1,5 +1,9 @@
 import { replaceSlotTeams } from './playoff-slot';
 
+export function getNextRound(stage: PlayoffStage, round: PlayoffRound) {
+  return stage.rounds.find(r => r.order === round.order + 1);
+}
+
 export function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeedingForm) {
   for (const slot of round.slots) {
     const group = form.groups.find(g => g.slotId === slot.id);
@@ -15,11 +19,11 @@ export function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeeding
 
 export function moveTeamToNextRound(
   stage: PlayoffStage,
-  params: { newWinner: PlayoffRoundSlotWinner; oldWinner: PlayoffRoundSlotWinner; slotIndex: number; roundIndex: number },
+  params: { newWinner: PlayoffRoundSlotWinner; oldWinner: PlayoffRoundSlotWinner; slotIndex: number; round: PlayoffRound; },
 ) {
-  const { newWinner, oldWinner, slotIndex, roundIndex } = params;
+  const { newWinner, oldWinner, slotIndex, round } = params;
 
-  const nextRound = stage.rounds[roundIndex + 1];
+  const nextRound = getNextRound(stage, round);
 
   if (!nextRound) return;
 
