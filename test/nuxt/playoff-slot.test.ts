@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newMatch } from '~/helpers/match';
-import { addSecondLegToSlot, getPlayoffRoundSlotWinner, newPlayoffRoundSlot, reverseSlotHomeField, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
+import { addSecondLegToSlot, getPlayoffRoundSlotWinner, newPlayoffRoundSlot, replaceSlotTeams, reverseSlotHomeField, simulatePlayoffRoundSlotScore } from '~/helpers/playoff-slot';
 
 describe('playoff-slot', () => {
   describe('newPlayoffRoundSlot', () => {
@@ -210,6 +210,22 @@ describe('playoff-slot', () => {
       expect(slot.legs[0].awayTeam.id).toBe('home-id');
       expect(slot.legs[1]?.homeTeam.id).toBe('home-id');
       expect(slot.legs[1]?.awayTeam.id).toBe('away-id');
+    });
+  });
+
+  describe('replaceSlotTeams', () => {
+    it('should replace the home and away teams in the slot', () => {
+      const slot = newPlayoffRoundSlot(0);
+      slot.legs[0].homeTeam.id = 'home-id';
+      slot.legs[0].awayTeam.id = 'away-id';
+      addSecondLegToSlot(slot);
+
+      replaceSlotTeams(slot, { home: 'new-home-id', away: 'new-away-id' });
+
+      expect(slot.legs[0].homeTeam.id).toBe('new-home-id');
+      expect(slot.legs[0].awayTeam.id).toBe('new-away-id');
+      expect(slot.legs[1]?.homeTeam.id).toBe('new-away-id');
+      expect(slot.legs[1]?.awayTeam.id).toBe('new-home-id');
     });
   });
 });

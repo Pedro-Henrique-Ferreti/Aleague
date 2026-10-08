@@ -51,3 +51,21 @@ export function reverseSlotHomeField(slot: PlayoffRoundSlot) {
     [match.homeTeam, match.awayTeam] = [match.awayTeam, match.homeTeam];
   }
 }
+
+export function replaceSlotTeams(slot: PlayoffRoundSlot, teams: { home?: MatchTeam['id']; away?: MatchTeam['id'] }) {
+  if (teams.home !== undefined) {
+    slot.legs[0].homeTeam.id = teams.home;
+
+    if (slot.legs[1]) {
+      slot.legs[1].awayTeam.id = teams.home;
+    }
+  }
+
+  if (teams.away !== undefined) {
+    slot.legs[0].awayTeam.id = teams.away;
+
+    if (slot.legs[1]) {
+      slot.legs[1].homeTeam.id = teams.away;
+    }
+  }
+}

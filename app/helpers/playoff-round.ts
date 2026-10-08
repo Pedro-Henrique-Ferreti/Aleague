@@ -1,19 +1,16 @@
+import { replaceSlotTeams } from './playoff-slot';
+
 export function replacePlayoffRoundTeams(round: PlayoffRound, form: StageSeedingForm) {
   for (const slot of round.slots) {
     const group = form.groups.find(g => g.slotId === slot.id);
 
     if (!group) return;
 
-    const [homeTeam, awayTeam] = group.teams;
+    const [home, away] = group.teams;
 
-    slot.legs[0].homeTeam.id = homeTeam ?? null;
-    slot.legs[0].awayTeam.id = awayTeam ?? null;
-
-    if (slot.legs[1]) {
-      slot.legs[1].homeTeam.id = awayTeam ?? null;
-      slot.legs[1].awayTeam.id = homeTeam ?? null;
-    }
+    replaceSlotTeams(slot, { home, away });
   }
+
 }
 
 export function moveTeamToNextRound(
@@ -32,17 +29,8 @@ export function moveTeamToNextRound(
 
   const isFirstMatchHomeTeam = slot.legs[0].homeTeam.id === oldWinner;
 
-  if (isFirstMatchHomeTeam) {
-    slot.legs[0].homeTeam.id = newWinner;
-  } else {
-    slot.legs[0].awayTeam.id = newWinner;
-  }
-
-  if (slot.legs[1]) {
-    if (isFirstMatchHomeTeam) {
-      slot.legs[1].awayTeam.id = newWinner;
-    } else {
-      slot.legs[1].homeTeam.id = newWinner;
-    }
-  }
+  replaceSlotTeams(slot, {
+    home: isFirstMatchHomeTeam ? newWinner : undefined,
+    away: isFirstMatchHomeTeam ? undefined : newWinner,
+  });
 }
