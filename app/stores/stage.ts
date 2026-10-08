@@ -35,6 +35,11 @@ export const useStageStore = defineStore('stage', () => {
     set: (value: GroupStage) => activeStage.value = value,
   });
 
+  const activePlayoffStage = computed({
+    get: () => activeStage.value?.type === StageType.PLAYOFF ? activeStage.value : undefined,
+    set: (value: PlayoffStage) => activeStage.value = value,
+  });
+
   function updateActiveStage(form: StageForm) {
     if (!activeStage.value) return;
 
@@ -96,6 +101,7 @@ export const useStageStore = defineStore('stage', () => {
     activeStage,
     activeStageIndex,
     activeGroupStage,
+    activePlayoffStage,
     legendsModalIsOpen,
     updateActiveStage,
     deleteActiveStage,

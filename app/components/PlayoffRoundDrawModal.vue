@@ -21,6 +21,10 @@
 </template>
 
 <script lang="ts" setup>
+import { replacePlayoffRoundTeams } from '~/helpers/playoff-round';
+
+const stageStore = useStageStore();
+
 const modalIsOpen = defineModel<boolean>('is-open');
 const round = defineModel<PlayoffRound>('round', { required: true });
 
@@ -40,6 +44,12 @@ function handleSubmit() {
   if (seedingDraw.isStepActive.value.POTS) {
     seedingDraw.nextStep();
   } else {
+    replacePlayoffRoundTeams(
+      round.value,
+      { groups: Object.values(seedingDraw.procedureForm.value.groups) },
+      stageStore.activePlayoffStage,
+    );
+
     modalIsOpen.value = false;
   }
 }
