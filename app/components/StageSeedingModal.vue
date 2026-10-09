@@ -1,12 +1,13 @@
 <template>
   <AppModal
     v-model:is-open="modalIsOpen"
+    v-model:is-side-panel-open="isSidePanelOpen"
     title="Editar equipes"
     size="fullscreen"
-    :submit-button-label="submitButtonLabel"
-    :submit-button-disabled="submitButtonDisabled"
+    :submit-button-label="submitButton.label"
+    :submit-button-disabled="submitButton.disabled"
     @open="onOpenModal"
-    @submit="submitForm"
+    @submit="submitButton.onClick"
   >
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
@@ -19,7 +20,14 @@
       />
     </template>
     <template #default="slotProps">
-      <div class="flex-1 @container/groups">
+      <DrawProcedure
+        v-if="seedingDraw.isStepActive.value.PROCEDURE"
+        :seeding-draw="seedingDraw"
+      />
+      <div
+        v-else
+        class="flex-1 @container/groups"
+      >
         <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
           <TeamSearchInput
             ref="team-search"
@@ -35,9 +43,9 @@
             <StageSeedingShuffleButton v-model="form.groups" />
             <StageSeedingResetButton v-model="form.groups" />
             <StageSeedingOpenPanelButton
-              v-show="!slotProps.isSidePanelOpen"
+              v-show="!isSidePanelOpen"
               :aria-controls="slotProps.sidePanelId"
-              :aria-expanded="slotProps.isSidePanelOpen"
+              :aria-expanded="isSidePanelOpen"
               @click="slotProps.toggleSidePanel"
             />
           </div>
@@ -92,6 +100,7 @@ const modalIsOpen = defineModel<boolean>('is-open');
 
 const teamSearchInput = useTemplateRef('team-search');
 
+const isSidePanelOpen = ref(false);
 const activeTabIndex = ref(ModalTab.MANUAL);
 const form = ref(newStageSeedingForm());
 
@@ -105,13 +114,32 @@ const formHasEmptySlots = computed(() => (
   selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
 ));
 
-const submitButtonLabel = computed(() => (
-  activeTabIndex.value === ModalTab.DRAW ? 'Continuar' : 'Salvar'
-));
+const submitButton = computed(() => {
+  if (activeTabIndex.value === ModalTab.MANUAL) {
+    return {
+      label: 'Salvar',
+      disabled: !props.allowEmptySlots && formHasEmptySlots.value,
+      onClick: updateTeams,
+    };
+  }
 
-const submitButtonDisabled = computed(() => (
-  !props.allowEmptySlots && formHasEmptySlots.value
-));
+  if (seedingDraw.isStepActive.value.PROCEDURE) {
+    return {
+      label: 'Concluir',
+      disabled: !seedingDraw.isProcedureStepCompleted.value,
+      onClick: onDrawComplete,
+    };
+  }
+
+  return {
+    label: 'Continuar',
+    disabled: formHasEmptySlots.value || !seedingDraw.isPotsStepCompleted.value,
+    onClick: () => {
+      isSidePanelOpen.value = false;
+      seedingDraw.nextStep();
+    },
+  };
+});
 
 function onOpenModal() {
   teamSearchInput.value?.reset();
@@ -129,8 +157,14 @@ function onSelectTeam(team: Team) {
   group.teams[slotIndex] = team.id;
 }
 
-function submitForm() {
+function updateTeams() {
   stageStore.updateActiveStageTeams(form.value);
   modalIsOpen.value = false;
+}
+
+function onDrawComplete() {
+  form.value.groups = Object.values(seedingDraw.procedureForm.value.groups);
+  seedingDraw.reset();
+  activeTabIndex.value = ModalTab.MANUAL;
 }
 </script>
