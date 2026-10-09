@@ -51,21 +51,7 @@
             label="Atribuir por sorteio"
           />
           <template #tabpanels>
-            <div class="grid gap-1 gap-y-1.5 grid-cols-[repeat(auto-fit,minmax(18rem,1fr))]">
-              <TeamGroupCard
-                v-for="group in form.groups"
-                :key="group.order"
-                :title="group.name"
-              >
-                <TeamSlot
-                  v-for="team, index in group.teams"
-                  :key="index"
-                  show-clear-button
-                  :team-id="team"
-                  @remove="group.teams[index] = null"
-                />
-              </TeamGroupCard>
-            </div>
+            <StageSeedingModalManualTab v-model:form="form" />
             <DrawPots
               v-model="seedingDraw.pots.value"
               :seeding-draw="seedingDraw"
