@@ -3,6 +3,7 @@
     v-model:is-open="modalIsOpen"
     title="Editar equipes"
     size="fullscreen"
+    :submit-button-label="submitButtonLabel"
     :submit-button-disabled="submitButtonDisabled"
     @open="onOpenModal"
     @submit="submitForm"
@@ -41,7 +42,10 @@
             />
           </div>
         </div>
-        <AppTablist class="mb-1.5">
+        <AppTablist
+          v-model:active-tab-index="activeTabIndex"
+          class="mb-1.5"
+        >
           <AppTab
             class="basis-1/5"
             label="Adicionar manualmente"
@@ -52,8 +56,9 @@
           />
           <template #tabpanels>
             <StageSeedingModalManualTab v-model:form="form" />
-            <DrawPots
-              v-model="seedingDraw.pots.value"
+            <StageSeedingModalDrawTab
+              v-model:draw-pots="seedingDraw.pots.value"
+              :form-has-empty-slots="formHasEmptySlots"
               :seeding-draw="seedingDraw"
             />
           </template>
@@ -65,6 +70,11 @@
 
 <script lang="ts" setup>
 import { newStageSeedingForm } from '~/helpers/stage-seeding';
+
+enum ModalTab {
+  MANUAL = 0,
+  DRAW = 1,
+}
 
 interface StageTeamsProps {
   stage: TournamentStage;
@@ -82,18 +92,26 @@ const modalIsOpen = defineModel<boolean>('is-open');
 
 const teamSearchInput = useTemplateRef('team-search');
 
+const activeTabIndex = ref(ModalTab.MANUAL);
 const form = ref(newStageSeedingForm());
 
 const selectedTeams = computed(() => (
   form.value.groups.flatMap(i => i.teams.filter(team => team !== null))
 ));
 
-const submitButtonDisabled = computed(() => (
-  !props.allowEmptySlots
-  && selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
+const seedingDraw = useSeedingDraw(selectedTeams, props.stage);
+
+const formHasEmptySlots = computed(() => (
+  selectedTeams.value.length < form.value.groups.reduce((acc, i) => acc + i.teams.length, 0)
 ));
 
-const seedingDraw = useSeedingDraw(selectedTeams, props.stage);
+const submitButtonLabel = computed(() => (
+  activeTabIndex.value === ModalTab.DRAW ? 'Continuar' : 'Salvar'
+));
+
+const submitButtonDisabled = computed(() => (
+  !props.allowEmptySlots && formHasEmptySlots.value
+));
 
 function onOpenModal() {
   teamSearchInput.value?.reset();
