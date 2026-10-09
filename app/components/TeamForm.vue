@@ -34,16 +34,25 @@
       aria-label="Empate"
     />
     <template #popper>
-      <div class="font-semibold capitalize mt-0 mb-0.25 text-center text-xs divider">
-        Rodada {{ form.week }} {{ form.match.kickoff ? `• ${getKickoffDisplayText(form.match.kickoff)}` : '' }}
+      <div class="text-xs font-medium">
+        <div class="capitalize mt-0 mb-0.25 text-center">
+          Rodada {{ form.week }} {{ form.match.kickoff ? `• ${getKickoffDisplayText(form.match.kickoff)}` : '' }}
+        </div>
+        <div class="grid grid-cols-[1fr_auto_1fr] gap-0.5 items-center">
+          <TeamDetails
+            class="flex-row-reverse text-right"
+            size="xs"
+            :show-country="tournamentStore.activeTournament?.showCountry"
+            :team="getTeamById(form.match.homeTeam.id)!"
+          />
+          <span class="font-semibold">{{ form.match.homeTeam.score }} - {{ form.match.awayTeam.score }}</span>
+          <TeamDetails
+            size="xs"
+            :show-country="tournamentStore.activeTournament?.showCountry"
+            :team="getTeamById(form.match.awayTeam.id)!"
+          />
+        </div>
       </div>
-      <MatchCard
-        class="flex!"
-        readonly
-        :match="form.match"
-        :home-score="form.match.homeTeam.score"
-        :away-score="form.match.awayTeam.score"
-      />
     </template>
   </Dropdown>
 </template>
@@ -54,10 +63,13 @@ import IconCheckCircle from '@/assets/icons/CheckCircle.svg';
 import IconCircleMinus from '@/assets/icons/CircleMinus.svg';
 import IconEmptyCircle from '@/assets/icons/EmptyCircle.svg';
 import IconErrorCircle from '@/assets/icons/ErrorCircle.svg';
+import { getTeamById } from '@/helpers/team';
 import { getKickoffDisplayText } from '~/helpers/match';
 
 defineProps<{
   form: TableEntryForm | null;
   tooltipDisabled?: boolean;
 }>();
+
+const tournamentStore = useTournamentStore();
 </script>
