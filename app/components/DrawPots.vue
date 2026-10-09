@@ -14,9 +14,19 @@
     />
   </TeamGroupCard>
   <div class="flex justify-end gap-0.75">
+    <AppTooltip label="Remover equipes">
+      <AppButton
+        class="btn-sm btn-accent btn-soft btn-square"
+        aria-label="Remover equipes"
+        :icon-left="IconTrash"
+        :disabled="disabled"
+        @click="resetDrawPots"
+      />
+    </AppTooltip>
     <AppTooltip label="Distribuir aleatoriamente">
       <AppButton
         class="btn-sm btn-accent btn-soft btn-square"
+        aria-label="Distribuir aleatoriamente"
         :icon-left="IconWand"
         :disabled="disabled"
         @click="$emit('autofillPots')"
@@ -34,6 +44,7 @@
     <TeamGroupCard
       v-for="pot, index in drawPots"
       :key="pot.id"
+      class="max-h-27 [&_.card-body]:overflow-y-auto"
       :title="getDrawPotName(index)"
     >
       <template #badge-icon>
@@ -56,7 +67,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPlus, IconWand } from '@tabler/icons-vue';
+import { IconPlus, IconTrash, IconWand } from '@tabler/icons-vue';
 import { getDrawPotName, newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
 
@@ -79,5 +90,11 @@ watch(() => props.drawParticipants, (newParticipants) => {
 
 function isParticipantDisabled(team: DrawParticipant) {
   return props.disabled || drawPots.value.flatMap(d => d.teams).includes(team);
+}
+
+function resetDrawPots() {
+  for (const pot of drawPots.value) {
+    pot.teams = [];
+  }
 }
 </script>
