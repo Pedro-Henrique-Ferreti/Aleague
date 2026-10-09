@@ -4,7 +4,7 @@
     class="max-h-[13.625rem] [&_.card-body]:overflow-y-auto mb-2"
   >
     <DrawPotsParticipant
-      v-for="team in drawParticipants"
+      v-for="team in seedingDraw.participants.value"
       :key="team"
       class="animate-fade"
       :participant="team"
@@ -29,7 +29,7 @@
         aria-label="Distribuir aleatoriamente"
         :icon-left="IconWand"
         :disabled="disabled"
-        @click="$emit('autofillPots')"
+        @click="seedingDraw.autofillDrawPots"
       />
     </AppTooltip>
     <AppButton
@@ -72,17 +72,13 @@ import { getDrawPotName, newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
-  drawParticipants: DrawParticipant[];
+  seedingDraw: ReturnType<typeof useSeedingDraw>;
   disabled?: boolean;
-}>();
-
-defineEmits<{
-  autofillPots: [];
 }>();
 
 const drawPots = defineModel<DrawPot[]>({ required: true });
 
-watch(() => props.drawParticipants, (newParticipants) => {
+watch(() => props.seedingDraw.participants.value, (newParticipants) => {
   for (const pot of drawPots.value) {
     pot.teams = pot.teams.filter(i => newParticipants.includes(i));
   }

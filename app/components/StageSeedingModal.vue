@@ -68,7 +68,7 @@
             </div>
             <DrawPots
               v-model="seedingDraw.pots.value"
-              :draw-participants="seedingDraw.participants.value"
+              :seeding-draw="seedingDraw"
             />
           </template>
         </AppTablist>
