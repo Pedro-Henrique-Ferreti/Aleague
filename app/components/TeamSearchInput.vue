@@ -8,6 +8,7 @@
         class="grow"
         type="search"
         placeholder="Pesquisar"
+        autocomplete="off"
         @click="showPopover"
         @keypress.enter="showPopover"
       >
