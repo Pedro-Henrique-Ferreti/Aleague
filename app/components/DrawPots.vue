@@ -13,10 +13,18 @@
       @add-to-pot="drawPots[$event - 1]?.participants.push(team)"
     />
   </TeamGroupCard>
-  <div class="flex justify-end">
+  <div class="flex justify-end gap-0.75">
+    <AppTooltip label="Distribuir aleatoriamente">
+      <AppButton
+        class="btn-sm btn-accent btn-soft btn-square"
+        :icon-left="IconWand"
+        :disabled="disabled"
+        @click="$emit('autofillPots')"
+      />
+    </AppTooltip>
     <AppButton
-      class="btn-sm"
-      label="Adicionar pote"
+      class="btn-sm btn-secondary btn-soft"
+      label="Novo pote"
       :icon-left="IconPlus"
       :disabled="disabled || drawPots.length >= MAX_DRAW_POTS"
       @click="drawPots.push(newDrawPot())"
@@ -48,13 +56,17 @@
 </template>
 
 <script lang="ts" setup>
-import { IconPlus } from '@tabler/icons-vue';
+import { IconPlus, IconWand } from '@tabler/icons-vue';
 import { getDrawPotName, newDrawPot } from '~/helpers/draw';
 import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   drawParticipants: DrawParticipant[];
   disabled?: boolean;
+}>();
+
+defineEmits<{
+  autofillPots: [];
 }>();
 
 const drawPots = defineModel<DrawPot[]>({ required: true });

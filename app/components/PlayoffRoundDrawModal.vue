@@ -19,6 +19,7 @@
       v-model="seedingDraw.pots.value"
       :draw-participants="seedingDraw.participants.value"
       :disabled="!isRoundSeeded"
+      @autofill-pots="seedingDraw.autofillDrawPots"
     />
     <DrawProcedure
       v-else-if="seedingDraw.isStepActive.value.PROCEDURE"

@@ -15,6 +15,10 @@ export function useSeedingDraw(
     groups: {},
   });
 
+  const unassignedTeams = computed(() => {
+    return drawParticipants.value.filter(team => !pots.value.flatMap(pot => pot.participants).includes(team));
+  });
+
   const drewTeams = computed(() => Object.values(procedureForm.value.groups).flatMap(group => group.teams));
 
   const activePot = computed(() => pots.value.find(pot => pot.participants.some(team => !drewTeams.value.includes(team))));
@@ -79,6 +83,17 @@ export function useSeedingDraw(
     resetProcedureStep();
   }
 
+  function autofillDrawPots() {
+    if (!isStepActive.value.POTS || unassignedTeams.value.length === 0) return;
+
+    while (unassignedTeams.value.length > 0) {
+      const { id } = getShortestItem(pots.value, pot => pot.participants.length);
+      const shortestPot = pots.value.find(p => p.id === id)!;
+
+      shortestPot.participants.push(getRandomItem(unassignedTeams.value)!);
+    }
+  }
+
   function drawTeam() {
     if (!isStepActive.value.PROCEDURE || !activePot.value || !activeTeamSeedingGroup.value) return;
 
@@ -109,6 +124,7 @@ export function useSeedingDraw(
     reset,
     previousStep,
     nextStep,
+    autofillDrawPots,
     drawTeam,
   };
 }
