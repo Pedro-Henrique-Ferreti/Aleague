@@ -24,11 +24,11 @@
       :status="seedingDraw.potStatus.value[pot.id]"
     />
   </BreadcrumbList>
-  <TeamGroupCard>
+  <TeamGroupCard class="max-h-14 [&_.card-body]:overflow-y-auto">
     <TeamDetails
       v-for="team in seedingDraw.activePot.value?.teams"
       :key="team"
-      class="animate-fade"
+      class="h-2 animate-fade"
       :class="{ hidden: seedingDraw.drewTeams.value.includes(team) }"
       :team="getTeamById(team)!"
     />
