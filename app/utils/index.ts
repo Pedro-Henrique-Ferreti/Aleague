@@ -43,3 +43,7 @@ export function randomizeArray<T>(array: T[]) {
 export function getRandomItem<T>(array: T[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
+
+export function getShortestItem<T>(array: T[], getSize: (item: T) => number): T {
+  return array.reduce((shortest, current) => getSize(current) < getSize(shortest) ? current : shortest);
+}

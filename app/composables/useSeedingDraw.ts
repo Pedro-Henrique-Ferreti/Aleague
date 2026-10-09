@@ -52,9 +52,7 @@ export function useSeedingDraw(
   const activeTeamSeedingGroup = computed(() => {
     if (isProcedureStepCompleted.value) return undefined;
 
-    return Object.values(procedureForm.value.groups).reduce((shortest, current) => {
-      return countTeams(current.teams) < countTeams(shortest.teams) ? current : shortest;
-    });
+    return getShortestItem(Object.values(procedureForm.value.groups), item => countTeams(item.teams));
   });
 
   function reset() {

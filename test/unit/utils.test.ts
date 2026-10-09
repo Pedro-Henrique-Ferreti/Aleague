@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clone, createArray, formatDate, getRandomItem, normalizeString } from '../../app/utils';
+import { clone, createArray, formatDate, getRandomItem, getShortestItem, normalizeString } from '../../app/utils';
 
 describe('utils', () => {
   describe('formatDate', () => {
@@ -52,6 +52,13 @@ describe('utils', () => {
       for (let i = 0; i < 100; i++) {
         expect(array.includes(getRandomItem(array))).toBe(true);
       }
+    });
+  });
+
+  describe('getShortestItem', () => {
+    it('should return the item with the shortest length', () => {
+      const array = ['a', 'ab', 'abc', 'abcd', 'abcde'];
+      expect(getShortestItem(array, item => item.length)).toBe('a');
     });
   });
 });
