@@ -30,7 +30,7 @@
 const id = useId();
 const slots = useSlots();
 
-const activeTabIndex = ref(0);
+const activeTabIndex = defineModel<number>('active-tab-index', { default: 0 });
 
 const tabItemVNodes = computed(() => slots.default?.() ?? []);
 const tabPanelVNodes = computed(() => slots.tabpanels?.() ?? []);
