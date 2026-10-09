@@ -10,7 +10,7 @@
       :participant="team"
       :pots-count="drawPots.length"
       :disabled="isParticipantDisabled(team)"
-      @add-to-pot="drawPots[$event - 1]?.participants.push(team)"
+      @add-to-pot="drawPots[$event - 1]?.teams.push(team)"
     />
   </TeamGroupCard>
   <div class="flex justify-end gap-0.75">
@@ -45,11 +45,11 @@
         />
       </template>
       <TeamSlot
-        v-for="(team, teamIndex) in pot.participants"
+        v-for="(team, teamIndex) in pot.teams"
         :key="team"
         show-clear-button
         :team="getTeamById(team)"
-        @remove="pot.participants.splice(teamIndex, 1)"
+        @remove="pot.teams.splice(teamIndex, 1)"
       />
     </TeamGroupCard>
   </div>
@@ -73,11 +73,11 @@ const drawPots = defineModel<DrawPot[]>({ required: true });
 
 watch(() => props.drawParticipants, (newParticipants) => {
   for (const pot of drawPots.value) {
-    pot.participants = pot.participants.filter(i => newParticipants.includes(i));
+    pot.teams = pot.teams.filter(i => newParticipants.includes(i));
   }
 });
 
 function isParticipantDisabled(team: DrawParticipant) {
-  return props.disabled || drawPots.value.flatMap(d => d.participants).includes(team);
+  return props.disabled || drawPots.value.flatMap(d => d.teams).includes(team);
 }
 </script>

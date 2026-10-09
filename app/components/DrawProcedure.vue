@@ -26,7 +26,7 @@
   </BreadcrumbList>
   <TeamGroupCard>
     <TeamDetails
-      v-for="team in seedingDraw.activePot.value?.participants"
+      v-for="team in seedingDraw.activePot.value?.teams"
       :key="team"
       class="animate-fade"
       :class="{ hidden: seedingDraw.drewTeams.value.includes(team) }"

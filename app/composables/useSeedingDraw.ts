@@ -16,14 +16,14 @@ export function useSeedingDraw(
   });
 
   const unassignedTeams = computed(() => {
-    return drawParticipants.value.filter(team => !pots.value.flatMap(pot => pot.participants).includes(team));
+    return drawParticipants.value.filter(team => !pots.value.flatMap(pot => pot.teams).includes(team));
   });
 
   const drewTeams = computed(() => Object.values(procedureForm.value.groups).flatMap(group => group.teams));
 
-  const activePot = computed(() => pots.value.find(pot => pot.participants.some(team => !drewTeams.value.includes(team))));
+  const activePot = computed(() => pots.value.find(pot => pot.teams.some(team => !drewTeams.value.includes(team))));
 
-  const remainingActivePotTeams = computed(() => (activePot.value?.participants ?? []).filter(t => !drewTeams.value.includes(t)));
+  const remainingActivePotTeams = computed(() => (activePot.value?.teams ?? []).filter(t => !drewTeams.value.includes(t)));
 
   const potStatus = computed<Record<DrawPot['id'], DrawPotStatus>>(() => {
     return Object.fromEntries(pots.value.map((pot) => {
@@ -31,7 +31,7 @@ export function useSeedingDraw(
         return [pot.id, DrawPotStatus.ACTIVE];
       }
 
-      if (pot.participants.every(team => drewTeams.value.includes(team))) {
+      if (pot.teams.every(team => drewTeams.value.includes(team))) {
         return [pot.id, DrawPotStatus.COMPLETED];
       }
 
@@ -46,7 +46,7 @@ export function useSeedingDraw(
 
   const isPotsStepCompleted = computed(() => {
     const { length: participantsCount } = drawParticipants.value;
-    return participantsCount > 0 && pots.value.reduce((acc, pot) => acc + pot.participants.length, 0) === participantsCount;
+    return participantsCount > 0 && pots.value.reduce((acc, pot) => acc + pot.teams.length, 0) === participantsCount;
   });
 
   const isProcedureStepCompleted = computed(() => {
@@ -87,10 +87,10 @@ export function useSeedingDraw(
     if (!isStepActive.value.POTS || unassignedTeams.value.length === 0) return;
 
     while (unassignedTeams.value.length > 0) {
-      const { id } = getShortestItem(pots.value, pot => pot.participants.length);
+      const { id } = getShortestItem(pots.value, pot => pot.teams.length);
       const shortestPot = pots.value.find(p => p.id === id)!;
 
-      shortestPot.participants.push(getRandomItem(unassignedTeams.value)!);
+      shortestPot.teams.push(getRandomItem(unassignedTeams.value)!);
     }
   }
 
