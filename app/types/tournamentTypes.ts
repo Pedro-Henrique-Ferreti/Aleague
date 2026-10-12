@@ -43,6 +43,14 @@ export interface PlayoffStage extends BaseStage {
   rounds: [PlayoffRound] | PlayoffRound[];
 }
 
+export interface StageForm extends Pick<BaseStage, 'name' | 'type'> {
+  teams: number;
+  teamsPerGroup: number;
+  groups: number;
+  playoffRounds: number;
+  groupNameFormat: GroupStageNameFormat;
+}
+
 export type TournamentStage = GroupStage | PlayoffStage;
 
 export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
@@ -54,3 +62,5 @@ export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
   tags: string[];
   showCountry: boolean;
 };
+
+export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry' | 'collectionId'>;
