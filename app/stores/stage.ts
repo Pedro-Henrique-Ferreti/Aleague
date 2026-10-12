@@ -69,7 +69,7 @@ export const useStageStore = defineStore('stage', () => {
   // Group stage
   function resetGroupStageStandings() {
     for (const group of activeGroupStage.value?.groups ?? []) {
-      group.standings = group.standings.map(s => newStandingsEntry(s.id, s.team));
+      group.standings = group.standings.map(s => newStandingsEntry(s.team, s.id));
     }
   }
 

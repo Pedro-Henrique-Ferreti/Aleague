@@ -15,7 +15,7 @@ export function newStandingsEntryData(week: StandingsEntryData['week']): Standin
   };
 }
 
-export function newStandingsEntry(id?: StandingsEntry['id'], team?: StandingsEntry['team']): StandingsEntry {
+export function newStandingsEntry(team?: StandingsEntry['team'], id?: StandingsEntry['id']): StandingsEntry {
   return {
     id: id ?? uuidv4(),
     team: team ?? null,

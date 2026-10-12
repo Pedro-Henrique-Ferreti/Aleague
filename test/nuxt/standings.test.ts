@@ -297,7 +297,7 @@ describe('standings', () => {
       groups: [{
         order: 1,
         legend: [LegendColor.NONE, LegendColor.NONE],
-        standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
+        standings: [newStandingsEntry('team-a'), newStandingsEntry('team-b')],
       }] as GroupStage['groups'],
     });
 
