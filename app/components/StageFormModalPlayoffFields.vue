@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-x-1">
+  <div class="grid grid-cols-2 gap-y-0.75 gap-x-1">
     <AppCounter
       v-model="teams"
       label="Equipes participantes"
@@ -15,7 +15,7 @@
       :max="maxPlayoffRounds"
       :disabled="disabled"
     />
-    <AppAlert class="col-span-2 mt-1">
+    <AppAlert class="col-span-2 mt-0.5">
       <div class="flex flex-wrap gap-x-0.25">
         <span
           v-for="name in getPlayoffRoundNames(playoffRounds, teams)"

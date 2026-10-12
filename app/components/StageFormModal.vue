@@ -12,6 +12,7 @@
     <AppInput
       v-model="form.name"
       label="Nome"
+      class="mb-0.75"
     />
     <AppFieldset label="Formato">
       <div class="flex gap-1">

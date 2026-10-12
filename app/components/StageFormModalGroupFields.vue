@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-x-1">
+  <div class="grid grid-cols-2 gap-y-0.75 gap-x-1">
     <AppSelect
       v-model="groupNameFormat"
       label="Nomes dos grupos"
