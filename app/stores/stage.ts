@@ -62,7 +62,7 @@ export const useStageStore = defineStore('stage', () => {
     if (activeStage.value.type === StageType.PLAYOFF) {
       replacePlayoffRoundTeams(activeStage.value.rounds[0], form);
     } else {
-      activeStage.value = replaceGroupStageTeams(activeStage.value, form);
+      replaceGroupStageTeams(activeStage.value, form);
     }
   }
 

@@ -1,58 +1,58 @@
-interface MatchweekReplacementQuery {
-  search: TeamDetails['id'];
-  replace: TeamDetails['id'];
-}
+type MatchweekReplacementQueries = Map<TeamDetails['id'], TeamDetails['id']>;
 
-function replaceTeamsInMatchweeks(groupStage: GroupStage, queries: MatchweekReplacementQuery[]) {
-  const stage = clone(groupStage);
+function replaceTeamsInMatchweeks(stage: GroupStage, queries: MatchweekReplacementQueries) {
+  if (queries.size === 0) return;
 
-  for (const matchweek of stage.matchweeks) {
-    for (const match of matchweek.matches) {
-      const { homeTeam, awayTeam } = match;
+  const updatedMatches = new Map<Match['id'], Match>();
+  const homeUpdatedMatches: Match['id'][] = [];
+  const awayUpdatedMatches: Match['id'][] = [];
 
-      let homeIsUpdated = false;
-      let awayIsUpdated = false;
+  for (const [search, replace] of queries.entries()) {
+    for (const match of stage.matchweeks.flatMap(i => i.matches)) {
+      if (match.homeTeam.id !== search && match.awayTeam.id !== search) continue;
 
-      queries.filter(i => i.search === homeTeam.id || i.search === awayTeam.id).forEach((query) => {
-        if (query.search === homeTeam.id && !homeIsUpdated) {
-          homeTeam.id = query.replace;
-          homeIsUpdated = true;
-        }
+      if (match.homeTeam.id === search && !homeUpdatedMatches.includes(match.id)) {
+        match.homeTeam.id = replace;
+        homeUpdatedMatches.push(match.id);
+      }
 
-        if (query.search === awayTeam.id && !awayIsUpdated) {
-          awayTeam.id = query.replace;
-          awayIsUpdated = true;
-        }
-      });
+      if (match.awayTeam.id === search && !awayUpdatedMatches.includes(match.id)) {
+        match.awayTeam.id = replace;
+        awayUpdatedMatches.push(match.id);
+      }
+
+      updatedMatches.set(match.id, match);
     }
   }
 
-  return stage;
+  for (const form of stage.groups
+    .flatMap(group => group.standings)
+    .flatMap(standings => standings.data)
+    .flatMap(data => data.form)) {
+    if (updatedMatches.has(form.match.id)) {
+      form.match = updatedMatches.get(form.match.id)!;
+    }
+  }
 }
 
-export function replaceGroupStageTeams(groupStage: GroupStage, form: StageSeedingForm) {
-  let stage = clone(groupStage);
-  const queries: MatchweekReplacementQuery[] = [];
+export function replaceGroupStageTeams(stage: GroupStage, form: StageSeedingForm) {
+  const queries: MatchweekReplacementQueries = new Map();
 
-  for (const group of form.groups) {
-    const stageGroup = stage.groups.find(g => g.order === group.order);
+  for (const teamSeedingGroup of form.groups) {
+    const stageGroup = stage.groups.find(g => g.order === teamSeedingGroup.order);
 
-    if (!stageGroup) throw new Error('Group not found');
+    if (!stageGroup) continue;
 
-    group.teams.forEach((team, index) => {
-      const replacedTeam = stageGroup.standings[index]!.team;
+    teamSeedingGroup.teams.forEach((team, index) => {
+      const { team: replacedTeam } = stageGroup.standings[index]!;
 
       stageGroup.standings[index]!.team = team;
 
-      if (team && replacedTeam) {
-        queries.push({ search: replacedTeam, replace: team });
+      if (team && replacedTeam && team !== replacedTeam) {
+        queries.set(replacedTeam, team);
       }
     });
   }
 
-  if (queries.length) {
-    stage = replaceTeamsInMatchweeks(stage, queries);
-  }
-
-  return stage;
+  replaceTeamsInMatchweeks(stage, queries);
 }

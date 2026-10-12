@@ -9,7 +9,7 @@ import { newTournamentStage } from '~/helpers/tournament';
 describe('group-stage-teams', () => {
   describe('replaceGroupStageTeams', () => {
     it('should assign teams to the group standings', () => {
-      const groupStage = newTournamentStage({
+      const stage = newTournamentStage({
         name: 'Group',
         type: StageType.GROUP,
         groupNameFormat: GroupStageNameFormat.NUMBER,
@@ -19,18 +19,18 @@ describe('group-stage-teams', () => {
         teamsPerGroup: 2,
       }) as GroupStage;
 
-      const seedingForm = newStageSeedingForm(groupStage);
+      const seedingForm = newStageSeedingForm(stage);
 
       seedingForm.groups[0]!.teams = ['team-a', 'team-b'];
 
-      const result = replaceGroupStageTeams(groupStage, seedingForm);
+      replaceGroupStageTeams(stage, seedingForm);
 
-      expect(result.groups[0]!.standings[0]!.team).toBe('team-a');
-      expect(result.groups[0]!.standings[1]!.team).toBe('team-b');
+      expect(stage.groups[0]!.standings[0]!.team).toBe('team-a');
+      expect(stage.groups[0]!.standings[1]!.team).toBe('team-b');
     });
 
     it('should replace teams in matchweeks when teams are reassigned', () => {
-      const groupStage: GroupStage = {
+      const stage: GroupStage = {
         id: 1,
         name: 'Group',
         sequence: 1,
@@ -49,14 +49,14 @@ describe('group-stage-teams', () => {
         overallLegend: [],
       };
 
-      const seedingForm = newStageSeedingForm(groupStage);
+      const seedingForm = newStageSeedingForm(stage);
 
       seedingForm.groups[0]!.teams = ['team-a', 'team-b'];
 
-      const result = replaceGroupStageTeams(groupStage, seedingForm);
+      replaceGroupStageTeams(stage, seedingForm);
 
-      expect(result.matchweeks[0]!.matches[0]!.homeTeam.id).toBe('team-a');
-      expect(result.matchweeks[0]!.matches[0]!.awayTeam.id).toBe('team-b');
+      expect(stage.matchweeks[0]!.matches[0]!.homeTeam.id).toBe('team-a');
+      expect(stage.matchweeks[0]!.matches[0]!.awayTeam.id).toBe('team-b');
     });
   });
 });
