@@ -13,19 +13,19 @@
 import { IconWand } from '@tabler/icons-vue';
 
 const props = defineProps<{
-  teamOptions?: TeamDetails[];
+  teamOptions: TeamDetails[];
 }>();
 
 const groups = defineModel<StageSeedingForm['groups']>({ required: true });
 
 function fillSlots() {
-  const options = Object.assign([], props.teamOptions ?? []) as TeamDetails[];
-
   for (const group of groups.value) {
     group.teams.forEach((slot, index) => {
-      if (slot !== null || options.length === 0) return;
-
-      group.teams[index] = getRandomItem(options)?.id ?? null;
+      setTimeout(() => {
+        if (slot === null) {
+          group.teams[index] = getRandomItem(props.teamOptions)?.id ?? null;
+        }
+      });
     });
   }
 }

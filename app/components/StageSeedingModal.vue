@@ -38,7 +38,7 @@
           <div class="flex gap-0.75 right-0 absolute">
             <StageSeedingRandomButton
               v-model="form.groups"
-              :team-options="teamSearchInput?.teamOptions"
+              :team-options="teamSearchInput?.teamOptions ?? []"
             />
             <StageSeedingShuffleButton v-model="form.groups" />
             <StageSeedingResetButton v-model="form.groups" />
