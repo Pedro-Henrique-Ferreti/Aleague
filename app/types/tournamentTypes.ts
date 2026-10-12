@@ -64,3 +64,7 @@ export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
 };
 
 export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry' | 'collectionId'>;
+
+export interface DuplicateTournamentForm {
+  name: Tournament['name'];
+}

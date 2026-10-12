@@ -1,4 +1,4 @@
-import { appendNumericSuffix, newBaseFileId, newTimestamp } from '~/helpers/file';
+import { newBaseFileId, newTimestamp } from '~/helpers/file';
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
@@ -69,7 +69,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     };
   }
 
-  function duplicateActiveTournament() {
+  function duplicateActiveTournament(form: DuplicateTournamentForm) {
     if (!activeTournament.value) return;
 
     const id = newBaseFileId();
@@ -78,7 +78,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     pushTournament({
       ...clone(activeTournament.value),
       id,
-      name: appendNumericSuffix(activeTournament.value.name, tournamentList.value),
+      name: form.name,
       createdAt: timestamp,
       updatedAt: timestamp,
     });

@@ -8,7 +8,7 @@
   <FileToolbarButton
     label="Duplicar"
     :icon-left="IconLayersSubtract"
-    @click="tournamentStore.duplicateActiveTournament"
+    @click="duplicateTournamentModalIsOpen = true"
   />
   <FileToolbarButton
     label="Editar"
@@ -22,6 +22,7 @@
     :tournament="tournamentStore.activeTournament"
     :submit-fn="tournamentStore.updateActiveTournament"
   />
+  <DuplicateTournamentModal v-model:is-open="duplicateTournamentModalIsOpen" />
   <DeleteTournamentModal v-model:is-open="deleteTournamentDialogIsOpen" />
 </template>
 
@@ -34,5 +35,6 @@ const { downloadTournamentFile } = useExportSourceFile();
 const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 
 const tournamentModalIsOpen = ref(false);
+const duplicateTournamentModalIsOpen = ref(false);
 const deleteTournamentDialogIsOpen = ref(false);
 </script>
