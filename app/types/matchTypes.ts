@@ -29,7 +29,7 @@ export interface MatchTeam {
 }
 
 export interface Match {
-  id: string;
+  id: UUID;
   homeTeam: MatchTeam;
   awayTeam: MatchTeam;
   kickoff: MatchKickoff | null;

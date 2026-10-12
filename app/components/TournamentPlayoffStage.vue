@@ -74,7 +74,7 @@ const slotResults = computed<Record<PlayoffRoundSlot['id'], SlotResult>>(() => {
 });
 
 watch(slotResults, (newResults, oldResults) => {
-  for (const [key, result] of Object.entries(newResults)) {
+  for (const [key, result] of Object.entries(newResults) as Entries<typeof newResults>) {
     if (result.newWinner !== oldResults[key]?.newWinner) {
       moveTeamToNextRound(stage.value, {
         newWinner: result.newWinner,

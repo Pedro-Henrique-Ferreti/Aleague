@@ -42,7 +42,7 @@ describe('group-stage-teams', () => {
         }],
         groups: [{
           order: 1,
-          standings: [newStandingsEntry('s1', 'old-a'), newStandingsEntry('s2', 'old-b')],
+          standings: [newStandingsEntry(undefined, 'old-a'), newStandingsEntry(undefined, 'old-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         }],
         legendDescription: newLegendDescription(),

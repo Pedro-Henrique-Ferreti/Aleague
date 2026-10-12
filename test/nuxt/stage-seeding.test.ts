@@ -48,7 +48,7 @@ describe('stage-seeding', () => {
 
     it('should get seeding groups from a playoff round', () => {
       const groups = getTeamSeedingGroups({
-        id: 'round-1',
+        id: uuidv4(),
         name: 'Round 1',
         order: 1,
         slots: [newPlayoffRoundSlot(0)],
@@ -60,7 +60,7 @@ describe('stage-seeding', () => {
 
     it('should get seeded groups when resetSeeding is false', () => {
       const round: PlayoffRound = {
-        id: 'round-1',
+        id: uuidv4(),
         name: 'Round 1',
         order: 1,
         slots: [newPlayoffRoundSlot(0)],
@@ -77,7 +77,7 @@ describe('stage-seeding', () => {
 
     it('should get reset seeding groups when resetSeeding is true', () => {
       const round: PlayoffRound = {
-        id: 'round-1',
+        id: uuidv4(),
         name: 'Round 1',
         order: 1,
         slots: [newPlayoffRoundSlot(0)],

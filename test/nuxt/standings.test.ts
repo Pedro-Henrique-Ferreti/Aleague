@@ -75,7 +75,7 @@ describe('standings', () => {
 
   describe('sortTableEntryByType', () => {
     const makeEntry = (points: number, won: number, lost: number, goalsFor: number, goalsAgainst: number): TableEntry => ({
-      id: 'id',
+      id: uuidv4(),
       team: null,
       points,
       played: 0,
@@ -138,7 +138,7 @@ describe('standings', () => {
 
   describe('sortTableEntries', () => {
     const makeEntry = (points: number, played: number, won: number, lost: number, goalsFor: number, goalsAgainst: number): TableEntry => ({
-      id: 'id',
+      id: uuidv4(),
       team: null,
       points,
       played,
@@ -180,7 +180,7 @@ describe('standings', () => {
       const matchweeks: Matchweek[] = [{
         week: 1,
         matches: [{
-          id: 'm1',
+          id: uuidv4(),
           homeTeam: { id: 'team-a', score: 2 },
           awayTeam: { id: 'team-b', score: 1 },
           kickoff: null,
@@ -198,7 +198,7 @@ describe('standings', () => {
       const matchweeks: Matchweek[] = [{
         week: 1,
         matches: [{
-          id: 'm1',
+          id: uuidv4(),
           homeTeam: { id: 'team-a', score: null },
           awayTeam: { id: 'team-b', score: null },
           kickoff: null,
@@ -212,7 +212,7 @@ describe('standings', () => {
       const matchweeks: Matchweek[] = [{
         week: 1,
         matches: [{
-          id: 'm1',
+          id: uuidv4(),
           homeTeam: { id: 'team-a', score: 1 },
           awayTeam: { id: 'team-b', score: 1 },
           kickoff: null,
@@ -225,7 +225,7 @@ describe('standings', () => {
 
   describe('getTableEntry', () => {
     const makeEntry = (data: StandingsEntryData[]): StandingsEntry => ({
-      id: 'entry-1',
+      id: uuidv4(),
       team: 'team-1',
       data: data as [StandingsEntryData, ...StandingsEntryData[]],
     });
@@ -269,7 +269,11 @@ describe('standings', () => {
   describe('getTableEntriesByWeek', () => {
     it('should create weekly entries for the specified number of weeks', () => {
       const standings: StandingsEntry[] = [
-        { id: '1', team: 'team-a', data: [{ week: 1, type: TableEntryType.HOME, points: 3, played: 1, won: 1, drawn: 0, lost: 0, goalsFor: 2, goalsAgainst: 0, form: [] }] },
+        {
+          id: uuidv4(),
+          team: 'team-a',
+          data: [{ week: 1, type: TableEntryType.HOME, points: 3, played: 1, won: 1, drawn: 0, lost: 0, goalsFor: 2, goalsAgainst: 0, form: [] }],
+        },
       ];
 
       const result = getTableEntriesByWeek(standings, 3);
@@ -284,7 +288,7 @@ describe('standings', () => {
   describe('updateStandings', () => {
     const getTestData = (newScore: MatchWithOldScore['oldScore'], oldScore: MatchWithOldScore['oldScore']) => ({
       match: {
-        id: 'match-1',
+        id: 'match-1' as Match['id'],
         homeTeam: { id: 'team-a', score: newScore.home },
         awayTeam: { id: 'team-b', score: newScore.away },
         oldScore,
@@ -331,7 +335,7 @@ describe('standings', () => {
 
       groups = updateStandings(groups, match, week);
       groups = updateStandings(groups, {
-        id: 'match-2',
+        id: uuidv4(),
         homeTeam: { id: match.homeTeam.id, score: null },
         awayTeam: { id: match.awayTeam.id, score: null },
         oldScore: { home: match.homeTeam.score, away: match.awayTeam.score },
@@ -369,7 +373,7 @@ describe('standings', () => {
 
       groups = updateStandings(groups, match, week);
       groups = updateStandings(groups, {
-        id: 'match-2',
+        id: uuidv4(),
         homeTeam: { id: match.homeTeam.id, score: 1 },
         awayTeam: { id: match.awayTeam.id, score: null },
         oldScore: { home: match.homeTeam.score, away: match.awayTeam.score },

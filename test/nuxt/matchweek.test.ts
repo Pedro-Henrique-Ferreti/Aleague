@@ -36,9 +36,9 @@ describe('matchweek', () => {
   describe('getActiveMatchweekNumber', () => {
     it('should return the first week with incomplete matches', () => {
       const matchweeks: Matchweek[] = [
-        { week: 1, matches: [{ id: 'm1', homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null }] },
-        { week: 2, matches: [{ id: 'm2', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null }] },
-        { week: 3, matches: [{ id: 'm3', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null }] },
+        { week: 1, matches: [{ id: uuidv4(), homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null }] },
+        { week: 2, matches: [{ id: uuidv4(), homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null }] },
+        { week: 3, matches: [{ id: uuidv4(), homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null }] },
       ];
 
       expect(getActiveMatchweekNumber(matchweeks)).toBe(2);
@@ -46,8 +46,8 @@ describe('matchweek', () => {
 
     it('should return the last week when all matches are complete', () => {
       const matchweeks: Matchweek[] = [
-        { week: 1, matches: [{ id: 'm1', homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null }] },
-        { week: 2, matches: [{ id: 'm2', homeTeam: { id: 'a', score: 2 }, awayTeam: { id: 'b', score: 1 }, kickoff: null }] },
+        { week: 1, matches: [{ id: uuidv4(), homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null }] },
+        { week: 2, matches: [{ id: uuidv4(), homeTeam: { id: 'a', score: 2 }, awayTeam: { id: 'b', score: 1 }, kickoff: null }] },
       ];
 
       expect(getActiveMatchweekNumber(matchweeks)).toBe(2);
@@ -63,8 +63,8 @@ describe('matchweek', () => {
       const matchweek: Matchweek = {
         week: 1,
         matches: [
-          { id: 'm1', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null },
-          { id: 'm2', homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
+          { id: uuidv4(), homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null },
+          { id: uuidv4(), homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
         ],
       };
 
@@ -80,8 +80,8 @@ describe('matchweek', () => {
       const matchweek: Matchweek = {
         week: 1,
         matches: [
-          { id: 'm1', homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null },
-          { id: 'm2', homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
+          { id: uuidv4(), homeTeam: { id: 'a', score: 1 }, awayTeam: { id: 'b', score: 0 }, kickoff: null },
+          { id: uuidv4(), homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
         ],
       };
 
@@ -97,8 +97,8 @@ describe('matchweek', () => {
       const matchweek: Matchweek = {
         week: 1,
         matches: [
-          { id: 'm1', homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null },
-          { id: 'm2', homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
+          { id: uuidv4(), homeTeam: { id: 'a', score: null }, awayTeam: { id: 'b', score: null }, kickoff: null },
+          { id: uuidv4(), homeTeam: { id: 'c', score: null }, awayTeam: { id: 'd', score: null }, kickoff: null },
         ],
       };
       const onMatchSimulated = vi.fn();

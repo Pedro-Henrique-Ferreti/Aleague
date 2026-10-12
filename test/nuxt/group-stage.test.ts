@@ -84,12 +84,12 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
+          standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
         {
           order: 2,
-          standings: [newStandingsEntry('3', 'team-c'), newStandingsEntry('4', 'team-d')],
+          standings: [newStandingsEntry(undefined, 'team-c'), newStandingsEntry(undefined, 'team-d')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -107,7 +107,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
+          standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -122,7 +122,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
+          standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -140,7 +140,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')],
+          standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -152,7 +152,7 @@ describe('group-stage', () => {
       const groups = [
         {
           order: 1,
-          standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2')],
+          standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined)],
           legend: [LegendColor.NONE, LegendColor.NONE],
         },
       ] as GroupStage['groups'];
@@ -185,7 +185,7 @@ describe('group-stage', () => {
       match.awayTeam.score = 1;
 
       const stage = {
-        groups: [{ standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')] }],
+        groups: [{ standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')] }],
         matchweeks: [{ week: 1, matches: [match] }],
       } as GroupStage;
 
@@ -199,7 +199,7 @@ describe('group-stage', () => {
 
       const stage = {
         groups: [
-          { standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2')] },
+          { standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined)] },
           { standings: [] },
         ],
         matchweeks: [{ week: 1, matches: [match] }],
@@ -210,7 +210,7 @@ describe('group-stage', () => {
 
     it('should return false when any match is not complete', () => {
       const stage = {
-        groups: [{ standings: [newStandingsEntry('1', 'team-a'), newStandingsEntry('2', 'team-b')] }],
+        groups: [{ standings: [newStandingsEntry(undefined, 'team-a'), newStandingsEntry(undefined, 'team-b')] }],
         matchweeks: [{ week: 1, matches: [newMatch('team-a', 'team-b')] }],
       } as GroupStage;
 
@@ -222,8 +222,8 @@ describe('group-stage', () => {
     it('should return null when the stage has more than one group', () => {
       const stage = {
         groups: [
-          { standings: [newStandingsEntry('1', 'BRA-1')] },
-          { standings: [newStandingsEntry('2', 'BRA-2')] },
+          { standings: [newStandingsEntry(undefined, 'BRA-1')] },
+          { standings: [newStandingsEntry(undefined, 'BRA-2')] },
         ],
       } as GroupStage;
 
@@ -232,7 +232,7 @@ describe('group-stage', () => {
 
     it('should return null when the stage is not complete', () => {
       const stage = {
-        groups: [{ standings: [newStandingsEntry('1', 'BRA-1'), newStandingsEntry('2', 'BRA-2')] }],
+        groups: [{ standings: [newStandingsEntry(undefined, 'BRA-1'), newStandingsEntry(undefined, 'BRA-2')] }],
         matchweeks: [{ week: 1, matches: [newMatch('BRA-1', 'BRA-2')] }],
       } as GroupStage;
 
@@ -241,7 +241,7 @@ describe('group-stage', () => {
 
     it('should return the leading team when the stage is complete', () => {
       const id = DETAILED_TEAM_LIST[0]!.id;
-      const leader = newStandingsEntry('1', id);
+      const leader = newStandingsEntry(undefined, id);
       leader.data[0].points = 3;
 
       const match = newMatch(id, 'BRA-2');
@@ -249,7 +249,7 @@ describe('group-stage', () => {
       match.awayTeam.score = 0;
 
       const stage = {
-        groups: [{ standings: [leader, newStandingsEntry('2', 'BRA-2')] }],
+        groups: [{ standings: [leader, newStandingsEntry(undefined, 'BRA-2')] }],
         matchweeks: [{ week: 1, matches: [match] }],
       } as GroupStage;
 
