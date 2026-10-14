@@ -21,11 +21,13 @@
           >
             <td>
               <div class="flex items-center gap-1">
-                <img
-                  class="w-auto max-w-2 h-2"
-                  alt="Logo do campeonato"
-                  :src="tournament.icon"
-                >
+                <div class="flex justify-center size-2">
+                  <img
+                    class="w-auto max-w-2 h-[inherit]"
+                    alt="Logo do campeonato"
+                    :src="tournament.icon"
+                  >
+                </div>
                 {{ tournament.name }}
               </div>
             </td>
