@@ -32,7 +32,7 @@ export const POINTS_PER_WIN = 3;
 export const POINTS_PER_DRAW = 1;
 export const POINTS_PER_LOSS = 0;
 
-export const LEGEND_COLOR_VALUES: Record<LegendColor, string> = {
+export const LEGEND_COLOR_VALUES: Readonly<Record<LegendColor, string>> = {
   [LegendColor.GREEN]: '#00a63e',
   [LegendColor.BLUE]: '#2b7fff',
   [LegendColor.RED]: '#fb2c36',
@@ -40,7 +40,7 @@ export const LEGEND_COLOR_VALUES: Record<LegendColor, string> = {
   [LegendColor.NONE]: 'transparent',
 };
 
-export const LEGEND_COLOR_ARIA_LABELS: Record<LegendColor, string> = {
+export const LEGEND_COLOR_ARIA_LABELS: Readonly<Record<LegendColor, string>> = {
   [LegendColor.GREEN]: 'verde',
   [LegendColor.BLUE]: 'azul',
   [LegendColor.RED]: 'vermelho',
