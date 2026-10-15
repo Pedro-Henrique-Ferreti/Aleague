@@ -1,18 +1,20 @@
-export const PERU_TEAM_LIST: Readonly<TeamDetails[]> = [
-  { id: 'PER-1', name: 'Alianza Lima', badge: 'https://img.sofascore.com/api/v1/team/2311/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-2', name: 'Los Chankas', badge: 'https://img.sofascore.com/api/v1/team/252254/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-3', name: 'Cienciano', badge: 'https://img.sofascore.com/api/v1/team/2301/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-4', name: 'Universitario', badge: 'https://img.sofascore.com/api/v1/team/2305/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-5', name: 'Melgar', badge: 'https://img.sofascore.com/api/v1/team/2308/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-6', name: 'Cusco', badge: 'https://img.sofascore.com/api/v1/team/63760/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-7', name: 'Comerciantes Unidos', badge: 'https://img.sofascore.com/api/v1/team/213609/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-8', name: 'Alianza Atlético', badge: 'https://img.sofascore.com/api/v1/team/2307/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-9', name: 'Asociación Deportiva Tarma', badge: 'https://img.sofascore.com/api/v1/team/335557/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-10', name: 'Deportivo Garcilaso', badge: 'https://img.sofascore.com/api/v1/team/458584/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-11', name: 'Moquegua', badge: 'https://img.sofascore.com/api/v1/team/492848/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-12', name: 'Sporting Cristal', badge: 'https://img.sofascore.com/api/v1/team/2302/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-13', name: 'ADC Juan Pablo II', badge: 'https://img.sofascore.com/api/v1/team/511206/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-14', name: 'Sport Boys', badge: 'https://img.sofascore.com/api/v1/team/2312/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-15', name: 'Sport Huancayo', badge: 'https://img.sofascore.com/api/v1/team/33895/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-  { id: 'PER-16', name: 'Atlético Grau', badge: 'https://img.sofascore.com/api/v1/team/282538/image', country: 'PER', type: TeamType.CLUB, tags: [] },
-];
+import { defineTeams, mapToTeamList } from '~/helpers/team';
+
+export const PERU_TEAM_LIST = mapToTeamList(defineTeams({
+  'Alianza Lima': { id: 'PER-1', badge: 'https://img.sofascore.com/api/v1/team/2311/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Los Chankas': { id: 'PER-2', badge: 'https://img.sofascore.com/api/v1/team/252254/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Cienciano': { id: 'PER-3', badge: 'https://img.sofascore.com/api/v1/team/2301/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Universitario': { id: 'PER-4', badge: 'https://img.sofascore.com/api/v1/team/2305/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Melgar': { id: 'PER-5', badge: 'https://img.sofascore.com/api/v1/team/2308/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Cusco': { id: 'PER-6', badge: 'https://img.sofascore.com/api/v1/team/63760/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Comerciantes Unidos': { id: 'PER-7', badge: 'https://img.sofascore.com/api/v1/team/213609/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Alianza Atlético': { id: 'PER-8', badge: 'https://img.sofascore.com/api/v1/team/2307/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Asociación Deportiva Tarma': { id: 'PER-9', badge: 'https://img.sofascore.com/api/v1/team/335557/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Deportivo Garcilaso': { id: 'PER-10', badge: 'https://img.sofascore.com/api/v1/team/458584/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Moquegua': { id: 'PER-11', badge: 'https://img.sofascore.com/api/v1/team/492848/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Sporting Cristal': { id: 'PER-12', badge: 'https://img.sofascore.com/api/v1/team/2302/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'ADC Juan Pablo II': { id: 'PER-13', badge: 'https://img.sofascore.com/api/v1/team/511206/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Sport Boys': { id: 'PER-14', badge: 'https://img.sofascore.com/api/v1/team/2312/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Sport Huancayo': { id: 'PER-15', badge: 'https://img.sofascore.com/api/v1/team/33895/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+  'Atlético Grau': { id: 'PER-16', badge: 'https://img.sofascore.com/api/v1/team/282538/image', country: 'PER', type: TeamType.CLUB, tags: [] },
+}));

@@ -1,14 +1,16 @@
-export const DENMARK_TEAM_LIST: Readonly<TeamDetails[]> = [
-  { id: 'DNK-1', name: 'Midtjylland', badge: 'https://img.sofascore.com/api/v1/team/1289/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-2', name: 'AGF', badge: 'https://img.sofascore.com/api/v1/team/1291/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-3', name: 'Sønderjyske', badge: 'https://img.sofascore.com/api/v1/team/1295/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-4', name: 'Brøndby', badge: 'https://img.sofascore.com/api/v1/team/1281/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-5', name: 'Viborg', badge: 'https://img.sofascore.com/api/v1/team/1288/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-6', name: 'Nordsjælland', badge: 'https://img.sofascore.com/api/v1/team/1292/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-7', name: 'København', badge: 'https://img.sofascore.com/api/v1/team/1284/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-8', name: 'Odense Boldklub', badge: 'https://img.sofascore.com/api/v1/team/1286/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-9', name: 'Randers', badge: 'https://img.sofascore.com/api/v1/team/1301/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-10', name: 'FC Fredericia', badge: 'https://img.sofascore.com/api/v1/team/1302/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-11', name: 'Silkeborg', badge: 'https://img.sofascore.com/api/v1/team/1285/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-  { id: 'DNK-12', name: 'Vejle', badge: 'https://img.sofascore.com/api/v1/team/4872/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
-];
+import { defineTeams, mapToTeamList } from '~/helpers/team';
+
+export const DENMARK_TEAM_LIST = mapToTeamList(defineTeams({
+  'Midtjylland': { id: 'DNK-1', badge: 'https://img.sofascore.com/api/v1/team/1289/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'AGF': { id: 'DNK-2', badge: 'https://img.sofascore.com/api/v1/team/1291/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Sønderjyske': { id: 'DNK-3', badge: 'https://img.sofascore.com/api/v1/team/1295/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Brøndby': { id: 'DNK-4', badge: 'https://img.sofascore.com/api/v1/team/1281/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Viborg': { id: 'DNK-5', badge: 'https://img.sofascore.com/api/v1/team/1288/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Nordsjælland': { id: 'DNK-6', badge: 'https://img.sofascore.com/api/v1/team/1292/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'København': { id: 'DNK-7', badge: 'https://img.sofascore.com/api/v1/team/1284/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Odense Boldklub': { id: 'DNK-8', badge: 'https://img.sofascore.com/api/v1/team/1286/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Randers': { id: 'DNK-9', badge: 'https://img.sofascore.com/api/v1/team/1301/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'FC Fredericia': { id: 'DNK-10', badge: 'https://img.sofascore.com/api/v1/team/1302/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Silkeborg': { id: 'DNK-11', badge: 'https://img.sofascore.com/api/v1/team/1285/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+  'Vejle': { id: 'DNK-12', badge: 'https://img.sofascore.com/api/v1/team/4872/image', country: 'DNK', type: TeamType.CLUB, tags: [] },
+}));
