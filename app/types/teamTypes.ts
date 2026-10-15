@@ -46,4 +46,5 @@ export interface TeamDetails {
   type: TeamType;
   tags: TeamTags[];
   strength?: TeamStrength;
+  rivals?: TeamDetails['id'][];
 }

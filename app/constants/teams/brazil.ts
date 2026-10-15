@@ -1,6 +1,6 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
 
-export const BRAZIL_TEAM_LIST = mapToTeamList(defineTeams({
+const brazilTeams = defineTeams({
   'Cruzeiro': { id: 'BRA-1', badge: 'https://img.sofascore.com/api/v1/team/1954/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_A_26] },
   'Bahia': { id: 'BRA-2', badge: 'https://img.sofascore.com/api/v1/team/1955/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_A_26] },
   'Corinthians': { id: 'BRA-3', badge: 'https://img.sofascore.com/api/v1/team/1957/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_A_26] },
@@ -216,4 +216,18 @@ export const BRAZIL_TEAM_LIST = mapToTeamList(defineTeams({
   'Blumenau EC': { id: 'BRA-213', badge: 'https://img.sofascore.com/api/v1/team/290304/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_D_26] },
   'Independente-PR': { id: 'BRA-214', badge: 'https://img.sofascore.com/api/v1/team/313924/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_D_26] },
   'Brasil de Pelotas': { id: 'BRA-215', badge: 'https://img.sofascore.com/api/v1/team/1986/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_D_26] },
-}));
+});
+
+defineRivals(brazilTeams.Palmeiras, brazilTeams.Corinthians, brazilTeams.Santos, brazilTeams['São Paulo']);
+defineRivals(brazilTeams.Flamengo, brazilTeams.Fluminense, brazilTeams.Botafogo, brazilTeams.Vasco);
+defineRivals(brazilTeams.Cruzeiro, brazilTeams['Atlético-MG']);
+defineRivals(brazilTeams.Internacional, brazilTeams['Grêmio']);
+defineRivals(brazilTeams.Coritiba, brazilTeams.Athletico);
+defineRivals(brazilTeams['Goiás'], brazilTeams['Atlético-GO'], brazilTeams['Vila Nova']);
+defineRivals(brazilTeams.Bahia, brazilTeams['Vitória']);
+defineRivals(brazilTeams.Fortaleza, brazilTeams['Ceará']);
+defineRivals(brazilTeams.Sport, brazilTeams['Náutico']);
+defineRivals(brazilTeams.Remo, brazilTeams.Paysandu);
+defineRivals(brazilTeams.Guarani, brazilTeams['Ponte Preta']);
+
+export const BRAZIL_TEAM_LIST = mapToTeamList(brazilTeams);

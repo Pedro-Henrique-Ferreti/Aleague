@@ -1,6 +1,6 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
 
-export const NATIONAL_TEAM_LIST = mapToTeamList(defineTeams({
+const nationalTeams = defineTeams({
   'Albânia': { id: 'NAT-1', badge: '/images/countries/albania.svg', country: 'ALB', type: TeamType.NATIONAL, tags: [TeamTags.EUROPE] },
   'Argélia': { id: 'NAT-2', badge: '/images/countries/algeria.svg', country: 'DZA', type: TeamType.NATIONAL, tags: [TeamTags.AFRICA] },
   'Andorra': { id: 'NAT-3', badge: '/images/countries/andorra.svg', country: 'AND', type: TeamType.NATIONAL, tags: [TeamTags.EUROPE] },
@@ -171,4 +171,8 @@ export const NATIONAL_TEAM_LIST = mapToTeamList(defineTeams({
   'Zimbabwe': { id: 'NAT-168', badge: '/images/countries/zimbabwe.svg', country: 'ZWE', type: TeamType.NATIONAL, tags: [TeamTags.AFRICA] },
   'Curaçao': { id: 'NAT-169', badge: '/images/countries/curacao.svg', country: 'ZWE', type: TeamType.NATIONAL, tags: [TeamTags.CENTRAL_AMERICA] },
   'Jordânia': { id: 'NAT-170', badge: '/images/countries/jordan.svg', country: 'JOR', type: TeamType.NATIONAL, tags: [TeamTags.ASIA] },
-}));
+});
+
+defineRivals(nationalTeams.Brasil, nationalTeams.Argentina);
+
+export const NATIONAL_TEAM_LIST = mapToTeamList(nationalTeams);

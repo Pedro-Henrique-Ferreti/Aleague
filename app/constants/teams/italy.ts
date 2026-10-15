@@ -1,6 +1,6 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
 
-export const ITALY_TEAM_LIST = mapToTeamList(defineTeams({
+const italyTeams = defineTeams({
   'Bologna': { id: 'ITA-1', badge: 'https://img.sofascore.com/api/v1/team/2685/image', country: 'ITA', type: TeamType.CLUB, tags: [TeamTags.ITALIAN_SERIE_A_26] },
   'Atalanta': { id: 'ITA-2', badge: 'https://img.sofascore.com/api/v1/team/2686/image', country: 'ITA', type: TeamType.CLUB, tags: [TeamTags.ITALIAN_SERIE_A_26] },
   'Juventus': { id: 'ITA-3', badge: 'https://img.sofascore.com/api/v1/team/2687/image', country: 'ITA', type: TeamType.CLUB, tags: [TeamTags.ITALIAN_SERIE_A_26] },
@@ -46,4 +46,8 @@ export const ITALY_TEAM_LIST = mapToTeamList(defineTeams({
   'Reggiana': { id: 'ITA-43', badge: 'https://img.sofascore.com/api/v1/team/24516/image', country: 'ITA', type: TeamType.CLUB, tags: [] },
   'Spezia': { id: 'ITA-44', badge: 'https://img.sofascore.com/api/v1/team/2735/image', country: 'ITA', type: TeamType.CLUB, tags: [] },
   'Pescara': { id: 'ITA-45', badge: 'https://img.sofascore.com/api/v1/team/7935/image', country: 'ITA', type: TeamType.CLUB, tags: [] },
-}));
+});
+
+defineRivals(italyTeams.Milan, italyTeams.Inter);
+
+export const ITALY_TEAM_LIST = mapToTeamList(italyTeams);

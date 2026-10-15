@@ -1,6 +1,6 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
 
-export const ARGENTINA_TEAM_LIST = mapToTeamList(defineTeams({
+const argentinaTeams = defineTeams({
   'San Lorenzo': { id: 'ARG-1', badge: 'https://img.sofascore.com/api/v1/team/3201/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
   'Boca Juniors': { id: 'ARG-2', badge: 'https://img.sofascore.com/api/v1/team/3202/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
   'Belgrano': { id: 'ARG-3', badge: 'https://img.sofascore.com/api/v1/team/3203/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
@@ -36,4 +36,8 @@ export const ARGENTINA_TEAM_LIST = mapToTeamList(defineTeams({
   'Atlético Tucumán': { id: 'ARG-33', badge: 'https://img.sofascore.com/api/v1/team/36833/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
   'Aldosivi': { id: 'ARG-34', badge: 'https://img.sofascore.com/api/v1/team/36836/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
   'Estudiantes de Río Cuarto': { id: 'ARG-35', badge: 'https://img.sofascore.com/api/v1/team/266694/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
-}));
+});
+
+defineRivals(argentinaTeams['Boca Juniors'], argentinaTeams['River Plate']);
+
+export const ARGENTINA_TEAM_LIST = mapToTeamList(argentinaTeams);

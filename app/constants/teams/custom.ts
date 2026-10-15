@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
 
 const brazilTeams = defineTeams({
   'Alves Dias': { id: 'CUS-BRA-1', badge: '/images/leagues/brazilian-league.png', type: TeamType.CUSTOM, country: 'BRA', tags: [], strength: 3 },
@@ -98,6 +98,10 @@ const brazilTeams = defineTeams({
   'Vila Romana': { id: 'CUS-BRA-95', badge: '/images/leagues/brazilian-league.png', type: TeamType.CUSTOM, country: 'BRA', tags: [], strength: 2.5 },
   'Vila Saúde': { id: 'CUS-BRA-96', badge: '/images/leagues/brazilian-league.png', type: TeamType.CUSTOM, country: 'BRA', tags: [], strength: 2.5 },
 });
+
+defineRivals(brazilTeams['Paradão'], brazilTeams.Moca, brazilTeams['Paulicéia'], brazilTeams['Vila Vitória'], brazilTeams['Assunção']);
+defineRivals(brazilTeams['Taboão'], brazilTeams.Morumbi);
+defineRivals(brazilTeams['Parque Avaí'], brazilTeams['Parque dos Pássaros']);
 
 const argentinaTeams = defineTeams({
   'Bariloche': { id: 'CUS-ARG-1', badge: '/images/leagues/argentinian-league.png', type: TeamType.CUSTOM, country: 'ARG', tags: [], strength: 3.5 },

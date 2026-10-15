@@ -1,6 +1,6 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
 
-export const SPAIN_TEAM_LIST = mapToTeamList(defineTeams({
+const spainTeams = defineTeams({
   'Espanyol': { id: 'ESP-1', badge: 'https://img.sofascore.com/api/v1/team/2814/image', country: 'ESP', type: TeamType.CLUB, tags: [TeamTags.LA_LIGA_26] },
   'Real Zaragoza': { id: 'ESP-2', badge: 'https://img.sofascore.com/api/v1/team/2815/image', country: 'ESP', type: TeamType.CLUB, tags: [] },
   'Real Betis': { id: 'ESP-3', badge: 'https://img.sofascore.com/api/v1/team/2816/image', country: 'ESP', type: TeamType.CLUB, tags: [TeamTags.LA_LIGA_26] },
@@ -45,4 +45,9 @@ export const SPAIN_TEAM_LIST = mapToTeamList(defineTeams({
   'Cultural Leonesa': { id: 'ESP-42', badge: 'https://img.sofascore.com/api/v1/team/2868/image', country: 'ESP', type: TeamType.CLUB, tags: [] },
   'Eldense': { id: 'ESP-43', badge: 'https://img.sofascore.com/api/v1/team/47321/image', country: 'ESP', type: TeamType.CLUB, tags: [TeamTags.LA_LIGA_2_26] },
   'Sabadell': { id: 'ESP-44', badge: 'https://img.sofascore.com/api/v1/team/24335/image', country: 'ESP', type: TeamType.CLUB, tags: [TeamTags.LA_LIGA_2_26] },
-}));
+});
+
+defineRivals(spainTeams.Barcelona, spainTeams['Real Madrid']);
+defineRivals(spainTeams['Atlético Madrid'], spainTeams['Real Madrid']);
+
+export const SPAIN_TEAM_LIST = mapToTeamList(spainTeams);
