@@ -31,14 +31,16 @@
 </template>
 
 <script lang="ts" setup>
-import { IconSquareRoundedCheckFilled, IconSquareRoundedFilled, IconSquareRoundedX } from '@tabler/icons-vue';
+import { IconSquareRounded, IconSquareRoundedCheck, IconSquareRoundedCheckFilled, IconSquareRoundedFilled } from '@tabler/icons-vue';
 
 const id = useId();
 
 const legend = defineModel<LegendColor>();
 
 function getButtonIcon(color: LegendColor) {
-  if (color === LegendColor.NONE) return IconSquareRoundedX;
+  if (color === LegendColor.NONE) {
+    return color === legend.value ? IconSquareRoundedCheck : IconSquareRounded;
+  }
 
   return color === legend.value ? IconSquareRoundedCheckFilled : IconSquareRoundedFilled;
 }
