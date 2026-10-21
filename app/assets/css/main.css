@@ -36,7 +36,8 @@
   --color-gray-1: #faf9fa;
 
   /* Animations */
-  --animate-fade: fade var(--default-transition-duration) var(--default-transition-timing-function);
+  --animate-fade: fade var(--default-transition-duration);
+  --animate-float: float 6s var(--default-transition-timing-function) infinite;
 }
 
 @utility container-* {
