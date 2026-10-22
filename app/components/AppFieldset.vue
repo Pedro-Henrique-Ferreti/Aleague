@@ -6,7 +6,9 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{
+export interface AppFieldsetProps {
   label: string;
-}>();
+}
+
+defineProps<AppFieldsetProps>();
 </script>
