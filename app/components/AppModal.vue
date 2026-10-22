@@ -8,6 +8,7 @@
     ref="dialogRef"
     :id="id"
     class="modal"
+    :class="$attrs.class"
     @close="closeModal"
   >
     <div
