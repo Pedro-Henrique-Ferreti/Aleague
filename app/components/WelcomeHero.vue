@@ -30,7 +30,7 @@
       <ul class="mt-1.5 flex flex-wrap gap-x-1.25 gap-y-0.5 text-xs font-medium text-base-content/60">
         <li class="flex items-center gap-0.25">
           <IconCheck class="size-1.25 text-success" />
-          Sem cadastro
+          Não é necessário cadastro
         </li>
         <li class="flex items-center gap-0.25">
           <IconCheck class="size-1.25 text-success" />

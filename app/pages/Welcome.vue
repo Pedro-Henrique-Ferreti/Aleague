@@ -1,7 +1,23 @@
 <template>
   <NuxtLayout name="blank">
     <div class="welcome">
-      <main class="container-md grid gap-5 pb-4 pt-6 desktop:pb-6 desktop:pt-8 desktop:gap-7">
+      <header class="container-md flex justify-end pt-2 gap-0.5">
+        <AuthModal>
+          <template #trigger="{ openModal }">
+            <AppButton
+              class="btn-outline btn-primary btn-sm"
+              label="Criar uma conta"
+              @click="openModal"
+            />
+            <AppButton
+              class="btn-primary btn-sm"
+              label="Entrar"
+              @click="openModal"
+            />
+          </template>
+        </AuthModal>
+      </header>
+      <main class="container-md grid gap-5 pb-4 pt-3 desktop:pb-6 desktop:gap-7">
         <WelcomeHero />
         <WelcomeFeatures />
         <WelcomeStepsCard />
