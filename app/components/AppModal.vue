@@ -94,6 +94,21 @@ interface AppModalProps {
   showActions?: boolean;
 }
 
+export interface AppModalSlots {
+  trigger: (props: {
+    openModal: () => void;
+    closeModal: () => void
+  }) => any;
+  default: (props: {
+    sidePanelId: string;
+    isSidePanelOpen?: boolean;
+    toggleSidePanel: () => void;
+  }) => any;
+  actions: () => any;
+  ['submit-button']: () => any;
+  ['side-panel']: () => any;
+}
+
 withDefaults(defineProps<AppModalProps>(), {
   showCloseIcon: true,
   submitButtonLabel: 'Salvar',
@@ -105,6 +120,8 @@ const emit = defineEmits<{
   close: [];
   submit: [];
 }>();
+
+defineSlots<AppModalSlots>();
 
 const id = useId();
 const sidePanelId = useId();
