@@ -1,6 +1,6 @@
 <template>
   <aside class="auth-brand">
-    <span class="text-base font-semibold tracking-tight text-primary">Aleague</span>
+    <AppLogo />
     <div>
       <p class="text-2xl font-semibold tracking-tight text-balance">
         Seu campeonato, do sorteio ao campeão.

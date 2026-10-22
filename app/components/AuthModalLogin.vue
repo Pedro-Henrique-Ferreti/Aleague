@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col p-2">
-    <span class="block mb-1 text-base text-primary font-semibold tracking-tight tablet-lg:hidden">Aleague</span>
+    <AppLogo class="block mb-1 tablet-lg:hidden" />
     <h2 class="text-2xl font-semibold tracking-tight">
       Entrar
     </h2>
