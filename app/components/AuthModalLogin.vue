@@ -41,7 +41,10 @@
     </form>
     <p class="mt-1.5 text-center text-xs text-base-content/70">
       Ainda não tem conta?
-      <BaseButton class="link link-primary">
+      <BaseButton
+        class="link link-primary"
+        @click="$emit('register')"
+      >
         Criar conta
       </BaseButton>
     </p>
@@ -50,6 +53,10 @@
 
 <script setup lang="ts">
 import { IconLock, IconLogin, IconUser } from '@tabler/icons-vue';
+
+defineEmits<{
+  register: [];
+}>();
 
 const form = ref({
   login: '',

@@ -3,6 +3,7 @@
     class="[&_.modal-content]:p-0!"
     size="lg"
     :show-actions="false"
+    @open="form = 'login'"
   >
     <template #trigger="slotProps">
       <slot
@@ -12,7 +13,14 @@
     </template>
     <div class="tablet-lg:grid tablet-lg:grid-cols-2">
       <AuthModalBrand />
-      <AuthModalLogin />
+      <AuthModalLogin
+        v-if="form === 'login'"
+        @register="form = 'register'"
+      />
+      <AuthModalRegister
+        v-else
+        @login="form = 'login'"
+      />
     </div>
   </AppModal>
 </template>
@@ -21,4 +29,6 @@
 import type { AppModalSlots } from './AppModal.vue';
 
 defineSlots<Pick<AppModalSlots, 'trigger'>>();
+
+const form = ref<'login' | 'register'>('login');
 </script>
