@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const TURKEY_TEAM_LIST = mapToTeamList(defineTeams({
   Beşiktaş: { id: 'TUR-1', badge: 'https://img.sofascore.com/api/v1/team/3050/image', country: 'TUR', type: TeamType.CLUB, tags: [] },

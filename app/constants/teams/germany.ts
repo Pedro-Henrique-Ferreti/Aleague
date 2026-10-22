@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const GERMANY_TEAM_LIST = mapToTeamList(defineTeams({
   'Wolfsburg': { id: 'DEU-1', badge: 'https://img.sofascore.com/api/v1/team/2524/image', country: 'DEU', type: TeamType.CLUB, tags: [TeamTags.BUNDESLIGA_2_26] },

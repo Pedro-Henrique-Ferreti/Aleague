@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const URUGUAY_TEAM_LIST = mapToTeamList(defineTeams({
   'Peñarol': { id: 'URY-1', badge: 'https://img.sofascore.com/api/v1/team/3227/image', country: 'URY', type: TeamType.CLUB, tags: [] },

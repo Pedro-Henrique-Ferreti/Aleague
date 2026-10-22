@@ -1,4 +1,4 @@
-import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 const spainTeams = defineTeams({
   'Espanyol': { id: 'ESP-1', badge: 'https://img.sofascore.com/api/v1/team/2814/image', country: 'ESP', type: TeamType.CLUB, tags: [TeamTags.LA_LIGA_26] },

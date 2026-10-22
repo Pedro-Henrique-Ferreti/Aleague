@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const JAPAN_TEAM_LIST = mapToTeamList(defineTeams({
   'Kashima Antlers': { id: 'JPN-1', badge: 'https://img.sofascore.com/api/v1/team/3134/image', country: 'JPN', type: TeamType.CLUB, tags: [] },

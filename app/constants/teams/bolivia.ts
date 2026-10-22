@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const BOLIVIA_TEAM_LIST = mapToTeamList(defineTeams({
   'Blooming': { id: 'BOL-1', badge: 'https://img.sofascore.com/api/v1/team/6968/image', country: 'BOL', type: TeamType.CLUB, tags: [] },

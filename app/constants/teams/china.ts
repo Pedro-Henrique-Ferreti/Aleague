@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const CHINA_TEAM_LIST = mapToTeamList(defineTeams({
   'Beijing Guoan': { id: 'CHN-1', badge: 'https://img.sofascore.com/api/v1/team/3376/image', country: 'CHN', type: TeamType.CLUB, tags: [] },

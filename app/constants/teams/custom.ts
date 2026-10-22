@@ -1,4 +1,4 @@
-import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 const brazilTeams = defineTeams({
   'Alves Dias': { id: 'CUS-BRA-1', badge: '/images/leagues/brazilian-league.png', type: TeamType.CUSTOM, country: 'BRA', tags: [], strength: 3 },

@@ -1,4 +1,4 @@
-import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 const argentinaTeams = defineTeams({
   'San Lorenzo': { id: 'ARG-1', badge: 'https://img.sofascore.com/api/v1/team/3201/image', country: 'ARG', type: TeamType.CLUB, tags: [] },

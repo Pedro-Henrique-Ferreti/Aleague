@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const VENEZUELA_TEAM_LIST = mapToTeamList(defineTeams({
   'Carabobo': { id: 'VEN-1', badge: 'https://img.sofascore.com/api/v1/team/6229/image', country: 'VEN', type: TeamType.CLUB, tags: [] },

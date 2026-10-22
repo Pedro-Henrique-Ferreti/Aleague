@@ -1,4 +1,4 @@
-import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 const italyTeams = defineTeams({
   'Bologna': { id: 'ITA-1', badge: 'https://img.sofascore.com/api/v1/team/2685/image', country: 'ITA', type: TeamType.CLUB, tags: [TeamTags.ITALIAN_SERIE_A_26] },

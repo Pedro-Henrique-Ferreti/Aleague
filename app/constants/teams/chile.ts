@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const CHILE_TEAM_LIST = mapToTeamList(defineTeams({
   'Universidad Católica': { id: 'CHL-1', badge: 'https://img.sofascore.com/api/v1/team/3151/image', country: 'CHL', type: TeamType.CLUB, tags: [] },

@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const NETHERLANDS_TEAM_LIST = mapToTeamList(defineTeams({
   'PSV': { id: 'NLD-1', badge: 'https://img.sofascore.com/api/v1/team/2952/image', country: 'NLD', type: TeamType.CLUB, tags: [] },

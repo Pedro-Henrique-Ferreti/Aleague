@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const MEXICO_TEAM_LIST = mapToTeamList(defineTeams({
   Monterrey: { id: 'MEX-1', badge: 'https://img.sofascore.com/api/v1/team/1932/image', country: 'MEX', type: TeamType.CLUB, tags: [] },

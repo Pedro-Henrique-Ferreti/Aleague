@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const AUSTRIA_TEAM_LIST = mapToTeamList(defineTeams({
   'RB Salzburg': { id: 'AUT-1', badge: 'https://img.sofascore.com/api/v1/team/2046/image', country: 'AUT', type: TeamType.CLUB, tags: [] },

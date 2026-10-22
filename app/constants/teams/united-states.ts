@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const UNITED_STATES_TEAM_LIST = mapToTeamList(defineTeams({
   'LA Galaxy': { id: 'USA-1', badge: 'https://img.sofascore.com/api/v1/team/2513/image', country: 'USA', type: TeamType.CLUB, tags: [] },

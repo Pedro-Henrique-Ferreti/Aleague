@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const ENGLAND_TEAM_LIST = mapToTeamList(defineTeams({
   'QPR': { id: 'ENG-1', badge: 'https://img.sofascore.com/api/v1/team/1/image', country: 'ENG', type: TeamType.CLUB, tags: [TeamTags.EFL_26] },

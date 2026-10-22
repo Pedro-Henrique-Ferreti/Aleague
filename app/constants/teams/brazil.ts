@@ -1,4 +1,4 @@
-import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineRivals, defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 const brazilTeams = defineTeams({
   'Cruzeiro': { id: 'BRA-1', badge: 'https://img.sofascore.com/api/v1/team/1954/image', country: 'BRA', type: TeamType.CLUB, tags: [TeamTags.SERIE_A_26] },

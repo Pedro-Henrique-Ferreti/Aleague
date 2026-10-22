@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const BELGIUM_TEAM_LIST = mapToTeamList(defineTeams({
   'Club Brugge': { id: 'BEL-1', badge: 'https://img.sofascore.com/api/v1/team/2888/image', country: 'BEL', type: TeamType.CLUB, tags: [] },

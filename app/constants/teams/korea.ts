@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const KOREA_TEAM_LIST = mapToTeamList(defineTeams({
   'Daejeon Hana': { id: 'KOR-1', badge: 'https://img.sofascore.com/api/v1/team/7645/image', country: 'KOR', type: TeamType.CLUB, tags: [] },

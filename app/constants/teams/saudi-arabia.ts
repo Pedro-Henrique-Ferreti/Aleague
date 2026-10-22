@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const SAUDI_ARABIA_TEAM_LIST = mapToTeamList(defineTeams({
   'Al-Hilal': { id: 'SAU-1', badge: 'https://img.sofascore.com/api/v1/team/21895/image', country: 'SAU', type: TeamType.CLUB, tags: [] },

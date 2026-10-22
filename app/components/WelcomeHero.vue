@@ -65,14 +65,14 @@ import { IconCheck, IconInfoCircle, IconSparkles } from '@tabler/icons-vue';
 import { NATIONAL_TEAMS } from '~/constants/teams/national';
 
 const COUNTRY_FLAGS = [
-  NATIONAL_TEAMS.Brasil.badge,
-  NATIONAL_TEAMS.Argentina.badge,
-  NATIONAL_TEAMS.Espanha.badge,
-  NATIONAL_TEAMS.Alemanha.badge,
-  NATIONAL_TEAMS['França'].badge,
-  NATIONAL_TEAMS['Itália'].badge,
-  NATIONAL_TEAMS.Portugal.badge,
-  NATIONAL_TEAMS.Inglaterra.badge,
-  NATIONAL_TEAMS.Uruguai.badge,
+  NATIONAL_TEAMS.BRAZIL.badge,
+  NATIONAL_TEAMS.ARGENTINA.badge,
+  NATIONAL_TEAMS.SPAIN.badge,
+  NATIONAL_TEAMS.GERMANY.badge,
+  NATIONAL_TEAMS.FRANCE.badge,
+  NATIONAL_TEAMS.ITALY.badge,
+  NATIONAL_TEAMS.PORTUGAL.badge,
+  NATIONAL_TEAMS.ENGLAND.badge,
+  NATIONAL_TEAMS.URUGUAY.badge,
 ] as const;
 </script>

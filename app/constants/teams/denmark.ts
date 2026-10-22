@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const DENMARK_TEAM_LIST = mapToTeamList(defineTeams({
   'Midtjylland': { id: 'DNK-1', badge: 'https://img.sofascore.com/api/v1/team/1289/image', country: 'DNK', type: TeamType.CLUB, tags: [] },

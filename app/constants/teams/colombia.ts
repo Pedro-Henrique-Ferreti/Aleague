@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const COLOMBIA_TEAM_LIST = mapToTeamList(defineTeams({
   'América de Cali': { id: 'COL-1', badge: 'https://img.sofascore.com/api/v1/team/6102/image', country: 'COL', type: TeamType.CLUB, tags: [] },

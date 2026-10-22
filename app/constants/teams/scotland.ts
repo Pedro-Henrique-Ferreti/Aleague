@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const SCOTLAND_TEAM_LIST = mapToTeamList(defineTeams({
   'Celtic': { id: 'SCT-1', badge: 'https://img.sofascore.com/api/v1/team/2352/image', country: 'SCT', type: TeamType.CLUB, tags: [] },

@@ -23,7 +23,7 @@
     </div>
     <ul class="mt-0.5 space-y-0.25">
       <li
-        v-for="row, index in previewRows"
+        v-for="row, index in DECORATIVE_TABLE_ROWS"
         :key="row.name"
         class="flex items-center gap-0.5 rounded-xl border border-base-200 px-0.5 py-0.25 text-xs"
       >
@@ -53,17 +53,15 @@
 import { IconTrophy, IconWand } from '@tabler/icons-vue';
 import { NATIONAL_TEAMS } from '~/constants/teams/national';
 
-interface PreviewRow {
-  name: string;
-  flag: string;
+const DECORATIVE_TABLE_ROWS: ReadonlyArray<Readonly<{
+  name: TeamDetails['name'];
+  flag: TeamDetails['badge'];
   points: number;
-}
-
-const previewRows: ReadonlyArray<Readonly<PreviewRow>> = [
-  { name: 'Brasil', flag: NATIONAL_TEAMS.Brasil.badge, points: 15 },
-  { name: 'França', flag: NATIONAL_TEAMS['França'].badge, points: 13 },
-  { name: 'Argentina', flag: NATIONAL_TEAMS.Argentina.badge, points: 12 },
-  { name: 'Espanha', flag: NATIONAL_TEAMS.Espanha.badge, points: 11 },
-  { name: 'Alemanha', flag: NATIONAL_TEAMS.Alemanha.badge, points: 9 },
+}>> = [
+  { name: NATIONAL_TEAMS.BRAZIL.name, flag: NATIONAL_TEAMS.BRAZIL.badge, points: 15 },
+  { name: NATIONAL_TEAMS.FRANCE.name, flag: NATIONAL_TEAMS.FRANCE.badge, points: 13 },
+  { name: NATIONAL_TEAMS.ARGENTINA.name, flag: NATIONAL_TEAMS.ARGENTINA.badge, points: 12 },
+  { name: NATIONAL_TEAMS.SPAIN.name, flag: NATIONAL_TEAMS.SPAIN.badge, points: 11 },
+  { name: NATIONAL_TEAMS.GERMANY.name, flag: NATIONAL_TEAMS.GERMANY.badge, points: 9 },
 ];
 </script>

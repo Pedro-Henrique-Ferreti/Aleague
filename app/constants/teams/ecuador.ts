@@ -1,4 +1,4 @@
-import { defineTeams, mapToTeamList } from '~/helpers/team';
+import { defineTeams, mapToTeamList } from '~/helpers/team-definition';
 
 export const ECUADOR_TEAM_LIST = mapToTeamList(defineTeams({
   'Aucas': { id: 'ECU-1', badge: 'https://img.sofascore.com/api/v1/team/5249/image', country: 'ECU', type: TeamType.CLUB, tags: [] },
