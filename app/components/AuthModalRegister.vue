@@ -5,7 +5,7 @@
       Criar conta
     </h2>
     <p class="mt-0.25 text-sm text-base-content/70">
-      Digite usuário e senha para criar uma conta.
+      Digite usuário, email e senha para criar uma conta.
     </p>
     <form
       class="mt-1.5 flex flex-col gap-1"
@@ -13,12 +13,20 @@
       @submit.prevent
     >
       <AppInput
-        v-model="form.login"
+        v-model="form.username"
         label="Usuário"
         name="username"
         placeholder="usuário"
         autocomplete="username"
         :icon="IconUser"
+      />
+      <AppInput
+        v-model="form.email"
+        label="Email"
+        name="email"
+        placeholder="exemplo@mail.com"
+        autocomplete="email"
+        :icon="IconMail"
       />
       <AppInput
         v-model="form.password"
@@ -58,14 +66,15 @@
 </template>
 
 <script setup lang="ts">
-import { IconLock, IconLogin2, IconUser } from '@tabler/icons-vue';
+import { IconLock, IconLogin2, IconMail, IconUser } from '@tabler/icons-vue';
 
 defineEmits<{
   login: [];
 }>();
 
 const form = ref({
-  login: '',
+  username: '',
+  email: '',
   password: '',
   passwordRepeat: '',
 });

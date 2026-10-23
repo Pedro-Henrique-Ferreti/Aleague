@@ -5,7 +5,7 @@
       Entrar
     </h2>
     <p class="mt-0.25 text-sm text-base-content/70">
-      Use seu usuário e senha para acessar sua conta.
+      Use seu email e senha para acessar sua conta.
     </p>
     <form
       class="mt-1.5 flex flex-col gap-1"
@@ -13,12 +13,12 @@
       @submit.prevent
     >
       <AppInput
-        v-model="form.login"
-        label="Usuário"
-        name="username"
-        placeholder="usuário"
-        autocomplete="username"
-        :icon="IconUser"
+        v-model="form.email"
+        label="Email"
+        name="email"
+        placeholder="exemplo@mail.com"
+        autocomplete="email"
+        :icon="IconMail"
       />
       <AppInput
         v-model="form.password"
@@ -52,14 +52,14 @@
 </template>
 
 <script setup lang="ts">
-import { IconLock, IconLogin, IconUser } from '@tabler/icons-vue';
+import { IconLock, IconLogin, IconMail } from '@tabler/icons-vue';
 
 defineEmits<{
   register: [];
 }>();
 
 const form = ref({
-  login: '',
+  email: '',
   password: '',
 });
 </script>

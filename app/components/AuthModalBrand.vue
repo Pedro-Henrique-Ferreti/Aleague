@@ -57,7 +57,7 @@ const DECORATIVE_TABLE_ROWS: ReadonlyArray<Readonly<{
 @reference '@/assets/css/main.css';
 
 .auth-brand {
-  @apply hidden flex-col justify-between gap-1.5 border-base-300 bg-primary/5 p-2.5 tablet-lg:flex tablet-lg:border-r;
+  @apply hidden flex-col gap-1.5 border-base-300 bg-primary/5 p-2.5 tablet-lg:flex tablet-lg:border-r;
 
   background-image: radial-gradient(ellipse 120% 80% at 0% 0%, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 70%);
 }
