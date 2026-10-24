@@ -17,7 +17,7 @@
   <div
     v-for="vnode, index in tabPanelVNodes"
     v-show="activeTabIndex === index"
-    :key="vnode.key"
+    :key="vnode.key ?? undefined"
     :id="getPanelId(index)"
     role="tabpanel"
     :aria-labelledby="getTabId(index)"

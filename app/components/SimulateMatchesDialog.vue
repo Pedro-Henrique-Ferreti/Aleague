@@ -28,5 +28,5 @@ defineEmits<{
 }>();
 
 const isOpen = defineModel<boolean>('is-open');
-const preserveScore = defineModel<boolean>('preserve-score', { default: undefined });
+const preserveScore = defineModel<boolean>('preserve-score');
 </script>
