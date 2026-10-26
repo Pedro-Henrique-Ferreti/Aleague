@@ -16,7 +16,7 @@
             <span
               v-if="match.kickoff && showMatchKickoff[index]"
               v-text="getKickoffDisplayText(match.kickoff, 'EEEEEE \'•\' kk\'h\'mm')"
-              class="matchweek-kickoff divider"
+              class="matchweek-kickoff-badge"
             />
             <MatchCard
               v-model:home-score="match.homeTeam.score"
@@ -76,7 +76,7 @@ function handleMatchUpdated(match: MatchWithOldScore) {
   @apply grid grid-cols-[1fr_auto_1fr] mb-1.5 border-b-gray-200 border-b -mt-1.25 pt-1.25 pb-1 sticky top-0 bg-white;
 }
 
-.matchweek-kickoff {
-  @apply justify-self-center w-full max-w-2/3 mt-0.75 first:mt-0 -mb-0.5 text-xs font-semibold capitalize;
+.matchweek-kickoff-badge {
+  @apply text-xs justify-self-center -mb-0.5 font-semibold capitalize;
 }
 </style>
