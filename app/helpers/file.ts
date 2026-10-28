@@ -11,6 +11,14 @@ export function appendNumericSuffix(name: Tournament['name'], tournaments: Tourn
   return `${parsedName} (${sameNameCount + 1})`;
 }
 
+export function isTournamentFile(file: SourceFile): file is TournamentFile {
+  return file.type === SourceFileType.TOURNAMENT;
+}
+
+export function isCollectionFile(file: SourceFile): file is CollectionFile {
+  return file.type === SourceFileType.COLLECTION;
+}
+
 export function createTournamentFile(tournament: Tournament): TournamentFile {
   return {
     id: tournament.id,

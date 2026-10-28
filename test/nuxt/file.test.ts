@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { appendNumericSuffix, newTimestamp } from '~/helpers/file';
+import { appendNumericSuffix, isCollectionFile, isTournamentFile, newTimestamp } from '~/helpers/file';
+import { mockCollectionFile, mockTournamentFile } from './mocks';
 
 describe('file', () => {
   describe('newTimestamp', () => {
@@ -69,6 +70,20 @@ describe('file', () => {
       const result = appendNumericSuffix('Champions League', tournaments);
 
       expect(result).toBe('Champions League (4)');
+    });
+  });
+
+  describe('isTournamentFile', () => {
+    it('should return true for a tournament file', () => {
+      expect(isTournamentFile(mockTournamentFile())).toBe(true);
+      expect(isTournamentFile(mockCollectionFile())).toBe(false);
+    });
+  });
+
+  describe('isCollectionFile', () => {
+    it('should return true for a collection file', () => {
+      expect(isCollectionFile(mockCollectionFile())).toBe(true);
+      expect(isCollectionFile(mockTournamentFile())).toBe(false);
     });
   });
 });

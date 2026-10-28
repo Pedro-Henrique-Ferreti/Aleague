@@ -1,4 +1,6 @@
-import { newTournamentStage } from '~/helpers/tournament';
+import { newCollection } from '~/helpers/collection';
+import { createCollectionFile, createTournamentFile } from '~/helpers/file';
+import { newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export function mockPlayoffStage(params?: Partial<StageForm>) {
   return newTournamentStage({
@@ -11,4 +13,22 @@ export function mockPlayoffStage(params?: Partial<StageForm>) {
     teamsPerGroup: 0,
     ...params,
   }) as PlayoffStage;
+}
+
+export function mockTournamentFile(params?: Partial<TournamentForm>): TournamentFile {
+  return createTournamentFile(newTournament({
+    collectionId: null,
+    icon: '',
+    name: '',
+    showCountry: false,
+    tags: [],
+    ...params,
+  }));
+}
+
+export function mockCollectionFile(params?: Partial<CollectionForm>): CollectionFile {
+  return createCollectionFile(newCollection({
+    name: '',
+    ...params,
+  }), []);
 }

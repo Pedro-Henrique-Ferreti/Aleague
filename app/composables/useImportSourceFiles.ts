@@ -1,3 +1,5 @@
+import { isCollectionFile, isTournamentFile } from '~/helpers/file';
+
 export interface UseImportSourceFilesHandlerParams {
   collectionFiles: CollectionFile[];
   tournamentFiles: TournamentFile[];
@@ -29,9 +31,9 @@ export function useImportSourceFiles(
       reader.onload = () => {
         const sourceFile = JSON.parse(reader.result as string) as SourceFile;
 
-        if (sourceFile.type === SourceFileType.COLLECTION) {
+        if (isCollectionFile(sourceFile)) {
           collectionFiles.push(sourceFile);
-        } else if (sourceFile.type === SourceFileType.TOURNAMENT) {
+        } else if (isTournamentFile(sourceFile)) {
           tournamentFiles.push(sourceFile);
         }
 
