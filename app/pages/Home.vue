@@ -1,22 +1,39 @@
 <template>
   <NuxtLayout>
-    <template #header>
-      <FileToolbar v-if="tournamentStore.activeTournament || collectionStore.activeCollection" />
-    </template>
-    <TournamentPage
-      v-if="tournamentStore.activeTournamentId"
-      :key="String(tournamentStore.activeTournamentId)"
-    />
-    <CollectionPage
-      v-else-if="collectionStore.activeCollection?.id"
-      :key="String(collectionStore.activeCollection?.id)"
-    />
+    <h1 class="text-2xl font-semibold mb-1.5">Arquivos</h1>
+    <div class="flex mb-0.75 justify-between">
+      <span>{{ filesCount }}</span>
+      <AppInput
+        v-model.trim="searchTerm"
+        size="sm"
+        placeholder="Buscar arquivos"
+        :icon="IconSearch"
+      />
+    </div>
+    <ul class="grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-1">
+      <li
+        v-for="file in filteredFiles"
+        :key="file.id"
+      >
+        <FileCard :file="file" />
+      </li>
+    </ul>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import FileToolbar from '~/components/FileToolbar.vue';
+import { IconSearch } from '@tabler/icons-vue';
 
-const collectionStore = useCollectionStore();
-const tournamentStore = useTournamentStore();
+const fileStore = useFileStore();
+
+const searchTerm = ref('');
+
+const filteredFiles = computed(() => {
+  return Object.values(fileStore.files).filter(file => matchesSearch(searchTerm.value, file.data.name));
+});
+
+const filesCount = computed(() => {
+  const { length } = filteredFiles.value;
+  return `${length} ${length === 1 ? 'arquivo' : 'arquivos'}`;
+});
 </script>
