@@ -1,24 +1,10 @@
-import { createTournamentFile } from '~/helpers/file';
+import { createCollectionFile, createTournamentFile } from '~/helpers/file';
 
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
 
 export function useExportSourceFile() {
   const tournamentStore = useTournamentStore();
   const { getCollection } = useCollectionStore();
-
-  function createCollectionFile(collection: Collection): CollectionFile {
-    return {
-      id: collection.id,
-      type: SourceFileType.COLLECTION,
-      createdAt: collection.createdAt,
-      data: {
-        id: collection.id,
-        name: collection.name,
-        createdAt: collection.createdAt,
-        tournaments: tournamentStore.tournamentList.filter(t => t.collectionId === collection.id),
-      },
-    };
-  }
 
   async function downloadSourceFile(sourceFile: TournamentFile | CollectionFile) {
     const textStream = new Blob([JSON.stringify(sourceFile)]).stream();
@@ -42,7 +28,7 @@ export function useExportSourceFile() {
       }
     });
 
-    return downloadSourceFile(createCollectionFile(collection));
+    return downloadSourceFile(createCollectionFile(collection, tournamentStore.tournamentList));
   }
 
   function downloadTournamentFile(id: Tournament['id']) {

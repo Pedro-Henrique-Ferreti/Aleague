@@ -19,3 +19,17 @@ export function createTournamentFile(tournament: Tournament): TournamentFile {
     data: tournament,
   };
 }
+
+export function createCollectionFile(collection: Collection, tournamentList: Tournament[]): CollectionFile {
+  return {
+    id: collection.id,
+    type: SourceFileType.COLLECTION,
+    createdAt: collection.createdAt,
+    data: {
+      id: collection.id,
+      name: collection.name,
+      createdAt: collection.createdAt,
+      tournaments: tournamentList.filter(t => t.collectionId === collection.id),
+    },
+  };
+}
