@@ -166,11 +166,9 @@ const tagOptions = computed(() => {
 });
 
 const teamOptions = computed<TeamDetails[]>(() => validTeams.value.filter((team) => {
-  const parseName = (name: string) => normalizeString(name).toLowerCase();
-  const isSearchValid = form.value.search === '' || parseName(team.name).includes(parseName(form.value.search));
-  const isTagValid = form.value.tags.length === 0 || form.value.tags.every(tag => team.tags.includes(tag));
-
-  return !props.selectedTeams.includes(team.id) && isSearchValid && isTagValid;
+  const matchesTag = form.value.tags.length === 0 || form.value.tags.every(tag => team.tags.includes(tag));
+  const isAlreadySelected = props.selectedTeams.includes(team.id);
+  return !isAlreadySelected && matchesSearch(form.value.search, team.name) && matchesTag;
 }));
 
 // Popover

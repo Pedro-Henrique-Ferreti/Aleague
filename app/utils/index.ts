@@ -50,3 +50,8 @@ export function getRandomItem<T>(array: T[]) {
 export function getShortestItem<T>(array: T[], getSize: (item: T) => number): T {
   return array.reduce((shortest, current) => getSize(current) < getSize(shortest) ? current : shortest);
 }
+
+export function matchesSearch(query: string, text: string): boolean {
+  if (query === '') return true;
+  return normalizeString(text).toLowerCase().includes(normalizeString(query).toLowerCase());
+}
