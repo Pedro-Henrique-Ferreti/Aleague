@@ -2,7 +2,14 @@
   <AppFieldset :label="label">
     <label
       class="input w-full"
-      :class="{ 'input-error': error }"
+      :class="{
+        'input-error': error,
+        'input-xs': size === 'xs',
+        'input-sm': size === 'sm',
+        'input-md': size === 'md',
+        'input-lg': size === 'lg',
+        'input-xl': size === 'xl',
+      }"
       :for="id"
     >
       <component
@@ -54,6 +61,7 @@ type AppInputProps = Pick<AppFieldsetProps, 'label'> & Pick<BaseInputProps, 'typ
   error?: string;
   placeholder?: string;
   autocomplete?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 };
 
 defineProps<AppInputProps>();
