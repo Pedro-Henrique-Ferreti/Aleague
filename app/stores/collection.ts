@@ -1,4 +1,4 @@
-import { newBaseFileId, newTimestamp } from '~/helpers/file';
+import { newCollection } from '~/helpers/collection';
 
 export const useCollectionStore = defineStore('collection', () => {
   const tournamentStore = useTournamentStore();
@@ -25,15 +25,11 @@ export const useCollectionStore = defineStore('collection', () => {
   }
 
   function createCollection(payload: CollectionForm) {
-    const id = newBaseFileId();
+    const collection = newCollection(payload);
 
-    collections.value.push({
-      id,
-      createdAt: newTimestamp(),
-      name: payload.name,
-    } satisfies Collection);
+    collections.value.push(collection);
 
-    setActiveCollection(id);
+    setActiveCollection(collection.id);
   }
 
   function updateCollection(id: Collection['id'], payload: CollectionForm) {
