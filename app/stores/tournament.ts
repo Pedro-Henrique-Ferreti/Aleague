@@ -60,8 +60,12 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   function createTournament(payload: TournamentForm) {
     const tournament = newTournament(payload);
-    pushTournament(tournament);
-    activeTournamentId.value = tournament.id;
+
+    if (fileStore.activeFile && isCollectionFile(fileStore.activeFile)) {
+      fileStore.activeFile.data.tournaments.push(tournament);
+    } else {
+      fileStore.addFileToStore(createTournamentFile(tournament));
+    }
   }
 
   function getTournament(id: Tournament['id'] | null) {
