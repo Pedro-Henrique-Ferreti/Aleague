@@ -53,10 +53,12 @@ export interface StageForm extends Pick<BaseStage, 'name' | 'type'> {
 
 export type TournamentStage = GroupStage | PlayoffStage;
 
-export type Tournament = Pick<TournamentFile, 'id' | 'createdAt'> & {
+export interface Tournament {
+  id: UUID;
   collectionId: CollectionFile['id'] | null;
   name: string;
   icon: string;
+  createdAt: Timestamp;
   updatedAt: Timestamp;
   stages: TournamentStage[];
   tags: string[];
