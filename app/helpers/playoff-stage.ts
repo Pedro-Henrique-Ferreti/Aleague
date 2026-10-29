@@ -35,7 +35,7 @@ export function isPlayoffStageSeeded(rounds: PlayoffRound[]): boolean {
 }
 
 export function getPlayoffStageWinner(stage: PlayoffStage): TournamentWinner {
-  const lastRound = stage.rounds[stage.rounds.length - 1];
+  const lastRound = stage.rounds.at(-1);
 
   if (!lastRound || lastRound.slots.length !== 1) return null;
 

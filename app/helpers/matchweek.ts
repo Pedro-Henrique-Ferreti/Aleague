@@ -24,7 +24,7 @@ export function getActiveMatchweekNumber(matchweeks: Matchweek[]): Matchweek['we
     week => week.matches.some(m => !isMatchComplete(m)),
   )?.week;
 
-  const lastWeek = matchweeks[matchweeks.length - 1]?.week;
+  const lastWeek = matchweeks.at(-1)?.week;
 
   return firstIncompleteWeek || (lastWeek ?? 1);
 }

@@ -50,7 +50,7 @@ function loadChartData() {
     return {
       week: week.week,
       position: index + 1,
-      result: teamEntry.form[teamEntry.form.length - 1]?.result ?? MatchResult.DRAW,
+      result: teamEntry.form.at(-1)?.result ?? MatchResult.DRAW,
     };
   });
 }

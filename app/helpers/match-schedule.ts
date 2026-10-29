@@ -74,7 +74,7 @@ export function generateInitialSchedule(teams: MatchScheduleParams['teams'], avo
 
       if (teamsInSameAvoidGroup) continue;
 
-      const prevWeek = schedule[schedule.length - 1];
+      const prevWeek = schedule.at(-1);
       const teamAPlayedAtHome = prevWeek?.find(m => m.homeTeam.id === teamA);
       const teamBPlayedAtHome = prevWeek?.find(m => m.homeTeam.id === teamB);
 

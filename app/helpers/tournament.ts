@@ -15,7 +15,7 @@ export function newTournament(payload: TournamentForm): Tournament {
 export function newTournamentStage(form: StageForm, stageList?: TournamentStage[]): TournamentStage {
   const baseStage: BaseStage = {
     id: Date.now(),
-    sequence: (stageList?.[stageList.length - 1]?.sequence || 0) + 1,
+    sequence: (stageList?.at(-1)?.sequence ?? 0) + 1,
     name: form.name,
     type: form.type,
   };
@@ -24,7 +24,7 @@ export function newTournamentStage(form: StageForm, stageList?: TournamentStage[
 }
 
 export function getTournamentWinner(tournament: Tournament): TournamentWinner {
-  const lastStage = tournament.stages[tournament.stages.length - 1];
+  const lastStage = tournament.stages.at(-1);
 
   if (!lastStage) return null;
 
