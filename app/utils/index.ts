@@ -57,3 +57,7 @@ export function matchesSearch(query: string, text: string): boolean {
   if (query === '') return true;
   return normalizeString(text).toLowerCase().includes(normalizeString(query).toLowerCase());
 }
+
+export function hasChanges<T extends object>(current: T, original: T): boolean {
+  return JSON.stringify(current) !== JSON.stringify(original);
+}

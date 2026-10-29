@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { clone, createArray, formatDate, getRandomItem, getShortestItem, matchesSearch, normalizeString } from '../../app/utils';
+import { clone, createArray, formatDate, getRandomItem, getShortestItem, hasChanges, matchesSearch, normalizeString } from '../../app/utils';
 
 describe('utils', () => {
   describe('formatDate', () => {
@@ -82,6 +82,22 @@ describe('utils', () => {
       expect(matchesSearch('HeLLo', 'hElLo WoRlD')).toBe(true);
       expect(matchesSearch('cao', 'ação')).toBe(true);
       expect(matchesSearch('sao paulo', 'São Paulo')).toBe(true);
+    });
+  });
+
+  describe('hasChanges', () => {
+    it('should return true if the objects are different', () => {
+      const obj1 = { a: 1, b: 2 };
+      const obj2 = { a: 1, b: 3 };
+
+      expect(hasChanges(obj1, obj2)).toBe(true);
+    });
+
+    it('should return false if the objects are the same', () => {
+      const obj1 = { a: 1, b: 2 };
+      const obj2 = { a: 1, b: 2 };
+
+      expect(hasChanges(obj1, obj2)).toBe(false);
     });
   });
 });
