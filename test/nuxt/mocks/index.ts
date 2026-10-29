@@ -14,15 +14,19 @@ export function mockPlayoffStage(params?: Partial<StageForm>) {
   }) as PlayoffStage;
 }
 
-export function mockTournamentFile(params?: Partial<TournamentForm>): TournamentFile {
-  return createTournamentFile(newTournament({
+export function mockTournament(params?: Partial<TournamentForm>): Tournament {
+  return newTournament({
     collectionId: null,
     icon: '',
     name: '',
     showCountry: false,
     tags: [],
     ...params,
-  }));
+  });
+}
+
+export function mockTournamentFile(params?: Partial<TournamentForm>): TournamentFile {
+  return createTournamentFile(mockTournament(params));
 }
 
 export function mockCollectionFile(params?: Partial<CollectionForm>): CollectionFile {

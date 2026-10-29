@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { appendNumericSuffix, isCollectionFile, isTournamentFile, newTimestamp } from '~/helpers/file';
-import { mockCollectionFile, mockTournamentFile } from './mocks';
+import { appendNumericSuffix, isCollectionFile, isTournamentFile, newTimestamp, setUpdatedAtTimestampIfDirty } from '~/helpers/file';
+import { mockCollectionFile, mockTournament, mockTournamentFile } from './mocks';
 
 describe('file', () => {
   describe('newTimestamp', () => {
@@ -84,6 +84,55 @@ describe('file', () => {
     it('should return true for a collection file', () => {
       expect(isCollectionFile(mockCollectionFile())).toBe(true);
       expect(isCollectionFile(mockTournamentFile())).toBe(false);
+    });
+  });
+
+  describe('setUpdatedAtTimestampIfDirty', () => {
+    it('should update the TournamentFile updatedAt timestamp if it is dirty', () => {
+      const tournamentFile = mockTournamentFile({ name: 'Tournament' });
+      const tournamentFileSnapshot = clone(tournamentFile);
+
+      tournamentFile.data.name = 'New tournament name';
+
+      setUpdatedAtTimestampIfDirty(tournamentFile, tournamentFileSnapshot);
+
+      expect(tournamentFile.updatedAt).not.toBeNull();
+      expect(tournamentFile.updatedAt).toBe(tournamentFile.data.updatedAt);
+    });
+
+    it('should update the CollectionFile updatedAt timestamp if it is dirty', () => {
+      const collectionFile = mockCollectionFile({ name: 'Collection' });
+      const collectionFileSnapshot = clone(collectionFile);
+
+      collectionFile.data.name = 'New collection name';
+
+      setUpdatedAtTimestampIfDirty(collectionFile, collectionFileSnapshot);
+
+      expect(collectionFile.updatedAt).not.toBeNull();
+    });
+
+    it('should not change the timestamp if the file is not dirty', () => {
+      const file = mockTournamentFile({ name: 'Tournament' });
+      const snapshot = clone(file);
+
+      setUpdatedAtTimestampIfDirty(file, snapshot);
+
+      expect(file.updatedAt).toBeNull();
+    });
+
+    it('should update the CollectionFile tournaments updatedAt timestamp if the tournament is dirty', () => {
+      const collectionFile = mockCollectionFile({ name: 'Collection' });
+
+      collectionFile.data.tournaments = [mockTournament()];
+
+      const collectionFileSnapshot = clone(collectionFile);
+
+      collectionFile.data.tournaments[0]!.name = 'New tournament name';
+
+      setUpdatedAtTimestampIfDirty(collectionFile, collectionFileSnapshot);
+
+      expect(collectionFile.data.tournaments[0]!.updatedAt).not.toBeNull();
+      expect(collectionFile.data.tournaments[0]!.updatedAt).toBe(collectionFile.data.tournaments[0]!.updatedAt);
     });
   });
 });

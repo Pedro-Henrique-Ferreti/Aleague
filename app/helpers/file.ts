@@ -44,3 +44,26 @@ export function newCollectionFile(payload: CollectionForm): CollectionFile {
     },
   };
 }
+
+export function setUpdatedAtTimestampIfDirty(file: SourceFile, snapshot: SourceFile) {
+  if (!hasChanges(file, snapshot)) return;
+
+  const timestamp = newTimestamp();
+
+  file.updatedAt = timestamp;
+
+  if (isTournamentFile(file)) {
+    file.data.updatedAt = timestamp;
+    return;
+  }
+
+  if (!isCollectionFile(file) || !isCollectionFile(snapshot)) return;
+
+  for (const tournament of file.data.tournaments) {
+    const snapshotTournament = snapshot.data.tournaments.find(t => t.id === tournament.id);
+
+    if (snapshotTournament && hasChanges(tournament, snapshotTournament)) {
+      tournament.updatedAt = timestamp;
+    }
+  }
+}
