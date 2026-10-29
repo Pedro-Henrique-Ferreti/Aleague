@@ -1,4 +1,3 @@
-import { newCollection } from '~/helpers/collection';
 import { isCollectionFile } from '~/helpers/file';
 
 export const useCollectionStore = defineStore('collection', () => {
@@ -11,12 +10,6 @@ export const useCollectionStore = defineStore('collection', () => {
 
   function getCollection(id: Collection['id'] | null) {
     return collections.value.find(i => i.id === id);
-  }
-
-  function createCollection(payload: CollectionForm) {
-    const collection = newCollection(payload);
-
-    collections.value.push(collection);
   }
 
   function updateCollection(id: Collection['id'], payload: CollectionForm) {
@@ -34,7 +27,6 @@ export const useCollectionStore = defineStore('collection', () => {
     collections,
     activeCollection,
     getCollection,
-    createCollection,
     updateCollection,
   };
 });

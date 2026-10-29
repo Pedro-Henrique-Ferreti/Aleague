@@ -15,15 +15,18 @@
 </template>
 
 <script setup lang="ts">
+import { newCollection } from '~/helpers/collection';
+import { createCollectionFile } from '~/helpers/file';
+
 const props = defineProps<{
   collection?: Collection;
 }>();
 
-const { createCollection, updateCollection } = useCollectionStore();
+const fileStore = useFileStore();
+const { updateCollection } = useCollectionStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
-// Form
 const newForm = (): CollectionForm => ({ name: '' });
 
 const form = ref<CollectionForm>(newForm());
@@ -35,7 +38,7 @@ async function submitForm() {
   if (isEditingCollection.value) {
     updateCollection(props.collection!.id, form.value);
   } else {
-    createCollection(form.value);
+    fileStore.addFileToStore(createCollectionFile(newCollection(form.value), []));
   }
 
   modalIsOpen.value = false;
