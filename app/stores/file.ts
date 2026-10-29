@@ -1,4 +1,5 @@
 import { setUpdatedAtTimestampIfDirty } from '~/helpers/file';
+import { compressSourceFile } from '~/helpers/file-compression';
 
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
 
@@ -36,12 +37,10 @@ export const useFileStore = defineStore('file', () => {
 
     createFileSnapshot(activeFile.value);
 
-    const textStream = new Blob([JSON.stringify(activeFile.value)]).stream();
-    const compressedStream = textStream.pipeThrough(new CompressionStream('gzip'));
-    const compressedBlob = await new Response(compressedStream).blob();
+    const compressedFile = await compressSourceFile(activeFile.value);
 
     downloadFile(
-      compressedBlob,
+      compressedFile,
       `${normalizeString(activeFile.value.data.name).replace(NON_ALPHANUMERIC_REGEX, '_')}.json`,
     );
   }

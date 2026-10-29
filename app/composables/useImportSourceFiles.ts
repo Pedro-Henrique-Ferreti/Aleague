@@ -1,4 +1,5 @@
 import { isCollectionFile, isTournamentFile } from '~/helpers/file';
+import { decompressSourceFile } from '~/helpers/file-compression';
 
 export interface UseImportSourceFilesHandlerParams {
   collectionFiles: CollectionFile[];
@@ -25,29 +26,17 @@ export function useImportSourceFiles(
     const tournamentFiles: TournamentFile[] = [];
     const promiseList: Promise<void>[] = [];
 
-    const readFile = (blob: Blob, resolve: () => void) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        const sourceFile = JSON.parse(reader.result as string) as SourceFile;
-
-        if (isCollectionFile(sourceFile)) {
-          collectionFiles.push(sourceFile);
-        } else if (isTournamentFile(sourceFile)) {
-          tournamentFiles.push(sourceFile);
-        }
-
-        resolve();
-      };
-
-      reader.readAsText(blob);
-    };
-
     for (const file of files) {
       promiseList.push(new Promise((resolve) => {
-        const decompressedStream = file.stream().pipeThrough(new DecompressionStream('gzip'));
+        decompressSourceFile(file).then((sourceFile) => {
+          if (isCollectionFile(sourceFile)) {
+            collectionFiles.push(sourceFile);
+          } else if (isTournamentFile(sourceFile)) {
+            tournamentFiles.push(sourceFile);
+          }
 
-        new Response(decompressedStream).blob().then(blob => readFile(blob, resolve));
+          resolve();
+        });
       }));
     }
 
