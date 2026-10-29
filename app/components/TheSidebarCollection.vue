@@ -1,21 +1,21 @@
 <template>
   <li class="gap-0.25">
     <BaseButton
-      :class="{ 'menu-active': !tournamentStore.activeTournament && isActive }"
-      @click="collectionStore.setActiveCollection(collection.id)"
+      :class="{ 'menu-active': isActive }"
+      :to="{ name: 'editor', params: { fileId: file.id } }"
     >
       <component
         :is="isActive ? IconFolderOpen : IconFolder"
         class="h-1 w-1"
       />
-      {{ collection.name }}
+      {{ file.data.name }}
     </BaseButton>
     <ul
       v-if="isActive"
       class="grid gap-0.25"
     >
       <TheSidebarFileItem
-        v-for="tournament in tournaments"
+        v-for="tournament in file.data.tournaments"
         :key="tournament.id"
         :tournament="tournament"
       />
@@ -26,11 +26,12 @@
 <script lang="ts" setup>
 import { IconFolder, IconFolderOpen } from '@tabler/icons-vue';
 
-const props = defineProps<{ collection: Collection }>();
+const props = defineProps<{ file: CollectionFile }>();
 
-const collectionStore = useCollectionStore();
-const tournamentStore = useTournamentStore();
+const route = useRoute();
+const fileStore = useFileStore();
 
-const tournaments = computed(() => tournamentStore.tournamentList.filter(t => t.collectionId === props.collection.id));
-const isActive = computed(() => props.collection.id === collectionStore.activeCollection?.id);
+const isActive = computed(() => {
+  return route.name === 'editor' && props.file.id === fileStore.activeFile?.id;
+});
 </script>

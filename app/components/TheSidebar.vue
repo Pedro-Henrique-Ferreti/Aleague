@@ -23,9 +23,9 @@
       <nav class="mb-1.5">
         <ul class="menu gap-0.25 p-0 w-full">
           <TheSidebarNavItem
-            label="Campeonatos"
+            label="Dashboard"
             :to="{ name: 'home' }"
-            :icon="IconTournament"
+            :icon="IconHome"
             :is-active="$route.name === 'home'"
           />
           <TheSidebarNavItem
@@ -39,14 +39,14 @@
       <h2 class="text-gray-500 mb-0.5">Arquivos</h2>
       <ul class="menu gap-0.25 w-full p-0">
         <TheSidebarCollection
-          v-for="collection in collectionStore.collections"
-          :key="collection.id"
-          :collection="collection"
+          v-for="file in Object.values(fileStore.files).filter(isCollectionFile)"
+          :key="file.id"
+          :file="file"
         />
         <TheSidebarFileItem
-          v-for="tournament in tournamentStore.nonCollectionTournaments"
-          :key="tournament.id"
-          :tournament="tournament"
+          v-for="file in Object.values(fileStore.files).filter(isTournamentFile)"
+          :key="file.id"
+          :tournament="file.data"
         />
       </ul>
     </div>
@@ -54,10 +54,10 @@
 </template>
 
 <script setup lang="ts">
-import { IconChevronLeft, IconChevronRight, IconReportAnalytics, IconTournament } from '@tabler/icons-vue';
+import { IconChevronLeft, IconChevronRight, IconHome, IconReportAnalytics } from '@tabler/icons-vue';
+import { isCollectionFile, isTournamentFile } from '~/helpers/file';
 
-const collectionStore = useCollectionStore();
-const tournamentStore = useTournamentStore();
+const fileStore = useFileStore();
 
 const menuIsOpen = ref(true);
 </script>

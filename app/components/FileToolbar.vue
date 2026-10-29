@@ -6,7 +6,7 @@
         :clickable="!!tournamentStore.activeTournament"
         :label="collectionStore.activeCollection.name"
         :icon="IconFolderOpen"
-        @click="collectionStore.setActiveCollection(collectionStore.activeCollection.id)"
+        @click="tournamentStore.setActiveTournament(undefined)"
       />
       <BreadcrumbItem
         v-if="tournamentStore.activeTournament"
