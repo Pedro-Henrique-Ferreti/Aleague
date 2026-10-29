@@ -5,10 +5,8 @@ export enum SourceFileType {
 
 export type Timestamp = Branded<string, 'Timestamp'>;
 
-export type BaseFileId = Branded<number, 'BaseFileId'>;
-
 export interface BaseFile {
-  id: BaseFileId;
+  id: UUID;
   type: SourceFileType;
   createdAt: Timestamp;
 }

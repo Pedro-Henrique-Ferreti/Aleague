@@ -1,4 +1,4 @@
-export const newBaseFileId = (): BaseFileId => new Date().getTime() as BaseFileId;
+export const newBaseFileId = (): BaseFile['id'] => uuidv4();
 
 export const newTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
 
