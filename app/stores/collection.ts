@@ -13,14 +13,12 @@ export const useCollectionStore = defineStore('collection', () => {
   }
 
   function updateCollection(id: Collection['id'], payload: CollectionForm) {
-    const index = collections.value.findIndex(i => i.id === id);
-
-    if (index === -1) throw new Error('Collection not found');
-
-    collections.value[index] = {
-      ...collections.value[index] as Collection,
-      ...payload,
-    };
+    if (fileStore.files[id] && isCollectionFile(fileStore.files[id])) {
+      fileStore.files[id].data = {
+        ...fileStore.files[id].data,
+        ...payload,
+      };
+    }
   }
 
   return {
