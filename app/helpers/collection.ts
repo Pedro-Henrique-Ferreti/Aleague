@@ -5,5 +5,6 @@ export function newCollection(payload: CollectionForm): Collection {
     id: newBaseFileId(),
     createdAt: newTimestamp(),
     name: payload.name,
+    tournaments: [],
   };
 }

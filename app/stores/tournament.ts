@@ -1,16 +1,29 @@
-import { newBaseFileId, newTimestamp } from '~/helpers/file';
+import { isCollectionFile, isTournamentFile, newBaseFileId, newTimestamp } from '~/helpers/file';
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
+  const fileStore = useFileStore();
   const tournaments = ref<Record<Tournament['id'], Tournament>>({});
   const snapshots = ref<Record<Tournament['id'], Tournament>>({});
   const activeTournamentId = ref<Tournament['id']>();
 
   const activeTournament = computed({
-    get: () => activeTournamentId.value ? tournaments.value[activeTournamentId.value] : undefined,
+    get: () => {
+      if (!fileStore.activeFile) return undefined;
+
+      if (isTournamentFile(fileStore.activeFile)) {
+        return fileStore.activeFile.data;
+      }
+
+      return fileStore.activeFile.data.tournaments.find(t => t.id === activeTournamentId.value); // TODO: refactor collection.tournaments to Record<>
+    },
     set: (value) => {
-      if (activeTournamentId.value && value) {
-        tournaments.value[activeTournamentId.value] = value;
+      // TODO: Test whether object reference is sufficient to update file keys
+      if (value && fileStore.activeFile && isTournamentFile(fileStore.activeFile)) {
+        fileStore.activeFile.data = value;
+      } else if (value && fileStore.activeFile && isCollectionFile(fileStore.activeFile)) {
+        const index = fileStore.activeFile.data.tournaments.findIndex(t => t.id === activeTournamentId.value);
+        fileStore.activeFile.data.tournaments[index] = value;
       }
     },
   });
@@ -24,6 +37,18 @@ export const useTournamentStore = defineStore('tournament', () => {
   function snapshotTournament(tournament: Tournament) {
     snapshots.value[tournament.id] = clone(tournament);
   }
+  
+  function setActiveTournament(id?: Tournament['id']) {
+    activeTournamentId.value = id;
+  }
+
+  watch(() => fileStore.activeFile, (file) => {
+    if (!file || isCollectionFile(file)) {
+      setActiveTournament(undefined);
+    } else if (file && isTournamentFile(file)) {
+      setActiveTournament(file.data.id);
+    }
+  });
 
   function pushTournament(tournament: Tournament): boolean {
     if (tournaments.value[tournament.id]) return false;
@@ -109,6 +134,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     activeTournament,
     activeTournamentWinner,
     nonCollectionTournaments,
+    setActiveTournament,
     createTournament,
     pushTournament,
     getTournament,

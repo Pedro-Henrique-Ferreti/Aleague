@@ -14,6 +14,12 @@ export default {
       component: () => import('~/pages/Home.vue'),
     },
     {
+      name: 'editor',
+      path: '/editor/:fileId',
+      meta: { middleware: 'ensure-file-exists' },
+      component: () => import('~/pages/Editor.vue'),
+    },
+    {
       name: 'analytics',
       path: '/analytics',
       meta: { middleware: 'has-imported-files' },

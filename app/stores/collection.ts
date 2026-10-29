@@ -1,12 +1,14 @@
 import { newCollection } from '~/helpers/collection';
+import { isCollectionFile } from '~/helpers/file';
 
 export const useCollectionStore = defineStore('collection', () => {
+  const fileStore = useFileStore();
   const tournamentStore = useTournamentStore();
   const collections = ref<Collection[]>([]);
   const activeCollectionId = ref<Collection['id']>();
 
   const activeCollection = computed(() => {
-    return collections.value.find(i => i.id === activeCollectionId.value);
+    return fileStore.activeFile && isCollectionFile(fileStore.activeFile) ? fileStore.activeFile.data : undefined;
   });
 
   watch(() => tournamentStore.activeTournament?.collectionId, (collectionId) => {

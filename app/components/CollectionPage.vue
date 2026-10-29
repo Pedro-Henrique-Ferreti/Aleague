@@ -2,7 +2,7 @@
   <CollectionProfileCard />
   <section class="mt-2">
     <h2 class="font-medium text-xl mb-1">Campeonatos</h2>
-    <CollectionTournamentsTable v-if="tournaments.length" />
+    <CollectionTournamentsTable v-if="collectionStore.activeCollection?.tournaments.length" />
     <div
       v-else
       class="flex flex-col items-center text-center max-w-1/3 m-auto"
@@ -20,9 +20,4 @@
 import IconFile from '@/assets/icons/File.svg';
 
 const collectionStore = useCollectionStore();
-const tournamentStore = useTournamentStore();
-
-const tournaments = computed(() => {
-  return tournamentStore.tournamentList.filter(t => t.collectionId === collectionStore.activeCollection?.id);
-});
 </script>

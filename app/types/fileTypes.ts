@@ -15,9 +15,7 @@ export interface BaseFile {
 
 export interface CollectionFile extends BaseFile {
   type: SourceFileType.COLLECTION;
-  data: Collection & {
-    tournaments: Tournament[];
-  };
+  data: Collection;
 }
 
 export interface TournamentFile extends BaseFile {
