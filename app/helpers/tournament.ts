@@ -14,7 +14,7 @@ export function newTournament(payload: TournamentForm): Tournament {
 
 export function newTournamentStage(form: StageForm, stageList?: TournamentStage[]): TournamentStage {
   const baseStage: BaseStage = {
-    id: new Date().getTime(),
+    id: Date.now(),
     sequence: (stageList?.[stageList.length - 1]?.sequence || 0) + 1,
     name: form.name,
     type: form.type,

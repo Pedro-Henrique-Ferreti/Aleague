@@ -1,6 +1,6 @@
 export function newDrawPot(): DrawPot {
   return {
-    id: new Date().getTime(),
+    id: Date.now(),
     teams: [],
   };
 }

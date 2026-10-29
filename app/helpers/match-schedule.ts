@@ -143,10 +143,10 @@ export async function balanceScheduleWeeks(
     return result;
   };
 
-  const startTime = new Date().getTime();
+  const startTime = Date.now();
 
   while (!isBalanced(rebalancedSchedule)) {
-    if (new Date().getTime() - startTime > MAX_EXECUTION_TIME || signal?.aborted) break;
+    if (Date.now() - startTime > MAX_EXECUTION_TIME || signal?.aborted) break;
 
     rebalancedSchedule = attemptRebalance();
 
