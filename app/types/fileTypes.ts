@@ -9,6 +9,7 @@ export interface BaseFile {
   id: UUID;
   type: SourceFileType;
   createdAt: Timestamp;
+  updatedAt: Timestamp;
 }
 
 export interface CollectionFile extends BaseFile {

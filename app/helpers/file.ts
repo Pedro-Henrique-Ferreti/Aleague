@@ -24,14 +24,17 @@ export function createTournamentFile(tournament: Tournament): TournamentFile {
     id: tournament.id,
     type: SourceFileType.TOURNAMENT,
     createdAt: tournament.createdAt,
+    updatedAt: tournament.updatedAt,
     data: tournament,
   };
 }
 
 export function newCollectionFile(payload: CollectionForm): CollectionFile {
+  const timestamp = newTimestamp();
   return {
     id: newBaseFileId(),
-    createdAt: newTimestamp(),
+    createdAt: timestamp,
+    updatedAt: timestamp,
     type: SourceFileType.COLLECTION,
     data: {
       name: payload.name,
