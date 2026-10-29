@@ -2,7 +2,7 @@
   <CollectionProfileCard />
   <section class="mt-2">
     <h2 class="font-medium text-xl mb-1">Campeonatos</h2>
-    <CollectionTournamentsTable v-if="collectionStore.activeCollection?.data.tournaments.length" />
+    <CollectionTournamentsTable v-if="Object.values(collectionStore.activeCollection?.data.tournaments ?? {}).length" />
     <div
       v-else
       class="flex flex-col items-center text-center max-w-1/3 m-auto"

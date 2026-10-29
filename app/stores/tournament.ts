@@ -14,15 +14,16 @@ export const useTournamentStore = defineStore('tournament', () => {
         return fileStore.activeFile.data;
       }
 
-      return fileStore.activeFile.data.tournaments.find(t => t.id === activeTournamentId.value); // TODO: refactor collection.tournaments to Record<>
+      return activeTournamentId.value ? fileStore.activeFile.data.tournaments[activeTournamentId.value] : undefined;
     },
     set: (value) => {
       // TODO: Test whether object reference is sufficient to update file keys
-      if (value && fileStore.activeFile && isTournamentFile(fileStore.activeFile)) {
+      if (!value || !fileStore.activeFile) return;
+
+      if (isTournamentFile(fileStore.activeFile)) {
         fileStore.activeFile.data = value;
-      } else if (value && fileStore.activeFile && isCollectionFile(fileStore.activeFile)) {
-        const index = fileStore.activeFile.data.tournaments.findIndex(t => t.id === activeTournamentId.value);
-        fileStore.activeFile.data.tournaments[index] = value;
+      } else if (activeTournamentId.value) {
+        fileStore.activeFile.data.tournaments[activeTournamentId.value] = value;
       }
     },
   });
@@ -56,7 +57,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     const tournament = newTournament(payload);
 
     if (fileStore.activeFile && isCollectionFile(fileStore.activeFile)) {
-      fileStore.activeFile.data.tournaments.push(tournament);
+      fileStore.activeFile.data.tournaments[tournament.id] = tournament;
     } else {
       fileStore.addFileToStore(newTournamentFile(tournament));
     }

@@ -22,7 +22,7 @@ export function newCollectionFile(payload: CollectionForm): CollectionFile {
     type: SourceFileType.COLLECTION,
     data: {
       name: payload.name,
-      tournaments: [],
+      tournaments: {},
     },
   };
 }
@@ -58,8 +58,8 @@ export function setUpdatedAtTimestampIfDirty(file: SourceFile, snapshot: SourceF
 
   if (!isCollectionFile(file) || !isCollectionFile(snapshot)) return;
 
-  for (const tournament of file.data.tournaments) {
-    const snapshotTournament = snapshot.data.tournaments.find(t => t.id === tournament.id);
+  for (const tournament of Object.values(file.data.tournaments)) {
+    const snapshotTournament = snapshot.data.tournaments[tournament.id];
 
     if (snapshotTournament && hasChanges(tournament, snapshotTournament)) {
       tournament.updatedAt = timestamp;

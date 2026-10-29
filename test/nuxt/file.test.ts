@@ -122,17 +122,19 @@ describe('file', () => {
 
     it('should update the CollectionFile tournaments updatedAt timestamp if the tournament is dirty', () => {
       const collectionFile = mockCollectionFile({ name: 'Collection' });
+      const tournament = mockTournament();
+      const { id } = tournament;
 
-      collectionFile.data.tournaments = [mockTournament()];
+      collectionFile.data.tournaments[id] = tournament;
 
       const collectionFileSnapshot = clone(collectionFile);
 
-      collectionFile.data.tournaments[0]!.name = 'New tournament name';
+      collectionFile.data.tournaments[id].name = 'New tournament name';
 
       setUpdatedAtTimestampIfDirty(collectionFile, collectionFileSnapshot);
 
-      expect(collectionFile.data.tournaments[0]!.updatedAt).not.toBeNull();
-      expect(collectionFile.data.tournaments[0]!.updatedAt).toBe(collectionFile.data.tournaments[0]!.updatedAt);
+      expect(collectionFile.data.tournaments[id].updatedAt).not.toBeNull();
+      expect(collectionFile.data.tournaments[id].updatedAt).toBe(collectionFile.data.tournaments[id].updatedAt);
     });
   });
 });
