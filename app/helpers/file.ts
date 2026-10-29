@@ -26,7 +26,7 @@ export function createTournamentFile(tournament: Tournament): TournamentFile {
     id: tournament.id,
     type: SourceFileType.TOURNAMENT,
     createdAt: tournament.createdAt,
-    updatedAt: tournament.updatedAt,
+    updatedAt: null,
     data: tournament,
   };
 }
@@ -36,7 +36,7 @@ export function newCollectionFile(payload: CollectionForm): CollectionFile {
   return {
     id: newBaseFileId(),
     createdAt: timestamp,
-    updatedAt: timestamp,
+    updatedAt: null,
     type: SourceFileType.COLLECTION,
     data: {
       name: payload.name,

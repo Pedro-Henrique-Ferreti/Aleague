@@ -3,11 +3,10 @@ import { getGroupStageWinner, newGroupStage } from './group-stage';
 import { getPlayoffStageWinner, newPlayoffStage } from './playoff-stage';
 
 export function newTournament(payload: TournamentForm): Tournament {
-  const timestamp = newTimestamp();
   return {
     id: uuidv4(),
-    createdAt: timestamp,
-    updatedAt: timestamp,
+    createdAt: newTimestamp(),
+    updatedAt: null,
     stages: [],
     ...payload,
   };
