@@ -1,10 +1,9 @@
-import { isCollectionFile, isTournamentFile, newBaseFileId, newTimestamp } from '~/helpers/file';
+import { createTournamentFile, isCollectionFile, isTournamentFile, newBaseFileId, newTimestamp } from '~/helpers/file';
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
   const fileStore = useFileStore();
   const tournaments = ref<Record<Tournament['id'], Tournament>>({});
-  const snapshots = ref<Record<Tournament['id'], Tournament>>({});
   const activeTournamentId = ref<Tournament['id']>();
 
   const activeTournament = computed({
@@ -34,10 +33,6 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   const activeTournamentWinner = computed(() => activeTournament.value ? getTournamentWinner(activeTournament.value) : null);
 
-  function snapshotTournament(tournament: Tournament) {
-    snapshots.value[tournament.id] = clone(tournament);
-  }
-  
   function setActiveTournament(id?: Tournament['id']) {
     activeTournamentId.value = id;
   }
@@ -54,7 +49,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     if (tournaments.value[tournament.id]) return false;
 
     tournaments.value[tournament.id] = tournament;
-    snapshotTournament(tournament);
     return true;
   }
 
@@ -70,23 +64,6 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   function getTournament(id: Tournament['id'] | null) {
     return id ? tournaments.value[id] : undefined;
-  }
-
-  function isDirty(tournament: Tournament) {
-    const snapshot = snapshots.value[tournament.id];
-    return snapshot && JSON.stringify(snapshot) !== JSON.stringify(tournament);
-  }
-
-  function updateTimestamps(id: Tournament['id']) {
-    const tournament = getTournament(id);
-
-    if (!tournament) return;
-
-    if (isDirty(tournament)) {
-      tournament.updatedAt = newTimestamp();
-    }
-
-    snapshotTournament(tournament);
   }
 
   function updateActiveTournament(payload: TournamentForm) {
@@ -120,10 +97,9 @@ export const useTournamentStore = defineStore('tournament', () => {
 
     const index = tournamentList.value.findIndex(i => i.id === activeTournament.value?.id);
 
-    delete snapshots.value[activeTournament.value.id];
     delete tournaments.value[activeTournament.value.id];
 
-    activeTournamentId.value = tournamentList.value[index]?.id ?? tournamentList.value[tournamentList.value.length - 1]?.id;
+    activeTournamentId.value = tournamentList.value[index]?.id ?? tournamentList.value.at(-1)?.id;
   }
 
   function addStage(form: StageForm) {
@@ -142,7 +118,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     createTournament,
     pushTournament,
     getTournament,
-    updateTimestamps,
     updateActiveTournament,
     duplicateActiveTournament,
     deleteActiveTournament,

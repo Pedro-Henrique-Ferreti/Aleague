@@ -4,7 +4,7 @@
     :icon-left="IconEdit"
     @click="collectionModalIsOpen = true"
   />
-  <FileToolbarDownloadButton @click="collectionStore.activeCollection && downloadCollectionFile(collectionStore.activeCollection.id)" />
+  <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
   <CollectionFormModal
     v-model:is-open="collectionModalIsOpen"
     :collection="collectionStore.activeCollection"
@@ -14,8 +14,8 @@
 <script lang="ts" setup>
 import { IconEdit } from '@tabler/icons-vue';
 
+const fileStore = useFileStore();
 const collectionStore = useCollectionStore();
-const { downloadCollectionFile } = useExportSourceFile();
 
 const collectionModalIsOpen = ref(false);
 </script>

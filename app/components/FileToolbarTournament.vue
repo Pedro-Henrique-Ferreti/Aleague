@@ -15,7 +15,7 @@
     :icon-left="IconEdit"
     @click="tournamentModalIsOpen = true"
   />
-  <FileToolbarDownloadButton @click="downloadTournamentFile(tournamentId)" />
+  <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
   <TournamentFormModal
     v-model:is-open="tournamentModalIsOpen"
     :key="tournamentId"
@@ -29,8 +29,8 @@
 <script lang="ts" setup>
 import { IconEdit, IconLayersSubtract, IconTrash } from '@tabler/icons-vue';
 
+const fileStore = useFileStore();
 const tournamentStore = useTournamentStore();
-const { downloadTournamentFile } = useExportSourceFile();
 
 const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 

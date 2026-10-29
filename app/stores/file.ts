@@ -1,3 +1,7 @@
+import { setUpdatedAtTimestampIfDirty } from '~/helpers/file';
+
+const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
+
 export const useFileStore = defineStore('file', () => {
   const route = useRoute();
   const files = ref<Record<SourceFile['id'], SourceFile>>({});
@@ -23,10 +27,30 @@ export const useFileStore = defineStore('file', () => {
     return true;
   }
 
+  async function exportActiveFile() {
+    if (!activeFile.value) return;
+
+    if (fileSnapshots.value[activeFile.value.id]) {
+      setUpdatedAtTimestampIfDirty(activeFile.value, fileSnapshots.value[activeFile.value.id]!);
+    }
+
+    createFileSnapshot(activeFile.value);
+
+    const textStream = new Blob([JSON.stringify(activeFile.value)]).stream();
+    const compressedStream = textStream.pipeThrough(new CompressionStream('gzip'));
+    const compressedBlob = await new Response(compressedStream).blob();
+
+    downloadFile(
+      compressedBlob,
+      `${normalizeString(activeFile.value.data.name).replace(NON_ALPHANUMERIC_REGEX, '_')}.json`,
+    );
+  }
+
   return {
     files,
     activeFile,
     addFileToStore,
     hasImportedFiles,
+    exportActiveFile,
   };
 });
