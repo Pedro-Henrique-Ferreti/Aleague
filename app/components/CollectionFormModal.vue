@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { createCollectionFile } from '~/helpers/file';
+import { newCollectionFile } from '~/helpers/file';
 
 const props = defineProps<{
   collection?: CollectionFile;
@@ -37,7 +37,7 @@ async function submitForm() {
   if (isEditingCollection.value) {
     updateCollection(props.collection!.id, form.value);
   } else {
-    fileStore.addFileToStore(createCollectionFile(form.value));
+    fileStore.addFileToStore(newCollectionFile(form.value));
   }
 
   modalIsOpen.value = false;

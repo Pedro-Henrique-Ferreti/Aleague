@@ -28,7 +28,7 @@ export function createTournamentFile(tournament: Tournament): TournamentFile {
   };
 }
 
-export function createCollectionFile(payload: CollectionForm): CollectionFile {
+export function newCollectionFile(payload: CollectionForm): CollectionFile {
   return {
     id: newBaseFileId(),
     createdAt: newTimestamp(),

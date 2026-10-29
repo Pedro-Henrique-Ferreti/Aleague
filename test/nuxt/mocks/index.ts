@@ -1,4 +1,4 @@
-import { createCollectionFile, createTournamentFile } from '~/helpers/file';
+import { createTournamentFile, newCollectionFile } from '~/helpers/file';
 import { newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export function mockPlayoffStage(params?: Partial<StageForm>) {
@@ -26,7 +26,7 @@ export function mockTournamentFile(params?: Partial<TournamentForm>): Tournament
 }
 
 export function mockCollectionFile(params?: Partial<CollectionForm>): CollectionFile {
-  return createCollectionFile({
+  return newCollectionFile({
     name: '',
     ...params,
   });
