@@ -2,6 +2,8 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { v4 } from 'uuid';
 
+const NON_ENGLISH_CHARACTERS_REGEX = /[\u0300-\u036F]/g;
+
 export function uuidv4() {
   return v4() as UUID;
 }
@@ -22,7 +24,7 @@ export function downloadFile(blob: Blob, fileName: string) {
 }
 
 export function normalizeString(str: string) {
-  return str.normalize('NFD').replace(/[\u0300-\u036F]/g, '');
+  return str.normalize('NFD').replace(NON_ENGLISH_CHARACTERS_REGEX, '');
 }
 
 export function clone<T>(data: T) {

@@ -1,9 +1,11 @@
+const FILE_SUFFIX_REGEX = /\(\d+\)/;
+
 export const newBaseFileId = (): BaseFile['id'] => uuidv4();
 
 export const newTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
 
 export function appendNumericSuffix(name: Tournament['name'], tournaments: Tournament[]) {
-  const removeSuffix = (str: string) => str.replace(/\(\d+\)/, '').trim();
+  const removeSuffix = (str: string) => str.replace(FILE_SUFFIX_REGEX, '').trim();
 
   const parsedName = removeSuffix(name);
   const sameNameCount = tournaments.filter(t => removeSuffix(t.name).startsWith(parsedName)).length;
