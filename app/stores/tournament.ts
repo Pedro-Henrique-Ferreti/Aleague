@@ -1,4 +1,4 @@
-import { createTournamentFile, isCollectionFile, isTournamentFile, newBaseFileId, newTimestamp } from '~/helpers/file';
+import { isCollectionFile, isTournamentFile, newBaseFileId, newTimestamp, newTournamentFile } from '~/helpers/file';
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
@@ -58,7 +58,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     if (fileStore.activeFile && isCollectionFile(fileStore.activeFile)) {
       fileStore.activeFile.data.tournaments.push(tournament);
     } else {
-      fileStore.addFileToStore(createTournamentFile(tournament));
+      fileStore.addFileToStore(newTournamentFile(tournament));
     }
   }
 

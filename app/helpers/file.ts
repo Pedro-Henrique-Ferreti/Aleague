@@ -4,6 +4,29 @@ export const newBaseFileId = (): BaseFile['id'] => uuidv4();
 
 export const newTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
 
+export function newTournamentFile(tournament: Tournament): TournamentFile {
+  return {
+    id: newBaseFileId(),
+    type: SourceFileType.TOURNAMENT,
+    createdAt: tournament.createdAt,
+    updatedAt: null,
+    data: tournament,
+  };
+}
+
+export function newCollectionFile(payload: CollectionForm): CollectionFile {
+  return {
+    id: newBaseFileId(),
+    createdAt: newTimestamp(),
+    updatedAt: null,
+    type: SourceFileType.COLLECTION,
+    data: {
+      name: payload.name,
+      tournaments: [],
+    },
+  };
+}
+
 export function appendNumericSuffix(name: Tournament['name'], tournaments: Tournament[]) {
   const removeSuffix = (str: string) => str.replace(FILE_SUFFIX_REGEX, '').trim();
 
@@ -19,30 +42,6 @@ export function isTournamentFile(file: SourceFile): file is TournamentFile {
 
 export function isCollectionFile(file: SourceFile): file is CollectionFile {
   return file.type === SourceFileType.COLLECTION;
-}
-
-export function createTournamentFile(tournament: Tournament): TournamentFile {
-  return {
-    id: tournament.id,
-    type: SourceFileType.TOURNAMENT,
-    createdAt: tournament.createdAt,
-    updatedAt: null,
-    data: tournament,
-  };
-}
-
-export function newCollectionFile(payload: CollectionForm): CollectionFile {
-  const timestamp = newTimestamp();
-  return {
-    id: newBaseFileId(),
-    createdAt: timestamp,
-    updatedAt: null,
-    type: SourceFileType.COLLECTION,
-    data: {
-      name: payload.name,
-      tournaments: [],
-    },
-  };
 }
 
 export function setUpdatedAtTimestampIfDirty(file: SourceFile, snapshot: SourceFile) {
