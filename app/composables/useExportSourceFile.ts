@@ -17,7 +17,7 @@ export function useExportSourceFile() {
     );
   }
 
-  function downloadCollectionFile(id: Collection['id']) {
+  function downloadCollectionFile(id: CollectionFile['id']) {
     const collection = getCollection(id);
 
     if (!collection) return;

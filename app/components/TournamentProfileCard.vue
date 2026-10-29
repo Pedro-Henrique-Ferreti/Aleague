@@ -39,7 +39,7 @@ const tournament = computed(() => tournamentStore.activeTournament);
 
 const tournamentOptions = computed<SelectOptionList<Tournament['id']>>(() => {
   return tournamentStore.tournamentList.filter(t => t.name === tournament.value?.name).map(t => ({
-    label: collectionStore.getCollection(t.collectionId)?.name ?? 'Sem coleção',
+    label: collectionStore.getCollection(t.collectionId)?.data.name ?? 'Sem coleção',
     value: t.id,
   }));
 });

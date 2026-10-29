@@ -59,9 +59,7 @@ import { getTournamentWinner } from '~/helpers/tournament';
 const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();
 
-const tournaments = computed(() => {
-  return tournamentStore.tournamentList.filter(t => t.collectionId === collectionStore.activeCollection?.id);
-});
+const tournaments = computed(() => collectionStore.activeCollection?.data.tournaments ?? []);
 
 const winners = computed<Record<Tournament['id'], TournamentWinner>>(() => {
   return Object.fromEntries(tournaments.value.map(t => [t.id, getTournamentWinner(t)]));

@@ -79,7 +79,7 @@ const tournamentOptions = computed(() => {
   return tournamentStore.tournamentList.map((tournament): SelectOption<Tournament> => ({
     label: tournament.name,
     value: tournament,
-    groupLabel: collectionStore.getCollection(tournament.collectionId)?.name,
+    groupLabel: collectionStore.getCollection(tournament.collectionId)?.data.name,
   }));
 });
 

@@ -15,11 +15,10 @@
 </template>
 
 <script setup lang="ts">
-import { newCollection } from '~/helpers/collection';
 import { createCollectionFile } from '~/helpers/file';
 
 const props = defineProps<{
-  collection?: Collection;
+  collection?: CollectionFile;
 }>();
 
 const fileStore = useFileStore();
@@ -38,7 +37,7 @@ async function submitForm() {
   if (isEditingCollection.value) {
     updateCollection(props.collection!.id, form.value);
   } else {
-    fileStore.addFileToStore(createCollectionFile(newCollection(form.value), []));
+    fileStore.addFileToStore(createCollectionFile(form.value));
   }
 
   modalIsOpen.value = false;
@@ -51,7 +50,7 @@ function onOpenModal() {
   }
 
   form.value = {
-    name: props.collection.name,
+    name: props.collection.data.name,
   };
 }
 </script>

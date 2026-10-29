@@ -1,4 +1,4 @@
-export type Collection = Pick<CollectionFile, 'id' | 'createdAt'> & {
+export interface Collection {
   name: string;
   tournaments: Tournament[];
 };

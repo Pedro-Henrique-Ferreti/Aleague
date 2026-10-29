@@ -28,16 +28,14 @@ export function createTournamentFile(tournament: Tournament): TournamentFile {
   };
 }
 
-export function createCollectionFile(collection: Collection, tournamentList: Tournament[]): CollectionFile {
+export function createCollectionFile(payload: CollectionForm): CollectionFile {
   return {
-    id: collection.id,
+    id: newBaseFileId(),
+    createdAt: newTimestamp(),
     type: SourceFileType.COLLECTION,
-    createdAt: collection.createdAt,
     data: {
-      id: collection.id,
-      name: collection.name,
-      createdAt: collection.createdAt,
-      tournaments: tournamentList.filter(t => t.collectionId === collection.id),
+      name: payload.name,
+      tournaments: [],
     },
   };
 }

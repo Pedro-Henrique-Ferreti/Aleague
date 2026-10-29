@@ -5,14 +5,14 @@ export const useCollectionStore = defineStore('collection', () => {
   const collections = ref<Collection[]>([]);
 
   const activeCollection = computed(() => {
-    return fileStore.activeFile && isCollectionFile(fileStore.activeFile) ? fileStore.activeFile.data : undefined;
+    return fileStore.activeFile && isCollectionFile(fileStore.activeFile) ? fileStore.activeFile : undefined;
   });
 
-  function getCollection(id: Collection['id'] | null) {
-    return collections.value.find(i => i.id === id);
+  function getCollection(id: CollectionFile['id'] | null) {
+    return id ? fileStore.files[id] : undefined;
   }
 
-  function updateCollection(id: Collection['id'], payload: CollectionForm) {
+  function updateCollection(id: CollectionFile['id'], payload: CollectionForm) {
     if (fileStore.files[id] && isCollectionFile(fileStore.files[id])) {
       fileStore.files[id].data = {
         ...fileStore.files[id].data,

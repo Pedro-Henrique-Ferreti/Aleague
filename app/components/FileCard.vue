@@ -16,7 +16,7 @@
       </span>
     </div>
     <h2 class="mt-1 font-medium text-base">{{ file.data.name }}</h2>
-    <span class="text-base-content/70 text-xs">Criado em: {{ formatDate(file.data.createdAt, 'dd/MM/yyyy') }}</span>
+    <span class="text-base-content/70 text-xs">Criado em: {{ formatDate(file.createdAt, 'dd/MM/yyyy') }}</span>
   </BaseButton>
 </template>
 
