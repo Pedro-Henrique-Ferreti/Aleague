@@ -39,11 +39,7 @@ export const useTournamentStore = defineStore('tournament', () => {
   }
 
   watch(() => fileStore.activeFile, (file) => {
-    if (!file || isCollectionFile(file)) {
-      setActiveTournament(undefined);
-    } else if (file && isTournamentFile(file)) {
-      setActiveTournament(file.data.id);
-    }
+    setActiveTournament(!file || isCollectionFile(file) ? undefined : file.data.id);
   });
 
   function pushTournament(tournament: Tournament): boolean {
