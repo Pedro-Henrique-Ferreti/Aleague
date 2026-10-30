@@ -30,8 +30,6 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   const tournamentList = computed(() => Object.values(tournaments.value));
 
-  const nonCollectionTournaments = computed(() => tournamentList.value.filter(t => !t.collectionId));
-
   const activeTournamentWinner = computed(() => activeTournament.value ? getTournamentWinner(activeTournament.value) : null);
 
   function setActiveTournament(id?: Tournament['id']) {
@@ -110,7 +108,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     activeTournamentId,
     activeTournament,
     activeTournamentWinner,
-    nonCollectionTournaments,
     setActiveTournament,
     createTournament,
     pushTournament,
