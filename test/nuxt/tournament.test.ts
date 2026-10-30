@@ -84,7 +84,6 @@ describe('tournament', () => {
     it('should return null when there are no stages', () => {
       const tournament = newTournament({
         icon: '',
-        collectionId: null,
         name: 'Tournament',
         showCountry: false,
         tags: [],

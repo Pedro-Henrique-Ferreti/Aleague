@@ -55,7 +55,6 @@ export type TournamentStage = GroupStage | PlayoffStage;
 
 export interface Tournament {
   id: UUID;
-  collectionId: CollectionFile['id'] | null;
   name: string;
   icon: string;
   createdAt: Timestamp;
@@ -65,7 +64,7 @@ export interface Tournament {
   showCountry: boolean;
 };
 
-export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry' | 'collectionId'>;
+export type TournamentForm = Pick<Tournament, 'name' | 'icon' | 'tags' | 'showCountry'>;
 
 export interface DuplicateTournamentForm {
   name: Tournament['name'];

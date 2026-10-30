@@ -16,7 +16,6 @@ export function mockPlayoffStage(params?: Partial<StageForm>) {
 
 export function mockTournament(params?: Partial<TournamentForm>): Tournament {
   return newTournament({
-    collectionId: null,
     icon: '',
     name: '',
     showCountry: false,

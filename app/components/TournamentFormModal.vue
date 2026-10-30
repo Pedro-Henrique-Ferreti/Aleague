@@ -65,7 +65,6 @@ function newForm(): TournamentForm {
     icon: ICON_OPTIONS[0]!.value,
     tags: [],
     showCountry: false,
-    collectionId: null,
   };
 }
 
@@ -82,7 +81,6 @@ function onOpenModal() {
       name: props.tournament.name,
       tags: props.tournament.tags,
       showCountry: props.tournament.showCountry,
-      collectionId: props.tournament.collectionId,
     };
   } else {
     form.value = newForm();
