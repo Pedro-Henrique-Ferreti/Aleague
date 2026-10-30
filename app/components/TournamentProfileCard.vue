@@ -41,11 +41,10 @@ const tournamentStore = useTournamentStore();
 const tournament = computed(() => tournamentStore.activeTournament);
 
 const isCollectionTournament = computed(() => {
-  const id = tournament.value?.id;
-  return id && Object.values(fileStore.files).some(file => isCollectionFile(file) && file.data.tournaments[id]);
+  return !!(tournament.value && fileStore.getCollectionFileByTournament(tournament.value));
 });
 
-const tournamentOptions = computed<SelectOptionList<Tournament['id']>>(() => {
+const tournamentOptions = computed(() => {
   return Object.values(fileStore.files).flatMap<SelectOption<Tournament['id']>>((file) => {
     if (!isCollectionFile(file)) return [];
 

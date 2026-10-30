@@ -1,4 +1,4 @@
-import { setUpdatedAtTimestampIfDirty } from '~/helpers/file';
+import { isCollectionFile, setUpdatedAtTimestampIfDirty } from '~/helpers/file';
 import { compressSourceFile } from '~/helpers/file-compression';
 
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
@@ -28,6 +28,12 @@ export const useFileStore = defineStore('file', () => {
     return true;
   }
 
+  function getCollectionFileByTournament(tournament: Tournament) {
+    return Object.values(files.value).find((file) => {
+      return isCollectionFile(file) && file.data.tournaments[tournament.id];
+    }) as CollectionFile | undefined;
+  }
+
   async function exportActiveFile() {
     if (!activeFile.value) return;
 
@@ -48,8 +54,9 @@ export const useFileStore = defineStore('file', () => {
   return {
     files,
     activeFile,
-    addFileToStore,
     hasImportedFiles,
+    getCollectionFileByTournament,
+    addFileToStore,
     exportActiveFile,
   };
 });
