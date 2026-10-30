@@ -61,3 +61,5 @@ export function matchesSearch(query: string, text: string): boolean {
 export function hasChanges<T extends object>(current: T, original: T): boolean {
   return JSON.stringify(current) !== JSON.stringify(original);
 }
+
+export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
