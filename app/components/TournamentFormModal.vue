@@ -13,12 +13,6 @@
         label="Nome"
       />
       <TagInput v-model="form.tags" />
-      <AppSelect
-        v-if="showCollectionField"
-        v-model="form.collectionId"
-        label="Coleção"
-        :options="collectionOptions"
-      />
     </div>
     <div class="grid grid-cols-[1fr_auto] gap-x-2 gap-y-0.75 mt-1">
       <AppSelect
@@ -65,8 +59,6 @@ const props = defineProps<{
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
-const collectionStore = useCollectionStore();
-
 function newForm(): TournamentForm {
   return {
     name: '',
@@ -82,18 +74,6 @@ const form = ref<TournamentForm>(newForm());
 const isEditingTournament = computed(() => !!props.tournament);
 const selectedIconIndex = computed(() => ICON_OPTIONS.findIndex(({ value }) => value === form.value.icon));
 const submitIsDisabled = computed(() => !form.value.name);
-const showCollectionField = computed(() => !isEditingTournament.value && collectionStore.collections.length > 0);
-
-const collectionOptions = computed<SelectOptionList<TournamentForm['collectionId']>>(() => ([
-  ...collectionStore.collections.map(item => ({
-    value: item.id,
-    label: item.name,
-  })).sort((a, b) => a.label.localeCompare(b.label)),
-  {
-    label: 'Nenhuma coleção',
-    value: null,
-  },
-]));
 
 function onOpenModal() {
   if (props.tournament) {
