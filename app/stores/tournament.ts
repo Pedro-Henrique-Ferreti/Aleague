@@ -3,7 +3,6 @@ import { getTournamentWinner, newTournament, newTournamentStage } from '~/helper
 
 export const useTournamentStore = defineStore('tournament', () => {
   const fileStore = useFileStore();
-  const tournaments = ref<Record<Tournament['id'], Tournament>>({});
   const activeTournamentId = ref<Tournament['id']>();
 
   const activeTournament = computed({
@@ -27,8 +26,6 @@ export const useTournamentStore = defineStore('tournament', () => {
       }
     },
   });
-
-  const tournamentList = computed(() => Object.values(tournaments.value));
 
   const activeTournamentWinner = computed(() => activeTournament.value ? getTournamentWinner(activeTournament.value) : null);
 
@@ -59,16 +56,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     };
   }
 
-  function deleteActiveTournament() {
-    if (!activeTournament.value) return;
-
-    const index = tournamentList.value.findIndex(i => i.id === activeTournament.value?.id);
-
-    delete tournaments.value[activeTournament.value.id];
-
-    activeTournamentId.value = tournamentList.value[index]?.id ?? tournamentList.value.at(-1)?.id;
-  }
-
   function addStage(form: StageForm) {
     if (!activeTournament.value) return;
 
@@ -76,13 +63,11 @@ export const useTournamentStore = defineStore('tournament', () => {
   }
 
   return {
-    tournamentList,
     activeTournament,
     activeTournamentWinner,
     setActiveTournament,
     createTournament,
     updateActiveTournament,
-    deleteActiveTournament,
     addStage,
   };
 });

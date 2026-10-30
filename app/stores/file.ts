@@ -67,6 +67,14 @@ export const useFileStore = defineStore('file', () => {
     return tournamentCopy;
   }
 
+  function deleteCollectionFileTournament(fileId: SourceFile['id'], tournamentId: Tournament['id']) {
+    const file = files.value[fileId];
+
+    if (file && isCollectionFile(file)) {
+      delete file.data.tournaments[tournamentId];
+    }
+  }
+
   return {
     files,
     activeFile,
@@ -75,5 +83,6 @@ export const useFileStore = defineStore('file', () => {
     addFileToStore,
     exportActiveFile,
     duplicateCollectionFileTournament,
+    deleteCollectionFileTournament,
   };
 });

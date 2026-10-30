@@ -6,7 +6,7 @@
     @click="deleteTournamentDialogIsOpen = true"
   />
   <FileToolbarButton
-    v-if="allowDuplicateTournament"
+    v-if="isCollectionTournament"
     label="Duplicar"
     :icon-left="IconLayersSubtract"
     @click="duplicateTournamentModalIsOpen = true"
@@ -24,22 +24,25 @@
     :submit-fn="tournamentStore.updateActiveTournament"
   />
   <DuplicateTournamentModal
-    v-if="allowDuplicateTournament && tournamentStore.activeTournament"
+    v-if="isCollectionTournament && tournamentStore.activeTournament"
     v-model:is-open="duplicateTournamentModalIsOpen"
     :tournament="tournamentStore.activeTournament"
   />
-  <DeleteTournamentModal v-model:is-open="deleteTournamentDialogIsOpen" />
+  <DeleteTournamentModal
+    v-if="isCollectionTournament && tournamentStore.activeTournament"
+    v-model:is-open="deleteTournamentDialogIsOpen"
+    :tournament="tournamentStore.activeTournament"
+  />
 </template>
 
 <script lang="ts" setup>
 import { IconEdit, IconLayersSubtract, IconTrash } from '@tabler/icons-vue';
-import { isCollectionFile } from '~/helpers/file';
 
 const fileStore = useFileStore();
 const tournamentStore = useTournamentStore();
 
-const allowDuplicateTournament = computed(() => {
-  return fileStore.activeFile && isCollectionFile(fileStore.activeFile);
+const isCollectionTournament = computed(() => {
+  return !!(tournamentStore.activeTournament && fileStore.getCollectionFileByTournament(tournamentStore.activeTournament));
 });
 
 const tournamentModalIsOpen = ref(false);
