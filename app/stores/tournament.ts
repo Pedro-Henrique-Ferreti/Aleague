@@ -105,7 +105,6 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   return {
     tournamentList,
-    activeTournamentId,
     activeTournament,
     activeTournamentWinner,
     setActiveTournament,

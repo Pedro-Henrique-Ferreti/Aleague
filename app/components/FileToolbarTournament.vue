@@ -18,7 +18,7 @@
   <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
   <TournamentFormModal
     v-model:is-open="tournamentModalIsOpen"
-    :key="tournamentId"
+    :key="tournamentStore.activeTournament?.id"
     :tournament="tournamentStore.activeTournament"
     :submit-fn="tournamentStore.updateActiveTournament"
   />
@@ -31,8 +31,6 @@ import { IconEdit, IconLayersSubtract, IconTrash } from '@tabler/icons-vue';
 
 const fileStore = useFileStore();
 const tournamentStore = useTournamentStore();
-
-const tournamentId = computed(() => tournamentStore.activeTournamentId!);
 
 const tournamentModalIsOpen = ref(false);
 const duplicateTournamentModalIsOpen = ref(false);

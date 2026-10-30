@@ -60,6 +60,7 @@
 
 <script lang="ts" setup>
 import { getTeamById } from '@/helpers/team';
+import { isCollectionFile } from '~/helpers/file';
 import { getGroupName, isGroupStageSeeded } from '~/helpers/group-stage';
 import { isPlayoffStageSeeded } from '~/helpers/playoff-stage';
 
@@ -72,15 +73,24 @@ const emit = defineEmits<{
   closePanel: [];
 }>();
 
-const collectionStore = useCollectionStore();
+const fileStore = useFileStore();
 const tournamentStore = useTournamentStore();
 
 const tournamentOptions = computed(() => {
-  return tournamentStore.tournamentList.map((tournament): SelectOption<Tournament> => ({
-    label: tournament.name,
-    value: tournament,
-    groupLabel: collectionStore.getCollection(tournament.collectionId)?.data.name,
-  }));
+  return Object.values(fileStore.files).flatMap<SelectOption<Tournament>>((file) => {
+    if (isCollectionFile(file)) {
+      return Object.values(file.data.tournaments).map(t => ({
+        label: t.name,
+        value: t,
+        groupLabel: file.data.name,
+      }));
+    }
+
+    return {
+      label: file.data.name,
+      value: file.data,
+    };
+  });
 });
 
 const selectedTournament = ref(tournamentStore.getTournament(props.initialTournamentId ?? null) ?? tournamentOptions.value[0]?.value);

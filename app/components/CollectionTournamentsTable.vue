@@ -17,7 +17,7 @@
             class="hover:bg-base-content/10 transition-colors cursor-pointer"
             tabindex="0"
             @keypress.enter="($event.target as HTMLTableCellElement)?.click()"
-            @click="tournamentStore.activeTournamentId = tournament.id"
+            @click="tournamentStore.setActiveTournament(tournament.id)"
           >
             <td>
               <div class="flex items-center gap-1">

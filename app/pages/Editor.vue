@@ -4,12 +4,12 @@
       <FileToolbar />
     </template>
     <TournamentPage
-      v-if="tournamentStore.activeTournamentId"
-      :key="String(tournamentStore.activeTournamentId)"
+      v-if="tournamentStore.activeTournament?.id"
+      :key="tournamentStore.activeTournament.id"
     />
     <CollectionPage
       v-else-if="collectionStore.activeCollection?.id"
-      :key="String(collectionStore.activeCollection?.id)"
+      :key="collectionStore.activeCollection.id"
     />
   </NuxtLayout>
 </template>

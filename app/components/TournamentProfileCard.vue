@@ -19,10 +19,11 @@
           </div>
         </div>
         <BaseSelect
-          v-if="tournament?.collectionId || tournamentOptions.length > 1"
-          v-model="tournamentStore.activeTournamentId"
+          v-if="isCollectionTournament && tournamentOptions.length > 1"
           class="tournament-profile__select"
+          :model-value="tournamentStore.activeTournament?.id"
           :options="tournamentOptions"
+          @update:model-value="handleSelectTournament"
         />
       </div>
     </div>
@@ -31,18 +32,41 @@
 
 <script setup lang="ts">
 import { IconClock, IconPencil } from '@tabler/icons-vue';
+import { isCollectionFile } from '~/helpers/file';
 
-const collectionStore = useCollectionStore();
+const router = useRouter();
+const fileStore = useFileStore();
 const tournamentStore = useTournamentStore();
 
 const tournament = computed(() => tournamentStore.activeTournament);
 
-const tournamentOptions = computed<SelectOptionList<Tournament['id']>>(() => {
-  return tournamentStore.tournamentList.filter(t => t.name === tournament.value?.name).map(t => ({
-    label: collectionStore.getCollection(t.collectionId)?.data.name ?? 'Sem coleção',
-    value: t.id,
-  }));
+const isCollectionTournament = computed(() => {
+  const id = tournament.value?.id;
+  return id && Object.values(fileStore.files).some(file => isCollectionFile(file) && file.data.tournaments[id]);
 });
+
+const tournamentOptions = computed<SelectOptionList<Tournament['id']>>(() => {
+  return Object.values(fileStore.files).flatMap<SelectOption<Tournament['id']>>((file) => {
+    if (!isCollectionFile(file)) return [];
+
+    return Object.values(file.data.tournaments).filter(t => t.name === tournament.value?.name).map(t => ({
+      label: file.data.name,
+      value: t.id,
+    }));
+  });
+});
+
+function handleSelectTournament(id?: Tournament['id']) {
+  if (!id) return;
+
+  const file = Object.values(fileStore.files).find((file) => {
+    return isCollectionFile(file) ? file.data.tournaments[id] : file.data.id === id;
+  });
+
+  if (file) {
+    router.push({ name: 'editor', params: { fileId: file.id } });
+  }
+}
 </script>
 
 <style scoped>
