@@ -23,6 +23,15 @@ export function newTournamentStage(form: StageForm, stageList?: TournamentStage[
   return form.type === StageType.GROUP ? newGroupStage(form, baseStage) : newPlayoffStage(form, baseStage);
 }
 
+export function copyTournament(tournament: Tournament): Tournament {
+  return {
+    ...clone(tournament),
+    id: uuidv4(),
+    createdAt: newTimestamp(),
+    updatedAt: null,
+  };
+}
+
 export function getTournamentWinner(tournament: Tournament): TournamentWinner {
   const lastStage = tournament.stages.at(-1);
 

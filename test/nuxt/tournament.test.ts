@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newLegendDescription } from '~/helpers/group-stage';
-import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
+import { copyTournament, getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 describe('tournament', () => {
   describe('newTournamentStage', () => {
@@ -77,6 +77,27 @@ describe('tournament', () => {
       });
 
       expect(result.sequence).toBe(1);
+    });
+  });
+
+  describe('copyTournament', () => {
+    it('should create a tournament copy with no in-memory references to the original', async () => {
+      const tournament = newTournament({
+        icon: '',
+        name: 'Tournament',
+        showCountry: true,
+        tags: ['tag-a', 'tag-b'],
+      });
+
+      await sleep(1000);
+
+      const copy = copyTournament(tournament);
+
+      expect(copy.id).not.toBe(tournament.id);
+      expect(copy.createdAt).not.toBe(tournament.createdAt);
+      expect(copy.updatedAt).toBeNull();
+      expect(copy.showCountry).toBe(tournament.showCountry);
+      expect(copy.tags).toStrictEqual(tournament.tags);
     });
   });
 
