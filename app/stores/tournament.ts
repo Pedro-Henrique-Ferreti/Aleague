@@ -1,4 +1,4 @@
-import { isCollectionFile, isTournamentFile, newBaseFileId, newTimestamp, newTournamentFile } from '~/helpers/file';
+import { isCollectionFile, isTournamentFile, newTournamentFile } from '~/helpers/file';
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
@@ -40,13 +40,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     setActiveTournament(!file || isCollectionFile(file) ? undefined : file.data.id);
   });
 
-  function pushTournament(tournament: Tournament): boolean {
-    if (tournaments.value[tournament.id]) return false;
-
-    tournaments.value[tournament.id] = tournament;
-    return true;
-  }
-
   function createTournament(payload: TournamentForm) {
     const tournament = newTournament(payload);
 
@@ -68,23 +61,6 @@ export const useTournamentStore = defineStore('tournament', () => {
       ...activeTournament.value,
       ...payload,
     };
-  }
-
-  function duplicateActiveTournament(form: DuplicateTournamentForm) {
-    if (!activeTournament.value) return;
-
-    const id = newBaseFileId();
-    const timestamp = newTimestamp();
-
-    pushTournament({
-      ...clone(activeTournament.value),
-      id,
-      name: form.name,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-    });
-
-    activeTournamentId.value = id;
   }
 
   function deleteActiveTournament() {
@@ -109,10 +85,8 @@ export const useTournamentStore = defineStore('tournament', () => {
     activeTournamentWinner,
     setActiveTournament,
     createTournament,
-    pushTournament,
     getTournament,
     updateActiveTournament,
-    duplicateActiveTournament,
     deleteActiveTournament,
     addStage,
   };

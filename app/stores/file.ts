@@ -1,5 +1,6 @@
 import { isCollectionFile, setUpdatedAtTimestampIfDirty } from '~/helpers/file';
 import { compressSourceFile } from '~/helpers/file-compression';
+import { copyTournament } from '~/helpers/tournament';
 
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;
 
@@ -51,6 +52,21 @@ export const useFileStore = defineStore('file', () => {
     );
   }
 
+  function duplicateCollectionFileTournament(fileId: SourceFile['id'], tournamentId: Tournament['id'], form: DuplicateTournamentForm) {
+    const file = files.value[fileId];
+
+    if (!file || !isCollectionFile(file) || !file.data.tournaments[tournamentId]) return;
+
+    const tournamentCopy: Tournament = {
+      ...copyTournament(file.data.tournaments[tournamentId]!),
+      ...form,
+    };
+
+    file.data.tournaments[tournamentCopy.id] = tournamentCopy;
+
+    return tournamentCopy;
+  }
+
   return {
     files,
     activeFile,
@@ -58,5 +74,6 @@ export const useFileStore = defineStore('file', () => {
     getCollectionFileByTournament,
     addFileToStore,
     exportActiveFile,
+    duplicateCollectionFileTournament,
   };
 });
