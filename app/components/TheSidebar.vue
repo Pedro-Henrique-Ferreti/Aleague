@@ -46,7 +46,7 @@
         <TheSidebarFileItem
           v-for="file in Object.values(fileStore.files).filter(isTournamentFile)"
           :key="file.id"
-          :tournament="file.data"
+          :tournament-file="file"
         />
       </ul>
     </div>
