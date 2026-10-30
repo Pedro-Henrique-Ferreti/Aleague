@@ -15,7 +15,7 @@
     <template #side-panel>
       <StandingsPanel
         :selected-teams="selectedTeams"
-        :initial-tournament-id="tournamentStore.activeTournament?.id"
+        :initial-tournament="tournamentStore.activeTournament"
         @select-team="onSelectTeam"
       />
     </template>

@@ -66,7 +66,7 @@ import { isPlayoffStageSeeded } from '~/helpers/playoff-stage';
 
 const props = defineProps<{
   selectedTeams: Team['id'][];
-  initialTournamentId?: Tournament['id'];
+  initialTournament?: Tournament;
 }>();
 const emit = defineEmits<{
   selectTeam: [Team];
@@ -74,7 +74,6 @@ const emit = defineEmits<{
 }>();
 
 const fileStore = useFileStore();
-const tournamentStore = useTournamentStore();
 
 const tournamentOptions = computed(() => {
   return Object.values(fileStore.files).flatMap<SelectOption<Tournament>>((file) => {
@@ -93,7 +92,7 @@ const tournamentOptions = computed(() => {
   });
 });
 
-const selectedTournament = ref(tournamentStore.getTournament(props.initialTournamentId ?? null) ?? tournamentOptions.value[0]?.value);
+const selectedTournament = ref(props.initialTournament ?? tournamentOptions.value[0]?.value);
 const selectedStage = ref<TournamentStage>();
 
 const stageOptions = computed(() => {

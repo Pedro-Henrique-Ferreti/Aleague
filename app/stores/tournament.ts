@@ -50,10 +50,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     }
   }
 
-  function getTournament(id: Tournament['id'] | null) {
-    return id ? tournaments.value[id] : undefined;
-  }
-
   function updateActiveTournament(payload: TournamentForm) {
     if (!activeTournament.value) return;
 
@@ -85,7 +81,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     activeTournamentWinner,
     setActiveTournament,
     createTournament,
-    getTournament,
     updateActiveTournament,
     deleteActiveTournament,
     addStage,
