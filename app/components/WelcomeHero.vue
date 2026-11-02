@@ -21,7 +21,10 @@
           class="btn-primary"
           dropdown-class="w-14"
         />
-        <ImportFileButton class="btn-primary btn-outline" />
+        <ImportFileButton
+          class="btn-primary btn-outline"
+          :show-not-imported-files-dialog="false"
+        />
       </div>
       <ul class="mt-1.5 flex flex-wrap gap-x-1.25 gap-y-0.5 text-xs font-medium text-base-content/60">
         <li class="flex items-center gap-0.25">
