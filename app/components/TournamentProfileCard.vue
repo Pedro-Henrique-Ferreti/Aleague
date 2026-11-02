@@ -21,7 +21,7 @@
         <BaseSelect
           v-if="isCollectionTournament && tournamentOptions.length > 1"
           class="tournament-profile__select"
-          :model-value="tournamentStore.activeTournament?.id"
+          :model-value="tournamentStore.activeTournament"
           :options="tournamentOptions"
           @update:model-value="handleSelectTournament"
         />
@@ -45,25 +45,23 @@ const isCollectionTournament = computed(() => {
 });
 
 const tournamentOptions = computed(() => {
-  return Object.values(fileStore.files).flatMap<SelectOption<Tournament['id']>>((file) => {
+  return Object.values(fileStore.files).flatMap<SelectOption<Tournament>>((file) => {
     if (!isCollectionFile(file)) return [];
 
     return Object.values(file.data.tournaments).filter(t => t.name === tournament.value?.name).map(t => ({
       label: file.data.name,
-      value: t.id,
+      value: t,
     }));
   });
 });
 
-function handleSelectTournament(id?: Tournament['id']) {
-  if (!id) return;
+function handleSelectTournament(selectedTournament?: Tournament) {
+  if (!selectedTournament) return;
 
-  const file = Object.values(fileStore.files).find((file) => {
-    return isCollectionFile(file) ? file.data.tournaments[id] : file.data.id === id;
-  });
+  const file = fileStore.getCollectionFileByTournament(selectedTournament)
 
   if (file) {
-    router.push({ name: 'editor', params: { fileId: file.id } });
+    router.push({ name: 'editor', params: { fileId: file.id, tournamentId: selectedTournament.id } });
   }
 }
 </script>

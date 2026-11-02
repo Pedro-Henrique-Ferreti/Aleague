@@ -17,7 +17,7 @@
             class="hover:bg-base-content/10 transition-colors cursor-pointer"
             tabindex="0"
             @keypress.enter="($event.target as HTMLTableCellElement)?.click()"
-            @click="tournamentStore.setActiveTournament(tournament.id)"
+            @click="$router.push({ name: 'editor', params: { fileId: collectionStore.activeCollection?.id, tournamentId: tournament.id } })"
           >
             <td>
               <div class="flex items-center gap-1">
@@ -57,7 +57,6 @@
 import { getTournamentWinner } from '~/helpers/tournament';
 
 const collectionStore = useCollectionStore();
-const tournamentStore = useTournamentStore();
 
 const tournaments = computed(() => Object.values(collectionStore.activeCollection?.data.tournaments ?? {}));
 

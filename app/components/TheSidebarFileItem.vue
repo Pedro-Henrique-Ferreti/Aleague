@@ -1,16 +1,15 @@
 <template>
   <li
-    v-tooltip.right="name"
+    v-tooltip.right="label"
     class="overflow-auto"
   >
     <BaseButton
       class="truncate w-full block"
-      :class="{ 'bg-base-200': tournament && tournament.id === tournamentStore.activeTournament?.id }"
-      :to="tournamentFile && { name: 'editor', params: { fileId: tournamentFile.id } }"
-      @click="tournament && tournamentStore.setActiveTournament(tournament.id)"
+      :class="{ 'bg-base-200 text-base-content': tournamentId && tournamentId === tournamentStore.activeTournament?.id }"
+      :to="{ name: 'editor', params: { fileId, tournamentId } }"
     >
       <IconFileDescription class="h-1 w-1 inline-block" />
-      {{ name }}
+      {{ label }}
     </BaseButton>
   </li>
 </template>
@@ -18,12 +17,11 @@
 <script lang="ts" setup>
 import { IconFileDescription } from '@tabler/icons-vue';
 
-const props = defineProps<{
-  tournament?: Tournament;
-  tournamentFile?: TournamentFile;
+defineProps<{
+  fileId: SourceFile['id'];
+  label: string;
+  tournamentId?: Tournament['id'];
 }>();
 
 const tournamentStore = useTournamentStore();
-
-const name = computed(() => props.tournament?.name ?? props.tournamentFile?.data.name ?? '');
 </script>

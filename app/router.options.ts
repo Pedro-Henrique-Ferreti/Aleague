@@ -15,7 +15,7 @@ export default {
     },
     {
       name: 'editor',
-      path: '/editor/:fileId',
+      path: '/editor/:fileId/:tournamentId?',
       meta: { middleware: 'ensure-file-exists' },
       component: () => import('~/pages/Editor.vue'),
     },

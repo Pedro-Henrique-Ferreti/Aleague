@@ -2,6 +2,7 @@ import { isCollectionFile, isTournamentFile, newTournamentFile } from '~/helpers
 import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
+  const route = useRoute();
   const fileStore = useFileStore();
   const activeTournamentId = ref<Tournament['id']>();
 
@@ -29,12 +30,14 @@ export const useTournamentStore = defineStore('tournament', () => {
 
   const activeTournamentWinner = computed(() => activeTournament.value ? getTournamentWinner(activeTournament.value) : null);
 
-  function setActiveTournament(id?: Tournament['id']) {
-    activeTournamentId.value = id;
-  }
-
-  watch(() => fileStore.activeFile, (file) => {
-    setActiveTournament(!file || isCollectionFile(file) ? undefined : file.data.id);
+  watchEffect(() => {
+    if (!fileStore.activeFile) {
+      activeTournamentId.value = undefined;
+    } else if (isTournamentFile(fileStore.activeFile)) {
+      activeTournamentId.value = fileStore.activeFile.data.id;
+    } else {
+      activeTournamentId.value = route.params.tournamentId as unknown as Tournament['id'];
+    }
   });
 
   function createTournament(payload: TournamentForm) {
@@ -65,7 +68,6 @@ export const useTournamentStore = defineStore('tournament', () => {
   return {
     activeTournament,
     activeTournamentWinner,
-    setActiveTournament,
     createTournament,
     updateActiveTournament,
     addStage,

@@ -17,7 +17,9 @@
       <TheSidebarFileItem
         v-for="tournament in file.data.tournaments"
         :key="tournament.id"
-        :tournament="tournament"
+        :file-id="file.id"
+        :label="tournament.name"
+        :tournament-id="tournament.id"
       />
     </ul>
   </li>

@@ -20,8 +20,9 @@ import { appendNumericSuffix } from '~/helpers/file';
 const props = defineProps<{
   tournament: Tournament;
 }>();
+
+const router = useRouter();
 const fileStore = useFileStore();
-const tournamentStore = useTournamentStore();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
@@ -30,16 +31,14 @@ const form = ref<DuplicateTournamentForm>({ name: '' });
 const submitIsDisabled = computed(() => !form.value.name);
 
 async function submitForm() {
-  if (!fileStore.activeFile) return;
+  const fileId = fileStore.activeFile?.id;
 
-  const tournament = fileStore.duplicateCollectionFileTournament(
-    fileStore.activeFile!.id,
-    props.tournament.id,
-    form.value,
-  );
+  if (!fileId) return;
+
+  const tournament = fileStore.duplicateCollectionFileTournament(fileId, props.tournament.id, form.value);
 
   if (tournament) {
-    tournamentStore.setActiveTournament(tournament.id);
+    router.push({ name: 'editor', params: { fileId, tournamentId: tournament.id } });
   }
 
   modalIsOpen.value = false;
