@@ -3,20 +3,14 @@
     class="sidebar group"
     :data-open="menuIsOpen || null"
   >
-    <header class="pt-3.5 mb-2 relative">
+    <header class="mb-2 relative">
+      <AppLogo class="text-2xl! not-group-data-open:hidden" />
       <AppButton
         class="sidebar-close-button"
         :aria-label="menuIsOpen ? 'Fechar menu' : 'Abrir menu'"
         :icon-left="menuIsOpen ? IconChevronLeft : IconChevronRight"
         @click="menuIsOpen = !menuIsOpen"
       />
-      <div class="not-group-data-open:hidden">
-        <CreateFileMenu
-          class="w-full"
-          dropdown-class="min-w-14"
-        />
-        <OpenFileButton class="w-full mt-1 btn-soft" />
-      </div>
     </header>
     <div class="sidebar-content">
       <h2 class="text-gray-500 mb-0.5">Geral</h2>
@@ -26,13 +20,11 @@
             label="Dashboard"
             :to="{ name: 'home' }"
             :icon="IconHome"
-            :is-active="$route.name === 'home'"
           />
           <TheSidebarNavItem
             label="Estatísticas"
             :to="{ name: 'analytics' }"
             :icon="IconReportAnalytics"
-            :is-active="$route.name === 'analytics'"
           />
         </ul>
       </nav>

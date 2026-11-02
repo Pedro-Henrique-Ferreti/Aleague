@@ -1,9 +1,6 @@
 <template>
   <li>
-    <BaseButton
-      :class="{ 'bg-base-200 text-black': isActive }"
-      :to="to"
-    >
+    <BaseButton :to="to">
       <component
         :is="icon"
         class="h-1 w-1"
@@ -15,12 +12,11 @@
 
 <script lang="ts" setup>
 import type { Icon } from '@tabler/icons-vue';
-import type { RouteLocationRaw } from 'vue-router';
+import type { BaseButtonProps } from './BaseButton.vue';
 
 defineProps<{
   label: string;
   icon: Icon;
-  to: RouteLocationRaw;
-  isActive?: boolean;
+  to: BaseButtonProps['to'];
 }>();
 </script>
