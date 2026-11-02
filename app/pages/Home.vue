@@ -1,6 +1,12 @@
 <template>
   <NuxtLayout>
-    <h1 class="text-2xl font-semibold mb-1.5">Arquivos</h1>
+    <header class="flex items-center justify-between mb-1.5">
+      <h1 class="text-2xl font-semibold">Arquivos</h1>
+      <div class="flex gap-0.75">
+        <ImportFileButton class="btn-sm btn-soft" />
+        <CreateFileMenu class="btn-primary btn-sm" />
+      </div>
+    </header>
     <div class="flex mb-0.75 justify-between">
       <span>{{ filesCount }}</span>
       <AppInput

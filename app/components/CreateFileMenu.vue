@@ -1,7 +1,7 @@
 <template>
   <AppMenu
-    label="Criar"
-    :class="['btn-primary', $attrs.class]"
+    label="Criar Arquivo"
+    :class="$attrs.class"
     :icon-left="IconPlus"
     :icon-right="false"
     :dropdown-class="dropdownClass"

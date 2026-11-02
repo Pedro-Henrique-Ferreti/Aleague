@@ -1,14 +1,13 @@
 <template>
   <AppButton
-    class="btn-primary"
-    label="Abrir"
-    :icon-left="IconFolder"
+    label="Importar"
+    :icon-left="IconFileImport"
     @click="openFileExplorer"
   />
 </template>
 
 <script lang="ts" setup>
-import { IconFolder } from '@tabler/icons-vue';
+import { IconFileImport } from '@tabler/icons-vue';
 
 const fileStore = useFileStore();
 

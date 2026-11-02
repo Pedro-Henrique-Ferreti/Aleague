@@ -17,16 +17,12 @@
         atualizando a cada partida. Tudo apenas no navegador, sem depender de planilha ou papel.
       </p>
       <div class="grid gap-0.75 mt-1.75 max-w-xs tablet:grid-cols-2">
-        <OpenFileButton />
         <CreateFileMenu
-          class="btn-outline"
+          class="btn-primary"
           dropdown-class="w-14"
         />
+        <ImportFileButton class="btn-primary btn-outline" />
       </div>
-      <p class="mt-0.75 flex gap-0.25 text-xs text-base-content/60">
-        <IconInfoCircle class="mt-px size-1 shrink-0" />
-        “Abrir” importa um arquivo exportado pelo Alegue. “Criar” começa um novo campeonato ou coleção.
-      </p>
       <ul class="mt-1.5 flex flex-wrap gap-x-1.25 gap-y-0.5 text-xs font-medium text-base-content/60">
         <li class="flex items-center gap-0.25">
           <IconCheck class="size-1.25 text-success" />
@@ -61,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { IconCheck, IconInfoCircle, IconSparkles } from '@tabler/icons-vue';
+import { IconCheck, IconSparkles } from '@tabler/icons-vue';
 import { NATIONAL_TEAMS } from '~/constants/teams/national';
 
 const COUNTRY_FLAGS = [
