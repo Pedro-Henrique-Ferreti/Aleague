@@ -1,10 +1,9 @@
 <template>
   <li>
-    <component
-      v-bind="clickable && { type: 'button' }"
-      :is="clickable ? 'button' : 'div'"
-      :class="!clickable && 'cursor-[unset] hover:no-underline'"
-      @click="clickable && $emit('click')"
+    <BaseButton
+      class="disabled:cursor-[unset] disabled:hover:no-underline"
+      :disabled="disabled"
+      :to="to"
     >
       <component
         v-if="icon"
@@ -12,18 +11,16 @@
         class="h-1 w-1"
       />
       <slot>{{ label }}</slot>
-    </component>
+    </BaseButton>
   </li>
 </template>
 
 <script lang="ts" setup>
 import type { Icon } from '@tabler/icons-vue';
+import type { BaseButtonProps } from './BaseButton.vue';
 
-defineProps<{
+defineProps<Pick<BaseButtonProps, 'to' | 'disabled'> & {
   label?: string;
   icon?: Icon;
-  clickable?: boolean;
 }>();
-
-defineEmits<{ click: [] }>();
 </script>

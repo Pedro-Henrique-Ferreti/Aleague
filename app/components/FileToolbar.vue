@@ -3,13 +3,13 @@
     <BreadcrumbList>
       <BreadcrumbItem
         v-if="collectionStore.activeCollection"
-        :clickable="!!tournamentStore.activeTournament"
         :label="collectionStore.activeCollection.data.name"
         :icon="IconFolderOpen"
-        @click="tournamentStore.setActiveTournament(undefined)"
+        :to="{ name: 'editor', params: { fileId: collectionStore.activeCollection.id } }"
       />
       <BreadcrumbItem
         v-if="tournamentStore.activeTournament"
+        disabled
         :label="tournamentStore.activeTournament?.name"
         :icon="IconFileDescription"
       />
