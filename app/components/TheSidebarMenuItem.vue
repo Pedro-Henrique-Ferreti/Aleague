@@ -5,8 +5,9 @@
         :is="icon"
         class="h-1 w-1"
       />
-      <span>{{ label }}</span>
+      <span class="truncate">{{ label }}</span>
     </BaseButton>
+    <slot />
   </li>
 </template>
 

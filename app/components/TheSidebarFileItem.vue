@@ -1,17 +1,10 @@
 <template>
-  <li
+  <TheSidebarMenuItem
     v-tooltip.right="label"
-    class="overflow-auto"
-  >
-    <BaseButton
-      class="truncate w-full block"
-      :class="{ 'bg-base-200 text-base-content': tournamentId && tournamentId === tournamentStore.activeTournament?.id }"
-      :to="{ name: 'editor', params: { fileId, tournamentId } }"
-    >
-      <IconFileDescription class="h-1 w-1 inline-block" />
-      {{ label }}
-    </BaseButton>
-  </li>
+    :to="{ name: 'editor', params: { fileId, tournamentId } }"
+    :icon="IconFileDescription"
+    :label="label"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -22,6 +15,4 @@ defineProps<{
   label: string;
   tournamentId?: Tournament['id'];
 }>();
-
-const tournamentStore = useTournamentStore();
 </script>

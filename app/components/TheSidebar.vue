@@ -16,12 +16,12 @@
       <h2 class="text-gray-500 mb-0.5">Geral</h2>
       <nav class="mb-1.5">
         <ul class="menu gap-0.25 p-0 w-full">
-          <TheSidebarNavItem
+          <TheSidebarMenuItem
             label="Dashboard"
             :to="{ name: 'home' }"
             :icon="IconHome"
           />
-          <TheSidebarNavItem
+          <TheSidebarMenuItem
             label="Estatísticas"
             :to="{ name: 'analytics' }"
             :icon="IconReportAnalytics"
