@@ -191,7 +191,7 @@ if (import.meta.hot) {
 }
 .modal-side-panel {
   @apply hidden opacity-0 translate-x-1/3 shrink-0 p-(--_p) border-l border-base-200 overflow-y-auto sticky top-0 duration-500 ease-in-out;
-  @apply [scrollbar-gutter:stable] [scrollbar-width:none] transition-discrete transition-[display,opacity,translate];
+  @apply scrollbar-gutter-stable scrollbar-none transition-discrete transition-[display,opacity,translate];
 
   &[data-open] {
     @apply block opacity-100 translate-x-0;
