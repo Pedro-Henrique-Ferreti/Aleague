@@ -1,9 +1,5 @@
 <template>
   <div class="relative mx-auto w-full max-w-24 rounded-2xl border border-base-300 bg-base-100 p-1 shadow-xl">
-    <div class="badge badge-lg absolute top-0 -left-1 translate-y-[-50%] rounded-xl shadow-lg animate-float">
-      <IconTrophy class="size-1 text-primary" />
-      <span class="text-xs font-medium">Campeão definido</span>
-    </div>
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-0.25">
         <span class="size-0.5 rounded-full bg-error/60" />
