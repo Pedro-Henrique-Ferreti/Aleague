@@ -17,10 +17,7 @@
         atualizando a cada partida. Tudo apenas no navegador, sem depender de planilha ou papel.
       </p>
       <div class="grid gap-0.75 mt-1.75 max-w-xs tablet:grid-cols-2">
-        <CreateFileMenu
-          class="btn-primary"
-          dropdown-class="w-14"
-        />
+        <CreateFileModal class="btn-primary" />
         <ImportFileButton
           class="btn-primary btn-outline"
           :show-not-imported-files-dialog="false"

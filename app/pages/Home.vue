@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-semibold">Arquivos</h1>
       <div class="flex gap-0.75">
         <ImportFileButton class="btn-sm btn-soft" />
-        <CreateFileMenu class="btn-primary btn-sm" />
+        <CreateFileModal class="btn-primary btn-sm" />
       </div>
     </header>
     <div class="flex mb-0.75 justify-between">
