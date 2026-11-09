@@ -19,9 +19,8 @@
   <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
   <TournamentFormModal
     v-model:is-open="tournamentModalIsOpen"
-    :key="tournamentStore.activeTournament?.id"
     :tournament="tournamentStore.activeTournament"
-    :submit-fn="tournamentStore.updateActiveTournament"
+    :submit-fn="handleUpdateTournament"
   />
   <DuplicateTournamentModal
     v-if="isCollectionTournament && tournamentStore.activeTournament"
@@ -48,4 +47,10 @@ const isCollectionTournament = computed(() => {
 const tournamentModalIsOpen = ref(false);
 const duplicateTournamentModalIsOpen = ref(false);
 const deleteTournamentDialogIsOpen = ref(false);
+
+function handleUpdateTournament(form: TournamentForm) {
+  if (fileStore.activeFile && tournamentStore.activeTournament) {
+    tournamentStore.updateTournament(tournamentStore.activeTournament.id, fileStore.activeFile.id, form);
+  }
+}
 </script>

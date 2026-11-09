@@ -17,7 +17,6 @@ export const useTournamentStore = defineStore('tournament', () => {
       return activeTournamentId.value ? fileStore.activeFile.data.tournaments[activeTournamentId.value] : undefined;
     },
     set: (value) => {
-      // TODO: Test whether object reference is sufficient to update file keys
       if (!value || !fileStore.activeFile) return;
 
       if (isTournamentFile(fileStore.activeFile)) {
@@ -50,13 +49,22 @@ export const useTournamentStore = defineStore('tournament', () => {
     }
   }
 
-  function updateActiveTournament(payload: TournamentForm) {
-    if (!activeTournament.value) return;
+  function updateTournament(id: Tournament['id'], fileId: SourceFile['id'], payload: TournamentForm) {
+    const file = fileStore.files[fileId];
 
-    activeTournament.value = {
-      ...activeTournament.value,
-      ...payload,
-    };
+    if (!file) return;
+
+    if (isCollectionFile(file) && file.data.tournaments[id]) {
+      file.data.tournaments[id] = {
+        ...file.data.tournaments[id],
+        ...clone(payload),
+      };
+    } else if (isTournamentFile(file) && file.data.id === id) {
+      file.data = {
+        ...file.data,
+        ...clone(payload),
+      };
+    }
   }
 
   function addStage(form: StageForm) {
@@ -69,7 +77,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     activeTournament,
     activeTournamentWinner,
     createTournament,
-    updateActiveTournament,
+    updateTournament,
     addStage,
   };
 });
