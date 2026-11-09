@@ -37,6 +37,16 @@
         />
       </div>
     </template>
+    <template v-else>
+      <TournamentFormFields
+        v-if="form.fileType === SourceFileType.TOURNAMENT"
+        v-model="form.tournamentFields"
+      />
+      <CollectionFormFields
+        v-else
+        v-model="form.collectionFields"
+      />
+    </template>
   </AppModal>
 </template>
 
@@ -44,6 +54,8 @@
 import { IconPlus } from '@tabler/icons-vue';
 import IconFile from '@/assets/icons/File.svg';
 import IconFolder from '@/assets/icons/Folder.svg';
+import { newCollectionFile, newTournamentFile } from '~/helpers/file';
+import { newTournament } from '~/helpers/tournament';
 
 enum FormStep {
   SELECT_FILE_TYPE,
@@ -52,6 +64,8 @@ enum FormStep {
 
 interface CreateFileForm {
   fileType: SourceFileType | undefined;
+  tournamentFields: TournamentForm;
+  collectionFields: CollectionForm;
   step: FormStep;
 }
 
@@ -59,9 +73,20 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const fileStore = useFileStore();
+
 function newForm(): CreateFileForm {
   return {
     fileType: undefined,
+    tournamentFields: {
+      name: '',
+      icon: ICON_OPTIONS[0]!.value,
+      tags: [],
+      showCountry: false,
+    },
+    collectionFields: {
+      name: '',
+    },
     step: FormStep.SELECT_FILE_TYPE,
   };
 }
@@ -89,6 +114,15 @@ function onOpenModal() {
 function submitForm() {
   if (form.value.step === FormStep.SELECT_FILE_TYPE) {
     form.value.step = FormStep.CREATE_FILE;
+    return;
+  }
+
+  modalIsOpen.value = false;
+
+  if (form.value.fileType === SourceFileType.TOURNAMENT) {
+    fileStore.addFileToStore(newTournamentFile(newTournament(form.value.tournamentFields)));
+  } else {
+    fileStore.addFileToStore(newCollectionFile(form.value.collectionFields));
   }
 }
 </script>
