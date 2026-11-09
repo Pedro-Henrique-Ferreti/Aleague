@@ -5,7 +5,8 @@
     @click="collectionModalIsOpen = true"
   />
   <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
-  <CollectionFormModal
+  <EditCollectionFileModal
+    v-if="collectionStore.activeCollection"
     v-model:is-open="collectionModalIsOpen"
     :collection="collectionStore.activeCollection"
   />
