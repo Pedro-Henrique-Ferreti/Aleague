@@ -18,10 +18,14 @@
 </template>
 
 <script setup lang="ts">
+import type { AppModalSlots } from './AppModal.vue';
+
 const props = defineProps<{
   tournament?: Tournament;
   submitFn: (form: TournamentForm) => Promise<void> | void;
 }>();
+
+defineSlots<Pick<AppModalSlots, 'trigger'>>();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
