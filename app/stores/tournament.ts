@@ -1,5 +1,5 @@
-import { isCollectionFile, isTournamentFile, newTournamentFile } from '~/helpers/file';
-import { getTournamentWinner, newTournament, newTournamentStage } from '~/helpers/tournament';
+import { isCollectionFile, isTournamentFile } from '~/helpers/file';
+import { getTournamentWinner, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {
   const route = useRoute();
@@ -39,16 +39,6 @@ export const useTournamentStore = defineStore('tournament', () => {
     }
   });
 
-  function createTournament(payload: TournamentForm) {
-    const tournament = newTournament(payload);
-
-    if (fileStore.activeFile && isCollectionFile(fileStore.activeFile)) {
-      fileStore.activeFile.data.tournaments[tournament.id] = tournament;
-    } else {
-      fileStore.addFileToStore(newTournamentFile(tournament));
-    }
-  }
-
   function updateTournament(id: Tournament['id'], fileId: SourceFile['id'], payload: TournamentForm) {
     const file = fileStore.files[fileId];
 
@@ -76,7 +66,6 @@ export const useTournamentStore = defineStore('tournament', () => {
   return {
     activeTournament,
     activeTournamentWinner,
-    createTournament,
     updateTournament,
     addStage,
   };

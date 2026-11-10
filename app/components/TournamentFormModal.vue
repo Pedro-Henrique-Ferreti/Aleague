@@ -7,6 +7,12 @@
     @open="form = newForm()"
     @submit="submitForm"
   >
+    <template #trigger="slotProps">
+      <slot
+        name="trigger"
+        v-bind="slotProps"
+      />
+    </template>
     <TournamentFormFields v-model="form" />
   </AppModal>
 </template>

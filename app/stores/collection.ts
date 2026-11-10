@@ -16,8 +16,15 @@ export const useCollectionStore = defineStore('collection', () => {
     }
   }
 
+  function addTournamentToCollection(id: CollectionFile['id'], tournament: Tournament) {
+    if (fileStore.files[id] && isCollectionFile(fileStore.files[id])) {
+      fileStore.files[id].data.tournaments[tournament.id] = tournament;
+    }
+  }
+
   return {
     activeCollection,
     updateCollection,
+    addTournamentToCollection,
   };
 });
