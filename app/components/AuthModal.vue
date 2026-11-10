@@ -1,14 +1,14 @@
 <template>
   <AppModal
+    v-model:is-open="isOpen"
     class="[&_.modal-content]:p-0!"
     size="lg"
     :show-actions="false"
-    @open="handleOpenModal"
   >
-    <template #trigger="slotProps">
+    <template #trigger>
       <slot
         name="trigger"
-        v-bind="slotProps"
+        :open-modal="handleOpenModal"
       />
     </template>
     <div class="tablet-lg:grid tablet-lg:grid-cols-2">
@@ -26,16 +26,16 @@
 </template>
 
 <script setup lang="ts">
-import type { AppModalSlots } from './AppModal.vue';
-
-defineSlots<Pick<AppModalSlots, 'trigger'>>();
+type FormType = 'login' | 'create-account';
 
 const { r$ } = useCollectScope('auth-modal');
 
-const form = ref<'login' | 'create-account'>('login');
+const form = ref<FormType>('login');
+const isOpen = ref(false);
 
-function handleOpenModal() {
-  form.value = 'login';
+function handleOpenModal(formType: FormType) {
+  form.value = formType;
+  isOpen.value = true;
   r$.$reset();
 }
 </script>

@@ -7,12 +7,12 @@
             <AppButton
               class="btn-outline btn-primary btn-sm"
               label="Criar uma conta"
-              @click="openModal"
+              @click="openModal('create-account')"
             />
             <AppButton
               class="btn-primary btn-sm"
               label="Entrar"
-              @click="openModal"
+              @click="openModal('login')"
             />
           </template>
         </AuthModal>
