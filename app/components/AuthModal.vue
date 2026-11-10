@@ -14,27 +14,27 @@
     <div class="tablet-lg:grid tablet-lg:grid-cols-2">
       <AuthModalBrand />
       <AuthModalLogin
-        v-if="form === 'login'"
-        @create-account="form = 'create-account'"
+        v-if="modalType === 'login'"
+        @create-account="modalType = 'create-account'"
       />
       <AuthModalCreateAccount
         v-else
-        @login="form = 'login'"
+        @login="modalType = 'login'"
       />
     </div>
   </AppModal>
 </template>
 
 <script setup lang="ts">
-type FormType = 'login' | 'create-account';
+type ModalType = 'login' | 'create-account';
 
 const { r$ } = useCollectScope('auth-modal');
 
-const form = ref<FormType>('login');
+const modalType = ref<ModalType>('login');
 const isOpen = ref(false);
 
-function handleOpenModal(formType: FormType) {
-  form.value = formType;
+function handleOpenModal(type: ModalType) {
+  modalType.value = type;
   isOpen.value = true;
   r$.$reset({ toOriginalState: true });
 }
