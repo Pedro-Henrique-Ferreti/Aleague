@@ -3,9 +3,20 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/icon', '@pinia/nuxt', '@vueuse/nuxt', 'nuxt-svgo', '@nuxt/test-utils'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/icon',
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+    'nuxt-svgo',
+    '@nuxt/test-utils',
+    '@regle/nuxt',
+  ],
   imports: {
     dirs: ['types', 'constants', 'utils'],
+  },
+  regle: {
+    setupFile: '~/regle-config.ts',
   },
   eslint: {
     config: {
