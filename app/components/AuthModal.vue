@@ -15,9 +15,9 @@
       <AuthModalBrand />
       <AuthModalLogin
         v-if="form === 'login'"
-        @register="form = 'register'"
+        @create-account="form = 'create-account'"
       />
-      <AuthModalRegister
+      <AuthModalCreateAccount
         v-else
         @login="form = 'login'"
       />
@@ -30,5 +30,5 @@ import type { AppModalSlots } from './AppModal.vue';
 
 defineSlots<Pick<AppModalSlots, 'trigger'>>();
 
-const form = ref<'login' | 'register'>('login');
+const form = ref<'login' | 'create-account'>('login');
 </script>

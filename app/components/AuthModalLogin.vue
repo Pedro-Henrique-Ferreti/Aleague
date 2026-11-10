@@ -43,7 +43,7 @@
       Ainda não tem conta?
       <BaseButton
         class="link link-primary"
-        @click="$emit('register')"
+        @click="$emit('createAccount')"
       >
         Criar conta
       </BaseButton>
@@ -55,7 +55,7 @@
 import { IconLock, IconLogin, IconMail } from '@tabler/icons-vue';
 
 defineEmits<{
-  register: [];
+  createAccount: [];
 }>();
 
 const form = ref({
