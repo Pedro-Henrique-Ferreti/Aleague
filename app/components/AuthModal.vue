@@ -36,6 +36,6 @@ const isOpen = ref(false);
 function handleOpenModal(formType: FormType) {
   form.value = formType;
   isOpen.value = true;
-  r$.$reset();
+  r$.$reset({ toOriginalState: true });
 }
 </script>
