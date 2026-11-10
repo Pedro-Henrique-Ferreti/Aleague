@@ -10,7 +10,7 @@
     <form
       class="mt-1.5 flex flex-col gap-1"
       novalidate
-      @submit.prevent
+      @submit.prevent="r$.$validate()"
     >
       <AppInput
         v-model="form.email"
@@ -19,6 +19,7 @@
         placeholder="exemplo@mail.com"
         autocomplete="email"
         :icon="IconMail"
+        :error="r$.$errors.email[0]"
       />
       <AppInput
         v-model="form.password"
@@ -28,6 +29,7 @@
         autocomplete="current-password"
         type="password"
         :icon="IconLock"
+        :error="r$.$errors.password[0]"
       />
       <BaseButton class="link link-primary text-xs ml-auto">
         Esqueci minha senha
@@ -52,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+import { email, required } from '@regle/rules';
 import { IconLock, IconLogin, IconMail } from '@tabler/icons-vue';
 
 defineEmits<{
@@ -62,4 +65,9 @@ const form = ref({
   email: '',
   password: '',
 });
+
+const { r$ } = useScopedRegle(form, {
+  email: { required, email },
+  password: { required },
+}, { namespace: 'auth-modal', autoDirty: false, rewardEarly: true });
 </script>

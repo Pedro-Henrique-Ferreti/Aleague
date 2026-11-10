@@ -3,7 +3,7 @@
     class="[&_.modal-content]:p-0!"
     size="lg"
     :show-actions="false"
-    @open="form = 'login'"
+    @open="handleOpenModal"
   >
     <template #trigger="slotProps">
       <slot
@@ -30,5 +30,12 @@ import type { AppModalSlots } from './AppModal.vue';
 
 defineSlots<Pick<AppModalSlots, 'trigger'>>();
 
+const { r$ } = useCollectScope('auth-modal');
+
 const form = ref<'login' | 'create-account'>('login');
+
+function handleOpenModal() {
+  form.value = 'login';
+  r$.$reset();
+}
 </script>

@@ -10,7 +10,7 @@
     <form
       class="mt-1.5 flex flex-col gap-1"
       novalidate
-      @submit.prevent
+      @submit.prevent="r$.$validate()"
     >
       <AppInput
         v-model="form.username"
@@ -19,6 +19,7 @@
         placeholder="usuário"
         autocomplete="username"
         :icon="IconUser"
+        :error="r$.$errors.username[0]"
       />
       <AppInput
         v-model="form.email"
@@ -27,6 +28,7 @@
         placeholder="exemplo@mail.com"
         autocomplete="email"
         :icon="IconMail"
+        :error="r$.$errors.email[0]"
       />
       <AppInput
         v-model="form.password"
@@ -36,6 +38,7 @@
         autocomplete="new-password"
         type="password"
         :icon="IconLock"
+        :error="r$.$errors.password[0]"
       />
       <AppInput
         v-model="form.passwordRepeat"
@@ -45,6 +48,7 @@
         autocomplete="new-password"
         type="password"
         :icon="IconLock"
+        :error="r$.$errors.passwordRepeat[0]"
       />
       <AppButton
         type="submit"
@@ -66,6 +70,7 @@
 </template>
 
 <script setup lang="ts">
+import { email, required, sameAs } from '@regle/rules';
 import { IconLock, IconLogin2, IconMail, IconUser } from '@tabler/icons-vue';
 
 defineEmits<{
@@ -78,4 +83,11 @@ const form = ref({
   password: '',
   passwordRepeat: '',
 });
+
+const { r$ } = useScopedRegle(form, {
+  username: { required },
+  email: { required, email },
+  password: { required },
+  passwordRepeat: { required, sameAs: withMessage(sameAs(() => form.value.password), 'As senhas devem ser iguais') },
+}, { namespace: 'auth-modal', autoDirty: false, rewardEarly: true });
 </script>
