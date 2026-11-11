@@ -1,25 +1,17 @@
 <template>
-  <div class="flex items-center justify-between mb-1">
-    <AppButton
-      class="btn-ghost px-0.5"
-      label="Voltar"
-      :icon-left="IconArrowNarrowLeft"
-      @click="store.showFormStep(MatchweekFormStep.SELECT_RULES)"
-    />
-    <div class="flex items-center gap-0.75">
-      <AppTooltip
-        class="tooltip-left"
-        label="Gerar novamente"
-      >
-        <AppButton
-          class="btn-square btn-accent btn-soft"
-          aria-label="Gerar novamente"
-          :icon-left="IconRefresh"
-          :disabled="store.isCreatingMatchweeks"
-          @click="store.getNewMatchweeks"
-        />
-      </AppTooltip>
-    </div>
+  <div class="flex items-center justify-end mb-0.75">
+    <AppTooltip
+      class="tooltip-left"
+      label="Gerar novamente"
+    >
+      <AppButton
+        class="btn-square btn-accent btn-soft"
+        aria-label="Gerar novamente"
+        :icon-left="IconRefresh"
+        :disabled="store.isCreatingMatchweeks"
+        @click="store.getNewMatchweeks"
+      />
+    </AppTooltip>
   </div>
   <LoadingIndicator
     v-if="store.isCreatingMatchweeks"
@@ -54,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconArrowNarrowLeft, IconRefresh } from '@tabler/icons-vue';
+import { IconRefresh } from '@tabler/icons-vue';
 
 const store = useMatchweekFormStore();
 

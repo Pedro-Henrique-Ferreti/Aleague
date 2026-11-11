@@ -23,11 +23,20 @@
             aria-label="Fechar modal"
             @click="closeModal"
           />
-          <h3
-            v-if="title"
-            v-text="title"
-            class="text-lg font-semibold mb-1"
-          />
+          <div class="flex items-center gap-0.5 mb-1 empty:hidden">
+            <AppButton
+              v-if="showBackButton"
+              class="btn-ghost btn-square btn-sm"
+              aria-label="Voltar"
+              :icon-left="IconArrowLeft"
+              @click="$emit('backButtonClick')"
+            />
+            <h3
+              v-if="title"
+              v-text="title"
+              class="text-lg font-semibold"
+            />
+          </div>
           <slot
             :side-panel-id="sidePanelId"
             :is-side-panel-open="isSidePanelOpen"
@@ -84,11 +93,12 @@
 </template>
 
 <script lang="ts" setup>
-import { IconArrowBarToRight } from '@tabler/icons-vue';
+import { IconArrowBarToRight, IconArrowLeft } from '@tabler/icons-vue';
 
 interface AppModalProps {
   title?: string;
   showCloseIcon?: boolean;
+  showBackButton?: boolean;
   submitButtonLabel?: string;
   submitButtonDisabled?: boolean;
   size?: 'lg' | 'xl' | 'fullscreen';
@@ -120,6 +130,7 @@ const emit = defineEmits<{
   open: [];
   close: [];
   submit: [];
+  backButtonClick: [];
 }>();
 
 defineSlots<AppModalSlots>();

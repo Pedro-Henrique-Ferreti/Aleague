@@ -1,20 +1,12 @@
 <template>
-  <div class="flex items-center justify-between mb-1">
+  <div class="flex items-center justify-end mb-0.75">
     <AppButton
-      class="btn-ghost px-0.5"
-      label="Voltar"
-      :icon-left="IconArrowNarrowLeft"
-      @click="seedingDraw.previousStep"
+      class="btn-secondary btn-soft"
+      label="Sortear"
+      :disabled="seedingDraw.isProcedureStepCompleted.value"
+      :icon-left="IconPlayerPlay"
+      @click="seedingDraw.drawTeam"
     />
-    <div>
-      <AppButton
-        class="btn-secondary btn-soft"
-        label="Sortear"
-        :disabled="seedingDraw.isProcedureStepCompleted.value"
-        :icon-left="IconPlayerPlay"
-        @click="seedingDraw.drawTeam"
-      />
-    </div>
   </div>
   <BreadcrumbList class="flex justify-center pt-0">
     <DrawProcedurePotBadge
@@ -40,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IconArrowNarrowLeft, IconPlayerPlay } from '@tabler/icons-vue';
+import { IconPlayerPlay } from '@tabler/icons-vue';
 import { getTeamById } from '~/helpers/team';
 
 defineProps<{

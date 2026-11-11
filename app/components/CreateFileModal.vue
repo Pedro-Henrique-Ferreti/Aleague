@@ -5,8 +5,10 @@
     :submit-button-label="form.step === FormStep.SELECT_FILE_TYPE ? 'Próximo' : 'Criar'"
     :submit-button-disabled="submitButtonDisabled"
     :show-close-icon="false"
+    :show-back-button="form.step === FormStep.CREATE_FILE"
     @open="onOpenModal"
     @submit="submitForm"
+    @back-button-click="form.step = FormStep.SELECT_FILE_TYPE"
   >
     <template #trigger="{ openModal }">
       <AppButton

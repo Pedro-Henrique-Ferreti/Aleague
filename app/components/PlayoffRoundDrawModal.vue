@@ -5,8 +5,10 @@
     size="xl"
     :submit-button-label="seedingDraw.isStepActive.value.POTS ? 'Próximo' : 'Concluir'"
     :submit-button-disabled="submitButtonDisabled"
+    :show-back-button="seedingDraw.isStepActive.value.PROCEDURE"
     @open="seedingDraw.reset"
     @submit="handleSubmit"
+    @back-button-click="seedingDraw.previousStep"
   >
     <AppAlert
       v-if="!isRoundSeeded"

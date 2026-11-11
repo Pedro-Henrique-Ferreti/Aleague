@@ -6,8 +6,10 @@
     size="fullscreen"
     :submit-button-label="submitButton.label"
     :submit-button-disabled="submitButton.disabled"
+    :show-back-button="seedingDraw.isStepActive.value.PROCEDURE"
     @open="onOpenModal"
     @submit="submitButton.onClick"
+    @back-button-click="seedingDraw.previousStep"
   >
     <template #trigger="{ openModal }">
       <slot :open-modal="openModal" />
