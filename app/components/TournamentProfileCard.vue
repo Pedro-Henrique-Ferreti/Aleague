@@ -9,14 +9,17 @@
       <div class="tournament-profile__content">
         <h1 class="text-3xl font-medium">{{ tournament?.name }}</h1>
         <div class="tournament-profile__badges | badge-container">
-          <div class="badge badge-soft badge-secondary">
-            <IconClock class="size-[1em]" />
-            {{ formatDate(tournament?.createdAt, 'd MMM yyyy') }}
-          </div>
-          <div class="badge badge-soft badge-secondary">
-            <IconPencil class="size-[1em]" />
-            {{ formatDate(tournament?.updatedAt, 'd MMM yyyy') }}
-          </div>
+          <AppBadge
+            class="badge-soft badge-secondary"
+            :icon="IconClock"
+            :text="formatDate(tournament?.createdAt, 'd MMM yyyy')"
+          />
+          <AppBadge
+            v-if="tournament?.updatedAt"
+            class="badge-soft badge-secondary"
+            :icon="IconPencil"
+            :text="formatDate(tournament?.updatedAt, 'd MMM yyyy')"
+          />
         </div>
         <BaseSelect
           v-if="isCollectionTournament && tournamentOptions.length > 1"
@@ -58,7 +61,7 @@ const tournamentOptions = computed(() => {
 function handleSelectTournament(selectedTournament?: Tournament) {
   if (!selectedTournament) return;
 
-  const file = fileStore.getCollectionFileByTournament(selectedTournament)
+  const file = fileStore.getCollectionFileByTournament(selectedTournament);
 
   if (file) {
     router.push({ name: 'editor', params: { fileId: file.id, tournamentId: selectedTournament.id } });

@@ -1,12 +1,13 @@
 <template>
   <div class="flex items-center gap-1.5">
-    <IconFolder class="w-auto h-6" />
+    <IconFolder class="w-auto h-5" />
     <div>
-      <h1 class="text-3xl font-medium mb-0.5">{{ collectionStore.activeCollection?.data.name }}</h1>
-      <div class="badge badge-soft badge-secondary">
-        <IconClock class="size-[1em]" />
-        {{ formatDate(collectionStore.activeCollection?.createdAt, 'd MMM yyyy') }}
-      </div>
+      <h1 class="text-2xl font-medium mb-0.25">{{ collectionStore.activeCollection?.data.name }}</h1>
+      <AppBadge
+        class="badge-soft badge-secondary badge-sm"
+        :icon="IconClock"
+        :text="formatDate(collectionStore.activeCollection?.createdAt, 'd MMM yyyy')"
+      />
     </div>
   </div>
 </template>

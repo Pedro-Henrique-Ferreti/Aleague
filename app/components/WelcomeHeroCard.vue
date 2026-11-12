@@ -6,10 +6,11 @@
         <span class="size-0.5 rounded-full bg-warning/60" />
         <span class="size-0.5 rounded-full bg-success/60" />
       </div>
-      <span class="badge badge-ghost badge-sm gap-0.25">
-        <IconTrophy class="size-0.75" />
-        Copa do Mundo
-      </span>
+      <AppBadge
+        text="Copa do Mundo"
+        class="badge-ghost badge-sm gap-0.25"
+        :icon="IconTrophy"
+      />
     </div>
     <div class="mt-1 flex items-baseline justify-between">
       <p class="text-sm font-semibold">

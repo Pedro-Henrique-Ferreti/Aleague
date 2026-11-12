@@ -32,11 +32,14 @@
               </div>
             </td>
             <td>
-              <span
-                v-for="tag, index in tournament.tags"
-                :key="index"
-                class="badge badge-ghost badge-sm"
-              >{{ tag }}</span>
+              <div class="badge-container">
+                <AppBadge
+                  v-for="tag, index in tournament.tags"
+                  :key="index"
+                  class="badge-ghost badge-sm"
+                  :text="tag"
+                />
+              </div>
             </td>
             <td>
               <TeamDetails

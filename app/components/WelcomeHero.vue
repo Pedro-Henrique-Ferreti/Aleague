@@ -1,10 +1,11 @@
 <template>
   <section class="grid items-center gap-4 tablet-lg:grid-cols-2 tablet-lg:gap-8">
     <div class="animate-fade">
-      <span class="badge badge-primary badge-soft text-xs font-medium">
-        <IconSparkles class="size-1.25" />
-        Simulador de campeonatos
-      </span>
+      <AppBadge
+        class="badge-primary badge-soft text-xs font-medium [&>svg]:size-1.25"
+        text="Simulador de campeonatos"
+        :icon="IconSparkles"
+      />
       <h1 class="mt-1 text-4xl leading-[1.1] font-semibold tracking-tight tablet:text-5xl">
         Bem-vindo ao <span class="text-primary">Aleague</span>
       </h1>
