@@ -2,11 +2,14 @@
   <AppModal
     v-model:is-open="modalIsOpen"
     title="Editar coleção"
-    :submit-button-disabled="submitIsDisabled"
+    :submit-button-disabled="r$.$invalid"
     @open="form = newForm()"
     @submit="submitForm"
   >
-    <CollectionFormFields v-model="form" />
+    <CollectionFormFields
+      v-model="form"
+      :form-namespace="FormNamespaces.EDIT_COLLECTION_MODAL"
+    />
   </AppModal>
 </template>
 
@@ -16,14 +19,13 @@ const props = defineProps<{
 }>();
 
 const { updateCollection } = useCollectionStore();
+const { r$ } = useCollectScope(FormNamespaces.EDIT_COLLECTION_MODAL);
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
 const newForm = (): CollectionForm => ({ name: props.collection.data.name });
 
 const form = ref(newForm());
-
-const submitIsDisabled = computed(() => !form.value.name);
 
 async function submitForm() {
   updateCollection(props.collection.id, form.value);

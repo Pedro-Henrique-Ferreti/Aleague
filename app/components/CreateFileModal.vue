@@ -43,10 +43,12 @@
       <TournamentFormFields
         v-if="form.fileType === SourceFileType.TOURNAMENT"
         v-model="form.tournamentFields"
+        :form-namespace="FormNamespaces.CREATE_FILE_MODAL"
       />
       <CollectionFormFields
         v-else
         v-model="form.collectionFields"
+        :form-namespace="FormNamespaces.CREATE_FILE_MODAL"
       />
     </template>
   </AppModal>
@@ -77,6 +79,8 @@ defineOptions({
 
 const fileStore = useFileStore();
 
+const { r$ } = useCollectScope(FormNamespaces.CREATE_FILE_MODAL);
+
 function newForm(): CreateFileForm {
   return {
     fileType: undefined,
@@ -95,7 +99,7 @@ function newForm(): CreateFileForm {
 
 const modalIsOpen = ref(false);
 
-const form = ref<CreateFileForm>(newForm());
+const form = ref(newForm());
 
 const modalTitle = computed(() => {
   if (form.value.step === FormStep.SELECT_FILE_TYPE) return 'Novo arquivo';
@@ -103,21 +107,24 @@ const modalTitle = computed(() => {
 });
 
 const submitButtonDisabled = computed(() => {
-  if (form.value.step === FormStep.SELECT_FILE_TYPE) {
-    return form.value.fileType === undefined;
-  }
-  return false;
+  return form.value.step === FormStep.SELECT_FILE_TYPE ? form.value.fileType === undefined : r$.$invalid;
 });
 
 function onOpenModal() {
   form.value = newForm();
 }
 
-function submitForm() {
+async function submitForm() {
   if (form.value.step === FormStep.SELECT_FILE_TYPE) {
     form.value.step = FormStep.CREATE_FILE;
+    form.value.tournamentFields = newForm().tournamentFields;
+    form.value.collectionFields = newForm().collectionFields;
     return;
   }
+
+  const { valid } = await r$.$validate();
+
+  if (!valid) return;
 
   modalIsOpen.value = false;
 

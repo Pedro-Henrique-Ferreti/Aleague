@@ -2,9 +2,9 @@
   <AppModal
     v-model:is-open="modalIsOpen"
     :title="isEditingTournament ? 'Editar campeonato' : 'Criar campeonato'"
-    :submit-button-disabled="submitIsDisabled"
+    :submit-button-disabled="r$.$invalid"
     :submit-button-label="isEditingTournament ? undefined : 'Criar'"
-    @open="form = newForm()"
+    @open="handleOpenModal"
     @submit="submitForm"
   >
     <template #trigger="slotProps">
@@ -13,7 +13,10 @@
         v-bind="slotProps"
       />
     </template>
-    <TournamentFormFields v-model="form" />
+    <TournamentFormFields
+      v-model="form"
+      :form-namespace="FormNamespaces.TOURNAMENT_FORM_MODAL"
+    />
   </AppModal>
 </template>
 
@@ -29,6 +32,8 @@ defineSlots<Pick<AppModalSlots, 'trigger'>>();
 
 const modalIsOpen = defineModel<boolean>('is-open');
 
+const { r$ } = useCollectScope(FormNamespaces.TOURNAMENT_FORM_MODAL);
+
 function newForm(): TournamentForm {
   return {
     name: props.tournament?.name ?? '',
@@ -41,7 +46,11 @@ function newForm(): TournamentForm {
 const form = ref(newForm());
 
 const isEditingTournament = computed(() => !!props.tournament);
-const submitIsDisabled = computed(() => !form.value.name);
+
+function handleOpenModal() {
+  form.value = newForm();
+  nextTick(r$.$reset);
+}
 
 async function submitForm() {
   await props.submitFn(form.value);

@@ -4,6 +4,7 @@
       <AppInput
         v-model="fields.name"
         label="Nome"
+        :error="r$.$errors.name[0]"
       />
       <TagInput v-model="fields.tags" />
     </div>
@@ -43,14 +44,22 @@
 </template>
 
 <script lang="ts" setup>
+import { required } from '@regle/rules';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-vue';
 
+const props = defineProps<{
+  formNamespace?: FormNamespaces;
+}>();
+
 const fields = defineModel<TournamentForm>({ required: true });
+
+const { r$ } = useScopedRegle(fields, {
+  name: { required },
+}, { namespace: props.formNamespace });
 
 const iconIndex = computed(() => ICON_OPTIONS.findIndex(option => option.value === fields.value.icon));
 
 function setIcon(index: number) {
-  const lastIndex = ICON_OPTIONS.length - 1;
-  fields.value.icon = ICON_OPTIONS.at(index > lastIndex ? 0 : index)!.value;
+  fields.value.icon = ICON_OPTIONS.at(index > (ICON_OPTIONS.length - 1) ? 0 : index)!.value;
 }
 </script>
