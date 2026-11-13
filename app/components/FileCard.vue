@@ -4,9 +4,15 @@
     :to="{ name: 'editor', params: { fileId: file.id } }"
   >
     <div class="flex justify-between">
-      <component
-        :is="isTournament ? IconFile : IconFolder"
-        class="w-auto h-1.75 mr-auto"
+      <img
+        v-if="isTournament"
+        class="w-auto h-2 mr-auto"
+        alt="Logo do campeonato"
+        :src="(file as TournamentFile).data.icon"
+      >
+      <IconFolder
+        v-else
+        class="w-auto h-2 mr-auto"
       />
       <span
         class="badge badge-sm badge-soft"
@@ -21,7 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-import IconFile from '@/assets/icons/File.svg';
 import IconFolder from '@/assets/icons/Folder.svg';
 import { isTournamentFile } from '~/helpers/file';
 
