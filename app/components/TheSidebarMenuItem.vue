@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import type { Icon } from '@tabler/icons-vue';
-import type { BaseButtonProps } from './BaseButton.vue';
+import type { BaseButtonProps } from './base/BaseButton.vue';
 
 defineProps<{
   label: string;

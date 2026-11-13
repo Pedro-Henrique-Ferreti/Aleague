@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { AppModalSlots } from './AppModal.vue';
+import type { AppModalSlots } from './base/AppModal.vue';
 
 const props = defineProps<{
   tournament?: Tournament;

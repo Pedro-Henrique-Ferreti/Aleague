@@ -15,6 +15,9 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['types', 'constants', 'utils'],
   },
+  components: [
+    { path: '~/components', pathPrefix: false },
+  ],
   regle: {
     setupFile: '~/regle-config.ts',
   },

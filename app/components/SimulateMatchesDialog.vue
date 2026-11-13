@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { AppDialogProps } from './AppDialog.vue';
+import type { AppDialogProps } from './base/AppDialog.vue';
 
 defineProps<{
   title: AppDialogProps['title'];
