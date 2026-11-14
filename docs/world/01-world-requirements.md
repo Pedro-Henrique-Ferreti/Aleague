@@ -30,7 +30,7 @@ A **World** is a long-running football universe that the user manages as its com
 - **WLD-10** — A World can be created **from scratch** or **from a template**.
 - **WLD-11** — Creation happens in a **multi-step wizard** with sequential steps: a step unlocks the next one once its required fields are filled. Invalid or optional content (e.g. promotion and relegation counts that do not match) shows a warning but does not block. Previous steps can be revisited.
 - **WLD-12** — Creating from a template uses the same wizard with every step pre-filled; the user can change anything, then advances to the last step and creates the World.
-- **WLD-13** — Finishing creation requires at least a **name** and **one competition with teams**.
+- **WLD-13** — Finishing creation requires at least a **name** and **one competition with teams**, and every format must be valid (CMP-19).
 
 ## 5. Drafts (pausing creation)
 
@@ -52,7 +52,7 @@ A **World** is a long-running football universe that the user manages as its com
 
 ## 7. Export and import
 
-- **WLD-26** — Exporting a World saves **everything**: structure, all seasons and all matches.
+- **WLD-26** — Exporting a World saves its **structure**, the **current season** with all its matches, and every **past season in compacted form** (END-13).
 - **WLD-27** — Exporting as a template saves only the content listed in WLD-21.
 
 ## 8. Editing after creation
