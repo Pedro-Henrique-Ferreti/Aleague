@@ -6,7 +6,7 @@ Inside a World, the legends of every tournament stage are **inferred from compet
 
 ## 1. Link colour
 
-- **LEG-01** — Every competition link has a **colour**, chosen from a fixed palette. This applies to cup links and to promotion and relegation links, including links "Out of the World".
+- **LEG-01** — Every competition link has a **colour**, chosen from a fixed palette. This applies to cup links and to promotion and relegation links.
 - **LEG-02** — A new link starts with the colour already used by links to the **same target**. If it is the first link to that target, it gets the next unused colour of the palette. The user can change it.
 - **LEG-03** — **Different targets cannot share a colour** within the same stage's legend.
 
@@ -18,7 +18,7 @@ Inside a World, the legends of every tournament stage are **inferred from compet
 
 ## 3. Legend labels
 
-- **LEG-07** — A legend entry's label is generated from its target (e.g. "Libertadores, group stage", "Promotion to Série A", "Out of the World"). The user can rename it.
+- **LEG-07** — A legend entry's label is generated from its target (e.g. "Libertadores, group stage", "Promotion to Série A", "Relegation to Série B"). The user can rename it.
 
 ## 4. Positions with several links
 
@@ -27,6 +27,6 @@ Inside a World, the legends of every tournament stage are **inferred from compet
 
 ## 5. Behaviour over time
 
-- **LEG-10** — Legends describe **positions**, not teams: pass-down (LNK-28) does not move colours.
+- **LEG-10** — Legends describe **positions**, not teams: pass-down (LNK-25) does not move colours.
 - **LEG-11** — When links change, the legends of the current season's tournaments update immediately. Past seasons keep the legends they were played with.
 - **LEG-12** — Standalone tournament files keep manual legends as they work today.

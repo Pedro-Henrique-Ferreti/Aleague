@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Competition links** tell the system where teams go from one season to the next. Cup links prefill the team slots of next season's cup tournaments from this season's results; they are optional and may be partial, and the user fills any slot they don't cover. Promotion and relegation links move teams between the pyramid levels of a league and are always applied.
+**Competition links** tell the system where teams go from one season to the next. Cup links prefill the team slots of next season's cup tournaments from this season's results; they are optional and may be partial, and the user fills any slot they don't cover. Promotion and relegation links suggest how teams move between the pyramid levels of a league; the user can replace any suggested team.
 
 ## 1. Concepts
 
@@ -25,41 +25,32 @@
 ## 4. Kinds of links and targets
 
 - **LNK-10** — There are two kinds of links: **cup links** and **promotion/relegation links**.
-- **LNK-11** — **Cup links** target cup tournaments, at any of their entry stages (CMP-17). Their source can be any competition.
+- **LNK-11** — **Cup links** target cup tournaments, at any of their entry stages (CMP-16). Their source can be any competition.
 - **LNK-12** — **Promotion and relegation links** only exist **inside a league**.
 - **LNK-13** — A **promotion link** moves the team at a position of a level to the **level directly above**. The highest level has no promotion links.
-- **LNK-14** — A **relegation link** moves the team at a position of a level to the **level directly below**.
-- **LNK-15** — At the **lowest level**, relegation links point **"Out of the World"**. Before the next season is created, the user is asked to replace those teams, but is not required to. A team that already plays in that league cannot be picked as a replacement.
-- **LNK-16** — If fewer replacements are picked than teams relegated out of the World, the user chooses which of those teams actually go down; the others stay.
-- **LNK-17** — Promotion and relegation links are **always applied** (they are not suggestions). Teams without a promotion or relegation link stay in their level.
-- **LNK-18** — The number of relegation links from a level must equal the number of promotion links from the level below. Otherwise the World shows a warning and **cannot advance to the next season**.
-- **LNK-19** — No links come into a league from another competition.
-- **LNK-20** — **Periodic** cups cannot be the source or the target of links.
-- **LNK-21** — A cup can link to **itself** (e.g. Libertadores champion → next season's Libertadores).
+- **LNK-14** — A **relegation link** moves the team at a position of a level to the **level directly below**. The lowest level has no relegation links.
+- **LNK-15** — Like cup links, promotion and relegation links produce **suggestions**: they prefill the slots of next season's levels, and the user may replace any team during season setup (F6). Teams without a promotion or relegation link are suggested to stay in their level.
+- **LNK-16** — The number of relegation links from a level must equal the number of promotion links from the level below. Otherwise the World shows a warning and **cannot advance to the next season**.
+- **LNK-17** — No links come into a league from another competition.
+- **LNK-18** — A cup can link to **itself** (e.g. Libertadores champion → next season's Libertadores).
 
 ## 5. Partial links and manual filling (cup links)
 
-- **LNK-22** — A cup tournament may have links for any number of its slots, including none.
-- **LNK-23** — When the next season's tournaments are created, linked slots are prefilled; the user fills the remaining slots with any team not already in that tournament. Every slot of the **first stage** must be filled.
-- **LNK-24** — Prefilled teams are suggestions: the user can replace or remove any of them, and the slot becomes manual for that season.
-- **LNK-25** — Slots of later stages can be filled at any time during the season. Linked slots show their linked team. The user is asked to fill any empty slots when the stage is about to start, and the stage cannot start until every slot is filled.
+- **LNK-19** — A cup tournament may have links for any number of its slots, including none.
+- **LNK-20** — When the next season is created, linked first-stage slots are prefilled with suggested teams, and the user fills the remaining slots in season setup (SET-09, SET-10).
+- **LNK-21** — Prefilled teams are suggestions: the user can replace or remove any of them (SET-09). This only affects the current season; the link is not changed and suggests a team again next season.
+- **LNK-22** — Slots of later stages can be filled at any time during the season. Linked slots show their linked team. The user is asked to fill any empty slots when the stage is about to start, and the stage cannot start until every slot is filled.
 
 ## 6. Conflicts (cup links)
 
-- **LNK-26** — A team can be placed in several **different** competitions in the same season.
-- **LNK-27** — The links into a tournament follow an **order set by the user**. When two links point to the same team, the earlier one keeps it.
-- **LNK-28** — Each link has a **pass-down** option, used when its team is already in the tournament:
+- **LNK-23** — A team can be placed in several **different** competitions in the same season.
+- **LNK-24** — The links into a tournament follow an **order set by the user**. When two links point to the same team, the earlier one keeps it.
+- **LNK-25** — Each link has a **pass-down** option, used when its team is already in the tournament:
   - **on** — the slot takes the next position of the same source table whose team is not already in the tournament;
   - **off** — the slot becomes manual.
-- **LNK-29** — If pass-down reaches the end of the source table without finding a team, the slot becomes manual.
+- **LNK-26** — If pass-down reaches the end of the source table without finding a team, the slot becomes manual.
 
 ## 7. Broken links
 
-- **LNK-30** — If a format change makes a link impossible (e.g. it reads 20th place, but the league now has 18 teams), the user is warned and **the link is deleted**. A deleted cup link leaves its slot manual and does not block advancing; a deleted promotion or relegation link is reflected in the count check of LNK-18.
+- **LNK-27** — If a format change makes a link impossible (e.g. it reads Group H, but the cup now has 6 groups), the user is warned and **the link is deleted**. A deleted cup link leaves its slot manual and does not block advancing; a deleted promotion or relegation link is reflected in the count check of LNK-16.
 
-## Open topics (to discuss later)
-
-- **Same-season qualification** (e.g. Pré-Libertadores winners → Libertadores of the same season) — related to the season calendar.
-- **Combined tables across groups** as sources (e.g. "best 3rd-placed teams").
-- **Mutually exclusive competitions** (e.g. a team cannot play both the Libertadores and the Sudamericana).
-- **Links from other competitions into leagues** (e.g. state championships sending teams to the lowest national level).

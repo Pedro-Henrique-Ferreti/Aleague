@@ -8,7 +8,7 @@ A World is made of **competitions**. In every season, each competition produces 
 
 - **CMP-01** — There are two competition types: **League** and **Cup**.
 - **CMP-02** — A **league** is a pyramid made of one or more **pyramid levels**, numbered from 1 at the top (e.g. Campeonato Brasileiro: Série A = level 1 … Série D = level 4). Each season, every pyramid level produces one tournament.
-- **CMP-03** — A league keeps its teams from one season to the next; teams only move between its levels through promotion and relegation.
+- **CMP-03** — A league carries its teams over from one season to the next: promotion and relegation move them between its levels, and the user may replace any team during season setup (F6).
 - **CMP-04** — A team plays in at most **one pyramid level of each league**. It may play in several leagues in the same season (e.g. Campeonato Brasileiro and Campeonato Paulista).
 - **CMP-05** — A league with a single pyramid level is allowed (a closed league).
 - **CMP-06** — A **cup** produces one tournament per season. Its teams are defined again every season: prefilled by competition links and completed by the user (F3).
@@ -28,35 +28,29 @@ A World is made of **competitions**. In every season, each competition produces 
 
 ## 4. Frequency
 
-- **CMP-14** — Leagues are played every season.
-- **CMP-15** — A cup can be **periodic**: played every N seasons, starting from a chosen season (e.g. every 4 seasons from 2026). In the other seasons it has no tournament.
+- **CMP-14** — Every competition is played every season.
 
 ## 5. Format and entry
 
-- **CMP-16** — Each pyramid level and each cup has a **format** (its stages), followed by every season's tournament.
-- **CMP-17** — A cup can receive teams at **any of its stages**; each entry stage defines how many teams enter there. The remaining places of later stages are filled by the teams advancing from the previous stage.
-- **CMP-18** — Format changes, including a change in the number of teams of a pyramid level, apply **from the next season on**. The current season's tournament keeps its format.
-- **CMP-19** — A format is **valid** only if its last stage produces a **single winner**: either a single table or a playoff. A last stage made of several groups makes the format invalid. An invalid format is flagged while it is being created or edited; the World cannot be created, and a format change cannot be saved, until it is fixed.
+- **CMP-15** — Each pyramid level and each cup has a **format** (its stages), followed by every season's tournament.
+- **CMP-16** — A cup can receive teams at **any of its stages**; each entry stage defines how many teams enter there. The remaining places of later stages are filled by the teams advancing from the previous stage.
+- **CMP-17** — Format changes apply **from the next season on**. The current season's tournament keeps its format.
+- **CMP-18** — A format is **valid** only if its last stage produces a **single winner**: either a single table or a playoff. A last stage made of several groups makes the format invalid. An invalid format is flagged while it is being created or edited; the World cannot be created, and a format change cannot be saved, until it is fixed.
 
 ## 6. Promotion and relegation
 
-- **CMP-20** — Promotion and relegation only move teams **between adjacent pyramid levels of the same league**, through promotion and relegation links (F3, LNK-12 to LNK-18). Movement between different competitions is handled by cup links (F3).
-- **CMP-21** — Promotion and relegation links read positions from any stage of a level's tournament, so a level may, for example, relegate its last 4 teams or promote the winner of a promotion playoff.
-- **CMP-22** — The number of teams moving across each boundary must balance, as defined in LNK-18; otherwise the World cannot advance to the next season.
-- **CMP-23** — The top level never promotes teams.
-- **CMP-24** — Teams relegated from the **lowest level** go "Out of the World"; replacing them is optional (LNK-15, LNK-16).
+- **CMP-19** — Promotion and relegation only move teams **between adjacent pyramid levels of the same league**, through promotion and relegation links (F3, LNK-12 to LNK-16). Movement between different competitions is handled by cup links (F3).
+- **CMP-20** — Promotion and relegation links read positions from any stage of a level's tournament, so a level may, for example, relegate its last 4 teams or promote the winner of a promotion playoff.
+- **CMP-21** — The number of teams moving across each boundary must balance, as defined in LNK-16; otherwise the World cannot advance to the next season.
+- **CMP-22** — The top level never promotes teams.
+- **CMP-23** — The lowest level never relegates teams.
 
 ## 7. First season
 
-- **CMP-25** — When the World is created, the user picks the teams of every pyramid level and every cup for the first season.
+- **CMP-24** — The teams of the first season are picked in the first season's setup (SET-04), after the World is created.
 
 ## 8. Changes after creation
 
-- **CMP-26** — Once a World is no longer a draft, competitions **cannot be added, removed or stopped**, and pyramid levels **cannot be added or removed**.
-- **CMP-27** — Competitions can still be edited (identity, format, competition links), following CMP-18.
+- **CMP-25** — Once a World is no longer a draft, competitions **cannot be added, removed or stopped**, pyramid levels **cannot be added or removed**, and the **number of teams of each pyramid level cannot change**.
+- **CMP-26** — Competitions can still be edited (identity, format, competition links), following CMP-17.
 
-## Open topics (to discuss later)
-
-- **Cross-level playoffs**: promotion/relegation decided by a playoff between teams of two levels (e.g. 16th of level 1 vs 3rd of level 2).
-- **Adding, removing or stopping** competitions and pyramid levels after the World is created.
-- **Season states** shown on the World (e.g. "in play", "ready to advance") — to be decided in F6/F7.

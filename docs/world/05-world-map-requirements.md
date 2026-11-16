@@ -13,27 +13,25 @@ The **World map** is a read-only visual diagram that shows every competition of 
 ## 2. Contents
 
 - **MAP-04** — Each **pyramid level** and each **cup** is a box. A league's levels are stacked, level 1 on top, inside a frame for that league.
-- **MAP-05** — Each box shows the name, icon, scope, number of teams, format and, for periodic cups, the frequency (e.g. "every 4 seasons from 2026").
+- **MAP-05** — Each box shows the name, icon, scope, number of teams and format.
 - **MAP-06** — A cup's entry stages appear as separate entry points on its box, so arrows arrive at the stage they fill.
 - **MAP-07** — Cup links are drawn as arrows. Links that share a source stage, a target and a colour (F4) become **one arrow**, drawn in that colour.
 - **MAP-08** — An arrow's label lists the positions it carries (e.g. "1st–4th", or "1st, 2nd, 5th" when they are not consecutive).
 - **MAP-09** — Promotion and relegation are drawn as **up and down arrows between adjacent levels**, with their counts (e.g. "↑ 4 ↓ 4").
-- **MAP-10** — Relegation from the lowest level points to an **"Out of the World"** box.
-- **MAP-11** — Counts that don't match (LNK-18) are highlighted on the map.
-- **MAP-12** — A cup that links to itself shows a looping arrow on its own box.
-- **MAP-13** — Periodic cups have no arrows (LNK-20), so they appear as separate boxes.
-- **MAP-14** — The map shows the **structure only**; teams are not listed in the boxes.
-- **MAP-15** — The map always shows **every competition**. Competitions cannot be hidden.
+- **MAP-10** — Counts that don't match (LNK-16) are highlighted on the map.
+- **MAP-11** — A cup that links to itself shows a looping arrow on its own box.
+- **MAP-12** — The map shows the **structure only**; teams are not listed in the boxes.
+- **MAP-13** — The map always shows **every competition**. Competitions cannot be hidden.
 
 ## 3. Interaction
 
-- **MAP-16** — The map is arranged **automatically**. The user can only pan and zoom; clicking or dragging boxes and arrows does nothing.
+- **MAP-14** — The map is arranged **automatically**. The user can only pan and zoom; clicking or dragging boxes and arrows does nothing.
 
 ## 4. Review and confirm step
 
-- **MAP-17** — Besides the map, the review step shows:
+- **MAP-15** — Besides the map, the review step shows:
   - a profile summary: name, icon, description and season label style;
-  - totals: competitions and teams;
+  - totals: competitions and pyramid levels;
   - a **list of warnings**, e.g. promotion/relegation counts that don't match, or cup slots that will need filling by hand;
   - the **Create World** button.
-- **MAP-18** — Warnings do not block creation (WLD-11); only the requirements of WLD-13 must be met.
+- **MAP-16** — Warnings do not block creation (WLD-11); only the requirements of WLD-13 must be met.

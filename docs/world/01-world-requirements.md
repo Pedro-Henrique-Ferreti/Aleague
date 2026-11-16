@@ -30,7 +30,7 @@ A **World** is a long-running football universe that the user manages as its com
 - **WLD-10** — A World can be created **from scratch** or **from a template**.
 - **WLD-11** — Creation happens in a **multi-step wizard** with sequential steps: a step unlocks the next one once its required fields are filled. Invalid or optional content (e.g. promotion and relegation counts that do not match) shows a warning but does not block. Previous steps can be revisited.
 - **WLD-12** — Creating from a template uses the same wizard with every step pre-filled; the user can change anything, then advances to the last step and creates the World.
-- **WLD-13** — Finishing creation requires at least a **name** and **one competition with teams**, and every format must be valid (CMP-19).
+- **WLD-13** — Finishing creation requires at least a **name** and **one competition**, and every format must be valid (CMP-18).
 
 ## 5. Drafts (pausing creation)
 
@@ -44,7 +44,7 @@ A **World** is a long-running football universe that the user manages as its com
 
 ## 6. Templates
 
-- **WLD-21** — A **template** contains: competitions and their formats, competition links, season label style, and the initial teams of each competition.
+- **WLD-21** — A **template** contains: competitions and their formats, competition links, season label style, and the initial teams of each competition, which prefill the first season's setup (SET-05).
 - **WLD-22** — **Presets are templates shipped with the app.** Users can also import template files (their own or from friends).
 - **WLD-23** — Templates are created only by exporting a finished World (**"Export as template"**). There is no separate template editor.
 - **WLD-24** — When exporting a template, the user chooses whether the initial teams are those of the **current season** or of the **first season**.
@@ -61,9 +61,3 @@ A **World** is a long-running football universe that the user manages as its com
 - **WLD-29** — Competitions and competition links can be edited after seasons were played (within the limits defined in F2); changes apply **from the next season on**. Past seasons keep the structure they were played with.
 - **WLD-30** — A World may have invalid rules (e.g. promotion and relegation counts that do not match) while being edited or played; they must be fixed before advancing to the next season (see F3).
 
-## Open topics (to discuss later)
-
-- Final fate of **Collection** now that World exists.
-- **Data loss on browser refresh**, affecting drafts and all other files — to be its own feature.
-- **Smaller and lighter World files** (technical).
-- **Season calendar**: matches scheduled on days of the season; simulation follows calendar order.
