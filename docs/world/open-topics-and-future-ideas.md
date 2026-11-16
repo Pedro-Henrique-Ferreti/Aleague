@@ -2,16 +2,13 @@
 
 Topics that were raised during the requirements discussion and left for later. Every new topic to be discussed later is added here.
 
-## Features still to discuss
-
-- **F10 — Presets**: which presets (templates shipped with the app) exist and what each one contains.
-
 ## World and files
 
 - **Fate of Collection** now that World exists. For now both coexist as separate file types.
 - **Data loss on browser refresh**, affecting drafts and every other open file. To be its own feature.
 - **Smaller and lighter World files** (technical).
 - **World map as an image**: exporting the World map (F5) as a picture.
+- **Presets**: which presets (templates shipped with the app, WLD-22) exist and what each one contains.
 
 ## Competitions and structure
 
