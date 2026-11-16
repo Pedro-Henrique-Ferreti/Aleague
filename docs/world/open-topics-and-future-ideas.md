@@ -4,7 +4,6 @@ Topics that were raised during the requirements discussion and left for later. E
 
 ## Features still to discuss
 
-- **F8 — Preview and advance season** (in progress): the preview of next season's team movements, blocking issues, confirming and compaction.
 - **F9 — History**: browsing past seasons (stage tables and winners only, after compaction); honours lists; a team's path through the pyramid levels; whether past seasons can be edited.
 - **F10 — Presets**: which presets (templates shipped with the app) exist and what each one contains.
 
