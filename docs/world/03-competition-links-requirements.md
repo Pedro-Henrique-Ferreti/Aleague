@@ -19,7 +19,7 @@
 
 - **LNK-06** — A link's source is a **stage of a tournament** and a **position in that stage's table**. Any stage can be a source, not only the last one.
 - **LNK-07** — In a group stage, each group has its own table; a source is a group and a position (e.g. "Group B, 2nd").
-- **LNK-08** — A playoff stage has a table covering **every round**: 1 = winner of the final, 2 = runner-up, 3–4 = semi-final losers, 5–8 = quarter-final losers, and so on. Teams eliminated in the same round are ordered **randomly**.
+- **LNK-08** — A playoff stage has a table covering **every round**: 1 = winner of the final, 2 = runner-up, 3 = the semi-final loser eliminated by the winner, 4 = the semi-final loser eliminated by the runner-up. Teams eliminated in earlier rounds follow, round by round, ordered by their **slot order in the bracket** (e.g. 5–8 = quarter-final losers).
 - **LNK-09** — Links read **only the previous season's** results.
 
 ## 4. Kinds of links and targets

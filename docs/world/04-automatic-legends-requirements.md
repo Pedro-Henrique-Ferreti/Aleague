@@ -30,3 +30,8 @@ Inside a World, the legends of every tournament stage are **inferred from compet
 - **LEG-10** — Legends describe **positions**, not teams: pass-down (LNK-25) does not move colours.
 - **LEG-11** — When links change, the legends of the current season's tournaments update immediately. Past seasons keep the legends they were played with.
 - **LEG-12** — Standalone tournament files keep manual legends as they work today.
+
+## 6. Playoff tables
+
+- **LEG-13** — Everywhere in a World (current season and History), a playoff stage's table shows, in each row, **the round where the team was eliminated** instead of a position number: Champion, Runner-up, Semi-finals, Quarter-finals, Round of 16, and so on. This applies to every playoff stage, in cups and in pyramid levels (e.g. a promotion playoff).
+- **LEG-14** — The two semi-final rows carry a badge: **"lost to champion"** (always the 3rd row) and **"lost to runner-up"** (the 4th row). Rows follow the playoff order defined in LNK-08.

@@ -36,6 +36,6 @@ A season ends when every tournament played in it is complete. Once finished, the
 - **END-13** — When a season is compacted, its matches are deleted. Only the following are kept:
   - the **table of every stage**, since competition links can read any stage (LNK-06);
   - the **winners** of every tournament (END-10, END-11).
-- **END-14** — The order of teams eliminated in the same playoff round (LNK-08) and every other final position are **fixed when the season is compacted** and never change afterwards.
+- **END-14** — Every final position of every stage is **fixed when the season is compacted** and never changes afterwards.
 - **END-15** — Compaction happens **when the user confirms advancing** to the next season (F8). Before confirming, the user is told that compaction is irreversible and what will be kept. The same message **promotes accounts** as the way to keep the full match history and access advanced history features, such as head-to-head records across seasons.
 - **END-16** — No full backup with the season's matches is offered before compaction.
