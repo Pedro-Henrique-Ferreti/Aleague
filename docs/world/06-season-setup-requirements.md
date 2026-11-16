@@ -13,7 +13,7 @@ Every season begins in **Setup**, before any match is played. In the first seaso
 ## 2. Teams of the first season
 
 - **SET-04** — In the first season's setup, the user picks the first-stage teams of **every pyramid level and every cup**.
-- **SET-05** — If the World was created from a template, the template's initial teams prefill this setup, and the user can change them.
+- **SET-05** — If the World was created from a template, the template's initial teams prefill this setup, and the user can change them. Teams of later entry stages prefill those slots on the tournament page once the season is In play, the same way linked slots do (LNK-22); the user can change them until that stage starts.
 
 ## 3. Placement rules
 

@@ -34,23 +34,25 @@ A World is made of **competitions**. In every season, each competition produces 
 
 - **CMP-15** — Each pyramid level and each cup has a **format** (its stages), followed by every season's tournament.
 - **CMP-16** — A cup can receive teams at **any of its stages**; each entry stage defines how many teams enter there. The remaining places of later stages are filled by the teams advancing from the previous stage.
-- **CMP-17** — Format changes apply **from the next season on**. The current season's tournament keeps its format.
-- **CMP-18** — A format is **valid** only if its last stage produces a **single winner**: either a single table or a playoff. A last stage made of several groups makes the format invalid. An invalid format is flagged while it is being created or edited; the World cannot be created, and a format change cannot be saved, until it is fixed.
+- **CMP-17** — After the World is created, formats can only be changed from the **next-season preview** (ADV-09), once the season is Finished. Changes apply **from the next season on**; the finished season keeps the format it was played with.
+- **CMP-18** — Each format has a **champion stage**: the stage that decides the tournament's champion and runner-up (END-10 to END-12). When a format has a single stage, that stage is the champion stage. When it has more than one stage, the user **must pick** the champion stage while creating or editing the format; there is no default.
+- **CMP-19** — A format is **valid** only if its champion stage is picked and produces a **single winner**: either a single table or a playoff that ends in a final. A champion stage made of several groups, or a playoff that sends several teams on, makes the format invalid. Other stages, including the last one, have no such restriction (e.g. relegation play-out groups after the main table). An invalid format can be saved and is flagged wherever it appears; the World cannot be created (WLD-13) or advance to the next season (ADV-08) until it is fixed.
+- **CMP-20** — The champion stage also applies to **standalone tournament files**, following CMP-18 and CMP-19. Existing standalone files with several stages and no champion stage use their **last stage** as the champion stage; the user can change it in the format.
 
 ## 6. Promotion and relegation
 
-- **CMP-19** — Promotion and relegation only move teams **between adjacent pyramid levels of the same league**, through promotion and relegation links (F3, LNK-12 to LNK-16). Movement between different competitions is handled by cup links (F3).
-- **CMP-20** — Promotion and relegation links read positions from any stage of a level's tournament, so a level may, for example, relegate its last 4 teams or promote the winner of a promotion playoff.
-- **CMP-21** — The number of teams moving across each boundary must balance, as defined in LNK-16; otherwise the World cannot advance to the next season.
-- **CMP-22** — The top level never promotes teams.
-- **CMP-23** — The lowest level never relegates teams.
+- **CMP-21** — Promotion and relegation only move teams **between adjacent pyramid levels of the same league**, through promotion and relegation links (F3, LNK-12 to LNK-16). Movement between different competitions is handled by cup links (F3).
+- **CMP-22** — Promotion and relegation links read positions from any stage of a level's tournament, so a level may, for example, relegate its last 4 teams or promote the winner of a promotion playoff.
+- **CMP-23** — The number of teams moving across each boundary must balance, as defined in LNK-16; otherwise the World cannot be created or advance to the next season.
+- **CMP-24** — The top level never promotes teams.
+- **CMP-25** — The lowest level never relegates teams.
 
 ## 7. First season
 
-- **CMP-24** — The teams of the first season are picked in the first season's setup (SET-04), after the World is created.
+- **CMP-26** — The teams of the first season are picked in the first season's setup (SET-04), after the World is created.
 
 ## 8. Changes after creation
 
-- **CMP-25** — Once a World is no longer a draft, competitions **cannot be added, removed or stopped**, pyramid levels **cannot be added or removed**, and the **number of teams of each pyramid level cannot change**.
-- **CMP-26** — Competitions can still be edited (identity, format, competition links), following CMP-17.
+- **CMP-27** — Once a World is no longer a draft, competitions **cannot be added, removed or stopped**, pyramid levels **cannot be added or removed**, and the **number of teams of each pyramid level cannot change**.
+- **CMP-28** — A competition's identity can be edited at any time. Its format and competition links can only be edited from the next-season preview (CMP-17, ADV-09).
 

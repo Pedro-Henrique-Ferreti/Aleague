@@ -12,7 +12,7 @@ Topics that were raised during the requirements discussion and left for later. E
 
 ## Competitions and structure
 
-- **Adding, removing or stopping** competitions and pyramid levels after the World is created, and **changing the number of teams** of a pyramid level (CMP-25).
+- **Adding, removing or stopping** competitions and pyramid levels after the World is created, and **changing the number of teams** of a pyramid level (CMP-27).
 - **Periodic cups**: cups played every N seasons (e.g. every 4 seasons from 2026), with no tournament in the other seasons, and how they interact with competition links.
 - **Cross-level playoffs**: promotion and relegation decided by a playoff between teams of two levels (e.g. 16th of level 1 vs 3rd of level 2).
 - **"Out of the World"**: teams relegated from the lowest level of a league leave the World and are replaced by teams from outside it.
@@ -40,7 +40,8 @@ Topics that were raised during the requirements discussion and left for later. E
   - A backend alone does not make large Worlds faster in the browser; the app would need to load only the current season and fetch past seasons on demand.
   - Limits on local files cannot really be enforced; paid value should come from what needs the server (storage, sync, sharing, long histories).
   - Requires payments, privacy compliance, terms of use and moderation of public content.
-- **Full match history for accounts**: keeping every season's matches instead of compacting them (END-13, END-15), and advanced history features such as head-to-head records across seasons.
+- **Full match history for accounts**: keeping every season's matches instead of compacting them (END-13, END-16), and advanced history features such as head-to-head records across seasons.
+- **Exporting before advancing as a free backup**: while a season is Finished and not yet compacted, exporting the World (WLD-26) saves all its matches. Exporting before every advance gives a free full match history, spread across one file per season, which weakens the accounts pitch (END-16, END-17). Options discussed: accept it and clarify END-17, export a Finished season already compacted, or offer an "Export a copy first" action in the confirmation dialog.
 - **Plans and limits**: what each tier allows (number of competitions, pyramid levels, history detail, sharing) and how limits are shown: a "season load" meter based on matches per season, soft warnings before hard limits, caps on competitions and levels, checks when formats change and when files are imported.
 
 ## Future ideas

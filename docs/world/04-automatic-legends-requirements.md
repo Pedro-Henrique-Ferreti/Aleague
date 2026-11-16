@@ -28,10 +28,10 @@ Inside a World, the legends of every tournament stage are **inferred from compet
 ## 5. Behaviour over time
 
 - **LEG-10** — Legends describe **positions**, not teams: pass-down (LNK-25) does not move colours.
-- **LEG-11** — When links change, the legends of the current season's tournaments update immediately. Past seasons keep the legends they were played with.
+- **LEG-11** — A season's legends come from **that season's links** (LNK-03), which cannot change once the season is created. Link edits made in the next-season preview belong to the next season (LNK-28) and only appear in its legends. A link ignored when seeding (LNK-30) still appears in its own season's legends and in History (e.g. "Copa do Brasil champion → Libertadores, group stage" in 2026, even though the group stage was removed for 2027). Past seasons keep the legends they were played with.
 - **LEG-12** — Standalone tournament files keep manual legends as they work today.
 
 ## 6. Playoff tables
 
-- **LEG-13** — Everywhere in a World (current season and History), a playoff stage's table shows, in each row, **the round where the team was eliminated** instead of a position number: Champion, Runner-up, Semi-finals, Quarter-finals, Round of 16, and so on. This applies to every playoff stage, in cups and in pyramid levels (e.g. a promotion playoff).
-- **LEG-14** — The two semi-final rows carry a badge: **"lost to champion"** (always the 3rd row) and **"lost to runner-up"** (the 4th row). Rows follow the playoff order defined in LNK-08.
+- **LEG-13** — Everywhere in a World (current season and History), a playoff stage's table shows, in each row, **the round where the team was eliminated** instead of a position number: Champion, Runner-up, Semi-finals, Quarter-finals, Round of 16, and so on. In a playoff stage with several winners (LNK-08), the winners show **"Qualified"** and every other team shows the round where it was eliminated. This applies to every playoff stage, in cups and in pyramid levels (e.g. a promotion playoff).
+- **LEG-14** — In a playoff stage that ends in a final, the two semi-final rows carry a badge: **"lost to champion"** (always the 3rd row) and **"lost to runner-up"** (the 4th row). Rows follow the playoff order defined in LNK-08. Playoff stages with several winners have no badges.
