@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const NORWAY_TEAM_LIST = mapToTeamList(defineTeams({ country: 'NOR', type: TeamType.CLUB }, {
+export const NORWAY_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.NORWAY, type: TeamType.CLUB }, {
   'Tromsø': { id: 'NOR-1', badge: 'https://img.sofascore.com/api/v1/team/660/image', tags: [] },
   'Viking': { id: 'NOR-2', badge: 'https://img.sofascore.com/api/v1/team/1164/image', tags: [] },
   'Lillestrøm': { id: 'NOR-3', badge: 'https://img.sofascore.com/api/v1/team/664/image', tags: [] },

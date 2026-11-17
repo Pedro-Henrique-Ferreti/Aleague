@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const PERU_TEAM_LIST = mapToTeamList(defineTeams({ country: 'PER', type: TeamType.CLUB }, {
+export const PERU_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.PERU, type: TeamType.CLUB }, {
   'Alianza Lima': { id: 'PER-1', badge: 'https://img.sofascore.com/api/v1/team/2311/image', tags: [] },
   'Los Chankas': { id: 'PER-2', badge: 'https://img.sofascore.com/api/v1/team/252254/image', tags: [] },
   'Cienciano': { id: 'PER-3', badge: 'https://img.sofascore.com/api/v1/team/2301/image', tags: [] },

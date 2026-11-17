@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const SAUDI_ARABIA_TEAM_LIST = mapToTeamList(defineTeams({ country: 'SAU', type: TeamType.CLUB }, {
+export const SAUDI_ARABIA_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.SAUDI_ARABIA, type: TeamType.CLUB }, {
   'Al-Hilal': { id: 'SAU-1', badge: 'https://img.sofascore.com/api/v1/team/21895/image', tags: [] },
   'Al-Nassr': { id: 'SAU-2', badge: 'https://img.sofascore.com/api/v1/team/23400/image', tags: [] },
   'Al-Ittihad': { id: 'SAU-3', badge: 'https://img.sofascore.com/api/v1/team/34315/image', tags: [] },

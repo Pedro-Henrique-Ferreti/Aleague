@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const ENGLAND_TEAM_LIST = mapToTeamList(defineTeams({ country: 'ENG', type: TeamType.CLUB }, {
+export const ENGLAND_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.ENGLAND, type: TeamType.CLUB }, {
   'QPR': { id: 'ENG-1', badge: 'https://img.sofascore.com/api/v1/team/1/image', tags: [TeamTags.EFL_26] },
   'Portsmouth': { id: 'ENG-2', badge: 'https://img.sofascore.com/api/v1/team/2/image', tags: [TeamTags.EFL_26] },
   'Wolverhampton': { id: 'ENG-3', badge: 'https://img.sofascore.com/api/v1/team/3/image', tags: [TeamTags.EFL_26] },

@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const PARAGUAY_TEAM_LIST = mapToTeamList(defineTeams({ country: 'PRY', type: TeamType.CLUB }, {
+export const PARAGUAY_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.PARAGUAY, type: TeamType.CLUB }, {
   'Cerro Porteño': { id: 'PRY-1', badge: 'https://img.sofascore.com/api/v1/team/5991/image', tags: [] },
   'Guaraní': { id: 'PRY-2', badge: 'https://img.sofascore.com/api/v1/team/5994/image', tags: [] },
   'Libertad': { id: 'PRY-3', badge: 'https://img.sofascore.com/api/v1/team/5996/image', tags: [] },

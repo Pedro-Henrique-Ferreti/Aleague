@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const RUSSIA_TEAM_LIST = mapToTeamList(defineTeams({ country: 'RUS', type: TeamType.CLUB }, {
+export const RUSSIA_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.RUSSIA, type: TeamType.CLUB }, {
   'Dynamo Moscow': { id: 'RUS-1', badge: 'https://img.sofascore.com/api/v1/team/2315/image', tags: [] },
   'Lokomotiv': { id: 'RUS-2', badge: 'https://img.sofascore.com/api/v1/team/2320/image', tags: [] },
   'Zenit': { id: 'RUS-3', badge: 'https://img.sofascore.com/api/v1/team/2321/image', tags: [] },

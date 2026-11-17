@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const SWITZERLAND_TEAM_LIST = mapToTeamList(defineTeams({ country: 'CHE', type: TeamType.CLUB }, {
+export const SWITZERLAND_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.SWITZERLAND, type: TeamType.CLUB }, {
   'Young Boys': { id: 'CHE-1', badge: 'https://img.sofascore.com/api/v1/team/2445/image', tags: [] },
   'Lausanne': { id: 'CHE-2', badge: 'https://img.sofascore.com/api/v1/team/2446/image', tags: [] },
   'Grasshoppers': { id: 'CHE-3', badge: 'https://img.sofascore.com/api/v1/team/2449/image', tags: [] },

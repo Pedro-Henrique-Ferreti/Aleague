@@ -1,6 +1,6 @@
 import { defineRivals, defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-const spainTeams = defineTeams({ country: 'ESP', type: TeamType.CLUB }, {
+const spainTeams = defineTeams({ country: Country.SPAIN, type: TeamType.CLUB }, {
   'Espanyol': { id: 'ESP-1', badge: 'https://img.sofascore.com/api/v1/team/2814/image', tags: [TeamTags.LA_LIGA_26] },
   'Real Zaragoza': { id: 'ESP-2', badge: 'https://img.sofascore.com/api/v1/team/2815/image', tags: [] },
   'Real Betis': { id: 'ESP-3', badge: 'https://img.sofascore.com/api/v1/team/2816/image', tags: [TeamTags.LA_LIGA_26] },

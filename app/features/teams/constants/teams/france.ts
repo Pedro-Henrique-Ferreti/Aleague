@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const FRANCE_TEAM_LIST = mapToTeamList(defineTeams({ country: 'FRA', type: TeamType.CLUB }, {
+export const FRANCE_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.FRANCE, type: TeamType.CLUB }, {
   'Olympique de Marseille': { id: 'FRA-1', badge: 'https://img.sofascore.com/api/v1/team/1641/image', tags: [TeamTags.LEAGUE_1_26] },
   'Montpellier': { id: 'FRA-2', badge: 'https://img.sofascore.com/api/v1/team/1642/image', tags: [] },
   'Lille': { id: 'FRA-3', badge: 'https://img.sofascore.com/api/v1/team/1643/image', tags: [TeamTags.LEAGUE_1_26] },

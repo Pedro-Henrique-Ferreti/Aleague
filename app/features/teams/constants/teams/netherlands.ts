@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const NETHERLANDS_TEAM_LIST = mapToTeamList(defineTeams({ country: 'NLD', type: TeamType.CLUB }, {
+export const NETHERLANDS_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.NETHERLANDS, type: TeamType.CLUB }, {
   'PSV': { id: 'NLD-1', badge: 'https://img.sofascore.com/api/v1/team/2952/image', tags: [] },
   'Ajax': { id: 'NLD-2', badge: 'https://img.sofascore.com/api/v1/team/2953/image', tags: [] },
   'Feyenoord': { id: 'NLD-3', badge: 'https://img.sofascore.com/api/v1/team/2959/image', tags: [] },

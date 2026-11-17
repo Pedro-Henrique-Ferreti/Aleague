@@ -1,6 +1,6 @@
 import { defineRivals, defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-const italyTeams = defineTeams({ country: 'ITA', type: TeamType.CLUB }, {
+const italyTeams = defineTeams({ country: Country.ITALY, type: TeamType.CLUB }, {
   'Bologna': { id: 'ITA-1', badge: 'https://img.sofascore.com/api/v1/team/2685/image', tags: [TeamTags.ITALIAN_SERIE_A_26] },
   'Atalanta': { id: 'ITA-2', badge: 'https://img.sofascore.com/api/v1/team/2686/image', tags: [TeamTags.ITALIAN_SERIE_A_26] },
   'Juventus': { id: 'ITA-3', badge: 'https://img.sofascore.com/api/v1/team/2687/image', tags: [TeamTags.ITALIAN_SERIE_A_26] },

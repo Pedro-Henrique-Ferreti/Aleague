@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const VENEZUELA_TEAM_LIST = mapToTeamList(defineTeams({ country: 'VEN', type: TeamType.CLUB }, {
+export const VENEZUELA_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.VENEZUELA, type: TeamType.CLUB }, {
   'Carabobo': { id: 'VEN-1', badge: 'https://img.sofascore.com/api/v1/team/6229/image', tags: [] },
   'Caracas': { id: 'VEN-2', badge: 'https://img.sofascore.com/api/v1/team/6230/image', tags: [] },
   'Deportivo Táchira': { id: 'VEN-3', badge: 'https://img.sofascore.com/api/v1/team/6231/image', tags: [] },

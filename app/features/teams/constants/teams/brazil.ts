@@ -1,6 +1,6 @@
 import { defineRivals, defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-const brazilTeams = defineTeams({ country: 'BRA', type: TeamType.CLUB }, {
+const brazilTeams = defineTeams({ country: Country.BRAZIL, type: TeamType.CLUB }, {
   'Cruzeiro': { id: 'BRA-1', badge: 'https://img.sofascore.com/api/v1/team/1954/image', tags: [TeamTags.SERIE_A_26] },
   'Bahia': { id: 'BRA-2', badge: 'https://img.sofascore.com/api/v1/team/1955/image', tags: [TeamTags.SERIE_A_26] },
   'Corinthians': { id: 'BRA-3', badge: 'https://img.sofascore.com/api/v1/team/1957/image', tags: [TeamTags.SERIE_A_26] },

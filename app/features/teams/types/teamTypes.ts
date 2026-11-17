@@ -41,7 +41,7 @@ export type TeamStrength = 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
 export interface TeamDetails {
   id: string;
   name: string;
-  country: string;
+  country: Country;
   badge: string;
   type: TeamType;
   tags: TeamTags[];

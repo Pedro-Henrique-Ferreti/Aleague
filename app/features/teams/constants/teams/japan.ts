@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const JAPAN_TEAM_LIST = mapToTeamList(defineTeams({ country: 'JPN', type: TeamType.CLUB }, {
+export const JAPAN_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.JAPAN, type: TeamType.CLUB }, {
   'Kashima Antlers': { id: 'JPN-1', badge: 'https://img.sofascore.com/api/v1/team/3134/image', tags: [] },
   'Urawa Reds': { id: 'JPN-2', badge: 'https://img.sofascore.com/api/v1/team/3145/image', tags: [] },
   'Tokyo': { id: 'JPN-3', badge: 'https://img.sofascore.com/api/v1/team/3147/image', tags: [] },

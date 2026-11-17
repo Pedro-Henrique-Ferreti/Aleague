@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const SCOTLAND_TEAM_LIST = mapToTeamList(defineTeams({ country: 'SCT', type: TeamType.CLUB }, {
+export const SCOTLAND_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.SCOTLAND, type: TeamType.CLUB }, {
   'Celtic': { id: 'SCT-1', badge: 'https://img.sofascore.com/api/v1/team/2352/image', tags: [] },
   'Hearts': { id: 'SCT-2', badge: 'https://img.sofascore.com/api/v1/team/2353/image', tags: [] },
   'Rangers': { id: 'SCT-3', badge: 'https://img.sofascore.com/api/v1/team/2351/image', tags: [] },

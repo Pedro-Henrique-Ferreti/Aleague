@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const GREECE_TEAM_LIST = mapToTeamList(defineTeams({ country: 'GRC', type: TeamType.CLUB }, {
+export const GREECE_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.GREECE, type: TeamType.CLUB }, {
   'Olympiacos': { id: 'GRC-1', badge: 'https://img.sofascore.com/api/v1/team/3245/image', tags: [] },
   'Panathinaikos': { id: 'GRC-2', badge: 'https://img.sofascore.com/api/v1/team/3248/image', tags: [] },
   'AEK Athens': { id: 'GRC-3', badge: 'https://img.sofascore.com/api/v1/team/3250/image', tags: [] },

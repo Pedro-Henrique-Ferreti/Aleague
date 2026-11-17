@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const PORTUGAL_TEAM_LIST = mapToTeamList(defineTeams({ country: 'PRT', type: TeamType.CLUB }, {
+export const PORTUGAL_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.PORTUGAL, type: TeamType.CLUB }, {
   'Boavista': { id: 'PRT-1', badge: 'https://img.sofascore.com/api/v1/team/2995/image', tags: [] },
   'Farense': { id: 'PRT-2', badge: 'https://img.sofascore.com/api/v1/team/2998/image', tags: [] },
   'Braga': { id: 'PRT-3', badge: 'https://img.sofascore.com/api/v1/team/2999/image', tags: [] },

@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const GERMANY_TEAM_LIST = mapToTeamList(defineTeams({ country: 'DEU', type: TeamType.CLUB }, {
+export const GERMANY_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.GERMANY, type: TeamType.CLUB }, {
   'Wolfsburg': { id: 'DEU-1', badge: 'https://img.sofascore.com/api/v1/team/2524/image', tags: [TeamTags.BUNDESLIGA_2_26] },
   'St. Pauli': { id: 'DEU-2', badge: 'https://img.sofascore.com/api/v1/team/2526/image', tags: [TeamTags.BUNDESLIGA_2_26] },
   'Borussia M\'gladbach': { id: 'DEU-3', badge: 'https://img.sofascore.com/api/v1/team/2527/image', tags: [TeamTags.BUNDESLIGA_26] },

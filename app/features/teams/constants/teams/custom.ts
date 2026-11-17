@@ -1,6 +1,6 @@
 import { defineRivals, defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-const brazilTeams = defineTeams({ country: 'BRA', type: TeamType.CUSTOM }, {
+const brazilTeams = defineTeams({ country: Country.BRAZIL, type: TeamType.CUSTOM }, {
   'Alves Dias': { id: 'CUS-BRA-1', badge: '/images/leagues/brazilian-league.png', tags: [], strength: 3 },
   'Anchieta': { id: 'CUS-BRA-2', badge: '/images/leagues/brazilian-league.png', tags: [], strength: 4 },
   'Assunção': { id: 'CUS-BRA-3', badge: '/images/leagues/brazilian-league.png', tags: [], strength: 5 },
@@ -103,7 +103,7 @@ defineRivals(brazilTeams['Paradão'], brazilTeams.Moca, brazilTeams['Paulicéia'
 defineRivals(brazilTeams['Taboão'], brazilTeams.Morumbi);
 defineRivals(brazilTeams['Parque Avaí'], brazilTeams['Parque dos Pássaros']);
 
-const argentinaTeams = defineTeams({ country: 'ARG', type: TeamType.CUSTOM }, {
+const argentinaTeams = defineTeams({ country: Country.ARGENTINA, type: TeamType.CUSTOM }, {
   'Bariloche': { id: 'CUS-ARG-1', badge: '/images/leagues/argentinian-league.png', tags: [], strength: 3.5 },
   'Jardim Lopez': { id: 'CUS-ARG-2', badge: '/images/leagues/argentinian-league.png', tags: [], strength: 3 },
   'Jardim Mendonza': { id: 'CUS-ARG-3', badge: '/images/leagues/argentinian-league.png', tags: [], strength: 3 },
@@ -120,7 +120,7 @@ const argentinaTeams = defineTeams({ country: 'ARG', type: TeamType.CUSTOM }, {
   'Vila Olmo': { id: 'CUS-ARG-14', badge: '/images/leagues/argentinian-league.png', tags: [], strength: 3 },
 });
 
-const mexicoTeams = defineTeams({ country: 'MEX', type: TeamType.CUSTOM }, {
+const mexicoTeams = defineTeams({ country: Country.MEXICO, type: TeamType.CUSTOM }, {
   'Cancún': { id: 'CUS-MEX-1', badge: '/images/leagues/mexican-league.png', tags: [], strength: 2.5 },
   'Huatulco': { id: 'CUS-MEX-2', badge: '/images/leagues/mexican-league.png', tags: [], strength: 2.5 },
   'Jardim Asteca': { id: 'CUS-MEX-3', badge: '/images/leagues/mexican-league.png', tags: [], strength: 3.5 },
@@ -135,7 +135,7 @@ const mexicoTeams = defineTeams({ country: 'MEX', type: TeamType.CUSTOM }, {
   'La Palma': { id: 'CUS-MEX-12', badge: '/images/leagues/mexican-league.png', tags: [], strength: 2 },
 });
 
-const usaTeams = defineTeams({ country: 'USA', type: TeamType.CUSTOM }, {
+const usaTeams = defineTeams({ country: Country.UNITED_STATES, type: TeamType.CUSTOM }, {
   'Brooklin': { id: 'CUS-USA-1', badge: '/images/leagues/american-league.png', tags: [], strength: 5 },
   'Parque Hood River': { id: 'CUS-USA-2', badge: '/images/leagues/american-league.png', tags: [], strength: 2 },
   'Jardim Dallas': { id: 'CUS-USA-3', badge: '/images/leagues/american-league.png', tags: [], strength: 2 },
@@ -146,7 +146,7 @@ const usaTeams = defineTeams({ country: 'USA', type: TeamType.CUSTOM }, {
   'Vila Portland': { id: 'CUS-USA-8', badge: '/images/leagues/american-league.png', tags: [], strength: 2 },
 });
 
-const colombiaTeams = defineTeams({ country: 'COL', type: TeamType.CUSTOM }, {
+const colombiaTeams = defineTeams({ country: Country.COLOMBIA, type: TeamType.CUSTOM }, {
   'Jardim Ametista': { id: 'CUS-COL-1', badge: '/images/leagues/colombian-league.png', tags: [], strength: 3 },
   'Jardim Aliança': { id: 'CUS-COL-2', badge: '/images/leagues/colombian-league.png', tags: [], strength: 3 },
   'Jardim Cali': { id: 'CUS-COL-3', badge: '/images/leagues/colombian-league.png', tags: [], strength: 3.5 },
@@ -161,7 +161,7 @@ const colombiaTeams = defineTeams({ country: 'COL', type: TeamType.CUSTOM }, {
   'Jardim Campoalegre': { id: 'CUS-COL-12', badge: '/images/leagues/colombian-league.png', tags: [], strength: 2 },
 });
 
-const chileTeams = defineTeams({ country: 'CHL', type: TeamType.CUSTOM }, {
+const chileTeams = defineTeams({ country: Country.CHILE, type: TeamType.CUSTOM }, {
   'Bairro Únion': { id: 'CUS-CHL-1', badge: '/images/leagues/chilean-league.png', tags: [], strength: 3 },
   'Vila Salinitas': { id: 'CUS-CHL-2', badge: '/images/leagues/chilean-league.png', tags: [], strength: 2.5 },
   'Jardim Santiago': { id: 'CUS-CHL-3', badge: '/images/leagues/chilean-league.png', tags: [], strength: 3.5 },
@@ -174,7 +174,7 @@ const chileTeams = defineTeams({ country: 'CHL', type: TeamType.CUSTOM }, {
   'Jardim Atacama': { id: 'CUS-CHL-10', badge: '/images/leagues/chilean-league.png', tags: [], strength: 2.5 },
 });
 
-const uruguayTeams = defineTeams({ country: 'URY', type: TeamType.CUSTOM }, {
+const uruguayTeams = defineTeams({ country: Country.URUGUAY, type: TeamType.CUSTOM }, {
   'Castanhal': { id: 'CUS-URY-1', badge: '/images/leagues/uruguayan-league.png', tags: [], strength: 3 },
   'Jardim Castillo': { id: 'CUS-URY-2', badge: '/images/leagues/uruguayan-league.png', tags: [], strength: 2.5 },
   'Jardim Canelone': { id: 'CUS-URY-3', badge: '/images/leagues/uruguayan-league.png', tags: [], strength: 2 },
@@ -191,7 +191,7 @@ const uruguayTeams = defineTeams({ country: 'URY', type: TeamType.CUSTOM }, {
   'Cerro Norte': { id: 'CUS-URY-14', badge: '/images/leagues/uruguayan-league.png', tags: [], strength: 2.5 },
 });
 
-const peruTeams = defineTeams({ country: 'PER', type: TeamType.CUSTOM }, {
+const peruTeams = defineTeams({ country: Country.PERU, type: TeamType.CUSTOM }, {
   'Allende': { id: 'CUS-PER-1', badge: '/images/leagues/peruvian-league.png', tags: [], strength: 2.5 },
   'Jardim Iolita': { id: 'CUS-PER-2', badge: '/images/leagues/peruvian-league.png', tags: [], strength: 2 },
   'Vila Lima': { id: 'CUS-PER-3', badge: '/images/leagues/peruvian-league.png', tags: [], strength: 3 },
@@ -206,7 +206,7 @@ const peruTeams = defineTeams({ country: 'PER', type: TeamType.CUSTOM }, {
   'Vila Gallardia': { id: 'CUS-PER-12', badge: '/images/leagues/peruvian-league.png', tags: [], strength: 3 },
 });
 
-const paraguayTeams = defineTeams({ country: 'PRY', type: TeamType.CUSTOM }, {
+const paraguayTeams = defineTeams({ country: Country.PARAGUAY, type: TeamType.CUSTOM }, {
   'Jardim Miraflores': { id: 'CUS-PRY-1', badge: '/images/leagues/paraguayan-league.png', tags: [], strength: 2.5 },
   'Parque Assuncíon': { id: 'CUS-PRY-2', badge: '/images/leagues/paraguayan-league.png', tags: [], strength: 3 },
   'Vila San Bernardino': { id: 'CUS-PRY-3', badge: '/images/leagues/paraguayan-league.png', tags: [], strength: 3 },
@@ -223,7 +223,7 @@ const paraguayTeams = defineTeams({ country: 'PRY', type: TeamType.CUSTOM }, {
   'La Portena': { id: 'CUS-PRY-14', badge: '/images/leagues/paraguayan-league.png', tags: [], strength: 2.5 },
 });
 
-const venezuelaTeams = defineTeams({ country: 'VEN', type: TeamType.CUSTOM }, {
+const venezuelaTeams = defineTeams({ country: Country.VENEZUELA, type: TeamType.CUSTOM }, {
   'Jardim Lázuli': { id: 'CUS-VEN-1', badge: '/images/leagues/venezuelan-league.png', tags: [], strength: 2.5 },
   'Vila Baltimore': { id: 'CUS-VEN-2', badge: '/images/leagues/venezuelan-league.png', tags: [], strength: 2.5 },
   'Vila Caracas': { id: 'CUS-VEN-3', badge: '/images/leagues/venezuelan-league.png', tags: [], strength: 2.5 },
@@ -238,7 +238,7 @@ const venezuelaTeams = defineTeams({ country: 'VEN', type: TeamType.CUSTOM }, {
   'Vila Union': { id: 'CUS-VEN-12', badge: '/images/leagues/venezuelan-league.png', tags: [], strength: 3 },
 });
 
-const ecuadorTeams = defineTeams({ country: 'ECU', type: TeamType.CUSTOM }, {
+const ecuadorTeams = defineTeams({ country: Country.ECUADOR, type: TeamType.CUSTOM }, {
   'Jardim Ambatho': { id: 'CUS-ECU-1', badge: '/images/leagues/ecuadorian-league.png', tags: [], strength: 3 },
   'Jardim Huesca': { id: 'CUS-ECU-2', badge: '/images/leagues/ecuadorian-league.png', tags: [], strength: 3 },
   'Salta': { id: 'CUS-ECU-3', badge: '/images/leagues/ecuadorian-league.png', tags: [], strength: 2.5 },
@@ -253,7 +253,7 @@ const ecuadorTeams = defineTeams({ country: 'ECU', type: TeamType.CUSTOM }, {
   'Vila Lázuli': { id: 'CUS-ECU-12', badge: '/images/leagues/ecuadorian-league.png', tags: [], strength: 2.5 },
 });
 
-const boliviaTeams = defineTeams({ country: 'BOL', type: TeamType.CUSTOM }, {
+const boliviaTeams = defineTeams({ country: Country.BOLIVIA, type: TeamType.CUSTOM }, {
   'Jardim da Prata': { id: 'CUS-BOL-1', badge: '/images/leagues/bolivian-league.png', tags: [], strength: 2.5 },
   'Vila Loretto': { id: 'CUS-BOL-2', badge: '/images/leagues/bolivian-league.png', tags: [], strength: 3 },
   'Vila Rúbia': { id: 'CUS-BOL-3', badge: '/images/leagues/bolivian-league.png', tags: [], strength: 2.5 },

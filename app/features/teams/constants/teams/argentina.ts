@@ -1,6 +1,6 @@
 import { defineRivals, defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-const argentinaTeams = defineTeams({ country: 'ARG', type: TeamType.CLUB }, {
+const argentinaTeams = defineTeams({ country: Country.ARGENTINA, type: TeamType.CLUB }, {
   'San Lorenzo': { id: 'ARG-1', badge: 'https://img.sofascore.com/api/v1/team/3201/image', tags: [] },
   'Boca Juniors': { id: 'ARG-2', badge: 'https://img.sofascore.com/api/v1/team/3202/image', tags: [] },
   'Belgrano': { id: 'ARG-3', badge: 'https://img.sofascore.com/api/v1/team/3203/image', tags: [] },

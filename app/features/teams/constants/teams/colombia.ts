@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const COLOMBIA_TEAM_LIST = mapToTeamList(defineTeams({ country: 'COL', type: TeamType.CLUB }, {
+export const COLOMBIA_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.COLOMBIA, type: TeamType.CLUB }, {
   'América de Cali': { id: 'COL-1', badge: 'https://img.sofascore.com/api/v1/team/6102/image', tags: [] },
   'Junior Barranquilla': { id: 'COL-2', badge: 'https://img.sofascore.com/api/v1/team/6105/image', tags: [] },
   'Atlético Nacional': { id: 'COL-3', badge: 'https://img.sofascore.com/api/v1/team/6106/image', tags: [] },

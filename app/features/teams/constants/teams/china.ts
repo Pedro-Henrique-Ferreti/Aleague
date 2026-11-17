@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const CHINA_TEAM_LIST = mapToTeamList(defineTeams({ country: 'CHN', type: TeamType.CLUB }, {
+export const CHINA_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.CHINA, type: TeamType.CLUB }, {
   'Beijing Guoan': { id: 'CHN-1', badge: 'https://img.sofascore.com/api/v1/team/3376/image', tags: [] },
   'Chengdu Rongcheng': { id: 'CHN-2', badge: 'https://img.sofascore.com/api/v1/team/221241/image', tags: [] },
   'Tongliang Long': { id: 'CHN-3', badge: 'https://img.sofascore.com/api/v1/team/474989/image', tags: [] },

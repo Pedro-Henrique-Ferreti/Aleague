@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const ECUADOR_TEAM_LIST = mapToTeamList(defineTeams({ country: 'ECU', type: TeamType.CLUB }, {
+export const ECUADOR_TEAM_LIST = mapToTeamList(defineTeams({ country: Country.ECUADOR, type: TeamType.CLUB }, {
   'Aucas': { id: 'ECU-1', badge: 'https://img.sofascore.com/api/v1/team/5249/image', tags: [] },
   'Barcelona SC': { id: 'ECU-2', badge: 'https://img.sofascore.com/api/v1/team/5250/image', tags: [] },
   'Emelec': { id: 'ECU-3', badge: 'https://img.sofascore.com/api/v1/team/5255/image', tags: [] },
