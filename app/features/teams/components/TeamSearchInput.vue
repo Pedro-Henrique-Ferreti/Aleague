@@ -55,7 +55,7 @@
       v-model="form.country"
       class="w-8.5 select-sm select-ghost bg-white px-0.5"
       aria-label="País da equipe"
-      :options="COUNTRY_OPTIONS"
+      :options="CLUB_COUNTRY_OPTIONS"
       :disabled="form.filter === TeamTypeFilter.NATIONAL"
     />
     <div class="divider divider-horizontal m-0" />
