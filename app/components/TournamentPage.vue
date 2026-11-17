@@ -5,7 +5,11 @@
         <TournamentProfileCard />
         <div class="flex flex-col items-end">
           <TournamentStageOptions v-if="activeStage" />
-          <TournamentWinnerCard v-if="activeTournamentWinner" />
+          <TournamentWinnerBadge
+            v-if="activeTournamentWinner"
+            class="mt-1"
+            :winner="activeTournamentWinner"
+          />
         </div>
       </div>
     </div>
