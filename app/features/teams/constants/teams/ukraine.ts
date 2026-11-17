@@ -1,6 +1,6 @@
 import { defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
 
-export const UKRAINE_TEAM_LIST = mapToTeamList(defineTeams({
-  'Dynamo Kyiv': { id: 'UKR-1', badge: 'https://img.sofascore.com/api/v1/team/3305/image', country: 'UKR', type: TeamType.CLUB, tags: [] },
-  'Shakhtar': { id: 'UKR-2', badge: 'https://img.sofascore.com/api/v1/team/3313/image', country: 'UKR', type: TeamType.CLUB, tags: [] },
+export const UKRAINE_TEAM_LIST = mapToTeamList(defineTeams({ country: 'UKR', type: TeamType.CLUB }, {
+  'Dynamo Kyiv': { id: 'UKR-1', badge: 'https://img.sofascore.com/api/v1/team/3305/image', tags: [] },
+  'Shakhtar': { id: 'UKR-2', badge: 'https://img.sofascore.com/api/v1/team/3313/image', tags: [] },
 }));
