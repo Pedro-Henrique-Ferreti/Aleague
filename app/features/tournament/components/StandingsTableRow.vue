@@ -3,7 +3,7 @@
     class="bg-white h-3 transition-all duration-300 text-center [&_td]:px-0.75"
     :class="{
       'cursor-pointer': isClickable,
-      'bg-gray-200!': entry.team && teamStore.focusedTeamId.includes(entry.team),
+      'bg-gray-200!': entry.team && standingsStore.focusedTeamId.includes(entry.team),
       'hover:bg-gray-1': !disabled,
       'opacity-50': disabled,
     }"
@@ -67,5 +67,5 @@ withDefaults(defineProps<StandingsTableRowProps>(), {
 });
 defineEmits(['click']);
 
-const teamStore = useTeamStore();
+const standingsStore = useStandingsStore();
 </script>

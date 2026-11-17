@@ -23,8 +23,8 @@
               v-model:away-score="match.awayTeam.score"
               :match="match"
               @match-updated="handleMatchUpdated"
-              @focus="nextTick(() => teamStore.focusMatchTeams(match))"
-              @blur="nextTick(() => teamStore.blurMatchTeams(match))"
+              @focus="nextTick(() => standingsStore.focusMatchTeams(match))"
+              @blur="nextTick(() => standingsStore.blurMatchTeams(match))"
             />
           </template>
         </div>
@@ -42,7 +42,7 @@ import { updateStandings } from '~/features/tournament/helpers/standings';
 const stageStore = useStageStore();
 const matchweekCardStore = useMatchweekCardStore();
 const { selectedMatchweek, selectedWeekNumber } = storeToRefs(matchweekCardStore);
-const teamStore = useTeamStore();
+const standingsStore = useStandingsStore();
 
 function sortMatches(a: Match, b: Match) {
   if (a.kickoff && !b.kickoff) return 1;

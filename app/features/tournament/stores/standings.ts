@@ -1,4 +1,4 @@
-export const useTeamStore = defineStore('team', () => {
+export const useStandingsStore = defineStore('standings', () => {
   const focusedTeamId = ref<TeamDetails['id'][]>([]);
 
   function focusMatchTeams({ homeTeam, awayTeam }: Match) {
