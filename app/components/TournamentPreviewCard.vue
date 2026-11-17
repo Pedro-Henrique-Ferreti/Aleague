@@ -18,18 +18,20 @@
         />
       </div>
     </div>
-    <h2 class="mt-1 font-medium text-base">{{ tournament.name }}</h2>
-    <span class="text-base-content/70 text-xs">Criado em: {{ formatDate(tournament.createdAt, 'dd/MM/yyyy') }}</span>
-    <span
-      v-if="winner"
-      class="text-base-content/70 text-xs flex gap-0.5"
-    >
-      Vencedor:
-      <TeamDetails
-        size="xs"
-        :team="winner"
-      />
-    </span>
+    <h2 class="mt-1 font-medium text-base mb-[0.125rem]">{{ tournament.name }}</h2>
+    <div class="flex flex-col gap-[0.125rem] mt-auto">
+      <span class="text-base-content/70 text-xs">Criado em: {{ formatDate(tournament.createdAt, 'dd/MM/yyyy') }}</span>
+      <span
+        v-if="winner"
+        class="text-base-content/70 text-xs flex gap-0.5"
+      >
+        Vencedor:
+        <TeamDetails
+          size="xs"
+          :team="winner"
+        />
+      </span>
+    </div>
   </BaseButton>
 </template>
 
