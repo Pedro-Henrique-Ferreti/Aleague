@@ -1,5 +1,5 @@
-import { isCollectionFile, isTournamentFile } from '~/helpers/file';
-import { decompressSourceFile } from '~/helpers/file-compression';
+import { isCollectionFile, isTournamentFile } from '~/features/files/helpers/file';
+import { decompressSourceFile } from '~/features/files/helpers/file-compression';
 
 interface ImportResult<T extends SourceFile> {
   fileName: File['name'];

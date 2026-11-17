@@ -58,7 +58,7 @@
 import { IconPlus } from '@tabler/icons-vue';
 import IconFile from '@/assets/icons/File.svg';
 import IconFolder from '@/assets/icons/Folder.svg';
-import { newCollectionFile, newTournamentFile } from '~/helpers/file';
+import { newCollectionFile, newTournamentFile } from '~/features/files/helpers/file';
 import { newTournament } from '~/helpers/tournament';
 
 enum FormStep {

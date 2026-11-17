@@ -1,4 +1,4 @@
-import { isCollectionFile } from '~/helpers/file';
+import { isCollectionFile } from '~/features/files/helpers/file';
 
 export const useCollectionStore = defineStore('collection', () => {
   const fileStore = useFileStore();

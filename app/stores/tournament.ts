@@ -1,4 +1,4 @@
-import { isCollectionFile, isTournamentFile } from '~/helpers/file';
+import { isCollectionFile, isTournamentFile } from '~/features/files/helpers/file';
 import { getTournamentWinner, newTournamentStage } from '~/helpers/tournament';
 
 export const useTournamentStore = defineStore('tournament', () => {

@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout>
     <template #header>
-      <FileToolbar />
+      <EditorFileToolbar />
     </template>
     <TournamentPage
       v-if="tournamentStore.activeTournament?.id"
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import FileToolbar from '~/components/FileToolbar.vue';
+import EditorFileToolbar from '~/components/layout/EditorFileToolbar.vue';
 
 const collectionStore = useCollectionStore();
 const tournamentStore = useTournamentStore();

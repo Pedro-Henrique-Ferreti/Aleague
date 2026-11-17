@@ -1,5 +1,5 @@
-import { isCollectionFile, setUpdatedAtTimestampIfDirty } from '~/helpers/file';
-import { compressSourceFile } from '~/helpers/file-compression';
+import { isCollectionFile, setUpdatedAtTimestampIfDirty } from '~/features/files/helpers/file';
+import { compressSourceFile } from '~/features/files/helpers/file-compression';
 import { copyTournament } from '~/helpers/tournament';
 
 const NON_ALPHANUMERIC_REGEX = /[^a-z0-9]/gi;

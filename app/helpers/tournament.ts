@@ -1,4 +1,4 @@
-import { newTimestamp } from './file';
+import { newTimestamp } from '~/features/files/helpers/file';
 import { getGroupStageWinner, newGroupStage } from './group-stage';
 import { getPlayoffStageWinner, newPlayoffStage } from './playoff-stage';
 

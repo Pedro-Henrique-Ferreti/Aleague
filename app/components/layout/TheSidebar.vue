@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { IconChevronLeft, IconChevronRight, IconHome, IconReportAnalytics } from '@tabler/icons-vue';
-import { isCollectionFile, isTournamentFile } from '~/helpers/file';
+import { isCollectionFile, isTournamentFile } from '~/features/files/helpers/file';
 
 const fileStore = useFileStore();
 

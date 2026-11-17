@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { AppButtonProps } from './base/AppButton.vue';
+import type { AppButtonProps } from '~/components/base/AppButton.vue';
 
 defineProps<Pick<AppButtonProps, 'label' | 'iconLeft'> & {
   type?: 'delete';

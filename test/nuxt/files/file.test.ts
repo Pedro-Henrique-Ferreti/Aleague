@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { appendNumericSuffix, isCollectionFile, isTournamentFile, newTimestamp, setUpdatedAtTimestampIfDirty } from '~/helpers/file';
-import { mockCollectionFile, mockTournament, mockTournamentFile } from './mocks';
+import { appendNumericSuffix, isCollectionFile, isTournamentFile, newTimestamp, setUpdatedAtTimestampIfDirty } from '~/features/files/helpers/file';
+import { mockCollectionFile, mockTournamentFile } from '../../mocks/files';
+import { mockTournament } from '../../mocks/tournament';
 
 describe('file', () => {
   describe('newTimestamp', () => {

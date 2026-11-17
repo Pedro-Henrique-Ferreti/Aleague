@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { IconClock, IconPencil } from '@tabler/icons-vue';
-import { isCollectionFile } from '~/helpers/file';
+import { isCollectionFile } from '~/features/files/helpers/file';
 
 const router = useRouter();
 const fileStore = useFileStore();

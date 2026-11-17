@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import IconFolder from '@/assets/icons/Folder.svg';
-import { isTournamentFile } from '~/helpers/file';
+import { isTournamentFile } from '~/features/files/helpers/file';
 
 const props = defineProps<{
   file: SourceFile;

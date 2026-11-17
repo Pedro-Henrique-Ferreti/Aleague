@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { appendNumericSuffix } from '~/helpers/file';
+import { appendNumericSuffix } from '~/features/files/helpers/file';
 
 const props = defineProps<{
   tournament: Tournament;

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { getNextRound, isNextRound, isPlayoffRoundSeeded, moveTeamToNextRound, reorderPlayoffRoundSlots, replacePlayoffRoundTeams } from '~/helpers/playoff-round';
 import { addSecondLegToSlot, replaceSlotTeams } from '~/helpers/playoff-slot';
 import { newStageSeedingForm } from '~/helpers/stage-seeding';
-import { mockPlayoffStage } from './mocks';
+import { mockPlayoffStage } from '../mocks/tournament';
 
 describe('playoff-round', () => {
   describe('isPlayoffRoundSeeded', () => {

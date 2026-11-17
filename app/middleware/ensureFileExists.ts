@@ -1,4 +1,4 @@
-import { isCollectionFile } from '~/helpers/file';
+import { isCollectionFile } from '~/features/files/helpers/file';
 
 export default defineNuxtRouteMiddleware((to) => {
   const fileStore = useFileStore();
