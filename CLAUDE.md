@@ -14,8 +14,8 @@ npm run typecheck      # nuxt typecheck (vue-tsc); also run in CI before deploy
 npm run lint           # eslint (lint:fix to autofix)
 npm run test:unit      # vitest project "unit"  -> test/unit, node env
 npm run test:nuxt      # vitest project "nuxt"  -> test/nuxt, Nuxt env + happy-dom
-npx vitest run test/nuxt/tournament.test.ts           # single file
-npx vitest run test/nuxt/tournament.test.ts -t "getTournamentWinner"  # single test
+npx vitest run test/nuxt/tournament/tournament.test.ts           # single file
+npx vitest run test/nuxt/tournament/tournament.test.ts -t "getTournamentWinner"  # single test
 ```
 
 Coverage is enabled by default in `vitest.config.ts`. During typecheck, a `vue-router/volar/sfc-route-blocks ... ERR_PACKAGE_PATH_NOT_EXPORTED` stack trace is printed; it is a harmless dependency warning, not a type error.
@@ -26,10 +26,10 @@ The dev machine is Windows; Python is not installed.
 
 ### Data model: files, collections, tournaments
 
-- A `SourceFile` (`app/types/fileTypes.ts`) is either a `TournamentFile` (`data: Tournament`) or a `CollectionFile` (`data: Collection`, which holds `tournaments: Record<id, Tournament>`). Use `isTournamentFile` / `isCollectionFile` from `app/helpers/file.ts` to narrow.
+- A `SourceFile` (`app/features/files/types/fileTypes.ts`) is either a `TournamentFile` (`data: Tournament`) or a `CollectionFile` (`data: Collection`, which holds `tournaments: Record<id, Tournament>`). Use `isTournamentFile` / `isCollectionFile` from `app/features/files/helpers/file.ts` to narrow.
 - Tournaments inside a collection are plain `Tournament` objects, **not** files. Don't pass them to file-oriented components like `FileCard`; use tournament-oriented ones (e.g. `TournamentPreviewCard`).
 - A `Tournament` has ordered `stages: TournamentStage[]`, each either a `GroupStage` (groups, standings, matchweeks, legends) or a `PlayoffStage` (rounds), discriminated by `StageType`. The tournament winner is derived from the last stage (`getTournamentWinner`).
-- There is no backend or browser persistence. Files live in memory in `useFileStore` and are imported/exported as gzip-compressed JSON (`app/helpers/file-compression.ts`). `updatedAt` is set on export by diffing against a snapshot taken on import/export.
+- There is no backend or browser persistence. Files live in memory in `useFileStore` and are imported/exported as gzip-compressed JSON (`app/features/files/helpers/file-compression.ts`). `updatedAt` is set on export by diffing against a snapshot taken on import/export.
 
 ### Routing and "active" state
 
@@ -40,15 +40,37 @@ Stores derive the "active" entity from the route, forming a chain:
 
 To link to a tournament inside a collection: `{ name: 'editor', params: { fileId: collectionId, tournamentId } }`. A standalone tournament file uses only `fileId`.
 
-### Where logic lives
+### Code organization: features
 
-- `app/helpers/*.ts` — pure domain logic (creating stages, scheduling, simulation, standings, draws, seeding). Explicitly imported (`~/helpers/...`), not auto-imported. Tests in `test/nuxt/` mirror these files one-to-one (`helpers/match-score.ts` → `test/nuxt/match-score.test.ts`).
-- `app/stores/*.ts` — Pinia setup stores that hold UI/active state and call helpers.
+Code is grouped by feature in `app/features/<feature>/`, each with only the folders it needs: `components/`, `composables/`, `constants/`, `helpers/`, `stores/`, `types/`.
+
+- `teams` — team catalog (`constants/teams/*` lists per country, built with `defineTeams`), team components, `Country`-typed team data.
+- `tournament` — the tournament engine and editor: stages, matchweeks, standings, playoffs, draws. Components are in subfolders (`stage/`, `matchweek/`, `standings/`, `playoff/`, `draw/`) only for organization.
+- `collection` — collection page, forms and store.
+- `files` — `SourceFile` types, import/export, the file store, `FileCard` and file-related modals.
+
+Shared code stays outside features:
+- `app/components/base/` — generic UI kit (`App*`, `Base*`, `CloseButton`, `LoadingIndicator`…), free of feature imports.
+- `app/components/layout/` — app shell: `TheSidebar*`, `EditorToolbar*`, `AuthModal*`, `Welcome*`.
+- `app/types/` (`UUID`, `Branded`, `Country`, select/regle types), `app/utils/`, `app/pages/`, `app/layouts/`, `app/middleware/`, `app/plugins/`.
+- `app/middleware/` and `app/router.options.ts` must stay where they are: Nuxt resolves named middleware only from that folder.
+
+Dependency direction: `teams` ← `tournament` ← `collection` ← `files` ← pages/layout. Some stores and components still break it (e.g. the tournament and collection stores read `useFileStore`); do not add new violations.
+
+- `helpers/*.ts` — pure domain logic (creating stages, scheduling, simulation, standings, draws, seeding). Explicitly imported (`~/features/tournament/helpers/...`), not auto-imported.
+- `stores/*.ts` — Pinia setup stores that hold UI/active state and call helpers.
 - Prefer components that receive data via props over reading store "active" state, so they can be reused (e.g. `TournamentWinnerBadge` takes a `winner` prop).
+
+### Tests
+
+Tests live outside `app/`, in `test/`:
+- `test/nuxt/<feature>/*.test.ts` — run in the Nuxt environment (needed because helpers use auto-imported types and enums). They mirror helpers one-to-one (`tournament/helpers/match-score.ts` → `test/nuxt/tournament/match-score.test.ts`).
+- `test/unit/` — plain Node tests, currently only `utils`.
+- `test/mocks/<feature>.ts` — shared builders (`mockTournament`, `mockCollectionFile`…). A feature's mocks may use other features' mocks, never the reverse.
 
 ### Auto-imports
 
-`app/types`, `app/constants` and `app/utils` are auto-imported (`nuxt.config.ts` → `imports.dirs`), so types, enums like `StageType`/`SourceFileType`, and utils like `clone`, `uuidv4`, `formatDate`, `matchesSearch` need no import. Stores and Vue/Nuxt APIs are also auto-imported. Components are registered globally without path prefix; generic UI primitives live in `app/components/base/` (`App*`, `Base*`).
+`app/types`, `app/utils` and each feature's `types/`, `constants/`, `stores/` and `composables/` are auto-imported (`nuxt.config.ts` → `imports.dirs`), so types, enums like `StageType`/`SourceFileType`/`Country`, utils like `clone`, `uuidv4`, `formatDate`, `matchesSearch`, and stores need no import. Helpers are **not** auto-imported. Components in `app/components` and `app/features/*/components` are registered globally **without path prefix** (`<StandingsTable>` regardless of subfolder), so component names must be unique across features. Subfolders of a feature's `constants/` (e.g. `teams/`) are not scanned and are imported explicitly.
 
 SVGs in `app/assets/icons` import as Vue components (`nuxt-svgo`); `@tabler/icons-vue` is also used. Forms are validated with Regle (`app/regle-config.ts`).
 
