@@ -15,8 +15,8 @@
       />
     </BreadcrumbList>
     <div class="flex justify-end gap-0.5 ml-auto border-l border-base-200 pl-0.5">
-      <FileToolbarTournament v-if="tournamentStore.activeTournament" />
-      <FileToolbarCollection v-else-if="collectionStore.activeCollection" />
+      <EditorToolbarTournament v-if="tournamentStore.activeTournament" />
+      <EditorToolbarCollection v-else-if="collectionStore.activeCollection" />
     </div>
   </div>
 </template>

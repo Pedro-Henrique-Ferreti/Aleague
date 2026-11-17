@@ -1,22 +1,22 @@
 <template>
-  <FileToolbarButton
+  <EditorToolbarButton
     type="delete"
     label="Excluir"
     :icon-left="IconTrash"
     @click="deleteTournamentDialogIsOpen = true"
   />
-  <FileToolbarButton
+  <EditorToolbarButton
     v-if="isCollectionTournament"
     label="Duplicar"
     :icon-left="IconLayersSubtract"
     @click="duplicateTournamentModalIsOpen = true"
   />
-  <FileToolbarButton
+  <EditorToolbarButton
     label="Editar"
     :icon-left="IconEdit"
     @click="tournamentModalIsOpen = true"
   />
-  <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
+  <EditorToolbarDownloadButton @click="fileStore.exportActiveFile" />
   <TournamentFormModal
     v-model:is-open="tournamentModalIsOpen"
     :tournament="tournamentStore.activeTournament"

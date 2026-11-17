@@ -1,10 +1,10 @@
 <template>
-  <FileToolbarButton
+  <EditorToolbarButton
     label="Editar"
     :icon-left="IconEdit"
     @click="collectionModalIsOpen = true"
   />
-  <FileToolbarDownloadButton @click="fileStore.exportActiveFile" />
+  <EditorToolbarDownloadButton @click="fileStore.exportActiveFile" />
   <EditCollectionFileModal
     v-if="collectionStore.activeCollection"
     v-model:is-open="collectionModalIsOpen"
