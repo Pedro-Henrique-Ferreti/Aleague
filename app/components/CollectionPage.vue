@@ -45,7 +45,7 @@
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
 import IconFile from '@/assets/icons/File.svg';
-import { newTournament } from '~/helpers/tournament';
+import { newTournament } from '~/features/tournament/helpers/tournament';
 
 const collectionStore = useCollectionStore();
 

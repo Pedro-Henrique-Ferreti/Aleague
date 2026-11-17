@@ -1,0 +1,53 @@
+<template>
+  <p class="mb-1.5">Você pode adicionar uma descrição para cada legenda. A descrição será exibida na tabela de classificação.</p>
+  <template v-if="stageStore.activeGroupStage">
+    <div
+      v-for="color in COLOR_OPTIONS"
+      :key="color"
+      class="flex items-center gap-1 not-last:mb-1"
+    >
+      <IconSquareRoundedFilled
+        class="size-2"
+        aria-hidden="true"
+        :style="`color: ${LEGEND_COLOR_VALUES[color]};`"
+      />
+      <BaseInput
+        v-model="form.description[color]"
+        class="input"
+        :aria-label="`Legenda para ${LEGEND_COLOR_ARIA_LABELS[color]}`"
+      />
+    </div>
+  </template>
+</template>
+
+<script lang="ts" setup>
+import { IconSquareRoundedFilled } from '@tabler/icons-vue';
+import { newLegendDescription } from '~/features/tournament/helpers/group-stage';
+
+interface LegendsForm {
+  description: GroupStage['legendDescription'];
+}
+
+const COLOR_OPTIONS = Object.values(LegendColor).filter(color => color !== LegendColor.NONE);
+
+const stageStore = useStageStore();
+
+function newForm(): LegendsForm {
+  return {
+    description: clone(stageStore.activeGroupStage?.legendDescription) ?? newLegendDescription(),
+  };
+}
+
+const form = ref(newForm());
+
+function submitForm() {
+  if (!stageStore.activeGroupStage) return;
+
+  stageStore.activeGroupStage.legendDescription = form.value.description;
+}
+
+defineExpose({
+  submitForm,
+  resetForm: () => (form.value = newForm()),
+});
+</script>

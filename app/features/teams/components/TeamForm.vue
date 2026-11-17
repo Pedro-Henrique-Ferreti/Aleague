@@ -64,7 +64,7 @@ import IconCircleMinus from '@/assets/icons/CircleMinus.svg';
 import IconEmptyCircle from '@/assets/icons/EmptyCircle.svg';
 import IconErrorCircle from '@/assets/icons/ErrorCircle.svg';
 import { getTeamById } from '~/features/teams/helpers/team';
-import { getKickoffDisplayText } from '~/helpers/match';
+import { getKickoffDisplayText } from '~/features/tournament/helpers/match';
 
 defineProps<{
   form: TableEntryForm | null;

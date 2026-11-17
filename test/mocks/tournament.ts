@@ -1,4 +1,4 @@
-import { newTournament, newTournamentStage } from '~/helpers/tournament';
+import { newTournament, newTournamentStage } from '~/features/tournament/helpers/tournament';
 
 export function mockPlayoffStage(params?: Partial<StageForm>) {
   return newTournamentStage({
