@@ -1,0 +1,43 @@
+import { defineRivals, defineTeams, mapToTeamList } from '~/features/teams/helpers/team-definition';
+
+const argentinaTeams = defineTeams({
+  'San Lorenzo': { id: 'ARG-1', badge: 'https://img.sofascore.com/api/v1/team/3201/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Boca Juniors': { id: 'ARG-2', badge: 'https://img.sofascore.com/api/v1/team/3202/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Belgrano': { id: 'ARG-3', badge: 'https://img.sofascore.com/api/v1/team/3203/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Unión de Santa Fe': { id: 'ARG-4', badge: 'https://img.sofascore.com/api/v1/team/3204/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Gimnasia y Esgrima': { id: 'ARG-5', badge: 'https://img.sofascore.com/api/v1/team/3205/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Estudiantes': { id: 'ARG-6', badge: 'https://img.sofascore.com/api/v1/team/3206/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Colón': { id: 'ARG-7', badge: 'https://img.sofascore.com/api/v1/team/3207/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Vélez Sarsfield': { id: 'ARG-8', badge: 'https://img.sofascore.com/api/v1/team/3208/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Independiente': { id: 'ARG-9', badge: 'https://img.sofascore.com/api/v1/team/3209/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Talleres': { id: 'ARG-10', badge: 'https://img.sofascore.com/api/v1/team/3210/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'River Plate': { id: 'ARG-11', badge: 'https://img.sofascore.com/api/v1/team/3211/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Newell\'s': { id: 'ARG-12', badge: 'https://img.sofascore.com/api/v1/team/3212/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Racing': { id: 'ARG-13', badge: 'https://img.sofascore.com/api/v1/team/3215/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Argentinos Jrs.': { id: 'ARG-14', badge: 'https://img.sofascore.com/api/v1/team/3216/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Rosario Central': { id: 'ARG-15', badge: 'https://img.sofascore.com/api/v1/team/3217/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Lanús': { id: 'ARG-16', badge: 'https://img.sofascore.com/api/v1/team/3218/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Banfield': { id: 'ARG-17', badge: 'https://img.sofascore.com/api/v1/team/3219/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Arsenal de Sarandí': { id: 'ARG-18', badge: 'https://img.sofascore.com/api/v1/team/3221/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Godoy Cruz': { id: 'ARG-19', badge: 'https://img.sofascore.com/api/v1/team/6074/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Tigre': { id: 'ARG-20', badge: 'https://img.sofascore.com/api/v1/team/7628/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Huracán': { id: 'ARG-21', badge: 'https://img.sofascore.com/api/v1/team/7629/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'San Martín': { id: 'ARG-22', badge: 'https://img.sofascore.com/api/v1/team/7772/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Platense': { id: 'ARG-23', badge: 'https://img.sofascore.com/api/v1/team/36837/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Defensa y Justicia': { id: 'ARG-24', badge: 'https://img.sofascore.com/api/v1/team/36839/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Sarmiento': { id: 'ARG-25', badge: 'https://img.sofascore.com/api/v1/team/42338/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Barracas': { id: 'ARG-26', badge: 'https://img.sofascore.com/api/v1/team/65668/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Central Córdoba': { id: 'ARG-27', badge: 'https://img.sofascore.com/api/v1/team/65676/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Everton (LP)': { id: 'ARG-28', badge: 'https://img.sofascore.com/api/v1/team/260041/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Instituto': { id: 'ARG-29', badge: 'https://img.sofascore.com/api/v1/team/4937/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Gimnasia Mendoza': { id: 'ARG-30', badge: 'https://img.sofascore.com/api/v1/team/188441/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Dep. Riestra': { id: 'ARG-31', badge: 'https://img.sofascore.com/api/v1/team/189723/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Ind. Rivadavia': { id: 'ARG-32', badge: 'https://img.sofascore.com/api/v1/team/36842/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Atlético Tucumán': { id: 'ARG-33', badge: 'https://img.sofascore.com/api/v1/team/36833/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Aldosivi': { id: 'ARG-34', badge: 'https://img.sofascore.com/api/v1/team/36836/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+  'Estudiantes de Río Cuarto': { id: 'ARG-35', badge: 'https://img.sofascore.com/api/v1/team/266694/image', country: 'ARG', type: TeamType.CLUB, tags: [] },
+});
+
+defineRivals(argentinaTeams['Boca Juniors'], argentinaTeams['River Plate']);
+
+export const ARGENTINA_TEAM_LIST = mapToTeamList(argentinaTeams);

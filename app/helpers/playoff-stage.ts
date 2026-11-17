@@ -1,6 +1,6 @@
+import { getTeamById } from '~/features/teams/helpers/team';
 import { isPlayoffRoundSeeded } from './playoff-round';
 import { getPlayoffRoundSlotWinner, newPlayoffRoundSlot } from './playoff-slot';
-import { getTeamById } from './team';
 
 export function newPlayoffStage(stageForm: StageForm, baseStage: BaseStage): PlayoffStage {
   const roundNames = getPlayoffRoundNames(stageForm.playoffRounds, stageForm.teams);

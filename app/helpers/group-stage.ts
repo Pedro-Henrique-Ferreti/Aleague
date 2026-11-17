@@ -1,6 +1,6 @@
+import { getTeamById } from '~/features/teams/helpers/team';
 import { isMatchComplete } from './match';
 import { getTableEntry, newStandingsEntry, sortTableEntries } from './standings';
-import { getTeamById } from './team';
 
 export function newGroupStage(stageForm: StageForm, baseStage: BaseStage): GroupStage {
   return {

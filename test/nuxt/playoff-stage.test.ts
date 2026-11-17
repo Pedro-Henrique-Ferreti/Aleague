@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DETAILED_TEAM_LIST } from '~/constants/teams';
+import { DETAILED_TEAM_LIST } from '~/features/teams/constants/teams';
 import { newPlayoffRoundSlot } from '~/helpers/playoff-slot';
 import { getPlayoffRoundNames, getPlayoffStageWinner, isPlayoffStageSeeded, newPlayoffStage } from '~/helpers/playoff-stage';
 

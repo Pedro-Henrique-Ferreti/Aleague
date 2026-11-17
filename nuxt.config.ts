@@ -13,10 +13,19 @@ export default defineNuxtConfig({
     '@regle/nuxt',
   ],
   imports: {
-    dirs: ['types', 'constants', 'utils'],
+    dirs: [
+      'types',
+      'constants',
+      'utils',
+      'features/*/types',
+      'features/*/constants',
+      'features/*/stores',
+      'features/*/composables',
+    ],
   },
   components: [
     { path: '~/components', pathPrefix: false },
+    { path: '~/features', pattern: '*/components/**/*.vue', pathPrefix: false },
   ],
   regle: {
     setupFile: '~/regle-config.ts',

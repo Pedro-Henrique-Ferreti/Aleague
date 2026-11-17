@@ -1,5 +1,5 @@
+import { getTeamById } from '~/features/teams/helpers/team';
 import { getRandomScore, getSimulatedMatchScore } from './match-score';
-import { getTeamById } from './team';
 
 export function simulateMatchScore(homeTeamId: Match['homeTeam']['id'], awayTeamId: Match['awayTeam']['id']) {
   const homeTeam = getTeamById(homeTeamId);

@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import { IconTrophy, IconWand } from '@tabler/icons-vue';
-import { NATIONAL_TEAMS } from '~/constants/teams/national';
+import { NATIONAL_TEAMS } from '~/features/teams/constants/teams/national';
 
 const DECORATIVE_TABLE_ROWS: ReadonlyArray<Readonly<{
   name: TeamDetails['name'];

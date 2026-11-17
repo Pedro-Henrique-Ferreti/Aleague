@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 import type { StandingsFormChartProps } from './StandingsFormChart.vue';
-import { getTeamById } from '@/helpers/team.js';
+import { getTeamById } from '~/features/teams/helpers/team';
 import { getTableEntriesByWeek } from '~/helpers/standings';
 
 const props = defineProps<{

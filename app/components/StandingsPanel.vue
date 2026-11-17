@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '@/helpers/team';
+import { getTeamById } from '~/features/teams/helpers/team';
 import { isCollectionFile } from '~/helpers/file';
 import { getGroupName, isGroupStageSeeded } from '~/helpers/group-stage';
 import { isPlayoffStageSeeded } from '~/helpers/playoff-stage';

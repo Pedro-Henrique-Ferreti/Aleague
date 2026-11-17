@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '@/helpers/team';
+import { getTeamById } from '~/features/teams/helpers/team';
 
 const props = defineProps<{
   position: number;

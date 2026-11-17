@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import { IconCheck, IconSparkles } from '@tabler/icons-vue';
-import { NATIONAL_TEAMS } from '~/constants/teams/national';
+import { NATIONAL_TEAMS } from '~/features/teams/constants/teams/national';
 
 const COUNTRY_FLAGS = [
   NATIONAL_TEAMS.BRAZIL.badge,
