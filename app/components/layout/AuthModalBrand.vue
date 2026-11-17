@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import { NATIONAL_TEAMS } from '~/features/teams/constants/teams/national';
+import { NATIONAL_TEAMS } from '~/features/teams/constants/team-lists/national';
 
 const DECORATIVE_TABLE_ROWS: ReadonlyArray<Readonly<{
   name: TeamDetails['name'];

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CUSTOM_TEAM_LIST } from '~/features/teams/constants/teams/custom';
-import { ENGLAND_TEAM_LIST } from '~/features/teams/constants/teams/england';
+import { CUSTOM_TEAM_LIST } from '~/features/teams/constants/team-lists/custom';
+import { ENGLAND_TEAM_LIST } from '~/features/teams/constants/team-lists/england';
 import { getRandomScore, getSimulatedMatchScore } from '~/features/tournament/helpers/match-score';
 import { simulateMatchScore } from '~/features/tournament/helpers/match-simulation';
 
