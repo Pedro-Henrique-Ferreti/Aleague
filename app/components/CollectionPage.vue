@@ -14,7 +14,21 @@
         </template>
       </TournamentFormModal>
     </div>
-    <CollectionTournamentsTable v-if="Object.values(collectionStore.activeCollection?.data.tournaments ?? {}).length" />
+    <ul
+      v-if="tournaments.length"
+      class="grid grid-cols-[repeat(auto-fill,minmax(17rem,1fr))] gap-1"
+    >
+      <li
+        v-for="tournament in tournaments"
+        :key="tournament.id"
+        class="grid"
+      >
+        <TournamentPreviewCard
+          :tournament="tournament"
+          :file-id="collectionStore.activeCollection!.id"
+        />
+      </li>
+    </ul>
     <div
       v-else
       class="flex flex-col items-center text-center max-w-1/3 m-auto"
@@ -34,6 +48,8 @@ import IconFile from '@/assets/icons/File.svg';
 import { newTournament } from '~/helpers/tournament';
 
 const collectionStore = useCollectionStore();
+
+const tournaments = computed(() => Object.values(collectionStore.activeCollection?.data.tournaments ?? {}));
 
 function handleCreateTournament(form: TournamentForm) {
   if (collectionStore.activeCollection) {
