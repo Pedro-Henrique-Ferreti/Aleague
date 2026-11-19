@@ -65,7 +65,7 @@ Dependency direction: `teams` ← `tournament` ← `collection` ← `files` ← 
 
 Tests live outside `app/`, in `test/`:
 - `test/nuxt/<feature>/*.test.ts` — run in the Nuxt environment (needed because helpers use auto-imported types and enums). They mirror helpers one-to-one (`tournament/helpers/match-score.ts` → `test/nuxt/tournament/match-score.test.ts`).
-- `test/unit/` — plain Node tests, currently only `utils`.
+- `test/unit/` — plain Node tests, currently only `utils` (`utils.test.ts`, `array.test.ts`, `date.test.ts`).
 - `test/mocks/<feature>.ts` — shared builders (`mockTournament`, `mockCollectionFile`…). A feature's mocks may use other features' mocks, never the reverse.
 
 ### Auto-imports
