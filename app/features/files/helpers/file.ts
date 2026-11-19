@@ -2,8 +2,6 @@ const FILE_SUFFIX_REGEX = /\(\d+\)/;
 
 export const newBaseFileId = (): BaseFile['id'] => uuidv4();
 
-export const newTimestamp = (): Timestamp => new Date().toISOString() as Timestamp;
-
 export function newTournamentFile(tournament: Tournament): TournamentFile {
   return {
     id: newBaseFileId(),

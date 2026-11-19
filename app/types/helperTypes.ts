@@ -6,3 +6,5 @@ export type Entries<T> = Array<{
 >;
 
 export type UUID = Branded<string, 'UUID'>;
+
+export type Timestamp = Branded<string, 'Timestamp'>;

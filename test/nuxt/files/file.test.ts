@@ -1,18 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { appendNumericSuffix, isCollectionFile, isTournamentFile, newTimestamp, setUpdatedAtTimestampIfDirty } from '~/features/files/helpers/file';
+import { appendNumericSuffix, isCollectionFile, isTournamentFile, setUpdatedAtTimestampIfDirty } from '~/features/files/helpers/file';
 import { mockCollectionFile, mockTournamentFile } from '../../mocks/files';
 import { mockTournament } from '../../mocks/tournament';
 
 describe('file', () => {
-  describe('newTimestamp', () => {
-    it('should return a valid ISO date string', () => {
-      const result = newTimestamp();
-      const parsed = new Date(result);
-
-      expect(parsed.toISOString()).toBe(result);
-    });
-  });
-
   describe('appendNumericSuffix', () => {
     it('should return the original name with (1) when no tournaments exist', () => {
       const result = appendNumericSuffix('My Tournament', []);

@@ -3,8 +3,6 @@ export enum SourceFileType {
   TOURNAMENT,
 }
 
-export type Timestamp = Branded<string, 'Timestamp'>;
-
 export interface BaseFile {
   id: UUID;
   type: SourceFileType;

@@ -1,7 +1,16 @@
 import { describe, expect, it } from 'vitest';
-import { clone, createArray, formatDate, getRandomItem, getShortestItem, hasChanges, matchesSearch, normalizeString } from '../../app/utils';
+import { clone, createArray, formatDate, getRandomItem, getShortestItem, hasChanges, matchesSearch, newTimestamp, normalizeString } from '../../app/utils';
 
 describe('utils', () => {
+  describe('newTimestamp', () => {
+    it('should return a valid ISO date string', () => {
+      const result = newTimestamp();
+      const parsed = new Date(result);
+
+      expect(parsed.toISOString()).toBe(result);
+    });
+  });
+
   describe('formatDate', () => {
     it('should handle empty params', () => {
       expect(formatDate()).toBe('');
