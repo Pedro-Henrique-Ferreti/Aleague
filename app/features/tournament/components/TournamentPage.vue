@@ -1,15 +1,5 @@
 <template>
-  <div class="grid gap-1 min-h-6.25 mb-2 tablet-lg:grid-cols-[1fr_auto]">
-    <TournamentProfileCard />
-    <div class="flex flex-col items-end">
-      <TournamentStageOptions v-if="activeStage" />
-      <TournamentWinnerBadge
-        v-if="activeTournamentWinner"
-        class="mt-1"
-        :winner="activeTournamentWinner"
-      />
-    </div>
-  </div>
+  <TournamentPageHeader />
   <div
     v-if="activeTournament?.stages.length === 0"
     class="max-w-44 min-h-10 mt-4 mx-auto card card-border"
@@ -28,7 +18,7 @@
     </div>
   </div>
   <template v-else>
-    <TournamentStageSelector />
+    <TournamentStageNavigation />
     <TournamentGroupStage
       v-if="activeStage && activeStage.type === StageType.GROUP"
       v-model="activeStage"
@@ -45,7 +35,7 @@
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
 
-const { activeTournament, activeTournamentWinner } = storeToRefs(useTournamentStore());
+const { activeTournament } = storeToRefs(useTournamentStore());
 const { activeStage } = storeToRefs(useStageStore());
 const { selectedStageOrPlayoffRoundId } = storeToRefs(useStageSelectorStore());
 </script>
