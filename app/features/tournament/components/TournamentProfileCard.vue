@@ -10,13 +10,13 @@
         <h1 class="text-3xl font-medium">{{ tournament?.name }}</h1>
         <div class="tournament-profile__badges | badge-container">
           <AppBadge
-            class="badge-soft badge-secondary"
+            class="badge-soft badge-secondary badge-sm"
             :icon="IconClock"
             :text="formatDate(tournament?.createdAt, 'd MMM yyyy')"
           />
           <AppBadge
             v-if="tournament?.updatedAt"
-            class="badge-soft badge-secondary"
+            class="badge-soft badge-secondary badge-sm"
             :icon="IconPencil"
             :text="formatDate(tournament?.updatedAt, 'd MMM yyyy')"
           />
