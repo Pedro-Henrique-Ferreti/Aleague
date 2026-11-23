@@ -2,7 +2,7 @@
   <div class="flex items-center gap-1.5">
     <IconFolder class="w-auto h-5" />
     <div>
-      <h1 class="text-2xl font-medium mb-0.25">{{ collectionStore.activeCollection?.data.name }}</h1>
+      <h1 class="text-3xl font-medium mb-0.25">{{ collectionStore.activeCollection?.data.name }}</h1>
       <AppBadge
         class="badge-soft badge-secondary badge-sm"
         :icon="IconClock"
