@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-center h-fit gap-1.5">
     <img
-      class="w-auto h-6 self-baseline"
+      class="w-auto h-5 self-baseline"
       alt="Logo do campeonato"
       :src="tournament?.icon"
     >
