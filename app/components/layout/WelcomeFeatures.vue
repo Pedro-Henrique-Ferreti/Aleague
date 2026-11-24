@@ -7,9 +7,6 @@
       <h2 class="mt-0.5 text-3xl font-semibold tracking-tight tablet:text-4xl">
         Tudo o que um campeonato precisa
       </h2>
-      <p class="mt-0.75 text-base leading-relaxed text-base-content/70">
-        Cada detalhe existe para você controlar e compartilhar seus campeonatos do modo que desejar — sem depender de planilha ou papel.
-      </p>
     </header>
     <div class="mt-2.5 grid gap-1 tablet:grid-cols-2 tablet-lg:grid-cols-3">
       <article
@@ -37,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { type Icon, IconBowl, IconFolder, IconTable, IconTournament, IconWand, IconWorld } from '@tabler/icons-vue';
+import { type Icon, IconBowl, IconFileDescription, IconTable, IconTournament, IconWand, IconWorld } from '@tabler/icons-vue';
 
 interface AppFeature {
   icon: Icon;
@@ -54,27 +51,27 @@ const APP_FEATURES: ReadonlyArray<Readonly<AppFeature>> = [
   {
     icon: IconBowl,
     title: 'Sorteio por pote',
-    description: 'O sorteio distribui as equipes na hora — ou preencha cada grupo e partida manualmente, como quiser.',
+    description: 'Distribua as equipes por potes e realize o sorteio, ou preencha cada grupo manualmente.',
   },
   {
     icon: IconWand,
     title: 'Simulação instantânea',
-    description: 'Simule partidas, rodadas, ou até mesmo campeonatos inteiros: resultados e classificação se atualizam automaticamente.',
+    description: 'Simule partidas, rodadas, ou campeonatos inteiros e a classificação atualiza em tempo real.',
   },
   {
     icon: IconTable,
     title: 'Classificação completa',
-    description: 'Pontos, vitórias, empates, saldo de gols e a forma recente de cada equipe, com legendas customizáveis.',
+    description: 'Pontos, vitórias, empates, saldo de gols e o desempenho de cada equipe, com legendas customizáveis.',
   },
   {
-    icon: IconFolder,
-    title: 'Coleções e arquivos',
-    description: 'Organize seus campeonatos em coleções, salve-os em seu computador ou compartilhe-os com amigos.',
+    icon: IconFileDescription,
+    title: 'Salve em arquivos',
+    description: 'A qualquer momento, você pode exportar seus campeonatos e compartilhar com seus amigos.',
   },
   {
     icon: IconWorld,
     title: 'Equipes do mundo inteiro',
-    description: 'Times de dezenas de ligas e seleções, com escudo e bandeira de cada país.',
+    description: 'Mais de 1200 clubes e seleções de dezenas de países para escolher.',
   },
 ];
 </script>

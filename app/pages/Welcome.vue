@@ -5,7 +5,7 @@
         <AuthModal>
           <template #trigger="{ openModal }">
             <AppButton
-              class="btn-outline btn-primary btn-sm"
+              class="btn-outline btn-sm border-gray-300"
               label="Criar uma conta"
               @click="openModal('create-account')"
             />
@@ -45,11 +45,6 @@ watch(() => fileStore.hasImportedFiles, () => {
   @apply relative;
   &::after {
     @apply absolute inset-0 content-[''] -z-10;
-    background-image:
-      linear-gradient(to right, color-mix(in oklab, var(--color-base-content) 8%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in oklab, var(--color-base-content) 8%, transparent) 1px, transparent 1px);
-    background-size: 3rem 3rem;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent);
   }
 }
 </style>

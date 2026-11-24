@@ -39,15 +39,15 @@ interface Step {
 const STEPS: ReadonlyArray<Readonly<Step>> = [
   {
     title: 'Importe ou crie',
-    description: 'Abra um arquivo do Alegue ou crie um campeonato com nome e logo.',
+    description: 'Abra um arquivo do Alegue ou inicie um novo campeonato.',
   },
   {
     title: 'Monte as fases',
-    description: 'Adicione as equipes, faça o sorteio por pote e defina rodadas, turnos e o formato da disputa.',
+    description: 'Definas as fases e as regras, adicione as equipes, e realize o sorteio.',
   },
   {
     title: 'Simule e acompanhe',
-    description: 'Simule os resultados das partidas ou preencha manualmente e veja a tabela atualizar em tempo real.',
+    description: 'Simule os resultados das partidas ou preencha manualmente.',
   },
 ];
 </script>
