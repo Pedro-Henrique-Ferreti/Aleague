@@ -12,7 +12,7 @@
       <article
         v-for="feature, index in APP_FEATURES"
         :key="index"
-        class="card card-border transition-shadow hover:border-primary/60 hover:shadow-lg"
+        class="card card-border transition-shadow hover:border-primary/60 hover:shadow-lg bg-base-200/30"
       >
         <div class="card-body gap-0 p-1.25">
           <span class="flex size-2.5 items-center justify-center rounded-xl bg-primary/10 text-primary">

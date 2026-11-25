@@ -20,7 +20,6 @@
       <main class="container-md grid gap-5 pb-4 pt-3 desktop:pb-6 desktop:gap-7">
         <WelcomeHero />
         <WelcomeFeatures />
-        <WelcomeStepsCard />
       </main>
       <footer class="border-t border-base-200 py-1.5 text-center text-xs text-base-content/50">
         Aleague · Crie e simule seus campeonatos
