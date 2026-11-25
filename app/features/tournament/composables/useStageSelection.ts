@@ -5,8 +5,6 @@ export function useStageSelection() {
   const selectedStageId = ref<TournamentStage['id']>();
   const selectedPlayoffRoundId = ref<PlayoffRound['id']>();
 
-  const stageOptions = computed(() => tournamentStore.activeTournament?.stages ?? []);
-
   watchEffect(() => {
     selectedStageId.value = tournamentStore.activeTournament?.stages[0]?.id;
   });
@@ -18,6 +16,5 @@ export function useStageSelection() {
   return {
     selectedStageId,
     selectedPlayoffRoundId,
-    stageOptions,
   };
 }

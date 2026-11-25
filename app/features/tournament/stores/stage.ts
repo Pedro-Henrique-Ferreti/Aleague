@@ -3,23 +3,20 @@ import { resetMatchScore } from '~/features/tournament/helpers/match-score';
 import { replacePlayoffRoundTeams } from '~/features/tournament/helpers/playoff-round';
 import { newStandingsEntry } from '~/features/tournament/helpers/standings';
 import { useStageSelection } from '../composables/useStageSelection';
+import { getTournamentStageList } from '../helpers/tournament';
 
 export const useStageStore = defineStore('stage', () => {
   const tournamentStore = useTournamentStore();
   const { activeTournament } = storeToRefs(tournamentStore);
-  const { selectedStageId, selectedPlayoffRoundId, stageOptions } = useStageSelection();
+  const { selectedStageId, selectedPlayoffRoundId } = useStageSelection();
 
   const legendsModalIsOpen = ref(false);
 
-  const activeStageIndex = computed(() => {
-    return activeTournament.value?.stages.findIndex(stage => stage.id === selectedStageId.value) ?? -1;
-  });
-
   const activeStage = computed({
-    get: () => activeTournament.value?.stages[activeStageIndex.value],
+    get: () => selectedStageId.value ? activeTournament.value?.stages[selectedStageId.value] : undefined,
     set(value: TournamentStage) {
-      if (activeTournament.value?.stages[activeStageIndex.value]) {
-        activeTournament.value.stages[activeStageIndex.value] = value;
+      if (selectedStageId.value && activeTournament.value) {
+        activeTournament.value.stages[selectedStageId.value] = value;
       }
     },
   });
@@ -45,9 +42,10 @@ export const useStageStore = defineStore('stage', () => {
   }
 
   function deleteActiveStage() {
-    if (!activeTournament.value || !activeStage.value) return;
-
-    activeTournament.value.stages = activeTournament.value.stages.filter(stage => stage.id !== activeStage.value?.id);
+    if (activeTournament.value && activeStage.value) {
+      delete activeTournament.value.stages[activeStage.value.id];
+      selectedStageId.value = getTournamentStageList(activeTournament.value.stages).at(-1)?.id;
+    }
   }
 
   function updateActiveStageTeams(form: StageSeedingForm) {
@@ -94,7 +92,6 @@ export const useStageStore = defineStore('stage', () => {
   return {
     selectedStageId,
     selectedPlayoffRoundId,
-    stageOptions,
     activeStage,
     activeGroupStage,
     activePlayoffStage,

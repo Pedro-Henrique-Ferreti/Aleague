@@ -1,8 +1,27 @@
 import { describe, expect, it } from 'vitest';
+import { mockPlayoffStage, mockTournament } from '~~/test/mocks/tournament';
 import { newLegendDescription } from '~/features/tournament/helpers/group-stage';
-import { copyTournament, getTournamentWinner, newTournament, newTournamentStage } from '~/features/tournament/helpers/tournament';
+import { copyTournament, getTournamentStageList, getTournamentWinner, newTournament, newTournamentStage } from '~/features/tournament/helpers/tournament';
 
 describe('tournament', () => {
+  describe('getTournamentStageList', () => {
+    it('should sort stages by their sequence', () => {
+      const tournament = mockTournament();
+      const firstStage = mockPlayoffStage();
+
+      tournament.stages[firstStage.id] = firstStage;
+
+      const secondStage = mockPlayoffStage(undefined, tournament.stages);
+
+      tournament.stages[secondStage.id] = secondStage;
+
+      const stages = getTournamentStageList(tournament.stages);
+
+      expect(stages[0]?.id).toBe(firstStage.id);
+      expect(stages[1]?.id).toBe(secondStage.id);
+    });
+  });
+
   describe('newTournamentStage', () => {
     it('should create a group stage when type is GROUP', () => {
       const result = newTournamentStage({

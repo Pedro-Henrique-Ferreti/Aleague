@@ -59,7 +59,7 @@ export interface Tournament {
   icon: string;
   createdAt: Timestamp;
   updatedAt: Timestamp | null;
-  stages: TournamentStage[];
+  stages: Record<TournamentStage['id'], TournamentStage>;
   tags: string[];
   showCountry: boolean;
 };

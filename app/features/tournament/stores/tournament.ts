@@ -60,7 +60,9 @@ export const useTournamentStore = defineStore('tournament', () => {
   function addStage(form: StageForm) {
     if (!activeTournament.value) return;
 
-    activeTournament.value.stages.push(newTournamentStage(form, activeTournament.value.stages));
+    const stage = newTournamentStage(form, activeTournament.value.stages);
+
+    activeTournament.value.stages[stage.id] = stage;
   }
 
   return {

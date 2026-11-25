@@ -79,6 +79,7 @@
 <script lang="ts" setup>
 import { IconCaretDownFilled, IconSearch } from '@tabler/icons-vue';
 import { getTeamById } from '~/features/teams/helpers/team';
+import { getTournamentStageList } from '~/features/tournament/helpers/tournament';
 
 /* eslint-disable ts/prefer-literal-enum-member */
 // This is needed to allow using TeamType values as SelectOption values without type issues.
@@ -138,7 +139,7 @@ watch([() => form.value.filter, () => form.value.country], () => {
 });
 
 const teamsInTournament = computed(() => {
-  const stages = tournamentStore.activeTournament!.stages.filter(s => s.id !== props.stageId);
+  const stages = getTournamentStageList(tournamentStore.activeTournament?.stages).filter(s => s.id !== props.stageId);
 
   return stages.flatMap((stage) => {
     if (stage.type === StageType.GROUP) {

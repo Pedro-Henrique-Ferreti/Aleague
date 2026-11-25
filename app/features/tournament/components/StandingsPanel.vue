@@ -63,6 +63,7 @@ import { isCollectionFile } from '~/features/files/helpers/file';
 import { getTeamById } from '~/features/teams/helpers/team';
 import { getGroupName, isGroupStageSeeded } from '~/features/tournament/helpers/group-stage';
 import { isPlayoffStageSeeded } from '~/features/tournament/helpers/playoff-stage';
+import { getTournamentStageList } from '../helpers/tournament';
 
 const props = defineProps<{
   selectedTeams: Team['id'][];
@@ -96,10 +97,10 @@ const selectedTournament = ref(props.initialTournament ?? tournamentOptions.valu
 const selectedStage = ref<TournamentStage>();
 
 const stageOptions = computed(() => {
-  return selectedTournament.value?.stages.map((stage): SelectOption<TournamentStage> => ({
+  return getTournamentStageList(selectedTournament.value?.stages).map((stage): SelectOption<TournamentStage> => ({
     label: stage.name,
     value: stage,
-  })) ?? [];
+  }));
 });
 
 watchEffect(() => {

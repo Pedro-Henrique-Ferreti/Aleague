@@ -1,7 +1,7 @@
 <template>
   <TournamentPageHeader />
   <div
-    v-if="tournamentStore.activeTournament?.stages.length === 0"
+    v-if="getTournamentStageList(tournamentStore.activeTournament?.stages).length === 0"
     class="max-w-44 min-h-10 mt-4 mx-auto card card-border"
   >
     <div class="card-body text-center">
@@ -33,6 +33,7 @@
 
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
+import { getTournamentStageList } from '../helpers/tournament';
 
 const tournamentStore = useTournamentStore();
 const stageStore = useStageStore();

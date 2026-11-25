@@ -2,7 +2,7 @@
   <div class="flex gap-1 mb-2">
     <AppTablist class="grow">
       <AppTab
-        v-for="option in stageStore.stageOptions"
+        v-for="option in getTournamentStageList(tournamentStore.activeTournament?.stages)"
         :key="option.id"
         class="basis-1/2 @min-[35rem]/main:basis-1/4 @min-[56rem]/main:basis-1/5"
         :label="option.name"
@@ -74,7 +74,9 @@
 
 <script lang="ts" setup>
 import { IconDotsVertical, IconPencil, IconPlus, IconTrash, IconUsersGroup } from '@tabler/icons-vue';
+import { getTournamentStageList } from '../helpers/tournament';
 
+const tournamentStore = useTournamentStore();
 const stageStore = useStageStore();
 
 const stageFormModalMode = ref<'create' | 'edit'>();
