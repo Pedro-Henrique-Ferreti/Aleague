@@ -2,23 +2,17 @@ import { replaceGroupStageTeams } from '~/features/tournament/helpers/group-stag
 import { resetMatchScore } from '~/features/tournament/helpers/match-score';
 import { replacePlayoffRoundTeams } from '~/features/tournament/helpers/playoff-round';
 import { newStandingsEntry } from '~/features/tournament/helpers/standings';
+import { useStageSelection } from '../composables/useStageSelection';
 
 export const useStageStore = defineStore('stage', () => {
   const tournamentStore = useTournamentStore();
-  const stageSelectorStore = useStageSelectorStore();
   const { activeTournament } = storeToRefs(tournamentStore);
-  const { selectedStageOrPlayoffRoundId } = storeToRefs(stageSelectorStore);
+  const { selectedStageId, selectedPlayoffRoundId, stageOptions } = useStageSelection();
 
   const legendsModalIsOpen = ref(false);
 
   const activeStageIndex = computed(() => {
-    return activeTournament.value?.stages.findIndex((stage) => {
-      if (stage.type === StageType.GROUP) {
-        return stage.id === selectedStageOrPlayoffRoundId.value;
-      }
-
-      return stage.rounds.some(round => round.id === selectedStageOrPlayoffRoundId.value);
-    }) ?? -1;
+    return activeTournament.value?.stages.findIndex(stage => stage.id === selectedStageId.value) ?? -1;
   });
 
   const activeStage = computed({
@@ -98,8 +92,10 @@ export const useStageStore = defineStore('stage', () => {
   }
 
   return {
+    selectedStageId,
+    selectedPlayoffRoundId,
+    stageOptions,
     activeStage,
-    activeStageIndex,
     activeGroupStage,
     activePlayoffStage,
     legendsModalIsOpen,

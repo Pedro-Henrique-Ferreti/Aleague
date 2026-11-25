@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-full items-center">
     <div
-      class="card card-border dropdown dropdown-hover p-0.75 order-1 w-full group"
+      class="card card-border dropdown dropdown-hover p-0.75 order-1 w-full bg-base-100 group"
       :class="[dropdownPosition === 'left' ? 'dropdown-left' : 'dropdown-right']"
     >
       <MatchCard

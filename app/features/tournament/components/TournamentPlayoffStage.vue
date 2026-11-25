@@ -1,5 +1,6 @@
 <template>
   <div ref="container">
+    <TournamentPlayoffStageControls />
     <div
       class="grid grid-cols-(--columns) justify-center gap-6.25"
       :style="`--columns: repeat(${displayedRoundsCount}, 1fr)`"
@@ -26,9 +27,7 @@ type SlotResult = Pick<Parameters<typeof moveTeamToNextRound>[1], 'newWinner' | 
   roundIndex: number;
 };
 
-const props = defineProps<{
-  activeRoundId: PlayoffRound['id'];
-}>();
+const stageStore = useStageStore();
 
 const containerEl = useTemplateRef('container');
 
@@ -53,7 +52,7 @@ useResizeObserver(containerEl, ([entry]) => {
 const stage = defineModel<PlayoffStage>({ required: true });
 
 const activeRoundIndex = computed(() => (
-  stage.value.rounds.findIndex(round => round.id === props.activeRoundId)
+  stage.value.rounds.findIndex(round => round.id === stageStore.selectedPlayoffRoundId)
 ));
 
 const displayedRoundsId = computed(() => (

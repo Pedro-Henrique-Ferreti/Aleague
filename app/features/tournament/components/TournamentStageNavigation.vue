@@ -1,13 +1,13 @@
 <template>
-  <div class="flex gap-1 mb-1.5">
+  <div class="flex gap-1 mb-2">
     <AppTablist class="grow">
       <AppTab
-        v-for="option in stageSelectorStore.selectionOptions"
+        v-for="option in stageStore.stageOptions"
         :key="option.id"
         class="basis-1/2 @min-[35rem]/main:basis-1/4 @min-[56rem]/main:basis-1/5"
         :label="option.name"
-        :is-active="stageSelectorStore.selectedStageOrPlayoffRoundId === option.id"
-        @click="stageSelectorStore.selectedStageOrPlayoffRoundId = option.id"
+        :is-active="stageStore.selectedStageId === option.id"
+        @click="stageStore.selectedStageId = option.id"
       />
       <BaseButton
         class="tab"
@@ -75,7 +75,6 @@
 <script lang="ts" setup>
 import { IconDotsVertical, IconPencil, IconPlus, IconTrash, IconUsersGroup } from '@tabler/icons-vue';
 
-const stageSelectorStore = useStageSelectorStore();
 const stageStore = useStageStore();
 
 const stageFormModalMode = ref<'create' | 'edit'>();

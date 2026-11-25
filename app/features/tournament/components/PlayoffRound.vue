@@ -1,7 +1,7 @@
 <template>
   <div class="round">
     <div class="flex justify-center items-center px-2.5 min-h-2 relative">
-      <h2 class="text-lg text-center font-medium">{{ round.name }}</h2>
+      <h2 class="text-base text-center font-medium">{{ round.name }}</h2>
       <div class="absolute top-0 right-0">
         <PlayoffRoundOptions v-model="round" />
       </div>
@@ -36,7 +36,7 @@ const round = defineModel<PlayoffRound>({ required: true });
 @reference '@/assets/css/main.css';
 
 .round {
-  @apply grid gap-1.5 grid-rows-[auto_1fr] not-first:[&_.bracket]:mb-0! first:[&_.bracket]:before:hidden! first:[&_.bracket]:after:hidden!;
+  @apply grid gap-1 grid-rows-[auto_1fr] not-first:[&_.bracket]:mb-0! first:[&_.bracket]:before:hidden! first:[&_.bracket]:after:hidden!;
 }
 
 .bracket {

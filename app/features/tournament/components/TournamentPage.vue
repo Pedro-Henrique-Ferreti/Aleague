@@ -1,7 +1,7 @@
 <template>
   <TournamentPageHeader />
   <div
-    v-if="activeTournament?.stages.length === 0"
+    v-if="tournamentStore.activeTournament?.stages.length === 0"
     class="max-w-44 min-h-10 mt-4 mx-auto card card-border"
   >
     <div class="card-body text-center">
@@ -20,14 +20,13 @@
   <template v-else>
     <TournamentStageNavigation />
     <TournamentGroupStage
-      v-if="activeStage && activeStage.type === StageType.GROUP"
-      v-model="activeStage"
-      :key="activeStage.id"
+      v-if="stageStore.activeStage && stageStore.activeStage.type === StageType.GROUP"
+      v-model="stageStore.activeStage"
+      :key="stageStore.activeStage.id"
     />
     <TournamentPlayoffStage
-      v-else-if="activeStage && activeStage.type === StageType.PLAYOFF"
-      v-model="activeStage"
-      :active-round-id="(selectedStageOrPlayoffRoundId as PlayoffRound['id'])"
+      v-else-if="stageStore.activeStage && stageStore.activeStage.type === StageType.PLAYOFF"
+      v-model="stageStore.activeStage"
     />
   </template>
 </template>
@@ -35,7 +34,6 @@
 <script setup lang="ts">
 import { IconPlus } from '@tabler/icons-vue';
 
-const { activeTournament } = storeToRefs(useTournamentStore());
-const { activeStage } = storeToRefs(useStageStore());
-const { selectedStageOrPlayoffRoundId } = storeToRefs(useStageSelectorStore());
+const tournamentStore = useTournamentStore();
+const stageStore = useStageStore();
 </script>

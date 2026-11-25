@@ -21,7 +21,7 @@ export const STAGE_FORM = {
   MIN_GROUPS: 1,
   MAX_GROUPS: 32,
   DEFAULT_GROUP_STAGE_NAME: 'Fase de Liga',
-  DEFAULT_PLAYOFF_STAGE_NAME: 'Playoffs',
+  DEFAULT_PLAYOFF_STAGE_NAME: 'Fase eliminatória',
 } as const;
 
 export const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
