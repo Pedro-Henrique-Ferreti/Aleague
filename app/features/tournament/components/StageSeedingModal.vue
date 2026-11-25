@@ -31,11 +31,11 @@
         class="flex-1 @container/groups"
       >
         <div class="flex gap-1 mb-2 relative justify-between @min-[56rem]/groups:justify-center">
-          <TeamSearchInput
+          <StageSeedingTeamSelect
             ref="team-search"
             :stage-id="stage.id"
             :selected-teams="selectedTeams"
-            @select="onSelectTeam"
+            @select-team="onSelectTeam"
           />
           <div class="flex gap-0.75 right-0 absolute">
             <StageSeedingRandomButton
@@ -149,7 +149,7 @@ function onOpenModal() {
   form.value = newStageSeedingForm(props.stage);
 }
 
-function onSelectTeam(team: Team) {
+function onSelectTeam(team: TeamDetails) {
   const group = form.value.groups.find(i => i.teams.includes(null));
 
   if (!group) return;

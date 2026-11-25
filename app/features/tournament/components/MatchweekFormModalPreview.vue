@@ -24,7 +24,7 @@
       class="mb-1"
       message="Não foi possível criar a quantidade escolhida de rodadas. Se desejar, você pode alterar as configurações da fase ou das partidas."
     />
-    <TeamListFilter
+    <TeamMultiSelect
       v-model="store.previewFilter.highlightedTeams"
       title="Destacar"
       :options="teamListOptions"
@@ -34,7 +34,7 @@
         label="Destacar apenas partidas entre as equipes"
         size="sm"
       />
-    </TeamListFilter>
+    </TeamMultiSelect>
     <div class="grid gap-1 gap-y-1.5 mt-1.5 tablet-md:grid-cols-2 desktop:grid-cols-3">
       <MatchweekFormModalPreviewCard
         v-for="matchweek in store.matchweekList?.matchweeks"

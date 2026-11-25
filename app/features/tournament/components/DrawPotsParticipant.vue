@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import { IconArrowRightToArc } from '@tabler/icons-vue';
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 
 defineProps<{
   participant: DrawParticipant;

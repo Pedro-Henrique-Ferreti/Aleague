@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center gap-[0.325rem]">
-    <TeamForm
+    <TeamPerformance
       v-for="index in (autoFill > form.length) ? autoFill : form.length"
       :key="index"
       :form="form[index - 1] ?? null"

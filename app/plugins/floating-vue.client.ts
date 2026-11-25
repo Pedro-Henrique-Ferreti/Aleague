@@ -9,7 +9,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         distance: 8,
         overflowPadding: 12,
       },
-      'team-form': {
+      'team-performance': {
         $extend: 'menu',
         $resetCss: true,
         arrowOverflow: false,

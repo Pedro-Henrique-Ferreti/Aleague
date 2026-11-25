@@ -23,8 +23,8 @@
 
 <script lang="ts" setup>
 import type { StandingsFormChartProps } from './StandingsFormChart.vue';
-import { getTeamById } from '~/features/teams/helpers/team';
 import { getTableEntriesByWeek } from '~/features/tournament/helpers/standings';
+import { getTeamById } from '~/helpers/team.ts';
 
 const props = defineProps<{
   standings: GroupStageGroup['standings'];

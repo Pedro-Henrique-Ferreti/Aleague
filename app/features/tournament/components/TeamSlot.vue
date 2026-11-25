@@ -23,10 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
-  teamId?: Team['id'] | null;
+  teamId?: TeamDetails['id'] | null;
   team?: TeamDetails;
   showClearButton?: boolean;
 }>();

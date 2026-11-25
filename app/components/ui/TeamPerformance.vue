@@ -8,7 +8,7 @@
     v-else
     :key="form.match.id"
     class="data-[ring=true]:[&_svg]:outline-2"
-    theme="team-form"
+    theme="team-performance"
     :auto-hide="false"
     :disabled="tooltipDisabled"
   >
@@ -63,8 +63,8 @@ import IconCheckCircle from '@/assets/icons/CheckCircle.svg';
 import IconCircleMinus from '@/assets/icons/CircleMinus.svg';
 import IconEmptyCircle from '@/assets/icons/EmptyCircle.svg';
 import IconErrorCircle from '@/assets/icons/ErrorCircle.svg';
-import { getTeamById } from '~/features/teams/helpers/team';
 import { getKickoffDisplayText } from '~/features/tournament/helpers/match';
+import { getTeamById } from '~/helpers/team';
 
 defineProps<{
   form: TableEntryForm | null;

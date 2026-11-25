@@ -34,11 +34,11 @@
 <script lang="ts" setup>
 const props = defineProps<{
   stage: PlayoffStage;
-  disabledTeams: Team['id'][];
+  disabledTeams: TeamDetails['id'][];
 }>();
 
 defineEmits<{
-  selectTeam: [Team['id']];
+  selectTeam: [TeamDetails['id']];
 }>();
 
 const tournamentStore = useTournamentStore();

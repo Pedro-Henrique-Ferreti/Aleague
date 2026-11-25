@@ -70,8 +70,8 @@ const emit = defineEmits<{
   matchUpdated: [MatchWithOldScore];
   focus: [];
   blur: [];
-  homeTeamClick: [Team['id']?];
-  awayTeamClick: [Team['id']?];
+  homeTeamClick: [TeamDetails['id']?];
+  awayTeamClick: [TeamDetails['id']?];
 }>();
 
 const homeScore = defineModel<Match['homeTeam']['score']>('home-score');

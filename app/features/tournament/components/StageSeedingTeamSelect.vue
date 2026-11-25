@@ -31,7 +31,7 @@
           <button
             class="cursor-pointer py-0.5 px-0.75 rounded-lg transition-colors duration-200 hover:bg-base-200 focus:bg-base-200"
             type="button"
-            @click="$emit('select', { id: team.id, name: team.name })"
+            @click="$emit('selectTeam', team)"
           >
             <img
               class="size-1.25"
@@ -78,8 +78,8 @@
 
 <script lang="ts" setup>
 import { IconCaretDownFilled, IconSearch } from '@tabler/icons-vue';
-import { getTeamById } from '~/features/teams/helpers/team';
 import { getTournamentStageList } from '~/features/tournament/helpers/tournament';
+import { getTeamById } from '~/helpers/team';
 
 /* eslint-disable ts/prefer-literal-enum-member */
 // This is needed to allow using TeamType values as SelectOption values without type issues.
@@ -99,11 +99,11 @@ interface Form {
 }
 
 const props = defineProps<{
-  selectedTeams: Array<Team['id']>;
+  selectedTeams: Array<TeamDetails['id']>;
   stageId: TournamentStage['id'];
 }>();
 
-defineEmits<{ select: [Team] }>();
+defineEmits<{ selectTeam: [TeamDetails] }>();
 
 const MAX_DISPLAYED_OPTIONS = 60;
 const TEAM_TYPE_OPTIONS: SelectOptionList<TeamTypeFilter> = [
@@ -150,7 +150,7 @@ const teamsInTournament = computed(() => {
   });
 });
 
-const validTeams = computed(() => DETAILED_TEAM_LIST.filter((team) => {
+const validTeams = computed(() => TEAM_LIST.filter((team) => {
   const { filter, country } = form.value;
   const isCountryValid = country === '' || team.country === country;
   const isTypeValid = filter === TeamTypeFilter.All || (

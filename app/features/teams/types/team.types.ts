@@ -35,7 +35,6 @@ export enum TeamTags {
   OCEANIA = 'Oceania',
 }
 
-export type Team = Pick<TeamDetails, 'id' | 'name'>;
 export type TeamStrength = 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
 
 export interface TeamDetails {

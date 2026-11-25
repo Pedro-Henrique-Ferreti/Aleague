@@ -29,14 +29,14 @@
 
 <script lang="ts" setup>
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-vue';
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   title?: string;
-  options: Team['id'][];
+  options: TeamDetails['id'][];
 }>();
 
-const selectedTeams = defineModel<Team['id'][]>({ default: () => [] });
+const selectedTeams = defineModel<TeamDetails['id'][]>({ default: () => [] });
 
 const showFilters = ref(!props.title);
 

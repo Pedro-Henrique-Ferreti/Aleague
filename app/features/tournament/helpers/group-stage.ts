@@ -1,4 +1,4 @@
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 import { isMatchComplete } from './match';
 import { getTableEntry, newStandingsEntry, sortTableEntries } from './standings';
 

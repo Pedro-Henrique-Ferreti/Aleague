@@ -12,8 +12,7 @@
   @apply border-neutral!;
 }
 
-/* Team form */
-.v-popper--theme-team-form {
+.v-popper--theme-team-performance {
   @apply transition-none!;
   .v-popper__wrapper {
     @apply shadow-sm rounded-xl bg-neutral text-neutral-content;

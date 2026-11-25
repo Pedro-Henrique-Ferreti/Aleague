@@ -1,5 +1,5 @@
 <template>
-  <TeamListFilter
+  <TeamMultiSelect
     v-model="selectedTeams"
     title="Sequência"
     :options="teamOptions"
@@ -51,8 +51,7 @@ const props = defineProps<{
   teamId: TableEntry['team'];
 }>();
 
-// Team options
-const selectedTeams = ref<Team['id'][]>([]);
+const selectedTeams = ref<TeamDetails['id'][]>([]);
 
 const teamOptions = computed(() => (
   Array.from(

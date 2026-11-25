@@ -240,7 +240,7 @@ describe('group-stage', () => {
     });
 
     it('should return the leading team when the stage is complete', () => {
-      const id = DETAILED_TEAM_LIST[0]!.id;
+      const id = TEAM_LIST[0]!.id;
       const leader = newStandingsEntry(id);
       leader.data[0].points = 3;
 

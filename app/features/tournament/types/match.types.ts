@@ -24,7 +24,7 @@ export type MatchKickoff = string;
 export type MatchSchedule = Match[][];
 
 export interface MatchTeam {
-  id: Team['id'] | null;
+  id: TeamDetails['id'] | null;
   score: number | null;
 }
 

@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { IconPlayerPlay } from '@tabler/icons-vue';
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 
 defineProps<{
   seedingDraw: ReturnType<typeof useSeedingDraw>;

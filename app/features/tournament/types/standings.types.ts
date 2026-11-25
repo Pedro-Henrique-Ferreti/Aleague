@@ -57,7 +57,7 @@ export interface StandingsEntryData extends StandingsData {
 
 export interface StandingsEntry {
   id: UUID;
-  team: Team['id'] | null;
+  team: TeamDetails['id'] | null;
   data: [StandingsEntryData, ...StandingsEntryData[]];
 }
 

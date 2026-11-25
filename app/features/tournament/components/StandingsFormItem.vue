@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   form: TableEntryForm;

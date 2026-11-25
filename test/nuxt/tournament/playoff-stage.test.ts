@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import { DETAILED_TEAM_LIST } from '~/features/teams/constants/teams';
 import { newPlayoffRoundSlot } from '~/features/tournament/helpers/playoff-slot';
 import { getPlayoffRoundNames, getPlayoffStageWinner, isPlayoffStageSeeded, newPlayoffStage } from '~/features/tournament/helpers/playoff-stage';
 
@@ -138,7 +137,7 @@ describe('playoff-stage', () => {
 
     it('should return the winning team when the final slot is decided', () => {
       const slot = newPlayoffRoundSlot(0);
-      const id = DETAILED_TEAM_LIST[0]!.id;
+      const id = TEAM_LIST[0]!.id;
 
       slot.legs[0].homeTeam.id = id;
       slot.legs[0].awayTeam.id = 'BRA-2';

@@ -30,7 +30,7 @@ export const useMatchweekFormStore = defineStore('matchweekForm', () => {
 
   const previewFilter = ref({
     showMatchesOnly: false,
-    highlightedTeams: [] as Team['id'][],
+    highlightedTeams: [] as TeamDetails['id'][],
   });
 
   const maxWeeksToCreate = computed(() => {

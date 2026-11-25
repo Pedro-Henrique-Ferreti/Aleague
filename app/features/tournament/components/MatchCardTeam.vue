@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
 import { IconShieldFilled } from '@tabler/icons-vue';
-import { getTeamById } from '~/features/teams/helpers/team';
+import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   team?: TeamDetails['id'] | null;
