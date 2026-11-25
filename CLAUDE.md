@@ -26,7 +26,7 @@ The dev machine is Windows; Python is not installed.
 
 ### Data model: files, collections, tournaments
 
-- A `SourceFile` (`app/features/files/types/fileTypes.ts`) is either a `TournamentFile` (`data: Tournament`) or a `CollectionFile` (`data: Collection`, which holds `tournaments: Record<id, Tournament>`). Use `isTournamentFile` / `isCollectionFile` from `app/features/files/helpers/file.ts` to narrow.
+- A `SourceFile` (`app/features/files/types/file.types.ts`) is either a `TournamentFile` (`data: Tournament`) or a `CollectionFile` (`data: Collection`, which holds `tournaments: Record<id, Tournament>`). Use `isTournamentFile` / `isCollectionFile` from `app/features/files/helpers/file.ts` to narrow.
 - Tournaments inside a collection are plain `Tournament` objects, **not** files. Don't pass them to file-oriented components like `FileCard`; use tournament-oriented ones (e.g. `TournamentPreviewCard`).
 - A `Tournament` has ordered `stages: TournamentStage[]`, each either a `GroupStage` (groups, standings, matchweeks, legends) or a `PlayoffStage` (rounds), discriminated by `StageType`. The tournament winner is derived from the last stage (`getTournamentWinner`).
 - There is no backend or browser persistence. Files live in memory in `useFileStore` and are imported/exported as gzip-compressed JSON (`app/features/files/helpers/file-compression.ts`). `updatedAt` is set on export by diffing against a snapshot taken on import/export.
