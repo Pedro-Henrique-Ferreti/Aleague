@@ -14,8 +14,8 @@ export function randomizeArray<T>(array: T[]) {
   return array.toSorted(() => Math.random() - 0.5);
 }
 
-export function getRandomItem<T>(array: T[]) {
-  return array[Math.floor(Math.random() * array.length)];
+export function getRandomItem<T>(array: T[]): T {
+  return array[Math.floor(Math.random() * array.length)] as T;
 }
 
 export function getShortestItem<T>(array: T[], getSize: (item: T) => number): T {

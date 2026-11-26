@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import { matchesSearch, normalizeString } from '../../app/shared/utils';
 
 describe('string utils', () => {
   describe('normalizeString', () => {
