@@ -20,6 +20,11 @@ export default {
       component: () => import('~/pages/Editor.vue'),
     },
     {
+      name: 'world-preview',
+      path: '/world-preview',
+      component: () => import('~/pages/WorldPreview.vue'),
+    },
+    {
       name: 'analytics',
       path: '/analytics',
       meta: { middleware: 'has-imported-files' },

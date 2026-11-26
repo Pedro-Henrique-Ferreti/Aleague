@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
 defineProps<{
-  team: TeamDetails;
+  team: Pick<TeamDetails, 'name' | 'badge'> & Partial<TeamDetails>;
   size?: 'xs'
   showCountry?: boolean;
 }>();
