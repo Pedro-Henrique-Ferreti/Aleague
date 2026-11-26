@@ -34,8 +34,6 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '~/helpers/team';
-
 const props = defineProps<{
   position: number;
   teamId: TeamDetails['id'];

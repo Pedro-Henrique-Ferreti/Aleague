@@ -24,7 +24,6 @@
 <script lang="ts" setup>
 import type { StandingsFormChartProps } from './StandingsFormChart.vue';
 import { getTableEntriesByWeek } from '~/features/tournament/helpers/standings';
-import { getTeamById } from '~/helpers/team.ts';
 
 const props = defineProps<{
   standings: GroupStageGroup['standings'];

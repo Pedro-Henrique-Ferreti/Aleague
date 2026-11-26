@@ -69,7 +69,6 @@
 <script lang="ts" setup>
 import { IconPlus, IconTrash, IconWand } from '@tabler/icons-vue';
 import { getDrawPotName, newDrawPot } from '~/features/tournament/helpers/draw';
-import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   seedingDraw: ReturnType<typeof useSeedingDraw>;

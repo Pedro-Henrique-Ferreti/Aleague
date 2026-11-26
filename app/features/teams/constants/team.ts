@@ -36,7 +36,7 @@ import { UNITED_STATES_TEAM_LIST } from './team-lists/united-states';
 import { URUGUAY_TEAM_LIST } from './team-lists/uruguay';
 import { VENEZUELA_TEAM_LIST } from './team-lists/venezuela';
 
-export const TEAM_LIST: ReadonlyArray<Readonly<TeamDetails>> = [
+export const TEAM_LIST = [
   ...BRAZIL_TEAM_LIST,
   ...ARGENTINA_TEAM_LIST,
   ...AUSTRIA_TEAM_LIST,
@@ -74,4 +74,4 @@ export const TEAM_LIST: ReadonlyArray<Readonly<TeamDetails>> = [
   ...SCOTLAND_TEAM_LIST,
   ...NATIONAL_TEAM_LIST,
   ...CUSTOM_TEAM_LIST,
-];
+] as const satisfies TeamDetails[];

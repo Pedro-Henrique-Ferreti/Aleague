@@ -23,8 +23,6 @@
 </template>
 
 <script lang="ts" setup>
-import { getTeamById } from '~/helpers/team';
-
 const props = defineProps<{
   teamId?: TeamDetails['id'] | null;
   team?: TeamDetails;

@@ -79,7 +79,6 @@
 <script lang="ts" setup>
 import { IconCaretDownFilled, IconSearch } from '@tabler/icons-vue';
 import { getTournamentStageList } from '~/features/tournament/helpers/tournament';
-import { getTeamById } from '~/helpers/team';
 
 /* eslint-disable ts/prefer-literal-enum-member */
 // This is needed to allow using TeamType values as SelectOption values without type issues.

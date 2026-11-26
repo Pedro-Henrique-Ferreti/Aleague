@@ -1,4 +1,3 @@
-import { getTeamById } from '~/helpers/team';
 import { isPlayoffRoundSeeded } from './playoff-round';
 import { getPlayoffRoundSlotWinner, newPlayoffRoundSlot } from './playoff-slot';
 

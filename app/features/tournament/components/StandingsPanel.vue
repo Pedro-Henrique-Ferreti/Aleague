@@ -62,7 +62,6 @@
 import { isCollectionFile } from '~/features/files/helpers/file';
 import { getGroupName, isGroupStageSeeded } from '~/features/tournament/helpers/group-stage';
 import { isPlayoffStageSeeded } from '~/features/tournament/helpers/playoff-stage';
-import { getTeamById } from '~/helpers/team';
 import { getTournamentStageList } from '../helpers/tournament';
 
 const props = defineProps<{

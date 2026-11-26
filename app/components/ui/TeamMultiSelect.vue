@@ -29,7 +29,6 @@
 
 <script lang="ts" setup>
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-vue';
-import { getTeamById } from '~/helpers/team';
 
 const props = defineProps<{
   title?: string;

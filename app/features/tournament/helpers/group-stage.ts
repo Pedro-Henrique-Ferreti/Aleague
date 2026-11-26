@@ -1,4 +1,3 @@
-import { getTeamById } from '~/helpers/team';
 import { isMatchComplete } from './match';
 import { getTableEntry, newStandingsEntry, sortTableEntries } from './standings';
 

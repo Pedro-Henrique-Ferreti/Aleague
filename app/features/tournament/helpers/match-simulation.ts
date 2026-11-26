@@ -1,4 +1,3 @@
-import { getTeamById } from '~/helpers/team';
 import { getRandomScore, getSimulatedMatchScore } from './match-score';
 
 export function simulateMatchScore(homeTeamId: Match['homeTeam']['id'], awayTeamId: Match['awayTeam']['id']) {
