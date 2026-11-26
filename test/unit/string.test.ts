@@ -1,24 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { clone, hasChanges, matchesSearch, normalizeString } from '../../app/utils';
+import { matchesSearch, normalizeString } from '../../app/shared/utils';
 
-describe('utils', () => {
+describe('string utils', () => {
   describe('normalizeString', () => {
     it('should remove non-English characters', () => {
       expect(normalizeString('çãoê')).toBe('caoe');
       expect(normalizeString('áàéêííööüüçéâãôöüç')).toBe('aaeeiioouuceaaoouc');
-    });
-  });
-
-  describe('clone', () => {
-    it('should clone an object and remove memory reference', () => {
-      const object = { a: 1, b: 2 };
-      const clonedObject = clone(object);
-
-      expect(clonedObject).toEqual(object);
-
-      clonedObject.a = 2;
-
-      expect(object.a).not.toBe(clonedObject.a);
     });
   });
 
@@ -42,22 +29,6 @@ describe('utils', () => {
       expect(matchesSearch('HeLLo', 'hElLo WoRlD')).toBe(true);
       expect(matchesSearch('cao', 'ação')).toBe(true);
       expect(matchesSearch('sao paulo', 'São Paulo')).toBe(true);
-    });
-  });
-
-  describe('hasChanges', () => {
-    it('should return true if the objects are different', () => {
-      const obj1 = { a: 1, b: 2 };
-      const obj2 = { a: 1, b: 3 };
-
-      expect(hasChanges(obj1, obj2)).toBe(true);
-    });
-
-    it('should return false if the objects are the same', () => {
-      const obj1 = { a: 1, b: 2 };
-      const obj2 = { a: 1, b: 2 };
-
-      expect(hasChanges(obj1, obj2)).toBe(false);
     });
   });
 });

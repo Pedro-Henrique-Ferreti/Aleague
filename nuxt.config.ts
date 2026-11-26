@@ -14,8 +14,7 @@ export default defineNuxtConfig({
   ],
   imports: {
     dirs: [
-      'types',
-      'utils',
+      'shared/utils',
       'features/*/types',
       'features/*/constants',
       'features/*/stores',

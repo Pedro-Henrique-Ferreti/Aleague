@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createArray, getRandomItem, getShortestItem } from '../../app/utils/array';
+import { createArray, getRandomItem, getShortestItem } from '../../app/shared/utils';
 
 describe('array utils', () => {
   describe('createArray', () => {

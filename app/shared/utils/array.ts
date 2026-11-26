@@ -1,4 +1,4 @@
-import { clone } from './index';
+import { clone } from './object';
 
 export function createArray<T = number>(length: number, valueOrFunction?: T | ((index: number) => T)) {
   return Array.from({ length }, (_, index) => {
